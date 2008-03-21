@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+
+<project default="zip" basedir=".">
+  <loadfile property="plugin_version" srcFile="PLUGIN_VERSION.txt"/>
+  <loadfile property="php_version" srcFile="SIMPLETEST_PHP_VERSION.txt"/>
+
+  <target name="zip">
+    <zip
+      	destfile="simpletest_${php_version}.eclipse_${plugin_version}.zip" 
+    	basedir="."
+    	includes="features/*.jar plugins/*.jar samples/*.php web/site.* index.html readme.html site.xml"/>
+  </target>
+  
+</project>

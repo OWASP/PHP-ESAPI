@@ -1,0 +1,3 @@
+SimpletestPlugin.findURL -- provides deprecated functionality
+SimpletestPlugin.getFileURL -- provides deprecated functionality
+META-INF/MANIFEST.MV -- use Eclipse-AutoStart (3.2+ uses Eclipse-LazyStart)

@@ -1,0 +1,43 @@
+TODO
+This is immediate stuff only for this iteration (1.0.1beta) of 46 hours.
+
+$Id: TODO 1182 2005-09-15 03:26:56Z lastcraft $
+
+Unit tester
+-----------
+
+Reporter
+--------
+
+Mock objects
+------------
+Allow mocking of interfaces (5/3) - done.
+Carry interfaces to pass type hints (3/7) - done.
+Remove $this passing in mocks (5/4) - done.
+Remove the need for tally() call (2/3) - done.
+Fix autoload glitch (1/1) - done.
+Deprecate Stub and SimpleStub (2/2) - done.
+Fix bug partially mocking class with no constructor (1/1) - done.
+
+Parser
+------
+
+Browser
+-------
+Promote selector classes and factor out excessive chaining (3/6) - done.
+
+Web tester
+----------
+Change assertWantedText(), etc to assertText() method (1/1) - done.
+Pass expectations to assertTitle() (3/1) - done.
+Pass expectations to assertHeader() (3/1) - done.
+Pass expectations to assertField() (2/2) - done.
+Pass expectations to assertCookie() (1/1) - done.
+Fix bug with multiple selection fields not being selected by label (1/1) - done.
+
+Documentation
+-------------
+Change license to GNU? (2/2) - done.
+
+Build
+-----

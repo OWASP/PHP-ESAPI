@@ -1,0 +1,153 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>Simpletest Eclipse Plugin Documentation</title>
+<link title="Styles" href="docs.css" type="text/css" rel="stylesheet" />
+</head>
+<body>
+<h1>Simpletest Eclipse Plugin Xdebug integration</h1>
+<div class="content">
+<a class="target" name="intro"></a>
+<h2>Introduction</h2>
+I would like to thank Derick Rethans for his Xdebug extension for php.<br/>
+Without this extension none of this would be possible.<br/>
+For more information about this extension please visit: <a href="http://xdebug.org">xdebug.org</a><br/>
+<a class="target" name="install"></a>
+<h2>Installation and Testing of Installation</h2>
+The instructions for installing the plugin and Xdebug can be found here: 
+<a href="readme.html">http://simpletest.org/eclipse/readme.html</a><br/>
+<br/>
+To test whether you have Xdebug installed and working correctly with Simpletest, create a new php file:
+<pre>
+&lt;?php
+class XdebugTest extends UnitTestCase {
+	function testXdebugAvail(){
+		ob_start();
+		phpinfo();
+		$phpinfo = ob_get_contents();
+		ob_end_clean();
+		$phpinfo = html_entity_decode($phpinfo);
+		$ztpos = strpos($phpinfo,&quot;Technologies&quot;);
+		if ($ztpos === false){
+			echo &quot;Problem finding Technologies&quot;;
+			$extpos = strpos($phpinfo,&quot;Xdebug&quot;);
+		}else{
+			$extpos = $ztpos + strlen(&quot;Technologies&quot;);
+		}
+		$this-&gt;assertTrue($extpos !== false,&quot;Can&#039;t find Xdebug or extensions info&quot;);
+
+		$endextpos = strpos($phpinfo,&quot;&lt;/td&gt;&quot;,$extpos);
+		
+		$extline = substr($phpinfo,$extpos,($endextpos - $extpos));
+		$extline = str_replace(&quot;&lt;br /&gt;&quot;,&quot;\n&quot;,$extline);
+		echo $extline;
+		
+		$this-&gt;assertTrue(strpos($extline,&quot;Xdebug&quot;)!==false,&quot;Unable to find Xdebug&quot;);
+	}
+}
+?&gt;
+</pre>
+Run this as a Simpletest in Eclipse and if it passes then Xdebug is probably configured correctly.<br/>
+
+<a class="target" name="sample"></a>
+<h2>Sample Test with Coverage</h2>
+Create a new php file: classtotest.php<br/>
+<pre>
+&lt;?php
+class classtotest{
+
+	function classtotest(){
+		$this-&gt;_val=0;
+	}
+	
+	function add($add){
+		$this-&gt;_val += $add;
+	}
+	
+	function getVal(){
+		return $this-&gt;_val;
+	}
+	
+	function doNothing(){
+		echo &quot;Nothing&quot;;
+	}
+}
+?&gt;
+</pre>
+In the same directory start with a new test class:
+<pre>
+&lt;?php
+require_once dirname(__FILE__).&quot;/classtotest.php&quot;;
+
+class testclasstotest extends UnitTestCase {
+	function testOne(){
+		$ctt = null;
+		$this-&gt;assertNull($ctt);
+		$ctt = new classtotest();
+		$this-&gt;assertNotNull($ctt);
+	}
+}
+?&gt;
+</pre>
+Right click on the file and select &quot;Run As&quot; -&gt; &quot;Simpletest&quot;<br/>
+<br/>
+In the Eclipse &quot;Console&quot; you should see:<br/>
+<pre>
+Running:
+__some executable command line info__
+****************
+</pre>
+<br/>
+You should also see in the &quot;Result View&quot; that the test passed<br/>
+<br/>
+Now enable code coverage for this test by:
+<ol>
+<li>Select &quot;Run&quot; -&gt; &quot;Run...&quot; from the Eclipse menu bar</li>
+<li>find the &quot;Simpletest&quot; category in the left pane of the popup</li>
+<li>find the test instance &quot;testclasstotest.php&quot; in the left pane and select it</li>
+<li>in the right hand pane you should see the launch configuration information for this test, check the box &quot;Provide coverage data?&quot;</li>
+<li>click the &quot;Apply&quot; button</li>
+<li>click the &quot;Run&quot; button</li>
+</ol>
+<br/>
+In the console you should see coverage information; something like:<br/>
+<pre>
+28.57%	C:\data\net.sf.simpletest.phptests\classtotest.php
+100%	C:\data\net.sf.simpletest.phptests\testclasstotest.php
+</pre>
+<br/>
+This indicates that 28.57% of the lines of executable code in classtotest.php were exercised by this test.<br/>
+Xdebug counts the lines of code which were exercised by the following rules<br/>
+(these are based on my experience not based -- I am sure there are more and these may not be completely precise):<br/>
+<ol>
+<li>method names (e.g. the line with &quot;function add($add)&quot; is counted as a line</li>
+<li>braces ({ or }) do not count as a line</li>
+<li>multiple lines which are one statement count as one line (e.g. the following is just one line:
+<pre>
+	$this-&gt;_val =
+			(
+			0
+			)
+			;
+</pre></li>
+<li>lines which are commented out do not count</li>
+<li>white space lines do not count</li>
+<li>lines which start with &quot;return&quot; do not count</li>
+</ol>
+I don&#039;t make the rules I just print them out.<br/>
+<br/>
+So in the above example we have:<br/>
+4 method call lines = 4 lines<br/>
+3 lines of code inside the method calls (the &quot;return $this-&gt;_val&quot; does not count)<br/>
+<br/>
+ 7 lines of code available for exercise<br/>
+<br/>
+Our test then uses 2 lines:<br/>
+&quot;function classtotest()&quot;<br/>
+ and<br />
+&quot;$this-&gt;_val=0;&quot;<br/>
+<br />
+so 2/7 = 28.57%<br />
+</div>
+</body>
+</html>

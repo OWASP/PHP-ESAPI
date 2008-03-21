@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+<plugin>
+
+   <extension
+         point="org.eclipse.ui.views">
+      <category
+            name="%Category.label "
+            id="net.sf.simpletest.eclipse.category"/>
+      <view
+            category="net.sf.simpletest.eclipse.category"
+            class="net.sf.simpletest.eclipse.ui.SimpletestView"
+            id="net.sf.simpletest.eclipse.views.ResultView"
+            name="Result View"/>
+   </extension>
+   <extension
+         point="org.eclipse.ui.perspectiveExtensions">
+      <perspectiveExtension targetID="org.eclipse.jdt.ui.JavaPerspective">
+         <view
+               closeable="true"
+               id="net.sf.simpletest.eclipse.views.ResultView"
+               moveable="true"
+               relationship="stack"
+               relative="org.eclipse.ui.views.ResourceNavigator"
+               visible="true"/>
+      </perspectiveExtension>
+      <perspectiveExtension targetID="org.eclipse.ui.resourcePerspective">
+         <view
+               closeable="true"
+               id="net.sf.simpletest.eclipse.views.ResultView"
+               moveable="true"
+               relationship="stack"
+               relative="org.eclipse.ui.views.ResourceNavigator"
+               visible="true"/>
+      </perspectiveExtension>
+      <perspectiveExtension targetID="net.sourceforge.phpeclipse.PHPPerspective">
+         <view
+               closeable="true"
+               id="net.sf.simpletest.eclipse.views.ResultView"
+               moveable="true"
+               relationship="stack"
+               relative="org.eclipse.ui.views.ResourceNavigator"
+               visible="true"/>
+         <showInPart id="net.sf.simpletest.eclipse.views.ResultView"/>
+      </perspectiveExtension>
+   </extension>
+<!-- first stab at xdebug
+   <extension point="org.eclipse.ui.contexts">
+	  <context
+			id=".sourceforge.phpeclipse.debug.ui.debugging"
+			name="XDebug Context"
+			parentId="org.eclipse.debug.ui.debugging"/>
+   </extension>
+   <extension
+		 point="org.eclipse.ui.popupMenus">
+	  <viewerContribution
+			id="net.sourceforge.phpeclipse.xdebug.PHPUnitEditorPopupActions"
+			targetID="#PHPRulerContext">
+		 <action
+			   class="net.sourceforge.phpeclipse.xdebug.ui.actions.BreakpointRulerActionDelegate"
+			   helpContextId="manage_breakpoint_action_context"
+			   id="net.sourceforge.phpeclipse.xdebug.ui.action1"
+			   label="Toggle Breakpoint"
+			   menubarPath="debug"/>
+	  </viewerContribution>
+   </extension>
+-->
+   <extension
+         id="net.sf.simpletest.eclipse.LaunchConfig"
+         name="Test Launch Configuration Type"
+         point="org.eclipse.debug.core.launchConfigurationTypes">
+         <launchConfigurationType 
+         	id="net.sf.simpletest.eclipse.launcher.stlaunchconfig" 
+         	delegate="net.sf.simpletest.eclipse.launcher.SimpletestLaunchConfigurationDelegate"
+			modes="run,debug"
+			name="%STLaunch.label">
+			<fileExtension 
+				extension="php"
+				default="true"
+			/>
+		</launchConfigurationType>
+		<launchConfigurationType 
+         	id="net.sf.simpletest.eclipse.launcher.pulaunchconfig" 
+         	delegate="net.sf.simpletest.eclipse.launcher.PHPUnit2LaunchConfigurationDelegate"
+			modes="run,debug"
+			name="%PULaunch.label">
+			<fileExtension 
+				extension="php"
+				default="true"
+			/>
+		</launchConfigurationType>
+<!-- PHPUnit3 broken for now
+		<launchConfigurationType 
+         	id="net.sf.simpletest.eclipse.launcher.pu3launchconfig" 
+         	delegate="net.sf.simpletest.eclipse.launcher.PHPUnit3LaunchConfigurationDelegate"
+			modes="run,debug"
+			name="%PU3Launch.label">
+			<fileExtension 
+				extension="php"
+				default="true"
+			/>
+		</launchConfigurationType>
+-->
+   </extension>
+   <extension
+         point="org.eclipse.debug.ui.launchConfigurationTabGroups">
+      <launchConfigurationTabGroup
+            type="net.sf.simpletest.eclipse.launcher.stlaunchconfig"
+            class="net.sf.simpletest.eclipse.launcher.SimpletestTabGroup"
+            id="net.sf.simpletest.eclipse.LaunchTabGroup"/>
+      <launchConfigurationTabGroup
+            type="net.sf.simpletest.eclipse.launcher.pulaunchconfig"
+            class="net.sf.simpletest.eclipse.launcher.PHPUnit2TabGroup"
+            id="net.sf.simpletest.eclipse.LaunchTabGroup"/>
+<!-- PHPUnit 3 broken for now
+      <launchConfigurationTabGroup
+            type="net.sf.simpletest.eclipse.launcher.pu3launchconfig"
+            class="net.sf.simpletest.eclipse.launcher.PHPUnit3TabGroup"
+            id="net.sf.simpletest.eclipse.LaunchTabGroup"/>
+-->
+   </extension>
+   <extension
+         point="org.eclipse.debug.ui.launchConfigurationTypeImages">
+         <launchConfigurationTypeImage
+               icon="icons/launch.png"
+               configTypeID="net.sf.simpletest.eclipse.launcher.stlaunchconfig"
+               id="net.sf.simpletest.eclipse.icons.launch">
+         </launchConfigurationTypeImage>
+         <launchConfigurationTypeImage
+               icon="icons/sample.gif"
+               configTypeID="net.sf.simpletest.eclipse.launcher.pulaunchconfig"
+               id="net.sf.simpletest.eclipse.icons.pulaunch">
+		</launchConfigurationTypeImage>
+<!-- PHPUnit 3 broken for now
+		<launchConfigurationTypeImage
+               icon="icons/sample.gif"
+               configTypeID="net.sf.simpletest.eclipse.launcher.pu3launchconfig"
+               id="net.sf.simpletest.eclipse.icons.pulaunch">
+		</launchConfigurationTypeImage>
+-->
+
+
+   </extension>
+   <extension
+         point="org.eclipse.ui.preferencePages">
+      <page
+            class="net.sf.simpletest.eclipse.preferences.SimpletestPreferencePage"
+            name="%PreferencePage.label"
+            id="net.sf.simpletest.eclipse.preferences.page1"/>
+   </extension>
+   <extension
+         id="net.sf.simpletest.eclipse.LaunchShortcuts"
+         point="org.eclipse.debug.ui.launchShortcuts">
+      <shortcut
+            label="%SimpletestShortcut.label"
+            icon="icons/launch.png"
+            class="net.sf.simpletest.eclipse.launcher.SimpletestLaunchShortcut"
+            modes="run,debug"
+            id="net.sf.simpletest.eclipse.simpletestShortcut">
+             <contextualLaunch>
+            <enablement>
+               <with variable="selection">
+                  <count value="1" />
+                  <iterate>
+					  <test property="org.eclipse.debug.ui.matchesPattern" value="*.php"/>
+				  </iterate>
+              </with>
+            </enablement>
+         </contextualLaunch>
+      </shortcut>
+      <shortcut
+            label="%PUShortcut.label"
+            icon="icons/sample.gif"
+            class="net.sf.simpletest.eclipse.launcher.PHPUnit2LaunchShortcut"
+            modes="run,debug"
+            id="net.sf.simpletest.eclipse.puShortcut">
+             <contextualLaunch>
+            <enablement>
+               <with variable="selection">
+                  <count value="1" />
+                  <iterate>
+					  <test property="org.eclipse.debug.ui.matchesPattern" value="*.php"/>
+				  </iterate>
+              </with>
+            </enablement>
+         </contextualLaunch>
+      </shortcut>
+<!-- PHPUnit3 broken for now
+      <shortcut
+            label="%PU3Shortcut.label"
+            icon="icons/sample.gif"
+            class="net.sf.simpletest.eclipse.launcher.PHPUnit3LaunchShortcut"
+            modes="run,debug"
+            id="net.sf.simpletest.eclipse.pu3Shortcut">
+             <contextualLaunch>
+            <enablement>
+               <with variable="selection">
+                  <count value="1" />
+                  <iterate>
+					  <test property="org.eclipse.debug.ui.matchesPattern" value="*.php"/>
+				  </iterate>
+              </with>
+            </enablement>
+         </contextualLaunch>
+      </shortcut>
+-->
+   </extension>
+   <extension
+         point="org.eclipse.ui.commands">
+      <command
+            categoryId="org.eclipse.debug.ui.category.run"
+            description="%SimpletestShortcut.description.run"
+            id="net.sf.simpletest.eclipse.simpletestShortcut.run"
+            name="%SimpletestShortcut.description.run"/>
+      <command
+            categoryId="org.eclipse.debug.ui.category.run"
+            description="%PUShortcut.description.run"
+            id="net.sf.simpletest.eclipse.puShortcut.run"
+            name="%PUShortcut.description.run"/>
+<!-- PHPUnit 3 broken for now
+        <command
+            categoryId="org.eclipse.debug.ui.category.run"
+            description="%PU3Shortcut.description.run"
+            id="net.sf.simpletest.eclipse.puShortcut.run"
+            name="%PU3Shortcut.description.run"/>
+-->
+   </extension>
+   <extension
+         point="org.eclipse.ui.bindings">
+      <key
+        	commandId="net.sf.simpletest.eclipse.simpletestShortcut.run"
+            schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
+            sequence="M3+M2+X G"/>
+      <key
+        	commandId="net.sf.simpletest.eclipse.puShortcut.run"
+            schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
+            sequence="M3+M2+X P"/>
+   </extension>
+
+</plugin>
