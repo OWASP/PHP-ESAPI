@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+
+<project default="docs" basedir=".">
+	
+  <property name="undefined" value="__UNDEFINED__VALUE__" />
+
+  <target name="docs">
+    <xslt
+      processor="trax" in="extension_eclipse.xml"
+	  style="./docs.xslt" out="../readme.html"/>
+  </target>
+  
+</project>

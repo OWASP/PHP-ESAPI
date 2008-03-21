@@ -1,0 +1,25 @@
+This provides instructions for performing a release
+
+* This assumes you have 4 projects setup in your Eclipse:
+	a. net.sf.simpletest.eclipse
+	b. net.sf.simpletest.eclipse.feature
+	c. net.sf.simpletest.eclipse.updatesite
+	d. net.sf.simpletest (the php source code)
+* update docs/extension_eclipse.xml 
+* run Ant on docs/build.xml to regenerate the readme.html
+* update the version on plugin.xml in net.sf.simpletest.eclipse project to new version
+* update the php source code by running Ant on the makephpzip.xml file in the net.sf.simpletest.eclipse project
+* use the export wizard on the plugin.xml page
+* update the version on feature.xml in feature project to new version
+#* recompute dependencies on the feature.xml
+* run export wizard on feature.xml
+#* synchronize the plugin to the feature in feature.xml in feature project
+#* run ant on the export.xml in feature project 
+* synchronize the feature to the update site in site.xml in updatesite project (may need to remove and re-add)
+* **don't do this until you have synchronized** delete old jars in features and plugins dirs under updatesite
+* in site.xml on updatesite select the option to build
+* change PLUGIN_VERSION in updatesite
+* run build.xml file to create zip file
+* upload zip file to home dir on sf.net
+* run updst.sh to move to simpletest dir
+* also upload and release on sourceforge
