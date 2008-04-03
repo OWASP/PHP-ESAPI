@@ -28,35 +28,34 @@
  *         href="http://www.aspectsecurity.com">Aspect Security</a>
  * @since June 1, 2007
  */
-interface IEncryptedProperties {
+interface IEncryptedProperties
+{
+    /**
+     * Gets the property value from the encrypted store, decrypts it, and returns the plaintext value to the caller.
+     *
+     * @param key
+     *            the key
+     *
+     * @return the property
+     *
+     * @throws EncryptionException
+     *             the encryption exception
+     */
+    public function getProperty($key);
 
-	/**
-	 * Gets the property value from the encrypted store, decrypts it, and returns the plaintext value to the caller.
-	 *
-	 * @param key
-	 *            the key
-	 *
-	 * @return the property
-	 *
-	 * @throws EncryptionException
-	 *             the encryption exception
-	 */
-	public function getProperty($key);
-
-	/**
-	 * Encrypts the plaintext property value and stores the ciphertext value in the encrypted store.
-	 *
-	 * @param key
-	 *            the key
-	 * @param value
-	 *            the value
-	 *
-	 * @return the object
-	 *
-	 * @throws EncryptionException
-	 *             the encryption exception
-	 */
-	public function setProperty($key, $value);
-
+    /**
+     * Encrypts the plaintext property value and stores the ciphertext value in the encrypted store.
+     *
+     * @param key
+     *            the key
+     * @param value
+     *            the value
+     *
+     * @return the object
+     *
+     * @throws EncryptionException
+     *             the encryption exception
+     */
+    public function setProperty($key, $value);
 }
 ?>

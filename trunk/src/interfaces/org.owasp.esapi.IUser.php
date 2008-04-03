@@ -17,7 +17,6 @@
  * @since 2008
  */
 
-
 /**
  * The IUser interface represents an application user or user account. There is quite a lot of information that an
  * application must store for each user in order to enforce security properly. There are also many rules that govern
@@ -35,9 +34,8 @@
  * href="http://www.aspectsecurity.com">Aspect Security</a>
  * @since June 1, 2007
  */
-
-interface IUser {
-
+interface IUser
+{
     /**
      * Adds a role to an account.
      *
@@ -112,7 +110,7 @@ interface IUser {
      */
     public function getLastHostAddress();
 
-	/**
+    /**
      * Returns the date of the last failed login time for a user. This date should be used in a message to users after a
      * successful login, to notify them of potential attack activity on their account.
      *
@@ -253,7 +251,6 @@ interface IUser {
      * @param role the role
      * @throws AuthenticationException the authentication exception
      */
-
     public function removeRole($role);
 
     /**
@@ -302,17 +299,15 @@ interface IUser {
      */
     public function unlock();
 
-	/**
-	 * Verify that the supplied password matches the password for this user. This method
-	 * is typically used for "reauthentication" for the most sensitive functions, such
-	 * as transactions, changing email address, and changing other account information.
-	 *
-	 * @param password
-	 * @return
-	 * @throws EncryptionException
-	 */
-	public function verifyPassword($password);
-
-
+    /**
+     * Verify that the supplied password matches the password for this user. This method
+     * is typically used for "reauthentication" for the most sensitive functions, such
+     * as transactions, changing email address, and changing other account information.
+     *
+     * @param password
+     * @return
+     * @throws EncryptionException
+     */
+    public function verifyPassword($password);
 }
 ?>

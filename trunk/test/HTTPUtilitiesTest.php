@@ -64,7 +64,7 @@ public class HTTPUtilitiesTest extends TestCase {
      * @param testName the test name
      */
     public HTTPUtilitiesTest(String testName) {
-        super(testName);
+        parent::__construct(testName);
     }
 
     /*

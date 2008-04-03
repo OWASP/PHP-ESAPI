@@ -92,7 +92,7 @@ abstract class LoggerAppenderSkeleton extends LoggerAppender {
      *
      * @param string $name appender name
      */
-    public function __construct($name) {
+    function __construct($name) {
         $this->name = $name;
         $this->clearFilters();
     }

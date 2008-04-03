@@ -35,113 +35,112 @@
  *         href="http://www.aspectsecurity.com">Aspect Security</a>
  * @since June 1, 2007
  */
-interface ISecurityConfiguration {
+interface ISecurityConfiguration
+{
+    /**
+     * Gets the master password.
+     *
+     * @return the master password
+     */
+    public function getMasterPassword();
 
-	/**
-	 * Gets the master password.
-	 *
-	 * @return the master password
-	 */
-	public function getMasterPassword();
+    /**
+     * Gets the keystore.
+     *
+     * @return the keystore
+     */
+    public function getKeystore();
 
-	/**
-	 * Gets the keystore.
-	 *
-	 * @return the keystore
-	 */
-	public function getKeystore();
+    /**
+     * Gets the master salt.
+     *
+     * @return the master salt
+     */
+    public function getMasterSalt();
 
-	/**
-	 * Gets the master salt.
-	 *
-	 * @return the master salt
-	 */
-	public function getMasterSalt();
+    /**
+     * Gets the allowed file extensions.
+     *
+     * @return the allowed file extensions
+     */
+    public function getAllowedFileExtensions();
 
-	/**
-	 * Gets the allowed file extensions.
-	 *
-	 * @return the allowed file extensions
-	 */
-	public function getAllowedFileExtensions();
+    /**
+     * Gets the allowed file upload size.
+     *
+     * @return the allowed file upload size
+     */
+    public function getAllowedFileUploadSize();
 
-	/**
-	 * Gets the allowed file upload size.
-	 *
-	 * @return the allowed file upload size
-	 */
-	public function getAllowedFileUploadSize();
+    /**
+     * Gets the password parameter name.
+     *
+     * @return the password parameter name
+     */
+    public function getPasswordParameterName();
 
-	/**
-	 * Gets the password parameter name.
-	 *
-	 * @return the password parameter name
-	 */
-	public function getPasswordParameterName();
+    /**
+     * Gets the username parameter name.
+     *
+     * @return the username parameter name
+     */
+    public function getUsernameParameterName();
 
-	/**
-	 * Gets the username parameter name.
-	 *
-	 * @return the username parameter name
-	 */
-	public function getUsernameParameterName();
+    /**
+     * Gets the encryption algorithm.
+     *
+     * @return the algorithm
+     */
+    public function getEncryptionAlgorithm();
 
-	/**
-	 * Gets the encryption algorithm.
-	 *
-	 * @return the algorithm
-	 */
-	public function getEncryptionAlgorithm();
+    /**
+     * Gets the hasing algorithm.
+     *
+     * @return the algorithm
+     */
+    public function getHashAlgorithm();
 
-	/**
-	 * Gets the hasing algorithm.
-	 *
-	 * @return the algorithm
-	 */
-	public function getHashAlgorithm();
+    /**
+     * Gets the character encoding.
+     *
+     * @return encoding name
+     */
+    public function getCharacterEncoding();
 
-	/**
-	 * Gets the character encoding.
-	 *
-	 * @return encoding name
-	 */
-	public function getCharacterEncoding();
+    /**
+     * Gets the digital signature algorithm.
+     *
+     * @return encoding name
+     */
+    public function getDigitalSignatureAlgorithm();
 
-	/**
-	 * Gets the digital signature algorithm.
-	 *
-	 * @return encoding name
-	 */
-	public function getDigitalSignatureAlgorithm();
+    /**
+     * Gets the random number generation algorithm.
+     *
+     * @return encoding name
+     */
+    public function getRandomAlgorithm();
 
-	/**
-	 * Gets the random number generation algorithm.
-	 *
-	 * @return encoding name
-	 */
-	public function getRandomAlgorithm();
+    /**
+     * Gets the allowed login attempts.
+     *
+     * @return the allowed login attempts
+     */
+    public function getAllowedLoginAttempts();
 
-	/**
-	 * Gets the allowed login attempts.
-	 *
-	 * @return the allowed login attempts
-	 */
-	public function getAllowedLoginAttempts();
+    /**
+     * Gets the max old password hashes.
+     *
+     * @return the max old password hashes
+     */
+    public function getMaxOldPasswordHashes();
 
-	/**
-	 * Gets the max old password hashes.
-	 *
-	 * @return the max old password hashes
-	 */
-	public function getMaxOldPasswordHashes();
-
-	/**
-	 * Gets an intrusion detection Quota.
-	 *
-	 * @param eventName
-	 * @return the matching Quota
-	 */
-	public function getQuota($eventName);
-
+    /**
+     * Gets an intrusion detection Quota.
+     *
+     * @param eventName
+     * @return the matching Quota
+     */
+    public function getQuota($eventName);
 }
 ?>

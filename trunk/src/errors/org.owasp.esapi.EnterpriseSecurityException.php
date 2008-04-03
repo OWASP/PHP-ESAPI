@@ -20,7 +20,7 @@
 /**
  * EnterpriseSecurityException is the base class for all security related exceptions. You should pass in the root cause
  * exception where possible. Constructors for classes extending EnterpriseSecurityException should be sure to call the
- * appropriate super() method in order to ensure that logging and intrusion detection occur properly.
+ * appropriate parent::__construct() method in order to ensure that logging and intrusion detection occur properly.
  * <P>
  * All EnterpriseSecurityExceptions have two messages, one for the user and one for the log file. This way, a message
  * can be shown to the user that doesn't contain sensitive information or unnecessary implementation details. Meanwhile,
@@ -33,23 +33,10 @@
  * <P>
  * @author Jeff Williams (jeff.williams@aspectsecurity.com)
  */
-class EnterpriseSecurityException extends Exception {
-
-    /** The Constant serialVersionUID. */
-    private static $serialVersionUID = 1;
-
-    /** The logger. */
+class EnterpriseSecurityException extends Exception
+{
     protected static $logger;
-
     protected $logMessage = null;
-
-    /**
-     * Instantiates a new security exception.
-     */
-    protected function EnterpriseSecurityException() {
-        // hidden
-    }
-
     /**
      * Creates a new instance of EnterpriseSecurityException. This exception is automatically logged, so that simply by
      * using this API, applications will generate an extensive security log. In addition, this exception is
@@ -57,30 +44,23 @@ class EnterpriseSecurityException extends Exception {
      *
      * @param message the message
      */
-    function EnterpriseSecurityException($userMessage, $logMessage, $cause = null) {
-		 $logger = Logger::getLogger("ESAPI", "EnterpriseSecurityException");
+    function __construct($userMessage, $logMessage, $cause = null)
+    {
+    	global $ESAPI;
 
-    	// FIXME: AAA - add log level to exception to tell intrusion detector how to log it
-
-    	if ( $cause ) {
-    		super(userMessage, cause);
-    	}
-    	else {
-    		super(userMessage);
-    	}
-
-        $this->logMessage = logMessage;
-        ESAPI::intrusionDetector()->addException($this);
+        $this->logger = $ESAPI->getLogger("ESAPI", "EnterpriseSecurityException");
+        // FIXME: AAA - add log level to exception to tell intrusion detector how to log it
+        parent :: __construct($userMessage, $cause);
+        $this->logMessage = $logMessage;
+        $ESAPI->intrusionDetector()->addException($this);
     }
-
-    public function getUserMessage() {
+    public function getUserMessage()
+    {
         return $this->getMessage();
     }
-
-    public function getLogMessage() {
+    public function getLogMessage()
+    {
         return $this->logMessage;
     }
-
 }
-
 ?>

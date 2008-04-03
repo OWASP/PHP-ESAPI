@@ -59,8 +59,8 @@
  *
  * @author Jeff Williams (jeff.williams@aspectsecurity.com)
  */
-interface IAccessController {
-
+interface IAccessController
+{
     /**
      * Checks if an account is authorized to access the referenced URL. The implementation should allow
      * access to be granted to any part of the URI. Generally, this method should be invoked in the

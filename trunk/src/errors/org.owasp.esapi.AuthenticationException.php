@@ -17,6 +17,7 @@
  * @since 2008
  */
 
+require_once('org.owasp.esapi.EnterpriseSecurityException.php');
 
 /**
  * An AuthenticationException should be thrown when anything goes wrong during
@@ -25,18 +26,8 @@
  *
  * @author Jeff Williams (jeff.williams@aspectsecurity.com)
  */
-class AuthenticationException extends EnterpriseSecurityException {
-
-	/** The Constant serialVersionUID. */
-	private static $serialVersionUID = 1;
-
-	/**
-	 * Instantiates a new authentication exception.
-	 */
-	protected function AuthenticationException() {
-		// hidden
-	}
-
+class AuthenticationException extends EnterpriseSecurityException
+{
     /**
      * Creates a new instance of EnterpriseSecurityException.
      *
@@ -47,8 +38,9 @@ class AuthenticationException extends EnterpriseSecurityException {
      * @param cause
      *            the cause (optional)
      */
-    public function AuthenticationException($userMessage, $logMessage, $cause = null) {
-        super($userMessage, $logMessage, $cause);
+    function __construct($userMessage, $logMessage, $cause = null)
+    {
+        parent :: __construct($userMessage, $logMessage, $cause);
     }
 }
 ?>

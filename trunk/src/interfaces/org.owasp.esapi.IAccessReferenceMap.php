@@ -55,57 +55,56 @@
  *
  * @author Jeff Williams (jeff.williams@aspectsecurity.com)
  */
-interface IAccessReferenceMap {
+interface IAccessReferenceMap
+{
+    /**
+     * Get an iterator through the direct object references.
+     *
+     * @return the iterator
+     */
+    public function iterator();
 
-	/**
-	 * Get an iterator through the direct object references.
-	 *
-	 * @return the iterator
-	 */
-	public function iterator();
+    /**
+     * Get a safe indirect reference to use in place of a potentially sensitive
+     * direct object reference. Developers should use this call when building
+     * URL's, form fields, hidden fields, etc... to help protect their private
+     * implementation information.
+     *
+     * @param directReference
+     *            the direct reference
+     *
+     * @return the indirect reference
+     */
+    public function getIndirectReference($directReference);
 
-	/**
-	 * Get a safe indirect reference to use in place of a potentially sensitive
-	 * direct object reference. Developers should use this call when building
-	 * URL's, form fields, hidden fields, etc... to help protect their private
-	 * implementation information.
-	 *
-	 * @param directReference
-	 *            the direct reference
-	 *
-	 * @return the indirect reference
-	 */
-	public function getIndirectReference($directReference);
+    /**
+     * Get the original direct object reference from an indirect reference.
+     * Developers should use this when they get an indirect reference from an
+     * HTTP request to translate it back into the real direct reference. If an
+     * invalid indirectReference is requested, then an AccessControlException is
+     * thrown.
+     *
+     * @param indirectReference
+     *            the indirect reference
+     *
+     * @return the direct reference
+     *
+     * @throws AccessControlException
+     *             the access control exception
+     */
+    public function getDirectReference($indirectReference);
 
-	/**
-	 * Get the original direct object reference from an indirect reference.
-	 * Developers should use this when they get an indirect reference from an
-	 * HTTP request to translate it back into the real direct reference. If an
-	 * invalid indirectReference is requested, then an AccessControlException is
-	 * thrown.
-	 *
-	 * @param indirectReference
-	 *            the indirect reference
-	 *
-	 * @return the direct reference
-	 *
-	 * @throws AccessControlException
-	 *             the access control exception
-	 */
-	public function getDirectReference($indirectReference);
+    /**
+     * Adds a direct reference to the AccessReferenceMap and generates an associated indirect reference.
+     * @param direct
+     */
+    public public function addDirectReference($direct);
 
-	/**
-	 * Adds a direct reference to the AccessReferenceMap and generates an associated indirect reference.
-	 * @param direct
-	 */
-	public public function addDirectReference($direct);
-
-	/**
-	 * Removes a direct reference and its associated indirect reference from the AccessReferenceMap.
-	 * @param direct
-	 * @throws AccessControlException
-	 */
-	public public function removeDirectReference($direct);
-
+    /**
+     * Removes a direct reference and its associated indirect reference from the AccessReferenceMap.
+     * @param direct
+     * @throws AccessControlException
+     */
+    public public function removeDirectReference($direct);
 }
 ?>

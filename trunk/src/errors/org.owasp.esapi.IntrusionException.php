@@ -23,49 +23,34 @@
  * either specially logging the event, logging out the current user, or invalidating the current user's account.
  * <P>
  * Unlike other exceptions in the ESAPI, the IntrusionException is a RuntimeException so that it can be thrown from
- * anywhere and will not require a lot of special exception handling.
+ * anywhere and will not require a lot of special exception handling. // FIXME Remove this para
  *
  * @author Jeff Williams (jeff.williams@aspectsecurity.com)
  */
-class IntrusionException extends RuntimeException {
-
-    /** The Constant serialVersionUID. */
-    private static $serialVersionUID = 1;
-
-    /** The logger. */
+class IntrusionException extends Exception
+{
     protected static $logger;
-
     protected $logMessage = null;
-
-    /**
-     * Internal classes may throw an IntrusionException to the IntrusionDetector, which generates the appropriate log
-     * message.
-     */
-    public function IntrusionException() {
-        // FIXME: AAA this shouldn't be public
-        super();
-    }
-
     /**
      * Creates a new instance of IntrusionException.
      *
      * @param message the message
      * @param cause the cause
      */
-    public function IntrusionException($userMessage, $logMessage, $cause) {
-    	$logger = Logger::getLogger("ESAPI", "IntrusionException");
-        super($userMessage, $cause);
-        $this->logMessage = logMessage;
-        $logger->logError(Logger.SECURITY, "INTRUSION - " + $this->logMessage, $cause);
+    function __construct($userMessage, $logMessage, $cause)
+    {
+        $logger = Logger :: getLogger("ESAPI", "IntrusionException");
+        parent :: __construct($userMessage, $cause);
+        $this->logMessage = $logMessage;
+        $logger->logError(Logger :: SECURITY, "INTRUSION - " + $this->logMessage, $cause);
     }
-
-    public function getUserMessage() {
+    public function getUserMessage()
+    {
         return $this->getMessage();
     }
-
-    public function getLogMessage() {
+    public function getLogMessage()
+    {
         return $this->logMessage;
     }
-
 }
 ?>

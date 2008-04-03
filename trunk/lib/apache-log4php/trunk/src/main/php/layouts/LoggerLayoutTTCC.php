@@ -96,7 +96,7 @@ class LoggerLayoutTTCC extends LoggerLayout {
      * @param string date format
      * @see dateFormat
      */
-    public function __construct($dateFormat = '')
+    function __construct($dateFormat = '')
     {
         if (!empty($dateFormat))
             $this->dateFormat = $dateFormat;

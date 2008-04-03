@@ -49,7 +49,7 @@ public class UserTest extends TestCase {
 	 *            the test name
 	 */
 	public UserTest(String testName) {
-		super(testName);
+		parent::__construct(testName);
 	}
 
 	/**

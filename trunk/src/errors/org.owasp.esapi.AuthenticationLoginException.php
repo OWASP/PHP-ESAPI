@@ -17,6 +17,7 @@
  * @since 2008
  */
 
+require_once('org.owasp.esapi.AuthenticationException.php');
 
 /**
  * An AuthenticationException should be thrown when anything goes wrong during
@@ -25,28 +26,19 @@
  *
  * @author Jeff Williams (jeff.williams@aspectsecurity.com)
  */
-class AuthenticationLoginException extends AuthenticationException {
-
-	/** The Constant serialVersionUID. */
-	private static $serialVersionUID = 1;
-
-	/**
-	 * Instantiates a new authentication exception.
-	 */
-	protected function AuthenticationLoginException() {
-		// hidden
-	}
-
-	/**
-	 * Instantiates a new authentication exception.
-	 *
-	 * @param message
-	 *            the message
-	 * @param cause
-	 *            the cause
-	 */
-	public function AuthenticationLoginException($userMessage, $logMessage, $cause = null) {
-		super($userMessage, $logMessage, $cause);
-	}
+class AuthenticationLoginException extends AuthenticationException
+{
+    /**
+     * Instantiates a new authentication exception.
+     *
+     * @param message
+     *            the message
+     * @param cause
+     *            the cause
+     */
+    function __construct($userMessage, $logMessage, $cause = null)
+    {
+        parent :: __construct($userMessage, $logMessage, $cause);
+    }
 }
 ?>

@@ -39,7 +39,7 @@ public class RandomizerTest extends TestCase {
 	 *            the test name
 	 */
     public RandomizerTest(String testName) {
-        super(testName);
+        parent::__construct(testName);
     }
 
     /* (non-Javadoc)

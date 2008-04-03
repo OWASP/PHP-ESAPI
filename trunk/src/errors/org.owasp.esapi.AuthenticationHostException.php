@@ -17,6 +17,7 @@
  * @since 2008
  */
 
+require_once('org.owasp.esapi.AuthenticationException.php');
 
 /**
  * An AuthenticationHostException should be thrown when there is a problem with
@@ -24,28 +25,19 @@
  *
  * @author Jeff Williams (jeff.williams@aspectsecurity.com)
  */
-class AuthenticationHostException extends AuthenticationException {
-
-	/** The Constant serialVersionUID. */
-	private static $serialVersionUID = 1;
-
-	/**
-	 * Instantiates a new authentication exception.
-	 */
-	protected function AuthenticationHostException() {
-		// hidden
-	}
-
-	/**
-	 * Creates a new instance of AuthenticationHostException.
-	 *
-	 * @param message
-	 *            the message
-	 * @param message
-	 *            the message
-	 */
-	public function AuthenticationHostException($userMessage, $logMessage, $cause = null) {
-		super($userMessage, $logMessage, $cause);
-	}
+class AuthenticationHostException extends AuthenticationException
+{
+    /**
+     * Creates a new instance of AuthenticationHostException.
+     *
+     * @param message
+     *            the message
+     * @param message
+     *            the message
+     */
+    function __construct($userMessage, $logMessage, $cause = null)
+    {
+        parent :: __construct($userMessage, $logMessage, $cause);
+    }
 }
 ?>

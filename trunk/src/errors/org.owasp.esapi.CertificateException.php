@@ -17,6 +17,7 @@
  * @since 2008
  */
 
+require_once('org.owasp.esapi.EnterpriseSecurityException.php');
 
 /**
  * A CertificateException should be thrown for any problems that arise during
@@ -24,18 +25,8 @@
  *
  * @author Jeff Williams (jeff.williams@aspectsecurity.com)
  */
-class CertificateException extends EnterpriseSecurityException {
-
-	/** The Constant serialVersionUID. */
-	private static $serialVersionUID = 1;
-
-	/**
-	 * Instantiates a new certificate exception.
-	 */
-	protected function CertificateException() {
-		// hidden
-	}
-
+class CertificateException extends EnterpriseSecurityException
+{
     /**
      * Instantiates a new CertificateException.
      *
@@ -44,9 +35,9 @@ class CertificateException extends EnterpriseSecurityException {
      * @param cause
      *            the cause
      */
-    public function CertificateException($userMessage, $logMessage, $cause) {
-        super($userMessage, $logMessage, $cause);
+    function __construct($userMessage, $logMessage, $cause)
+    {
+        parent :: __construct($userMessage, $logMessage, $cause);
     }
-
 }
 ?>

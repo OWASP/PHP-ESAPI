@@ -17,7 +17,6 @@
  * @since 2008
  */
 
-
 /**
  * The IAuthenticator interface defines a set of methods for generating and
  * handling account credentials and session identifiers. The goal of this
@@ -54,167 +53,158 @@
  *         href="http://www.aspectsecurity.com">Aspect Security</a>
  * @since June 1, 2007
  */
-interface IAuthenticator {
+interface IAuthenticator
+{
+    /**
+     * Clear the current user, request, and response. This allows the thread to be reused safely.
+     */
+    public function clearCurrent();
 
-	/**
-	 * Clear the current user, request, and response. This allows the thread to be reused safely.
-	 */
-	public function clearCurrent();
+    /**
+     * Authenticates the user's credentials from the HttpServletRequest if
+     * necessary, creates a session if necessary, and sets the user as the
+     * current user.
+     *
+     * @param request
+     *            the current HTTP request
+     * @param response
+     *            the response
+     *
+     * @return the user
+     *
+     * @throws AuthenticationException
+     *             the authentication exception
+     */
+    public function login($request, $response); // FIXME: Future - Should return IUser, works in Java 1.5+ but hacked here for Java 1.4
 
-	/**
-	 * Authenticates the user's credentials from the HttpServletRequest if
-	 * necessary, creates a session if necessary, and sets the user as the
-	 * current user.
-	 *
-	 * @param request
-	 *            the current HTTP request
-	 * @param response
-	 *            the response
-	 *
-	 * @return the user
-	 *
-	 * @throws AuthenticationException
-	 *             the authentication exception
-	 */
-	public function login($request, $response);  // FIXME: Future - Should return IUser, works in Java 1.5+ but hacked here for Java 1.4
-
-
-	/**
-	 * Logs out the current user.
-	 */
+    /**
+     * Logs out the current user.
+     */
     public function logout();
 
-	/**
-	 * Creates the user.
-	 *
-	 * @param accountName
-	 *            the account name
-	 * @param password1
-	 *            the password
-	 * @param password2
-	 *            copy of the password
-	 *
-	 * @return the new User object
-	 *
-	 * @throws AuthenticationException
-	 *             the authentication exception
-	 */
-	public function createUser($accountName, $password1, $password2);   // FIXME: Future - Should return IUser, works in Java 1.5+ but hacked here for Java 1.4
+    /**
+     * Creates the user.
+     *
+     * @param accountName
+     *            the account name
+     * @param password1
+     *            the password
+     * @param password2
+     *            copy of the password
+     *
+     * @return the new User object
+     *
+     * @throws AuthenticationException
+     *             the authentication exception
+     */
+    public function createUser($accountName, $password1, $password2); // FIXME: Future - Should return IUser, works in Java 1.5+ but hacked here for Java 1.4
 
-	/**
-	 * Generate a strong password.
-	 *
-	 * @return the string
-	 */
-	public function generateStrongPassword();
+    /**
+     * Generate strong password that takes into account the user's information and old password.
+     *
+     * @param oldPassword
+     *            the old password
+     * @param user
+     *            the user
+     *
+     * @return the string
+     */
+    public function generateStrongPassword($oldPassword = '', $user = '');
 
-	/**
-	 * Generate strong password that takes into account the user's information and old password.
-	 *
-	 * @param oldPassword
-	 *            the old password
-	 * @param user
-	 *            the user
-	 *
-	 * @return the string
-	 */
-	public function generateStrongPassword($oldPassword, $user);
+    /**
+     * Returns the User matching the provided accountName.
+     *
+     * @param accountName
+     *            the account name
+     *
+     * @return the matching User object, or null if no match exists
+     */
+    public function getUser($accountName); // FIXME: Future - Should return IUser, works in Java 1.5+ but hacked here for Java 1.4
 
-	/**
-	 * Returns the User matching the provided accountName.
-	 *
-	 * @param accountName
-	 *            the account name
-	 *
-	 * @return the matching User object, or null if no match exists
-	 */
-	public function getUser($accountName);    // FIXME: Future - Should return IUser, works in Java 1.5+ but hacked here for Java 1.4
+    /**
+     * Gets the user names.
+     *
+     * @return the user names
+     */
+    public function getUserNames();
 
-	/**
-	 * Gets the user names.
-	 *
-	 * @return the user names
-	 */
-	public function getUserNames();
+    /**
+     * Returns the currently logged in User.
+     *
+     * @return the matching User object, or the Anonymous user if no match
+     *         exists
+     */
+    public function getCurrentUser(); // FIXME: Future - Should return IUser, works in Java 1.5+ but hacked here for Java 1.4
 
-	/**
-	 * Returns the currently logged in User.
-	 *
-	 * @return the matching User object, or the Anonymous user if no match
-	 *         exists
-	 */
-	public function getCurrentUser();  // FIXME: Future - Should return IUser, works in Java 1.5+ but hacked here for Java 1.4
+    /**
+     * Sets the currently logged in User.
+     *
+     * @param user
+     *            the current user
+     */
+    public function setCurrentUser($user);
 
-	/**
-	 * Sets the currently logged in User.
-	 *
-	 * @param user
-	 *            the current user
-	 */
-	public function setCurrentUser($user);
+    /**
+     * Returns a string representation of the hashed password, using the
+     * accountName as the salt. The salt helps to prevent against "rainbow"
+     * table attacks where the attacker pre-calculates hashes for known strings.
+     *
+     * @param password
+     *            the password
+     * @param accountName
+     *            the account name
+     *
+     * @return the string
+     */
+    public function hashPassword($password, $accountName);
 
-	/**
-	 * Returns a string representation of the hashed password, using the
-	 * accountName as the salt. The salt helps to prevent against "rainbow"
-	 * table attacks where the attacker pre-calculates hashes for known strings.
-	 *
-	 * @param password
-	 *            the password
-	 * @param accountName
-	 *            the account name
-	 *
-	 * @return the string
-	 */
-	public function hashPassword($password, $accountName);
+    /**
+     * Removes the account.
+     *
+     * @param accountName
+     *            the account name
+     *
+     * @throws AuthenticationException
+     *             the authentication exception
+     */
+    public function removeUser($accountName);
 
-	/**
-	 * Removes the account.
-	 *
-	 * @param accountName
-	 *            the account name
-	 *
-	 * @throws AuthenticationException
-	 *             the authentication exception
-	 */
-	public function removeUser($accountName);
+    /**
+     * Validate password strength.
+     *
+     * @param accountName
+     *            the account name
+     *
+     * @return true, if successful
+     *
+     * @throws AuthenticationException
+     *             the authentication exception
+     */
+    public function verifyAccountNameStrength($context, $accountName);
 
-	/**
-	 * Validate password strength.
-	 *
-	 * @param accountName
-	 *            the account name
-	 *
-	 * @return true, if successful
-	 *
-	 * @throws AuthenticationException
-	 *             the authentication exception
-	 */
-	public function verifyAccountNameStrength($context, $accountName);
+    /**
+     * Validate password strength.
+     *
+     * @param oldPassword
+     *            the old password
+     * @param newPassword
+     *            the new password
+     *
+     * @return true, if successful
+     *
+     * @throws AuthenticationException
+     *             the authentication exception
+     */
+    public function verifyPasswordStrength($oldPassword, $newPassword);
 
-	/**
-	 * Validate password strength.
-	 *
-	 * @param oldPassword
-	 *            the old password
-	 * @param newPassword
-	 *            the new password
-	 *
-	 * @return true, if successful
-	 *
-	 * @throws AuthenticationException
-	 *             the authentication exception
-	 */
-	public function verifyPasswordStrength($oldPassword, $newPassword);
-
-	/**
-	 * Verifies the account exists.
-	 *
-	 * @param accountName
-	 *            the account name
-	 *
-	 * @return true, if successful
-	 */
-	public function exists($accountName);
-
+    /**
+     * Verifies the account exists.
+     *
+     * @param accountName
+     *            the account name
+     *
+     * @return true, if successful
+     */
+    public function exists($accountName);
 }
 ?>

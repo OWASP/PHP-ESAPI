@@ -41,7 +41,7 @@ public class LoggerTest extends TestCase {
 	 *            the test name
 	 */
     public LoggerTest(String testName) {
-        super(testName);
+        parent::__construct(testName);
     }
 
     /* (non-Javadoc)

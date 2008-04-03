@@ -33,30 +33,29 @@
  *         href="http://www.aspectsecurity.com">Aspect Security</a>
  * @since June 1, 2007
  */
-interface IExecutor {
-
-	/**
-	 * Executes a system command after checking that the executable exists and
-	 * that the parameters have not been subject to injection with untrusted
-	 * user data. Implementations shall change to the specified working
-	 * directory before invoking the command. Also, processes should be
-	 * interrupted after the specified timeout period has elapsed.
-	 *
-	 * @param command
-	 *            the command
-	 * @param params
-	 *            the params
-	 * @param workdir
-	 *            the workdir
-	 * @param timeoutSeconds
-	 *            the timeout seconds
-	 *
-	 * @return the string
-	 *
-	 * @throws ExecutorException
-	 *             the service exception
-	 */
-	public function executeSystemCommand($executable, $params, $workdir, $timeoutSeconds);
-
+interface IExecutor
+{
+    /**
+     * Executes a system command after checking that the executable exists and
+     * that the parameters have not been subject to injection with untrusted
+     * user data. Implementations shall change to the specified working
+     * directory before invoking the command. Also, processes should be
+     * interrupted after the specified timeout period has elapsed.
+     *
+     * @param command
+     *            the command
+     * @param params
+     *            the params
+     * @param workdir
+     *            the workdir
+     * @param timeoutSeconds
+     *            the timeout seconds
+     *
+     * @return the string
+     *
+     * @throws ExecutorException
+     *             the service exception
+     */
+    public function executeSystemCommand($executable, $params, $workdir, $timeoutSeconds);
 }
 ?>
