@@ -30,55 +30,54 @@
  *         href="http://www.aspectsecurity.com">Aspect Security</a>
  * @since June 1, 2007
  */
-interface IRandomizer {
+interface IRandomizer
+{
+    /**
+     * Gets the random string.
+     *
+     * @param length
+     *            the length
+     * @param characterSet
+     *            the character set
+     *
+     * @return the random string
+     */
+    public function getRandomString($length, $characterSet);
 
-	/**
-	 * Gets the random string.
-	 *
-	 * @param length
-	 *            the length
-	 * @param characterSet
-	 *            the character set
-	 *
-	 * @return the random string
-	 */
-	public function getRandomString($length, $characterSet);
+    /**
+     * Returns a random boolean.
+     * @return
+     */
+    public function getRandomBoolean();
 
-	/**
-	 * Returns a random boolean.
-	 * @return
-	 */
-	public function getRandomBoolean();
-
-	/**
-	 * Gets the random integer.
-	 *
-	 * @param min
-	 *            the min
-	 * @param max
-	 *            the max
-	 *
-	 * @return the random integer
-	 */
-	public function getRandomInteger($min, $max);
+    /**
+     * Gets the random integer.
+     *
+     * @param min
+     *            the min
+     * @param max
+     *            the max
+     *
+     * @return the random integer
+     */
+    public function getRandomInteger($min, $max);
 
     /**
      * Returns an unguessable random filename with the specified extension.
      */
-    public function getRandomFilename( $extension );
+    public function getRandomFilename($extension);
 
-
-	/**
-	 * Gets the random real.
-	 *
-	 * @param min
-	 *            the min
-	 * @param max
-	 *            the max
-	 *
-	 * @return the random real
-	 */
-	public function getRandomReal($min, $max);
+    /**
+     * Gets the random real.
+     *
+     * @param min
+     *            the min
+     * @param max
+     *            the max
+     *
+     * @return the random real
+     */
+    public function getRandomReal($min, $max);
 
     /**
      * Generates a random GUID.
@@ -86,6 +85,5 @@ interface IRandomizer {
      * @throws EncryptionException
      */
     public function getRandomGUID();
-
 }
 ?>

@@ -17,6 +17,7 @@
  * @since 2008
  */
 
+require_once('org.owasp.esapi.EnterpriseSecurityException.php');
 
 /**
  * An ExecutorException should be thrown for any problems that occur when
@@ -24,18 +25,8 @@
  *
  * @author Jeff Williams (jeff.williams@aspectsecurity.com)
  */
-class EncodingException extends EnterpriseSecurityException {
-
-	/** The Constant serialVersionUID. */
-	private static $serialVersionUID = 1;
-
-	/**
-	 * Instantiates a new service exception.
-	 */
-	protected function EncodingException() {
-		// hidden
-	}
-
+class EncodingException extends EnterpriseSecurityException
+{
     /**
      * Instantiates a new EncodingException.
      *
@@ -44,8 +35,9 @@ class EncodingException extends EnterpriseSecurityException {
      * @param cause
      *            the cause
      */
-    public function EncodingException($userMessage, $logMessage, $cause = null) {
-        super($userMessage, $logMessage, $cause);
+    function __construct($userMessage, $logMessage, $cause = null)
+    {
+        parent :: __construct($userMessage, $logMessage, $cause);
     }
 }
 ?>

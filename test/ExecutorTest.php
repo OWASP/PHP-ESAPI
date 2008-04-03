@@ -40,7 +40,7 @@ public class ExecutorTest extends TestCase {
 	 *            the test name
 	 */
 	public ExecutorTest(String testName) {
-		super(testName);
+		parent::__construct(testName);
 	}
 
 	/*

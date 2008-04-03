@@ -17,6 +17,7 @@
  * @since 2008
  */
 
+require_once('org.owasp.esapi.EnterpriseSecurityException.php');
 
 /**
  * An AvailabilityException should be thrown when the availability of a limited
@@ -25,18 +26,8 @@
  *
  * @author Jeff Williams (jeff.williams@aspectsecurity.com)
  */
-class IntegrityException extends EnterpriseSecurityException {
-
-	/** The Constant serialVersionUID. */
-	private static $serialVersionUID = 1;
-
-	/**
-	 * Instantiates a new availability exception.
-	 */
-	protected function IntegrityException() {
-		// hidden
-	}
-
+class IntegrityException extends EnterpriseSecurityException
+{
     /**
      * Instantiates a new IntegrityException.
      *
@@ -45,8 +36,9 @@ class IntegrityException extends EnterpriseSecurityException {
      * @param cause
      *            the cause
      */
-    public function IntegrityException($userMessage, $logMessage, $cause) {
-        super($userMessage, $logMessage, $cause);
+    function __construct($userMessage, $logMessage, $cause)
+    {
+        parent :: __construct($userMessage, $logMessage, $cause);
     }
 }
 ?>

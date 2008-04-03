@@ -1,4 +1,5 @@
-<?php/**
+<?php
+/**
  * OWASP Enterprise Security API (ESAPI)
  *
  * This file is part of the Open Web Application Security Project (OWASP)
@@ -16,6 +17,7 @@
  * @since 2008
  */
 
+require_once('org.owasp.esapi.EnterpriseSecurityException.php');
 
 /**
  * A ValidationException should be thrown to indicate that the data provided by
@@ -24,18 +26,8 @@
  *
  * @author Jeff Williams (jeff.williams@aspectsecurity.com)
  */
-class ValidationException extends EnterpriseSecurityException {
-
-	/** The Constant serialVersionUID. */
-	private static $serialVersionUID = 1;
-
-	/**
-	 * Instantiates a new validation exception.
-	 */
-	protected function ValidationException() {
-		// hidden
-	}
-
+class ValidationException extends EnterpriseSecurityException
+{
     /**
      * Creates a new instance of ValidationException.
      *
@@ -44,8 +36,9 @@ class ValidationException extends EnterpriseSecurityException {
      * @param cause
      * 			  the cause
      */
-    public function ValidationException($userMessage, $logMessage, $cause = null ) {
-        super($userMessage, $logMessage, $cause);
+    function __construct($userMessage, $logMessage, $cause = null)
+    {
+        parent :: __construct($userMessage, $logMessage, $cause);
     }
 }
 ?>

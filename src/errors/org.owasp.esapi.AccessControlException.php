@@ -17,29 +17,22 @@
  * @since 2008
  */
 
+require_once ('org.owasp.esapi.EnterpriseSecurityException.php');
+
 /**
  * An AccessControlException should be thrown when a user attempts to access a
  * resource that they are not authorized for.
  *
  * @author Jeff Williams (jeff.williams@aspectsecurity.com)
  */
-class AccessControlException extends EnterpriseSecurityException {
-
-	/** The Constant serialVersionUID. */
-	private static $serialVersionUID = 1;
-
-	/**
-	 * Instantiates a new access control exception.
-	 */
-	protected function AccessControlException() {
-		// hidden
-	}
-
-	/**
-	 * Creates a new instance of EnterpriseSecurityException.
-	 */
-	public function AccessControlException($userMessage, $logMessage, $cause = null) {
-		super($userMessage, $logMessage, $cause);
-	}
+class AccessControlException extends EnterpriseSecurityException
+{
+    /**
+     * Creates a new instance of EnterpriseSecurityException.
+     */
+    function __construct($userMessage, $logMessage, $cause = null)
+    {
+        parent :: __construct($userMessage, $logMessage, $cause);
+    }
 }
 ?>

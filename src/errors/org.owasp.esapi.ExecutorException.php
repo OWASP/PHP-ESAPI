@@ -17,6 +17,7 @@
  * @since 2008
  */
 
+require_once('org.owasp.esapi.EnterpriseSecurityException.php');
 
 /**
  * An ExecutorException should be thrown for any problems that arise during the
@@ -24,18 +25,8 @@
  *
  * @author Jeff Williams (jeff.williams@aspectsecurity.com)
  */
-class ExecutorException extends EnterpriseSecurityException {
-
-	/** The Constant serialVersionUID. */
-	private static $serialVersionUID = 1;
-
-	/**
-	 * Instantiates a new ExecutorException.
-	 */
-	protected function ExecutorException() {
-		// hidden
-	}
-
+class ExecutorException extends EnterpriseSecurityException
+{
     /**
      * Instantiates a new ExecutorException.
      *
@@ -44,8 +35,9 @@ class ExecutorException extends EnterpriseSecurityException {
      * @param cause
      *            the cause
      */
-    public function ExecutorException($userMessage, $logMessage, $cause = null ) {
-        super($userMessage, $logMessage, $cause);
+    function __construct($userMessage, $logMessage, $cause = null)
+    {
+        parent :: __construct($userMessage, $logMessage, $cause);
     }
 }
 ?>

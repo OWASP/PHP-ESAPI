@@ -29,7 +29,7 @@ class SimpleSeleniumRemoteControl
 		),
 	);
 
-	public function __construct($browser, $browserUrl, $host = 'localhost', $port = 4444, $timeout = 30000) {
+	function __construct($browser, $browserUrl, $host = 'localhost', $port = 4444, $timeout = 30000) {
 		$this->_browser = $browser;
 		$this->_browserUrl = $browserUrl;
 		$this->_host = $host;

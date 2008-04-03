@@ -17,6 +17,7 @@
  * @since 2008
  */
 
+require_once('org.owasp.esapi.EnterpriseSecurityException.php');
 
 /**
  * An EncryptionException should be thrown for any problems related to
@@ -24,18 +25,8 @@
  *
  * @author Jeff Williams (jeff.williams@aspectsecurity.com)
  */
-class EncryptionException extends EnterpriseSecurityException {
-
-	/** The Constant serialVersionUID. */
-	private static $serialVersionUID = 1;
-
-	/**
-	 * Instantiates a new EncryptionException.
-	 */
-	protected function EncryptionException() {
-		// hidden
-	}
-
+class EncryptionException extends EnterpriseSecurityException
+{
     /**
      * Instantiates a new EncryptionException.
      *
@@ -44,8 +35,9 @@ class EncryptionException extends EnterpriseSecurityException {
      * @param cause
      *            the cause
      */
-    public function EncryptionException($userMessage, $logMessage, $cause = null) {
-        super($userMessage, $logMessage, $cause);
+    function __construct($userMessage, $logMessage, $cause = null)
+    {
+        parent :: __construct($userMessage, $logMessage, $cause);
     }
 }
 ?>

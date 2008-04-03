@@ -18,7 +18,7 @@ class SeleniumTestCase extends UnitTestCase
 	protected $selenium = null;
 	protected $newInstanceEachTest = true;
 
-	public function __construct($name = 'Selenium Test Case') {
+	function __construct($name = 'Selenium Test Case') {
 		parent::UnitTestCase($name);
 
 		if (empty($this->browser)) {

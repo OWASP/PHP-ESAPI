@@ -17,8 +17,6 @@
  * @since 2008
  */
 
-
-
 /**
  * The ILogger interface defines a set of methods that can be used to log
  * security events. Implementors should use a well established logging library
@@ -31,19 +29,8 @@
  * href="http://www.aspectsecurity.com">Aspect Security</a>
  * @since June 1, 2007
  */
-interface ILogger {
-
-	// FIXME: ENHANCE Is this type approach right? Should it be configurable somehow?
-
-	/** The SECURITY. */
-	public $SECURITY = "SECURITY";
-
-	/** The USABILITY. */
-	public $USABILITY = "USABILITY";
-
-	/** The PERFORMANCE. */
-	public $PERFORMANCE = "PERFORMANCE";
-
+interface ILogger
+{
     /**
      * Format the Source IP address, URL, URL parameters, and all form
      * parameters into a string for the log file. The list of parameters to
@@ -57,107 +44,57 @@ interface ILogger {
      */
     public function logHTTPRequest($type, $request, $parameterNamesToObfuscate);
 
-
-	/**
+    /**
      * Log critical.
      *
      * @param type the type
      * @param message the message
      */
-	public function logCritical($type, $message);
+    public function logCritical($type, $message, $throwable = null);
 
-	/**
-     * Log critical.
-     *
-     * @param type the type
-     * @param message the message
-     * @param throwable the throwable
-     */
-	public function logCritical($type, $message, $throwable);
-
-	/**
-     * Log debug.
-     *
-     * @param type the type
-     * @param message the message
-     */
-	public function logDebug($type, $message);
-
-	/**
+    /**
      * Log debug.
      *
      * @param type the type
      * @param message the message
      * @param throwable the throwable
      */
-	public function logDebug($type, $message, $throwable);
+    public function logDebug($type, $message, $throwable = null);
 
-	/**
-     * Log error.
-     *
-     * @param type the type
-     * @param message the message
-     */
-	public function logError($type, $message);
-
-	/**
+    /**
      * Log error.
      *
      * @param type the type
      * @param message the message
      * @param throwable the throwable
      */
-	public function logError($type, $message, $throwable);
+    public function logError($type, $message, $throwable = null);
 
-	/**
-     * Log success.
-     *
-     * @param type the type
-     * @param message the message
-     */
-	public function logSuccess($type, $message);
-
-	/**
+    /**
      * Log success.
      *
      * @param type the type
      * @param message the message
      * @param throwable the throwable
      */
-	public function logSuccess($type, $message, $throwable);
+    public function logSuccess($type, $message, $throwable = null);
 
-	/**
-     * Log trace.
-     *
-     * @param type the type
-     * @param message the message
-     */
-	public function logTrace($type, $message);
-
-	/**
+    /**
      * Log trace.
      *
      * @param type the type
      * @param message the message
      * @param throwable the throwable
      */
-	public function logTrace($type, $message, $throwable);
+    public function logTrace($type, $message, $throwable = null);
 
-	/**
-     * Log warning.
-     *
-     * @param type the type
-     * @param message the message
-     */
-	public function logWarning($type, $message);
-
-	/**
+    /**
      * Log warning.
      *
      * @param type the type
      * @param message the message
      * @param throwable the throwable
      */
-	public function logWarning($type, $message, $throwable);
+    public function logWarning($type, $message, $throwable = null);
 }
 ?>

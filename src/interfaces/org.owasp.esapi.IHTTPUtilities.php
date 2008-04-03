@@ -17,7 +17,6 @@
  * @since 2008
  */
 
-
 /**
  * The IHTTPUtilities interface is a collection of methods that provide additional security related to HTTP requests,
  * responses, sessions, cookies, headers, and logging.
@@ -28,8 +27,8 @@
  * @author Jeff Williams (jeff.williams .at. aspectsecurity.com) <a href="http://www.aspectsecurity.com">Aspect Security</a>
  * @since June 1, 2007
  */
-interface IHTTPUtilities {
-
+interface IHTTPUtilities
+{
     /**
      * Adds the current user's CSRF token (see User.getCSRFToken()) to the URL for purposes of preventing CSRF attacks.
      * This method should be used on all URLs to be put into all links and forms the application generates.
@@ -73,22 +72,22 @@ interface IHTTPUtilities {
      */
     public function changeSessionIdentifier();
 
-	/**
+    /**
      * Checks the CSRF token in the URL (see User.getCSRFToken()) against the user's CSRF token and
-	 * throws an IntrusionException if it is missing.
-	 *
-	 * @param request
-	 * @throws IntrusionException
-	 */
+     * throws an IntrusionException if it is missing.
+     *
+     * @param request
+     * @throws IntrusionException
+     */
     public function verifyCSRFToken();
 
     /**
-	 * Decrypts an encrypted hidden field value and returns the cleartest. If the field does not decrypt properly,
-	 * an IntrusionException is thrown to indicate tampering.
-	 * @param encrypted
-	 * @return
-	 */
-	public function decryptHiddenField($encrypted);
+     * Decrypts an encrypted hidden field value and returns the cleartest. If the field does not decrypt properly,
+     * an IntrusionException is thrown to indicate tampering.
+     * @param encrypted
+     * @return
+     */
+    public function decryptHiddenField($encrypted);
 
     /**
      * Encrypts a hidden field value for use in HTML.
@@ -96,22 +95,21 @@ interface IHTTPUtilities {
      * @return
      * @throws EncryptionException
      */
-	public function encryptHiddenField($value);
+    public function encryptHiddenField($value);
 
+    /**
+     * Takes a querystring (i.e. everything after the ? in the URL) and returns an encrypted string containing the parameters.
+     * @param href
+     * @return
+     */
+    public function encryptQueryString($query);
 
-	/**
-	 * Takes a querystring (i.e. everything after the ? in the URL) and returns an encrypted string containing the parameters.
-	 * @param href
-	 * @return
-	 */
-	public function encryptQueryString($query);
-
-	/**
-	 * Takes an encrypted querystring and returns a Map containing the original parameters.
-	 * @param encrypted
-	 * @return
-	 */
-	public function decryptQueryString($encrypted);
+    /**
+     * Takes an encrypted querystring and returns a Map containing the original parameters.
+     * @param encrypted
+     * @return
+     */
+    public function decryptQueryString($encrypted);
 
     /**
      * Extract uploaded files from a multipart HTTP requests. Implementations must check the content to ensure that it
@@ -164,7 +162,6 @@ interface IHTTPUtilities {
      */
     public function encryptStateInCookie($cleartext);
 
-
     /**
      * This method generates a redirect response that can only be used to redirect the browser to safe locations.
      * Importantly, redirect requests can be modified by attackers, so do not rely information contained within redirect
@@ -189,8 +186,7 @@ interface IHTTPUtilities {
      * @throws ServletException
      * @throws IOException
      */
-	public function safeSendForward($context, $location);
-
+    public function safeSendForward($context, $location);
 
     /**
      * Sets the content type on each HTTP response, to help protect against cross-site scripting attacks and other types
@@ -199,7 +195,6 @@ interface IHTTPUtilities {
      * @param response
      */
     public function safeSetContentType();
-
 
     /**
      * Set headers to protect sensitive information against being cached in the browser. Developers should make this

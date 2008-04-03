@@ -39,7 +39,7 @@ public class EncryptorTest extends TestCase {
 	 *            the test name
 	 */
     public EncryptorTest(String testName) {
-        super(testName);
+        parent::__construct(testName);
     }
 
     /* (non-Javadoc)

@@ -31,8 +31,8 @@
  * @author Jeff Williams (jeff.williams .at. aspectsecurity.com) <a href="http://www.aspectsecurity.com">Aspect Security</a>
  * @since June 1, 2007
  */
-interface IIntrusionDetector {
-
+interface IIntrusionDetector
+{
     /**
      * Adds the exception to the IntrusionDetector.
      *
@@ -48,6 +48,5 @@ interface IIntrusionDetector {
      * @throws IntrusionException the intrusion exception
      */
     public function addEvent($eventName);
-
 }
 ?>

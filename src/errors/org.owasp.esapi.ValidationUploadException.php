@@ -17,29 +17,22 @@
  * @since 2008
  */
 
+require_once('org.owasp.esapi.ValidationException.php');
+
 /**
  * FIXME: DOC.
  * @author Jeff Williams (jeff.williams@aspectsecurity.com)
  */
-class ValidationUploadException extends ValidationException {
-
-	/** The Constant serialVersionUID. */
-	private static $serialVersionUID = 1;
-
-	/**
-	 * Instantiates a new validation exception.
-	 */
-	protected function ValidationUploadException() {
-		// hidden
-	}
-
+class ValidationUploadException extends ValidationException
+{
     /**
      * Create a new ValidationException
      * @param userMessage
      * @param logMessage
      */
-	public function ValidationUploadException($userMessage, $logMessage, $cause = null) {
-		super($userMessage, $logMessage, $cause);
-	}
+    function __construct($userMessage, $logMessage, $cause = null)
+    {
+        parent :: __construct($userMessage, $logMessage, $cause);
+    }
 }
 ?>
