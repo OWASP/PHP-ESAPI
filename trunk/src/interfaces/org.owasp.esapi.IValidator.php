@@ -1,19 +1,20 @@
 <?php
 /**
  * OWASP Enterprise Security API (ESAPI)
- * 
+ *
  * This file is part of the Open Web Application Security Project (OWASP)
  * Enterprise Security API (ESAPI) project. For details, please see
  * http://www.owasp.org/esapi.
  *
  * Copyright (c) 2007 - The OWASP Foundation
- * 
+ *
  * The ESAPI is published by OWASP under the LGPL. You should read and accept the
  * LICENSE before you use, modify, and/or redistribute this software.
- * 
+ *
  * @author Jeff Williams <a href="http://www.aspectsecurity.com">Aspect Security</a>
+ * @author Andrew van der Stock <a href="http://www.aspectsecurity.com">Aspect Security</a>
  * @package org.owasp.esapi.interfaces;
- * @created 2007
+ * @since 2008
  */
 
 
@@ -31,7 +32,7 @@
  * specific pattern or character set is matched. "Blacklist" approaches that
  * attempt to identify the invalid or disallowed characters are much more likely
  * to allow a bypass with encoding or other tricks.
- * 
+ *
  * @author Jeff Williams (jeff.williams .at. aspectsecurity.com) <a
  *         href="http://www.aspectsecurity.com">Aspect Security</a>
  * @since June 1, 2007
@@ -39,19 +40,19 @@
 interface IValidator {
 
 	/**
-	 * 
+	 *
 	 * @param type
 	 * @param input
 	 * @return
 	 * @throws ValidationException
 	 */
 	public function getValidDataFromBrowser($context, $type, $value);
-	
+
 	/**
 	 * Gets a valid date from the input.
 	 */
-	public function getValidDate($context, $value, $format);	
-	
+	public function getValidDate($context, $value, $format);
+
 	/**
 	 * Returns valid safe HTML from any input string.
 	 */
@@ -75,34 +76,34 @@ interface IValidator {
 
 	/**
 	 * Checks if input is a valid file upload.
-	 * 
+	 *
 	 * @param content
 	 *            the content
-	 * 
+	 *
 	 * @return true, if is valid file upload
 	 */
 	public function isValidFileContent($context, $content);
 
 	/**
 	 * Checks if input is a valid file name.
-	 * 
+	 *
 	 * @param input
 	 *            the input
-	 * 
+	 *
 	 * @return true, if is valid file name
 	 */
 	public function isValidFileName($context, $input);
 
     /**
 	 * Checks whether a file upload has a valid name, path, and content.
-	 * 
+	 *
 	 * @param filepath
 	 *            the filepath
 	 * @param filename
 	 *            the filename
 	 * @param content
 	 *            the content
-	 * 
+	 *
 	 * @return true if the file is safe
 	 */
 	public function isValidFileUpload($context, $filepath, $filename, $content);
@@ -110,7 +111,7 @@ interface IValidator {
 	/**
      * Validate an HTTP requests by comparing parameters, headers, and cookies to a predefined whitelist of allowed
      * characters. See the SecurityConfiguration class for the methods to retrieve the whitelists.
-     * 
+     *
      * @param request
      * @return
      */
@@ -152,7 +153,7 @@ interface IValidator {
 	 */
 	public function isValidSafeHTML($context, $input);
 
-   
+
 	/**
 	 * Reads from an input stream until end-of-line or a maximum number of
 	 * characters. This method protects against the inherent denial of service
@@ -160,14 +161,14 @@ interface IValidator {
 	 * send a newline character, then a normal input stream reader will read
 	 * until all memory is exhausted and the platform throws an OutOfMemoryError
 	 * and probably terminates.
-	 * 
+	 *
 	 * @param inputStream
 	 *            the InputStream
 	 * @param maxsChar
 	 *            the maxs char
-	 * 
+	 *
 	 * @return the line
-	 * 
+	 *
 	 * @throws ValidationException
 	 *             the validation exception
 	 */

@@ -1,21 +1,21 @@
 <?php
 /**
  * OWASP Enterprise Security API (ESAPI)
- * 
+ *
  * This file is part of the Open Web Application Security Project (OWASP)
  * Enterprise Security API (ESAPI) project. For details, please see
  * http://www.owasp.org/esapi.
  *
  * Copyright (c) 2007 - The OWASP Foundation
- * 
+ *
  * The ESAPI is published by OWASP under the LGPL. You should read and accept the
  * LICENSE before you use, modify, and/or redistribute this software.
- * 
+ *
  * @author Jeff Williams <a href="http://www.aspectsecurity.com">Aspect Security</a>
  * @package org.owasp.esapi;
- * @created 2007
+ * @since 2007
  */
- 
+
 require_once("errors/org.owasp.esapi.EncodingException.php");
 require_once("errors/org.owasp.esapi.IntrusionException.php");
 require_once("errors/org.owasp.esapi.ValidationAvailabilityException.php");
@@ -30,7 +30,7 @@ require_once("org.owasp.esapi.Logger.php");
  * has a heavy emphasis on whitelist validation and canonicalization. All double-encoded
  * characters, even in multiple encoding schemes, such as <PRE>&amp;lt;</PRE> or
  * <PRE>%26lt;<PRE> or even <PRE>%25%26lt;</PRE> are disallowed.
- * 
+ *
  * @author Jeff Williams (jeff.williams .at. aspectsecurity.com) <a
  *         href="http://www.aspectsecurity.com">Aspect Security</a>
  * @since June 1, 2007
@@ -40,16 +40,15 @@ class Validator implements IValidator {
 
 	/** The logger. */
 	private static $logger;
-	
-	
+
 	public function Validator() {
-		 $this->logger = Logger::getLogger("ESAPI", "Validator");
+		 $this->logger = $ESAPI->getLogger("ESAPI", "Validator");
 	}
 
 	/**
 	 * Validates data received from the browser and returns a safe version. Only
 	 * URL encoding is supported. Double encoding is treated as an attack.
-	 * 
+	 *
 	 * @param name
 	 * @param type
 	 * @param input
@@ -58,21 +57,21 @@ class Validator implements IValidator {
 	 */
 	public function getValidDataFromBrowser($context, $type, $input) {
 	    try {
-    		$canonical = ESAPI::encoder()->canonicalize( input );
-    		
+    		$canonical = ESAPI::encoder()->canonicalize( $input );
+
     		if ( $input == null )
-    			throw new ValidationException("Bad input", type + " (" + context + ") input to validate was null" );
-    		
+    			throw new ValidationException("Bad input", $type + " (" + $context + ") input to validate was null" );
+
     		if ( type == null )
-    			throw new ValidationException("Bad input", type + " (" + context + ") type to validate against was null" );
-    		
+    			throw new ValidationException("Bad input", $type + " (" + $context + ") type to validate against was null" );
+
     		$p = ESAPI::securityConfiguration()).getValidationPattern( $type );
     		if ( $p == null )
-    			throw new ValidationException("Bad input", type + " (" + context + ") type to validate against not configured in ESAPI.properties" );
-    				
+    			throw new ValidationException("Bad input", $type + " (" + $context + ") type to validate against not configured in ESAPI.properties" );
+
     		if ( !p.matcher(canonical).matches() )
-    			throw new ValidationException("Bad input", type + " (" + context + "=" + $input + ") input did not match type definition " + p );
-    		
+    			throw new ValidationException("Bad input", $type + " (" + $context + "=" + $input + ") input did not match type definition " + p );
+
     		// if everything passed, then return the canonical form
     		return $canonical;
 	    } catch (EncodingException $ee) {
@@ -83,7 +82,7 @@ class Validator implements IValidator {
 	/**
 	 * Returns true if data received from browser is valid. Only URL encoding is
 	 * supported. Double encoding is treated as an attack.
-	 * 
+	 *
 	 * @param name
 	 * @param type
 	 * @param value
@@ -101,7 +100,7 @@ class Validator implements IValidator {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see org.owasp.esapi.interfaces.IValidator#getValidDate(java.lang.String)
 	 */
 	public function getValidDate($context, $input, DateFormat format) throws ValidationException {
@@ -115,13 +114,13 @@ class Validator implements IValidator {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see org.owasp.esapi.interfaces.IValidator#isValidCreditCard(java.lang.String)
 	 */
 	public function isValidCreditCard($context, $value) {
 		try {
 			$canonical = getValidDataFromBrowser(context, "CreditCard", value);
-			
+
 			// perform Luhn algorithm checking
 			StringBuffer digitsOnly = new StringBuffer();
 			char c;
@@ -131,12 +130,12 @@ class Validator implements IValidator {
 					digitsOnly.append(c);
 				}
 			}
-		
+
 			int sum = 0;
 			int digit = 0;
 			int addend = 0;
 			boolean timesTwo = false;
-		
+
 			for (int i = digitsOnly.length() - 1; i >= 0; i--) {
 				digit = Integer.parseInt(digitsOnly.substring(i, i + 1));
 				if (timesTwo) {
@@ -150,7 +149,7 @@ class Validator implements IValidator {
 				sum += addend;
 				timesTwo = !timesTwo;
 			}
-		
+
 			int modulus = sum % 10;
 			return modulus == 0;
 		} catch( Exception e ) {
@@ -160,20 +159,20 @@ class Validator implements IValidator {
 
 	/**
 	 * Returns true if the directory path (not including a filename) is valid.
-	 * 
+	 *
 	 * @see org.owasp.esapi.interfaces.IValidator#isValidDirectoryPath(java.lang.String)
 	 */
 	public function isValidDirectoryPath($context, $dirpath) {
 		try {
 	        $canonical = ESAPI::encoder().canonicalize(dirpath);
-	        
+
 			// do basic validation
 			Pattern directoryNamePattern = ((SecurityConfiguration)ESAPI::securityConfiguration()).getValidationPattern("DirectoryName");
 			if ( !directoryNamePattern.matcher(canonical).matches() ) {
 				new ValidationException("Invalid directory name", "Attempt to use a directory name (" + canonical + ") that violates the global rule in ESAPI.properties (" + directoryNamePattern.pattern() +")" );
 				return false;
 			}
-			
+
 			// get the canonical path without the drive letter if present
 			$cpath = new File(canonical).getCanonicalPath().replaceAll("\\\\", "/");
 			$temp = cpath.toLowerCase();
@@ -200,7 +199,7 @@ class Validator implements IValidator {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see org.owasp.esapi.interfaces.IValidator#isValidFileUpload(java.lang.String,java.lang.String,byte[]
 	 *      content)
 	 */
@@ -213,10 +212,10 @@ class Validator implements IValidator {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see org.owasp.esapi.interfaces.IValidator#isValidFileName(java.lang.String)
 	 */
-	
+
 	//FIXME: AAA - getValidFileName eliminates %00 and other injections.
 	//FIXME: AAA - this method should check for %00 injection too
 	public function isValidFileName($context, $input) {
@@ -233,7 +232,7 @@ class Validator implements IValidator {
 				new ValidationException("Invalid filename", "Attempt to use a filename (" + canonical + ") that violates the global rule in ESAPI.properties (" + fileNamePattern.pattern() +")" );
 				return false;
 			}
-			
+
 			File f = new File(canonical);
 			$c = f.getCanonicalPath();
 			$cpath = c.substring(c.lastIndexOf(File.separator) + 1);
@@ -261,7 +260,7 @@ class Validator implements IValidator {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see org.owasp.esapi.interfaces.IValidator#isValidFileUpload(java.lang.String,
 	 *      java.lang.String, byte[])
 	 */
@@ -326,7 +325,7 @@ class Validator implements IValidator {
 					// logger.logCritical(Logger.SECURITY, "Header name (" + name + ") violates global rule" );
 					result = false;
 				}
-				
+
 				Enumeration e2 = request.getHeaders(name);
 				while (e2.hasMoreElements()) {
 					$value = (String) e2.nextElement();
@@ -342,7 +341,7 @@ class Validator implements IValidator {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see org.owasp.esapi.interfaces.IValidator#isValidListItem(java.util.List,
 	 *      java.lang.String)
 	 */
@@ -352,7 +351,7 @@ class Validator implements IValidator {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see org.owasp.esapi.interfaces.IValidator#isValidNumber(java.lang.String)
 	 */
 	public function isValidNumber($input) {
@@ -366,21 +365,21 @@ class Validator implements IValidator {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see org.owasp.esapi.interfaces.IValidator#isValidParameterSet(java.util.Set,
 	 *      java.util.Set, java.util.Set)
 	 */
 	public function isValidParameterSet(Set requiredNames, Set optionalNames) {
 		HttpServletRequest request = ((Authenticator)ESAPI::authenticator()).getCurrentRequest();
 		Set actualNames = request.getParameterMap().keySet();
-		
+
 		// verify ALL required parameters are present
 		Set missing = new HashSet(requiredNames);
 		missing.removeAll(actualNames);
 		if (missing.size() > 0) {
 			return false;
 		}
-		
+
 		// verify ONLY optional + required parameters are present
 		Set extra = new HashSet(actualNames);
 		extra.removeAll(requiredNames);
@@ -394,7 +393,7 @@ class Validator implements IValidator {
 	/**
 	 * Checks that all bytes are valid ASCII characters (between 33 and 126
 	 * inclusive). This implementation does no decoding. http://en.wikipedia.org/wiki/ASCII. (non-Javadoc)
-	 * 
+	 *
 	 * @see org.owasp.esapi.interfaces.IValidator#isValidASCIIFileContent(byte[])
 	 */
 	public function isValidPrintable(byte[] $input) {
@@ -421,7 +420,7 @@ class Validator implements IValidator {
 
 	/**
 	 * (non-Javadoc).
-	 * 
+	 *
 	 * @param location
 	 *            the location
 	 * @return true, if is valid redirect location
@@ -435,7 +434,7 @@ class Validator implements IValidator {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see org.owasp.esapi.interfaces.IValidator#isValidSafeHTML(java.lang.String)
 	 */
 	public function isValidSafeHTML($name, $input) {
@@ -450,7 +449,7 @@ class Validator implements IValidator {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see org.owasp.esapi.interfaces.IValidator#getValidSafeHTML(java.lang.String)
 	 */
 	public function getValidSafeHTML( $context, $input ) {
@@ -473,11 +472,11 @@ class Validator implements IValidator {
 		**/
 	}
 
-	
+
 	/**
 	 * This implementation reads until a newline or the specified number of
 	 * characters.
-	 * 
+	 *
 	 * @param in
 	 *            the in
 	 * @param max
@@ -492,7 +491,7 @@ class Validator implements IValidator {
 		if ($max <= 0) {
 			throw new ValidationAvailabilityException("Invalid input", "Must read a positive number of bytes from the stream");
 		}
-			
+
 		$sb = "";
 		$count = 0;
 		$c = 0;

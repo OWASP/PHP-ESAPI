@@ -1,3 +1,4 @@
+<?php
 /**
  * OWASP Enterprise Security API (ESAPI)
  * 
@@ -11,7 +12,7 @@
  * LICENSE before you use, modify, and/or redistribute this software.
  * 
  * @author Jeff Williams <a href="http://www.aspectsecurity.com">Aspect Security</a>
- * @created 2007
+ * @since 2007
  */
 package org.owasp.esapi;
 
@@ -77,7 +78,7 @@ public class ExecutorTest extends TestCase {
 	 *             the exception
 	 */
 	public void testExecuteSystemCommand() throws Exception {
-		System.out.println("executeSystemCommand");
+		echo("executeSystemCommand");
 		IExecutor instance = ESAPI.executor();
 		File executable = new File( "C:\\Windows\\System32\\cmd.exe" );
 		File working = new File("C:\\");
@@ -121,3 +122,4 @@ public class ExecutorTest extends TestCase {
 	}
 
 }
+?>

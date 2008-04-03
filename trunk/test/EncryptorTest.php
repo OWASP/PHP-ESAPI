@@ -1,3 +1,4 @@
+<?php
 /**
  * OWASP Enterprise Security API (ESAPI)
  * 
@@ -11,7 +12,7 @@
  * LICENSE before you use, modify, and/or redistribute this software.
  * 
  * @author Jeff Williams <a href="http://www.aspectsecurity.com">Aspect Security</a>
- * @created 2007
+ * @since 2007
  */
 package org.owasp.esapi;
 
@@ -70,7 +71,7 @@ public class EncryptorTest extends TestCase {
 	 * Test of hash method, of class org.owasp.esapi.Encryptor.
 	 */
     public void testHash() throws EncryptionException {
-        System.out.println("hash");
+        echo("hash");
         IEncryptor instance = ESAPI.encryptor();
         String hash1 = instance.hash("test1", "salt");
         String hash2 = instance.hash("test2", "salt");
@@ -87,7 +88,7 @@ public class EncryptorTest extends TestCase {
 	 *             the encryption exception
 	 */
     public void testEncrypt() throws EncryptionException {
-        System.out.println("encrypt");
+        echo("encrypt");
         IEncryptor instance = ESAPI.encryptor();
         String plaintext = "test123";
         String ciphertext = instance.encrypt(plaintext);
@@ -99,7 +100,7 @@ public class EncryptorTest extends TestCase {
 	 * Test of decrypt method, of class org.owasp.esapi.Encryptor.
 	 */
     public void testDecrypt() {
-        System.out.println("decrypt");
+        echo("decrypt");
         IEncryptor instance = ESAPI.encryptor();
         try {
             String plaintext = "test123";
@@ -120,7 +121,7 @@ public class EncryptorTest extends TestCase {
 	 *             the encryption exception
 	 */
     public void testSign() throws EncryptionException {
-        System.out.println("sign");        
+        echo("sign");        
         IEncryptor instance = ESAPI.encryptor();
         String plaintext = ESAPI.randomizer().getRandomString( 32, Encoder.CHAR_ALPHANUMERICS );
         String signature = instance.sign(plaintext);
@@ -136,7 +137,7 @@ public class EncryptorTest extends TestCase {
 	 *             the encryption exception
 	 */
     public void testVerifySignature() throws EncryptionException {
-        System.out.println("verifySignature");
+        echo("verifySignature");
         IEncryptor instance = ESAPI.encryptor();
         String plaintext = ESAPI.randomizer().getRandomString( 32, Encoder.CHAR_ALPHANUMERICS );
         String signature = instance.sign(plaintext);
@@ -151,7 +152,7 @@ public class EncryptorTest extends TestCase {
 	 *             the encryption exception
 	 */
     public void testSeal() throws IntegrityException {
-        System.out.println("seal");
+        echo("seal");
         IEncryptor instance = ESAPI.encryptor(); 
         String plaintext = ESAPI.randomizer().getRandomString( 32, Encoder.CHAR_ALPHANUMERICS );
         String seal = instance.seal( plaintext, instance.getTimeStamp() + 1000*60 );
@@ -165,7 +166,7 @@ public class EncryptorTest extends TestCase {
 	 *             the encryption exception
 	 */
     public void testVerifySeal() throws EnterpriseSecurityException {
-        System.out.println("verifySeal");
+        echo("verifySeal");
         IEncryptor instance = ESAPI.encryptor(); 
         String plaintext = ESAPI.randomizer().getRandomString( 32, Encoder.CHAR_ALPHANUMERICS );
         String seal = instance.seal( plaintext, instance.getTimeStamp() + 1000*60 );
@@ -177,3 +178,4 @@ public class EncryptorTest extends TestCase {
     }
     
 }
+?>

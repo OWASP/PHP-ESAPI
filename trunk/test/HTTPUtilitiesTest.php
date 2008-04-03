@@ -1,3 +1,4 @@
+<?php
 /**
  * OWASP Enterprise Security API (ESAPI)
  * 
@@ -11,7 +12,7 @@
  * LICENSE before you use, modify, and/or redistribute this software.
  * 
  * @author Jeff Williams <a href="http://www.aspectsecurity.com">Aspect Security</a>
- * @created 2007
+ * @since 2007
  */
 package org.owasp.esapi;
 
@@ -94,13 +95,13 @@ public class HTTPUtilitiesTest extends TestCase {
 		User user = instance.createUser(username, "addCSRFToken", "addCSRFToken");
 		instance.setCurrentUser( user );
 
-		System.out.println("addCSRFToken");
+		echo("addCSRFToken");
         String csrf1=ESAPI.httpUtilities().addCSRFToken("/test1");
-        System.out.println( "CSRF1:" + csrf1);
+        echo( "CSRF1:" + csrf1);
         assertTrue(csrf1.indexOf("?") > -1);
         
         String csrf2=ESAPI.httpUtilities().addCSRFToken("/test1?one=two");
-        System.out.println( "CSRF1:" + csrf1);
+        echo( "CSRF1:" + csrf1);
         assertTrue(csrf2.indexOf("&") > -1);
     }
 
@@ -112,7 +113,7 @@ public class HTTPUtilitiesTest extends TestCase {
      * @throws AuthenticationException the authentication exception
      */
     public void testChangeSessionIdentifier() throws EnterpriseSecurityException {
-        System.out.println("changeSessionIdentifier");
+        echo("changeSessionIdentifier");
         TestHttpServletRequest request = new TestHttpServletRequest();
         TestHttpServletResponse response = new TestHttpServletResponse();
         TestHttpSession session = (TestHttpSession) request.getSession();
@@ -133,10 +134,10 @@ public class HTTPUtilitiesTest extends TestCase {
      * @throws IOException 
      */
     public void testGetFileUploads() throws IOException {
-        System.out.println("getFileUploads");
+        echo("getFileUploads");
         File home = ((SecurityConfiguration)ESAPI.securityConfiguration()).getResourceDirectory();
         byte[] bytes = getBytesFromFile(new File(home, "multipart.txt"));
-        System.out.println( "===========\n" + new String( bytes ) + "\n===========" );
+        echo( "===========\n" + new String( bytes ) + "\n===========" );
         TestHttpServletRequest request = new TestHttpServletRequest("/test", bytes);
         TestHttpServletResponse response = new TestHttpServletResponse();
         Authenticator instance = (Authenticator)ESAPI.authenticator();
@@ -170,7 +171,7 @@ public class HTTPUtilitiesTest extends TestCase {
      * Test of isValidHTTPRequest method, of class org.owasp.esapi.HTTPUtilities.
      */
     public void testIsValidHTTPRequest() {
-        System.out.println("isValidHTTPRequest");
+        echo("isValidHTTPRequest");
         TestHttpServletRequest request = new TestHttpServletRequest();
         request.addParameter("p1", "v1");
         request.addParameter("p2", "v3");
@@ -195,7 +196,7 @@ public class HTTPUtilitiesTest extends TestCase {
      * Test of killAllCookies method, of class org.owasp.esapi.HTTPUtilities.
      */
     public void testKillAllCookies() {
-        System.out.println("killAllCookies");
+        echo("killAllCookies");
         TestHttpServletRequest request = new TestHttpServletRequest();
         TestHttpServletResponse response = new TestHttpServletResponse();
         Authenticator instance = (Authenticator)ESAPI.authenticator();
@@ -215,7 +216,7 @@ public class HTTPUtilitiesTest extends TestCase {
      * Test of killCookie method, of class org.owasp.esapi.HTTPUtilities.
      */
     public void testKillCookie() {
-        System.out.println("killCookie");
+        echo("killCookie");
         TestHttpServletRequest request = new TestHttpServletRequest();
         TestHttpServletResponse response = new TestHttpServletResponse();
         Authenticator instance = (Authenticator)ESAPI.authenticator();
@@ -238,7 +239,7 @@ public class HTTPUtilitiesTest extends TestCase {
      * @throws IOException Signals that an I/O exception has occurred.
      */
     public void testSendSafeRedirect() throws ValidationException, IOException {
-        System.out.println("sendSafeRedirect");
+        echo("sendSafeRedirect");
         try {
             ESAPI.httpUtilities().safeSendRedirect("test", "/test1/abcdefg");
             ESAPI.httpUtilities().safeSendRedirect("test", "/test2/1234567");
@@ -263,7 +264,7 @@ public class HTTPUtilitiesTest extends TestCase {
      * Test of setCookie method, of class org.owasp.esapi.HTTPUtilities.
      */
     public void testSetCookie() {
-        System.out.println("setCookie");
+        echo("setCookie");
         TestHttpServletRequest request = new TestHttpServletRequest();
         TestHttpServletResponse response = new TestHttpServletResponse();
         Authenticator instance = (Authenticator)ESAPI.authenticator();
@@ -295,7 +296,7 @@ public class HTTPUtilitiesTest extends TestCase {
 	}
 
     public void testGetStateFromEncryptedCookie() {
-        System.out.println("getStateFromEncryptedCookie");
+        echo("getStateFromEncryptedCookie");
         TestHttpServletRequest request = new TestHttpServletRequest();
         TestHttpServletResponse response = new TestHttpServletResponse();
         Authenticator instance = (Authenticator)ESAPI.authenticator();
@@ -326,7 +327,7 @@ public class HTTPUtilitiesTest extends TestCase {
     }
     
     public void testSaveStateInEncryptedCookie() {
-        System.out.println("saveStateInEncryptedCookie");
+        echo("saveStateInEncryptedCookie");
         TestHttpServletRequest request = new TestHttpServletRequest();
         TestHttpServletResponse response = new TestHttpServletResponse();
         Authenticator instance = (Authenticator)ESAPI.authenticator();
@@ -349,7 +350,7 @@ public class HTTPUtilitiesTest extends TestCase {
      * Test set no cache headers.
      */
     public void testSetNoCacheHeaders() {
-        System.out.println("setNoCacheHeaders");
+        echo("setNoCacheHeaders");
         TestHttpServletRequest request = new TestHttpServletRequest();
         TestHttpServletResponse response = new TestHttpServletResponse();
         Authenticator auth = (Authenticator)ESAPI.authenticator();
@@ -366,3 +367,4 @@ public class HTTPUtilitiesTest extends TestCase {
     }
 
 }
+?>

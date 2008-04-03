@@ -1,3 +1,4 @@
+<?php
 /**
  * OWASP Enterprise Security API (ESAPI)
  * 
@@ -11,7 +12,7 @@
  * LICENSE before you use, modify, and/or redistribute this software.
  * 
  * @author Jeff Williams <a href="http://www.aspectsecurity.com">Aspect Security</a>
- * @created 2007
+ * @since 2007
  */
 package org.owasp.esapi;
 
@@ -74,7 +75,7 @@ public class IntrusionDetectorTest extends TestCase {
 	 *             the authentication exception
 	 */
 	public void testAddException() throws AuthenticationException {
-		System.out.println("addException");
+		echo("addException");
 		ESAPI.intrusionDetector().addException( new IntrusionException("user message", "log message") );
 		String username = ESAPI.randomizer().getRandomString(8, Encoder.CHAR_ALPHANUMERICS);
         Authenticator auth = (Authenticator)ESAPI.authenticator();
@@ -101,7 +102,7 @@ public class IntrusionDetectorTest extends TestCase {
      *             the authentication exception
      */
     public void testAddEvent() throws AuthenticationException {
-        System.out.println("addEvent");
+        echo("addEvent");
 		String username = ESAPI.randomizer().getRandomString(8, Encoder.CHAR_ALPHANUMERICS);
         Authenticator auth = (Authenticator)ESAPI.authenticator();
 		User user = auth.createUser(username, "addEvent", "addEvent");
@@ -119,3 +120,4 @@ public class IntrusionDetectorTest extends TestCase {
     }
     
 }
+?>

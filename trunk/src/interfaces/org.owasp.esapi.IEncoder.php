@@ -1,19 +1,20 @@
 <?php
 /**
  * OWASP Enterprise Security API (ESAPI)
- * 
+ *
  * This file is part of the Open Web Application Security Project (OWASP)
  * Enterprise Security API (ESAPI) project. For details, please see
  * http://www.owasp.org/esapi.
  *
  * Copyright (c) 2007 - The OWASP Foundation
- * 
+ *
  * The ESAPI is published by OWASP under the LGPL. You should read and accept the
  * LICENSE before you use, modify, and/or redistribute this software.
- * 
+ *
  * @author Jeff Williams <a href="http://www.aspectsecurity.com">Aspect Security</a>
+ * @author Andrew van der Stock <a href="http://www.aspectsecurity.com">Aspect Security</a>
  * @package org.owasp.esapi.interfaces;
- * @created 2007
+ * @since 2008
  */
 
 /**
@@ -29,7 +30,7 @@
  * All of the methods here must use a "whitelist" or "positive" security model,
  * meaning that all characters should be encoded, except for a specific list of
  * "immune" characters that are known to be safe.
- * 
+ *
  * @author Jeff Williams (jeff.williams .at. aspectsecurity.com) <a
  *         href="http://www.aspectsecurity.com">Aspect Security</a>
  * @since June 1, 2007
@@ -77,12 +78,12 @@ interface IEncoder {
 	 * For more information on form encoding, please refer to the <a
 	 * href="http://www.w3.org/TR/html4/interact/forms.html#h-17.13.4">W3C
 	 * specifications</a>.
-	 * 
+	 *
 	 * @param input
 	 *            unvalidated input from an HTTP request
-	 * 
+	 *
 	 * @return the canonicalized string
-	 * 
+	 *
 	 * @throws IntrusionException
 	 *             if there is a canonicalization problem
 	 */
@@ -92,7 +93,7 @@ interface IEncoder {
 	 * Reduce all non-ascii characters to their ASCII form so that simpler
 	 * validation rules can be applied. For example, an accented-e character
 	 * will be changed into a regular ASCII e character.
-	 * 
+	 *
 	 * @param input
 	 * @return
 	 */
@@ -102,7 +103,7 @@ interface IEncoder {
 	 * Encode data for use in HTML content. This method first canonicalizes and
 	 * detects any double-encoding. If this check passes, then the data is
 	 * entity-encoded using a whitelist.
-	 * 
+	 *
 	 * @param input
 	 *            the input
 	 * @return the string
@@ -113,7 +114,7 @@ interface IEncoder {
 	 * Encode data for use in HTML attributes. This method first canonicalizes
 	 * and detects any double-encoding. If this check passes, then the data is
 	 * entity-encoded using a whitelist.
-	 * 
+	 *
 	 * @param input
 	 *            the input
 	 * @return the string
@@ -124,7 +125,7 @@ interface IEncoder {
 	 * Encode for javascript. This method first canonicalizes and detects any
 	 * double-encoding. If this check passes, then the data is encoded using a
 	 * whitelist.
-	 * 
+	 *
 	 * @param input
 	 *            the input
 	 * @return the string
@@ -135,7 +136,7 @@ interface IEncoder {
 	 * Encode data for use in visual basic script. This method first
 	 * canonicalizes and detects any double-encoding. If this check passes, then
 	 * the data is encoded using a whitelist.
-	 * 
+	 *
 	 * @param input
 	 *            the input
 	 * @return the string
@@ -146,7 +147,7 @@ interface IEncoder {
 	 * Encode for SQL. This method first canonicalizes and detects any
 	 * double-encoding. If this check passes, then the data is encoded using a
 	 * whitelist.
-	 * 
+	 *
 	 * @param input
 	 *            the input
 	 * @return the string
@@ -157,7 +158,7 @@ interface IEncoder {
 	 * Encode data for use in LDAP queries. This method first canonicalizes and
 	 * detects any double-encoding. If this check passes, then the data is
 	 * encoded using a whitelist.
-	 * 
+	 *
 	 * @param input
 	 *            the input
 	 * @return the string
@@ -168,7 +169,7 @@ interface IEncoder {
 	 * Encode data for use in an LDAP distinguished name. This method first
 	 * canonicalizes and detects any double-encoding. If this check passes, then
 	 * the data is encoded using a whitelist.
-	 * 
+	 *
 	 * @param input
 	 *            the input
 	 * @return the string
@@ -179,7 +180,7 @@ interface IEncoder {
 	 * Encode data for use in an XPath query. This method first canonicalizes
 	 * and detects any double-encoding. If this check passes, then the data is
 	 * encoded using a whitelist.
-	 * 
+	 *
 	 * @param input
 	 *            the input
 	 * @return the string
@@ -197,7 +198,7 @@ interface IEncoder {
 	 * hopefully rare case that you need to make sure that data is safe for
 	 * inclusion in an XML document and cannot use a parse, this method provides
 	 * a safe mechanism to do so.
-	 * 
+	 *
 	 * @param input
 	 *            the input
 	 * @return the string
@@ -215,7 +216,7 @@ interface IEncoder {
 	 * hopefully rare case that you need to make sure that data is safe for
 	 * inclusion in an XML document and cannot use a parse, this method provides
 	 * a safe mechanism to do so.
-	 * 
+	 *
 	 * @param input
 	 *            the input
 	 * @return the string
@@ -228,7 +229,7 @@ interface IEncoder {
 	 * on the entire string. This method first canonicalizes and detects any
 	 * double-encoding. If this check passes, then the data is encoded using a
 	 * whitelist.
-	 * 
+	 *
 	 * @param input
 	 *            the input
 	 * @return the string
@@ -239,7 +240,7 @@ interface IEncoder {
 	 * Decode from URL. This method first canonicalizes and detects any
 	 * double-encoding. If this check passes, then the data is decoded using URL
 	 * decoding.
-	 * 
+	 *
 	 * @param input
 	 *            the input
 	 * @return the string
@@ -253,7 +254,7 @@ interface IEncoder {
 	 * <p>
 	 * Beware double-encoding, as this will corrupt the results and could
 	 * possibly cause a downstream security mechansim to make a mistake.
-	 * 
+	 *
 	 * @param input
 	 *            the input
 	 * @return the string
@@ -265,7 +266,7 @@ interface IEncoder {
 	 * <p>
 	 * Beware double-encoded data, as the results of this method could still
 	 * contain encoded characters as part of attacks.
-	 * 
+	 *
 	 * @param input
 	 *            the input
 	 * @return the byte[]

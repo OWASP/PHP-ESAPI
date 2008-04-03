@@ -12,7 +12,7 @@
  * LICENSE before you use, modify, and/or redistribute this software.
  * 
  * @author Jeff Williams <a href="http://www.aspectsecurity.com">Aspect Security</a>
- * @created 2007
+ * @since 2007
  */
 package org.owasp.esapi;
 
@@ -104,7 +104,7 @@ public class Authenticator implements org.owasp.esapi.interfaces.IAuthenticator 
      */
     public static void main(String[] args) throws Exception {
         if (args.length != 3) {
-            System.out.println("Usage: Authenticator accountname password role");
+            echo("Usage: Authenticator accountname password role");
             return;
         }
         Authenticator auth = new Authenticator();
@@ -124,7 +124,7 @@ public class Authenticator implements org.owasp.esapi.interfaces.IAuthenticator 
         user.enable();
         user.unlock();
         auth.saveUsers();
-        System.out.println("User account " + user.getAccountName() + " updated");
+        echo("User account " + user.getAccountName() + " updated");
     }
 
     // FIXME: ENHANCE consider an impersonation feature
@@ -157,7 +157,7 @@ public class Authenticator implements org.owasp.esapi.interfaces.IAuthenticator 
         }
 
         public void setUser(IUser newUser) {
-        	// System.out.println( "SETTING Thread: " + Thread.currentThread() + " " + (getUser() != null ? getUser().getAccountName() : "null" ) + " --> " + (newUser != null ? (newUser).getAccountName() : "null" ) );
+        	// echo( "SETTING Thread: " + Thread.currentThread() + " " + (getUser() != null ? getUser().getAccountName() : "null" ) + " --> " + (newUser != null ? (newUser).getAccountName() : "null" ) );
             super.set(newUser);
         }
     };

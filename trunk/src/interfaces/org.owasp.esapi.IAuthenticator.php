@@ -1,19 +1,20 @@
 <?php
 /**
  * OWASP Enterprise Security API (ESAPI)
- * 
+ *
  * This file is part of the Open Web Application Security Project (OWASP)
  * Enterprise Security API (ESAPI) project. For details, please see
  * http://www.owasp.org/esapi.
  *
  * Copyright (c) 2007 - The OWASP Foundation
- * 
+ *
  * The ESAPI is published by OWASP under the LGPL. You should read and accept the
  * LICENSE before you use, modify, and/or redistribute this software.
- * 
+ *
  * @author Jeff Williams <a href="http://www.aspectsecurity.com">Aspect Security</a>
+ * @author Andrew van der Stock <a href="http://www.aspectsecurity.com">Aspect Security</a>
  * @package org.owasp.esapi.interfaces;
- * @created 2007
+ * @since 2008
  */
 
 
@@ -38,7 +39,7 @@
  * current request and the name of the parameters containing the username and
  * password. The implementation should verify the password if necessary, create
  * a session if necessary, and set the user as the current user.
- * 
+ *
  * <pre>
  * public void doPost(ServletRequest request, ServletResponse response) {
  * try {
@@ -48,7 +49,7 @@
  * // handle failed authentication (it's already been logged)
  * }
  * </pre>
- * 
+ *
  * @author Jeff Williams (jeff.williams .at. aspectsecurity.com) <a
  *         href="http://www.aspectsecurity.com">Aspect Security</a>
  * @since June 1, 2007
@@ -64,20 +65,20 @@ interface IAuthenticator {
 	 * Authenticates the user's credentials from the HttpServletRequest if
 	 * necessary, creates a session if necessary, and sets the user as the
 	 * current user.
-	 * 
+	 *
 	 * @param request
 	 *            the current HTTP request
 	 * @param response
 	 *            the response
-	 * 
+	 *
 	 * @return the user
-	 * 
+	 *
 	 * @throws AuthenticationException
 	 *             the authentication exception
 	 */
 	public function login($request, $response);  // FIXME: Future - Should return IUser, works in Java 1.5+ but hacked here for Java 1.4
 
-	
+
 	/**
 	 * Logs out the current user.
 	 */
@@ -85,16 +86,16 @@ interface IAuthenticator {
 
 	/**
 	 * Creates the user.
-	 * 
+	 *
 	 * @param accountName
 	 *            the account name
 	 * @param password1
 	 *            the password
 	 * @param password2
 	 *            copy of the password
-	 * 
+	 *
 	 * @return the new User object
-	 * 
+	 *
 	 * @throws AuthenticationException
 	 *             the authentication exception
 	 */
@@ -102,43 +103,43 @@ interface IAuthenticator {
 
 	/**
 	 * Generate a strong password.
-	 * 
+	 *
 	 * @return the string
 	 */
 	public function generateStrongPassword();
 
 	/**
 	 * Generate strong password that takes into account the user's information and old password.
-	 * 
+	 *
 	 * @param oldPassword
 	 *            the old password
 	 * @param user
 	 *            the user
-	 * 
+	 *
 	 * @return the string
 	 */
 	public function generateStrongPassword($oldPassword, $user);
 
 	/**
 	 * Returns the User matching the provided accountName.
-	 * 
+	 *
 	 * @param accountName
 	 *            the account name
-	 * 
+	 *
 	 * @return the matching User object, or null if no match exists
 	 */
 	public function getUser($accountName);    // FIXME: Future - Should return IUser, works in Java 1.5+ but hacked here for Java 1.4
 
 	/**
 	 * Gets the user names.
-	 * 
+	 *
 	 * @return the user names
 	 */
 	public function getUserNames();
 
 	/**
 	 * Returns the currently logged in User.
-	 * 
+	 *
 	 * @return the matching User object, or the Anonymous user if no match
 	 *         exists
 	 */
@@ -146,7 +147,7 @@ interface IAuthenticator {
 
 	/**
 	 * Sets the currently logged in User.
-	 * 
+	 *
 	 * @param user
 	 *            the current user
 	 */
@@ -156,22 +157,22 @@ interface IAuthenticator {
 	 * Returns a string representation of the hashed password, using the
 	 * accountName as the salt. The salt helps to prevent against "rainbow"
 	 * table attacks where the attacker pre-calculates hashes for known strings.
-	 * 
+	 *
 	 * @param password
 	 *            the password
 	 * @param accountName
 	 *            the account name
-	 * 
+	 *
 	 * @return the string
 	 */
 	public function hashPassword($password, $accountName);
 
 	/**
 	 * Removes the account.
-	 * 
+	 *
 	 * @param accountName
 	 *            the account name
-	 * 
+	 *
 	 * @throws AuthenticationException
 	 *             the authentication exception
 	 */
@@ -179,12 +180,12 @@ interface IAuthenticator {
 
 	/**
 	 * Validate password strength.
-	 * 
+	 *
 	 * @param accountName
 	 *            the account name
-	 * 
+	 *
 	 * @return true, if successful
-	 * 
+	 *
 	 * @throws AuthenticationException
 	 *             the authentication exception
 	 */
@@ -192,14 +193,14 @@ interface IAuthenticator {
 
 	/**
 	 * Validate password strength.
-	 * 
+	 *
 	 * @param oldPassword
 	 *            the old password
 	 * @param newPassword
 	 *            the new password
-	 * 
+	 *
 	 * @return true, if successful
-	 * 
+	 *
 	 * @throws AuthenticationException
 	 *             the authentication exception
 	 */
@@ -207,10 +208,10 @@ interface IAuthenticator {
 
 	/**
 	 * Verifies the account exists.
-	 * 
+	 *
 	 * @param accountName
 	 *            the account name
-	 * 
+	 *
 	 * @return true, if successful
 	 */
 	public function exists($accountName);

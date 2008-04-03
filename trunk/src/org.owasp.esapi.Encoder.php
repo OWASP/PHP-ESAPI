@@ -12,23 +12,12 @@
  * LICENSE before you use, modify, and/or redistribute this software.
  * 
  * @author Jeff Williams <a href="http://www.aspectsecurity.com">Aspect Security</a>
- * @created 2007
+ * @package org.owasp.esapi;
+ * @since 2007
  */
-package org.owasp.esapi;
 
-import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.net.URLDecoder;
-import java.net.URLEncoder;
-import java.util.Arrays;
-import java.util.HashMap;
-
-require_once("org.owasp.esapi.errors.EncodingException;
-require_once("org.owasp.esapi.errors.IntrusionException;
-
-import sun.misc.BASE64Decoder;
-import sun.misc.BASE64Encoder;
-import sun.text.Normalizer;
+require_once ("errors/org.owasp.esapi.EncodingException.php");
+require_once ("errors/org.owasp.esapi.IntrusionException.php");
 
 /**
  * Reference implementation of the IEncoder interface. This implementation takes
@@ -57,13 +46,13 @@ import sun.text.Normalizer;
  * @since June 1, 2007
  * @see org.owasp.esapi.interfaces.IEncoder
  */
-public class Encoder implements org.owasp.esapi.interfaces.IEncoder {
+class Encoder implements IEncoder {
 
 	/** Encoding types */
-	public static final int NO_ENCODING = 0;
-	public static final int URL_ENCODING = 1;
-	public static final int PERCENT_ENCODING = 2;
-	public static final int ENTITY_ENCODING = 3;
+	public static final NO_ENCODING = 0;
+	public static final URL_ENCODING = 1;
+	public static final PERCENT_ENCODING = 2;
+	define('ENTITY_ENCODING', 3);
 
 	/** The base64 encoder. */
 	private static final BASE64Encoder base64Encoder = new BASE64Encoder();
@@ -1033,30 +1022,30 @@ public class Encoder implements org.owasp.esapi.interfaces.IEncoder {
 
 	public static void main(String[] args) {
 		// Encoder encoder = new Encoder();
-		// try { System.out.println( ">>" + encoder.encodeForHTML("test <>
-		// test") ); } catch( Exception e1 ) { System.out.println(" !" +
+		// try { echo( ">>" + encoder.encodeForHTML("test <>
+		// test") ); } catch( Exception e1 ) { echo(" !" +
 		// e1.getMessage() ); }
-		// try { System.out.println( ">>" + encoder.encodeForHTML("test %41 %42
-		// test") ); } catch( Exception e2 ) { System.out.println(" !" +
+		// try { echo( ">>" + encoder.encodeForHTML("test %41 %42
+		// test") ); } catch( Exception e2 ) { echo(" !" +
 		// e2.getMessage() ); }
-		// try { System.out.println( ">>" + encoder.encodeForHTML("test %26%42
-		// test") ); } catch( Exception e2 ) { System.out.println(" !" +
+		// try { echo( ">>" + encoder.encodeForHTML("test %26%42
+		// test") ); } catch( Exception e2 ) { echo(" !" +
 		// e2.getMessage() ); }
-		// try { System.out.println( ">>" + encoder.encodeForHTML("test %26amp;
-		// test") ); } catch( Exception e3 ) { System.out.println(" !" +
+		// try { echo( ">>" + encoder.encodeForHTML("test %26amp;
+		// test") ); } catch( Exception e3 ) { echo(" !" +
 		// e3.getMessage() ); }
-		// try { System.out.println( ">>" + encoder.encodeForHTML("test &#38;
-		// test") ); } catch( Exception e4 ) { System.out.println(" !" +
+		// try { echo( ">>" + encoder.encodeForHTML("test &#38;
+		// test") ); } catch( Exception e4 ) { echo(" !" +
 		// e4.getMessage() ); }
-		// try { System.out.println( ">>" + encoder.encodeForHTML("test
-		// &#38;amp; test") ); } catch( Exception e5 ) { System.out.println(" !"
+		// try { echo( ">>" + encoder.encodeForHTML("test
+		// &#38;amp; test") ); } catch( Exception e5 ) { echo(" !"
 		// + e5.getMessage() ); }
-		// try { System.out.println( ">>" + encoder.encodeForHTML("test &#ridi;
+		// try { echo( ">>" + encoder.encodeForHTML("test &#ridi;
 		// test") ); } catch( Exception e6 ) { e6.printStackTrace() ; }
 		//try {
-		//	System.out.println(">>" + encoder.encodeForHTML("test &#01;&#02;&#03;&#04; test"));
+		//	echo(">>" + encoder.encodeForHTML("test &#01;&#02;&#03;&#04; test"));
 		//} catch (Exception e7) {
-		//	System.out.println("   !" + e7.getMessage());
+		//	echo("   !" + e7.getMessage());
 		//}
 	}
 
@@ -1067,7 +1056,7 @@ public class Encoder implements org.owasp.esapi.interfaces.IEncoder {
 		int testCharacter = 0;
 
 		public EncodedStringReader(String input) {
-			// System.out.println( "***" + input );
+			// echo( "***" + input );
 			if (input == null) {
 				this.input = "";
 			} else {
@@ -1085,7 +1074,7 @@ public class Encoder implements org.owasp.esapi.interfaces.IEncoder {
 			testCharacter = nextCharacter;
 			EncodedCharacter c = null;
 			c = peekNextCharacter(input.charAt(nextCharacter));
-			// System.out.println( nextCharacter + ":" + (int)c.getUnencoded() +
+			// echo( nextCharacter + ":" + (int)c.getUnencoded() +
 			// " -> " + testCharacter );
 			nextCharacter = testCharacter;
 			if (c == null)
@@ -1100,7 +1089,7 @@ public class Encoder implements org.owasp.esapi.interfaces.IEncoder {
 					if (next.isEncoded()) {
 						throw new IntrusionException("Validation error", "Input contains double encoded characters.");
 					} else {
-						// System.out.println("Not double-encoded");
+						// echo("Not double-encoded");
 					}
 				}
 			}
@@ -1141,7 +1130,7 @@ public class Encoder implements org.owasp.esapi.interfaces.IEncoder {
 				testCharacter += 3;
 				return new EncodedCharacter("%" + possible, (char) c, PERCENT_ENCODING);
 			} catch (NumberFormatException e) {
-				// System.out.println("Found % but there was no encoded character following it");
+				// echo("Found % but there was no encoded character following it");
 				return null;
 			}
 		}
@@ -1164,7 +1153,7 @@ public class Encoder implements org.owasp.esapi.interfaces.IEncoder {
 			if (semiIndex != -1) {
 				if (semiIndex - startIndex <= 8) {
 					String possible = input.substring(startIndex + 1, semiIndex).toLowerCase();
-					// System.out.println( " " + possible + " -> " +
+					// echo( " " + possible + " -> " +
 					// testCharacter );
 					Character entity = (Character) entityToCharacterMap.get(possible);
 					if (entity != null) {
@@ -1184,7 +1173,7 @@ public class Encoder implements org.owasp.esapi.interfaces.IEncoder {
 					}
 				}
 			}
-			// System.out.println("Found & but there was no entity following it");
+			// echo("Found & but there was no entity following it");
 			testCharacter++;
 			return new EncodedCharacter("&", '&', NO_ENCODING);
 		}

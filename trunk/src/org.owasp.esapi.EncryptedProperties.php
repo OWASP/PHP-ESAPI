@@ -12,7 +12,7 @@
  * LICENSE before you use, modify, and/or redistribute this software.
  * 
  * @author Jeff Williams <a href="http://www.aspectsecurity.com">Aspect Security</a>
- * @created 2007
+ * @since 2007
  */
 package org.owasp.esapi;
 
@@ -162,7 +162,7 @@ public class EncryptedProperties implements org.owasp.esapi.interfaces.IEncrypte
 		while (i.hasNext()) {
 			String k = (String) i.next();
 			String value = ep.getProperty(k);
-			System.out.println("   " + k + "=" + value);
+			echo("   " + k + "=" + value);
 		}
 	}
 

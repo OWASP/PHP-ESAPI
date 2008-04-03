@@ -1,3 +1,4 @@
+<?php
 /**
  * OWASP Enterprise Security API (ESAPI)
  * 
@@ -11,7 +12,7 @@
  * LICENSE before you use, modify, and/or redistribute this software.
  * 
  * @author Jeff Williams <a href="http://www.aspectsecurity.com">Aspect Security</a>
- * @created 2007
+ * @since 2007
  */
 package org.owasp.esapi;
 
@@ -79,7 +80,7 @@ public class LoggerTest extends TestCase {
      *             the authentication exception
      */
     public void testLogHTTPRequest() throws ValidationException, IOException, AuthenticationException {
-        System.out.println("logHTTPRequest");
+        echo("logHTTPRequest");
         String[] ignore = {"password","ssn","ccn"};
         TestHttpServletRequest request = new TestHttpServletRequest();
         // FIXME: AAA modify to return the actual string logged (so we can test)
@@ -95,7 +96,7 @@ public class LoggerTest extends TestCase {
 	 * Test of logSuccess method, of class org.owasp.esapi.Logger.
 	 */
     public void testLogSuccess() {
-        System.out.println("logSuccess");
+        echo("logSuccess");
         Logger.getLogger( "app", "mod" ).logSuccess(Logger.SECURITY, "test message" );
         Logger.getLogger( "app", "mod" ).logSuccess(Logger.SECURITY, "test message", null );
         Logger.getLogger( "app", "mod" ).logSuccess(Logger.SECURITY, "%3escript%3f test message", null );
@@ -107,7 +108,7 @@ public class LoggerTest extends TestCase {
 	 * Test of logTrace method, of class org.owasp.esapi.Logger.
 	 */
     public void testLogTrace() {
-        System.out.println("logTrace");
+        echo("logTrace");
         Logger.getLogger( "app", "mod" ).logTrace(Logger.SECURITY, "test message" );
         Logger.getLogger( "app", "mod" ).logTrace(Logger.SECURITY, "test message", null );
     }
@@ -116,7 +117,7 @@ public class LoggerTest extends TestCase {
 	 * Test of logDebug method, of class org.owasp.esapi.Logger.
 	 */
     public void testLogDebug() {
-        System.out.println("logDebug");
+        echo("logDebug");
         Logger.getLogger( "app", "mod" ).logDebug(Logger.SECURITY, "test message" );
         Logger.getLogger( "app", "mod" ).logDebug(Logger.SECURITY, "test message", null );
     }
@@ -125,7 +126,7 @@ public class LoggerTest extends TestCase {
 	 * Test of logError method, of class org.owasp.esapi.Logger.
 	 */
     public void testLogError() {
-        System.out.println("logError");
+        echo("logError");
         Logger.getLogger( "app", "mod" ).logError(Logger.SECURITY, "test message" );
         Logger.getLogger( "app", "mod" ).logError(Logger.SECURITY, "test message", null );
     }
@@ -134,7 +135,7 @@ public class LoggerTest extends TestCase {
 	 * Test of logWarning method, of class org.owasp.esapi.Logger.
 	 */
     public void testLogWarning() {
-        System.out.println("logWarning");
+        echo("logWarning");
         Logger.getLogger( "app", "mod" ).logWarning(Logger.SECURITY, "test message" );
         Logger.getLogger( "app", "mod" ).logWarning(Logger.SECURITY, "test message", null );
     }
@@ -143,9 +144,10 @@ public class LoggerTest extends TestCase {
 	 * Test of logCritical method, of class org.owasp.esapi.Logger.
 	 */
     public void testLogCritical() {
-        System.out.println("logCritical");
+        echo("logCritical");
         Logger.getLogger( "app", "mod" ).logCritical(Logger.SECURITY, "test message" );
         Logger.getLogger( "app", "mod" ).logCritical(Logger.SECURITY, "test message", null );
     }
     
 }
+?>
