@@ -1,27 +1,22 @@
+<?php
 /**
  * OWASP Enterprise Security API (ESAPI)
- * 
+ *
  * This file is part of the Open Web Application Security Project (OWASP)
  * Enterprise Security API (ESAPI) project. For details, please see
  * http://www.owasp.org/esapi.
  *
  * Copyright (c) 2007 - The OWASP Foundation
- * 
+ *
  * The ESAPI is published by OWASP under the LGPL. You should read and accept the
  * LICENSE before you use, modify, and/or redistribute this software.
- * 
+ *
  * @author Jeff Williams <a href="http://www.aspectsecurity.com">Aspect Security</a>
- * @created 2007
+ * @package org.owasp.esapi;
+ * @since 2008
  */
-package org.owasp.esapi;
 
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
 
-import junit.framework.Test;
-import junit.framework.TestCase;
-import junit.framework.TestSuite;
 
 import org.owasp.esapi.errors.AuthenticationException;
 import org.owasp.esapi.errors.EncryptionException;
@@ -32,24 +27,24 @@ import org.owasp.esapi.interfaces.IAuthenticator;
 
 /**
  * The Class UserTest.
- * 
+ *
  * @author Jeff Williams (jeff.williams@aspectsecurity.com)
  */
 public class UserTest extends TestCase {
 
 	/**
 	 * Suite.
-	 * 
+	 *
 	 * @return the test
 	 */
 	public static Test suite() {
 		TestSuite suite = new TestSuite(UserTest.class);
 		return suite;
 	}
-	
+
 	/**
 	 * Instantiates a new user test.
-	 * 
+	 *
 	 * @param testName
 	 *            the test name
 	 */
@@ -59,12 +54,12 @@ public class UserTest extends TestCase {
 
 	/**
 	 * Creates the test user.
-	 * 
+	 *
 	 * @param password
 	 *            the password
-	 * 
+	 *
 	 * @return the user
-	 * 
+	 *
 	 * @throws AuthenticationException
 	 *             the authentication exception
 	 */
@@ -92,7 +87,7 @@ public class UserTest extends TestCase {
 	 * Test of testAddRole method, of class org.owasp.esapi.User.
 	 */
 	public void testAddRole() throws Exception {
-		System.out.println("addRole");
+		echo("addRole");
 		IAuthenticator instance = ESAPI.authenticator();
 		String accountName = ESAPI.randomizer().getRandomString(8, Encoder.CHAR_ALPHANUMERICS);
 		String password = ESAPI.authenticator().generateStrongPassword();
@@ -105,12 +100,12 @@ public class UserTest extends TestCase {
 
 	/**
 	 * Test of addRoles method, of class org.owasp.esapi.User.
-	 * 
+	 *
 	 * @throws AuthenticationException
 	 *             the authentication exception
 	 */
 	public void testAddRoles() throws AuthenticationException {
-		System.out.println("addRoles");
+		echo("addRoles");
 		IAuthenticator instance = ESAPI.authenticator();
 		String oldPassword = instance.generateStrongPassword();
 		User user = createTestUser(oldPassword);
@@ -125,12 +120,12 @@ public class UserTest extends TestCase {
 
 	/**
 	 * Test of changePassword method, of class org.owasp.esapi.User.
-	 * 
+	 *
 	 * @throws Exception
 	 *             the exception
 	 */
 	public void testChangePassword() throws Exception {
-		System.out.println("changePassword");
+		echo("changePassword");
 		IAuthenticator instance = ESAPI.authenticator();
 		String oldPassword = instance.generateStrongPassword();
 		User user = createTestUser(oldPassword);
@@ -150,12 +145,12 @@ public class UserTest extends TestCase {
 
 	/**
 	 * Test of disable method, of class org.owasp.esapi.User.
-	 * 
+	 *
 	 * @throws AuthenticationException
 	 *             the authentication exception
 	 */
 	public void testDisable() throws AuthenticationException {
-		System.out.println("disable");
+		echo("disable");
 		IAuthenticator instance = ESAPI.authenticator();
 		String oldPassword = instance.generateStrongPassword();
 		User user = createTestUser(oldPassword);
@@ -167,12 +162,12 @@ public class UserTest extends TestCase {
 
 	/**
 	 * Test of enable method, of class org.owasp.esapi.User.
-	 * 
+	 *
 	 * @throws AuthenticationException
 	 *             the authentication exception
 	 */
 	public void testEnable() throws AuthenticationException {
-		System.out.println("enable");
+		echo("enable");
 		IAuthenticator instance = ESAPI.authenticator();
 		String oldPassword = instance.generateStrongPassword();
 		User user = createTestUser(oldPassword);
@@ -184,7 +179,7 @@ public class UserTest extends TestCase {
 
 	/**
 	 * Test equals.
-	 * 
+	 *
 	 * @throws AuthenticationException
 	 *             the authentication exception
 	 */
@@ -196,15 +191,15 @@ public class UserTest extends TestCase {
 		a.enable();
 		assertTrue(a.equals(b));
 	}
-	
+
 	/**
 	 * Test of failedLoginCount lockout, of class org.owasp.esapi.User.
-	 * 
+	 *
 	 * @throws AuthenticationException
 	 *             the authentication exception
 	 */
 	public void testFailedLoginLockout() throws AuthenticationException, EncryptionException {
-		System.out.println("failedLoginLockout");
+		echo("failedLoginLockout");
 		IAuthenticator instance = ESAPI.authenticator();
 		User user = createTestUser("failedLoginLockout");
 		String password = instance.generateStrongPassword();
@@ -212,24 +207,24 @@ public class UserTest extends TestCase {
 		user.changePassword("failedLoginLockout", password, password);
 		user.verifyPassword(password);
 		user.verifyPassword("ridiculous");
-		System.out.println("FAILED: " + user.getFailedLoginCount());
+		echo("FAILED: " + user.getFailedLoginCount());
 		assertFalse(user.isLocked());
 		user.verifyPassword("ridiculous");
-		System.out.println("FAILED: " + user.getFailedLoginCount());
+		echo("FAILED: " + user.getFailedLoginCount());
 		assertFalse(user.isLocked());
 		user.verifyPassword("ridiculous");
-		System.out.println("FAILED: " + user.getFailedLoginCount());
+		echo("FAILED: " + user.getFailedLoginCount());
 		assertTrue(user.isLocked());
 	}
 
 	/**
 	 * Test of getAccountName method, of class org.owasp.esapi.User.
-	 * 
+	 *
 	 * @throws AuthenticationException
 	 *             the authentication exception
 	 */
 	public void testGetAccountName() throws AuthenticationException {
-		System.out.println("getAccountName");
+		echo("getAccountName");
 		User user = createTestUser("getAccountName");
 		String accountName = ESAPI.randomizer().getRandomString(7, Encoder.CHAR_ALPHANUMERICS);
 		user.setAccountName(accountName);
@@ -239,12 +234,12 @@ public class UserTest extends TestCase {
 
 	/**
 	 * Test get last failed login time.
-	 * 
+	 *
 	 * @throws Exception
 	 *             the exception
 	 */
 	public void testGetLastFailedLoginTime() throws Exception {
-		System.out.println("getLastLoginTime");
+		echo("getLastLoginTime");
 		IAuthenticator instance = ESAPI.authenticator();
 		String oldPassword = instance.generateStrongPassword();
 		User user = createTestUser(oldPassword);
@@ -258,12 +253,12 @@ public class UserTest extends TestCase {
 
 	/**
 	 * Test get last login time.
-	 * 
+	 *
 	 * @throws Exception
 	 *             the exception
 	 */
 	public void testGetLastLoginTime() throws Exception {
-		System.out.println("getLastLoginTime");
+		echo("getLastLoginTime");
 		IAuthenticator instance = ESAPI.authenticator();
 		String oldPassword = instance.generateStrongPassword();
 		User user = createTestUser(oldPassword);
@@ -277,12 +272,12 @@ public class UserTest extends TestCase {
 
 	/**
 	 * Test of getLastPasswordChangeTime method, of class org.owasp.esapi.User.
-	 * 
+	 *
 	 * @throws Exception
 	 *             the exception
 	 */
 	public void testGetLastPasswordChangeTime() throws Exception {
-		System.out.println("getLastPasswordChangeTime");
+		echo("getLastPasswordChangeTime");
 		User user = createTestUser("getLastPasswordChangeTime");
 		Date t1 = user.getLastPasswordChangeTime();
 		Thread.sleep(10); // need a short delay to separate attempts
@@ -296,7 +291,7 @@ public class UserTest extends TestCase {
 	 * Test of getRoles method, of class org.owasp.esapi.User.
 	 */
 	public void testGetRoles() throws Exception {
-		System.out.println("getRoles");
+		echo("getRoles");
 		IAuthenticator instance = ESAPI.authenticator();
 		String accountName = ESAPI.randomizer().getRandomString(8, Encoder.CHAR_ALPHANUMERICS);
 		String password = ESAPI.authenticator().generateStrongPassword();
@@ -309,12 +304,12 @@ public class UserTest extends TestCase {
 
 	/**
 	 * Test of xxx method, of class org.owasp.esapi.User.
-	 * 
+	 *
 	 * @throws AuthenticationException
 	 *             the authentication exception
 	 */
 	public void testGetScreenName() throws AuthenticationException {
-		System.out.println("getScreenName");
+		echo("getScreenName");
 		User user = createTestUser("getScreenName");
 		String screenName = ESAPI.randomizer().getRandomString(7, Encoder.CHAR_ALPHANUMERICS);
 		user.setScreenName(screenName);
@@ -324,12 +319,12 @@ public class UserTest extends TestCase {
 
 	/**
 	 * Test of incrementFailedLoginCount method, of class org.owasp.esapi.User.
-	 * 
+	 *
 	 * @throws AuthenticationException
 	 *             the authentication exception
 	 */
 	public void testIncrementFailedLoginCount() throws AuthenticationException {
-		System.out.println("incrementFailedLoginCount");
+		echo("incrementFailedLoginCount");
 		User user = createTestUser("incrementFailedLoginCount");
 		user.enable();
 		assertEquals(0, user.getFailedLoginCount());
@@ -364,12 +359,12 @@ public class UserTest extends TestCase {
 
 	/**
 	 * Test of isEnabled method, of class org.owasp.esapi.User.
-	 * 
+	 *
 	 * @throws AuthenticationException
 	 *             the authentication exception
 	 */
 	public void testIsEnabled() throws AuthenticationException {
-		System.out.println("isEnabled");
+		echo("isEnabled");
 		User user = createTestUser("isEnabled");
 		user.disable();
 		assertFalse(user.isEnabled());
@@ -377,12 +372,12 @@ public class UserTest extends TestCase {
 		assertTrue(user.isEnabled());
 	}
 
-    
+
     /**
      * Test of isFirstRequest method, of class org.owasp.esapi.User.
      */
     public void testIsFirstRequest() throws AuthenticationException {
-        System.out.println("isFirstRequest");
+        echo("isFirstRequest");
         TestHttpServletRequest request = new TestHttpServletRequest();
         TestHttpServletResponse response = new TestHttpServletResponse();
         IAuthenticator instance = ESAPI.authenticator();
@@ -398,16 +393,16 @@ public class UserTest extends TestCase {
         instance.login(request, response);
         assertFalse( user.isFirstRequest() );
     }
-    
-    
+
+
 	/**
 	 * Test of isInRole method, of class org.owasp.esapi.User.
-	 * 
+	 *
 	 * @throws AuthenticationException
 	 *             the authentication exception
 	 */
 	public void testIsInRole() throws AuthenticationException {
-		System.out.println("isInRole");
+		echo("isInRole");
 		User user = createTestUser("isInRole");
 		String role = "TestRole";
 		assertFalse(user.isInRole(role));
@@ -418,12 +413,12 @@ public class UserTest extends TestCase {
 
 	/**
 	 * Test of xxx method, of class org.owasp.esapi.User.
-	 * 
+	 *
 	 * @throws AuthenticationException
 	 *             the authentication exception
 	 */
 	public void testIsLocked() throws AuthenticationException {
-		System.out.println("isLocked");
+		echo("isLocked");
 		User user = createTestUser("isLocked");
 		user.lock();
 		assertTrue(user.isLocked());
@@ -434,13 +429,13 @@ public class UserTest extends TestCase {
 	/**
 	 * Test of isSessionAbsoluteTimeout method, of class
 	 * org.owasp.esapi.IntrusionDetector.
-	 * 
+	 *
 	 * @throws AuthenticationException
 	 *             the authentication exception
 	 */
 	public void testIsSessionAbsoluteTimeout() throws AuthenticationException {
 		// FIXME: ENHANCE shouldn't this just be one timeout method that does both checks???
-		System.out.println("isSessionAbsoluteTimeout");
+		echo("isSessionAbsoluteTimeout");
 		IAuthenticator instance = ESAPI.authenticator();
 		String oldPassword = instance.generateStrongPassword();
 		User user = createTestUser(oldPassword);
@@ -454,12 +449,12 @@ public class UserTest extends TestCase {
 	/**
 	 * Test of isSessionTimeout method, of class
 	 * org.owasp.esapi.IntrusionDetector.
-	 * 
+	 *
 	 * @throws AuthenticationException
 	 *             the authentication exception
 	 */
 	public void testIsSessionTimeout() throws AuthenticationException {
-		System.out.println("isSessionTimeout");
+		echo("isSessionTimeout");
 		IAuthenticator instance = ESAPI.authenticator();
 		String oldPassword = instance.generateStrongPassword();
 		User user = createTestUser(oldPassword);
@@ -472,12 +467,12 @@ public class UserTest extends TestCase {
 
 	/**
 	 * Test of lockAccount method, of class org.owasp.esapi.User.
-	 * 
+	 *
 	 * @throws AuthenticationException
 	 *             the authentication exception
 	 */
 	public void testLock() throws AuthenticationException {
-		System.out.println("lock");
+		echo("lock");
 		IAuthenticator instance = ESAPI.authenticator();
 		String oldPassword = instance.generateStrongPassword();
 		User user = createTestUser(oldPassword);
@@ -489,12 +484,12 @@ public class UserTest extends TestCase {
 
 	/**
 	 * Test of loginWithPassword method, of class org.owasp.esapi.User.
-	 * 
+	 *
 	 * @throws AuthenticationException
 	 *             the authentication exception
 	 */
 	public void testLoginWithPassword() throws AuthenticationException {
-		System.out.println("loginWithPassword");
+		echo("loginWithPassword");
 		TestHttpServletRequest request = new TestHttpServletRequest();
 		TestHttpSession session = (TestHttpSession) request.getSession();
 		assertFalse(session.getInvalidated());
@@ -527,12 +522,12 @@ public class UserTest extends TestCase {
 
 	/**
 	 * Test of logout method, of class org.owasp.esapi.User.
-	 * 
+	 *
 	 * @throws AuthenticationException
 	 *             the authentication exception
 	 */
 	public void testLogout() throws AuthenticationException {
-		System.out.println("logout");
+		echo("logout");
 		TestHttpServletRequest request = new TestHttpServletRequest();
 		TestHttpServletResponse response = new TestHttpServletResponse();
 		TestHttpSession session = (TestHttpSession) request.getSession();
@@ -542,7 +537,7 @@ public class UserTest extends TestCase {
 		String oldPassword = instance.generateStrongPassword();
 		User user = createTestUser(oldPassword);
 		user.enable();
-		System.out.println(user.getLastLoginTime());
+		echo(user.getLastLoginTime());
 		user.loginWithPassword(oldPassword);
 		assertTrue(user.isLoggedIn());
 		// get new session after user logs in
@@ -555,12 +550,12 @@ public class UserTest extends TestCase {
 
 	/**
 	 * Test of testRemoveRole method, of class org.owasp.esapi.User.
-	 * 
+	 *
 	 * @throws AuthenticationException
 	 *             the authentication exception
 	 */
 	public void testRemoveRole() throws AuthenticationException {
-		System.out.println("removeRole");
+		echo("removeRole");
 		String role = ESAPI.randomizer().getRandomString(8, Encoder.CHAR_LOWERS);
 		User user = createTestUser("removeRole");
 		user.addRole(role);
@@ -571,26 +566,26 @@ public class UserTest extends TestCase {
 
 	/**
 	 * Test of testResetCSRFToken method, of class org.owasp.esapi.User.
-	 * 
+	 *
 	 * @throws AuthenticationException
 	 *             the authentication exception
 	 */
 	public void testResetCSRFToken() throws AuthenticationException {
-		System.out.println("resetCSRFToken");
+		echo("resetCSRFToken");
 		User user = createTestUser("resetCSRFToken");
         String token1 = user.resetCSRFToken();
         String token2 = user.resetCSRFToken();
         assertFalse( token1.equals( token2 ) );
 	}
-	
+
 	/**
 	 * Test reset password.
-	 * 
+	 *
 	 * @throws AuthenticationException
 	 *             the authentication exception
 	 */
 	public void testResetPassword() throws AuthenticationException, EncryptionException {
-		System.out.println("resetPassword");
+		echo("resetPassword");
 		User user = createTestUser("resetPassword");
         for ( int i = 0; i<20; i++) {
             assertTrue(user.verifyPassword(user.resetPassword()));
@@ -599,12 +594,12 @@ public class UserTest extends TestCase {
 
 	/**
 	 * Test of generateRememberMeToken method, of class org.owasp.esapi.User.
-	 * 
+	 *
 	 * @throws AuthenticationException
 	 *             the authentication exception
 	 */
 	public void testResetRememberToken() throws AuthenticationException {
-		System.out.println("resetRememberToken");
+		echo("resetRememberToken");
 		User user = createTestUser("resetRememberToken");
 		String token = user.resetRememberToken();
         assertEquals(token, user.getRememberToken() );
@@ -614,7 +609,7 @@ public class UserTest extends TestCase {
 	 * Test of setAccountName method, of class org.owasp.esapi.User.
 	 */
 	public void testSetAccountName() throws AuthenticationException {
-		System.out.println("setAccountName");
+		echo("setAccountName");
 		User user = createTestUser("setAccountName");
 		String accountName = ESAPI.randomizer().getRandomString(7, Encoder.CHAR_ALPHANUMERICS);
 		user.setAccountName(accountName);
@@ -626,22 +621,22 @@ public class UserTest extends TestCase {
 	 * Test of setExpirationTime method, of class org.owasp.esapi.User.
 	 */
 	public void testSetExpirationTime() throws Exception {
-		System.out.println("setAccountName");
+		echo("setAccountName");
 		String password=ESAPI.randomizer().getRandomString(8, Encoder.CHAR_ALPHANUMERICS);
 		User user = createTestUser(password);
 		user.setExpirationTime(new Date(0));
 		assertTrue( user.isExpired() );
 	}
 
-	
+
 	/**
 	 * Test of setRoles method, of class org.owasp.esapi.User.
-	 * 
+	 *
 	 * @throws AuthenticationException
 	 *             the authentication exception
 	 */
 	public void testSetRoles() throws AuthenticationException {
-		System.out.println("setRoles");
+		echo("setRoles");
 		User user = createTestUser("setRoles");
 		user.addRole("user");
 		assertTrue(user.isInRole("user"));
@@ -657,12 +652,12 @@ public class UserTest extends TestCase {
 
 	/**
 	 * Test of setScreenName method, of class org.owasp.esapi.User.
-	 * 
+	 *
 	 * @throws AuthenticationException
 	 *             the authentication exception
 	 */
 	public void testSetScreenName() throws AuthenticationException {
-		System.out.println("setScreenName");
+		echo("setScreenName");
 		User user = createTestUser("setScreenName");
 		String screenName = ESAPI.randomizer().getRandomString(7, Encoder.CHAR_ALPHANUMERICS);
 		user.setScreenName(screenName);
@@ -672,12 +667,12 @@ public class UserTest extends TestCase {
 
 	/**
 	 * Test of unlockAccount method, of class org.owasp.esapi.User.
-	 * 
+	 *
 	 * @throws AuthenticationException
 	 *             the authentication exception
 	 */
 	public void testUnlock() throws AuthenticationException {
-		System.out.println("unlockAccount");
+		echo("unlockAccount");
 		IAuthenticator instance = ESAPI.authenticator();
 		String oldPassword = instance.generateStrongPassword();
 		User user = createTestUser(oldPassword);
@@ -688,3 +683,4 @@ public class UserTest extends TestCase {
 	}
 
 }
+?>

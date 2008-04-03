@@ -1,3 +1,4 @@
+<?php
 /**
  * OWASP Enterprise Security API (ESAPI)
  * 
@@ -11,29 +12,21 @@
  * LICENSE before you use, modify, and/or redistribute this software.
  * 
  * @author Jeff Williams <a href="http://www.aspectsecurity.com">Aspect Security</a>
- * @created 2007
+ * @package org.owasp.esapi;
+ * @since 2007
  */
-package org.owasp.esapi;
 
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.Set;
-
-import org.owasp.esapi.errors.AccessControlException;
-import org.owasp.esapi.errors.AuthenticationException;
-import org.owasp.esapi.errors.EncryptionException;
-import org.owasp.esapi.interfaces.IAuthenticator;
-
-import junit.framework.Test;
-import junit.framework.TestCase;
-import junit.framework.TestSuite;
+require_once("../src/errors/org.owasp.esapi.AccessControlException.php");
+require_once("../src/errors/org.owasp.esapi.AuthenticationException.php");
+require_once("../src/errors/org.owasp.esapi.EncryptionException.php");
+require_once("../src/interfaces/org.owasp.esapi.IAuthenticator.php");
 
 /**
  * The Class AccessReferenceMapTest.
  * 
  * @author Jeff Williams (jeff.williams@aspectsecurity.com)
  */
-public class AccessReferenceMapTest extends TestCase {
+class AccessReferenceMapTest extends TestCase {
     
     /**
 	 * Instantiates a new access reference map test.
@@ -41,82 +34,78 @@ public class AccessReferenceMapTest extends TestCase {
 	 * @param testName
 	 *            the test name
 	 */
-    public AccessReferenceMapTest(String testName) {
-        super(testName);
+    function AccessReferenceMapTest() {
+        
     }
 
     /* (non-Javadoc)
      * @see junit.framework.TestCase#setUp()
      */
-    protected void setUp() throws Exception {
+    function setUp() {
     	// none
     }
 
     /* (non-Javadoc)
      * @see junit.framework.TestCase#tearDown()
      */
-    protected void tearDown() throws Exception {
+    function tearDown() {
     	// none
     }
 
-    /**
-	 * Suite.
-	 * 
-	 * @return the test
-	 */
-    public static Test suite() {
-        TestSuite suite = new TestSuite(AccessReferenceMapTest.class);
-        return suite;
-    }
-
-    
     /**
 	 * Test of update method, of class org.owasp.esapi.AccessReferenceMap.
 	 * 
 	 * @throws AuthenticationException
 	 *             the authentication exception
 	 */
-    public void testUpdate() throws AuthenticationException, EncryptionException {
-        System.out.println("update");
-    	AccessReferenceMap arm = new AccessReferenceMap();
-    	IAuthenticator auth = ESAPI.authenticator();
+    function testUpdate() {
+        echo("update");
+    	$arm = new AccessReferenceMap();
+    	$auth = $ESAPI->authenticator();
     	
-    	String pass = auth.generateStrongPassword();
-    	User u = auth.createUser( "armUpdate", pass, pass );
+    	$pass = $auth->generateStrongPassword();
+    	$u = $auth->createUser( "armUpdate", $pass, $pass );
     	
     	// test to make sure update returns something
-		arm.update(auth.getUserNames());
-		String indirect = arm.getIndirectReference( u.getAccountName() );
-		if ( indirect == null ) fail();
+		$arm->update($auth->getUserNames());
+		$indirect = $arm->getIndirectReference( $u->getAccountName() );
+		if ( $indirect == null ) {
+			$this->fail();
+		}
 		
 		// test to make sure update removes items that are no longer in the list
-		auth.removeUser( u.getAccountName() );
-		arm.update(auth.getUserNames());
-		indirect = arm.getIndirectReference( u.getAccountName() );
-		if ( indirect != null ) fail();
+		$auth->removeUser( $u->getAccountName() );
+		$arm->update($auth->getUserNames());
+		$indirect = $arm->getIndirectReference( $u->getAccountName() );
+		if ( $indirect != null ) {
+			$this->fail();
+		}
 		
-		// test to make sure old indirect reference is maintained after an update
-		arm.update(auth.getUserNames());
-		String newIndirect = arm.getIndirectReference( u.getAccountName() );
-		assertEquals(indirect, newIndirect);
+		// test to make sure old $indirect reference is maintained after an update
+		$arm->update($auth->getUserNames());
+		$$newIndirect = $arm->getIndirectReference( $u->getAccountName() );
+		assertEquals($indirect, $newIndirect);
     }
     
     
     /**
 	 * Test of iterator method, of class org.owasp.esapi.AccessReferenceMap.
 	 */
-    public void testIterator() {
-        System.out.println("iterator");
-    	AccessReferenceMap arm = new AccessReferenceMap();
-        IAuthenticator auth = ESAPI.authenticator();
+    function testIterator() {
+        echo("iterator");
+    	$arm = new AccessReferenceMap();
+        $auth = $ESAPI->authenticator();
         
-		arm.update(auth.getUserNames());
+		$arm->update($auth->getUserNames());
 
-		Iterator i = arm.iterator();
-		while ( i.hasNext() ) {
-			String userName = (String)i.next();
-			User u = auth.getUser( userName );
-			if ( u == null ) fail();
+		$i = $arm->iterator();
+		while ( $i->valid() ) {
+			$userName = $i->current();
+			$u = $auth->getUser( $userName );
+			if ( $u == null ) {
+				$this->fail(); 
+			}
+			$i->next();
 		}
     }
     
@@ -124,19 +113,21 @@ public class AccessReferenceMapTest extends TestCase {
 	 * Test of getIndirectReference method, of class
 	 * org.owasp.esapi.AccessReferenceMap.
 	 */
-    public void testGetIndirectReference() {
-        System.out.println("getIndirectReference");
+    function testGetIndirectReference() {
+        echo("getIndirectReference");
         
-        String directReference = "234";
-        Set list = new HashSet();
-        list.add( "123" );
-        list.add( directReference );
-        list.add( "345" );
-        AccessReferenceMap instance = new AccessReferenceMap( list );
+        $directReference = "234";
         
-        String expResult = directReference;
-        String result = instance.getIndirectReference(directReference);
-        assertNotSame(expResult, result);        
+        $list = array();
+        $list[] = "123";
+        $list[] = $directReference;
+        $list[] = "345";
+        
+        $instance = new AccessReferenceMap( ArrayObject($list) );
+        
+        $expResult = $directReference;
+        $result = $instance->getIndirectReference($directReference);
+        $this->assertNotSame($expResult, $result);        
     }
 
     /**
@@ -146,25 +137,25 @@ public class AccessReferenceMapTest extends TestCase {
 	 * @throws AccessControlException
 	 *             the access control exception
 	 */
-    public void testGetDirectReference() throws AccessControlException {
-        System.out.println("getDirectReference");
+    function testGetDirectReference() {
+        echo("getDirectReference");
         
-        String directReference = "234";
-        Set list = new HashSet();
-        list.add( "123" );
-        list.add( directReference );
-        list.add( "345" );
-        AccessReferenceMap instance = new AccessReferenceMap( list );
+        $directReference = "234";
+        $list = array();
+        $list[] = "123";
+        $list[] = $directReference;
+        $list[] = "345";
+        $instance = new AccessReferenceMap( ArrayObject($list) );
         
-        String ind = instance.getIndirectReference(directReference);
-        String dir = (String)instance.getDirectReference(ind);
-        assertEquals(directReference, dir);
+        $ind = $instance->getIndirectReference($directReference);
+        $dir = $instance->getDirectReference($ind);
+        $this->assertEquals($directReference, $dir);
         try {
-        	instance.getDirectReference("invalid");
-        	fail();
-        } catch( AccessControlException e ) {
+        	$instance.getDirectReference("invalid");
+        	$this->fail(); 
+        } catch( AccessControlException $e ) {
         	// success
         }
     }
-    
 }
+?>

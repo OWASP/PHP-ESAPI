@@ -13,7 +13,7 @@
  * 
  * @author Jeff Williams <a href="http://www.aspectsecurity.com">Aspect Security</a>
  * @package org.owasp.esapi;
- * @created 2007
+ * @since 2007
  */
 
 require_once("interfaces/org.owasp.esapi.IAccessController.php");

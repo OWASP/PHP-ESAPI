@@ -13,9 +13,8 @@
  * 
  * @author Jeff Williams <a href="http://www.aspectsecurity.com">Aspect Security</a>
  * @package org.owasp.esapi
- * @created 2007
+ * @since 2007
  */
-
 
 require_once("errors/org.owasp.esapi.AccessControlException.php");
 require_once("interfaces/org.owasp.esapi.IRandomizer.php");
@@ -66,7 +65,7 @@ class AccessReferenceMap implements IAccessReferenceMap {
 	 *            the direct references
 	 */
 	public function AccessReferenceMap($directReferences) {
-		update(directReferences);
+		update($directReferences);
 	}
 
 	/*
@@ -85,10 +84,9 @@ class AccessReferenceMap implements IAccessReferenceMap {
 	 */
 	public function addDirectReference($direct) {
 		$indirect = $this->random->getRandomString(6, Encoder::CHAR_ALPHANUMERICS);
-		$this->itod[indirect] = $direct;
-		$this->dtoi[direct] = $indirect;
+		$this->itod['indirect'] = $direct;
+		$this->dtoi['direct'] = $indirect;
 	}
-	
 	
 	// FIXME: add addDirectRef and removeDirectRef to IAccessReferenceMap
 	// FIXME: add test code for add/remove direct ref
@@ -118,25 +116,28 @@ class AccessReferenceMap implements IAccessReferenceMap {
 	 */
 	public final function update($directReferences) {
 		$dtoi_old = $this->dtoi->__clone();
-		dtoi.clear();
-		itod.clear();
+		$this->dtoi = array();
+		$this->itod = array();
 
-		Iterator i = directReferences.iterator();
-		while (i.hasNext()) {
-			Object direct = i.next();
+		$directReferences = ArrayObject($directReferences);
+		$i = $directReferences->getIterator();
+		while ($i->valid()) {
+			$direct = $i->current();
 
 			// get the old indirect reference
-			String indirect = (String) dtoi_old.get(direct);
+			$indirect = $dtoi_old[$direct];
 
 			// if the old reference is null, then create a new one that doesn't
 			// collide with any existing indirect references
-			if (indirect == null) {
+			if (empty($indirect )) {
 				do {
-					indirect = random.getRandomString(6, Encoder.CHAR_ALPHANUMERICS);
+					$indirect = $this->random->getRandomString(6, Encoder.CHAR_ALPHANUMERICS);
 				} while (itod.keySet().contains(indirect));
 			}
 			$this->itod[$indirect] = $direct;
 			$this->dtoi[$direct] = $indirect;
+			
+			$i->next();
 		}
 	}
 
@@ -158,7 +159,7 @@ class AccessReferenceMap implements IAccessReferenceMap {
 		if (isset($this->itod[$indirectReference])) {
 			return $this->itod[$indirectReference];
 		}
-		throw new AccessControlException("Access denied", "Request for invalid indirect reference: " + indirectReference);
+		throw new AccessControlException("Access denied", "Request for invalid indirect reference: " + $indirectReference);
 	}
 }
 ?>

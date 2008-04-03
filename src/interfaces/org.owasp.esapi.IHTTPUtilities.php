@@ -1,19 +1,20 @@
 <?php
 /**
  * OWASP Enterprise Security API (ESAPI)
- * 
+ *
  * This file is part of the Open Web Application Security Project (OWASP)
  * Enterprise Security API (ESAPI) project. For details, please see
  * http://www.owasp.org/esapi.
  *
  * Copyright (c) 2007 - The OWASP Foundation
- * 
+ *
  * The ESAPI is published by OWASP under the LGPL. You should read and accept the
  * LICENSE before you use, modify, and/or redistribute this software.
- * 
+ *
  * @author Jeff Williams <a href="http://www.aspectsecurity.com">Aspect Security</a>
+ * @author Andrew van der Stock <a href="http://www.aspectsecurity.com">Aspect Security</a>
  * @package org.owasp.esapi.interfaces;
- * @created 2007
+ * @since 2008
  */
 
 
@@ -23,7 +24,7 @@
  * <P>
  * <img src="doc-files/HTTPUtilities.jpg" height="600">
  * <P>
- * 
+ *
  * @author Jeff Williams (jeff.williams .at. aspectsecurity.com) <a href="http://www.aspectsecurity.com">Aspect Security</a>
  * @since June 1, 2007
  */
@@ -32,7 +33,7 @@ interface IHTTPUtilities {
     /**
      * Adds the current user's CSRF token (see User.getCSRFToken()) to the URL for purposes of preventing CSRF attacks.
      * This method should be used on all URLs to be put into all links and forms the application generates.
-     * 
+     *
      * @param url
      * @return the updated href with the CSRF token parameter
      */
@@ -40,7 +41,7 @@ interface IHTTPUtilities {
 
     /**
      * Adds a cookie to the specified HttpServletResponse and adds the Http-Only flag.
-     * 
+     *
      * @param name the name
      * @param value the value
      * @param domain the domain
@@ -49,11 +50,11 @@ interface IHTTPUtilities {
      * @param maxAge the max age
      */
     public function safeAddCookie($name, $value, $maxAge, $domain, $path);
-    
+
     /**
-     * Adds a header to an HttpServletResponse after checking for special characters (such as CRLF injection) that could enable 
-     * attacks like response splitting and other header-based attacks that nobody has thought of yet. 
-     * 
+     * Adds a header to an HttpServletResponse after checking for special characters (such as CRLF injection) that could enable
+     * attacks like response splitting and other header-based attacks that nobody has thought of yet.
+     *
      * @param name the name
      * @param value the value
      * @param response the response
@@ -65,22 +66,22 @@ interface IHTTPUtilities {
      * Note that this is different from logging out and creating a new session identifier that does not contain the
      * existing session contents. Care should be taken to use this only when the existing session does not contain
      * hazardous contents.
-     * 
+     *
      * @param request the request
      * @return the http session
      * @throws EnterpriseSecurityException the enterprise security exception
      */
     public function changeSessionIdentifier();
-	
+
 	/**
      * Checks the CSRF token in the URL (see User.getCSRFToken()) against the user's CSRF token and
 	 * throws an IntrusionException if it is missing.
-	 * 
+	 *
 	 * @param request
 	 * @throws IntrusionException
 	 */
     public function verifyCSRFToken();
-    
+
     /**
 	 * Decrypts an encrypted hidden field value and returns the cleartest. If the field does not decrypt properly,
 	 * an IntrusionException is thrown to indicate tampering.
@@ -88,7 +89,7 @@ interface IHTTPUtilities {
 	 * @return
 	 */
 	public function decryptHiddenField($encrypted);
-    
+
     /**
      * Encrypts a hidden field value for use in HTML.
      * @param value
@@ -104,20 +105,20 @@ interface IHTTPUtilities {
 	 * @return
 	 */
 	public function encryptQueryString($query);
-	
+
 	/**
 	 * Takes an encrypted querystring and returns a Map containing the original parameters.
 	 * @param encrypted
 	 * @return
 	 */
 	public function decryptQueryString($encrypted);
-	
+
     /**
      * Extract uploaded files from a multipart HTTP requests. Implementations must check the content to ensure that it
      * is safe before making a permanent copy on the local filesystem. Checks should include length and content checks,
      * possibly virus checking, and path and name checks. Refer to the file checking methods in IValidator for more
      * information.
-     * 
+     *
      * @param request the request
      * @param tempDir the temp dir
      * @param finalDir the final dir
@@ -126,7 +127,7 @@ interface IHTTPUtilities {
     public function getSafeFileUploads($tempDir, $finalDir);
 
     /**
-     * Retrieves a map of data from the encrypted cookie. 
+     * Retrieves a map of data from the encrypted cookie.
      */
     public function decryptStateFromCookie();
 
@@ -135,8 +136,8 @@ interface IHTTPUtilities {
      * every request from the login page through the logout confirmation page. Essentially, any page that uses the
      * Authenticator.login() call should call this. Implementers should consider calling this method directly in
      * their Authenticator.login() method. If this method returns true for a page that requires SSL, there must be a
-     * misconfiguration, an AuthenticationException is warranted. 
-     * 
+     * misconfiguration, an AuthenticationException is warranted.
+     *
      * @param request
      * @return
      */
@@ -145,15 +146,15 @@ interface IHTTPUtilities {
     /**
      * Kill all cookies received in the last request from the browser. Note that new cookies set by the application in
      * this response may not be killed by this method.
-     * 
+     *
      * @param request the request
      * @param response the response
      */
     public function killAllCookies();
-    
+
     /**
      * Kills the specified cookie by setting a new cookie that expires immediately.
-     * 
+     *
      * @param name the cookie name
      */
     public function killCookie($name);
@@ -163,12 +164,12 @@ interface IHTTPUtilities {
      */
     public function encryptStateInCookie($cleartext);
 
-    
+
     /**
      * This method generates a redirect response that can only be used to redirect the browser to safe locations.
      * Importantly, redirect requests can be modified by attackers, so do not rely information contained within redirect
      * requests, and do not include sensitive information in a redirect.
-     * 
+     *
      * @param location the URL to redirect to
      * @param response the current HttpServletResponse
      * @throws ValidationException the validation exception
@@ -181,7 +182,7 @@ interface IHTTPUtilities {
      * publically accessible resources can be dangerous, as the request will have already passed the URL
      * based access control check. This method ensures that you can only forward to non-publically
      * accessible resources.
-     *  
+     *
      * @param context
      * @param location
      * @throws AccessControlException
@@ -189,32 +190,32 @@ interface IHTTPUtilities {
      * @throws IOException
      */
 	public function safeSendForward($context, $location);
-	
+
 
     /**
      * Sets the content type on each HTTP response, to help protect against cross-site scripting attacks and other types
      * of injection into HTML documents.
-     * 
+     *
      * @param response
      */
     public function safeSetContentType();
 
-    
+
     /**
      * Set headers to protect sensitive information against being cached in the browser. Developers should make this
      * call for any HTTP responses that contain any sensitive data that should not be cached within the browser or any
      * intermediate proxies or caches. Implementations should set headers for the expected browsers. The safest approach
      * is to set all relevant headers to their most restrictive setting. These include:
-     * 
+     *
      * <PRE>
-     * 
+     *
      * Cache-Control: no-store<BR>
      * Cache-Control: no-cache<BR>
      * Cache-Control: must-revalidate<BR>
      * Expires: -1<BR>
-     * 
+     *
      * </PRE>
-     * 
+     *
      * Note that the header "pragma: no-cache" is only useful in HTTP requests, not HTTP responses. So even though there
      * are many articles recommending the use of this header, it is not helpful for preventing browser caching. For more
      * information, please refer to the relevant standards:
@@ -227,7 +228,7 @@ interface IHTTPUtilities {
      * <LI><a href="http://support.microsoft.com/kb/937479">Firefox browser.cache.disk_cache_ssl</a>
      * <LI><a href="http://www.mozilla.org/quality/networking/docs/netprefs.html">Mozilla</a>
      * </UL>
-     * 
+     *
      * @param response the current HttpServletResponse
      */
     public function setNoCacheHeaders();

@@ -1,3 +1,4 @@
+<?php
 /**
  * OWASP Enterprise Security API (ESAPI)
  * 
@@ -11,7 +12,7 @@
  * LICENSE before you use, modify, and/or redistribute this software.
  * 
  * @author Jeff Williams <a href="http://www.aspectsecurity.com">Aspect Security</a>
- * @created 2007
+ * @since 2007
  */
 package org.owasp.esapi;
 
@@ -69,7 +70,7 @@ public class RandomizerTest extends TestCase {
 	 * Test of getRandomString method, of class org.owasp.esapi.Randomizer.
 	 */
     public void testGetRandomString() {
-        System.out.println("getRandomString");
+        echo("getRandomString");
         int length = 20;
         IRandomizer instance = ESAPI.randomizer();
         for ( int i = 0; i < 100; i++ ) {
@@ -83,7 +84,7 @@ public class RandomizerTest extends TestCase {
 	 * Test of getRandomInteger method, of class org.owasp.esapi.Randomizer.
 	 */
     public void testGetRandomInteger() {
-        System.out.println("getRandomInteger");        
+        echo("getRandomInteger");        
         int min = -20;
         int max = 100;
         IRandomizer instance = ESAPI.randomizer();        
@@ -101,7 +102,7 @@ public class RandomizerTest extends TestCase {
 	 * Test of getRandomReal method, of class org.owasp.esapi.Randomizer.
 	 */
     public void testGetRandomReal() {
-        System.out.println("getRandomReal");
+        echo("getRandomReal");
         float min = -20.5234F;
         float max = 100.12124F;
         IRandomizer instance = ESAPI.randomizer();
@@ -120,7 +121,7 @@ public class RandomizerTest extends TestCase {
      * Test of getRandomGUID method, of class org.owasp.esapi.Randomizer.
      */
     public void testGetRandomGUID() throws EncryptionException {
-        System.out.println("getRandomGUID");
+        echo("getRandomGUID");
         IRandomizer instance = ESAPI.randomizer();
         ArrayList list = new ArrayList();
         for ( int i = 0; i < 100; i++ ) {
@@ -132,3 +133,4 @@ public class RandomizerTest extends TestCase {
 
      
 }
+?>
