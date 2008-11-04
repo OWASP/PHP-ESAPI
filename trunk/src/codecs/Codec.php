@@ -1,3 +1,4 @@
+<?php
 /**
  * OWASP Enterprise Security API (ESAPI)
  * 
@@ -5,16 +6,16 @@
  * Enterprise Security API (ESAPI) project. For details, please see
  * <a href="http://www.owasp.org/index.php/ESAPI">http://www.owasp.org/index.php/ESAPI</a>.
  *
- * Copyright (c) 2007 - The OWASP Foundation
+ * Copyright (c) 2007 - 2008 The OWASP Foundation
  * 
  * The ESAPI is published by OWASP under the BSD license. You should read and accept the
  * LICENSE before you use, modify, and/or redistribute this software.
  * 
- * @author Jeff Williams <a href="http://www.aspectsecurity.com">Aspect Security</a>
- * @created 2007
+ * @author 
+ * @created 2008
+ * @since 1.4
+ * @package org.owasp.esapi.codecs
  */
-package org.owasp.esapi.codecs;
-
 
 /**
  * The Codec interface defines a set of methods for encoding and decoding application level encoding schemes,
@@ -23,26 +24,51 @@ package org.owasp.esapi.codecs;
  * necessary to detect double-encoding and the use of multiple encoding schemes, both of which are techniques
  * used by attackers to bypass validation and bury encoded attacks in data.
  * 
- * @author Jeff Williams (jeff.williams .at. aspectsecurity.com) <a
- *         href="http://www.aspectsecurity.com">Aspect Security</a>
- * @since June 1, 2007
+ * @author 
+ * @since 1.4
  * @see org.owasp.esapi.Encoder
  */
-public interface Codec {
+ interface Codec {
 
-
-	String encode( String input );
+	/**
+	 * Encode a String with a Codec
+	 * 
+	 * @param input
+	 * 		the String to encode
+	 * @return the encoded String
+	 */
+	function encode( $input ); 
 	
-	String encodeCharacter( Character c );
+	/**
+	 * Encode a Character with a Codec
+	 * 
+	 * @param c
+	 * 		the Character to encode
+	 * @return
+	 * 		the encoded Character
+	 */
+	function encodeCharacter( $c );
 	
-	String decode( String input );
+	/**
+	 * Decode a String that was encoded using the encode method in this Class
+	 * 
+	 * @param input
+	 * 		the String to decode
+	 * @return
+	 *		the decoded String
+	 */
+	function decode( $input );
 	
 
 	/**
 	 * Returns the decoded version of the next character from the input string and advances the
 	 * current character in the PushbackString.  If the current character is not encoded, this 
 	 * method MUST reset the PushbackString.
+	 * 
+	 * @param input	the Character to decode
+	 * 
+	 * @return the decoded Character
 	 */
-	public Character decodeCharacter( PushbackString input );
+	function decodeCharacter( $input );
 	
 }
