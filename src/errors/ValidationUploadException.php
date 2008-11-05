@@ -1,3 +1,4 @@
+<?php
 /**
  * OWASP Enterprise Security API (ESAPI)
  * 
@@ -5,48 +6,37 @@
  * Enterprise Security API (ESAPI) project. For details, please see
  * <a href="http://www.owasp.org/index.php/ESAPI">http://www.owasp.org/index.php/ESAPI</a>.
  *
- * Copyright (c) 2007 - The OWASP Foundation
+ * Copyright (c) 2007 - 2008 The OWASP Foundation
  * 
  * The ESAPI is published by OWASP under the BSD license. You should read and accept the
  * LICENSE before you use, modify, and/or redistribute this software.
  * 
- * @author Jeff Williams <a href="http://www.aspectsecurity.com">Aspect Security</a>
- * @created 2007
+ * @author Andrew van der Stock <vanderaj .(at). owasp.org>
+ * @created 2008
+ * @since 1.4
+ * @package org.owasp.esapi.errors
  */
-package org.owasp.esapi.errors;
+
+require_once ('ValidationException.php');
 
 /**
- * @author Jeff Williams (jeff.williams@aspectsecurity.com)
+ * TODO: Document this class
  */
-public class ValidationUploadException extends ValidationException {
-
-	/** The Constant serialVersionUID. */
-	private static final long serialVersionUID = 1L;
-
-	/**
-	 * Instantiates a new validation exception.
-	 */
-	protected ValidationUploadException() {
-		// hidden
-	}
-
+class ValidationUploadException extends ValidationException
+{
     /**
      * Create a new ValidationException
+     * 
      * @param userMessage
+     *            the message to display to users
      * @param logMessage
-     */
-	public ValidationUploadException(String userMessage, String logMessage) {
-		super(userMessage, logMessage);
-	}
-
-    /**
-     * Create a new ValidationException
-     * @param userMessage
-     * @param logMessage
+     * 			  the message logged
      * @param cause
+     * 			  the cause 
      */
-	public ValidationUploadException(String userMessage, String logMessage, Throwable cause) {
-		super(userMessage, logMessage, cause);
-	}
-
+    function __construct($userMessage, $logMessage, $cause = '')
+    {
+        parent::__construct($userMessage, $logMessage, $cause);
+    }
 }
+?>

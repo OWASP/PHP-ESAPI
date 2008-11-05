@@ -1,3 +1,4 @@
+<?php
 /**
  * OWASP Enterprise Security API (ESAPI)
  * 
@@ -5,51 +6,35 @@
  * Enterprise Security API (ESAPI) project. For details, please see
  * <a href="http://www.owasp.org/index.php/ESAPI">http://www.owasp.org/index.php/ESAPI</a>.
  *
- * Copyright (c) 2007 - The OWASP Foundation
+ * Copyright (c) 2007 - 2008 The OWASP Foundation
  * 
  * The ESAPI is published by OWASP under the BSD license. You should read and accept the
  * LICENSE before you use, modify, and/or redistribute this software.
  * 
- * @author Jeff Williams <a href="http://www.aspectsecurity.com">Aspect Security</a>
- * @created 2007
+ * @author Andrew van der Stock <vanderaj .(at). owasp.org> 
+ * @created 2008
+ * @since 1.4
+ * @package org.owasp.esapi.errors
  */
-package org.owasp.esapi.errors;
+
+require_once ('EnterpriseSecurityException.php');
 
 /**
  * An AccessControlException should be thrown when a user attempts to access a
  * resource that they are not authorized for.
- * 
- * @author Jeff Williams (jeff.williams@aspectsecurity.com)
  */
-public class AccessControlException extends EnterpriseSecurityException {
-
-	/** The Constant serialVersionUID. */
-	private static final long serialVersionUID = 1L;
-
-	/**
-	 * Instantiates a new access control exception.
-	 */
-	protected AccessControlException() {
-		// hidden
-	}
-
-	/**
-	 * Creates a new instance of EnterpriseSecurityException.
-	 */
-	public AccessControlException(String userMessage, String logMessage) {
-		super(userMessage, logMessage);
-	}
-
-	/**
-	 * Instantiates a new access control exception.
-	 * 
-	 * @param message
-	 *            the message
-	 * @param cause
-	 *            the cause
-	 */
-	public AccessControlException(String userMessage, String logMessage, Throwable cause) {
-		super(userMessage, logMessage, cause);
-	}
-
+class AccessControlException extends EnterpriseSecurityException
+{
+    /**
+     * Instantiates a new access control exception.
+     * 
+     * @param userMessage the message displayed to the user
+     * @param logMessage the message logged
+     * @param cause the cause
+     */
+    function __construct($userMessage, $logMessage, $cause = '')
+    {
+        parent::__construct($userMessage, $logMessage, $cause);
+    }
 }
+?>

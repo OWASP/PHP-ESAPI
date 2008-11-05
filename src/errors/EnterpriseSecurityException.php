@@ -1,3 +1,4 @@
+<?php
 /**
  * OWASP Enterprise Security API (ESAPI)
  * 
@@ -5,19 +6,16 @@
  * Enterprise Security API (ESAPI) project. For details, please see
  * <a href="http://www.owasp.org/index.php/ESAPI">http://www.owasp.org/index.php/ESAPI</a>.
  *
- * Copyright (c) 2007 - The OWASP Foundation
+ * Copyright (c) 2007 - 2008 The OWASP Foundation
  * 
  * The ESAPI is published by OWASP under the BSD license. You should read and accept the
  * LICENSE before you use, modify, and/or redistribute this software.
  * 
- * @author Jeff Williams <a href="http://www.aspectsecurity.com">Aspect Security</a>
- * @created 2007
+ * @author Andrew van der Stock <vanderaj .(at). owasp.org> 
+ * @created 2008
+ * @since 1.4
+ * @package org.owasp.esapi.errors
  */
-package org.owasp.esapi.errors;
-
-import org.owasp.esapi.ESAPI;
-import org.owasp.esapi.Logger;
-
 
 /**
  * EnterpriseSecurityException is the base class for all security related exceptions. You should pass in the root cause
@@ -33,56 +31,49 @@ import org.owasp.esapi.Logger;
  * ALL EnterpriseSecurityExceptions are also sent to the IntrusionDetector for use in detecting anomolous patterns of
  * application usage.
  * <P>
- * @author Jeff Williams (jeff.williams@aspectsecurity.com)
  */
-public class EnterpriseSecurityException extends Exception {
-
-    /** The Constant serialVersionUID. */
-    private static final long serialVersionUID = 1L;
-
+class EnterpriseSecurityException extends Exception
+{
     /** The logger. */
-    protected final Logger logger = ESAPI.getLogger("EnterpriseSecurityException");
-
-    protected String logMessage = null;
-
-    /**
-     * Instantiates a new security exception.
-     */
-    protected EnterpriseSecurityException() {
-        // hidden
-    }
-
-    /**
-     * Creates a new instance of EnterpriseSecurityException. This exception is automatically logged, so that simply by
-     * using this API, applications will generate an extensive security log. In addition, this exception is
-     * automatically registered with the IntrusionDetector, so that quotas can be checked.
-     * 
-     * @param message the message
-     */
-    public EnterpriseSecurityException(String userMessage, String logMessage) {
-    	super(userMessage);
-        this.logMessage = logMessage;
-        ESAPI.intrusionDetector().addException(this);
-    }
+    protected $logger;
+    protected $logMessage = null;
 
     /**
      * Creates a new instance of EnterpriseSecurityException that includes a root cause Throwable.
      * 
-     * @param message the message
+     * @param userMessage 
+     * 			  the message displayed to the user
+     * @param logMessage
+     * 			  the message logged
      * @param cause the cause
      */
-    public EnterpriseSecurityException(String userMessage, String logMessage, Throwable cause) {
-        super(userMessage, cause);
-        this.logMessage = logMessage;
-        ESAPI.intrusionDetector().addException(this);
+    function __construct($userMessage, $logMessage, $cause)
+    {
+        parent::__construct($userMessage, $cause);
+        $this->logMessage = $logMessage;
+        $this->logger = $ESAPI->getLogger("EnterpriseSecurityException");
+        $ESAPI->intrusionDetector()->addException($this);
     }
 
-    public String getUserMessage() {
-        return getMessage();
+    /**
+     * Returns message that is safe to display to users
+     * 
+     * @return a String containing a message that is safe to display to users
+     */
+    public function getUserMessage()
+    {
+        return $this->getMessage();
     }
 
-    public String getLogMessage() {
-        return logMessage;
+    /**
+     * Returns a message that is safe to display in logs, but probably not to users
+     * 
+     * @return a String containing a message that is safe to display in logs, but probably not to users
+     */
+    public function getLogMessage()
+    {
+        return $this->logMessage;
     }
 
 }
+?>
