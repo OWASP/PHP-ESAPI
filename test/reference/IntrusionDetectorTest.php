@@ -1,25 +1,27 @@
-<?php
 /**
  * OWASP Enterprise Security API (ESAPI)
  * 
  * This file is part of the Open Web Application Security Project (OWASP)
  * Enterprise Security API (ESAPI) project. For details, please see
- * http://www.owasp.org/esapi.
+ * <a href="http://www.owasp.org/index.php/ESAPI">http://www.owasp.org/index.php/ESAPI</a>.
  *
  * Copyright (c) 2007 - The OWASP Foundation
  * 
- * The ESAPI is published by OWASP under the LGPL. You should read and accept the
+ * The ESAPI is published by OWASP under the BSD license. You should read and accept the
  * LICENSE before you use, modify, and/or redistribute this software.
  * 
  * @author Jeff Williams <a href="http://www.aspectsecurity.com">Aspect Security</a>
- * @since 2007
+ * @created 2007
  */
-package org.owasp.esapi;
+package org.owasp.esapi.reference;
 
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
 
+import org.owasp.esapi.ESAPI;
+import org.owasp.esapi.Authenticator;
+import org.owasp.esapi.User;
 import org.owasp.esapi.errors.AuthenticationException;
 import org.owasp.esapi.errors.IntegrityException;
 import org.owasp.esapi.errors.IntrusionException;
@@ -40,18 +42,18 @@ public class IntrusionDetectorTest extends TestCase {
 	 *            the test name
 	 */
 	public IntrusionDetectorTest(String testName) {
-		parent::__construct(testName);
+		super(testName);
 	}
 
-	/* (non-Javadoc)
-	 * @see junit.framework.TestCase#setUp()
+	/**
+     * {@inheritDoc}
 	 */
 	protected void setUp() throws Exception {
 		// none
 	}
 
-	/* (non-Javadoc)
-	 * @see junit.framework.TestCase#tearDown()
+	/**
+     * {@inheritDoc}
 	 */
 	protected void tearDown() throws Exception {
 		// none
@@ -75,19 +77,19 @@ public class IntrusionDetectorTest extends TestCase {
 	 *             the authentication exception
 	 */
 	public void testAddException() throws AuthenticationException {
-		echo("addException");
+		System.out.println("addException");
 		ESAPI.intrusionDetector().addException( new IntrusionException("user message", "log message") );
-		String username = ESAPI.randomizer().getRandomString(8, Encoder.CHAR_ALPHANUMERICS);
-        Authenticator auth = (Authenticator)ESAPI.authenticator();
+		String username = ESAPI.randomizer().getRandomString(8, DefaultEncoder.CHAR_ALPHANUMERICS);
+        Authenticator auth = ESAPI.authenticator();
 		User user = auth.createUser(username, "addException", "addException");
 		user.enable();
 	    TestHttpServletRequest request = new TestHttpServletRequest();
 		TestHttpServletResponse response = new TestHttpServletResponse();
-        auth.setCurrentHTTP(request, response);
+		ESAPI.httpUtilities().setCurrentHTTP(request, response);
 		user.loginWithPassword("addException");
 		
 		// Now generate some exceptions to disable account
-		for ( int i = 0; i < ESAPI.securityConfiguration().getQuota("org.owasp.esapi.errors.IntegrityException").count; i++ ) {
+		for ( int i = 0; i < ESAPI.securityConfiguration().getQuota(IntegrityException.class.getName()).count; i++ ) {
             // EnterpriseSecurityExceptions are added to IntrusionDetector automatically
             new IntegrityException( "IntegrityException " + i, "IntegrityException " + i );
 		}
@@ -102,22 +104,21 @@ public class IntrusionDetectorTest extends TestCase {
      *             the authentication exception
      */
     public void testAddEvent() throws AuthenticationException {
-        echo("addEvent");
-		String username = ESAPI.randomizer().getRandomString(8, Encoder.CHAR_ALPHANUMERICS);
-        Authenticator auth = (Authenticator)ESAPI.authenticator();
+        System.out.println("addEvent");
+		String username = ESAPI.randomizer().getRandomString(8, DefaultEncoder.CHAR_ALPHANUMERICS);
+        Authenticator auth = ESAPI.authenticator();
 		User user = auth.createUser(username, "addEvent", "addEvent");
 		user.enable();
 	    TestHttpServletRequest request = new TestHttpServletRequest();
 		TestHttpServletResponse response = new TestHttpServletResponse();
-        auth.setCurrentHTTP(request, response);
+		ESAPI.httpUtilities().setCurrentHTTP(request, response);
 		user.loginWithPassword("addEvent");
         
         // Now generate some events to disable user account
         for ( int i = 0; i < ESAPI.securityConfiguration().getQuota("event.test").count; i++ ) {
-            ESAPI.intrusionDetector().addEvent("test");
+            ESAPI.intrusionDetector().addEvent("test", "test message");
         }
         assertFalse( user.isEnabled() );
     }
     
 }
-?>

@@ -15,31 +15,22 @@
  */
 package org.owasp.esapi.http;
 
-import javax.servlet.ServletInputStream;
 import java.io.IOException;
 
-public class TestServletInputStream extends ServletInputStream {
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
 
-    private byte[] body;
+public class TestRequestDispatcher implements RequestDispatcher {
 
-    private int next;
-
-    /**
-     * constructor
-     * @param body
-     */
-    public TestServletInputStream(byte[] body) {
-        this.body = body;
+    public void forward(ServletRequest request, ServletResponse response) throws ServletException, IOException {
+    	
     }
-
-    /**
-     * read
-     */
-    public int read() throws IOException {
-        if (next < body.length) {
-            return body[next++];
-        } else {
-            return -1;
-        }
+    
+    public void include(ServletRequest request, ServletResponse response) throws ServletException, IOException {
+    	
     }
 }
+
+
