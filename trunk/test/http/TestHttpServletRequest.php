@@ -1,18 +1,17 @@
-<?php
 /**
  * OWASP Enterprise Security API (ESAPI)
  * 
  * This file is part of the Open Web Application Security Project (OWASP)
  * Enterprise Security API (ESAPI) project. For details, please see
- * http://www.owasp.org/esapi.
+ * <a href="http://www.owasp.org/index.php/ESAPI">http://www.owasp.org/index.php/ESAPI</a>.
  *
  * Copyright (c) 2007 - The OWASP Foundation
  * 
- * The ESAPI is published by OWASP under the LGPL. You should read and accept the
+ * The ESAPI is published by OWASP under the BSD license. You should read and accept the
  * LICENSE before you use, modify, and/or redistribute this software.
  * 
  * @author Jeff Williams <a href="http://www.aspectsecurity.com">Aspect Security</a>
- * @since 2007
+ * @created 2007
  */
 package org.owasp.esapi.http;
 
@@ -40,6 +39,9 @@ import javax.servlet.http.HttpSession;
  */
 public class TestHttpServletRequest implements HttpServletRequest {
 
+	/** The requestDispatcher */
+	private RequestDispatcher requestDispatcher = new TestRequestDispatcher();
+	
     /** The session. */
     private TestHttpSession session = null;
 
@@ -54,8 +56,12 @@ public class TestHttpServletRequest implements HttpServletRequest {
     
     private byte[] body;
 
-    private String uri = null;
+    private String uri = "/test";
 
+    private String contentType = null;
+    
+    private String method = "POST";
+    
     public TestHttpServletRequest() {
     }
 
@@ -64,19 +70,15 @@ public class TestHttpServletRequest implements HttpServletRequest {
         this.uri = uri;
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see javax.servlet.http.HttpServletRequest#getAuthType()
+    /**
+     * {@inheritDoc}
      */
     public String getAuthType() {
         return null;
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see javax.servlet.http.HttpServletRequest#getContextPath()
+    /**
+     * {@inheritDoc}
      */
     public String getContextPath() {
 
@@ -100,6 +102,12 @@ public class TestHttpServletRequest implements HttpServletRequest {
         parameters.put(name, updated);
     }
 
+    /**
+     * removeParameter removes the parameter name from the parameters map if it exists
+     *  
+     * @param name
+     * 			parameter name to be removed
+     */
     public void removeParameter( String name ) {
     	parameters.remove( name );
     }
@@ -128,29 +136,27 @@ public class TestHttpServletRequest implements HttpServletRequest {
     	cookies.add( c );
     }
     
-    /*
-     * (non-Javadoc)
-     * 
-     * @see javax.servlet.http.HttpServletRequest#getCookies()
+    public void clearCookies() {
+    	cookies.clear();
+    }
+    
+    /**
+     * {@inheritDoc}
      */
     public Cookie[] getCookies() {
         return (Cookie[]) cookies.toArray(new Cookie[0]);
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see javax.servlet.http.HttpServletRequest#getDateHeader(java.lang.String)
+    /**
+     * {@inheritDoc}
      */
     public long getDateHeader(String name) {
 
         return 0;
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see javax.servlet.http.HttpServletRequest#getHeader(java.lang.String)
+    /**
+     * {@inheritDoc}
      */
     public String getHeader(String name) {
         if (name.equals("Content-type")) {
@@ -159,20 +165,16 @@ public class TestHttpServletRequest implements HttpServletRequest {
         return (String)headers.get(name);
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see javax.servlet.http.HttpServletRequest#getHeaderNames()
+    /**
+     * {@inheritDoc}
      */
     public Enumeration getHeaderNames() {
         Vector v = new Vector( headers.keySet() );
         return v.elements();
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see javax.servlet.http.HttpServletRequest#getHeaders(java.lang.String)
+    /**
+     * {@inheritDoc}
      */
     public Enumeration getHeaders(String name) {
         Vector v = new Vector();
@@ -180,107 +182,89 @@ public class TestHttpServletRequest implements HttpServletRequest {
         return v.elements();
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see javax.servlet.http.HttpServletRequest#getIntHeader(java.lang.String)
+    /**
+     * {@inheritDoc}
      */
     public int getIntHeader(String name) {
 
         return 0;
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see javax.servlet.http.HttpServletRequest#getMethod()
+    /**
+     * {@inheritDoc}
      */
     public String getMethod() {
-        return "POST";
+        return method;
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see javax.servlet.http.HttpServletRequest#getPathInfo()
+    public void setMethod( String value ) {
+    	method = value;
+    }
+    
+    /**
+     * {@inheritDoc}
      */
     public String getPathInfo() {
 
         return null;
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see javax.servlet.http.HttpServletRequest#getPathTranslated()
+    /**
+     * {@inheritDoc}
      */
     public String getPathTranslated() {
 
         return null;
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see javax.servlet.http.HttpServletRequest#getQueryString()
+    /**
+     * {@inheritDoc}
      */
     public String getQueryString() {
 
         return null;
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see javax.servlet.http.HttpServletRequest#getRemoteUser()
+    /**
+     * {@inheritDoc}
      */
     public String getRemoteUser() {
 
         return null;
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see javax.servlet.http.HttpServletRequest#getRequestURI()
+    /**
+     * {@inheritDoc}
      */
     public String getRequestURI() {
         return uri;
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see javax.servlet.http.HttpServletRequest#getRequestURL()
+    /**
+     * {@inheritDoc}
      */
     public StringBuffer getRequestURL() {
         return new StringBuffer("https://localhost" + uri);
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see javax.servlet.http.HttpServletRequest#getRequestedSessionId()
+    /**
+     * {@inheritDoc}
      */
     public String getRequestedSessionId() {
 
         return null;
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see javax.servlet.http.HttpServletRequest#getServletPath()
+    /**
+     * {@inheritDoc}
      */
     public String getServletPath() {
 
         return null;
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see javax.servlet.http.HttpServletRequest#getSession()
+    /**
+     * {@inheritDoc}
      */
     public HttpSession getSession() {
         if (session != null) {
@@ -289,10 +273,8 @@ public class TestHttpServletRequest implements HttpServletRequest {
         return getSession(true);
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see javax.servlet.http.HttpServletRequest#getSession(boolean)
+    /**
+     * {@inheritDoc}
      */
     public HttpSession getSession(boolean create) {
         if (session == null && create) {
@@ -303,346 +285,283 @@ public class TestHttpServletRequest implements HttpServletRequest {
         return session;
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see javax.servlet.http.HttpServletRequest#getUserPrincipal()
+    /**
+     * {@inheritDoc}
      */
     public Principal getUserPrincipal() {
 
         return null;
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see javax.servlet.http.HttpServletRequest#isRequestedSessionIdFromCookie()
+    /**
+     * {@inheritDoc}
      */
     public boolean isRequestedSessionIdFromCookie() {
 
         return false;
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see javax.servlet.http.HttpServletRequest#isRequestedSessionIdFromURL()
+    /**
+     * {@inheritDoc}
      */
     public boolean isRequestedSessionIdFromURL() {
 
         return false;
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see javax.servlet.http.HttpServletRequest#isRequestedSessionIdFromUrl()
+    /**
+     * {@inheritDoc}
      */
     public boolean isRequestedSessionIdFromUrl() {
 
         return false;
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see javax.servlet.http.HttpServletRequest#isRequestedSessionIdValid()
+    /**
+     * {@inheritDoc}
      */
     public boolean isRequestedSessionIdValid() {
 
         return false;
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see javax.servlet.http.HttpServletRequest#isUserInRole(java.lang.String)
+    /**
+     * {@inheritDoc}
      */
     public boolean isUserInRole(String role) {
 
         return false;
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see javax.servlet.ServletRequest#getAttribute(java.lang.String)
+    /**
+     * {@inheritDoc}
      */
     public Object getAttribute(String name) {
 
         return null;
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see javax.servlet.ServletRequest#getAttributeNames()
+    /**
+     * {@inheritDoc}
      */
     public Enumeration getAttributeNames() {
 
         return null;
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see javax.servlet.ServletRequest#getCharacterEncoding()
+    /**
+     * {@inheritDoc}
      */
     public String getCharacterEncoding() {
 
         return null;
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see javax.servlet.ServletRequest#getContentLength()
+    /**
+     * {@inheritDoc}
      */
     public int getContentLength() {
         return body.length;
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see javax.servlet.ServletRequest#getContentType()
+    /**
+     * {@inheritDoc}
      */
     public String getContentType() {
-        return "multipart/form-data; boundary=xxx";
+        return contentType;
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see javax.servlet.ServletRequest#getInputStream()
+    public void setContentType( String value ) {
+    	contentType = value;
+    }
+    
+    /**
+     * {@inheritDoc}
      */
     public ServletInputStream getInputStream() throws IOException {
         return new TestServletInputStream(body);
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see javax.servlet.ServletRequest#getLocalAddr()
+    /**
+     * {@inheritDoc}
      */
     public String getLocalAddr() {
 
         return null;
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see javax.servlet.ServletRequest#getLocalName()
+    /**
+     * {@inheritDoc}
      */
     public String getLocalName() {
 
         return null;
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see javax.servlet.ServletRequest#getLocalPort()
+    /**
+     * {@inheritDoc}
      */
     public int getLocalPort() {
 
         return 0;
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see javax.servlet.ServletRequest#getLocale()
+    /**
+     * {@inheritDoc}
      */
     public Locale getLocale() {
 
         return null;
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see javax.servlet.ServletRequest#getLocales()
+    /**
+     * {@inheritDoc}
      */
     public Enumeration getLocales() {
 
         return null;
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see javax.servlet.ServletRequest#getParameter(java.lang.String)
+    /**
+     * {@inheritDoc}
      */
     public String getParameter(String name) {
         String[] values = (String[]) parameters.get(name);
+        if ( values == null ) return null;
         return values[0];
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see javax.servlet.ServletRequest#getParameterMap()
+    /**
+     * {@inheritDoc}
      */
     public Map getParameterMap() {
         return parameters;
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see javax.servlet.ServletRequest#getParameterNames()
+    /**
+     * {@inheritDoc}
      */
     public Enumeration getParameterNames() {
         Vector v = new Vector( parameters.keySet() );
         return v.elements();
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see javax.servlet.ServletRequest#getParameterValues(java.lang.String)
+    /**
+     * {@inheritDoc}
      */
     public String[] getParameterValues(String name) {
         return (String[])parameters.get(name);
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see javax.servlet.ServletRequest#getProtocol()
+    /**
+     * {@inheritDoc}
      */
     public String getProtocol() {
         return "HTTP/1.1";
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see javax.servlet.ServletRequest#getReader()
+    /**
+     * {@inheritDoc}
      */
     public BufferedReader getReader() throws IOException {
 
         return null;
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see javax.servlet.ServletRequest#getRealPath(java.lang.String)
+    /**
+     * {@inheritDoc}
      */
     public String getRealPath(String path) {
 
         return null;
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see javax.servlet.ServletRequest#getRemoteAddr()
+    /**
+     * {@inheritDoc}
      */
     public String getRemoteAddr() {
 
         return null;
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see javax.servlet.ServletRequest#getRemoteHost()
+    /**
+     * {@inheritDoc}
      */
     public String getRemoteHost() {
 
         return null;
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see javax.servlet.ServletRequest#getRemotePort()
+    /**
+     * {@inheritDoc}
      */
     public int getRemotePort() {
 
         return 0;
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see javax.servlet.ServletRequest#getRequestDispatcher(java.lang.String)
+    /**
+     * {@inheritDoc}
      */
     public RequestDispatcher getRequestDispatcher(String path) {
-
-        return null;
+        return requestDispatcher;
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see javax.servlet.ServletRequest#getScheme()
-     */
+    /**
+     * {@inheritDoc}
+     */ 
     public String getScheme() {
 
         return null;
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see javax.servlet.ServletRequest#getServerName()
+    /**
+     * {@inheritDoc}
      */
     public String getServerName() {
 
         return null;
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see javax.servlet.ServletRequest#getServerPort()
+    /**
+     * {@inheritDoc}
      */
     public int getServerPort() {
 
         return 0;
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see javax.servlet.ServletRequest#isSecure()
+    /**
+     * {@inheritDoc}
      */
     public boolean isSecure() {
 
         return false;
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see javax.servlet.ServletRequest#removeAttribute(java.lang.String)
+    /**
+     * {@inheritDoc}
      */
     public void removeAttribute(String name) {
 
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see javax.servlet.ServletRequest#setAttribute(java.lang.String, java.lang.Object)
+    /**
+     * {@inheritDoc}
      */
     public void setAttribute(String name, Object o) {
 
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see javax.servlet.ServletRequest#setCharacterEncoding(java.lang.String)
+    /**
+     * {@inheritDoc}
      */
     public void setCharacterEncoding(String env) throws UnsupportedEncodingException {
 
     }
 
+    public void setRequestURI(String uri) throws UnsupportedEncodingException {
+    	this.uri = uri;
+    }
+
 }
-?>

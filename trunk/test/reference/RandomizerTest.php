@@ -1,20 +1,19 @@
-<?php
 /**
  * OWASP Enterprise Security API (ESAPI)
  * 
  * This file is part of the Open Web Application Security Project (OWASP)
  * Enterprise Security API (ESAPI) project. For details, please see
- * http://www.owasp.org/esapi.
+ * <a href="http://www.owasp.org/index.php/ESAPI">http://www.owasp.org/index.php/ESAPI</a>.
  *
  * Copyright (c) 2007 - The OWASP Foundation
  * 
- * The ESAPI is published by OWASP under the LGPL. You should read and accept the
+ * The ESAPI is published by OWASP under the BSD license. You should read and accept the
  * LICENSE before you use, modify, and/or redistribute this software.
  * 
  * @author Jeff Williams <a href="http://www.aspectsecurity.com">Aspect Security</a>
- * @since 2007
+ * @created 2007
  */
-package org.owasp.esapi;
+package org.owasp.esapi.reference;
 
 import java.util.ArrayList;
 
@@ -22,8 +21,9 @@ import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
 
+import org.owasp.esapi.ESAPI;
+import org.owasp.esapi.Randomizer;
 import org.owasp.esapi.errors.EncryptionException;
-import org.owasp.esapi.interfaces.IRandomizer;
 
 /**
  * The Class RandomizerTest.
@@ -39,18 +39,18 @@ public class RandomizerTest extends TestCase {
 	 *            the test name
 	 */
     public RandomizerTest(String testName) {
-        parent::__construct(testName);
+        super(testName);
     }
 
-    /* (non-Javadoc)
-     * @see junit.framework.TestCase#setUp()
+    /**
+     * {@inheritDoc}
      */
     protected void setUp() throws Exception {
     	// none
     }
 
-    /* (non-Javadoc)
-     * @see junit.framework.TestCase#tearDown()
+    /**
+     * {@inheritDoc}
      */
     protected void tearDown() throws Exception {
     	// none
@@ -70,12 +70,16 @@ public class RandomizerTest extends TestCase {
 	 * Test of getRandomString method, of class org.owasp.esapi.Randomizer.
 	 */
     public void testGetRandomString() {
-        echo("getRandomString");
+        System.out.println("getRandomString");
         int length = 20;
-        IRandomizer instance = ESAPI.randomizer();
+        Randomizer instance = ESAPI.randomizer();
         for ( int i = 0; i < 100; i++ ) {
-            String result = instance.getRandomString(length, Encoder.CHAR_ALPHANUMERICS );
-            // FIXME: only the set of characters should be here
+            String result = instance.getRandomString(length, DefaultEncoder.CHAR_ALPHANUMERICS );
+            for ( int j=0;j<result.length();j++ ) {
+            	if ( !((DefaultEncoder)ESAPI.encoder()).isContained(DefaultEncoder.CHAR_ALPHANUMERICS, result.charAt(j))) {
+            		fail();
+            	}
+            }
             assertEquals(length, result.length());
         }
     }
@@ -84,10 +88,10 @@ public class RandomizerTest extends TestCase {
 	 * Test of getRandomInteger method, of class org.owasp.esapi.Randomizer.
 	 */
     public void testGetRandomInteger() {
-        echo("getRandomInteger");        
+        System.out.println("getRandomInteger");        
         int min = -20;
         int max = 100;
-        IRandomizer instance = ESAPI.randomizer();        
+        Randomizer instance = ESAPI.randomizer();        
         int minResult = ( max - min ) / 2;
         int maxResult = ( max - min ) / 2;
         for ( int i = 0; i < 100; i++ ) {
@@ -102,10 +106,10 @@ public class RandomizerTest extends TestCase {
 	 * Test of getRandomReal method, of class org.owasp.esapi.Randomizer.
 	 */
     public void testGetRandomReal() {
-        echo("getRandomReal");
+        System.out.println("getRandomReal");
         float min = -20.5234F;
         float max = 100.12124F;
-        IRandomizer instance = ESAPI.randomizer();
+        Randomizer instance = ESAPI.randomizer();
         float minResult = ( max - min ) / 2;
         float maxResult = ( max - min ) / 2;
         for ( int i = 0; i < 100; i++ ) {
@@ -121,8 +125,8 @@ public class RandomizerTest extends TestCase {
      * Test of getRandomGUID method, of class org.owasp.esapi.Randomizer.
      */
     public void testGetRandomGUID() throws EncryptionException {
-        echo("getRandomGUID");
-        IRandomizer instance = ESAPI.randomizer();
+        System.out.println("getRandomGUID");
+        Randomizer instance = ESAPI.randomizer();
         ArrayList list = new ArrayList();
         for ( int i = 0; i < 100; i++ ) {
             String guid = instance.getRandomGUID();
@@ -133,4 +137,3 @@ public class RandomizerTest extends TestCase {
 
      
 }
-?>
