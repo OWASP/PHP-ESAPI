@@ -17,9 +17,9 @@
  * @package org.owasp.esapi.reference
  */
 
-require_once('../Executor.php');
+require_once('../Encryptor.php');
 
-class DefaultExecutor implements Executor {
+class DefaultEncryptor implements Encryptor {
 	
 	
 }
