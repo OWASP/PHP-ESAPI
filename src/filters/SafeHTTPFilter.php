@@ -1,3 +1,4 @@
+<?php
 /**
  * OWASP Enterprise Security API (ESAPI)
  * 
@@ -5,28 +6,18 @@
  * Enterprise Security API (ESAPI) project. For details, please see
  * <a href="http://www.owasp.org/index.php/ESAPI">http://www.owasp.org/index.php/ESAPI</a>.
  *
- * Copyright (c) 2007 - The OWASP Foundation
+ * Copyright (c) 2007 - 2008 The OWASP Foundation
  * 
  * The ESAPI is published by OWASP under the BSD license. You should read and accept the
  * LICENSE before you use, modify, and/or redistribute this software.
  * 
- * @author Jeff Williams <a href="http://www.aspectsecurity.com">Aspect Security</a>
- * @created 2007
+ * @author 
+ * @created 2008
+ * @since 1.4
+ * @package org.owasp.esapi.tags
  */
-package org.owasp.esapi.filters;
 
-import java.io.IOException;
-
-import javax.servlet.Filter;
-import javax.servlet.FilterChain;
-import javax.servlet.FilterConfig;
-import javax.servlet.ServletException;
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import org.owasp.esapi.ESAPI;
+// import org.owasp.esapi.ESAPI;
 
 
 /**
@@ -38,26 +29,27 @@ import org.owasp.esapi.ESAPI;
  * injection. Attackers use techniques like CRLF injection and null byte injection
  * to confuse the parsing of requests and responses.
  */
-public class SafeHTTPFilter implements Filter {
+class SafeHTTPFilter /* implements Filter */ {
 
-    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-
-        if (!(request instanceof HttpServletRequest)) {
-            chain.doFilter(request, response);
-            return;
-        }
-        HttpServletRequest hrequest = (HttpServletRequest)request;
-        HttpServletResponse hresponse = (HttpServletResponse)response;
-        ESAPI.httpUtilities().setCurrentHTTP(hrequest, hresponse);
-        chain.doFilter(new SafeRequest(hrequest), new SafeResponse(hresponse));
-    }
-
-	public void destroy() {
-		// no special action
-	}
-
-	public void init(FilterConfig filterConfig) throws ServletException {
-		// no special action
-	}
-	
+//    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
+//
+//        if (!(request instanceof HttpServletRequest)) {
+//            chain.doFilter(request, response);
+//            return;
+//        }
+//        HttpServletRequest hrequest = (HttpServletRequest)request;
+//        HttpServletResponse hresponse = (HttpServletResponse)response;
+//        ESAPI.httpUtilities().setCurrentHTTP(hrequest, hresponse);
+//        chain.doFilter(new SafeRequest(hrequest), new SafeResponse(hresponse));
+//    }
+//
+//	public void destroy() {
+//		// no special action
+//	}
+//
+//	public void init(FilterConfig filterConfig) throws ServletException {
+//		// no special action
+//	}
+//	
 }
+?>
