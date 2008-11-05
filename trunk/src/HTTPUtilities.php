@@ -1,3 +1,4 @@
+<?php
 /**
  * OWASP Enterprise Security API (ESAPI)
  * 
@@ -5,51 +6,41 @@
  * Enterprise Security API (ESAPI) project. For details, please see
  * <a href="http://www.owasp.org/index.php/ESAPI">http://www.owasp.org/index.php/ESAPI</a>.
  *
- * Copyright (c) 2007 - The OWASP Foundation
+ * Copyright (c) 2007 - 2008 The OWASP Foundation
  * 
  * The ESAPI is published by OWASP under the BSD license. You should read and accept the
  * LICENSE before you use, modify, and/or redistribute this software.
  * 
- * @author Jeff Williams <a href="http://www.aspectsecurity.com">Aspect Security</a>
- * @created 2007
+ * @author 
+ * @created 2008
+ * @since 1.4
+ * @package org.owasp.esapi
  */
-package org.owasp.esapi;
 
-import java.io.File;
-import java.io.IOException;
-import java.util.List;
-import java.util.Map;
-
-import javax.servlet.ServletException;
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-
-import org.owasp.esapi.errors.AccessControlException;
-import org.owasp.esapi.errors.AuthenticationException;
-import org.owasp.esapi.errors.EncryptionException;
-import org.owasp.esapi.errors.EnterpriseSecurityException;
-import org.owasp.esapi.errors.IntrusionException;
-import org.owasp.esapi.errors.ValidationException;
-import org.owasp.esapi.filters.SafeRequest;
-import org.owasp.esapi.filters.SafeResponse;
+require_once("errors/AccessControlException.php");
+require_once("errors/AuthenticationException.php");
+require_once("errors/EncryptionException.php");
+require_once("errors/EnterpriseSecurityException.php");
+require_once("errors/IntrusionException.php");
+require_once("errors/ValidationException.php");
+require_once("filters/SafeRequest.php");
+require_once("filters/SafeResponse.php");
 
 
 /**
  * The HTTPUtilities interface is a collection of methods that provide additional security related to HTTP requests,
  * responses, sessions, cookies, headers, and logging.
  * <P>
- * <img src="doc-files/HTTPUtilities.jpg" height="600">
+ * <img src="doc-files/HTTPUtilities.jpg">
  * <P>
  * 
- * @author Jeff Williams (jeff.williams .at. aspectsecurity.com) <a href="http://www.aspectsecurity.com">Aspect Security</a>
- * @since June 1, 2007
+ * @author 
+ * @since 1.4
  */
-public interface HTTPUtilities {
+interface HTTPUtilities {
 
     /** Key for remember token cookie */
-    public final static String REMEMBER_TOKEN_COOKIE_NAME = "ESAPIRememberToken";
+    public final static $REMEMBER_TOKEN_COOKIE_NAME = "ESAPIRememberToken";
 
 	/**
 	 * Ensures that the current request uses SSL and POST to protect any sensitive parameters
@@ -60,7 +51,7 @@ public interface HTTPUtilities {
 	 * 
 	 * @throws AccessControlException if security constraints are not met
 	 */
-	void assertSecureRequest( HttpServletRequest request ) throws AccessControlException;
+	function assertSecureRequest( $request );
 
     
     /**
@@ -72,21 +63,21 @@ public interface HTTPUtilities {
      * 
      * @return the updated URL with the CSRF token parameter added
      */
-    String addCSRFToken(String href);
+    function addCSRFToken($href);
     
     /**
      * Get the first cookie with the matching name.
      * @param name
-     * @return
+     * @return the requested cookie
      */
-	Cookie getCookie(HttpServletRequest request, String name);
+	function getCookie($request, $name);
     
     /**
      * Returns the current user's CSRF token. If there is no current user then return null.
      * 
      * @return the current users CSRF token
      */
-    String getCSRFToken();
+    function getCSRFToken();
 
 
     /**
@@ -98,9 +89,9 @@ public interface HTTPUtilities {
 	 * This method uses {@link HTTPUtilities#getCurrentRequest()} to obtain the current {@link HttpSession} object 
      * 
      * @return the new HttpSession with a changed id
-     * @throws EnterpriseSecurityException the enterprise security exception
+     * @throws AuthenticationException the exception
      */
-    HttpSession changeSessionIdentifier( HttpServletRequest request ) throws AuthenticationException;
+    function changeSessionIdentifier( $request );
 
     
 	/**
@@ -109,7 +100,7 @@ public interface HTTPUtilities {
      * 
 	 * @throws IntrusionException if CSRF token is missing or incorrect
 	 */
-    void verifyCSRFToken(HttpServletRequest request) throws IntrusionException;
+    function verifyCSRFToken($request);
     
     
     /**
@@ -121,12 +112,20 @@ public interface HTTPUtilities {
 	 * 
 	 * @return decrypted hidden field value stored as a String
 	 */
-	String decryptHiddenField(String encrypted);
+	function decryptHiddenField($encrypted);
 
 	/**
 	 * Set a cookie containing the current User's remember me token for automatic authentication. The use of remember me tokens
 	 * is generally not recommended, but this method will help do it as safely as possible. The user interface should strongly warn
 	 * the user that this should only be enabled on computers where no other users will have access.  
+	 * 
+	 * Implementations should save the user's remember me data in an encrypted cookie and send it to the user. 
+	 * Any old remember me cookie should be destroyed first. Setting this cookie should keep the user 
+	 * logged in until the maxAge passes, the password is changed, or the cookie is deleted.
+	 * If the cookie exists for the current user, it should automatically be used by ESAPI to
+	 * log the user in, if the data is valid and not expired. 
+	 * 
+	 * The ESAPI reference implementation, DefaultHTTPUtilities.setRememberToken() implements all these suggestions.
 	 * 
 	 * The username can be retrieved with: User username = ESAPI.authenticator().getCurrentUser(); 
 	 * 
@@ -141,7 +140,7 @@ public interface HTTPUtilities {
 	 * 
 	 * @return encrypted "Remember Me" token stored as a String
 	 */
-	String setRememberToken(HttpServletRequest request,HttpServletResponse response, String password, int maxAge, String domain, String path);
+	function setRememberToken($request,$response, $password, $maxAge, $domain, $path);
 
     /**
      * Encrypts a hidden field value for use in HTML.
@@ -153,10 +152,10 @@ public interface HTTPUtilities {
      * 
      * @throws EncryptionException 
      */
-	String encryptHiddenField(String value) throws EncryptionException;
+	function encryptHiddenField($value);
 
 	/**
-	 * Takes a querystring (i.e. everything after the ? in the URL) and returns an encrypted string containing the parameters.
+	 * Takes a querystring (everything after the question mark in the URL) and returns an encrypted string containing the parameters.
 	 * 
 	 * @param query 
 	 * 		the querystring to encrypt
@@ -165,7 +164,7 @@ public interface HTTPUtilities {
 	 * 
 	 * @throws EncryptionException
 	 */
-	String encryptQueryString(String query) throws EncryptionException;
+	function encryptQueryString($query);
 	
 	/**
 	 * Takes an encrypted querystring and returns a Map containing the original parameters.
@@ -177,7 +176,7 @@ public interface HTTPUtilities {
 	 * 
 	 * @throws EncryptionException
 	 */
-	Map decryptQueryString(String encrypted) throws EncryptionException;
+	function decryptQueryString($encrypted);
 
 	
     /**
@@ -198,7 +197,7 @@ public interface HTTPUtilities {
      * @throws ValidationException 
      * 		if the file fails validation
      */
-    List getSafeFileUploads(HttpServletRequest request, File tempDir, File finalDir) throws ValidationException;
+    function getSafeFileUploads($request, $tempDir, $finalDir);
 
     /**
      * Retrieves a map of data from a cookie encrypted with encryptStateInCookie().
@@ -207,19 +206,19 @@ public interface HTTPUtilities {
 	 * 
 	 * @throws EncryptionException
      */
-    Map decryptStateFromCookie(HttpServletRequest request) throws EncryptionException ;
+    function decryptStateFromCookie($request);
 
     /**
      * Kill all cookies received in the last request from the browser. Note that new cookies set by the application in
      * this response may not be killed by this method.
      */
-    void killAllCookies(HttpServletRequest request, HttpServletResponse response);
+    function killAllCookies($request, $response);
     
     /**
      * Kills the specified cookie by setting a new cookie that expires immediately. Note that this
      * method does not delete new cookies that are being set by the application for this response. 
      */
-    void killCookie(HttpServletRequest request, HttpServletResponse response, String name);
+    function killCookie($request, $response, $name);
 
     /**
      * Stores a Map of data in an encrypted cookie. Generally the session is a better
@@ -228,11 +227,11 @@ public interface HTTPUtilities {
      * across sessions (for a long time), the use of encrypted cookies is an effective
      * way to prevent the exposure.
      */
-    void encryptStateInCookie(HttpServletResponse response, Map cleartext) throws EncryptionException;
+    function encryptStateInCookie($response, $cleartext);
 
     
     /**
-     * This method perform a forward to any resource located inside the WEB-INF directory. Forwarding to
+     * This method performs a forward to any resource located inside the WEB-INF directory. Forwarding to
      * publicly accessible resources can be dangerous, as the request will have already passed the URL
      * based access control check. This method ensures that you can only forward to non-publicly
      * accessible resources.
@@ -246,14 +245,26 @@ public interface HTTPUtilities {
      * @throws ServletException
      * @throws IOException
      */
-	void safeSendForward(HttpServletRequest request, HttpServletResponse response, String context, String location) throws AccessControlException,ServletException,IOException;
+	function safeSendForward($request, $response, $context, $location);
 	
 
     /**
-     * Sets the content type on each HTTP response, to help protect against cross-site scripting attacks and other types
-     * of injection into HTML documents.
+	 * Set the content type character encoding header on every HttpServletResponse in order to limit
+	 * the ways in which the input data can be represented. This prevents
+	 * malicious users from using encoding and multi-byte escape sequences to
+	 * bypass input validation routines.
+	 * 
+	 * Implementations of this method should set the content type header to a safe value for your environment.
+	 * The default is text/html; charset=UTF-8 character encoding, which is the default in early 
+	 * versions of HTML and HTTP. See RFC 2047 (http://ds.internic.net/rfc/rfc2045.txt) for more
+	 * information about character encoding and MIME.
+	 * 
+	 * The DefaultHTTPUtilities reference implementation sets the content type as specified.
+	 * 
+	 * @param response
+	 * 		The servlet response to set the content type for.
      */
-    void safeSetContentType(HttpServletResponse response);
+    function setSafeContentType($response);
 
     
     /**
@@ -287,7 +298,7 @@ public interface HTTPUtilities {
 	 * This method uses {@link HTTPUtilities#getCurrentResponse()} to obtain the {@link HttpServletResponse} object
 	 * 
      */
-    void setNoCacheHeaders(HttpServletResponse response);
+    function setNoCacheHeaders($response);
 
     /**
      * Stores the current HttpRequest and HttpResponse so that they may be readily accessed throughout
@@ -298,21 +309,21 @@ public interface HTTPUtilities {
      * @param response 
      * 		the current response
      */
-    void setCurrentHTTP(HttpServletRequest request, HttpServletResponse response);
+    function setCurrentHTTP($request, $response);
     
     /**
      * Retrieves the current HttpServletRequest
      * 
      * @return the current request
      */
-    SafeRequest getCurrentRequest();
+    function getCurrentRequest();
     
     /**
      * Retrieves the current HttpServletResponse
      * 
      * @return the current response
      */
-    SafeResponse getCurrentResponse();
+    function getCurrentResponse();
     
     /**
      * Format the Source IP address, URL, URL parameters, and all form
@@ -322,7 +333,7 @@ public interface HTTPUtilities {
 	 * 
 	 * @param logger the logger to write the request to
      */
-    void logHTTPRequest(HttpServletRequest request, Logger logger);
+    function logHTTPRequest($request, $logger);
 
     /**
      * Format the Source IP address, URL, URL parameters, and all form
@@ -341,6 +352,6 @@ public interface HTTPUtilities {
      * @param parameterNamesToObfuscate
      * 		the sensitive parameters
      */
-    void logHTTPRequest(HttpServletRequest request, Logger logger, List parameterNamesToObfuscate);
+    function logHTTPRequest($request, $logger, $parameterNamesToObfuscate);
 
 }

@@ -1,3 +1,4 @@
+<?php
 /**
  * OWASP Enterprise Security API (ESAPI)
  * 
@@ -5,22 +6,18 @@
  * Enterprise Security API (ESAPI) project. For details, please see
  * <a href="http://www.owasp.org/index.php/ESAPI">http://www.owasp.org/index.php/ESAPI</a>.
  *
- * Copyright (c) 2007 - The OWASP Foundation
+ * Copyright (c) 2007 - 2008 The OWASP Foundation
  * 
  * The ESAPI is published by OWASP under the BSD license. You should read and accept the
  * LICENSE before you use, modify, and/or redistribute this software.
  * 
- * @author Jeff Williams <a href="http://www.aspectsecurity.com">Aspect Security</a>
- * @created 2007
+ * @author 
+ * @created 2008
+ * @since 1.4
+ * @package org.owasp.esapi
  */
-package org.owasp.esapi;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.util.Set;
-
-import org.owasp.esapi.errors.EncryptionException;
+require_once("errors/EncryptionException.php");
 
 
 /**
@@ -29,76 +26,79 @@ import org.owasp.esapi.errors.EncryptionException;
  * implemented in a number of ways, the simplest being extending Properties and overloading
  * the getProperty and setProperty methods.
  * <P>
- * <img src="doc-files/EncryptedProperties.jpg" height="600">
+ * <img src="doc-files/EncryptedProperties.jpg">
  * <P>
  * 
- * @author Jeff Williams (jeff.williams .at. aspectsecurity.com) <a
- *         href="http://www.aspectsecurity.com">Aspect Security</a>
- * @since June 1, 2007
+ * @author 
+ * @since 1.4
  */
-public interface EncryptedProperties {
+interface EncryptedProperties {
 
 	/**
 	 * Gets the property value from the encrypted store, decrypts it, and returns the plaintext value to the caller.
 	 * 
 	 * @param key
-	 *            the key
+	 *      the name of the property to get 
 	 * 
-	 * @return the decrypted property value
+	 * @return 
+	 * 		the decrypted property value
 	 * 
 	 * @throws EncryptionException
-	 *             the encryption exception
+	 *      if the property could not be decrypted
 	 */
-	String getProperty(String key) throws EncryptionException;
+	function getProperty($key);
 
 	/**
 	 * Encrypts the plaintext property value and stores the ciphertext value in the encrypted store.
 	 * 
 	 * @param key
-	 *            the key
+	 *      the name of the property to set
 	 * @param value
-	 *            the value
+	 * 		the value of the property to set
 	 * 
-	 * @return the encrypted property value
+	 * @return 
+	 * 		the encrypted property value
 	 * 
 	 * @throws EncryptionException
-	 *             the encryption exception
+	 *      if the property could not be encrypted
 	 */
-	String setProperty(String key, String value) throws EncryptionException;
-
+	function setProperty($key, $value);
 	
 	/**
-	 * Key set.
+	 * Returns a Set view of properties. The Set is backed by a Hashtable, so changes to the 
+	 * Hashtable are reflected in the Set, and vice-versa. The Set supports element 
+	 * removal (which removes the corresponding entry from the Hashtable), but not element addition.
 	 * 
-	 * @return the set
+	 * @return 
+	 * 		a set view of the properties contained in this map.
 	 */
-	public Set keySet();
-	
-	
+	function keySet();
+		
 	/**
-	 * Load.
+	 * Reads a property list (key and element pairs) from the input stream.
 	 * 
 	 * @param in
-	 *            the in
+	 * 		the input stream that contains the properties file
 	 * 
 	 * @throws IOException
-	 *             Signals that an I/O exception has occurred.
+	 *      Signals that an I/O exception has occurred.
 	 */
-	public void load(InputStream in) throws IOException;
+	function load($in);
 	
-
 	/**
-	 * Store.
+	 * Writes this property list (key and element pairs) in this Properties table to 
+	 * the output stream in a format suitable for loading into a Properties table using the load method. 
 	 * 
 	 * @param out
-	 *            the out
+	 * 		the output stream that contains the properties file
 	 * @param comments
-	 *            the comments
+	 *            a description of the property list (ex. "Encrypted Properties File").
 	 * 
 	 * @throws IOException
 	 *             Signals that an I/O exception has occurred.
 	 */
-	public void store(OutputStream out, String comments) throws IOException;	
+	function store($out, $comments);	
 	
 	
 }
+?>

@@ -1,284 +1,335 @@
 <?php
 /**
  * OWASP Enterprise Security API (ESAPI)
- *
+ * 
  * This file is part of the Open Web Application Security Project (OWASP)
  * Enterprise Security API (ESAPI) project. For details, please see
  * <a href="http://www.owasp.org/index.php/ESAPI">http://www.owasp.org/index.php/ESAPI</a>.
  *
- * Copyright (c) 2008 - The OWASP Foundation
- *
+ * Copyright (c) 2007 - 2008 The OWASP Foundation
+ * 
  * The ESAPI is published by OWASP under the BSD license. You should read and accept the
  * LICENSE before you use, modify, and/or redistribute this software.
- *
- * @author PHP Port by Andrew van der Stock <a href="http://www.aspectsecurity.com">Aspect Security</a>
- * @author See J2EE Authors
+ * 
+ * @author Andrew van der Stock < vanderaj .(at). owasp.org > 
  * @created 2008
+ * @since 1.4
  * @package org.owasp.esapi
  */
 
-
-require_once "reference/DefaultEncoder.php";
-require_once "reference/DefaultExecutor.php";
-require_once "reference/DefaultHTTPUtilities.php";
-require_once "reference/DefaultIntrusionDetector.php";
-require_once "reference/DefaultRandomizer.php";
-require_once "reference/DefaultSecurityConfiguration.php";
-require_once "reference/DefaultValidator.php";
-require_once "reference/FileBasedAccessController.php";
-require_once "reference/FileBasedAuthenticator.php";
-require_once "reference/JavaEncryptor.php";
-require_once "reference/JavaLogFactory.php";
+require_once ("reference/DefaultEncoder.php");
+require_once ("reference/DefaultExecutor.php");
+require_once ("reference/DefaultHTTPUtilities.php");
+require_once ("reference/DefaultIntrusionDetector.php");
+require_once ("reference/DefaultRandomizer.php");
+require_once ("reference/DefaultSecurityConfiguration.php");
+require_once ("reference/DefaultValidator.php");
+require_once ("reference/FileBasedAccessController.php");
+require_once ("reference/FileBasedAuthenticator.php");
+require_once ("reference/JavaEncryptor.php");
+require_once ("reference/JavaLogFactory.php");
 
 /**
- * ESAPI locator class to make it easy to get a concrete implementation of the
- * various ESAPI classes. Use the setters to override the reference implementations
- * with instances of any custom ESAPI implementations.
+ * ESAPI locator class is provided to make it easy to gain access to the current ESAPI classes in use.
+ * Use the set methods to override the reference implementations with instances of any custom ESAPI implementations.
+ *
+ * @author 
+ * @since 1.4
  */
+class ESAPI
+{
 
-class ESAPI {
+    private static $accessController = null;
 
-	private static $accessController = null;
+    private static $authenticator = null;
 
-	private static $authenticator = null;
+    private static $encoder = null;
 
-	private static $encoder = null;
+    private static $encryptor = null;
 
-	private static $encryptor = null;
+    private static $executor = null;
 
-	private static $executor = null;
+    private static $httpUtilities = null;
 
-	private static $httpUtilities = null;
+    private static $intrusionDetector = null;
 
-	private static $intrusionDetector = null;
+    private static $logFactory = null;
 
-	private static $logFactory = null;
+    private static $defaultLogger = null;
 
-	private static $defaultLogger = null;
+    private static $randomizer = null;
 
-	private static $randomizer = null;
+    private static $securityConfiguration = null;
 
-	private static $securityConfiguration = null;
+    private static $validator = null;
 
-	private static $validator = null;
+    /**
+     * prevent instantiation of this class
+     */
+    function __construct()
+    {
+    }
 
-	/**
-	 * prevent instantiation of this class
-	 */
-	private function ESAPI() {
-	}
+    /**
+     * Get the current HTTP Servlet Request being processed.
+     * @return the current HTTP Servlet Request.
+     */
+    function currentRequest()
+    {
+        return $this->httpUtilities() . getCurrentRequest();
+    }
 
-	public static function currentRequest() {
-		return httpUtilities().getCurrentRequest();
-	}
+    /**
+     * Get the current HTTP Servlet Response being generated.
+     * @return the current HTTP Servlet Response.
+     */
+    function currentResponse()
+    {
+        return $this->httpUtilities() . getCurrentResponse();
+    }
 
-	public static function currentResponse() {
-		return httpUtilities().getCurrentResponse();
-	}
+    /**
+     * @return the current ESAPI AccessController object being used to maintain the access control rules for this application. 
+     */
+    function accessController()
+    {
+        if ($this->accessController == null)
+            $this->accessController = new FileBasedAccessController();
+        return $this->accessController;
+    }
 
-	/**
-	 * @return the accessController
-	 */
-	public static function accessController() {
-		if (ESAPI::accessController == null)
-			ESAPI::accessController = new FileBasedAccessController();
-		return ESAPI::accessController;
-	}
+    /**
+     * Change the current ESAPI AccessController to the AccessController provided. 
+     * @param accessController
+     *            the AccessController to set to be the current ESAPI AccessController. 
+     */
+    function setAccessController($accessController)
+    {
+        $this->accessController = $accessController;
+    }
 
-	/**
-	 * @param accessController
-	 *            the accessController to set
-	 */
-	public static function setAccessController($accessController) {
-		ESAPI::accessController = $accessController;
-	}
+    /**
+     * @return the current ESAPI Authenticator object being used to authenticate users for this application. 
+     */
+    function authenticator()
+    {
+        if ($this->authenticator == null)
+            $this->authenticator = new FileBasedAuthenticator();
+        return $this->authenticator;
+    }
 
-	/**
-	 * @return the authenticator
-	 */
-	public static function authenticator() {
-		if (ESAPI::authenticator == null)
-			ESAPI::authenticator = new FileBasedAuthenticator();
-		return ESAPI::authenticator;
-	}
+    /**
+     * Change the current ESAPI Authenticator to the Authenticator provided. 
+     * @param authenticator
+     *            the Authenticator to set to be the current ESAPI Authenticator. 
+     */
+    function setAuthenticator($authenticator)
+    {
+        $this->authenticator = $authenticator;
+    }
 
-	/**
-	 * @param authenticator
-	 *            the authenticator to set
-	 */
-	public static function setAuthenticator($authenticator) {
-		ESAPI::authenticator = $authenticator;
-	}
+    /**
+     * @return the current ESAPI Encoder object being used to encode and decode data for this application. 
+     */
+    function encoder()
+    {
+        if ($this->encoder == null)
+            $this->encoder = new DefaultEncoder();
+        return $this->encoder;
+    }
 
-	/**
-	 * @return the encoder
-	 */
-	public static function encoder() {
-		if (ESAPI::encoder == null)
-			ESAPI::encoder = new DefaultEncoder();
-		return ESAPI::encoder;
-	}
+    /**
+     * Change the current ESAPI Encoder to the Encoder provided. 
+     * @param encoder
+     *            the Encoder to set to be the current ESAPI Encoder. 
+     */
+    function setEncoder($encoder)
+    {
+        $this->encoder = $encoder;
+    }
 
-	/**
-	 * @param encoder
-	 *            the encoder to set
-	 */
-	public static function setEncoder($encoder) {
-		ESAPI::encoder = $encoder;
-	}
+    /**
+     * @return the current ESAPI Encryptor object being used to encrypt and decrypt data for this application. 
+     */
+    function encryptor()
+    {
+        if ($this->encryptor == null)
+            $this->encryptor = new JavaEncryptor();
+        return $this->encryptor;
+    }
 
-	/**
-	 * @return the encryptor
-	 */
-	public static function encryptor() {
-		if (ESAPI::encryptor == null)
-			ESAPI::encryptor = new JavaEncryptor();
-		return ESAPI::encryptor;
-	}
+    /**
+     * Change the current ESAPI Encryptor to the Encryptor provided. 
+     * @param encryptor
+     *            the Encryptor to set to be the current ESAPI Encryptor. 
+     */
+    function setEncryptor($encryptor)
+    {
+        $this->encryptor = $encryptor;
+    }
 
-	/**
-	 * @param encryptor
-	 *            the encryptor to set
-	 */
-	public static function setEncryptor($encryptor) {
-		ESAPI::encryptor = $encryptor;
-	}
+    /**
+     * @return the current ESAPI Executor object being used to safely execute OS commands for this application. 
+     */
+    function executor()
+    {
+        if ($this->executor == null)
+            $this->executor = new DefaultExecutor();
+        return $this->executor;
+    }
 
-	/**
-	 * @return the executor
-	 */
-	public static function executor() {
-		if (ESAPI::executor == null)
-			ESAPI::executor = new DefaultExecutor();
-		return ESAPI::executor;
-	}
+    /**
+     * Change the current ESAPI Executor to the Executor provided. 
+     * @param executor
+     *            the Executor to set to be the current ESAPI Executor. 
+     */
+    function setExecutor($executor)
+    {
+        $this->executor = $executor;
+    }
 
-	/**
-	 * @param executor
-	 *            the executor to set
-	 */
-	public static function setExecutor($executor) {
-		ESAPI::executor = $executor;
-	}
+    /**
+     * @return the current ESAPI HTTPUtilities object being used to safely access HTTP requests and responses 
+     * for this application. 
+     */
+    function httpUtilities()
+    {
+        if ($this->httpUtilities == null)
+            $this->httpUtilities = new DefaultHTTPUtilities();
+        return $this->httpUtilities;
+    }
 
-	/**
-	 * @return the httpUtilities
-	 */
-	public static function httpUtilities() {
-		if (ESAPI::httpUtilities == null)
-			ESAPI::httpUtilities = new DefaultHTTPUtilities();
-		return ESAPI::httpUtilities;
-	}
+    /**
+     * Change the current ESAPI HTTPUtilities object to the HTTPUtilities object provided. 
+     * @param httpUtilities
+     *            the HTTPUtilities object to set to be the current ESAPI HTTPUtilities object. 
+     */
+    function setHttpUtilities($httpUtilities)
+    {
+        $this->httpUtilities = $httpUtilities;
+    }
 
-	/**
-	 * @param httpUtilities
-	 *            the httpUtilities to set
-	 */
-	public static function setHttpUtilities($httpUtilities) {
-		ESAPI::httpUtilities = $httpUtilities;
-	}
+    /**
+     * @return the current ESAPI IntrusionDetector being used to monitor for intrusions in this application. 
+     */
+    function intrusionDetector()
+    {
+        if ($this->intrusionDetector == null)
+            $this->intrusionDetector = new DefaultIntrusionDetector();
+        return $this->intrusionDetector;
+    }
 
-	/**
-	 * @return the intrusionDetector
-	 */
-	public static function intrusionDetector() {
-		if (ESAPI::intrusionDetector == null)
-			ESAPI::intrusionDetector = new DefaultIntrusionDetector();
-		return ESAPI::intrusionDetector;
-	}
+    /**
+     * Change the current ESAPI IntrusionDetector to the IntrusionDetector provided. 
+     * @param intrusionDetector
+     *            the IntrusionDetector to set to be the current ESAPI IntrusionDetector. 
+     */
+    function setIntrusionDetector($intrusionDetector)
+    {
+        $this->intrusionDetector = $intrusionDetector;
+    }
 
-	/**
-	 * @param intrusionDetector
-	 *            the intrusionDetector to set
-	 */
-	public static function setIntrusionDetector($intrusionDetector) {
-		ESAPI::intrusionDetector = $intrusionDetector;
-	}
+    /**
+     * Get the current LogFactory being used by $this-> If there isn't one yet, it will create one, and then 
+     * return this same LogFactory from then on.
+     * @return The current LogFactory being used by $this->
+     */
+    private function logFactory()
+    {
+        if ($this->logFactory == null)
+            $this->logFactory = new LogFactory($this->securityConfiguration()->getApplicationName());
+        return $this->logFactory;
+    }
 
-	private static function logFactory() {
-//		if (logFactory == null)
-//			logFactory = new JavaLogFactory(securityConfiguration().getApplicationName());
-//		return logFactory;
-	}
+    /**
+     * @param moduleName The module to associate the logger with.
+     * @return The current Logger associated with the specified module.
+     */
+    function getLogger($moduleName)
+    {
+        return $this->logFactory()->getLogger($moduleName);
+    }
 
-	/**
-	 *
-	 */
-//	public static function getLogger($clazz) {
-//		return logFactory().getLogger(clazz);
-//	}
+    /**
+     * @return The default Logger.
+     */
+    function log()
+    {
+        if ($this->defaultLogger == null)
+            $this->defaultLogger = $this->logFactory()->getLogger("DefaultLogger");
+        return $this->defaultLogger;
+    }
 
-	/**
-	 *
-	 */
-	public static function getLogger($name) {
-		return logFactory().getLogger($name);
-	}
+    /**
+     * Change the current ESAPI LogFactory to the LogFactory provided. 
+     * @param factory
+     *            the LogFactory to set to be the current ESAPI LogFactory. 
+     */
+    function setLogFactory($factory)
+    {
+        $this->logFactory = $factory;
+    }
 
-	public static function log() {
-		if ($self->defaultLogger == null)
-			$self->defaultLogger = logFactory().getLogger("");
-		return $self->defaultLogger;
-	}
+    /**
+     * @return the current ESAPI Randomizer being used to generate random numbers in this application. 
+     */
+    function randomizer()
+    {
+        if ($this->randomizer == null)
+            $this->randomizer = new DefaultRandomizer();
+        return $this->randomizer;
+    }
 
-	 /**
-	 * @param factory the log factory to set
-	 */
-	 public static function setLogFactory($factory) {
-		 ESAPI::logFactory = $factory;
-	 }
+    /**
+     * Change the current ESAPI Randomizer to the Randomizer provided. 
+     * @param randomizer
+     *            the Randomizer to set to be the current ESAPI Randomizer. 
+     */
+    function setRandomizer($randomizer)
+    {
+        $this->randomizer = $randomizer;
+    }
 
-	/**
-	 * @return the randomizer
-	 */
-	public static function randomizer() {
-		if (ESAPI::randomizer == null)
-			ESAPI::randomizer = new DefaultRandomizer();
-		return ESAPI::randomizer;
-	}
+    /**
+     * @return the current ESAPI SecurityConfiguration being used to manage the security configuration for 
+     * ESAPI for this application. 
+     */
+    function securityConfiguration()
+    {
+        if ($this->securityConfiguration == null)
+            $this->securityConfiguration = new DefaultSecurityConfiguration();
+        return $this->securityConfiguration;
+    }
 
-	/**
-	 * @param randomizer
-	 *            the randomizer to set
-	 */
-	public static function setRandomizer($randomizer) {
-		ESAPI::randomizer = $randomizer;
-	}
+    /**
+     * Change the current ESAPI SecurityConfiguration to the SecurityConfiguration provided. 
+     * @param securityConfiguration
+     *            the SecurityConfiguration to set to be the current ESAPI SecurityConfiguration. 
+     */
+    function setSecurityConfiguration($securityConfiguration)
+    {
+        $this->securityConfiguration = $securityConfiguration;
+    }
 
-	/**
-	 * @return the securityConfiguration
-	 */
-	public static function securityConfiguration() {
-		if (ESAPI::securityConfiguration == null)
-			ESAPI::securityConfiguration = new DefaultSecurityConfiguration();
-		return ESAPI::securityConfiguration;
-	}
+    /**
+     * @return the current ESAPI Validator being used to validate data in this application. 
+     */
+    function validator()
+    {
+        if ($this->validator == null)
+            $this->validator = new DefaultValidator();
+        return $this->validator;
+    }
 
-	/**
-	 * @param securityConfiguration
-	 *            the securityConfiguration to set
-	 */
-	public static function setSecurityConfiguration($securityConfiguration) {
-		ESAPI::securityConfiguration = $securityConfiguration;
-	}
-
-	/**
-	 * @return the validator
-	 */
-	public static function validator() {
-		if (ESAPI::validator == null)
-			ESAPI::validator = new DefaultValidator();
-		return ESAPI::validator;
-	}
-
-	/**
-	 * @param validator
-	 *            the validator to set
-	 */
-	public static function setValidator($validator) {
-		ESAPI::validator = $validator;
-	}
+    /**
+     * Change the current ESAPI Validator to the Validator provided. 
+     * @param validator
+     *            the Validator to set to be the current ESAPI Validator. 
+     */
+    function setValidator($validator)
+    {
+        $this->validator = $validator;
+    }
 
 }
-
 ?>

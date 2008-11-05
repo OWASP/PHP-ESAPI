@@ -1,3 +1,4 @@
+<?php
 /**
  * OWASP Enterprise Security API (ESAPI)
  * 
@@ -5,22 +6,18 @@
  * Enterprise Security API (ESAPI) project. For details, please see
  * <a href="http://www.owasp.org/index.php/ESAPI">http://www.owasp.org/index.php/ESAPI</a>.
  *
- * Copyright (c) 2007 - The OWASP Foundation
+ * Copyright (c) 2007 - 2008 The OWASP Foundation
  * 
  * The ESAPI is published by OWASP under the BSD license. You should read and accept the
  * LICENSE before you use, modify, and/or redistribute this software.
  * 
- * @author Jeff Williams <a href="http://www.aspectsecurity.com">Aspect Security</a>
- * 
- * @created 2007
+ * @author 
+ * @created 2008
+ * @since 1.4
+ * @package org.owasp.esapi
  */
-package org.owasp.esapi;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-
-import org.owasp.esapi.errors.ValidationException;
+require_once("errors/ValidationException.php");
 
 /**
  * The ValidationErrorList class defines a well-formed collection of 
@@ -28,7 +25,7 @@ import org.owasp.esapi.errors.ValidationException;
  * called in a non-blocking fashion.
  * 
  * <P>
- * <img src="doc-files/Validator.jpg" height="600">
+ * <img src="doc-files/Validator.jpg">
  * <P>
  * 
  * To use the ValidationErrorList to execute groups of validation 
@@ -76,16 +73,15 @@ import org.owasp.esapi.errors.ValidationException;
  * ValidationException e = errorList.getError("Name");
  * </PRE>
  * 
- * @author Jim Manico (jim.manico .at. aspectsecurity.com) 
- * 		   <a href="http://www.aspectsecurity.com">Aspect Security</a>
- * @since August 15, 2008
+ * @author 
+ * @since 1.4
  */
-public class ValidationErrorList {
+class ValidationErrorList {
 
 	/**
 	 * Error list of ValidationException's
 	 */
-	private HashMap errorList = new HashMap();
+	// private HashMap errorList = new HashMap();
 
 	/**
 	 * Adds a new error to list with a unique named context.
@@ -95,12 +91,12 @@ public class ValidationErrorList {
 	 * @param context unique named context for this ValidationErrorList
 	 * @param ve
 	 */
-	public void addError(String context, ValidationException ve) {
-		if (getError(context) != null) throw new RuntimeException("Context (" + context + ") already exists, programmer error");
-		
-		if ((context != null) && (ve != null)) {
-			errorList.put(context, ve);
-		}
+	public function addError($context, $ve) {
+//		if (getError(context) != null) throw new RuntimeException("Context (" + context + ") already exists, programmer error");
+//		
+//		if ((context != null) && (ve != null)) {
+//			errorList.put(context, ve);
+//		}
 	}
 
 	/**
@@ -108,8 +104,8 @@ public class ValidationErrorList {
 	 * 
 	 * @return List
 	 */
-	public List errors() {
-		return new ArrayList( errorList.values() );
+	public function errors() {
+//		return new ArrayList( errorList.values() );
 	}
 
 	/**
@@ -118,9 +114,9 @@ public class ValidationErrorList {
 	 * @param context unique name for each error
 	 * @return ValidationException or null for given context
 	 */
-	public ValidationException getError(String context) {
-		if (context == null) return null;		
-		return (ValidationException)errorList.get(context);
+	public function getError($context) {
+//		if (context == null) return null;		
+//		return (ValidationException)errorList.get(context);
 	}
 
 	/**
@@ -128,8 +124,8 @@ public class ValidationErrorList {
 	 * 
 	 * @return boolean
 	 */
-	public boolean isEmpty() {
-		return errorList.isEmpty();
+	public function isEmpty() {
+//		return errorList.isEmpty();
 	}
 	
 	/**
@@ -137,7 +133,7 @@ public class ValidationErrorList {
 	 * 
 	 * @return boolean
 	 */
-	public int size() {
-		return errorList.size();
+	public function size() {
+//		return errorList.size();
 	}
 }
