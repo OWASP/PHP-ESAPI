@@ -1,3 +1,4 @@
+<?php
 /**
  * OWASP Enterprise Security API (ESAPI)
  * 
@@ -5,54 +6,38 @@
  * Enterprise Security API (ESAPI) project. For details, please see
  * <a href="http://www.owasp.org/index.php/ESAPI">http://www.owasp.org/index.php/ESAPI</a>.
  *
- * Copyright (c) 2007 - The OWASP Foundation
+ * Copyright (c) 2007 - 2008 The OWASP Foundation
  * 
  * The ESAPI is published by OWASP under the BSD license. You should read and accept the
  * LICENSE before you use, modify, and/or redistribute this software.
  * 
- * @author Jeff Williams <a href="http://www.aspectsecurity.com">Aspect Security</a>
- * @created 2007
+ * @author Andrew van der Stock <vanderaj .(at). owasp.org 
+ * @created 2008
+ * @since 1.4
+ * @package org.owasp.esapi.errors
  */
-package org.owasp.esapi.errors;
+
+require_once ('EnterpriseSecurityException.php');
 
 /**
  * An ExecutorException should be thrown for any problems that arise during the
  * execution of a system executable.
- * 
- * @author Jeff Williams (jeff.williams@aspectsecurity.com)
  */
-public class ExecutorException extends EnterpriseSecurityException {
-
-	/** The Constant serialVersionUID. */
-	private static final long serialVersionUID = 1L;
-
-	/**
-	 * Instantiates a new ExecutorException.
-	 */
-	protected ExecutorException() {
-		// hidden
-	}
-
+class ExecutorException extends EnterpriseSecurityException
+{
     /**
-     * Creates a new instance of ExecutorException.
+     * Create a new ExecutorException
      * 
-     * @param message
-     *            the message
-     */
-    public ExecutorException(String userMessage, String logMessage) {
-        super(userMessage, logMessage);
-    }
-
-    /**
-     * Instantiates a new ExecutorException.
-     * 
-     * @param message
-     *            the message
+     * @param userMessage
+     *            the message to display to users
+     * @param logMessage
+     * 			  the message logged
      * @param cause
-     *            the cause
+     * 			  the cause 
      */
-    public ExecutorException(String userMessage, String logMessage, Throwable cause) {
-        super(userMessage, logMessage, cause);
+    function __construct($userMessage, $logMessage, $cause = '')
+    {
+        parent::__construct($userMessage, $logMessage, $cause);
     }
-
 }
+?>
