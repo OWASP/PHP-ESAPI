@@ -1,3 +1,4 @@
+<?php
 /**
  * OWASP Enterprise Security API (ESAPI)
  * 
@@ -5,19 +6,19 @@
  * Enterprise Security API (ESAPI) project. For details, please see
  * <a href="http://www.owasp.org/index.php/ESAPI">http://www.owasp.org/index.php/ESAPI</a>.
  *
- * Copyright (c) 2007 - The OWASP Foundation
+ * Copyright (c) 2007 - 2008 The OWASP Foundation
  * 
  * The ESAPI is published by OWASP under the BSD license. You should read and accept the
  * LICENSE before you use, modify, and/or redistribute this software.
  * 
- * @author Jeff Williams <a href="http://www.aspectsecurity.com">Aspect Security</a>
- * @created 2007
+ * @author 
+ * @created 2008
+ * @since 1.4
+ * @package org.owasp.esapi
  */
-package org.owasp.esapi;
 
-import org.owasp.esapi.errors.EncryptionException;
-import org.owasp.esapi.errors.IntegrityException;
-
+require_once("errors/EncryptionException.php");
+require_once("errors/IntegrityException.php");
 
 /**
  * The Encryptor interface provides a set of methods for performing common
@@ -27,110 +28,115 @@ import org.owasp.esapi.errors.IntegrityException;
  * implementation with a strong "master key", and that they protect this secret
  * as much as possible.
  * <P>
- * <img src="doc-files/Encryptor.jpg" height="600">
+ * <img src="doc-files/Encryptor.jpg">
  * <P>
  * Possible future enhancements (depending on feedback) might include:
  * <UL>
  * <LI>encryptFile</LI>
  * </UL>
  * 
- * @author Jeff Williams (jeff.williams .at. aspectsecurity.com) <a
- *         href="http://www.aspectsecurity.com">Aspect Security</a>
- * @since June 1, 2007
+ * @author 
+ * @since 1.4
  */
-public interface Encryptor {
+interface Encryptor {
 
 	/**
 	 * Returns a string representation of the hash of the provided plaintext and
 	 * salt. The salt helps to protect against a rainbow table attack by mixing
 	 * in some extra data with the plaintext. Some good choices for a salt might
 	 * be an account name or some other string that is known to the application
-	 * but not to an attacker. See <a href="http://www.matasano.com/log/958/enough-with-the-rainbow-tables-what-you-need-to-know-about-secure-password-schemes/">this article</a> for 
-	 * more information about hashing as it pertains to password schemes.
+	 * but not to an attacker. 
+	 * See <a href="http://www.matasano.com/log/958/enough-with-the-rainbow-tables-what-you-need-to-know-about-secure-password-schemes/">
+	 * this article</a> for more information about hashing as it pertains to password schemes.
 	 * 
 	 * @param plaintext
-	 *            the plaintext String to encrypt
+	 * 		the plaintext String to encrypt
 	 * @param salt
-	 *            the salt
+	 *      the salt to add to the plaintext String before hashing
 	 * 
-	 * @return the encrypted hash of 'plaintext' stored as a String
+	 * @return 
+	 * 		the encrypted hash of 'plaintext' stored as a String
 	 * 
 	 * @throws EncryptionException
-	 *             the encryption exception
+	 *      if the specified hash algorithm could not be found or another problem exists with 
+	 *      the hashing of 'plaintext'
 	 */
-	String hash(String plaintext, String salt) throws EncryptionException;
+	function hash($plaintext, $salt);
 
 	/**
 	 * Encrypts the provided plaintext and returns a ciphertext string.
 	 * 
 	 * @param plaintext
-	 *            the plaintext String to encrypt
+	 *      the plaintext String to encrypt
 	 * 
-	 * @return the encrypted String
+	 * @return 
+	 * 		the encrypted String representation of 'plaintext'
 	 * 
 	 * @throws EncryptionException
-	 *             the encryption exception
+	 *      if the specified encryption algorithm could not be found or another problem exists with 
+	 *      the encryption of 'plaintext'
 	 */
-	String encrypt(String plaintext) throws EncryptionException;
+	function encrypt($plaintext);
 
 	/**
 	 * Decrypts the provided ciphertext string (encrypted with the encrypt
 	 * method) and returns a plaintext string.
 	 * 
 	 * @param ciphertext
-	 *            the ciphertext
+	 *      the ciphertext (encrypted plaintext)
 	 * 
-	 * @return the decrypted ciphertext
+	 * @return 
+	 * 		the decrypted ciphertext
 	 * 
 	 * @throws EncryptionException
-	 *             the encryption exception
+	 *      if the specified encryption algorithm could not be found or another problem exists with 
+	 *      the encryption of 'plaintext'
 	 */
-	String decrypt(String ciphertext) throws EncryptionException;
+	function decrypt($ciphertext);
 
 	/**
 	 * Create a digital signature for the provided data and return it in a
 	 * string.
 	 * 
 	 * @param data
-	 *            the data to sign
+	 *      the data to sign
 	 * 
-	 * @return the digital signature stored as a String
+	 * @return 
+	 * 		the digital signature stored as a String
 	 * 
 	 * @throws EncryptionException
-	 *             the encryption exception
+	 * 		if the specified signature algorithm cannot be found
 	 */
-	String sign(String data) throws EncryptionException;
+	function sign($data);
 
 	/**
 	 * Verifies a digital signature (created with the sign method) and returns
 	 * the boolean result.
 	 * 
 	 * @param signature
-	 *            the signature to verify
+	 *      the signature to verify against 'data'
 	 * @param data
-	 *            the data to verify
+	 *      the data to verify against 'signature'
 	 * 
-	 * @return true, if the signature is verified
+	 * @return 
+	 * 		true, if the signature is verified, false otherwise
 	 * 
-	 * @throws EncryptionException
-	 *             the encryption exception
 	 */
-	boolean verifySignature(String signature, String data);
+	function verifySignature($signature, $data);
 
 	/**
 	 * Creates a seal that binds a set of data and includes an expiration timestamp.
 	 * 
 	 * @param data
-	 *            the data to seal
+	 *      the data to seal
 	 * @param timestamp
-	 *            the absolute expiration date of the data, expressed as seconds since the epoch
+	 *      the absolute expiration date of the data, expressed as seconds since the epoch
 	 * 
-	 * @return the seal
+	 * @return 
+	 * 		the seal
 	 * 
-	 * @throws EncryptionException
-	 *             the encryption exception
 	 */
-	String seal(String data, long timestamp) throws IntegrityException;
+	function seal($data, $timestamp);
 
 	/**
 	 * Unseals data (created with the seal method) and throws an exception
@@ -138,13 +144,15 @@ public interface Encryptor {
 	 * as an invalid seal format, expired timestamp, or decryption error.
 	 * 
 	 * @param seal
-	 *            the sealed data
+	 *      the sealed data
 	 * 
-	 * @return the original data
+	 * @return 
+	 * 		the original (unsealed) data
 	 * 
-	 * @throws ExcryptionException if the unsealed data cannot be retrieved for any reason
+	 * @throws EncryptionException 
+	 * 		if the unsealed data cannot be retrieved for any reason
 	 */
-	String unseal( String seal ) throws EncryptionException;
+	function unseal($seal);
 	
 	/**
 	 * Verifies a seal (created with the seal method) and throws an exception
@@ -152,12 +160,12 @@ public interface Encryptor {
 	 * as an invalid seal format, expired timestamp, or data mismatch.
 	 * 
 	 * @param seal
-	 *            the seal
+	 *      the seal to verify
 	 * 
-	 * @return true, if the seal is valid
+	 * @return 
+	 * 		true, if the seal is valid.  False otherwise
 	 */
-	boolean verifySeal(String seal);
-
+	function verifySeal($seal);
 	
 	/**
 	 * Gets an absolute timestamp representing an offset from the current time to be used by
@@ -166,17 +174,19 @@ public interface Encryptor {
 	 * @param offset 
 	 * 		the offset to add to the current time
 	 * 
-	 * @return the absolute timestamp
+	 * @return 
+	 * 		the absolute timestamp
 	 */
-	public long getRelativeTimeStamp( long offset );
+	function getRelativeTimeStamp($offset);
 	
 	
 	/**
 	 * Gets a timestamp representing the current date and time to be used by
 	 * other functions in the library.
 	 * 
-	 * @return the timestamp
+	 * @return 
+	 * 		a timestamp representing the current time
 	 */
-	long getTimeStamp();
-
+	function getTimeStamp();
 }
+?>

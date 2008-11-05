@@ -1,3 +1,4 @@
+<?php
 /**
  * OWASP Enterprise Security API (ESAPI)
  * 
@@ -5,21 +6,18 @@
  * Enterprise Security API (ESAPI) project. For details, please see
  * <a href="http://www.owasp.org/index.php/ESAPI">http://www.owasp.org/index.php/ESAPI</a>.
  *
- * Copyright (c) 2007 - The OWASP Foundation
+ * Copyright (c) 2007 - 2008 The OWASP Foundation
  * 
  * The ESAPI is published by OWASP under the BSD license. You should read and accept the
  * LICENSE before you use, modify, and/or redistribute this software.
  * 
- * @author Jeff Williams <a href="http://www.aspectsecurity.com">Aspect Security</a>
- * @created 2007
+ * @author 
+ * @created 2008
+ * @since 1.4
+ * @package org.owasp.esapi
  */
-package org.owasp.esapi;
 
-import java.util.Iterator;
-import java.util.Set;
-
-import org.owasp.esapi.errors.AccessControlException;
-
+require_once("errors/AccessControlException.php");
 
 /**
  * The AccessReferenceMap interface is used to map from a set of internal
@@ -29,7 +27,7 @@ import org.owasp.esapi.errors.AccessControlException;
  * should not expose their direct object references as it enables attackers to
  * attempt to manipulate them.
  * <P>
- * <img src="doc-files/AccessReferenceMap.jpg" height="600">
+ * <img src="doc-files/AccessReferenceMap.jpg">
  * <P>
  * <P>
  * Indirect references are handled as strings, to facilitate their use in HTML.
@@ -60,9 +58,10 @@ import org.owasp.esapi.errors.AccessControlException;
  * 
  * <P>
  * 
- * @author Jeff Williams (jeff.williams@aspectsecurity.com)
+ * @author 
+ * @since 1.4
  */
-public interface AccessReferenceMap {
+interface AccessReferenceMap {
 
 	/**
 	 * Get an iterator through the direct object references. No guarantee is made as 
@@ -70,7 +69,7 @@ public interface AccessReferenceMap {
 	 * 
 	 * @return the iterator
 	 */
-	Iterator iterator();
+	function iterator();
 
 	/**
 	 * Get a safe indirect reference to use in place of a potentially sensitive
@@ -79,54 +78,67 @@ public interface AccessReferenceMap {
 	 * implementation information.
 	 * 
 	 * @param directReference
-	 *            the direct reference
+	 * 		the direct reference
 	 * 
-	 * @return the indirect reference
+	 * @return 
+	 * 		the indirect reference
 	 */
-	String getIndirectReference(Object directReference);
+	function getIndirectReference($directReference);
 
 	/**
 	 * Get the original direct object reference from an indirect reference.
 	 * Developers should use this when they get an indirect reference from a
 	 * request to translate it back into the real direct reference. If an
-	 * invalid indirectReference is requested, then an AccessControlException is
+	 * invalid indirect reference is requested, then an AccessControlException is
 	 * thrown.
 	 * 
 	 * @param indirectReference
-	 *            the indirect reference
+	 * 		the indirect reference
 	 * 
-	 * @return the direct reference
+	 * @return 
+	 * 		the direct reference
 	 * 
-	 * @throws AccessControlException if no direct reference exists for the 
-	 * 				specified indirect reference
+	 * @throws AccessControlException 
+	 * 		if no direct reference exists for the specified indirect reference
 	 */
-	Object getDirectReference(String indirectReference) throws AccessControlException;
+	function getDirectReference($indirectReference);
 
 	/**
-	 * Adds a direct reference to the AccessReferenceMap and generates an associated indirect reference. 
+	 * Adds a direct reference to the AccessReferenceMap, then generates and returns 
+	 * an associated indirect reference.
+	 *  
 	 * @param direct 
 	 * 		the direct reference
 	 * 
-	 * @return the corresponding indirect reference
+	 * @return 
+	 * 		the corresponding indirect reference
 	 */
-	String addDirectReference(Object direct);
+	function addDirectReference($direct);
 	
 	/**
 	 * Removes a direct reference and its associated indirect reference from the AccessReferenceMap.
+	 * 
 	 * @param direct 
 	 * 		the direct reference to remove
 	 * 
-	 * @return the corresponding indirect reference
+	 * @return 
+	 * 		the corresponding indirect reference
 	 * 
 	 * @throws AccessControlException
 	 */
-	String removeDirectReference(Object direct) throws AccessControlException;
+	function removeDirectReference($direct);
 
 	/**
-	 * Updates the access reference map with a new set of directReferences, maintaining
-	 * any existing indirectReferences associated with items that are in the new list. 
+	 * Updates the access reference map with a new set of direct references, maintaining
+	 * any existing indirect references associated with items that are in the new list.
+	 * New indirect references could be generated every time, but that
+	 * might mess up anything that previously used an indirect reference, such
+	 * as a URL parameter. 
+	 * 
 	 * @param directReferences
+	 * 		a Set of direct references to add
 	 */
-	void update(Set directReferences);
+	function update($directReferences);
 
 }
+?>

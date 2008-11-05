@@ -1,3 +1,4 @@
+<?php
 /**
  * OWASP Enterprise Security API (ESAPI)
  * 
@@ -5,26 +6,24 @@
  * Enterprise Security API (ESAPI) project. For details, please see
  * <a href="http://www.owasp.org/index.php/ESAPI">http://www.owasp.org/index.php/ESAPI</a>.
  *
- * Copyright (c) 2007 - The OWASP Foundation
+ * Copyright (c) 2007 - 2008 The OWASP Foundation
  * 
  * The ESAPI is published by OWASP under the BSD license. You should read and accept the
  * LICENSE before you use, modify, and/or redistribute this software.
  * 
- * @author Jeff Williams <a href="http://www.aspectsecurity.com">Aspect Security</a>
- * @created 2007
+ * @author 
+ * @created 2008
+ * @since 1.4
+ * @package org.owasp.esapi
  */
-package org.owasp.esapi;
-
-import java.util.Arrays;
 
 /**
  * String utilities used in various filters.
  * 
- * @author Jeff Williams (jeff.williams .at. aspectsecurity.com) <a
- * href="http://www.aspectsecurity.com">Aspect Security</a>
- * @since June 1, 2007
+ * @author Andrew van der Stock < vanderaj .(at). owasp.org >
+ * @since 1.4
  */
-public class StringUtilities {
+class StringUtilities {
 
 	/**
 	 * Removes all unprintable characters from a string 
@@ -32,17 +31,17 @@ public class StringUtilities {
 	 * @param input
 	 * @return the stripped header
 	 */
-	public static String stripControls( String input ) {
-		StringBuffer sb = new StringBuffer();
-		for ( int i=0; i<input.length(); i++ ) {
-			char c = input.charAt( i );
-			if ( c > 0x20 && c < 0x7f ) {
-				sb.append( c );
+	public static function stripControls( $input ) {
+		$sb = '';
+		$sl = strlen($input);
+		for ( $i=0; $i< $sl; $i++ ) {
+			if ( $input[i] > chr(32) && $input[i] < chr(127) ) {
+				$sb .= $input[i];
 			} else {
-				sb.append( ' ' );
+				$sb .= ' ';
 			}
 		}
-		return sb.toString();
+		return $sb;
 	}
 
 	
@@ -53,32 +52,16 @@ public class StringUtilities {
      * @param c2 the c2
      * @return the char[]
      */
-    public static char[] union(char[] c1, char[] c2) {
-        StringBuffer sb = new StringBuffer();
-        for (int i = 0; i < c1.length; i++) {
-            if (!contains(sb, c1[i]))
-                sb.append(c1[i]);
-        }
-        for (int i = 0; i < c2.length; i++) {
-            if (!contains(sb, c2[i]))
-                sb.append(c2[i]);
-        }
-        char[] c3 = new char[sb.length()];
-        sb.getChars(0, sb.length(), c3, 0);
-        Arrays.sort(c3);
-        return c3;
+    public static function union($c1, $c2) {
+		return sort(array_unique(array_merge($c1, $c2)));
     }
 
 
 	/**
      * Returns true if the character is contained in the provided StringBuffer.
      */
-    public static boolean contains(StringBuffer haystack, char c) {
-        for (int i = 0; i < haystack.length(); i++) {
-            if (haystack.charAt(i) == c)
-                return true;
-        }
-        return false;
+    public static function contains($haystack, $c) {
+    	return in_array($c, $haystack);
     }
 
 }

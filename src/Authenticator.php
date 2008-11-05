@@ -1,3 +1,4 @@
+<?php
 /**
  * OWASP Enterprise Security API (ESAPI)
  * 
@@ -5,24 +6,19 @@
  * Enterprise Security API (ESAPI) project. For details, please see
  * <a href="http://www.owasp.org/index.php/ESAPI">http://www.owasp.org/index.php/ESAPI</a>.
  *
- * Copyright (c) 2007 - The OWASP Foundation
+ * Copyright (c) 2007 - 2008 The OWASP Foundation
  * 
  * The ESAPI is published by OWASP under the BSD license. You should read and accept the
  * LICENSE before you use, modify, and/or redistribute this software.
  * 
- * @author Jeff Williams <a href="http://www.aspectsecurity.com">Aspect Security</a>
- * @created 2007
+ * @author 
+ * @created 2008
+ * @since 1.4
+ * @package org.owasp.esapi
  */
-package org.owasp.esapi;
 
-import java.util.Set;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import org.owasp.esapi.errors.AuthenticationException;
-import org.owasp.esapi.errors.EncryptionException;
-
+require_once("errors/AuthenticationException.php");
+require_once("errors/EncryptionException.php");
 
 /**
  * The Authenticator interface defines a set of methods for generating and
@@ -30,7 +26,7 @@ import org.owasp.esapi.errors.EncryptionException;
  * interface is to encourage developers to protect credentials from disclosure
  * to the maximum extent possible.
  * <P>
- * <img src="doc-files/Authenticator.jpg" height="600">
+ * <img src="doc-files/Authenticator.jpg">
  * <P>
  * One possible implementation relies on the use of a thread local variable to
  * store the current user's identity. The application is responsible for calling
@@ -56,59 +52,86 @@ import org.owasp.esapi.errors.EncryptionException;
  * }
  * </pre>
  * 
- * @author Jeff Williams (jeff.williams .at. aspectsecurity.com) <a
- *         href="http://www.aspectsecurity.com">Aspect Security</a>
- * @since June 1, 2007
+ * @author 
+ * @since 1.4
  */
-public interface Authenticator {
+interface Authenticator {
 
 	/**
-	 * Clear the current user. This allows the thread to be reused safely.
+	 * Clears the current User. This allows the thread to be reused safely.
+     * 
+     * This clears all threadlocal variables from the thread. This should ONLY be called after
+     * all possible ESAPI operations have concluded. If you clear too early, many calls will
+     * fail, including logging, which requires the user identity.  
 	 */
-	void clearCurrent();
+	function clearCurrent();
 
 	/**
+	 * This method should be called for every HTTP request, to login the current user either from the session of HTTP
+     * request. This method will set the current user so that getCurrentUser() will work properly. 
+	 * 
 	 * Authenticates the user's credentials from the HttpServletRequest if
 	 * necessary, creates a session if necessary, and sets the user as the
 	 * current user.
 	 * 
+	 * Specification:  The implementation should do the following:
+     * 	1) Check if the User is already stored in the session
+     * 		a. If so, check that session absolute and inactivity timeout have not expired
+     * 		b. Step 2 may not be required if 1a has been satisfied
+     * 	2) Verify User credentials
+     * 		a. It is recommended that you use 
+     * 			loginWithUsernameAndPassword(HttpServletRequest, HttpServletResponse) to verify credentials
+     * 	3) Set the last host of the User (ex.  user.setLastHostAddress(address) )
+     * 	4) Verify that the request is secure (ex. over SSL)
+     * 	5) Verify the User account is allowed to be logged in
+     * 		a. Verify the User is not disabled, expired or locked
+     * 	6) Assign User to session variable      	
+	 * 
 	 * @param request
 	 *            the current HTTP request
 	 * @param response
-	 *            the response
+	 *            the HTTP response
 	 * 
-	 * @return the user
+	 * @return 
+	 * 		the User
 	 * 
 	 * @throws AuthenticationException
 	 *             if the credentials are not verified, or if the account is disabled, locked, expired, or timed out
 	 */
-	User login(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException;
+	function login($request, $response);
 
 	/**
-	 * Verify that the supplied password matches the password for this user. This method
-	 * is typically used for "reauthentication" for the most sensitive functions, such
+	 * Verify that the supplied password matches the password for this user. Password should
+	 * be stored as a hash. It is recommended you use the hashPassword(password, accountName) method
+	 * in this class.
+	 * This method is typically used for "reauthentication" for the most sensitive functions, such
 	 * as transactions, changing email address, and changing other account information.
 	 * 
 	 * @param user 
-	 * 		the user
+	 * 		the user who requires verification
 	 * @param password 
-	 * 		the password
+	 * 		the hashed user-supplied password
 	 * 
-	 * @return true, if the password is correct for the specified user
+	 * @return 
+	 * 		true, if the password is correct for the specified user
 	 */
-	boolean verifyPassword(User user, String password);
+	function verifyPassword($user, $password);
 	
 	/**
 	 * Logs out the current user.
+	 * 
+	 * This is usually done by calling User.logout on the current User. 
 	 */
-    void logout();
+    function logout();
 
 	/**
-	 * Creates a new User with the information provided. Implementations should check the
-	 * accountName and password for proper format and strength against brute force attacks.
+	 * Creates a new User with the information provided. Implementations should check
+	 * accountName and password for proper format and strength against brute force 
+	 * attacks ( verifyAccountNameStrength(String), verifyPasswordStrength(String, String)  ).
+	 * 
 	 * Two copies of the new password are required to encourage user interface designers to
-	 * include a "re-type password" field in their forms. Implementations should verify that both are the
-	 * same. 
+	 * include a "re-type password" field in their forms. Implementations should verify that 
+	 * both are the same. 
 	 * 
 	 * @param accountName 
 	 * 		the account name of the new user
@@ -117,21 +140,23 @@ public interface Authenticator {
 	 * @param password2 
 	 * 		the password of the new user.  This field is to encourage user interface designers to include two password fields in their forms.
 	 * 
-	 * @return the User that has been created 
+	 * @return 
+	 * 		the User that has been created 
 	 * 
 	 * @throws AuthenticationException 
-	 * 		if user creation fails
+	 * 		if user creation fails due to any of the qualifications listed in this method's description
 	 */
-	User createUser(String accountName, String password1, String password2) throws AuthenticationException;
+	function createUser($accountName, $password1, $password2);
 
 	/**
 	 * Generate a strong password. Implementations should use a large character set that does not
 	 * include confusing characters, such as i I 1 l 0 o and O.  There are many algorithms to
 	 * generate strong memorable passwords that have been studied in the past.
 	 * 
-	 * @return a password with strong password strength
+	 * @return 
+	 * 		a password with strong password strength
 	 */
-	String generateStrongPassword();
+	function generateStrongPassword();
 
 	/**
 	 * Generate strong password that takes into account the user's information and old password. Implementations
@@ -143,14 +168,15 @@ public interface Authenticator {
 	 * @param oldPassword 
 	 * 		the old password to use when verifying strength of new password.  The new password may be checked for fragments of oldPassword.
 	 * 
-	 * @return a password with strong password strength
+	 * @return 
+	 * 		a password with strong password strength
 	 */
-	String generateStrongPassword(User user, String oldPassword);
+	function generateStrongPassword($user, $oldPassword);
 
 	/**
 	 * Changes the password for the specified user. This requires the current password, as well as 
-	 * the password to replace it with. This new password must be repeated to ensure that the user has
-	 * typed it in correctly.
+	 * the password to replace it with. The new password should be checked against old hashes to be sure the new password does not closely resemble or equal any recent passwords for that User.
+	 * Password strength should also be verified.  This new password must be repeated to ensure that the user has typed it in correctly.
 	 * 
 	 * @param user 
 	 * 		the user to change the password for
@@ -164,42 +190,48 @@ public interface Authenticator {
 	 * @throws AuthenticationException 
 	 * 		if any errors occur
 	 */
-	void changePassword(User user, String currentPassword, String newPassword, String newPassword2) throws AuthenticationException;
+	function changePassword($user, $currentPassword, $newPassword, $newPassword2);
 	
 	/**
-	 * Returns the User matching the provided accountId.
+	 * Returns the User matching the provided accountId.  If the accoundId is not found, an Anonymous
+	 * User or null may be returned.
 	 * 
 	 * @param accountId
 	 *            the account id
 	 * 
-	 * @return the matching User object, or null if no match exists
+	 * @return 
+	 * 		the matching User object, or the Anonymous User if no match exists
 	 */
-	User getUser(long accountId);
+	function getUser($accountId);
 		
 	/**
-	 * Returns the User matching the provided accountName.
+	 * Returns the User matching the provided accountName.  If the accoundId is not found, an Anonymous
+	 * User or null may be returned.
 	 * 
 	 * @param accountName
 	 *            the account name
 	 * 
-	 * @return the matching User object, or null if no match exists
+	 * @return 
+	 * 		the matching User object, or the Anonymous User if no match exists
 	 */
-	User getUser(String accountName);
+	function getUser($accountName);
 
 	/**
 	 * Gets a collection containing all the existing user names.
 	 * 
-	 * @return a set of all user names
+	 * @return 
+	 * 		a set of all user names
 	 */
-	Set getUserNames();
+	function getUserNames();
 
 	/**
 	 * Returns the currently logged in User.
 	 * 
-	 * @return the matching User object, or the Anonymous user if no match
+	 * @return 
+	 * 		the matching User object, or the Anonymous User if no match
 	 *         exists
 	 */
-	User getCurrentUser();
+	function getCurrentUser();
 
 	/**
 	 * Sets the currently logged in User.
@@ -207,10 +239,10 @@ public interface Authenticator {
 	 * @param user
 	 *          the user to set as the current user
 	 */
-	void setCurrentUser(User user);
+	function setCurrentUser($user);
 
 	/**
-	 * Returns a string representation of the hashed password, using the
+	 * Returns a $representation of the hashed password, using the
 	 * accountName as the salt. The salt helps to prevent against "rainbow"
 	 * table attacks where the attacker pre-calculates hashes for known strings.
 	 * This method specifies the use of the user's account name as the "salt"
@@ -222,12 +254,13 @@ public interface Authenticator {
 	 * @param accountName
 	 *            the account name to use as the salt
 	 * 
-	 * @return the hashed password
+	 * @return 
+	 * 		the hashed password
 	 */
-	String hashPassword(String password, String accountName) throws EncryptionException;
+	function hashPassword($password, $accountName);
 
 	/**
-	 * Removes the account.
+	 * Removes the account of the specified accountName.
 	 * 
 	 * @param accountName
 	 *            the account name to remove
@@ -235,7 +268,7 @@ public interface Authenticator {
 	 * @throws AuthenticationException
 	 *             the authentication exception if user does not exist
 	 */
-	void removeUser(String accountName) throws AuthenticationException;
+	function removeUser($accountName);
 
 	/**
 	 * Ensures that the account name passes site-specific complexity requirements, like minimum length.
@@ -246,25 +279,24 @@ public interface Authenticator {
 	 * @throws AuthenticationException
 	 *             if account name does not meet complexity requirements
 	 */
-	void verifyAccountNameStrength(String accountName) throws AuthenticationException;
+	function verifyAccountNameStrength($accountName);
 
 	/**
-	 * Ensures that the password meets site-specific complexity requirements. This
-	 * method takes the old password so that the algorithm can analyze the new password
-	 * to see if it is too similar to the old password. Note that this has to be
+	 * Ensures that the password meets site-specific complexity requirements, like length or number 
+	 * of character sets. This method takes the old password so that the algorithm can analyze the 
+	 * new password to see if it is too similar to the old password. Note that this has to be
 	 * invoked when the user has entered the old password, as the list of old
 	 * credentials stored by ESAPI is all hashed.
+	 * 
 	 * @param oldPassword
 	 *            the old password
 	 * @param newPassword
 	 *            the new password
 	 * 
-	 * @return true, if the new password meets complexity requirements and is not too similar to the old password
-	 * 
 	 * @throws AuthenticationException
 	 *				if newPassword is too similar to oldPassword or if newPassword does not meet complexity requirements
 	 */
-	void verifyPasswordStrength(String oldPassword, String newPassword) throws AuthenticationException;
+	function verifyPasswordStrength($oldPassword, $newPassword);
 
 	/**
 	 * Determine if the account exists.
@@ -274,6 +306,7 @@ public interface Authenticator {
 	 * 
 	 * @return true, if the account exists
 	 */
-	boolean exists(String accountName);
+	function exists($accountName);
 
 }
+?>
