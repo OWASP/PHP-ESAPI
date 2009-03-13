@@ -17,7 +17,7 @@
  * @package org.owasp.esapi.reference
  */
 
-require_once('../src/Encryptor.php');
+require_once dirname(__FILE__).'/../Encryptor.php';
 
 class DefaultEncryptor implements Encryptor {
 	

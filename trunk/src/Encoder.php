@@ -17,8 +17,8 @@
  * @package org.owasp.esapi
  */
 
-require_once("codecs/Codec.php");
-require_once("errors/EncodingException.php");
+require_once dirname(__FILE__).'/codecs/Codec.php';
+require_once dirname(__FILE__).'/errors/EncodingException.php';
 
 
 /**

@@ -17,7 +17,7 @@
  * @package org.owasp.esapi.reference
  */
 
-require_once('../src/AccessController.php');
+require_once dirname(__FILE__).'/../AccessController.php';
 
 class FileBasedAccessController implements AccessController {
 	

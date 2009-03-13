@@ -17,14 +17,14 @@
  * @package org.owasp.esapi
  */
 
-require_once("errors/AccessControlException.php");
-require_once("errors/AuthenticationException.php");
-require_once("errors/EncryptionException.php");
-require_once("errors/EnterpriseSecurityException.php");
-require_once("errors/IntrusionException.php");
-require_once("errors/ValidationException.php");
-require_once("filters/SafeRequest.php");
-require_once("filters/SafeResponse.php");
+require_once dirname(__FILE__).'/errors/AccessControlException.php';
+require_once dirname(__FILE__).'/errors/AuthenticationException.php';
+require_once dirname(__FILE__).'/errors/EncryptionException.php';
+require_once dirname(__FILE__).'/errors/EnterpriseSecurityException.php';
+require_once dirname(__FILE__).'/errors/IntrusionException.php';
+require_once dirname(__FILE__).'/errors/ValidationException.php';
+require_once dirname(__FILE__).'/filters/SafeRequest.php';
+require_once dirname(__FILE__).'/filters/SafeResponse.php';
 
 
 /**

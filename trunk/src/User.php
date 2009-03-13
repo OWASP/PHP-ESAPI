@@ -17,8 +17,8 @@
  * @package org.owasp.esapi
  */
 
-require_once("errors/AuthenticationException.php");
-require_once("errors/EncryptionException.php");
+require_once dirname(__FILE__).'/errors/AuthenticationException.php';
+require_once dirname(__FILE__).'/errors/EncryptionException.php';
 
 /**
  * The User interface represents an application user or user account. There is quite a lot of information that an

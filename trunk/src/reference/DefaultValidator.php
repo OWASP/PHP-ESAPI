@@ -18,7 +18,7 @@
  * @package org.owasp.esapi.reference
  */
 
-require_once ('../src/Validator.php');
+require_once dirname(__FILE__).'/../Validator.php';
 
 class DefaultValidator implements Validator {
 

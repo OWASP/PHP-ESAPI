@@ -17,7 +17,7 @@
  * @package org.owasp.esapi
  */
 
-require_once("errors/ValidationException.php");
+require_once dirname(__FILE__).'/errors/ValidationException.php';
 
 /**
  * The ValidationErrorList class defines a well-formed collection of 

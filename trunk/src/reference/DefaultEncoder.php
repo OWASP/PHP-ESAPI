@@ -17,7 +17,7 @@
  * @package org.owasp.esapi.reference
  */
 
-require_once('../src/Encoder.php');
+require_once dirname(__FILE__).'/../Encoder.php';
 
 class DefaultEncoder implements Encoder {
 	

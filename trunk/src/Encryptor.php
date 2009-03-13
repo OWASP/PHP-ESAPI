@@ -17,8 +17,8 @@
  * @package org.owasp.esapi
  */
 
-require_once("errors/EncryptionException.php");
-require_once("errors/IntegrityException.php");
+require_once dirname(__FILE__).'/errors/EncryptionException.php';
+require_once dirname(__FILE__).'/errors/IntegrityException.php';
 
 /**
  * The Encryptor interface provides a set of methods for performing common

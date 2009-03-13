@@ -17,7 +17,7 @@
  * @package org.owasp.esapi.errors
  */
 
-require_once ('ValidationException.php');
+require_once  dirname(__FILE__).'/ValidationException.php';
 
 /**
  * TODO: Document this class

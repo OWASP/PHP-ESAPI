@@ -17,9 +17,8 @@
  * @package org.owasp.esapi
  */
 
-require_once("errors/IntrusionException.php");
-require_once("errors/ValidationException.php");
-
+require_once dirname(__FILE__).'/errors/IntrusionException.php';
+require_once dirname(__FILE__).'/errors/ValidationException.php';
 
 /**
  * The Validator interface defines a set of methods for canonicalizing and

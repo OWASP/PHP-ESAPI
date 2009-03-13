@@ -18,8 +18,8 @@
  * @package org.owasp.esapi
  */
 
-require_once ("codecs/Codec.php");
-require_once ("errors/ExecutorException.php");
+require_once dirname(__FILE__).'/codecs/Codec.php';
+require_once dirname(__FILE__).'/errors/ExecutorException.php';
 
 /**
  * The Executor interface is used to run an OS command with reduced security risk.

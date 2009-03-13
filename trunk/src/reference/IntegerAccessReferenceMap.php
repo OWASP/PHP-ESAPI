@@ -17,7 +17,7 @@
  * @package org.owasp.esapi.reference
  */
 
-require_once('../src/AccessReferenceMap.php');
+require_once dirname(__FILE__).'/../AccessReferenceMap.php';
 
 class IntegerAccessReferenceMap implements AccessReferenceMap {
 	

@@ -18,7 +18,7 @@
  * @package org.owasp.esapi.reference
  */
 
-require_once ('../src/SecurityConfiguration.php');
+require_once  dirname(__FILE__).'/../SecurityConfiguration.php';
 
 class DefaultSecurityConfiguration implements SecurityConfiguration {
 

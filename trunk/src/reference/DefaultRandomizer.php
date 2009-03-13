@@ -17,7 +17,7 @@
  * @package org.owasp.esapi.reference
  */
 
-require_once('../src/Randomizer.php');
+require_once  dirname(__FILE__).'/../Randomizer.php';
 
 class DefaultRandomizer implements Randomizer {
 	

@@ -17,7 +17,7 @@
  * @package org.owasp.esapi.errors
  */
 
-require_once ('EnterpriseSecurityException.php');
+require_once dirname(__FILE__).'/EnterpriseSecurityException.php';
 
 /**
  * An ExecutorException should be thrown for any problems that arise during the
@@ -35,7 +35,7 @@ class ExecutorException extends EnterpriseSecurityException
      * @param cause
      * 			  the cause 
      */
-    function __construct($userMessage, $logMessage = 0)
+    function __construct($userMessage = '', $logMessage = '')
     {
         parent::__construct($userMessage, $logMessage);
     }

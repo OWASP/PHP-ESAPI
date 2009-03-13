@@ -17,7 +17,7 @@
  * @package org.owasp.esapi
  */
 
-require_once("errors/AccessControlException.php");
+require_once dirname(__FILE__).'/errors/AccessControlException.php';
 
 /**
  * The AccessController interface defines a set of methods that can be used in a wide variety of applications to

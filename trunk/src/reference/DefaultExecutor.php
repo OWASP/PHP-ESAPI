@@ -17,7 +17,7 @@
  * @package org.owasp.esapi.reference
  */
 
-require_once('../src/Executor.php');
+require_once  dirname(__FILE__).'/../Executor.php';
 
 class DefaultExecutor implements Executor {
 	

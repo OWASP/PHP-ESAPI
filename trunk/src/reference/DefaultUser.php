@@ -17,7 +17,7 @@
  * @package org.owasp.esapi.reference
  */
 
-require_once('../src/User.php');
+require_once dirname(__FILE__).'/../User.php';
 
 class DefaultUser implements User {
 	

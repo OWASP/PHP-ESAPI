@@ -17,7 +17,7 @@
  * @package org.owasp.esapi.errors
  */
 
-require_once ('AuthenticationException.php');
+require_once  dirname(__FILE__).'/AuthenticationException.php';
 
 /**
  * An AuthenticationException should be thrown when anything goes wrong during
