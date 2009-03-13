@@ -12,22 +12,21 @@
  * LICENSE before you use, modify, and/or redistribute this software.
  * 
  * @author 
- * @created 2008
+ * @created 2009
  * @since 1.4
  * @package org.owasp.esapi.codecs
  */
 
-
 require_once ('Codec.php');
 
 /**
- * Implementation of the Codec interface for HTML entity encoding.
+ * Implementation of the Codec interface for LDAP encoding.
  * 
  * @author 
  * @since 1.4
  * @see org.owasp.esapi.Encoder
  */
-class HTMLEntityCodec implements Codec
+class LDAPCodec implements Codec
 {
 
     /**

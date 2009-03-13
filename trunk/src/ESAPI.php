@@ -6,7 +6,7 @@
  * Enterprise Security API (ESAPI) project. For details, please see
  * <a href="http://www.owasp.org/index.php/ESAPI">http://www.owasp.org/index.php/ESAPI</a>.
  *
- * Copyright (c) 2007 - 2008 The OWASP Foundation
+ * Copyright (c) 2007 - 2009 The OWASP Foundation
  * 
  * The ESAPI is published by OWASP under the BSD license. You should read and accept the
  * LICENSE before you use, modify, and/or redistribute this software.
@@ -26,8 +26,8 @@ require_once ("reference/DefaultSecurityConfiguration.php");
 require_once ("reference/DefaultValidator.php");
 require_once ("reference/FileBasedAccessController.php");
 require_once ("reference/FileBasedAuthenticator.php");
-require_once ("reference/JavaEncryptor.php");
-require_once ("reference/JavaLogFactory.php");
+require_once ("reference/DefaultEncryptor.php");
+require_once ("reference/DefaultLogger.php");
 
 /**
  * ESAPI locator class is provided to make it easy to gain access to the current ESAPI classes in use.
@@ -53,8 +53,6 @@ class ESAPI
 
     private static $intrusionDetector = null;
 
-    private static $logFactory = null;
-
     private static $defaultLogger = null;
 
     private static $randomizer = null;
@@ -68,6 +66,7 @@ class ESAPI
      */
     function __construct()
     {
+    	$defaultLogger = new DefaultLogger();
     }
 
     /**
@@ -154,7 +153,7 @@ class ESAPI
     function encryptor()
     {
         if ($this->encryptor == null)
-            $this->encryptor = new JavaEncryptor();
+            $this->encryptor = new DefaultEncryptor();
         return $this->encryptor;
     }
 
@@ -230,44 +229,17 @@ class ESAPI
     }
 
     /**
-     * Get the current LogFactory being used by $this-> If there isn't one yet, it will create one, and then 
-     * return this same LogFactory from then on.
-     * @return The current LogFactory being used by $this->
-     */
-    private function logFactory()
-    {
-        if ($this->logFactory == null)
-            $this->logFactory = new LogFactory($this->securityConfiguration()->getApplicationName());
-        return $this->logFactory;
-    }
-
-    /**
      * @param moduleName The module to associate the logger with.
      * @return The current Logger associated with the specified module.
      */
     function getLogger($moduleName)
     {
-        return $this->logFactory()->getLogger($moduleName);
-    }
-
-    /**
-     * @return The default Logger.
-     */
-    function log()
-    {
         if ($this->defaultLogger == null)
-            $this->defaultLogger = $this->logFactory()->getLogger("DefaultLogger");
+        {
+        	$this->defaultLogger = new DefaultLogger();
+        }
+            
         return $this->defaultLogger;
-    }
-
-    /**
-     * Change the current ESAPI LogFactory to the LogFactory provided. 
-     * @param factory
-     *            the LogFactory to set to be the current ESAPI LogFactory. 
-     */
-    function setLogFactory($factory)
-    {
-        $this->logFactory = $factory;
     }
 
     /**

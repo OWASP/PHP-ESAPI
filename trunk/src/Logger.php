@@ -172,19 +172,6 @@ interface Logger
     function setLevel($level);
 
     /**
-     * Log a fatal event if 'fatal' level logging is enabled.
-     * 
-     * @param type 
-     * 		the type of event
-     * @param success
-     * 		False indicates this was a failed event (the typical value).
-     * 		True indicates this was a successful event.  
-     * @param message 
-     * 		the message to log
-     */
-    function fatal($type, $success, $message);
-
-    /**
      * Log a fatal level security event if 'fatal' level logging is enabled 
      * and also record the stack trace associated with the event.
      * 
@@ -198,7 +185,7 @@ interface Logger
      * @param throwable 
      * 		the exception to be logged
      */
-    function fatal($type, $success, $message, $throwable);
+    function fatal($type, $success, $message, $throwable = null);
 
     /**
      * Allows the caller to determine if messages logged at this level
@@ -208,18 +195,6 @@ interface Logger
      */
     function isFatalEnabled();
 
-    /**
-     * Log an error level security event if 'error' level logging is enabled.
-     * 
-     * @param type 
-     * 		the type of event
-     * @param success
-     * 		False indicates this was a failed event (the typical value).
-     * 		True indicates this was a successful event.  
-     * @param message 
-     * 		the message to log
-     */
-    function error($type, $success, $message);
 
     /**
      * Log an error level security event if 'error' level logging is enabled 
@@ -235,7 +210,7 @@ interface Logger
      * @param throwable 
      * 		the exception to be logged
      */
-    function error($type, $success, $message, $throwable);
+    function error($type, $success, $message, $throwable = null);
 
     /**
      * Allows the caller to determine if messages logged at this level
@@ -244,19 +219,6 @@ interface Logger
      * @return true if error level messages will be output to the log
      */
     function isErrorEnabled();
-
-    /**
-     * Log a warning level security event if 'warning' level logging is enabled.
-     * 
-     * @param type 
-     * 		the type of event
-     * @param success
-     * 		False indicates this was a failed event (the typical value).
-     * 		True indicates this was a successful event.  
-     * @param message 
-     * 		the message to log
-     */
-    function warning($type, $success, $message);
 
     /**
      * Log a warning level security event if 'warning' level logging is enabled 
@@ -272,7 +234,7 @@ interface Logger
      * @param throwable 
      * 		the exception to be logged
      */
-    function warning($type, $success, $message, $throwable);
+    function warning($type, $success, $message, $throwable = null);
 
     /**
      * Allows the caller to determine if messages logged at this level
@@ -281,19 +243,6 @@ interface Logger
      * @return true if warning level messages will be output to the log
      */
     function isWarningEnabled();
-
-    /**
-     * Log an info level security event if 'info' level logging is enabled.
-     * 
-     * @param type 
-     * 		the type of event
-     * @param success
-     * 		False indicates this was a failed event (the typical value).
-     * 		True indicates this was a successful event.  
-     * @param message 
-     * 		the message to log
-     */
-    function info($type, $success, $message);
 
     /**
      * Log an info level security event if 'info' level logging is enabled 
@@ -309,7 +258,7 @@ interface Logger
      * @param throwable 
      * 		the exception to be logged
      */
-    function info($type, $success, $message, $throwable);
+    function info($type, $success, $message, $throwable = null);
 
     /**
      * Allows the caller to determine if messages logged at this level
@@ -318,19 +267,6 @@ interface Logger
      * @return true if info level messages will be output to the log
      */
     function isInfoEnabled();
-
-    /**
-     * Log a debug level security event if 'debug' level logging is enabled.
-     * 
-     * @param type 
-     * 		the type of event
-     * @param success
-     * 		False indicates this was a failed event (the typical value).
-     * 		True indicates this was a successful event.  
-     * @param message 
-     * 		the message to log
-     */
-    function debug($type, $success, $message);
 
     /**
      * Log a debug level security event if 'debug' level logging is enabled 
@@ -346,7 +282,7 @@ interface Logger
      * @param throwable 
      * 		the exception to be logged
      */
-    function debug($type, $success, $message, $throwable);
+    function debug($type, $success, $message, $throwable = null);
 
     /**
      * Allows the caller to determine if messages logged at this level
@@ -355,19 +291,6 @@ interface Logger
      * @return true if debug level messages will be output to the log
      */
     function isDebugEnabled();
-
-    /**
-     * Log a trace level security event if 'trace' level logging is enabled.
-     * 
-     * @param type 
-     * 		the type of event
-     * @param success
-     * 		False indicates this was a failed event (the typical value).
-     * 		True indicates this was a successful event.  
-     * @param message 
-     * 		the message to log
-     */
-    function trace($type, $success, $message);
 
     /**
      * Log a trace level security event if 'trace' level logging is enabled 
@@ -383,7 +306,7 @@ interface Logger
      * @param throwable 
      * 		the exception to be logged
      */
-    function trace($type, $success, $message, $throwable);
+    function trace($type, $success, $message, $throwable = null);
 
     /**
      * Allows the caller to determine if messages logged at this level

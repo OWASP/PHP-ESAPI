@@ -39,7 +39,7 @@ class EnterpriseSecurityException extends Exception
     protected $logMessage = null;
 
     /**
-     * Creates a new instance of EnterpriseSecurityException that includes a root cause Throwable.
+     * Creates a new instance of EnterpriseSecurityException that includes a root cause 
      * 
      * @param userMessage 
      * 			  the message displayed to the user
@@ -47,9 +47,18 @@ class EnterpriseSecurityException extends Exception
      * 			  the message logged
      * @param cause the cause
      */
-    function __construct($userMessage, $logMessage, $cause)
+    public function __construct($userMessage = '', $logMessage = '')
     {
-        parent::__construct($userMessage, $cause);
+    	global $ESAPI;
+    	$cause = 0;
+    	
+    	if ( empty($userMessage) ) {
+    		$userMessage = null;
+    		
+    	}
+    	    	
+		parent::__construct($userMessage);
+        
         $this->logMessage = $logMessage;
         $this->logger = $ESAPI->getLogger("EnterpriseSecurityException");
         $ESAPI->intrusionDetector()->addException($this);

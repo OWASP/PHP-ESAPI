@@ -35,9 +35,9 @@ class ExecutorException extends EnterpriseSecurityException
      * @param cause
      * 			  the cause 
      */
-    function __construct($userMessage, $logMessage, $cause = '')
+    function __construct($userMessage, $logMessage = 0)
     {
-        parent::__construct($userMessage, $logMessage, $cause);
+        parent::__construct($userMessage, $logMessage);
     }
 }
 ?>

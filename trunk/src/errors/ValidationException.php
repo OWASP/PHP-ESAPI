@@ -42,9 +42,9 @@ class ValidationException extends EnterpriseSecurityException
      * @param context
      *            the source that caused this exception
      */
-    function __construct($userMessage, $logMessage, $cause = '', $context = '')
+    function __construct($userMessage = '', $logMessage = '', $context = '')
     {
-        parent::__construct($userMessage, $logMessage, $cause);
+        parent::__construct($userMessage, $logMessage);
         $this->setContext($context);
     }
 

@@ -14,8 +14,8 @@
  * @author Andrew van der Stock (vanderaj @ owasp.org)
  * @created 2009
  */
-
-class LoggerTest extends UnitTestCase 
+ 
+class StringUtilitiesTest extends UnitTestCase 
 {
 	function setUp() 
 	{

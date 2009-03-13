@@ -149,16 +149,6 @@ interface Authenticator {
 	function createUser($accountName, $password1, $password2);
 
 	/**
-	 * Generate a strong password. Implementations should use a large character set that does not
-	 * include confusing characters, such as i I 1 l 0 o and O.  There are many algorithms to
-	 * generate strong memorable passwords that have been studied in the past.
-	 * 
-	 * @return 
-	 * 		a password with strong password strength
-	 */
-	function generateStrongPassword();
-
-	/**
 	 * Generate strong password that takes into account the user's information and old password. Implementations
 	 * should verify that the new password does not include information such as the username, fragments of the
 	 * old password, and other information that could be used to weaken the strength of the password.
@@ -171,7 +161,7 @@ interface Authenticator {
 	 * @return 
 	 * 		a password with strong password strength
 	 */
-	function generateStrongPassword($user, $oldPassword);
+	function generateStrongPassword($user = null, $oldPassword = null);
 
 	/**
 	 * Changes the password for the specified user. This requires the current password, as well as 
@@ -202,7 +192,7 @@ interface Authenticator {
 	 * @return 
 	 * 		the matching User object, or the Anonymous User if no match exists
 	 */
-	function getUser($accountId);
+	function getUserById($accountId);
 		
 	/**
 	 * Returns the User matching the provided accountName.  If the accoundId is not found, an Anonymous
@@ -214,7 +204,7 @@ interface Authenticator {
 	 * @return 
 	 * 		the matching User object, or the Anonymous User if no match exists
 	 */
-	function getUser($accountName);
+	function getUserByName($accountName);
 
 	/**
 	 * Gets a collection containing all the existing user names.
