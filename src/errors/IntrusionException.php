@@ -17,7 +17,7 @@
  * @package org.owasp.esapi.errors
  */
 
-require_once ('EnterpriseSecurityException.php');
+require_once  dirname(__FILE__).'/EnterpriseSecurityException.php';
 
 /**
  * An IntrusionException should be thrown anytime an error condition arises that is likely to be the result of an attack

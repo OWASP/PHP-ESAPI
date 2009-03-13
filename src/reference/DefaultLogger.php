@@ -17,7 +17,7 @@
  * @package org.owasp.esapi.reference
  */
 
-require_once('../src/Logger.php');
+require_once dirname(__FILE__).'/../Logger.php';
 
 class DefaultLogger implements Logger {
 	const SECURITY = 0;

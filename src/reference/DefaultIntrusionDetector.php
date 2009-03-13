@@ -17,7 +17,7 @@
  * @package org.owasp.esapi.reference
  */
 
-require_once('../src/IntrusionDetector.php');
+require_once dirname(__FILE__).'/../IntrusionDetector.php';
 
 class DefaultIntrusionDetector implements IntrusionDetector {
 	

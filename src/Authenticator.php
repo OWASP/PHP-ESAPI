@@ -17,8 +17,8 @@
  * @package org.owasp.esapi
  */
 
-require_once("errors/AuthenticationException.php");
-require_once("errors/EncryptionException.php");
+require_once dirname(__FILE__).'/errors/AuthenticationException.php';
+require_once dirname(__FILE__).'/errors/EncryptionException.php';
 
 /**
  * The Authenticator interface defines a set of methods for generating and

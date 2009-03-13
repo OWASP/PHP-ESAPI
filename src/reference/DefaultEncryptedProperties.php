@@ -17,7 +17,7 @@
  * @package org.owasp.esapi.reference
  */
 
-require_once('../src/EncryptedProperties.php');
+require_once dirname(__FILE__).'/../EncryptedProperties.php';
 
 class DefaultEncryptedProperties implements EncryptedProperties {
 	

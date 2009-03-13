@@ -17,7 +17,7 @@
  * @package org.owasp.esapi
  */
 
-require_once("errors/AccessControlException.php");
+require_once dirname(__FILE__).'/errors/AccessControlException.php';
 
 /**
  * The AccessReferenceMap interface is used to map from a set of internal

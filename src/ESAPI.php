@@ -17,17 +17,17 @@
  * @package org.owasp.esapi
  */
 
-require_once ("reference/DefaultEncoder.php");
-require_once ("reference/DefaultExecutor.php");
-require_once ("reference/DefaultHTTPUtilities.php");
-require_once ("reference/DefaultIntrusionDetector.php");
-require_once ("reference/DefaultRandomizer.php");
-require_once ("reference/DefaultSecurityConfiguration.php");
-require_once ("reference/DefaultValidator.php");
-require_once ("reference/FileBasedAccessController.php");
-require_once ("reference/FileBasedAuthenticator.php");
-require_once ("reference/DefaultEncryptor.php");
-require_once ("reference/DefaultLogger.php");
+require_once dirname(__FILE__).'/reference/DefaultEncoder.php';
+require_once dirname(__FILE__).'/reference/DefaultExecutor.php';
+require_once dirname(__FILE__).'/reference/DefaultHTTPUtilities.php';
+require_once dirname(__FILE__).'/reference/DefaultIntrusionDetector.php';
+require_once dirname(__FILE__).'/reference/DefaultRandomizer.php';
+require_once dirname(__FILE__).'/reference/DefaultSecurityConfiguration.php';
+require_once dirname(__FILE__).'/reference/DefaultValidator.php';
+require_once dirname(__FILE__).'/reference/FileBasedAccessController.php';
+require_once dirname(__FILE__).'/reference/FileBasedAuthenticator.php';
+require_once dirname(__FILE__).'/reference/DefaultEncryptor.php';
+require_once dirname(__FILE__).'/reference/DefaultLogger.php';
 
 /**
  * ESAPI locator class is provided to make it easy to gain access to the current ESAPI classes in use.
@@ -38,27 +38,16 @@ require_once ("reference/DefaultLogger.php");
  */
 class ESAPI
 {
-
     private static $accessController = null;
-
     private static $authenticator = null;
-
     private static $encoder = null;
-
     private static $encryptor = null;
-
     private static $executor = null;
-
     private static $httpUtilities = null;
-
     private static $intrusionDetector = null;
-
     private static $defaultLogger = null;
-
     private static $randomizer = null;
-
     private static $securityConfiguration = null;
-
     private static $validator = null;
 
     /**
@@ -66,7 +55,8 @@ class ESAPI
      */
     function __construct()
     {
-    	$defaultLogger = new DefaultLogger();
+    	self::getLogger("ESAPI Startup");
+    	self::intrusionDetector();
     }
 
     /**
@@ -92,8 +82,11 @@ class ESAPI
      */
     function accessController()
     {
-        if ($this->accessController == null)
-            $this->accessController = new FileBasedAccessController();
+        if ( empty($this->accessController) )
+        {
+        	$this->accessController = new FileBasedAccessController();
+        }
+            
         return $this->accessController;
     }
 
@@ -112,8 +105,11 @@ class ESAPI
      */
     function authenticator()
     {
-        if ($this->authenticator == null)
-            $this->authenticator = new FileBasedAuthenticator();
+        if ( empty($this->authenticator) )
+        {
+        	$this->authenticator = new FileBasedAuthenticator();
+        }
+            
         return $this->authenticator;
     }
 
@@ -132,8 +128,11 @@ class ESAPI
      */
     function encoder()
     {
-        if ($this->encoder == null)
-            $this->encoder = new DefaultEncoder();
+        if ( empty($this->encoder) )
+        {
+        	$this->encoder = new DefaultEncoder();
+        }
+            
         return $this->encoder;
     }
 
@@ -152,8 +151,11 @@ class ESAPI
      */
     function encryptor()
     {
-        if ($this->encryptor == null)
-            $this->encryptor = new DefaultEncryptor();
+        if ( empty($this->encryptor) )
+        {
+        	$this->encryptor = new DefaultEncryptor();
+        }
+            
         return $this->encryptor;
     }
 
@@ -172,8 +174,11 @@ class ESAPI
      */
     function executor()
     {
-        if ($this->executor == null)
-            $this->executor = new DefaultExecutor();
+        if ( empty($this->executor) )
+        {
+        	$this->executor = new DefaultExecutor();
+        }
+            
         return $this->executor;
     }
 
@@ -193,8 +198,11 @@ class ESAPI
      */
     function httpUtilities()
     {
-        if ($this->httpUtilities == null)
-            $this->httpUtilities = new DefaultHTTPUtilities();
+        if ( empty($this->httpUtilities) )
+        {
+        	$this->httpUtilities = new DefaultHTTPUtilities();
+        }
+            
         return $this->httpUtilities;
     }
 
@@ -213,8 +221,10 @@ class ESAPI
      */
     function intrusionDetector()
     {
-        if ($this->intrusionDetector == null)
+        if ( empty($this->intrusionDetector) )
+        {
             $this->intrusionDetector = new DefaultIntrusionDetector();
+        }
         return $this->intrusionDetector;
     }
 
@@ -234,7 +244,7 @@ class ESAPI
      */
     function getLogger($moduleName)
     {
-        if ($this->defaultLogger == null)
+        if ( empty($this->defaultLogger) )
         {
         	$this->defaultLogger = new DefaultLogger();
         }
@@ -247,8 +257,11 @@ class ESAPI
      */
     function randomizer()
     {
-        if ($this->randomizer == null)
-            $this->randomizer = new DefaultRandomizer();
+        if ( empty($this->randomizer) ) 
+        {
+        	$this->randomizer = new DefaultRandomizer();
+        }
+            
         return $this->randomizer;
     }
 
@@ -268,8 +281,11 @@ class ESAPI
      */
     function securityConfiguration()
     {
-        if ($this->securityConfiguration == null)
-            $this->securityConfiguration = new DefaultSecurityConfiguration();
+        if ( empty($this->securityConfiguration) )
+        {
+        	$this->securityConfiguration = new DefaultSecurityConfiguration();
+        }
+            
         return $this->securityConfiguration;
     }
 
@@ -288,8 +304,11 @@ class ESAPI
      */
     function validator()
     {
-        if ($this->validator == null)
-            $this->validator = new DefaultValidator();
+        if ( empty($this->validator) ) 
+        {
+        	$this->validator = new DefaultValidator();
+        }
+            
         return $this->validator;
     }
 

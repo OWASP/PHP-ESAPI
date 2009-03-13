@@ -17,7 +17,7 @@
  * @package org.owasp.esapi.codecs
  */
 
-require_once ('Codec.php');
+require_once  dirname(__FILE__).'/Codec.php';
 
 /**
  * Implementation of the Codec interface for base 64 encoding.

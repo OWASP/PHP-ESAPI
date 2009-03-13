@@ -17,7 +17,7 @@
  * @package org.owasp.esapi.reference
  */
 
-require_once('../src/HTTPUtilities.php');
+require_once  dirname(__FILE__).'/../HTTPUtilities.php';
 
 class DefaultHTTPUtilities implements HTTPUtilities {
 

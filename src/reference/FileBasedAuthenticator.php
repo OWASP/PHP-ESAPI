@@ -17,7 +17,7 @@
  * @package org.owasp.esapi.reference
  */
 
-require_once('../src/Authenticator.php');
+require_once dirname(__FILE__).'/../Authenticator.php';
 
 class FileBasedAuthenticator implements Authenticator {
 	

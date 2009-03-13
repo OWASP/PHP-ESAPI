@@ -17,7 +17,7 @@
  * @package org.owasp.esapi
  */
 
-require_once("errors/EncryptionException.php");
+require_once dirname(__FILE__).'/errors/EncryptionException.php';
 
 /**
  * The Randomizer interface defines a set of methods for creating

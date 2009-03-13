@@ -17,7 +17,7 @@
  * @package org.owasp.esapi
  */
 
-require_once("errors/ValidationException.php");
+require_once dirname(__FILE__).'/errors/ValidationException.php';
 
 /**
  * Extension to java.io.File to prevent against null byte injections and

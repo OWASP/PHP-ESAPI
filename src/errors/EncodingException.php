@@ -17,7 +17,7 @@
  * @package org.owasp.esapi.errors
  */
 
-require_once ('EnterpriseSecurityException.php');
+require_once  dirname(__FILE__).'/EnterpriseSecurityException.php';
 
 /**
  * An EncodingException should be thrown for any problems that occur when
