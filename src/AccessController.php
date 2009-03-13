@@ -113,7 +113,7 @@ interface AccessController {
      * @return 
      * 		true, if is authorized for the data
      */
-    function isAuthorizedForData($key);
+    function isAuthorizedForDataByKey($key);
 
     /**
      * Checks if an account is authorized to access the referenced data, represented as an Object. 
@@ -238,7 +238,7 @@ interface AccessController {
      * @throws AccessControlException 
      * 		if access is not permitted
      */
-    function assertAuthorizedForData($key);
+    function assertAuthorizedForDataByKey($key);
     
     /**
      * Checks if the current user is authorized to access the referenced data.  This method simply returns if access is authorized.  

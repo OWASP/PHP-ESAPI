@@ -6,7 +6,7 @@
  * Enterprise Security API (ESAPI) project. For details, please see
  * <a href="http://www.owasp.org/index.php/ESAPI">http://www.owasp.org/index.php/ESAPI</a>.
  *
- * Copyright (c) 2007 - 2008 The OWASP Foundation
+ * Copyright (c) 2007 - 2009 The OWASP Foundation
  * 
  * The ESAPI is published by OWASP under the BSD license. You should read and accept the
  * LICENSE before you use, modify, and/or redistribute this software.
@@ -17,6 +17,8 @@
  * @package org.owasp.esapi.codecs
  */
 
+
+require_once ('Codec.php');
 
 /**
  * Implementation of the Codec interface for '^' encoding from Windows command shell.

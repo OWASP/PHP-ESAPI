@@ -63,27 +63,6 @@ interface Validator {
 	 */
 	function isValidInput($context, $input, $type, $maxLength, $allowNull);
 
-	/**
-	 * Returns canonicalized and validated input as a String. Invalid input will generate a descriptive ValidationException, 
-	 * and input that is clearly an attack will generate a descriptive IntrusionException. 
-	 * 
-	 * @param context 
-	 * 		A descriptive name of the parameter that you are validating (e.g., LoginPage_UsernameField). This value is used by any logging or error handling that is done with respect to the value passed in.
-	 * @param input 
-	 * 		The actual user input data to validate.
-	 * @param type 
-	 * 		The regular expression name that maps to the actual regular expression from "ESAPI.properties".
-	 * @param maxLength 
-	 * 		The maximum post-canonicalized String length allowed.
-	 * @param allowNull 
-	 * 		If allowNull is true then an input that is NULL or an empty string will be legal. If allowNull is false then NULL or an empty String will throw a ValidationException.
-	 * 
-	 * @return The canonicalized user input.
-	 * 
-	 * @throws ValidationException
-	 * @throws IntrusionException
-	 */
-	function getValidInput($context, $input, $type, $maxLength, $allowNull);
 	
 	/**
 	 * Returns canonicalized and validated input as a String. Invalid input will generate a descriptive ValidationException, 
@@ -107,7 +86,7 @@ interface Validator {
 	 * 
 	 * @throws IntrusionException
 	 */
-	function getValidInput($context, $input, $type, $maxLength, $allowNull, $errorList);
+	function getValidInput($context, $input, $type, $maxLength, $allowNull, $errorList = null);
 	
 	/**
 	 * Returns true if input is a valid date according to the specified date format.
@@ -126,26 +105,6 @@ interface Validator {
 	 * @throws IntrusionException
 	 */
 	function isValidDate($context, $input, $format, $allowNull);
-
-	/**
-	 * Returns a valid date as a Date. Invalid input will generate a descriptive ValidationException, and input that is clearly an attack
-	 * will generate a descriptive IntrusionException.
-	 * 
-	 * @param context 
-	 * 		A descriptive name of the parameter that you are validating (e.g., LoginPage_UsernameField). This value is used by any logging or error handling that is done with respect to the value passed in.
-	 * @param input 
-	 * 		The actual user input data to validate.
-	 * @param format 
-	 * 		Required formatting of date inputted.
-	 * @param allowNull 
-	 * 		If allowNull is true then an input that is NULL or an empty string will be legal. If allowNull is false then NULL or an empty String will throw a ValidationException.
-	 * 
-	 * @return A valid date as a Date
-	 * 
-	 * @throws ValidationException
-	 * @throws IntrusionException
-	 */
-	function getValidDate($context, $input, $format, $allowNull);	
 	
 	/**
 	 * Returns a valid date as a Date. Invalid input will generate a descriptive ValidationException and store it inside of 
@@ -167,7 +126,7 @@ interface Validator {
 	 * 
 	 * @throws IntrusionException
 	 */
-	function getValidDate($context, $input, $format, $allowNull, $errorList);	
+	function getValidDate($context, $input, $format, $allowNull, $errorList = null);	
 	
 	/**
 	 * Returns true if input is "safe" HTML. Implementors should reference the OWASP AntiSamy project for ideas
@@ -187,26 +146,6 @@ interface Validator {
 	 * @throws IntrusionException
 	 */
 	function isValidSafeHTML($context, $input, $maxLength, $allowNull);
-
-	/**
-	 * Returns canonicalized and validated "safe" HTML. Implementors should reference the OWASP AntiSamy project for ideas
-	 * on how to do HTML validation in a whitelist way, as this is an extremely difficult problem.
-	 * 
-	 * @param context 
-	 * 		A descriptive name of the parameter that you are validating (e.g., LoginPage_UsernameField). This value is used by any logging or error handling that is done with respect to the value passed in.
-	 * @param input 
-	 * 		The actual user input data to validate.
-	 * @param maxLength 
-	 * 		The maximum post-canonicalized $length allowed.
-	 * @param allowNull 
-	 * 		If allowNull is true then an input that is NULL or an empty string will be legal. If allowNull is false then NULL or an empty String will throw a ValidationException.
-	 * 
-	 * @return Valid safe HTML
-	 * 
-	 * @throws ValidationException
-	 * @throws IntrusionException
-	 */
-	function getValidSafeHTML($context, $input, $maxLength, $allowNull);
 	
 	/**
 	 * Returns canonicalized and validated "safe" HTML. Implementors should reference the OWASP AntiSamy project for ideas
@@ -245,25 +184,6 @@ interface Validator {
 	 * @throws IntrusionException
 	 */
 	function isValidCreditCard($context, $input, $allowNull);
-
-	/**
-	 * Returns a canonicalized and validated credit card number as a String. Invalid input
-	 * will generate a descriptive ValidationException, and input that is clearly an attack
-	 * will generate a descriptive IntrusionException.
-	 * 
-	 * @param context 
-	 * 		A descriptive name of the parameter that you are validating (e.g., LoginPage_UsernameField). This value is used by any logging or error handling that is done with respect to the value passed in.
-	 * @param input 
-	 * 		The actual user input data to validate.
-	 * @param allowNull 
-	 * 		If allowNull is true then an input that is NULL or an empty string will be legal. If allowNull is false then NULL or an empty String will throw a ValidationException.
-	 * 
-	 * @return A valid credit card number
-	 * 
-	 * @throws ValidationException
-	 * @throws IntrusionException 
-	 */
-	function getValidCreditCard($context, $input, $allowNull);
 	
 	/**
 	 * Returns a canonicalized and validated credit card number as a String. Invalid input
@@ -284,7 +204,7 @@ interface Validator {
 	 * 
 	 * @throws IntrusionException
 	 */
-	function getValidCreditCard($context, $input, $allowNull, $errorList);
+	function getValidCreditCard($context, $input, $allowNull, $errorList = null);
 	
 	/**
 	 * Returns true if input is a valid directory path.
@@ -301,25 +221,6 @@ interface Validator {
 	 * @throws IntrusionException 
 	 */
 	function isValidDirectoryPath($context, $input, $allowNull);
-
-	/**
-	 * Returns a canonicalized and validated directory path as a String. Invalid input
-	 * will generate a descriptive ValidationException, and input that is clearly an attack
-	 * will generate a descriptive IntrusionException. 
-	 * 
-	 * @param context 
-	 * 		A descriptive name of the parameter that you are validating (e.g., LoginPage_UsernameField). This value is used by any logging or error handling that is done with respect to the value passed in.
-	 * @param input 
-	 * 		The actual input data to validate.
-	 * @param allowNull 
-	 * 		If allowNull is true then an input that is NULL or an empty string will be legal. If allowNull is false then NULL or an empty String will throw a ValidationException.
-	 * 
-	 * @return A valid directory path
-	 * 
-	 * @throws ValidationException
-	 * @throws IntrusionException
-	 */
-	function getValidDirectoryPath($context, $input, $allowNull);
 	
 	/**
 	 * Returns a canonicalized and validated directory path as a String. Invalid input
@@ -340,7 +241,7 @@ interface Validator {
      * 
      * @throws IntrusionException
 	 */
-	function getValidDirectoryPath($context, $input, $allowNull, $errorList);
+	function getValidDirectoryPath($context, $input, $allowNull, $errorList = null);
 	
 	
 	/**
@@ -358,25 +259,6 @@ interface Validator {
      * @throws IntrusionException
 	 */
 	function isValidFileName($context, $input, $allowNull);
-
-	/**
-	 * Returns a canonicalized and validated file name as a String. Implementors should check for allowed file extensions here, as well as allowed file name characters, as declared in "ESAPI.properties". Invalid input
-	 * will generate a descriptive ValidationException, and input that is clearly an attack
-	 * will generate a descriptive IntrusionException. 
-	 * 
-	 * @param context 
-	 * 		A descriptive name of the parameter that you are validating (e.g., LoginPage_UsernameField). This value is used by any logging or error handling that is done with respect to the value passed in.
-     * @param input 
-     * 		The actual input data to validate.
-     * @param allowNull 
-     * 		If allowNull is true then an input that is NULL or an empty string will be legal. If allowNull is false then NULL or an empty String will throw a ValidationException.
-     * 
-     * @return A valid file name
-     * 
-     * @throws ValidationException
-     * @throws IntrusionException
-	 */
-	function getValidFileName($context, $input, $allowNull);
 	
 	/**
 	 * Returns a canonicalized and validated file name as a String. Implementors should check for allowed file extensions here, as well as allowed file name characters, as declared in "ESAPI.properties".  Invalid input
@@ -397,7 +279,7 @@ interface Validator {
      * 
      * @throws IntrusionException
 	 */
-	function getValidFileName($context, $input, $allowNull, $errorList);
+	function getValidFileName($context, $input, $allowNull, $errorList  = null);
 		
 	/**
 	 * Returns true if input is a valid number within the range of minValue to maxValue.
@@ -418,29 +300,6 @@ interface Validator {
      * @throws IntrusionException
 	 */
 	function isValidNumber($context, $input, $minValue, $maxValue, $allowNull);
-
-	/**
-	 * Returns a validated number as a double within the range of minValue to maxValue. Invalid input
-	 * will generate a descriptive ValidationException, and input that is clearly an attack
-	 * will generate a descriptive IntrusionException. 
-	 * 
-	 * @param context 
-	 * 		A descriptive name of the parameter that you are validating (e.g., LoginPage_UsernameField). This value is used by any logging or error handling that is done with respect to the value passed in.
-     * @param input 
-     * 		The actual input data to validate.
-     * @param allowNull 
-     * 		If allowNull is true then an input that is NULL or an empty string will be legal. If allowNull is false then NULL or an empty String will throw a ValidationException.
-     * @param minValue 
-     * 		Lowest legal value for input.
-     * @param maxValue 
-     * 		Highest legal value for input.
-     * 
-     * @return A validated number as a double.
-     * 
-     * @throws ValidationException
-     * @throws IntrusionException
-	 */
-	function getValidNumber($context, $input, $minValue, $maxValue, $allowNull);
 
 	/**
 	 * Returns a validated number as a double within the range of minValue to maxValue. Invalid input
@@ -486,29 +345,6 @@ interface Validator {
      * @throws IntrusionException
 	 */
 	function isValidInteger($context, $input, $minValue, $maxValue, $allowNull);
-
-	/**
-	 * Returns a validated integer. Invalid input
-	 * will generate a descriptive ValidationException, and input that is clearly an attack
-	 * will generate a descriptive IntrusionException. 
-	 * 
-	 * @param context 
-	 * 		A descriptive name of the parameter that you are validating (e.g., LoginPage_UsernameField). This value is used by any logging or error handling that is done with respect to the value passed in.
-     * @param input 
-     * 		The actual input data to validate.
-     * @param allowNull 
-     * 		If allowNull is true then an input that is NULL or an empty string will be legal. If allowNull is false then NULL or an empty String will throw a ValidationException.
-     * @param minValue 
-     * 		Lowest legal value for input.
-     * @param maxValue 
-     * 		Highest legal value for input.
-     * 
-     * @return A validated number as an integer.
-     * 
-     * @throws ValidationException
-     * @throws IntrusionException
-	 */
-	function getValidInteger($context, $input, $minValue, $maxValue, $allowNull);
 	
 	/**
 	 * Returns a validated integer. Invalid input
@@ -533,7 +369,7 @@ interface Validator {
      * 
      * @throws IntrusionException
 	 */
-	function getValidInteger($context, $input, $minValue, $maxValue, $allowNull, $errorList);
+	function getValidInteger($context, $input, $minValue, $maxValue, $allowNull, $errorList = null);
 		
 	/**
 	 * Returns true if input is a valid double within the range of minValue to maxValue.
@@ -559,29 +395,6 @@ interface Validator {
 	/**
 	 * Returns a validated real number as a double. Invalid input
 	 * will generate a descriptive ValidationException, and input that is clearly an attack
-	 * will generate a descriptive IntrusionException. 
-	 * 
-	 * @param context 
-	 * 		A descriptive name of the parameter that you are validating (e.g., LoginPage_UsernameField). This value is used by any logging or error handling that is done with respect to the value passed in.
-     * @param input 
-     * 		The actual input data to validate.
-     * @param allowNull 
-     * 		If allowNull is true then an input that is NULL or an empty string will be legal. If allowNull is false then NULL or an empty String will throw a ValidationException.
-     * @param minValue 
-     * 		Lowest legal value for input.
-     * @param maxValue 
-     * 		Highest legal value for input.
-     * 
-     * @return A validated real number as a double.
-     * 
-     * @throws ValidationException
-     * @throws IntrusionException
-	 */
-	function getValidDouble($context, $input, $minValue, $maxValue, $allowNull);
-
-	/**
-	 * Returns a validated real number as a double. Invalid input
-	 * will generate a descriptive ValidationException, and input that is clearly an attack
 	 * will generate a descriptive IntrusionException. Instead of throwing a ValidationException 
 	 * on error, this variant will store the exception inside of the ValidationErrorList.
 	 * 
@@ -602,7 +415,7 @@ interface Validator {
      * 
      * @throws IntrusionException
 	 */
-	function getValidDouble($context, $input, $minValue, $maxValue, $allowNull, $errorList);
+	function getValidDouble($context, $input, $minValue, $maxValue, $allowNull, $errorList = null);
 
 	/**
 	 * Returns true if input is valid file content.  This is a good place to check for max file size, allowed character sets, and do virus scans.
@@ -625,27 +438,6 @@ interface Validator {
 	/**
 	 * Returns validated file content as a byte array. This is a good place to check for max file size, allowed character sets, and do virus scans.  Invalid input
 	 * will generate a descriptive ValidationException, and input that is clearly an attack
-	 * will generate a descriptive IntrusionException.
-	 * 
-	 * @param context 
-	 * 		A descriptive name of the parameter that you are validating (e.g., LoginPage_UsernameField). This value is used by any logging or error handling that is done with respect to the value passed in.
-	 * @param input 
-	 * 		The actual input data to validate.
-	 * @param maxBytes 
-	 * 		The maximum number of bytes allowed in a legal file.
-	 * @param allowNull 
-	 * 		If allowNull is true then an input that is NULL or an empty string will be legal. If allowNull is false then NULL or an empty String will throw a ValidationException.
-	 * 
-	 * @return A byte array containing valid file content.
-	 * 
-	 * @throws ValidationException
-	 * @throws IntrusionException
-	 */
-	function getValidFileContent($context, $input, $maxBytes, $allowNull);
-
-	/**
-	 * Returns validated file content as a byte array. This is a good place to check for max file size, allowed character sets, and do virus scans.  Invalid input
-	 * will generate a descriptive ValidationException, and input that is clearly an attack
 	 * will generate a descriptive IntrusionException. Instead of throwing a ValidationException 
 	 * on error, this variant will store the exception inside of the ValidationErrorList.
 	 * 
@@ -664,7 +456,7 @@ interface Validator {
 	 * 
 	 * @throws IntrusionException
 	 */
-	function getValidFileContent($context, $input, $maxBytes, $allowNull, $errorList);
+	function getValidFileContent($context, $input, $maxBytes, $allowNull, $errorList = null);
 
 	/**
 	 * Returns true if a file upload has a valid name, path, and content.
@@ -691,29 +483,6 @@ interface Validator {
 	/**
 	 * Validates the filepath, filename, and content of a file. Invalid input
 	 * will generate a descriptive ValidationException, and input that is clearly an attack
-	 * will generate a descriptive IntrusionException.
-	 * 
-	 * @param context 
-	 * 		A descriptive name of the parameter that you are validating (e.g., LoginPage_UsernameField). This value is used by any logging or error handling that is done with respect to the value passed in.
-	 * @param filepath 
-	 * 		The file path of the uploaded file.
-	 * @param filename 
-	 * 		The filename of the uploaded file
-	 * @param content 
-	 * 		A byte array containing the content of the uploaded file.
-	 * @param maxBytes 
-	 * 		The max number of bytes allowed for a legal file upload.
-	 * @param allowNull 
-	 * 		If allowNull is true then an input that is NULL or an empty string will be legal. If allowNull is false then NULL or an empty String will throw a ValidationException.
-	 * 
-	 * @throws ValidationException
-	 * @throws IntrusionException
-	 */
-	function assertValidFileUpload($context, $filepath, $filename, $content, $maxBytes, $allowNull);
-
-	/**
-	 * Validates the filepath, filename, and content of a file. Invalid input
-	 * will generate a descriptive ValidationException, and input that is clearly an attack
 	 * will generate a descriptive IntrusionException. Instead of throwing a ValidationException 
 	 * on error, this variant will store the exception inside of the ValidationErrorList.
 	 * 
@@ -734,7 +503,7 @@ interface Validator {
 	 * 
 	 * @throws IntrusionException
 	 */
-	function assertValidFileUpload($context, $filepath, $filename, $content, $maxBytes, $allowNull, $errorList);
+	function assertValidFileUpload($context, $filepath, $filename, $content, $maxBytes, $allowNull, $errorList = null);
 	
 	/**
      * Validate the current HTTP request by comparing parameters, headers, and cookies to a predefined whitelist of allowed
@@ -775,25 +544,6 @@ interface Validator {
 	/**
 	 * Returns the list item that exactly matches the canonicalized input. Invalid or non-matching input
 	 * will generate a descriptive ValidationException, and input that is clearly an attack
-	 * will generate a descriptive IntrusionException. 
-	 * 
-	 * @param context 
-	 * 		A descriptive name of the parameter that you are validating (e.g., LoginPage_UsernameField). This value is used by any logging or error handling that is done with respect to the value passed in.
-	 * @param input 
-	 * 		The value to search 'list' for.
-	 * @param list 
-	 * 		The list to search for 'input'.
-	 * 
-	 * @return The list item that exactly matches the canonicalized input.
-	 * 
-	 * @throws ValidationException
-	 * @throws IntrusionException
-	 */
-	function getValidListItem($context, $input, $list);
-
-	/**
-	 * Returns the list item that exactly matches the canonicalized input. Invalid or non-matching input
-	 * will generate a descriptive ValidationException, and input that is clearly an attack
 	 * will generate a descriptive IntrusionException. Instead of throwing a ValidationException 
 	 * on error, this variant will store the exception inside of the ValidationErrorList.
 	 * 
@@ -810,7 +560,7 @@ interface Validator {
 	 * 
 	 * @throws IntrusionException
 	 */
-	function getValidListItem($context, $input, $list, $errorList);
+	function getValidListItem($context, $input, $list, $errorList = null);
 	
 	/**
 	 * Returns true if the parameters in the current request contain all required parameters and only optional ones in addition.
@@ -827,23 +577,6 @@ interface Validator {
 	 * @throws IntrusionException
 	 */
 	function isValidHTTPRequestParameterSet($context, $required, $optional);
-
-	/**
-	 * Validates that the parameters in the current request contain all required parameters and only optional ones in
-	 * addition. Invalid input will generate a descriptive ValidationException, and input that is clearly an attack
-	 * will generate a descriptive IntrusionException.
-	 * 
-	 * @param context 
-	 * 		A descriptive name of the parameter that you are validating (e.g., LoginPage_UsernameField). This value is used by any logging or error handling that is done with respect to the value passed in.
-	 * @param required 
-	 * 		parameters that are required to be in HTTP request
-	 * @param optional 
-	 * 		additional parameters that may be in HTTP request
-	 * 
-	 * @throws ValidationException
-	 * @throws IntrusionException 
-	 */
-	function assertIsValidHTTPRequestParameterSet($context, $required, $optional);
 	
 	/**
 	 * Validates that the parameters in the current request contain all required parameters and only optional ones in
@@ -862,7 +595,7 @@ interface Validator {
 	 * 
 	 * @throws IntrusionException
 	 */
-	function assertIsValidHTTPRequestParameterSet($context, $required, $optional, $errorList);
+	function assertIsValidHTTPRequestParameterSet($context, $required, $optional, $errorList = null);
 	
 	/**
 	 * Returns true if input contains only valid printable ASCII characters.
@@ -884,25 +617,6 @@ interface Validator {
 
 	/**
 	 * Returns canonicalized and validated printable characters as a byte array. Invalid input will generate a descriptive ValidationException, and input that is clearly an attack
-	 * will generate a descriptive IntrusionException.
-	 * 
-	 *  @param context 
-	 *  		A descriptive name of the parameter that you are validating (e.g., LoginPage_UsernameField). This value is used by any logging or error handling that is done with respect to the value passed in.
-	 *  @param input 
-	 *  		data to be returned as valid and printable
-	 *  @param maxLength 
-	 *  		Maximum number of bytes stored in 'input'
-	 *  @param allowNull 
-	 *  		If allowNull is true then an input that is NULL or an empty string will be legal. If allowNull is false then NULL or an empty String will throw a ValidationException.
-	 *  
-	 *  @return a byte array containing only printable characters, made up of data from 'input'
-	 *  
-	 *  @throws ValidationException
-	 */
-	function getValidPrintable($context, $input, $maxLength, $allowNull);
-
-	/**
-	 * Returns canonicalized and validated printable characters as a byte array. Invalid input will generate a descriptive ValidationException, and input that is clearly an attack
 	 * will generate a descriptive IntrusionException. Instead of throwing a ValidationException on error, 
 	 * this variant will store the exception inside of the ValidationErrorList.
 	 * 
@@ -921,68 +635,8 @@ interface Validator {
 	 * 
 	 * @throws IntrusionException
 	 */
-	function getValidPrintable($context, $input, $maxLength, $allowNull, $errorList);
+	function getValidPrintable($context, $input, $maxLength, $allowNull, $errorList = null);
 
-	
-	/**
-     * Returns true if input contains only valid printable ASCII characters (32-126).
-     * 
-     * @param context 
-     * 		A descriptive name of the parameter that you are validating (e.g., LoginPage_UsernameField). This value is used by any logging or error handling that is done with respect to the value passed in.
-     * @param input 
-     * 		data to be checked for validity
-     * @param maxLength 
-     * 		Maximum number of bytes stored in 'input' after canonicalization
-     * @param allowNull 
-     * 		If allowNull is true then an input that is NULL or an empty string will be legal. If allowNull is false then NULL or an empty String will throw a ValidationException.
-     * 
-     * @return true, if 'input' is less than maxLength after canonicalization and contains only valid, printable characters 
-     * 
-     * @throws IntrusionException
-     */
-	function isValidPrintable($context, $input, $maxLength, $allowNull);
-
-	/**
-	 * Returns canonicalized and validated printable characters as a String. Invalid input will generate a descriptive ValidationException, and input that is clearly an attack
-	 * will generate a descriptive IntrusionException.
-	 * 
-	 *  @param context 
-	 *  		A descriptive name of the parameter that you are validating (e.g., LoginPage_UsernameField). This value is used by any logging or error handling that is done with respect to the value passed in.
-	 *  @param input 
-	 *  		data to be returned as valid and printable
-	 *  @param maxLength 
-	 *  		Maximum number of bytes stored in 'input' after canonicalization
-	 *  @param allowNull 
-	 *  		If allowNull is true then an input that is NULL or an empty string will be legal. If allowNull is false then NULL or an empty String will throw a ValidationException.
-	 *  
-	 *  @return a String containing only printable characters, made up of data from 'input'
-	 *  
-	 *  @throws ValidationException
-	 */
-	function getValidPrintable($context, $input, $maxLength, $allowNull);
-
-	/**
-	 * Returns canonicalized and validated printable characters as a String. Invalid input will generate 
-	 * a descriptive ValidationException, and input that is clearly an attack will generate a 
-	 * descriptive IntrusionException. Instead of throwing a ValidationException on error, 
-	 * this variant will store the exception inside of the ValidationErrorList.
-	 * 
-	 * @param context 
-	 * 		A descriptive name of the parameter that you are validating (e.g., LoginPage_UsernameField). This value is used by any logging or error handling that is done with respect to the value passed in.
-	 * @param input 
-	 * 		data to be returned as valid and printable
-	 * @param maxLength 
-	 * 		Maximum number of bytes stored in 'input' after canonicalization
-	 * @param allowNull 
-	 * 		If allowNull is true then an input that is NULL or an empty string will be legal. If allowNull is false then NULL or an empty String will throw a ValidationException.
-	 * @param errorList 
-	 * 		If validation is in error, resulting error will be stored in the errorList by context
-	 * 
-	 * @return a String containing only printable characters, made up of data from 'input'
-	 * 
-	 * @throws IntrusionException
-	 */
-	function getValidPrintable($context, $input, $maxLength, $allowNull, $errorList);
 	
 	/**
 	 * Returns true if input is a valid redirect location, as defined by "ESAPI.properties".
@@ -1000,23 +654,6 @@ interface Validator {
 	 */
 	function isValidRedirectLocation($context, $input, $allowNull);
 
-	/**
-	 * Returns a canonicalized and validated redirect location as a String. Invalid input will generate a descriptive ValidationException, and input that is clearly an attack
-	 * will generate a descriptive IntrusionException.
-	 * 
-	 *  @param context 
-	 *  		A descriptive name of the parameter that you are validating (e.g., LoginPage_UsernameField). This value is used by any logging or error handling that is done with respect to the value passed in.
-	 *  @param input 
-	 *  		redirect location to be returned as valid, according to encoding rules set in "ESAPI.properties"
-	 *  @param allowNull 
-	 *  		If allowNull is true then an input that is NULL or an empty string will be legal. If allowNull is false then NULL or an empty String will throw a ValidationException.
-	 *  
-	 *  @return A canonicalized and validated redirect location, as defined in "ESAPI.properties"
-	 *  
-	 *  @throws ValidationException
-	 *  @throws IntrusionException
-	 */
-	function getValidRedirectLocation($context, $input, $allowNull);
 
 	/**
 	 * Returns a canonicalized and validated redirect location as a String. Invalid input will generate a descriptive ValidationException, and input that is clearly an attack
@@ -1036,7 +673,7 @@ interface Validator {
 	 * 
 	 * @throws IntrusionException
 	 */
-	function getValidRedirectLocation($context, $input, $allowNull, $errorList);
+	function getValidRedirectLocation($context, $input, $allowNull, $errorList = null);
 	
 	/**
 	 * Reads from an input stream until end-of-line or a maximum number of

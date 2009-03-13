@@ -6,7 +6,7 @@
  * Enterprise Security API (ESAPI) project. For details, please see
  * <a href="http://www.owasp.org/index.php/ESAPI">http://www.owasp.org/index.php/ESAPI</a>.
  *
- * Copyright (c) 2007 - 2008 The OWASP Foundation
+ * Copyright (c) 2007 - 2009 The OWASP Foundation
  * 
  * The ESAPI is published by OWASP under the BSD license. You should read and accept the
  * LICENSE before you use, modify, and/or redistribute this software.
@@ -16,6 +16,7 @@
  * @since 1.4
  * @package org.owasp.esapi.codecs
  */
+
 
 /**
  * The Codec interface defines a set of methods for encoding and decoding application level encoding schemes,
@@ -28,7 +29,7 @@
  * @since 1.4
  * @see org.owasp.esapi.Encoder
  */
- interface Codec {
+ abstract class Codec {
 
 	/**
 	 * Encode a String with a Codec
@@ -37,7 +38,7 @@
 	 * 		the String to encode
 	 * @return the encoded String
 	 */
-	function encode( $input ); 
+	abstract function encode( $immune, $input ); 
 	
 	/**
 	 * Encode a Character with a Codec
@@ -47,7 +48,7 @@
 	 * @return
 	 * 		the encoded Character
 	 */
-	function encodeCharacter( $c );
+	abstract function encodeCharacter( $immune, $c );
 	
 	/**
 	 * Decode a String that was encoded using the encode method in this Class
@@ -57,7 +58,7 @@
 	 * @return
 	 *		the decoded String
 	 */
-	function decode( $input );
+	abstract function decode( $input );
 	
 
 	/**
@@ -69,6 +70,45 @@
 	 * 
 	 * @return the decoded Character
 	 */
-	function decodeCharacter( $input );
+	abstract function decodeCharacter( $input );
+	
+		/**
+		 * Lookup the hex value of any character that is not alphanumeric, return null if alphanumeric.
+		 *
+		 * @param c
+		 * @return
+		 */
+		public static function getHexForNonAlphanumeric( $c ) 
+		{
+			
+		        if ( chr(c) > 0xFF ) 
+		        {
+		        	return null;
+		        }
+		        
+		        return $this->hex[c];
+		}
+
+	    /**
+	     * Return the hex value of a character as a string without leading zeroes.
+	     *
+	     * @param c
+	     * @return
+	     */
+        public static function toHex( $c ) {
+			return dechex(chr(c));
+        }
+
+        /**
+         * Utility to search a char[] for a specific char.
+         * 
+         * @param c
+         * @param array
+         * @return
+         */
+        public static function containsCharacter( $c, $array )
+		{
+                return in_array($c, $array);
+        }
 	
 }

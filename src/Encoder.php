@@ -6,7 +6,7 @@
  * Enterprise Security API (ESAPI) project. For details, please see
  * <a href="http://www.owasp.org/index.php/ESAPI">http://www.owasp.org/index.php/ESAPI</a>.
  *
- * Copyright (c) 2007 - 2008 The OWASP Foundation
+ * Copyright (c) 2007 - 2009 The OWASP Foundation
  * 
  * The ESAPI is published by OWASP under the BSD license. You should read and accept the
  * LICENSE before you use, modify, and/or redistribute this software.
@@ -62,59 +62,7 @@ interface Encoder {
 //	public final static char[] CHAR_PASSWORD_DIGITS = { '2', '3', '4', '5', '6', '7', '8', '9' };
 //	public final static char[] CHAR_PASSWORD_SPECIALS = { '_', '.', '!', '@', '$', '*', '=', '-', '?' };
 //	public final static char[] CHAR_PASSWORD_LETTERS = StringUtilities.union( CHAR_PASSWORD_LOWERS, CHAR_PASSWORD_UPPERS );
-
-
-	/**
-	 * This method performs canonicalization on data received to ensure that it
-	 * has been reduced to its most basic form before validation. For example,
-	 * URL-encoded data received from ordinary "application/x-www-url-encoded"
-	 * forms so that it may be validated properly.
-	 * <p>
-	 * Canonicalization is simply the operation of reducing a possibly encoded
-	 * string down to its simplest form. This is important, because attackers
-	 * frequently use encoding to change their input in a way that will bypass
-	 * validation filters, but still be interpreted properly by the target of
-	 * the attack. Note that data encoded more than once is not something that a
-	 * normal user would generate and should be regarded as an attack.
-	 * <P>
-	 * For input that comes from an HTTP servlet request, there are generally
-	 * two types of encoding to be concerned with. The first is
-	 * "applicaton/x-www-url-encoded" which is what is typically used in most
-	 * forms and URI's where characters are encoded in a %xy format. The other
-	 * type of common character encoding is HTML entity encoding, which uses
-	 * several formats:
-	 * <P>
-	 * <PRE>&lt;</PRE>,
-	 * <PRE>&#117;</PRE>, and
-	 * <PRE>&#x3a;</PRE>.
-	 * <P>
-	 * Note that all of these formats may possibly render properly in a
-	 * browser without the trailing semicolon.
-	 * <P>
-	 * Double-encoding is a particularly thorny problem, as applying ordinary decoders
-	 * may introduce encoded characters, even characters encoded with a different
-	 * encoding scheme. For example %26lt; is a < character which has been entity encoded
-	 * and then the first character has been url-encoded. Implementations should
-	 * throw an IntrusionException when double-encoded characters are detected.
-	 * <P>
-	 * Note that there is also "multipart/form" encoding, which allows files and
-	 * other binary data to be transmitted. Each part of a multipart form can
-	 * itself be encoded according to a "Content-Transfer-Encoding" header. See
-	 * the HTTPUtilties.getSafeFileUploads() method.
-	 * <P>
-	 * For more information on form encoding, please refer to the <a
-	 * href="http://www.w3.org/TR/html4/interact/forms.html#h-17.13.4">W3C
-	 * specifications</a>.
-	 * <p>
-	 * This method is equivalent to calling <pre>Encoder.canonicalize(input, true);</pre>
-	 * 
-	 * @see <a href="http://www.w3.org/TR/html4/interact/forms.html#h-17.13.4">W3C specifications</a>
-	 * 
-	 * @param input the text to canonicalize
-	 * @return a String containing the canonicalized text
-	 * @throws EncodingException if canonicalization fails
-	 */
-	function canonicalize($input);
+	
 	
 	/**
 	 * This method performs canonicalization on data received to ensure that it

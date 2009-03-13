@@ -17,9 +17,33 @@
  * @package org.owasp.esapi.reference
  */
 
-require_once('../Executor.php');
+require_once('../src/Executor.php');
 
 class DefaultExecutor implements Executor {
+	
+    /**
+     * Executes a system command after checking that the executable exists and
+     * escaping all the parameters to ensure that injection is impossible.
+     * Implementations must change to the specified working
+     * directory before invoking the command.
+     * 
+     * @param executable
+     *            the command to execute
+     * @param params
+     *            the parameters of the command being executed
+     * @param workdir
+     *            the working directory
+     * @param codec
+     *            the codec to use to encode for the particular OS in use
+     * 
+     * @return the output of the command being run
+     * 
+     * @throws ExecutorException
+     *             the service exception
+     */
+    function executeSystemCommand($executable, $params, $workdir, $codec) {
+    	throw new EnterpriseSecurityException("Method Not implemented");
+    }
 	
 	
 }

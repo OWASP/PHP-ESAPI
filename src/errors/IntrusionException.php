@@ -43,14 +43,14 @@ class IntrusionException extends Exception
      * @param cause 
      *			  the cause
      */
-    function __construct($userMessage, $logMessage, $cause = '')
+    function __construct($userMessage = '', $logMessage = '')
     {
         global $ESAPI;
 
-        parent::__construct($userMessage, $cause);
+        parent::__construct($userMessage);
         $this->logMessage = $logMessage;
         $logger = $ESAPI->getLogger("IntrusionException");
-        $logger->error(Logger :: SECURITY, false, "INTRUSION - " + $logMessage, $cause);
+        $logger->error(DefaultLogger::SECURITY, false, "INTRUSION - " . $logMessage);
     }
 
     /**

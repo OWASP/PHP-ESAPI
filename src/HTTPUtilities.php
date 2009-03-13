@@ -39,9 +39,6 @@ require_once("filters/SafeResponse.php");
  */
 interface HTTPUtilities {
 
-    /** Key for remember token cookie */
-    public final static $REMEMBER_TOKEN_COOKIE_NAME = "ESAPIRememberToken";
-
 	/**
 	 * Ensures that the current request uses SSL and POST to protect any sensitive parameters
 	 * in the querystring from being sniffed or logged. For example, this method should
@@ -327,16 +324,6 @@ interface HTTPUtilities {
     
     /**
      * Format the Source IP address, URL, URL parameters, and all form
-     * parameters into a string suitable for the log file. Be careful not
-     * to log sensitive information, and consider masking with the
-     * logHTTPRequest( List parameterNamesToObfuscate ) method.
-	 * 
-	 * @param logger the logger to write the request to
-     */
-    function logHTTPRequest($request, $logger);
-
-    /**
-     * Format the Source IP address, URL, URL parameters, and all form
      * parameters into a string suitable for the log file. The list of parameters to
      * obfuscate should be specified in order to prevent sensitive information
      * from being logged. If a null list is provided, then all parameters will
@@ -352,6 +339,6 @@ interface HTTPUtilities {
      * @param parameterNamesToObfuscate
      * 		the sensitive parameters
      */
-    function logHTTPRequest($request, $logger, $parameterNamesToObfuscate);
+    function logHTTPRequest($request, $logger, $parameterNamesToObfuscate = null);
 
 }

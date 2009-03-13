@@ -35,8 +35,8 @@ class EncryptionException extends EnterpriseSecurityException
      * @param cause
      *            the cause
      */
-    function __construct($userMessage, $logMessage, $cause = '')
+    function __construct($userMessage = '', $logMessage = '')
     {
-        parent::__construct($userMessage, $logMessage, $cause);
+        parent::__construct($userMessage, $logMessage);
     }
 }
