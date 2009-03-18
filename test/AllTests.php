@@ -35,29 +35,29 @@ $ESAPI = new ESAPI();
 // Milestones
 
 $test = &new GroupTest('Milestone 1');
-		$test->addTestFile('errors/EnterpriseSecurityExceptionTest.php');
-        $test->addTestFile('reference/AccessReferenceMapTest.php');
-        $test->addTestFile('reference/IntegerAccessReferenceMapTest.php');
-        $test->addTestFile('reference/EncoderTest.php');
-		$test->addTestFile('reference/HTTPUtilitiesTest.php');
-		$test->addTestFile('reference/StringUtilitiesTest.php');
-        $test->addTestFile('reference/ValidatorTest.php');
+		$test->addTestFile(dirname(__FILE__).'/errors/EnterpriseSecurityExceptionTest.php');
+        $test->addTestFile(dirname(__FILE__).'/reference/AccessReferenceMapTest.php');
+        $test->addTestFile(dirname(__FILE__).'/reference/IntegerAccessReferenceMapTest.php');
+        $test->addTestFile(dirname(__FILE__).'/reference/EncoderTest.php');
+		$test->addTestFile(dirname(__FILE__).'/reference/HTTPUtilitiesTest.php');
+// $test->addTestFile(dirname(__FILE__).'/reference/StringUtilitiesTest.php');
+        $test->addTestFile(dirname(__FILE__).'/reference/ValidatorTest.php');
 $test->run(new HtmlReporter());
         
-$test = &new GroupTest('Milestone 2');
-        $test->addTestFile('reference/EncryptedPropertiesTest.php');
-        $test->addTestFile('reference/EncryptorTest.php');
-        $test->addTestFile('reference/ExecutorTest.php');
-		$test->addTestFile('reference/LoggerTest.php');
-        $test->addTestFile('reference/IntrusionDetectorTest.php');
-		$test->addTestFile('reference/RandomizerTest.php');
-		$test->addTestFile('reference/SafeFileTest.php');
-$test->run(new HtmlReporter());
-
-$test = &new GroupTest('Milestone 3');
-		$test->addTestFile('reference/AccessControllerTest.php');
-		$test->addTestFile('reference/AuthenticatorTest.php');
-        $test->addTestFile('reference/UserTest.php');
-$test->run(new HtmlReporter());
+//$test = &new GroupTest('Milestone 2');
+//        $test->addTestFile(dirname(__FILE__).'/reference/EncryptedPropertiesTest.php');
+//        $test->addTestFile(dirname(__FILE__).'/reference/EncryptorTest.php');
+//        $test->addTestFile(dirname(__FILE__).'/reference/ExecutorTest.php');
+//		$test->addTestFile(dirname(__FILE__).'/reference/LoggerTest.php');
+//        $test->addTestFile(dirname(__FILE__).'/reference/IntrusionDetectorTest.php');
+//		$test->addTestFile(dirname(__FILE__).'/reference/RandomizerTest.php');
+//		$test->addTestFile(dirname(__FILE__).'/reference/SafeFileTest.php');
+//$test->run(new HtmlReporter());
+//
+//$test = &new GroupTest('Milestone 3');
+//		$test->addTestFile(dirname(__FILE__).'/reference/AccessControllerTest.php');
+//		$test->addTestFile(dirname(__FILE__).'/reference/AuthenticatorTest.php');
+//        $test->addTestFile(dirname(__FILE__).'/reference/UserTest.php');
+//$test->run(new HtmlReporter());
 
 ?>
