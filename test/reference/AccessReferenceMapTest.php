@@ -34,14 +34,12 @@ class AccessReferenceMapTest extends UnitTestCase
 	{
 		
 	}
-
-    
-    
     
     /**
 	 * Test of iterator method, of class org.owasp.esapi.AccessReferenceMap.
 	 */
-    function testIterator() {
+    function testIterator() 
+    {
     	global $ESAPI;
     	
         $auth = $ESAPI->authenticator();
@@ -62,7 +60,8 @@ class AccessReferenceMapTest extends UnitTestCase
      *
      * @throws org.owasp.esapi.errors.AccessControlException
      */
-    function testRemoveDirectReference() {
+    function testRemoveDirectReference() 
+    {
         
         $directReference = "234";
         
@@ -140,7 +139,8 @@ class AccessReferenceMapTest extends UnitTestCase
      *
      * @throws org.owasp.esapi.errors.AccessControlException
      */
-    function testAddDirectReference() {
+    function testAddDirectReference() 
+    {
         
         $directReference = "234";
         
