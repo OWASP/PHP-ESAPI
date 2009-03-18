@@ -179,7 +179,7 @@ class RandomAccessReferenceMap implements AccessReferenceMap {
 			return null;
 		}
 		
-		$hash = hexdec(substr(md5(serialize($direct)), -8));
+		$hash = hexdec(substr(md5(serialize($direct)), -7));
 		// print "<p>hash of [".$direct."] is [".$hash."]";
 		return $hash;
 	}
