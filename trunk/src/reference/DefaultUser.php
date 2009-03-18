@@ -20,7 +20,25 @@
 require_once dirname(__FILE__).'/../User.php';
 
 class DefaultUser implements User {
+	private $username = '';
+	private $password = '';
 	
+	function __construct($username, $password1, $password2) 
+	{
+		$this->username = $username;
+		$this->password = $password1;
+	}
 	
+	/**
+     * Gets this user's account name.
+     * 
+     * @return the account name
+     */
+    function getAccountName()
+    {
+    	return $this->username;
+    }
+    
+    
 }
 ?>
