@@ -64,4 +64,17 @@ class StringUtilities {
     	return in_array($c, $haystack);
     }
 
+	public static function getRandomString($numChars, $charset = '1234567890ABCDEFGHIJKLMNOPQRSTUVXYZabcdefghijklmnopqrstuvyxyz')
+	{
+		if ( $numChars < 1 || strlen($charset) < 2 ) {
+			throw new InvalidArgumentException();
+		}
+		
+		$rs = '';
+		for ($i = 0; $i < $numChars; $i++)
+		{
+			$rs .= $charset[mt_rand(0, strlen($charset)-1)];
+		}
+		return $rs;
+	}
 }

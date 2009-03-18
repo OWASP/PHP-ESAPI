@@ -16,12 +16,12 @@
  * @since 2007
  */
 
-require_once('../lib/simpletest/unit_tester.php');
-require_once('../lib/simpletest/reporter.php');
+require_once dirname(__FILE__).'/../lib/simpletest/unit_tester.php';
+require_once dirname(__FILE__).'/../lib/simpletest/reporter.php';
 
 error_reporting(E_ALL);
 
-require_once('../src/ESAPI.php');
+require_once dirname(__FILE__).'/../src/ESAPI.php';
 
 $ESAPI = new ESAPI();
 

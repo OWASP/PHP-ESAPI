@@ -95,12 +95,12 @@ interface User /* extends Principal */ {
 //     */
 //    long getAccountId();
 //    
-//    /**
-//     * Gets this user's account name.
-//     * 
-//     * @return the account name
-//     */
-//    String getAccountName();
+    /**
+     * Gets this user's account name.
+     * 
+     * @return the account name
+     */
+    function getAccountName();
 //
 //    /**
 //     * Gets the CSRF token for this user's current sessions.

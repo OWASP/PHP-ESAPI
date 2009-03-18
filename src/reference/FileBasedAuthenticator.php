@@ -18,8 +18,15 @@
  */
 
 require_once dirname(__FILE__).'/../Authenticator.php';
+require_once dirname(__FILE__).'/DefaultUser.php';
 
 class FileBasedAuthenticator implements Authenticator {
+	private $users;
+	
+	function __construct()
+	{
+		$this->users = array();
+	}
 	
 	/**
 	 * Clears the current User. This allows the thread to be reused safely.
@@ -124,7 +131,9 @@ class FileBasedAuthenticator implements Authenticator {
 	 */
 	function createUser($accountName, $password1, $password2)
 	{
-		throw new EnterpriseSecurityException("Method Not implemented");	
+		// TODO: Milestone 3 - change to contain real code
+		$this->users[] = $accountName;
+		return new DefaultUser($accountName, $password1, $password2);
 	}
 
 	/**
@@ -142,7 +151,9 @@ class FileBasedAuthenticator implements Authenticator {
 	 */
 	function generateStrongPassword($user = null, $oldPassword = null)
 	{
-		throw new EnterpriseSecurityException("Method Not implemented");	
+		// TODO Change in Milestone 3 to obey constraints from esapi.config
+		
+		return StringUtilities::getRandomString(16, "ABCDEFGHIJKLMNOPQRSTUVXYZabcdefghijklmnopqrstuvxyz1234567890");	
 	}
 
 	/**
@@ -194,7 +205,17 @@ class FileBasedAuthenticator implements Authenticator {
 	 */
 	function getUserByName($accountName)
 	{
-		throw new EnterpriseSecurityException("Method Not implemented");	
+		if ( empty($this->users) )
+		{
+			return null;
+		}
+		
+		if ( in_array($accountName, $this->users) )
+		{
+			return new DefaultUser($accountName, '123', '123');	// TODO: Milestone 3 - fix with real code
+		}
+		
+		return null;
 	}
 
 	/**
@@ -205,7 +226,31 @@ class FileBasedAuthenticator implements Authenticator {
 	 */
 	function getUserNames()
 	{
-		throw new EnterpriseSecurityException("Method Not implemented");	
+		// TODO: Re-work in Milestone 3
+		
+		if ( !empty($this->users) )
+		{
+			return $this->users;
+		}
+		
+		$usersFile = dirname(__FILE__) . '/../../test/testresources/users.txt';
+		$rawusers = file($usersFile, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+		
+		$users = array();
+		
+		foreach ($rawusers as $dummy => $row)
+		{
+			$row = trim($row);
+			if ( strlen($row) > 0 && $row[0] != '#' )  
+			{
+				$user = explode('|', $row);
+				$users[] = $user[0]; 
+			}
+		}
+		
+		$this->users = $users;
+		
+		return $users; 
 	}
 
 	/**
@@ -263,7 +308,17 @@ class FileBasedAuthenticator implements Authenticator {
 	 */
 	function removeUser($accountName)
 	{
-		throw new EnterpriseSecurityException("Method Not implemented");	
+		// TODO: Change in Milestone 3. In milestone 1, this is used to clean up a test
+		for ($i = 0; $i < count($this->users); $i++)
+		{
+			if ( $this->users[$i] == $accountName) 
+			{
+				unset($this->users[$i]);
+				return true;
+			}
+		}
+		
+		return false;
 	}
 
 	/**
