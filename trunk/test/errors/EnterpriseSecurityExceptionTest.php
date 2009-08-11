@@ -22,6 +22,10 @@ require_once dirname(__FILE__).'/../../src/errors/AuthenticationHostException.ph
 require_once dirname(__FILE__).'/../../src/errors/AuthenticationLoginException.php';
 require_once dirname(__FILE__).'/../../src/errors/AvailabilityException.php';
 require_once dirname(__FILE__).'/../../src/errors/CertificateException.php';
+require_once dirname(__FILE__).'/../../src/errors/EncodingException.php';
+require_once dirname(__FILE__).'/../../src/errors/EncryptionException.php';
+require_once dirname(__FILE__).'/../../src/errors/ExecutorException.php';
+require_once dirname(__FILE__).'/../../src/errors/IntegrityException.php';
 require_once dirname(__FILE__).'/../../src/errors/ValidationAvailabilityException.php';
 require_once dirname(__FILE__).'/../../src/errors/ValidationUploadException.php';
  

@@ -49,7 +49,6 @@ class EnterpriseSecurityException extends Exception
      */
     public function __construct($userMessage = '', $logMessage = '')
     {
-    	global $ESAPI;
     	$cause = 0;
     	
     	if ( empty($userMessage) ) {
@@ -60,8 +59,8 @@ class EnterpriseSecurityException extends Exception
 		parent::__construct($userMessage);
         
         $this->logMessage = $logMessage;
-        $this->logger = $ESAPI->getLogger("EnterpriseSecurityException");
-        $ESAPI->intrusionDetector()->addException($this);
+        $this->logger = ESAPI::getLogger("EnterpriseSecurityException");
+        ESAPI::getIntrusionDetector()->addException($this);
     }
 
     /**
