@@ -40,9 +40,9 @@ class AccessReferenceMapTest extends UnitTestCase
 	 */
     function testIterator() 
     {
-    	global $ESAPI;
+//    	global $ESAPI;
     	
-        $auth = $ESAPI->authenticator();
+        $auth = ESAPI::getAuthenticator();
         
         $arm = new RandomAccessReferenceMap();
 		$arm->update($auth->getUserNames());
@@ -169,9 +169,9 @@ class AccessReferenceMapTest extends UnitTestCase
 	 */
     function testUpdate() 
 	{
-		global $ESAPI;
+//		global $ESAPI;
     	
-    	$auth = $ESAPI->authenticator();
+    	$auth = ESAPI::getAuthenticator();
     	$pass = $auth->generateStrongPassword();
     	$u = $auth->createUser( "armUpdate", $pass, $pass );
 

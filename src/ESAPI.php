@@ -17,18 +17,6 @@
  * @package org.owasp.esapi
  */
 
-require_once dirname(__FILE__).'/reference/DefaultEncoder.php';
-require_once dirname(__FILE__).'/reference/DefaultExecutor.php';
-require_once dirname(__FILE__).'/reference/DefaultHTTPUtilities.php';
-require_once dirname(__FILE__).'/reference/DefaultIntrusionDetector.php';
-require_once dirname(__FILE__).'/reference/DefaultRandomizer.php';
-require_once dirname(__FILE__).'/reference/DefaultSecurityConfiguration.php';
-require_once dirname(__FILE__).'/reference/DefaultValidator.php';
-require_once dirname(__FILE__).'/reference/FileBasedAccessController.php';
-require_once dirname(__FILE__).'/reference/FileBasedAuthenticator.php';
-require_once dirname(__FILE__).'/reference/DefaultEncryptor.php';
-require_once dirname(__FILE__).'/reference/DefaultLogger.php';
-
 /**
  * ESAPI locator class is provided to make it easy to gain access to the current ESAPI classes in use.
  * Use the set methods to override the reference implementations with instances of any custom ESAPI implementations.
@@ -53,41 +41,42 @@ class ESAPI
     /**
      * prevent instantiation of this class
      */
-    function __construct()
+    public function __construct()
     {
     	self::getLogger("ESAPI Startup");
-    	self::intrusionDetector();
+    	self::getIntrusionDetector();
     }
 
     /**
      * Get the current HTTP Servlet Request being processed.
      * @return the current HTTP Servlet Request.
      */
-    function currentRequest()
+    public static function currentRequest()
     {
-        return $this->httpUtilities() . getCurrentRequest();
+        return self::getHttpUtilities()->getCurrentRequest();
     }
 
     /**
      * Get the current HTTP Servlet Response being generated.
      * @return the current HTTP Servlet Response.
      */
-    function currentResponse()
+    public static function currentResponse()
     {
-        return $this->httpUtilities() . getCurrentResponse();
+        return self::getHttpUtilities()->getCurrentResponse();
     }
 
     /**
      * @return the current ESAPI AccessController object being used to maintain the access control rules for this application. 
      */
-    function accessController()
+    public static function getAccessController()
     {
-        if ( empty($this->accessController) )
+        if ( is_null( self::$accessController) )
         {
-        	$this->accessController = new FileBasedAccessController();
+            require_once dirname(__FILE__).'/reference/FileBasedAccessController.php';
+            self::$accessController = new FileBasedAccessController();
         }
             
-        return $this->accessController;
+        return self::$accessController;
     }
 
     /**
@@ -95,22 +84,23 @@ class ESAPI
      * @param accessController
      *            the AccessController to set to be the current ESAPI AccessController. 
      */
-    function setAccessController($accessController)
+    public static function setAccessController($accessController)
     {
-        $this->accessController = $accessController;
+        self::$accessController = $accessController;
     }
 
     /**
      * @return the current ESAPI Authenticator object being used to authenticate users for this application. 
      */
-    function authenticator()
+    public static function getAuthenticator()
     {
-        if ( empty($this->authenticator) )
+        if ( is_null(self::$authenticator) )
         {
-        	$this->authenticator = new FileBasedAuthenticator();
+                require_once dirname(__FILE__).'/reference/FileBasedAuthenticator.php';
+        	self::$authenticator = new FileBasedAuthenticator();
         }
             
-        return $this->authenticator;
+        return self::$authenticator;
     }
 
     /**
@@ -118,22 +108,23 @@ class ESAPI
      * @param authenticator
      *            the Authenticator to set to be the current ESAPI Authenticator. 
      */
-    function setAuthenticator($authenticator)
+    public static function setAuthenticator($authenticator)
     {
-        $this->authenticator = $authenticator;
+        self::$authenticator = $authenticator;
     }
 
     /**
      * @return the current ESAPI Encoder object being used to encode and decode data for this application. 
      */
-    function encoder()
+    public static function getEncoder()
     {
-        if ( empty($this->encoder) )
+        if ( is_null(self::$encoder) )
         {
-        	$this->encoder = new DefaultEncoder();
+                require_once dirname(__FILE__).'/reference/DefaultEncoder.php';
+        	self::$encoder = new DefaultEncoder();
         }
             
-        return $this->encoder;
+        return self::$encoder;
     }
 
     /**
@@ -141,22 +132,23 @@ class ESAPI
      * @param encoder
      *            the Encoder to set to be the current ESAPI Encoder. 
      */
-    function setEncoder($encoder)
+    public static function setEncoder($encoder)
     {
-        $this->encoder = $encoder;
+        self::$encoder = $encoder;
     }
 
     /**
      * @return the current ESAPI Encryptor object being used to encrypt and decrypt data for this application. 
      */
-    function encryptor()
+    public static function getEncryptor()
     {
-        if ( empty($this->encryptor) )
+        if ( is_null(self::$encryptor) )
         {
-        	$this->encryptor = new DefaultEncryptor();
+                require_once dirname(__FILE__).'/reference/DefaultEncryptor.php';
+        	self::$encryptor = new DefaultEncryptor();
         }
             
-        return $this->encryptor;
+        return self::$encryptor;
     }
 
     /**
@@ -164,22 +156,23 @@ class ESAPI
      * @param encryptor
      *            the Encryptor to set to be the current ESAPI Encryptor. 
      */
-    function setEncryptor($encryptor)
+    public static function setEncryptor($encryptor)
     {
-        $this->encryptor = $encryptor;
+        self::$encryptor = $encryptor;
     }
 
     /**
      * @return the current ESAPI Executor object being used to safely execute OS commands for this application. 
      */
-    function executor()
+    public static function getExecutor()
     {
-        if ( empty($this->executor) )
+        if ( is_null(self::$executor) )
         {
-        	$this->executor = new DefaultExecutor();
+                require_once dirname(__FILE__).'/reference/DefaultExecutor.php';
+        	self::$executor = new DefaultExecutor();
         }
             
-        return $this->executor;
+        return self::$executor;
     }
 
     /**
@@ -187,23 +180,24 @@ class ESAPI
      * @param executor
      *            the Executor to set to be the current ESAPI Executor. 
      */
-    function setExecutor($executor)
+    public static function setExecutor($executor)
     {
-        $this->executor = $executor;
+        self::$executor = $executor;
     }
 
     /**
      * @return the current ESAPI HTTPUtilities object being used to safely access HTTP requests and responses 
      * for this application. 
      */
-    function httpUtilities()
+    public static function getHttpUtilities()
     {
-        if ( empty($this->httpUtilities) )
+        if ( is_null(self::$httpUtilities) )
         {
-        	$this->httpUtilities = new DefaultHTTPUtilities();
+                require_once dirname(__FILE__).'/reference/DefaultHTTPUtilities.php';
+        	self::$httpUtilities = new DefaultHTTPUtilities();
         }
             
-        return $this->httpUtilities;
+        return self::$httpUtilities;
     }
 
     /**
@@ -211,21 +205,22 @@ class ESAPI
      * @param httpUtilities
      *            the HTTPUtilities object to set to be the current ESAPI HTTPUtilities object. 
      */
-    function setHttpUtilities($httpUtilities)
+    public static function setHttpUtilities($httpUtilities)
     {
-        $this->httpUtilities = $httpUtilities;
+        self::$httpUtilities = $httpUtilities;
     }
 
     /**
      * @return the current ESAPI IntrusionDetector being used to monitor for intrusions in this application. 
      */
-    function intrusionDetector()
+    public static function getIntrusionDetector()
     {
-        if ( empty($this->intrusionDetector) )
+        if ( is_null(self::$intrusionDetector) )
         {
-            $this->intrusionDetector = new DefaultIntrusionDetector();
+            require_once dirname(__FILE__).'/reference/DefaultIntrusionDetector.php';
+            self::$intrusionDetector = new DefaultIntrusionDetector();
         }
-        return $this->intrusionDetector;
+        return self::$intrusionDetector;
     }
 
     /**
@@ -233,36 +228,38 @@ class ESAPI
      * @param intrusionDetector
      *            the IntrusionDetector to set to be the current ESAPI IntrusionDetector. 
      */
-    function setIntrusionDetector($intrusionDetector)
+    public static function setIntrusionDetector($intrusionDetector)
     {
-        $this->intrusionDetector = $intrusionDetector;
+        self::$intrusionDetector = $intrusionDetector;
     }
 
     /**
      * @param moduleName The module to associate the logger with.
      * @return The current Logger associated with the specified module.
      */
-    function getLogger($moduleName)
+    public static function getLogger($moduleName)
     {
-        if ( empty($this->defaultLogger) )
+        if ( is_null(self::$defaultLogger) )
         {
-        	$this->defaultLogger = new DefaultLogger();
+                require_once dirname(__FILE__).'/reference/DefaultLogger.php';
+        	self::$defaultLogger = new DefaultLogger();
         }
             
-        return $this->defaultLogger;
+        return self::$defaultLogger;
     }
 
     /**
      * @return the current ESAPI Randomizer being used to generate random numbers in this application. 
      */
-    function randomizer()
+    public static function getRandomizer()
     {
-        if ( empty($this->randomizer) ) 
+        if ( is_null(self::$randomizer) )
         {
-        	$this->randomizer = new DefaultRandomizer();
+                require_once dirname(__FILE__).'/reference/DefaultRandomizer.php';
+        	self::$randomizer = new DefaultRandomizer();
         }
             
-        return $this->randomizer;
+        return self::$randomizer;
     }
 
     /**
@@ -270,23 +267,24 @@ class ESAPI
      * @param randomizer
      *            the Randomizer to set to be the current ESAPI Randomizer. 
      */
-    function setRandomizer($randomizer)
+    public static function setRandomizer($randomizer)
     {
-        $this->randomizer = $randomizer;
+        self::$randomizer = $randomizer;
     }
 
     /**
      * @return the current ESAPI SecurityConfiguration being used to manage the security configuration for 
      * ESAPI for this application. 
      */
-    function securityConfiguration()
+    public static function getSecurityConfiguration()
     {
-        if ( empty($this->securityConfiguration) )
+        if ( is_null(self::$securityConfiguration) )
         {
-        	$this->securityConfiguration = new DefaultSecurityConfiguration();
+                require_once dirname(__FILE__).'/reference/DefaultSecurityConfiguration.php';
+        	self::$securityConfiguration = new DefaultSecurityConfiguration();
         }
             
-        return $this->securityConfiguration;
+        return self::$securityConfiguration;
     }
 
     /**
@@ -294,22 +292,23 @@ class ESAPI
      * @param securityConfiguration
      *            the SecurityConfiguration to set to be the current ESAPI SecurityConfiguration. 
      */
-    function setSecurityConfiguration($securityConfiguration)
+    public static function setSecurityConfiguration($securityConfiguration)
     {
-        $this->securityConfiguration = $securityConfiguration;
+        self::$securityConfiguration = $securityConfiguration;
     }
 
     /**
      * @return the current ESAPI Validator being used to validate data in this application. 
      */
-    function validator()
+    public static function getValidator()
     {
-        if ( empty($this->validator) ) 
+        if ( is_null(self::$validator) )
         {
-        	$this->validator = new DefaultValidator();
+                require_once dirname(__FILE__).'/reference/DefaultValidator.php';
+        	self::$validator = new DefaultValidator();
         }
             
-        return $this->validator;
+        return self::$validator;
     }
 
     /**
@@ -317,10 +316,9 @@ class ESAPI
      * @param validator
      *            the Validator to set to be the current ESAPI Validator. 
      */
-    function setValidator($validator)
+    public static function setValidator($validator)
     {
-        $this->validator = $validator;
+        self::$validator = $validator;
     }
-
 }
 ?>
