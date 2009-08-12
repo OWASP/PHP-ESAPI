@@ -1,0 +1,44 @@
+#summary One-ESAPI for PHP Road Map
+
+= Introduction =
+
+The following tasks have been allocated:
+
+
+= Details =
+
+== Completed ==
+
+  * AccessReferenceMaps - AJV - 100% Complete
+  * ESAPI - Allocated to AJV - 100% complete
+  * Exceptions - Allocated to AJV - 100% complete
+  * Interfaces - Allocated to AJV - 100% complete
+  * StringUtilities - Allocated to AJV - 100% complete
+
+== Allocated ==
+
+  * Access Controller - Allocated to AbiusX - 0% complete
+  * Authenticator - Allocated to Bipin - 0% complete
+  * Encoder & codecs - Allocated to Linden - 0% complete
+  * EncryptedProperties - Allocated to AJV - 0% complete
+  * SecurityConfiguration - Allocated to AJV - 0% complete
+  * Test Suite - AJV responsible - 15% complete
+
+== Unallocated ==
+
+  * Encryptor - Unallocated - 0% complete
+  * Executor - Unallocated - 0% complete
+  * HTTPUtilities - Unallocated - 25% complete
+  * IntrusionDetector - Unallocated - 0% complete
+  * Logger - Unallocated - 0% complete
+  * Randomizer - Unallocated - 0% complete
+  * SafeFile - Unallocated - 0% complete
+  * Filters - SafeResponse - Unallocated - 0% complete
+  * Filters - SafeRequest - Unallocated - 0% complete
+  * Filters - AntiSamy - Unallocated - 0% complete
+  * Filters - SafeHttpFilter - Unallocated - 0% complete
+  * Filters - ESAPIFitler - Unallocated - 0% complete
+  * User - Unallocated - 5% complete
+  * Validator - Unallocated - 0% complete
+
+Please ask Mike Boberski or Andrew van der Stock to be allocated work. 
