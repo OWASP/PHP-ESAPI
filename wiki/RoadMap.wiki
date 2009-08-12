@@ -23,6 +23,7 @@ The following tasks have been allocated:
   * EncryptedProperties - Allocated to AJV - 0% complete
   * SecurityConfiguration - Allocated to AJV - 0% complete
   * Test Suite - AJV responsible - 15% complete
+  * Validator - Allocated to Johannes Ullrich - 0% complete
 
 == Unallocated ==
 
@@ -39,6 +40,5 @@ The following tasks have been allocated:
   * Filters - SafeHttpFilter - Unallocated - 0% complete
   * Filters - ESAPIFitler - Unallocated - 0% complete
   * User - Unallocated - 5% complete
-  * Validator - Unallocated - 0% complete
 
 Please ask Mike Boberski or Andrew van der Stock to be allocated work. 
