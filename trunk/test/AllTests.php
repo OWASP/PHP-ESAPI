@@ -34,30 +34,29 @@ $ESAPI = new ESAPI();
 
 // Milestones
 
-$test = &new GroupTest('Milestone 1');
-		$test->addTestFile(dirname(__FILE__).'/errors/EnterpriseSecurityExceptionTest.php');
-        $test->addTestFile(dirname(__FILE__).'/reference/AccessReferenceMapTest.php');
-        $test->addTestFile(dirname(__FILE__).'/reference/IntegerAccessReferenceMapTest.php');
-        $test->addTestFile(dirname(__FILE__).'/reference/EncoderTest.php');
-		$test->addTestFile(dirname(__FILE__).'/reference/HTTPUtilitiesTest.php');
-// $test->addTestFile(dirname(__FILE__).'/reference/StringUtilitiesTest.php');
-        $test->addTestFile(dirname(__FILE__).'/reference/ValidatorTest.php');
+$test = &new GroupTest('Finished');
+		$test->addTestFile(dirname(__FILE__).'/errors/EnterpriseSecurityExceptionTest.php');	// AJV
+        $test->addTestFile(dirname(__FILE__).'/reference/AccessReferenceMapTest.php');			// AJV
+        $test->addTestFile(dirname(__FILE__).'/reference/IntegerAccessReferenceMapTest.php');	// AJV
 $test->run(new HtmlReporter());
         
-//$test = &new GroupTest('Milestone 2');
-//        $test->addTestFile(dirname(__FILE__).'/reference/EncryptedPropertiesTest.php');
-//        $test->addTestFile(dirname(__FILE__).'/reference/EncryptorTest.php');
-//        $test->addTestFile(dirname(__FILE__).'/reference/ExecutorTest.php');
-//		$test->addTestFile(dirname(__FILE__).'/reference/LoggerTest.php');
-//        $test->addTestFile(dirname(__FILE__).'/reference/IntrusionDetectorTest.php');
-//		$test->addTestFile(dirname(__FILE__).'/reference/RandomizerTest.php');
-//		$test->addTestFile(dirname(__FILE__).'/reference/SafeFileTest.php');
-//$test->run(new HtmlReporter());
-//
-//$test = &new GroupTest('Milestone 3');
-//		$test->addTestFile(dirname(__FILE__).'/reference/AccessControllerTest.php');
-//		$test->addTestFile(dirname(__FILE__).'/reference/AuthenticatorTest.php');
-//        $test->addTestFile(dirname(__FILE__).'/reference/UserTest.php');
-//$test->run(new HtmlReporter());
+$test = &new GroupTest('Allocated');
+		$test->addTestFile(dirname(__FILE__).'/reference/AccessControllerTest.php');	// Abius X
+		$test->addTestFile(dirname(__FILE__).'/reference/AuthenticatorTest.php');		// Bipin
+		$test->addTestFile(dirname(__FILE__).'/reference/EncoderTest.php');				// Johannes 2nd priority
+        $test->addTestFile(dirname(__FILE__).'/reference/ValidatorTest.php'); 			// Johannes 1st priority
+        $test->addTestFile(dirname(__FILE__).'/reference/EncryptedPropertiesTest.php'); // AJV
+$test->run(new HtmlReporter());
 
+$test = &new GroupTest('Unallocated');
+		$test->addTestFile(dirname(__FILE__).'/reference/EncryptorTest.php');
+        $test->addTestFile(dirname(__FILE__).'/reference/ExecutorTest.php');
+		$test->addTestFile(dirname(__FILE__).'/reference/HTTPUtilitiesTest.php');
+		$test->addTestFile(dirname(__FILE__).'/reference/LoggerTest.php');
+        $test->addTestFile(dirname(__FILE__).'/reference/IntrusionDetectorTest.php');
+		$test->addTestFile(dirname(__FILE__).'/reference/RandomizerTest.php');
+		$test->addTestFile(dirname(__FILE__).'/reference/SafeFileTest.php');
+		$test->addTestFile(dirname(__FILE__).'/reference/StringUtilitiesTest.php');
+        $test->addTestFile(dirname(__FILE__).'/reference/UserTest.php');
+$test->run(new HtmlReporter());
 ?>
