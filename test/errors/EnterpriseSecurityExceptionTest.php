@@ -1,4 +1,4 @@
-<?
+<?php
 /**
  * OWASP Enterprise Security API (ESAPI)
  * 
