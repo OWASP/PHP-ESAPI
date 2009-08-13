@@ -34,69 +34,56 @@ class AccessReferenceMapTest extends UnitTestCase
 	{
 		
 	}
-
-    /**
-	 * Test of update method of class org.owasp.esapi.AccessReferenceMap
-	 * 
-	 * @throws AuthenticationException
-     *             the authentication exception
-     * @throws EncryptionException
-	 */
-    function testUpdate() 
-	{
-		global $ESAPI;
-		
-    	$arm = new RandomAccessReferenceMap();
-    	$auth = $ESAPI->authenticator();
-    	
-    	$pass = $auth->generateStrongPassword();
-    	$u = $auth->createUser( "armUpdate", $pass, $pass );
-    	
-    	// test to make sure update returns something
-		$arm->update( $auth->getUserNames() );
-		$indirect = $arm->getIndirectReference( $u->getAccountName() );
-		$this->assertNotNull($indirect, "Account name [".$u->getAccountName()."] has no indirect mapping");
-		
-		// test to make sure update removes items that are no longer in the list
-		$auth->removeUser( $u->getAccountName() );
-		$arm->update($auth->getUserNames());
-		$indirect = $arm->getIndirectReference( $u->getAccountName() );
-		$this->assertNull($indirect, "Account name [".$u->getAccountName()."] has indirect mapping [".$indirect."]");
-		
-		// test to make sure old indirect reference is maintained after an update
-		$arm->update($auth->getUserNames());
-		$newIndirect = $arm->getIndirectReference( $u->getAccountName() );
-		$this->assertEqual($indirect, $newIndirect);
-    }
-    
     
     /**
 	 * Test of iterator method, of class org.owasp.esapi.AccessReferenceMap.
 	 */
-    function testIterator() {
-    	global $ESAPI;
-    	
-    	$arm = new RandomAccessReferenceMap();
-        $auth = $ESAPI->authenticator();
+    function testIterator() 
+    {
+        $auth = ESAPI::getAuthenticator();
         
+        $arm = new RandomAccessReferenceMap();
 		$arm->update($auth->getUserNames());
 		
-		echo "testIterator: getUserNames has " . count($auth->getUserNames()) . " members.";
-
 		$i = $arm->iterator();
 		while ( $i->valid() ) {
-			$userName = $i->current();
+			$userName = $arm->getDirectReference($i->current());
 			$u = $auth->getUserByName( $userName );
- 	 	 	$this-> assertNotNull($u, "Username = [".$userName."] not found, produced null user");
+ 	 	 	$this->assertNotNull($u, "Username = [".$userName."] not found, produced null user");
 			$i->next();
 		}
+    }
+    
+	/**
+     *
+     * @throws org.owasp.esapi.errors.AccessControlException
+     */
+    function testRemoveDirectReference() 
+    {
+        
+        $directReference = "234";
+        
+        $directArray = array();
+        $directArray[] = "123";
+        $directArray[] = $directReference;
+        $directArray[] = "345";
+        
+        $instance = new RandomAccessReferenceMap( $directArray );
+        
+        $indirect = $instance->getIndirectReference($directReference);
+        $this->assertNotNull($indirect);
+        $deleted = $instance->removeDirectReference($directReference);
+        $this->assertEqual($indirect,$deleted);
+    	$deleted = $instance->removeDirectReference("ridiculous");
+    	$this->assertNull($deleted);
     }
     
     /**
 	 * Test of getIndirectReference method, of class
 	 * org.owasp.esapi.AccessReferenceMap.
 	 */
-    function testGetIndirectReference() {
+    function testGetIndirectReference()
+	{	
         $directReference = "234";
         
         $directArray = array();
@@ -108,8 +95,7 @@ class AccessReferenceMapTest extends UnitTestCase
         
         $expResult = $directReference;
         $result = $instance->getIndirectReference($directReference);
-        // $this->assertNotSame($expResult, $result);
-        $this->assertEqual($expResult, $result);        
+		$this->assertNotIdentical($expResult, $result);
     }
 
     /**
@@ -132,6 +118,9 @@ class AccessReferenceMapTest extends UnitTestCase
         
         $ind = $instance->getIndirectReference($directReference);
         $dir = $instance->getDirectReference($ind);
+        
+        // echo "<p>ind = [$ind], dir = [$dir], directreference = [$directReference]";
+        
         $this->assertEqual($directReference, $dir);
         try 
         {
@@ -148,7 +137,8 @@ class AccessReferenceMapTest extends UnitTestCase
      *
      * @throws org.owasp.esapi.errors.AccessControlException
      */
-    function testAddDirectReference() {
+    function testAddDirectReference() 
+    {
         
         $directReference = "234";
         
@@ -159,36 +149,47 @@ class AccessReferenceMapTest extends UnitTestCase
         
         $instance = new RandomAccessReferenceMap( $directArray );
         
-        $newDirect = $instance->addDirectReference("newDirect");
-        $this->assertNotNull( $newDirect );
-        $ind = $instance->addDirectReference($directReference);
-        $dir = $instance->getDirectReference($ind);
-        $this->assertEqual($directReference, $dir);
-    	$newInd = $instance->addDirectReference($directReference);
-    	$this->assertEqual($ind, $newInd);
+        $newDirect = $instance->addDirectReference("newDirect"); 
+        $this->assertNotNull( $newDirect ); 
+        $ind = $instance->addDirectReference($directReference); 
+        $dir = $instance->getDirectReference($ind); 
+        $this->assertEqual($directReference, $dir); 
+    	$newInd = $instance->addDirectReference($directReference); 
+    	$this->assertEqual($ind, $newInd); 
+    }
+    
+	/**
+	 * Test of update method of class org.owasp.esapi.AccessReferenceMap
+	 * 
+	 * @throws AuthenticationException
+     *             the authentication exception
+     * @throws EncryptionException
+	 */
+    function testUpdate() 
+	{
+    	$auth = ESAPI::getAuthenticator();
+    	$pass = $auth->generateStrongPassword();
+    	$u = $auth->createUser( "armUpdate", $pass, $pass );
+
+    	// test to make sure update returns something
+    	
+		$arm = new RandomAccessReferenceMap();
+		$arm->update( $auth->getUserNames() );
+		
+		$indirect = $arm->getIndirectReference( $u->getAccountName() );
+		$this->assertNotNull($indirect, "Account name [".$u->getAccountName()."] has no indirect mapping");
+		
+		// test to make sure update removes items that are no longer in the list
+		$auth->removeUser( $u->getAccountName() );
+		$arm->update($auth->getUserNames());
+		$indirect = $arm->getIndirectReference( $u->getAccountName() );
+		$this->assertNull($indirect, "Account name [".$u->getAccountName()."] has indirect mapping [".$indirect."]");
+		
+		// test to make sure old indirect reference is maintained after an update
+		$arm->update($auth->getUserNames());
+		$newIndirect = $arm->getIndirectReference( $u->getAccountName() );
+		$this->assertEqual($indirect, $newIndirect);
     }
 
-    /**
-     *
-     * @throws org.owasp.esapi.errors.AccessControlException
-     */
-    function testRemoveDirectReference() {
-        
-        $directReference = "234";
-        
-        $directArray = array();
-        $directArray[] = "123";
-        $directArray[] = $directReference;
-        $directArray[] = "345";
-        
-        $instance = new RandomAccessReferenceMap( $directArray );
-        
-        $indirect = $instance->getIndirectReference($directReference);
-        $this->assertNotNull($indirect);
-        $deleted = $instance->removeDirectReference($directReference);
-        $this->assertEqual($indirect,$deleted);
-    	$deleted = $instance->removeDirectReference("ridiculous");
-    	$this->assertNull($deleted);
-    }
 }
 ?>
