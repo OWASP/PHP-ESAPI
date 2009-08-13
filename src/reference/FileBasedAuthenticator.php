@@ -151,9 +151,9 @@ class FileBasedAuthenticator implements Authenticator {
 	 */
 	function generateStrongPassword($user = null, $oldPassword = null)
 	{
-		// TODO Change in Milestone 3 to obey constraints from esapi.config
+		// TODO Change in Milestone 3
 		
-		return StringUtilities::getRandomString(16, "ABCDEFGHIJKLMNOPQRSTUVXYZabcdefghijklmnopqrstuvxyz1234567890");	
+		return "weak password";	
 	}
 
 	/**
@@ -309,20 +309,15 @@ class FileBasedAuthenticator implements Authenticator {
 	function removeUser($accountName)
 	{
 		// TODO: Change in Milestone 3. In milestone 1, this is used to clean up a test
-		
-		foreach ($this->users as $key => $user)
+		for ($i = 0; $i < count($this->users); $i++)
 		{
-			// echo "<p>User = [$user]";
-			if ( $user == $accountName ) 
+			if ( $this->users[$i] == $accountName) 
 			{
-				// echo "<p>Unsetting $key, $user";
-				unset($this->users[$key]);
-				// print_r($this->users);
+				unset($this->users[$i]);
 				return true;
 			}
 		}
 		
-		// print_r($this->users);
 		return false;
 	}
 
