@@ -16,6 +16,7 @@
  */
  
 require_once dirname(__FILE__).'/../../src/ESAPI.php';
+require_once dirname(__FILE__).'/../../src/errors/AccessControlException.php';
 require_once dirname(__FILE__).'/../../src/errors/AuthenticationAccountsException.php';
 require_once dirname(__FILE__).'/../../src/errors/AuthenticationCredentialsException.php';
 require_once dirname(__FILE__).'/../../src/errors/AuthenticationHostException.php';
