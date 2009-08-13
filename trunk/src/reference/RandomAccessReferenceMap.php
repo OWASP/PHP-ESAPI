@@ -6,7 +6,7 @@
  * Enterprise Security API (ESAPI) project. For details, please see
  * <a href="http://www.owasp.org/index.php/ESAPI">http://www.owasp.org/index.php/ESAPI</a>.
  *
- * Copyright (c) 2007 - 2008 The OWASP Foundation
+ * Copyright (c) 2007 - 2009 The OWASP Foundation
  * 
  * The ESAPI is published by OWASP under the BSD license. You should read and accept the
  * LICENSE before you use, modify, and/or redistribute this software.
@@ -21,13 +21,17 @@ require_once dirname(__FILE__).'/../AccessReferenceMap.php';
 require_once dirname(__FILE__).'/../StringUtilities.php';
 
 class RandomAccessReferenceMap implements AccessReferenceMap {
-	private $dtoi = array();
-	private $itod = array();
+	private $dtoi = null;
+	private $itod = null;
 	private $random = 0;
 	
 	function __construct($directReferences = null)
 	{
 		$this->random = mt_rand();
+		
+		$this->dtoi = new ArrayObject();
+		$this->itod = new ArrayObject();
+		
 		if ( !empty($directReferences) ) 
 		{
 			$this->update($directReferences);
@@ -42,10 +46,7 @@ class RandomAccessReferenceMap implements AccessReferenceMap {
 	 */
 	function iterator()
 	{
-		sort($this->dtoi);
-		$ao = new ArrayObject($this->dtoi);
-		$this->iterator = $ao->getIterator();
-		return $this->iterator;
+		return $this->dtoi->getIterator();
 	}
 
 	/**
@@ -60,21 +61,29 @@ class RandomAccessReferenceMap implements AccessReferenceMap {
 	 * @return 
 	 * 		the indirect reference
 	 */
-	function getIndirectReference($directReference)
+	function getIndirectReference($direct)
 	{
-		if ( empty($directReference) )
+		// echo "<h3>RARM :: getIndirectReference()</h3>";
+		// echo "<p>Direct = [".$direct."]";
+		
+		if ( empty($direct) )
 		{
 			return null;
 		}
 		
-		$hash = spl_object_hash((object)$directReference);
+		$hash = $this->getHash($direct);
 		
-		if ( isset($this->dtoi[$hash]) )
+		// echo "<p>Hash = [".$hash."]";
+		
+		if ( !($this->dtoi->offsetExists($hash)) )
 		{
-			return $this->dtoi[$hash];
+			// echo "<p>No such hash.";
+			return null;
 		}
 		
-		return null;
+//		echo "<p>Returning [".$this->dtoi->offsetGet($hash)."]. ";
+//		echo "The direct value for this hash is [".$this->itod->offsetGet($this->dtoi->offsetGet($hash))."]<p>";
+		return $this->dtoi->offsetGet($hash);
 	}
 
 	/**
@@ -95,11 +104,13 @@ class RandomAccessReferenceMap implements AccessReferenceMap {
 	 */
 	function getDirectReference($indirectReference)
 	{
-		if (!empty($indirectReference) && isset($this->itod[$indirectReference]) )
+		if (!empty($indirectReference) && $this->itod->offsetExists($indirectReference) )
 		{
-			return $this->itod[$indirectReference];
+			return $this->itod->offsetGet($indirectReference);
 		}
+		
 		throw new AccessControlException("Access denied", "Request for invalid indirect reference: " + $indirectReference);
+		return null;
 	}
 
 	/**
@@ -114,20 +125,32 @@ class RandomAccessReferenceMap implements AccessReferenceMap {
 	 */
 	function addDirectReference($direct)
 	{
+//		echo "<h3>RARM :: addDirectReference()</h3>";
+//		echo "<p>DirectReferences = [";
+//		print_r($direct);
+//		echo "]";
 		if ( empty($direct) )
 		{
+			// echo "Direct is empty, returning null.";
 			return null;
 		}
 		
-		$hash = spl_object_hash((object)$direct);
+		$hash = $this->getHash($direct);
 		
-		if ( isset($this->dtoi[$hash]) ) {
-			return $this->dtoi[$hash];
+		// echo "<p>hash = [".$hash."]";
+		
+		if ( $this->dtoi->offsetExists($hash) )
+		{
+			// echo "<p>Object exists already, returning [".$this->dtoi->offsetGet($hash)."]";
+			return $this->dtoi->offsetGet($hash);
 		}
 		
 		$indirect = $this->getUniqueRandomReference();
-		$this->itod[$indirect] = $direct;
-		$this->dtoi[$hash] = $indirect;
+		
+		// echo "<p>Returning indirect ($indirect), setting hash maps itod($indirect, $direct) dtoi($hash, $indirect)";
+		
+		$this->itod->offsetSet($indirect, $direct);
+		$this->dtoi->offsetSet($hash, $indirect);
 		
 		return $indirect;
 	}
@@ -140,10 +163,25 @@ class RandomAccessReferenceMap implements AccessReferenceMap {
 	 */
 	function getUniqueRandomReference() {
 		$candidate = null;
+		
 		do {
-			$candidate = StringUtilities::getRandomString(6);
-		} while (isset($this->itod[$candidate]));
+			$candidate = StringUtilities::getRandomString(6	, "123456789");
+		} while ($this->itod->offsetExists($candidate));
+		
+		// print "<p>random candidate [".$candidate."] is unique";		
 		return $candidate;
+	}
+	
+	function getHash($direct) 
+	{
+		if ( empty($direct) )
+		{
+			return null;
+		}
+		
+		$hash = hexdec(substr(md5(serialize($direct)), -7));
+		// print "<p>hash of [".$direct."] is [".$hash."]";
+		return $hash;
 	}
 	
 	/**
@@ -163,17 +201,19 @@ class RandomAccessReferenceMap implements AccessReferenceMap {
 			return null;
 		}
 		
-		$hash = spl_object_hash((object)$direct);
+		$hash = $this->getHash($direct);
 		
-		if ( isset($this->dtoi[$hash]) ) {
-			$indirect = $this->dtoi[$hash];
-			unset($this->itod[$indirect]);
-			unset($this->dtoi[$hash]);
+		if ( $this->dtoi->offsetExists($hash) ) {
+			$indirect = $this->dtoi->offsetGet($hash);
+			$this->itod->offsetUnset($indirect);
+			$this->dtoi->offsetUnset($hash);
 			return $indirect;
 		} 
 		
 		return null;
 	}
+
+
 
 	/**
 	 * Updates the access reference map with a new set of direct references, maintaining
@@ -187,32 +227,55 @@ class RandomAccessReferenceMap implements AccessReferenceMap {
 	 */
 	function update($directReferences)
 	{
-		$dtoi_old = $this->dtoi;
+//		echo "<h3>RARM :: update()</h3>";
+//		echo "<p>DirectReferences = [";
+//		print_r($directReferences);
+//		echo "]";
+		$dtoi_old = clone $this->dtoi;
 		
 		unset($this->dtoi);
 		unset($this->itod);
 				
-		$this->dtoi = array();
-		$this->itod = array();
+		$this->dtoi = new ArrayObject();
+		$this->itod = new ArrayObject();
 
-		foreach ($directReferences as $foo => $direct)
+		$dir = new ArrayObject($directReferences);
+		$directIterator = $dir->getIterator();				
+
+		while ($directIterator->valid())
 		{
-			$hash = spl_object_hash((object)$direct);
+			$indirect = null;
+			$direct = $directIterator->current();
+			$hash = $this->getHash($direct);
+			
+//			echo "<p>Direct = [".$direct."]";
+//			echo "<p>Hash = [".$hash."]";
 			
 			// Try to get the old direct object reference (if it exists)
 			// otherwise, create a new entry
-			if (!empty($direct) && isset($dtoi_old[$hash]) )
+			if (!empty($direct) && $dtoi_old->offsetExists($hash) )
 			{
-				$indirect = $dtoi_old[$hash];
+				$indirect = $dtoi_old->offsetGet($hash);
+				// echo "Taking old indirect reference [".$indirect."] for hash";
 			}
-			else
+			
+			if ( empty($indirect) )
 			{
 				$indirect = $this->getUniqueRandomReference();
+				// echo "Creating new indirect reference [".$indirect."] for hash";
 			}
-			$this->itod[$indirect] = $direct;
-			$this->dtoi[$hash] = $indirect;
+			$this->itod->offsetSet($indirect, $direct);
+			$this->dtoi->offsetSet($hash, $indirect);
+			$directIterator->next();
 		}
+		
+//		echo "<p>ItoD = [";
+//		print_r($this->itod);
+//		echo "]";
+//		echo "<p>DtoI = [";
+//		print_r($this->dtoi);
+//		echo "]";
+//		echo "<h3>RARM :: update()</h3>";
 	}
-	
 }
 ?>
