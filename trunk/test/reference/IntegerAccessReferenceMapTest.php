@@ -14,90 +14,86 @@
  * @author Andrew van der Stock (vanderaj @ owasp.org)
  * @created 2009
  */
- 
-require_once dirname(__FILE__).'/../../src/ESAPI.php';
-require_once dirname(__FILE__).'/../../src/reference/IntegerAccessReferenceMap.php';
- 
-class IntegerReferenceMapTest extends UnitTestCase 
+class IntegerAccessReferenceMapTest extends UnitTestCase 
 {
 	function setUp() 
 	{
-		global $ESAPI;
 		
-		if ( !isset($ESAPI)) 
-		{
-			$ESAPI = new ESAPI();
-		}
 	}
 	
 	function tearDown()
 	{
 		
 	}
+	
+	/**
+	 * Test of update method, of class org.owasp.esapi.AccessReferenceMap.
+	 * 
+	 * @throws AuthenticationException
+     *             the authentication exception
+     * @throws EncryptionException
+	 */
+    function testUpdate() {
+    	$this->fail();
+//    	IntegerAccessReferenceMap arm = new IntegerAccessReferenceMap();
+//    	Authenticator auth = ESAPI.authenticator();
+//    	
+//    	String pass = auth.generateStrongPassword();
+//    	User u = auth.createUser( "armUpdate", pass, pass );
+//    	
+//    	// test to make sure update returns something
+//		arm.update(auth.getUserNames());
+//		String indirect = arm.getIndirectReference( u.getAccountName() );
+//		if ( indirect == null ) fail();
+//		
+//		// test to make sure update removes items that are no longer in the list
+//		auth.removeUser( u.getAccountName() );
+//		arm.update(auth.getUserNames());
+//		indirect = arm.getIndirectReference( u.getAccountName() );
+//		if ( indirect != null ) fail();
+//		
+//		// test to make sure old indirect reference is maintained after an update
+//		arm.update(auth.getUserNames());
+//		String newIndirect = arm.getIndirectReference( u.getAccountName() );
+//		assertEquals(indirect, newIndirect);
+    }
+    
     
     /**
 	 * Test of iterator method, of class org.owasp.esapi.AccessReferenceMap.
 	 */
-    function testIterator() 
-    {
-//    	global $ESAPI;
-    	
-        $auth = ESAPI::getAuthenticator();
-        
-        $arm = new IntegerAccessReferenceMap();
-		$arm->update($auth->getUserNames());
-		
-		$i = $arm->iterator();
-		while ( $i->valid() ) {
-			$userName = $arm->getDirectReference($i->current());
-			$u = $auth->getUserByName( $userName );
- 	 	 	$this->assertNotNull($u, "Username = [".$userName."] not found, produced null user");
-			$i->next();
-		}
-    }
-    
-	/**
-     *
-     * @throws org.owasp.esapi.errors.AccessControlException
-     */
-    function testRemoveDirectReference() 
-    {
-        
-        $directReference = "234";
-        
-        $directArray = array();
-        $directArray[] = "123";
-        $directArray[] = $directReference;
-        $directArray[] = "345";
-        
-        $instance = new IntegerAccessReferenceMap( $directArray );
-        
-        $indirect = $instance->getIndirectReference($directReference);
-        $this->assertNotNull($indirect);
-        $deleted = $instance->removeDirectReference($directReference);
-        $this->assertEqual($indirect,$deleted);
-    	$deleted = $instance->removeDirectReference("ridiculous");
-    	$this->assertNull($deleted);
+    function testIterator() {
+$this->fail(); // DELETE ME ("iterator");
+//    	IntegerAccessReferenceMap arm = new IntegerAccessReferenceMap();
+//        Authenticator auth = ESAPI.authenticator();
+//        
+//		arm.update(auth.getUserNames());
+//
+//		Iterator i = arm.iterator();
+//		while ( i.hasNext() ) {
+//			String userName = (String)i.next();
+//			User u = auth.getUser( userName );
+//			if ( u == null ) fail();
+//		}
     }
     
     /**
 	 * Test of getIndirectReference method, of class
 	 * org.owasp.esapi.AccessReferenceMap.
 	 */
-    function testGetIndirectReference()
-	{	
-        $directReference = "234";
-        
-        $directArray = array();
-        $directArray[] = "123";
-        $directArray[] = $directReference;
-        $directArray[] = "345";
-        
-        $instance = new IntegerAccessReferenceMap( $directArray );
-        
-        $expResult = $directReference;
-        $result = $instance->getIndirectReference($directReference);
-		$this->assertNotIdentical($expResult, $result);
+    function testGetIndirectReference() {
+$this->fail(); // DELETE ME ("getIndirectReference");
+//        
+//        String directReference = "234";
+//        Set list = new HashSet();
+//        list.add( "123" );
+//        list.add( directReference );
+//        list.add( "345" );
+//        IntegerAccessReferenceMap instance = new IntegerAccessReferenceMap( list );
+//        
+//        String expResult = directReference;
+//        String result = instance.getIndirectReference(directReference);
+//        assertNotSame(expResult, result);        
     }
 
     /**
@@ -107,104 +103,70 @@ class IntegerReferenceMapTest extends UnitTestCase
 	 * @throws AccessControlException
 	 *             the access control exception
 	 */
-    function testGetDirectReference()  
-    {
-        $directReference = "234";
-        
-        $directArray = array();
-        $directArray[] = "123";
-        $directArray[] = $directReference;
-        $directArray[] = "345";
-        
-        $instance = new IntegerAccessReferenceMap( $directArray );
-        
-        $ind = $instance->getIndirectReference($directReference);
-        $dir = $instance->getDirectReference($ind);
-        
-        // echo "<p>ind = [$ind], dir = [$dir], directreference = [$directReference]";
-        
-        $this->assertEqual($directReference, $dir);
-        try 
-        {
-        	$instance->getDirectReference("invalid");
-        	$this->fail();
-        }
-		catch ( AccessControlException $e ) 
-		{
-        	// success
-        }
+    function testGetDirectReference() {
+$this->fail(); // DELETE ME ("getDirectReference");
+//        
+//        String directReference = "234";
+//        Set list = new HashSet();
+//        list.add( "123" );
+//        list.add( directReference );
+//        list.add( "345" );
+//        IntegerAccessReferenceMap instance = new IntegerAccessReferenceMap( list );
+//        
+//        String ind = instance.getIndirectReference(directReference);
+//        String dir = (String)instance.getDirectReference(ind);
+//        assertEquals(directReference, dir);
+//        try {
+//        	instance.getDirectReference("invalid");
+//        	fail();
+//        } catch( AccessControlException e ) {
+//        	// success
+//        }
     }
     
     /**
      *
      * @throws org.owasp.esapi.errors.AccessControlException
      */
-    function testAddDirectReference() 
-    {
-        
-        $directReference = "234";
-        
-        $directArray = array();
-        $directArray[] = "123";
-        $directArray[] = $directReference;
-        $directArray[] = "345";
-        
-        $instance = new IntegerAccessReferenceMap( $directArray );
-        
-        $newDirect = $instance->addDirectReference("newDirect"); 
-        $this->assertNotNull( $newDirect ); 
-        $ind = $instance->addDirectReference($directReference); 
-        $dir = $instance->getDirectReference($ind); 
-        $this->assertEqual($directReference, $dir); 
-    	$newInd = $instance->addDirectReference($directReference); 
-    	$this->assertEqual($ind, $newInd); 
-    }
-    
-	/**
-	 * Test of update method of class org.owasp.esapi.AccessReferenceMap
-	 * 
-	 * @throws AuthenticationException
-     *             the authentication exception
-     * @throws EncryptionException
-	 */
-    function testUpdate() 
-	{
-//		global $ESAPI;
-    	
-    	$auth = ESAPI::getAuthenticator();
-    	$pass = $auth->generateStrongPassword();
-    	$u = $auth->createUser( "armUpdate", $pass, $pass );
-
-    	// test to make sure update returns something
-    	
-		$arm = new IntegerAccessReferenceMap();
-		$arm->update( $auth->getUserNames() );
-		
-		$indirect = $arm->getIndirectReference( $u->getAccountName() );
-		$this->assertNotNull($indirect, "Account name [".$u->getAccountName()."] has no indirect mapping");
-		
-		// test to make sure update removes items that are no longer in the list
-		$auth->removeUser( $u->getAccountName() );
-		
-		
-//		echo "<p>pre-arm = [";
-//		print_r($arm);
-//		echo "]";
-		
-		$arm->update($auth->getUserNames());
-		
-//		echo "<p>post-arm = [";
-//		print_r($arm);
-//		echo "]";
-		
-		$indirect = $arm->getIndirectReference( $u->getAccountName() );
-		$this->assertNull($indirect, "Account name [".$u->getAccountName()."] has indirect mapping [".$indirect."]");
-		
-		// test to make sure old indirect reference is maintained after an update
-		$arm->update($auth->getUserNames());
-		$newIndirect = $arm->getIndirectReference( $u->getAccountName() );
-		$this->assertEqual($indirect, $newIndirect);
+    function testAddDirectReference() {
+$this->fail(); // DELETE ME ("addDirectReference");
+//        
+//        String directReference = "234";
+//        Set list = new HashSet();
+//        list.add( "123" );
+//        list.add( directReference );
+//        list.add( "345" );
+//        IntegerAccessReferenceMap instance = new IntegerAccessReferenceMap( list );
+//        
+//        String newDirect = instance.addDirectReference("newDirect");
+//        assertNotNull( newDirect );
+//        String ind = instance.addDirectReference(directReference);
+//        String dir = (String)instance.getDirectReference(ind);
+//        assertEquals(directReference, dir);
+//    	String newInd = instance.addDirectReference(directReference);
+//    	assertEquals(ind, newInd);
     }
 
+    /**
+     *
+     * @throws org.owasp.esapi.errors.AccessControlException
+     */
+    function testRemoveDirectReference() {
+$this->fail(); // DELETE ME ("removeDirectReference");
+//        
+//        String directReference = "234";
+//        Set list = new HashSet();
+//        list.add( "123" );
+//        list.add( directReference );
+//        list.add( "345" );
+//        IntegerAccessReferenceMap instance = new IntegerAccessReferenceMap( list );
+//        
+//        String indirect = instance.getIndirectReference(directReference);
+//        assertNotNull(indirect);
+//        String deleted = instance.removeDirectReference(directReference);
+//        assertEquals(indirect,deleted);
+//    	deleted = instance.removeDirectReference("ridiculous");
+//    	assertNull(deleted);
+    }
 }
 ?>
