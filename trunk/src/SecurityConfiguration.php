@@ -54,14 +54,7 @@ interface SecurityConfiguration
      * 
      * @return the current master password
      */
-    function getMasterPassword();
-
-    /**
-     * Gets the keystore used to hold any encryption keys used by your application.
-     * 
-     * @return the current keystore
-     */
-    function getKeystore();
+    function getMasterKey();
 
     /**
      * Gets the master salt that is used to salt stored password hashes and any other location 

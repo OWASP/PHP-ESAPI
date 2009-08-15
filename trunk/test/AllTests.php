@@ -23,7 +23,7 @@ error_reporting(E_ALL);
 
 require_once dirname(__FILE__).'/../src/ESAPI.php';
 
-$ESAPI = new ESAPI();
+$ESAPI = new ESAPI(dirname(__FILE__)."/testresources/ESAPI.xml");
 
 //// Reset the users file for the tests.
 //$data = array();
@@ -38,6 +38,7 @@ $test = &new GroupTest('Finished');
 		$test->addTestFile(dirname(__FILE__).'/errors/EnterpriseSecurityExceptionTest.php');	// AJV
         $test->addTestFile(dirname(__FILE__).'/reference/AccessReferenceMapTest.php');			// AJV
         $test->addTestFile(dirname(__FILE__).'/reference/IntegerAccessReferenceMapTest.php');	// AJV
+        $test->addTestFile(dirname(__FILE__).'/reference/SecurityConfigurationTest.php');		// AJV
 $test->run(new HtmlReporter());
         
 $test = &new GroupTest('Allocated');

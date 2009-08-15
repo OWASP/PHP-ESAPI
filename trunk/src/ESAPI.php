@@ -41,8 +41,10 @@ class ESAPI
     /**
      * prevent instantiation of this class
      */
-    public function __construct()
+    public function __construct($path = '')
     {
+    	self::getSecurityConfiguration($path);
+    	
     	self::getLogger("ESAPI Startup");
     	self::getIntrusionDetector();
     }
@@ -276,12 +278,12 @@ class ESAPI
      * @return the current ESAPI SecurityConfiguration being used to manage the security configuration for 
      * ESAPI for this application. 
      */
-    public static function getSecurityConfiguration()
+    public static function getSecurityConfiguration($path = '')
     {
         if ( is_null(self::$securityConfiguration) )
         {
-                require_once dirname(__FILE__).'/reference/DefaultSecurityConfiguration.php';
-        	self::$securityConfiguration = new DefaultSecurityConfiguration();
+			require_once dirname(__FILE__).'/reference/DefaultSecurityConfiguration.php';
+        	self::$securityConfiguration = new DefaultSecurityConfiguration($path);
         }
             
         return self::$securityConfiguration;
