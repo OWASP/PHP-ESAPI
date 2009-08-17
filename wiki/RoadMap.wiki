@@ -18,27 +18,93 @@ The following tasks have been allocated:
 
 == Allocated ==
 
-  * Access Controller - Allocated to AbiusX - 0% complete
   * Authenticator - Allocated to Bipin - 0% complete
   * Encoder & codecs - Allocated to Linden - 0% complete
+  * Encryptor - Unallocated - Allocated to AJV - 0% complete 
   * EncryptedProperties - Allocated to AJV - 0% complete
   * Test Suite - AJV responsible - 15% complete
+  * SecurityConfiguration (2.0 update) - Allocated to AJV - 10% complete
+
+=== Access Control ===
+
+Note to implementor: Please continue to implement the stubs and tests you have. However, we need to be at 2.0 reference sooner or later, so it's okay if you start down the path of 2.0-izing the Access Control engine. 
+
+  * Access Controller - Allocated to AbiusX - 0% complete
+  ** reference/accesscontrol/policyloader/ACRParameterLoader - Allocated to AbiusX - 0% complete (NEW 2.0)
+  ** reference/accesscontrol/policyloader/ ACRParameterLoaderHelper - Allocated to AbiusX - 0% complete (NEW 2.0)
+  ** reference/accesscontrol/policyloader/ ACRPolicyFileLoader - Allocated to AbiusX - 0% complete (NEW 2.0)
+  ** reference/accesscontrol/policyloader/ DynabeanACRParameterLoader - Allocated to AbiusX - 0% complete (NEW 2.0)
+  ** reference/accesscontrol/policyloader/ PolicyDTO - Allocated to AbiusX - 0% complete (NEW 2.0)
+  ** reference/accesscontrol/policyloader/ PolicyParameters - Allocated to AbiusX - 0% complete (NEW 2.0)
+  ** reference/accesscontrol/policyloader/ PolicyParameters - Allocated to AbiusX - 0% complete (NEW 2.0)
+  ** reference/accesscontrol/AlwaysFalseACR - Allocated to AbiusX - 0% complete (NEW 2.0)
+  ** reference/accesscontrol/AlwaysTryeACR - Allocated to AbiusX - 0% complete (NEW 2.0)
+  ** reference/accesscontrol/BaseACR - Allocated to AbiusX - 0% complete (NEW 2.0)
+  ** reference/accesscontrol/DelegatingACR - Allocated to AbiusX - 0% complete (NEW 2.0)
+  ** reference/accesscontrol/DynaBeanACRParameter - Allocated to AbiusX - 0% complete (NEW 2.0)
+  ** reference/accesscontrol/ExperimentalAccessController - Allocated to AbiusX - 0% complete (NEW 2.0)
+  ** reference/accesscontrol/FileBasedACRs - Allocated to AbiusX - 0% complete (moved 1.6->2.0)
+
+The Dynabean stuff is a J2EE-ism. Feel free to have a discussion about not doing this bit.
+
+=== Validator ===
+
+Note to implementor: Please continue to implement the stubs and tests you have. However, we need to be at 2.0 reference sooner or later, so it's okay if you start down the path of 2.0-izing the Validator. 
+
   * Validator - Allocated to Johannes Ullrich - 0% complete
+  ** reference/validation/BaseValidationRule - Allocated to Johannes Ullrich - 0% complete (NEW 2.0)
+  ** reference/validation/CreditCardValidationRule - Allocated to Johannes Ullrich - 0% complete (NEW 2.0)
+  ** reference/validation/DateValidationRule - Allocated to Johannes Ullrich - 0% complete (NEW 2.0)
+  ** reference/validation/HTMLValidationRule - Allocated to Johannes Ullrich - 0% complete (NEW 2.0)
+  ** reference/validation/NumberValidationRule - Allocated to Johannes Ullrich - 0% complete (NEW 2.0)
+  ** reference/validation/StringValidationRule - Allocated to Johannes Ullrich - 0% complete (NEW 2.0)
+  ** ValidationErrorList - Allocated to Johannes Ullrich - 0% complete (NEW - 2.0)
+  ** ValidationRule - Allocated to Johannes Ullrich - 0% complete (NEW 2.0)
 
 == Unallocated ==
 
-  * Encryptor - Unallocated - 0% complete
   * Executor - Unallocated - 0% complete
   * HTTPUtilities - Unallocated - 25% complete
   * IntrusionDetector - Unallocated - 0% complete
   * Logger - Unallocated - 0% complete
   * Randomizer - Unallocated - 0% complete
   * SafeFile - Unallocated - 0% complete
-  * Filters - SafeResponse - Unallocated - 0% complete
-  * Filters - SafeRequest - Unallocated - 0% complete
-  * Filters - AntiSamy - Unallocated - 0% complete
-  * Filters - SafeHttpFilter - Unallocated - 0% complete
-  * Filters - ESAPIFitler - Unallocated - 0% complete
   * User - Unallocated - 5% complete
+  * Convert2UTF8 - Unallocated - 0% complete (2.0)
+  * PreparedString - Unallocated - 0% complete (2.0) 
+
+=== Filters ===
+
+  * Filters - ClickJack Filter - Unallocated - 0% complete
+  * Filters - SecurityWrapper - Unallocated - 0% complete
+  * Filters - SecurityWrapperRequest - Unallocated - 0% complete
+  * Filters - SecurityWrapperResponse - Unallocated - 0% complete
+  * Filters - RequestRateThrottleFilter - Unallocated - 0% complete
+  * Filters - ESAPIFitler - Unallocated - 0% complete
+
+=== OWASP Validators / AntiSamy ===
+
+  * Validators - AntiSamy - Unallocated - 0% complete
+  * Validators - CleanResults - Unallocated - 0% complete
+  * Validators - Policy - Unallocated - 0% complete
+  * Validators - PolicyException - Unallocated - 0% complete
+  * Validators - ScanException - Unallocated - 0% complete;
+
+=== Tags ===
+
+We need to discuss these as PHP is not a tag lib based language. I think the use of _h(), etc might be appropriate, but let's talk when it's time. AJV
+
+  * Tags - EncodeForHtmlAttributeTag - Unallocated - 0% complete;
+  * Tags - EncodeForHtmlTag - Unallocated - 0% complete;
+  * Tags - EncodeForHtmlJavaScript - Unallocated - 0% complete;
+  * Tags - EncodeForVMScriptTag - Unallocated - 0% complete;
+
+=== WAF ===
+
+  * Actions - Unallocated - 0% complete
+  * Configuration - Unallocated - 0% complete
+  * Internal - Unallocated - 0% complete
+  * Rules - Unallocated - 0% complete
+  * WAF core (ConfigEx, EWAFF, HttpState, UploadTooLargeException)
 
 Please ask Mike Boberski or Andrew van der Stock to be allocated work. 
