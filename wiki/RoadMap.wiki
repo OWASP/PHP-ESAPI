@@ -13,6 +13,7 @@ The following tasks have been allocated:
   * ESAPI - Allocated to AJV - 100% complete
   * Exceptions - Allocated to AJV - 100% complete
   * Interfaces - Allocated to AJV - 100% complete
+  * SecurityConfiguration - Allocated to AJV - 100% complete
   * StringUtilities - Allocated to AJV - 100% complete
 
 == Allocated ==
@@ -21,7 +22,6 @@ The following tasks have been allocated:
   * Authenticator - Allocated to Bipin - 0% complete
   * Encoder & codecs - Allocated to Linden - 0% complete
   * EncryptedProperties - Allocated to AJV - 0% complete
-  * SecurityConfiguration - Allocated to AJV - 0% complete
   * Test Suite - AJV responsible - 15% complete
   * Validator - Allocated to Johannes Ullrich - 0% complete
 
