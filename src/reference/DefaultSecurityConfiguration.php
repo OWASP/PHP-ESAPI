@@ -66,6 +66,7 @@ class DefaultSecurityConfiguration implements SecurityConfiguration
 	
 	private $patternCache = array();
 	
+	public $events = null;
 		
 	// IntrusionDetector
 	
@@ -95,6 +96,50 @@ class DefaultSecurityConfiguration implements SecurityConfiguration
 		} else {
 			throw new Exception("Security configuration file does not exist.");
 		}
+	}
+
+	private function loadEvents() {
+		$events = $this->xml->xpath('/esapi-properties/IntrusionDetector/event');
+
+		if ( $events === false ) {
+			$this->events = null;
+			$this->logSpecial( 'SecurityConfiguration for /esapi-properties/IntrusionDetector/event not found in ESAPI.xml.');
+			return false;
+		}
+
+		$this->events = array();
+
+		// Cycle through each event
+		foreach ($events as $event)
+		{
+			// Obtain data for the event
+
+			$name = (string) $event[0]->attributes()->name;
+			$count = (int) $event[0]->attributes()->count;
+			$interval = (int) $event[0]->attributes()->interval;
+			
+			$actions = array();
+			foreach ( $event[0]->action as $node ) {
+				$actions[] = (string) $node[0];	
+			}
+			
+			// Validate the event
+
+			if ( !empty($name) && $count > 0 && $interval > 0 && !empty($actions) ) 
+			{
+				// Add a new threshold object to $events array
+				$this->events[] = new Threshold($name, $count, $interval, $actions);
+			}
+		}		
+	
+		if ( count($this->events) == 0 )
+		{
+			$this->events = null;
+			$this->logSpecial( 'SecurityConfiguration found no valid events in the Intrusion Detection section.' );
+			return false;
+		}
+		
+		return true;
 	}
 
 	private function logSpecial($msg) {
@@ -430,7 +475,34 @@ class DefaultSecurityConfiguration implements SecurityConfiguration
 	 */
 	function getQuota($eventName)
 	{
-		throw new EnterpriseSecurityException("Method Not implemented");
+		if ( $eventName == null ) 
+		{
+			return null;
+		}
+		
+		if ( $this->events == null ) 
+		{
+			$this->loadEvents();
+			
+			if ( $this->events == null) 
+			{
+				return null;
+			}
+		}
+		
+		// Search for the event, and return it if it exists
+
+		$theEvent = null;
+		foreach ($this->events as $event)
+		{
+			if ( $event->name == $eventName )
+			{
+				$theEvent = $event;
+				break;
+			}
+		}
+		
+		return $theEvent;
 	}
 
 	/**
@@ -469,9 +541,6 @@ class DefaultSecurityConfiguration implements SecurityConfiguration
 		
 		return $this->ResponseContentType;
 	}
-
-
-
 
 	/**
 	 * Returns whether HTML entity encoding should be applied to log entries.
@@ -532,6 +601,5 @@ class DefaultSecurityConfiguration implements SecurityConfiguration
 		
 		return $this->MaxLogFileSize;
 	}
-
 }
 ?>
