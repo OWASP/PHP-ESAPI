@@ -260,7 +260,7 @@
 
 		<!-- for test purposes -->
 
-		<event name="org.owasp.esapi.errors.IntegrityException" count="10"		interval="5">
+		<event name="org.owasp.esapi.errors.IntegrityException" count="10" interval="5">
 			<action>disable</action>
 			<action>log</action>
 			<action>logout</action>

@@ -45,7 +45,7 @@ class SecurityConfigurationTest extends UnitTestCase
 	
 	function testConfigChecksum()
 	{
-		$this->assertEqual(md5_file(dirname(__FILE__).'/../testresources/ESAPI.xml'),  '5fa72f5c8f94c97c354bb3f9998b06f8');
+		$this->assertEqual(md5_file(dirname(__FILE__).'/../testresources/ESAPI.xml'),  '0440c7683d4631378406622d487d9a03');
 	}
 	
 	/**
@@ -271,7 +271,60 @@ class SecurityConfigurationTest extends UnitTestCase
 	 */
 	function testQuota()
 	{
-		$this->fail();
+		$config = ESAPI::getSecurityConfiguration();
+		
+		// dummy call - should do nothing
+		$config->getQuota(null);
+		
+		// Check the event tree has not been parsed
+		$this->assertEqual(count($config->events), 0);
+		
+		$event = $config->getQuota('test');
+	
+		// Check the event tree has now been parsed
+		$this->assertEqual(count($config->events), 4);
+		
+		// Check test event is okay
+		
+		$this->assertEqual($event->name, 'test');
+		$this->assertEqual($event->count, 2);
+		$this->assertEqual($event->interval, 10);
+		$this->assertEqual(count($event->actions), 2);
+		$this->assertEqual($event->actions[0], 'disable');
+		$this->assertEqual($event->actions[1], 'log');
+
+		// Test the integrity exception event
+		$event = $config->getQuota('org.owasp.esapi.errors.IntrusionException');
+		$this->assertEqual($event->name, 'org.owasp.esapi.errors.IntrusionException');
+		$this->assertEqual($event->count, 1);
+		$this->assertEqual($event->interval, 1);
+		$this->assertEqual(count($event->actions), 3);
+		$this->assertEqual($event->actions[0], 'disable');
+		$this->assertEqual($event->actions[1], 'log');
+		$this->assertEqual($event->actions[2], 'logout');
+
+		// Test the integrity Exception event		
+		$event = $config->getQuota('org.owasp.esapi.errors.IntegrityException');
+		$this->assertEqual($event->name, 'org.owasp.esapi.errors.IntegrityException');
+		$this->assertEqual($event->count, 10);
+		$this->assertEqual($event->interval, 5);
+		$this->assertEqual(count($event->actions), 3);
+		$this->assertEqual($event->actions[0], 'disable');
+		$this->assertEqual($event->actions[1], 'log');
+		$this->assertEqual($event->actions[2], 'logout');
+
+		// Test the integrity Exception event		
+		$event = $config->getQuota('org.owasp.esapi.errors.AuthenticationHostException');
+		$this->assertEqual($event->name, 'org.owasp.esapi.errors.AuthenticationHostException');
+		$this->assertEqual($event->count, 2);
+		$this->assertEqual($event->interval, 10);
+		$this->assertEqual(count($event->actions), 2);
+		$this->assertEqual($event->actions[0], 'log');
+		$this->assertEqual($event->actions[1], 'logout');
+
+		// Check that asking for a bad event doesn't work
+		$event = $config->getQuota('ridiculous');
+		$this->assertNull($event);
 	}
 
 	/**

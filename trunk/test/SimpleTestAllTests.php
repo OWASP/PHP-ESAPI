@@ -16,7 +16,7 @@
  * @since 2007
  */
 
-error_reporting(E_ALL);
+error_reporting(E_ALL | E_STRICT | E_DEPRECATED);
 
 require_once dirname(__FILE__).'/../src/ESAPI.php';
 $ESAPI = new ESAPI(dirname(__FILE__)."/testresources/ESAPI.xml");
