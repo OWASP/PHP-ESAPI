@@ -309,15 +309,14 @@ class FileBasedAuthenticator implements Authenticator {
 	function removeUser($accountName)
 	{
 		// TODO: Change in Milestone 3. In milestone 1, this is used to clean up a test
-		for ($i = 0; $i < count($this->users); $i++)
-		{
-			if ( isset($this->users[$i]) && $this->users[$i] == $accountName) 
-			{
-				unset($this->users[$i]);
-				return true;
-			}
-		}
 		
+		$idx = array_search($accountName, $this->users);
+		if ( !empty($this->users) && $idx !== false )
+		{
+			unset($this->users[$idx]);
+			return true;
+		}
+		 
 		return false;
 	}
 
