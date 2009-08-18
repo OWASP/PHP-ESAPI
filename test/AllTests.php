@@ -19,7 +19,7 @@
 require_once dirname(__FILE__).'/../lib/simpletest/unit_tester.php';
 require_once dirname(__FILE__).'/../lib/simpletest/reporter.php';
 
-error_reporting(E_ALL);
+error_reporting(E_ALL | ~E_STRICT); 		// TODO - Fix when SimpleTest > 1.0.1 comes out.  
 
 require_once dirname(__FILE__).'/../src/ESAPI.php';
 

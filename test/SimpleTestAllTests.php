@@ -16,7 +16,7 @@
  * @since 2007
  */
 
-error_reporting(E_ALL | E_STRICT | E_DEPRECATED);
+error_reporting(E_ALL | ~E_STRICT); 		// TODO - Fix when SimpleTest > 1.0.1 comes out.  
 
 require_once dirname(__FILE__).'/../src/ESAPI.php';
 $ESAPI = new ESAPI(dirname(__FILE__)."/testresources/ESAPI.xml");
