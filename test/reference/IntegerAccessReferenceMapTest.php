@@ -180,16 +180,7 @@ class IntegerReferenceMapTest extends UnitTestCase
 		// test to make sure update removes items that are no longer in the list
 		$auth->removeUser( $u->getAccountName() );
 		
-		
-//		echo "<p>pre-arm = [";
-//		print_r($arm);
-//		echo "]";
-		
 		$arm->update($auth->getUserNames());
-		
-//		echo "<p>post-arm = [";
-//		print_r($arm);
-//		echo "]";
 		
 		$indirect = $arm->getIndirectReference( $u->getAccountName() );
 		$this->assertNull($indirect, "Account name [".$u->getAccountName()."] has indirect mapping [".$indirect."]");
