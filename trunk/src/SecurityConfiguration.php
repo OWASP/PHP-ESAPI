@@ -239,6 +239,13 @@ interface SecurityConfiguration
      * @return the maximum size of a single log file (in bytes).
      */
     function getMaxLogFileSize();
+    
+    /**
+     * Get the specified validation pattern from the ESAPI configuration properties file.
+     *
+     * @return the regular expression.
+     */
+    function getValidationPattern($type);
 
 }
 

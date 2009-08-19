@@ -440,5 +440,11 @@ class SecurityConfigurationTest extends UnitTestCase
 		$config = ESAPI::getSecurityConfiguration();
 		$this->assertEqual($config->getMaxLogFileSize(), 10000000);
 	}
+	
+	function testValidationPattern()
+	{
+		$config = ESAPI::getSecurityConfiguration();
+		$this->assertEqual($config->getValidationPattern("SafeString"), '^[\\p{L}\\p{N}.]{0,1024}$');
+	}
 }
 ?>

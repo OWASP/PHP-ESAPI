@@ -183,6 +183,35 @@ class DefaultSecurityConfiguration implements SecurityConfiguration
 		return $val;
 	}
 	
+	private function getESAPIValidationExpression($type) {
+
+		$var = $this->xml->xpath('//regexp');
+			
+		$result = array();
+		$found = false;
+		$i = 0;
+		$val;
+			
+		if (isset($var[0]) ) {
+			while(list( , $node) = each($var)) {
+ 				$result[] = (string) $node[0];
+ 				
+ 				foreach ($node[0]->attributes() as $a => $b)
+ 				{
+ 					if(!strcmp($a, "name"))
+ 					  if(!strcmp($b, $type))
+ 					  {
+ 					  	$val = $var[$i];
+ 					  	break;
+ 					  }
+ 					$i++;
+ 				}
+			}						
+		}
+		
+		return $val->attributes()->value;
+	}
+	
 	private function getESAPIEncodedStringProperty($prop, $def) {
 		return base64_decode($this->getESAPIStringProperty($prop, $def));
 	}
@@ -200,7 +229,7 @@ class DefaultSecurityConfiguration implements SecurityConfiguration
 			$val = (int) $var[0];
 		}
 		
-		return $val;
+		return (string)$val;
 	}
 	
 	private function getESAPIBooleanProperty($prop, $def) {
@@ -601,5 +630,11 @@ class DefaultSecurityConfiguration implements SecurityConfiguration
 		
 		return $this->MaxLogFileSize;
 	}
+	
+	function getValidationPattern($type)
+	{		
+		return $this->getESAPIValidationExpression($type);;
+	}
+	
 }
 ?>
