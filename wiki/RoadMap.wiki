@@ -14,7 +14,7 @@ The 1.6 baseline is targeting the (at the time of writing) current stable ESAPI 
   * ESAPI - Allocated to AJV - 100% complete
   * Exceptions - Allocated to AJV - 100% complete
   * Interfaces - Allocated to AJV - 100% complete
-  * Randomizer - Complete - 0% complete
+  * Randomizer - Complete - 100% complete
   * SecurityConfiguration - Allocated to AJV - 100% complete
 
 == Allocated ==
