@@ -14,12 +14,20 @@
  * @author Andrew van der Stock (vanderaj @ owasp.org)
  * @created 2009
  */
- 
+
+require_once dirname(__FILE__).'/../../src/ESAPI.php';
+require_once dirname(__FILE__).'/../../src/reference/DefaultValidator.php';
+
 class ValidatorTest extends UnitTestCase 
 {
 	function setUp() 
 	{
+		global $ESAPI;
 		
+		if ( !isset($ESAPI)) 
+		{
+			$ESAPI = new ESAPI();
+		}
 	}
 	
 	function tearDown()
@@ -64,6 +72,18 @@ function testIsValidCreditCard() {
 //		assertFalse(instance.isValidInput("test", null, "Email", 100, false));
 	}
 
+	/**
+	 * Test of getValidInput method, of class org.owasp.esapi.Validator.
+	 */
+	function testGetValidInput(){
+		$val = ESAPI::getValidator();
+		
+		// TODO: Security -- add test cases
+		
+		$this->assertEqual("123abc", $val->getValidInput("test", "123abc", "SafeString", 6, false));		
+
+	}
+	
 	/**
 	 * Test of isValidSafeHTML method, of class org.owasp.esapi.Validator.
 	 */
