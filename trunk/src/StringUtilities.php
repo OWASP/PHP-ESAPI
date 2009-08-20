@@ -63,18 +63,4 @@ class StringUtilities {
     public static function contains($haystack, $c) {
     	return in_array($c, $haystack);
     }
-
-	public static function getRandomString($numChars, $charset = '~`!@#$%^&*()1234567890-_+={[]}|\\:;\'\"ABCDEFGHIJKLMNOPQRSTUVXYZabcdefghijklmnopqrstuvyxyz')
-	{
-		if ( $numChars < 1 || strlen($charset) < 2 ) {
-			throw new InvalidArgumentException();
-		}
-		
-		$rs = '';
-		for ($i = 0; $i < $numChars; $i++)
-		{
-			$rs .= chr($charset[mt_rand() % strlen($charset)]);
-		}
-		return $rs;
-	}
 }

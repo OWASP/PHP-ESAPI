@@ -147,7 +147,7 @@ class RandomAccessReferenceMap implements AccessReferenceMap {
 		$candidate = null;
 		
 		do {
-			$candidate = StringUtilities::getRandomString(6	, "123456789");
+			$candidate = ESAPI::getRandomizer()->getRandomString(6	, "123456789");
 		} while ($this->itod->offsetExists($candidate));
 		
 		return $candidate;
