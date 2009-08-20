@@ -67,7 +67,20 @@ class DefaultValidator implements Validator {
 	 * 
 	 * @throws IntrusionException
 	 */
-	function getValidInput($context, $input, $type, $maxLength, $allowNull, $errorList = null) 	{ 		throw new EnterpriseSecurityException("Method Not implemented"); 	}
+	function getValidInput($context, $input, $type, $maxLength, $allowNull, $errorList = null) 	{ 		
+
+		// TODO: Security -- add check for null, align with ESAPI 2.0
+
+		$config = ESAPI::getSecurityConfiguration();
+		$pattern = $config->getValidationPattern($type);
+
+		if (preg_match("/$pattern/", $input))
+			if(strlen($input)<=$maxLength)
+				return $input;
+			else
+				throw new EnterpriseSecurityException("Not valid input");
+		
+	}
 	
 	/**
 	 * Returns true if input is a valid date according to the specified date format.
