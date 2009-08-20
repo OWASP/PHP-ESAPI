@@ -28,7 +28,7 @@ The 1.6 baseline is targeting the (at the time of writing) current stable ESAPI 
   * StringUtilities - Allocated to AJV - 95% complete (need to fix a bug and add tests)
   * Test Suite - AJV responsible - 15% complete
   * User - AbiusX - 5% complete
-  * Validator - Allocated to Johannes Ullrich - 0% complete
+  * Validator - Allocated to Johannes Ullrich - 5% complete
 
 == Unallocated ==
 
