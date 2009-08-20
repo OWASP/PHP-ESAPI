@@ -209,7 +209,7 @@ class DefaultSecurityConfiguration implements SecurityConfiguration
 			}						
 		}
 		
-		return $val->attributes()->value;
+		return (string)$val->attributes()->value;
 	}
 	
 	private function getESAPIEncodedStringProperty($prop, $def) {
