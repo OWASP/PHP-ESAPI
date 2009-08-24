@@ -14,7 +14,7 @@
  * @author AbiusX
  * @created 2009
  * @since 1.4
- * @version 1.03
+ * @version 1.04
  */
 
 /**
@@ -123,7 +123,7 @@ class DefaultUser implements User {
 	private function readUserInfo()
 	{
 	    $Compare=$this->Username;
-	    $fp=fopen(dirname(__FILE__).$this->_PathToUsersFiles,"r");
+	    $fp=fopen(dirname(__FILE__)."/".$this->_PathToUsersFiles,"r");
 	    if (!$fp) throw new Exception("Can not open the users.txt file!");
 	    while (!feof($fp))
 	    {
@@ -140,25 +140,30 @@ class DefaultUser implements User {
 	private function writeUserInfo()
 	{
 	    $Compare=$this->Username;
-	    $fp=fopen(dirname(__FILE__).$this->_PathToUsersFiles,"r");
+	    $fp=fopen(dirname(__FILE__)."/".$this->_PathToUsersFiles,"r");
 	    if (!$fp) throw new Exception("Can not open the users.txt file!");
         $Data="";
 	    while (!feof($fp))
 	    {
             $Line=fgets($fp);
-            if (substr($Line,0,strlen($Compare))!=$Compare)
-                $Data.=$Line;
+            $Line=trim($Line);
+            if (strlen($Line)>strlen($Compare) and substr($Line,0,strlen($Compare))!=$Compare)
+                $Data.=$Line."\n";
 	    }
 	    fclose($fp);
-	    $fp=fopen(dirname(__FILE__).$this->_PathToUsersFiles,"w");
-	    fwrite($fp,$Data);
-	    fwrite($fp,implode(" | ",$this->UserInfo)."\n");
+	    $fp=fopen(dirname(__FILE__)."/".$this->_PathToUsersFiles,"w+");
+	    if (!$fp) throw new Exception("Can not open the users.txt file for writing!!");
+        fwrite($fp,$Data);
+	    if ($this->UserInfo)
+	        fwrite($fp,implode(" | ",$this->UserInfo));
+	        
 	    fclose($fp);
 	}
-	function __construct($Username)//, $Password1, $Password2) 
+	function __construct($Username,$UsersFile=null)//, $Password1, $Password2) 
 	{
+	    if ($UsersFile)
+	        $this->_PathTUsersFile=$UsersFile;
 		$this->Username = $Username;
-		//$this->Password = $Password1;
 		$this->UID=$Username; //FIXME: this should be the userID not username
 		
 		$this->readUserInfo();
@@ -688,7 +693,7 @@ class DefaultUser implements User {
     {
         //TODO: $csrfToken = ESAPI.randomizer().getRandomString(8, DefaultEncoder.CHAR_ALPHANUMERICS);
         
-        $this->setUserInfo("csrfToken",csrfToken);
+        $this->setUserInfo("csrfToken",$csrfToken);
 		return $csrfToken;
     }
 
@@ -824,6 +829,6 @@ class DefaultUser implements User {
 	 * always a real user, the ANONYMOUS user is better than using null to represent
 	 * this.
 	 */
- //   public final $ANONYMOUS=null;
+    public $ANONYMOUS=null;
 }
 ?>
