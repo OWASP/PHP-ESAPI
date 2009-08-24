@@ -48,28 +48,28 @@ function testIsValidCreditCard() {
 	 * Test of isValidEmailAddress method, of class org.owasp.esapi.Validator.
 	 */
 	function testisValidInput() {
-		$this->fail(); // DELETE ME ("isValidInput");
-//		Validator instance = ESAPI.validator();
-//		assertTrue(instance.isValidInput("test", "jeff.williams@aspectsecurity.com", "Email", 100, false));
-//		assertFalse(instance.isValidInput("test", "jeff.williams@@aspectsecurity.com", "Email", 100, false));
-//		assertFalse(instance.isValidInput("test", "jeff.williams@aspectsecurity", "Email", 100, false));
-//		assertTrue(instance.isValidInput("test", "123.168.100.234", "IPAddress", 100, false));
-//		assertTrue(instance.isValidInput("test", "192.168.1.234", "IPAddress", 100, false));
-//		assertFalse(instance.isValidInput("test", "..168.1.234", "IPAddress", 100, false));
-//		assertFalse(instance.isValidInput("test", "10.x.1.234", "IPAddress", 100, false));
-//		assertTrue(instance.isValidInput("test", "http://www.aspectsecurity.com", "URL", 100, false));
-//		assertFalse(instance.isValidInput("test", "http:///www.aspectsecurity.com", "URL", 100, false));
-//		assertFalse(instance.isValidInput("test", "http://www.aspect security.com", "URL", 100, false));
-//		assertTrue(instance.isValidInput("test", "078-05-1120", "SSN", 100, false));
-//		assertTrue(instance.isValidInput("test", "078 05 1120", "SSN", 100, false));
-//		assertTrue(instance.isValidInput("test", "078051120", "SSN", 100, false));
-//		assertFalse(instance.isValidInput("test", "987-65-4320", "SSN", 100, false));
-//		assertFalse(instance.isValidInput("test", "000-00-0000", "SSN", 100, false));
-//		assertFalse(instance.isValidInput("test", "(555) 555-5555", "SSN", 100, false));
-//		assertFalse(instance.isValidInput("test", "test", "SSN", 100, false));
-//
-//		assertTrue(instance.isValidInput("test", null, "Email", 100, true));
-//		assertFalse(instance.isValidInput("test", null, "Email", 100, false));
+
+		$instance = ESAPI::getValidator();
+		$this->assertTrue($instance->isValidInput("test", "jeff.williams@aspectsecurity.com", "Email", 100, false));
+		$this->assertFalse($instance->isValidInput("test", "jeff.williams@@aspectsecurity.com", "Email", 100, false));
+		$this->assertFalse($instance->isValidInput("test", "jeff.williams@aspectsecurity", "Email", 100, false));
+		$this->assertTrue($instance->isValidInput("test", "123.168.100.234", "IPAddress", 100, false));
+		$this->assertTrue($instance->isValidInput("test", "192.168.1.234", "IPAddress", 100, false));
+		$this->assertFalse($instance->isValidInput("test", "..168.1.234", "IPAddress", 100, false));
+		$this->assertFalse($instance->isValidInput("test", "10.x.1.234", "IPAddress", 100, false));
+		$this->assertTrue($instance->isValidInput("test", "http://www.aspectsecurity.com", "URL", 100, false));
+		$this->assertFalse($instance->isValidInput("test", "http:///www.aspectsecurity.com", "URL", 100, false));
+		$this->assertFalse($instance->isValidInput("test", "http://www.aspect security.com", "URL", 100, false));
+		$this->assertTrue($instance->isValidInput("test", "078-05-1120", "SSN", 100, false));
+		$this->assertTrue($instance->isValidInput("test", "078 05 1120", "SSN", 100, false));
+		$this->assertTrue($instance->isValidInput("test", "078051120", "SSN", 100, false));
+		$this->assertFalse($instance->isValidInput("test", "987-65-4320", "SSN", 100, false));
+		$this->assertFalse($instance->isValidInput("test", "000-00-0000", "SSN", 100, false));
+		$this->assertFalse($instance->isValidInput("test", "(555) 555-5555", "SSN", 100, false));
+		$this->assertFalse($instance->isValidInput("test", "test", "SSN", 100, false));
+
+		$this->assertTrue($instance->isValidInput("test", null, "Email", 100, true));
+		$this->assertFalse($instance->isValidInput("test", null, "Email", 100, false));
 	}
 
 	/**
@@ -88,13 +88,13 @@ function testIsValidCreditCard() {
 		$this->fail(); // DELETE ME ("isValidSafeHTML");
 		// Validator instance = ESAPI.validator();
 
-//		assertTrue(instance.isValidSafeHTML("test", "<b>Jeff</b>", 100, false));
-//		assertTrue(instance.isValidSafeHTML("test", "<a href=\"http://www.aspectsecurity.com\">Aspect Security</a>", 100, false));
-//		assertFalse(instance.isValidSafeHTML("test", "Test. <script>alert(document.cookie)</script>", 100, false));
+//		$this->assertTrue($instance->isValidSafeHTML("test", "<b>Jeff</b>", 100, false));
+//		$this->assertTrue($instance->isValidSafeHTML("test", "<a href=\"http://www.aspectsecurity.com\">Aspect Security</a>", 100, false));
+//		$this->assertFalse($instance->isValidSafeHTML("test", "Test. <script>alert(document.cookie)</script>", 100, false));
 
 		// TODO: waiting for a way to validate text headed for an attribute for scripts		
 		// This would be nice to catch, but just looks like text to AntiSamy
-		// assertFalse(instance.isValidSafeHTML("test", "\" onload=\"alert(document.cookie)\" "));
+		// $this->assertFalse($instance->isValidSafeHTML("test", "\" onload=\"alert(document.cookie)\" "));
 	}
 
 	/**
@@ -106,22 +106,22 @@ function testIsValidCreditCard() {
 		$this->fail(); // DELETE ME ("getValidSafeHTML");
 //		Validator instance = ESAPI.validator();
 //		String test1 = "<b>Jeff</b>";
-//		String result1 = instance.getValidSafeHTML("test", test1, 100, false);
-//		assertEquals(test1, result1);
+//		String result1 = $instance->getValidSafeHTML("test", test1, 100, false);
+//		$this->assertEquals(test1, result1);
 //		
 //		String test2 = "<a href=\"http://www.aspectsecurity.com\">Aspect Security</a>";
-//		String result2 = instance.getValidSafeHTML("test", test2, 100, false);
-//		assertEquals(test2, result2);
+//		String result2 = $instance->getValidSafeHTML("test", test2, 100, false);
+//		$this->assertEquals(test2, result2);
 //		
 //		String test3 = "Test. <script>alert(document.cookie)</script>";
-//		String result3 = instance.getValidSafeHTML("test", test3, 100, false);
-//		assertEquals("Test.", result3);
+//		String result3 = $instance->getValidSafeHTML("test", test3, 100, false);
+//		$this->assertEquals("Test.", result3);
 		
 		// TODO: ENHANCE waiting for a way to validate text headed for an attribute for scripts		
 		// This would be nice to catch, but just looks like text to AntiSamy
-		// assertFalse(instance.isValidSafeHTML("test", "\" onload=\"alert(document.cookie)\" "));
-		// String result4 = instance.getValidSafeHTML("test", test4);
-		// assertEquals("", result4);
+		// $this->assertFalse($instance->isValidSafeHTML("test", "\" onload=\"alert(document.cookie)\" "));
+		// String result4 = $instance->getValidSafeHTML("test", test4);
+		// $this->assertEquals("", result4);
 	}
 
 	/**
@@ -133,8 +133,8 @@ function testIsValidCreditCard() {
 //		List list = new ArrayList();
 //		list.add("one");
 //		list.add("two");
-//		assertTrue(instance.isValidListItem("test", "one", list));
-//		assertFalse(instance.isValidListItem("test", "three", list));
+//		$this->assertTrue($instance->isValidListItem("test", "one", list));
+//		$this->assertFalse($instance->isValidListItem("test", "three", list));
 	}
 
 	/**
@@ -144,34 +144,34 @@ function testIsValidCreditCard() {
 		$this->fail(); // DELETE ME ("isValidNumber");
 //		Validator instance = ESAPI.validator();
 //		//testing negative range
-//		assertFalse(instance.isValidNumber("test", "-4", 1, 10, false));
-//		assertTrue(instance.isValidNumber("test", "-4", -10, 10, false));
+//		$this->assertFalse($instance->isValidNumber("test", "-4", 1, 10, false));
+//		$this->assertTrue($instance->isValidNumber("test", "-4", -10, 10, false));
 //		//testing null value
-//		assertTrue(instance.isValidNumber("test", null, -10, 10, true));
-//		assertFalse(instance.isValidNumber("test", null, -10, 10, false));
+//		$this->assertTrue($instance->isValidNumber("test", null, -10, 10, true));
+//		$this->assertFalse($instance->isValidNumber("test", null, -10, 10, false));
 //		//testing empty string
-//		assertTrue(instance.isValidNumber("test", "", -10, 10, true));
-//		assertFalse(instance.isValidNumber("test", "", -10, 10, false));
+//		$this->assertTrue($instance->isValidNumber("test", "", -10, 10, true));
+//		$this->assertFalse($instance->isValidNumber("test", "", -10, 10, false));
 //		//testing improper range
-//		assertFalse(instance.isValidNumber("test", "5", 10, -10, false));
+//		$this->assertFalse($instance->isValidNumber("test", "5", 10, -10, false));
 //		//testing non-integers
-//		assertTrue(instance.isValidNumber("test", "4.3214", -10, 10, true));
-//		assertTrue(instance.isValidNumber("test", "-1.65", -10, 10, true));
+//		$this->assertTrue($instance->isValidNumber("test", "4.3214", -10, 10, true));
+//		$this->assertTrue($instance->isValidNumber("test", "-1.65", -10, 10, true));
 //		//other testing
-//		assertTrue(instance.isValidNumber("test", "4", 1, 10, false));
-//		assertTrue(instance.isValidNumber("test", "400", 1, 10000, false));
-//		assertTrue(instance.isValidNumber("test", "400000000", 1, 400000000, false));
-//		assertFalse(instance.isValidNumber("test", "4000000000000", 1, 10000, false));
-//		assertFalse(instance.isValidNumber("test", "alsdkf", 10, 10000, false));
-//		assertFalse(instance.isValidNumber("test", "--10", 10, 10000, false));
-//		assertFalse(instance.isValidNumber("test", "14.1414234x", 10, 10000, false));
-//		assertFalse(instance.isValidNumber("test", "Infinity", 10, 10000, false));
-//		assertFalse(instance.isValidNumber("test", "-Infinity", 10, 10000, false));
-//		assertFalse(instance.isValidNumber("test", "NaN", 10, 10000, false));
-//		assertFalse(instance.isValidNumber("test", "-NaN", 10, 10000, false));
-//		assertFalse(instance.isValidNumber("test", "+NaN", 10, 10000, false));
-//		assertTrue(instance.isValidNumber("test", "1e-6", -999999999, 999999999, false));
-//		assertTrue(instance.isValidNumber("test", "-1e-6", -999999999, 999999999, false));
+//		$this->assertTrue($instance->isValidNumber("test", "4", 1, 10, false));
+//		$this->assertTrue($instance->isValidNumber("test", "400", 1, 10000, false));
+//		$this->assertTrue($instance->isValidNumber("test", "400000000", 1, 400000000, false));
+//		$this->assertFalse($instance->isValidNumber("test", "4000000000000", 1, 10000, false));
+//		$this->assertFalse($instance->isValidNumber("test", "alsdkf", 10, 10000, false));
+//		$this->assertFalse($instance->isValidNumber("test", "--10", 10, 10000, false));
+//		$this->assertFalse($instance->isValidNumber("test", "14.1414234x", 10, 10000, false));
+//		$this->assertFalse($instance->isValidNumber("test", "Infinity", 10, 10000, false));
+//		$this->assertFalse($instance->isValidNumber("test", "-Infinity", 10, 10000, false));
+//		$this->assertFalse($instance->isValidNumber("test", "NaN", 10, 10000, false));
+//		$this->assertFalse($instance->isValidNumber("test", "-NaN", 10, 10000, false));
+//		$this->assertFalse($instance->isValidNumber("test", "+NaN", 10, 10000, false));
+//		$this->assertTrue($instance->isValidNumber("test", "1e-6", -999999999, 999999999, false));
+//		$this->assertTrue($instance->isValidNumber("test", "-1e-6", -999999999, 999999999, false));
 	}
 	
     /**
@@ -181,34 +181,34 @@ function testIsValidCreditCard() {
 		$this->fail(); // DELETE ME ("isValidInteger");
 //		Validator instance = ESAPI.validator();
 //		//testing negative range
-//		assertFalse(instance.isValidInteger("test", "-4", 1, 10, false));
-//		assertTrue(instance.isValidInteger("test", "-4", -10, 10, false));
+//		$this->assertFalse($instance->isValidInteger("test", "-4", 1, 10, false));
+//		$this->assertTrue($instance->isValidInteger("test", "-4", -10, 10, false));
 //		//testing null value
-//		assertTrue(instance.isValidInteger("test", null, -10, 10, true));
-//		assertFalse(instance.isValidInteger("test", null, -10, 10, false));
+//		$this->assertTrue($instance->isValidInteger("test", null, -10, 10, true));
+//		$this->assertFalse($instance->isValidInteger("test", null, -10, 10, false));
 //		//testing empty string
-//		assertTrue(instance.isValidInteger("test", "", -10, 10, true));
-//		assertFalse(instance.isValidInteger("test", "", -10, 10, false));
+//		$this->assertTrue($instance->isValidInteger("test", "", -10, 10, true));
+//		$this->assertFalse($instance->isValidInteger("test", "", -10, 10, false));
 //		//testing improper range
-//		assertFalse(instance.isValidInteger("test", "5", 10, -10, false));
+//		$this->assertFalse($instance->isValidInteger("test", "5", 10, -10, false));
 //		//testing non-integers
-//		assertFalse(instance.isValidInteger("test", "4.3214", -10, 10, true));
-//		assertFalse(instance.isValidInteger("test", "-1.65", -10, 10, true));
+//		$this->assertFalse($instance->isValidInteger("test", "4.3214", -10, 10, true));
+//		$this->assertFalse($instance->isValidInteger("test", "-1.65", -10, 10, true));
 //		//other testing
-//		assertTrue(instance.isValidInteger("test", "4", 1, 10, false));
-//		assertTrue(instance.isValidInteger("test", "400", 1, 10000, false));
-//		assertTrue(instance.isValidInteger("test", "400000000", 1, 400000000, false));
-//		assertFalse(instance.isValidInteger("test", "4000000000000", 1, 10000, false));
-//		assertFalse(instance.isValidInteger("test", "alsdkf", 10, 10000, false));
-//		assertFalse(instance.isValidInteger("test", "--10", 10, 10000, false));
-//		assertFalse(instance.isValidInteger("test", "14.1414234x", 10, 10000, false));
-//		assertFalse(instance.isValidInteger("test", "Infinity", 10, 10000, false));
-//		assertFalse(instance.isValidInteger("test", "-Infinity", 10, 10000, false));
-//		assertFalse(instance.isValidInteger("test", "NaN", 10, 10000, false));
-//		assertFalse(instance.isValidInteger("test", "-NaN", 10, 10000, false));
-//		assertFalse(instance.isValidInteger("test", "+NaN", 10, 10000, false));
-//		assertFalse(instance.isValidInteger("test", "1e-6", -999999999, 999999999, false));
-//		assertFalse(instance.isValidInteger("test", "-1e-6", -999999999, 999999999, false));
+//		$this->assertTrue($instance->isValidInteger("test", "4", 1, 10, false));
+//		$this->assertTrue($instance->isValidInteger("test", "400", 1, 10000, false));
+//		$this->assertTrue($instance->isValidInteger("test", "400000000", 1, 400000000, false));
+//		$this->assertFalse($instance->isValidInteger("test", "4000000000000", 1, 10000, false));
+//		$this->assertFalse($instance->isValidInteger("test", "alsdkf", 10, 10000, false));
+//		$this->assertFalse($instance->isValidInteger("test", "--10", 10, 10000, false));
+//		$this->assertFalse($instance->isValidInteger("test", "14.1414234x", 10, 10000, false));
+//		$this->assertFalse($instance->isValidInteger("test", "Infinity", 10, 10000, false));
+//		$this->assertFalse($instance->isValidInteger("test", "-Infinity", 10, 10000, false));
+//		$this->assertFalse($instance->isValidInteger("test", "NaN", 10, 10000, false));
+//		$this->assertFalse($instance->isValidInteger("test", "-NaN", 10, 10000, false));
+//		$this->assertFalse($instance->isValidInteger("test", "+NaN", 10, 10000, false));
+//		$this->assertFalse($instance->isValidInteger("test", "1e-6", -999999999, 999999999, false));
+//		$this->assertFalse($instance->isValidInteger("test", "-1e-6", -999999999, 999999999, false));
 
 	}
 
@@ -220,16 +220,16 @@ function testIsValidCreditCard() {
 	function testGetValidDate() {
 		$this->fail(); // DELETE ME ("getValidDate");
 //		Validator instance = ESAPI.validator();
-//		assertTrue(instance.getValidDate("test", "June 23, 1967", DateFormat.getDateInstance(DateFormat.MEDIUM, Locale.US), false ) != null);
+//		$this->assertTrue($instance->getValidDate("test", "June 23, 1967", DateFormat.getDateInstance(DateFormat.MEDIUM, Locale.US), false ) != null);
 //		try {
-//			instance.getValidDate("test", "freakshow", DateFormat.getDateInstance(), false );
+//			$instance->getValidDate("test", "freakshow", DateFormat.getDateInstance(), false );
 //		} catch( ValidationException e ) {
 //			// expected
 //		}
 //		
 //		// This test case fails due to an apparent bug in SimpleDateFormat
 //		try {
-//			instance.getValidDate( "test", "June 32, 2008", DateFormat.getDateInstance(), false );
+//			$instance->getValidDate( "test", "June 32, 2008", DateFormat.getDateInstance(), false );
 //			// fail();
 //		} catch( ValidationException e ) {
 //			// expected
@@ -242,10 +242,10 @@ function testIsValidCreditCard() {
 	function testIsValidFileName() {
 		$this->fail(); // DELETE ME ("isValidFileName");
 //		Validator instance = ESAPI.validator();
-//		assertTrue(instance.isValidFileName("test", "aspect.jar", false));
-//		assertFalse(instance.isValidFileName("test", "", false));
+//		$this->assertTrue($instance->isValidFileName("test", "aspect.jar", false));
+//		$this->assertFalse($instance->isValidFileName("test", "", false));
 //        try {
-//            instance.isValidFileName("test", "abc/def", false);
+//            $instance->isValidFileName("test", "abc/def", false);
 //        } catch( IntrusionException e ) {
 //            // expected
 //        }
@@ -267,41 +267,41 @@ function testIsValidCreditCard() {
 //		
 //		if ( isWindows ) {
 //			// Windows paths that don't exist and thus should fail
-//			assertFalse(instance.isValidDirectoryPath("test", "c:\\ridiculous", false));
-//			assertFalse(instance.isValidDirectoryPath("test", "c:\\jeff", false));
-//			assertFalse(instance.isValidDirectoryPath("test", "c:\\temp\\..\\etc", false));
+//			$this->assertFalse($instance->isValidDirectoryPath("test", "c:\\ridiculous", false));
+//			$this->assertFalse($instance->isValidDirectoryPath("test", "c:\\jeff", false));
+//			$this->assertFalse($instance->isValidDirectoryPath("test", "c:\\temp\\..\\etc", false));
 //
 //			// Windows paths that should pass
-//			assertTrue(instance.isValidDirectoryPath("test", "C:\\", false));								// Windows root directory
-//			assertTrue(instance.isValidDirectoryPath("test", "C:\\Windows", false));						// Windows always exist directory
-//			assertTrue(instance.isValidDirectoryPath("test", "C:\\Windows\\System32\\cmd.exe", false));		// Windows command shell	
+//			$this->assertTrue($instance->isValidDirectoryPath("test", "C:\\", false));								// Windows root directory
+//			$this->assertTrue($instance->isValidDirectoryPath("test", "C:\\Windows", false));						// Windows always exist directory
+//			$this->assertTrue($instance->isValidDirectoryPath("test", "C:\\Windows\\System32\\cmd.exe", false));		// Windows command shell	
 //			
 //			// Unix specific paths should not pass
-//			assertFalse(instance.isValidDirectoryPath("test", "/tmp", false));		// Unix Temporary directory
-//			assertFalse(instance.isValidDirectoryPath("test", "/bin/sh", false));	// Unix Standard shell	
-//			assertFalse(instance.isValidDirectoryPath("test", "/etc/config", false));
+//			$this->assertFalse($instance->isValidDirectoryPath("test", "/tmp", false));		// Unix Temporary directory
+//			$this->assertFalse($instance->isValidDirectoryPath("test", "/bin/sh", false));	// Unix Standard shell	
+//			$this->assertFalse($instance->isValidDirectoryPath("test", "/etc/config", false));
 //			
 //			// Unix specific paths that should not exist or work
-//			assertFalse(instance.isValidDirectoryPath("test", "/etc/ridiculous", false));
-//			assertFalse(instance.isValidDirectoryPath("test", "/tmp/../etc", false));
+//			$this->assertFalse($instance->isValidDirectoryPath("test", "/etc/ridiculous", false));
+//			$this->assertFalse($instance->isValidDirectoryPath("test", "/tmp/../etc", false));
 //		} else {
 //			// Windows paths should fail
-//			assertFalse(instance.isValidDirectoryPath("test", "c:\\ridiculous", false));
-//			assertFalse(instance.isValidDirectoryPath("test", "c:\\temp\\..\\etc", false));
+//			$this->assertFalse($instance->isValidDirectoryPath("test", "c:\\ridiculous", false));
+//			$this->assertFalse($instance->isValidDirectoryPath("test", "c:\\temp\\..\\etc", false));
 //
 //			// Standard Windows locations should fail
-//			assertFalse(instance.isValidDirectoryPath("test", "c:\\", false));								// Windows root directory
-//			assertFalse(instance.isValidDirectoryPath("test", "c:\\Windows\\temp", false));					// Windows temporary directory
-//			assertFalse(instance.isValidDirectoryPath("test", "c:\\Windows\\System32\\cmd.exe", false));	// Windows command shell	
+//			$this->assertFalse($instance->isValidDirectoryPath("test", "c:\\", false));								// Windows root directory
+//			$this->assertFalse($instance->isValidDirectoryPath("test", "c:\\Windows\\temp", false));					// Windows temporary directory
+//			$this->assertFalse($instance->isValidDirectoryPath("test", "c:\\Windows\\System32\\cmd.exe", false));	// Windows command shell	
 //			
 //			// Unix specific paths should pass
-//			assertTrue(instance.isValidDirectoryPath("test", "/", false));			// Root directory
-//			assertTrue(instance.isValidDirectoryPath("test", "/bin", false));		// Always exist directory
-//			assertTrue(instance.isValidDirectoryPath("test", "/bin/sh", false));	// Standard shell	
+//			$this->assertTrue($instance->isValidDirectoryPath("test", "/", false));			// Root directory
+//			$this->assertTrue($instance->isValidDirectoryPath("test", "/bin", false));		// Always exist directory
+//			$this->assertTrue($instance->isValidDirectoryPath("test", "/bin/sh", false));	// Standard shell	
 //			
 //			// Unix specific paths that should not exist or work
-//			assertFalse(instance.isValidDirectoryPath("test", "/etc/ridiculous", false));
-//			assertFalse(instance.isValidDirectoryPath("test", "/tmp/../etc", false));
+//			$this->assertFalse($instance->isValidDirectoryPath("test", "/etc/ridiculous", false));
+//			$this->assertFalse($instance->isValidDirectoryPath("test", "/tmp/../etc", false));
 //		}
 	}
 
@@ -311,11 +311,11 @@ function testIsValidCreditCard() {
     function testIsValidPrintable() {
 		$this->fail(); // DELETE ME ("isValidPrintable");
 //		Validator instance = ESAPI.validator();
-//		assertTrue(instance.isValidPrintable("name", "abcDEF", 100, false));
-//		assertTrue(instance.isValidPrintable("name", "!@#R()*$;><()", 100, false));
+//		$this->assertTrue($instance->isValidPrintable("name", "abcDEF", 100, false));
+//		$this->assertTrue($instance->isValidPrintable("name", "!@#R()*$;><()", 100, false));
 //        byte[] bytes = { 0x60, (byte) 0xFF, 0x10, 0x25 };
-//        assertFalse( instance.isValidPrintable("name", bytes, 100, false ) );
-//		assertFalse(instance.isValidPrintable("name", "%08", 100, false));
+//        $this->assertFalse( $instance->isValidPrintable("name", bytes, 100, false ) );
+//		$this->assertFalse($instance->isValidPrintable("name", "%08", 100, false));
     }
 
 	/**
@@ -325,7 +325,7 @@ function testIsValidCreditCard() {
 		$this->fail(); // DELETE ME ("isValidFileContent");
 //		byte[] content = "This is some file content".getBytes();
 //		Validator instance = ESAPI.validator();
-//		assertTrue(instance.isValidFileContent("test", content, 100, false));
+//		$this->assertTrue($instance->isValidFileContent("test", content, 100, false));
 	}
 
 	/**
@@ -338,12 +338,12 @@ function testIsValidCreditCard() {
 //		String filename = "aspect.jar";
 //		byte[] content = "This is some file content".getBytes();
 //		Validator instance = ESAPI.validator();
-//		assertTrue(instance.isValidFileUpload("test", filepath, filename, content, 100, false));
+//		$this->assertTrue($instance->isValidFileUpload("test", filepath, filename, content, 100, false));
 //		
 //		filepath = "/ridiculous";
 //		filename = "aspect.jar";
 //		content = "This is some file content".getBytes();
-//		assertFalse(instance.isValidFileUpload("test", filepath, filename, content, 100, false));
+//		$this->assertFalse($instance->isValidFileUpload("test", filepath, filename, content, 100, false));
 	}
 
 	/**
@@ -367,13 +367,13 @@ function testIsValidCreditCard() {
 //		request.addParameter("p3","value");
 //		ESAPI.httpUtilities().setCurrentHTTP(request, response);
 //		Validator instance = ESAPI.validator();		
-//		assertTrue(instance.isValidHTTPRequestParameterSet("HTTPParameters", requiredNames, optionalNames));
+//		$this->assertTrue($instance->isValidHTTPRequestParameterSet("HTTPParameters", requiredNames, optionalNames));
 //		request.addParameter("p4","value");
 //		request.addParameter("p5","value");
 //		request.addParameter("p6","value");
-//		assertTrue(instance.isValidHTTPRequestParameterSet("HTTPParameters", requiredNames, optionalNames));
+//		$this->assertTrue($instance->isValidHTTPRequestParameterSet("HTTPParameters", requiredNames, optionalNames));
 //		request.removeParameter("p1");
-//		assertFalse(instance.isValidHTTPRequestParameterSet("HTTPParameters", requiredNames, optionalNames));
+//		$this->assertFalse($instance->isValidHTTPRequestParameterSet("HTTPParameters", requiredNames, optionalNames));
 	}
 
 	/**
@@ -385,22 +385,22 @@ function testIsValidCreditCard() {
 //		ByteArrayInputStream s = new ByteArrayInputStream("testString".getBytes());
 //		Validator instance = ESAPI.validator();
 //		try {
-//			instance.safeReadLine(s, -1);
+//			$instance->safeReadLine(s, -1);
 //			fail();
 //		} catch (ValidationException e) {
 //			// Expected
 //		}
 //		s.reset();
 //		try {
-//			instance.safeReadLine(s, 4);
+//			$instance->safeReadLine(s, 4);
 //			fail();
 //		} catch (ValidationException e) {
 //			// Expected
 //		}
 //		s.reset();
 //		try {
-//			String u = instance.safeReadLine(s, 20);
-//			assertEquals("testString", u);
+//			String u = $instance->safeReadLine(s, 20);
+//			$this->assertEquals("testString", u);
 //		} catch (ValidationException e) {
 //			fail();
 //		}
@@ -413,8 +413,8 @@ function testIsValidCreditCard() {
 //			BufferedReader br = new BufferedReader(isr);
 //			String u = br.readLine();
 //			s.reset();
-//			String v = instance.safeReadLine(s, 20);
-//			assertEquals(u, v);
+//			String v = $instance->safeReadLine(s, 20);
+//			$this->$this->assertEquals(u, v);
 //		} catch (IOException e) {
 //			fail();
 //		} catch (ValidationException e) {
