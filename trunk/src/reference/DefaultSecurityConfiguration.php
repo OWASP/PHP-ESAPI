@@ -204,8 +204,9 @@ class DefaultSecurityConfiguration implements SecurityConfiguration
  					  	$val = $var[$i];
  					  	break;
  					  }
- 					$i++;
+ 					
  				}
+ 				$i++;
 			}						
 		}
 		
