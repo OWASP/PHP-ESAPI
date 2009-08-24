@@ -335,7 +335,7 @@ class DefaultLogger implements Log4PhpLogger {
                         }
 
                         // log the message                        
-                        $this->logger->log($level , "[" + $userInfo + " -> " + $appInfo + "] " + $clean, $throwable);
+//                        $this->logger->log($level , "[" + $userInfo + " -> " + $appInfo + "] " + $clean, $throwable);
         	
         }
 }
