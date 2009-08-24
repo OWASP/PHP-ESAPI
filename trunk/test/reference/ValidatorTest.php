@@ -36,12 +36,12 @@ class ValidatorTest extends UnitTestCase
 	}
 	
 function testIsValidCreditCard() {
-		$this->fail(); // DELETE ME ("isValidCreditCard");
-//		Validator instance = ESAPI.validator();
-//		assertTrue(instance.isValidCreditCard("test", "1234 9876 0000 0008", false));
-//		assertTrue(instance.isValidCreditCard("test", "1234987600000008", false));
-//		assertFalse(instance.isValidCreditCard("test", "12349876000000081", false));
-//		assertFalse(instance.isValidCreditCard("test", "4417 1234 5678 9112", false));
+		
+		$val = ESAPI::getValidator();
+		$this->assertTrue($val->isValidCreditCard("test", "1234 9876 0000 0008", false));
+		$this->assertTrue($val->isValidCreditCard("test", "1234987600000008", false));
+		$this->assertFalse($val->isValidCreditCard("test", "12349876000000081", false));
+		$this->assertFalse($val->isValidCreditCard("test", "4417 1234 5678 9112", false));
 	}
 
 	/**
@@ -77,9 +77,6 @@ function testIsValidCreditCard() {
 	 */
 	function testGetValidInput(){
 		$val = ESAPI::getValidator();
-		
-		// TODO: Security -- add test cases
-		
 		$this->assertEqual("123abc", $val->getValidInput("test", "123abc", "SafeString", 6, false));		
 
 	}
