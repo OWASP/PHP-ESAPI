@@ -35,7 +35,7 @@ class CreditCardValidationRule extends BaseValidationRule {
 		return $ccr;
 	}
 	
-	public function getValid($context,$input,$errolist=null ) {
+	public function getValid($context,$input,$errorlist=null ) {
 		if ( strlen($input)==0 ) {
 			if ( allowNull ) return null;
 			throw new ValidationException($context.": Input credit card required","Input credit card required: context=".$context.", input="+$input,$context);
@@ -44,8 +44,8 @@ class CreditCardValidationRule extends BaseValidationRule {
 		$canonical=preg_replace('/[^0-9]/','',$canonical);
 		$odd=!strlen($canonical)%2;
 		$sum=0;
-		for($i=0;$i<strlen($canonical);++$i) {
-			$n=0+$canonical[i];
+		for($i=strlen($canonical)-1;$i>=0;$i--) {
+			$n=$canonical[$i];
 			$odd=!$odd;
 			if ( $odd) {
 				$sum+=$n;
@@ -55,7 +55,7 @@ class CreditCardValidationRule extends BaseValidationRule {
 			}			
 		}
 		if ( ($sum%10)!=0 ) {
-			throw new ValidationException($context.": Invalid credit card input","Invalid credit card input: context="+context,context);
+			throw new ValidationException($context.": Invalid credit card input","Invalid credit card input: context="+$context,$context);
 		}
 		return $canonical;
 	}

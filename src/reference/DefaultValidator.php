@@ -53,7 +53,7 @@ class DefaultValidator implements Validator {
 	 */
 	function isValidInput($context, $input, $type, $maxLength, $allowNull) {
 		try {
-			getValidInput( $context, $input, $type, $maxLength, $allowNull );
+			$this->getValidInput( $context, $input, $type, $maxLength, $allowNull );
 			return true;
 		} catch ( Exception $e ) {
 			return false;
@@ -243,7 +243,7 @@ class DefaultValidator implements Validator {
 	 * @throws IntrusionException
 	 */
 	function getValidCreditCard($context, $input, $allowNull, $errorList = null) {
-		$ccvr=new CreditCardValidationRule('creditcard',$this->encoder);
+		$ccvr=new CreditCardValidationRule('CreditCard',$this->encoder);
 		$ccvr->setAllowNull($allowNull);
 		return $ccvr->getValid($context,$input);
 	}

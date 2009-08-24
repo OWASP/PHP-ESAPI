@@ -185,15 +185,15 @@
 		<ValidationExpressions>
 			<!-- Test application validation strings -->
 			<regexp name="SafeString" value="^[\p{L}\p{N}.]{0,1024}$" />
-			<regexp name="Email" value="^[A-Za-z0-9._%-]+@[A-Za-z0-9.-]+\\.[a-zA-Z]{2,4}$" />
-			<regexp name="IPAddress" value="^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$" />
-			<regexp name="URL" value="^(ht|f)tp(s?)\\:\\/\\/[0-9a-zA-Z]([-.\\w]*[0-9a-zA-Z])*(:(0-9)*)*(\\/?)([a-zA-Z0-9\\-\\.\\?\\,\\:\\'\\/\\\\\\+=&amp;%\\$#_]*)?$" />
-			<regexp name="CreditCard" value="^(\\d{4}[- ]?){3}\\d{4}$" />
-			<regexp name="SSN" value="^(?!000)([0-6]\\d{2}|7([0-6]\\d|7[012]))([ -]?)(?!00)\\d\\d\\3(?!0000)\\d{4}$" />
+			<regexp name="Email" value="^[A-Za-z0-9._%-]+@[A-Za-z0-9.-]+\.[a-zA-Z]{2,4}$" />
+			<regexp name="IPAddress" value="^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$" />
+			<regexp name="URL" value="^(ht|f)tp(s?)\:\/\/[0-9a-zA-Z]([-.\w]*[0-9a-zA-Z])*(:(0-9)*)*(\/?)([a-zA-Z0-9\-\.\?\,\:\'\/\\\+=&amp;%\$#_]*)?$" />
+			<regexp name="CreditCard" value="^(\d{4}[- ]?){3}\d{4}$" />
+			<regexp name="SSN" value="^(?!000)([0-6]\d{2}|7([0-6]\d|7[012]))([ -]?)(?!00)\d\d\3(?!0000)\d{4}$" ></regexp>
 	
 			<!-- Validators used by ESAPI -->
 			<regexp name="AccountName" value="^[a-zA-Z0-9]{3,20}$" />
-			<regexp name="SystemCommand" value="^[a-zA-Z\\-\\/]{0,64}$" />
+			<regexp name="SystemCommand" value="^[a-zA-Z\-\/]{0,64}$" />
 			<regexp name="RoleName" value="^[a-z]{1,20}$" />
 			<regexp name="Redirect" value="^\\/test.*$" />
 	
