@@ -85,12 +85,12 @@ function testIsValidCreditCard() {
 	 * Test of isValidSafeHTML method, of class org.owasp.esapi.Validator.
 	 */
 	function testIsValidSafeHTML() {
-		$this->fail(); // DELETE ME ("isValidSafeHTML");
-		// Validator instance = ESAPI.validator();
 
-//		$this->assertTrue($instance->isValidSafeHTML("test", "<b>Jeff</b>", 100, false));
-//		$this->assertTrue($instance->isValidSafeHTML("test", "<a href=\"http://www.aspectsecurity.com\">Aspect Security</a>", 100, false));
-//		$this->assertFalse($instance->isValidSafeHTML("test", "Test. <script>alert(document.cookie)</script>", 100, false));
+		$instance = ESAPI::getValidator();
+
+		$this->assertTrue($instance->isValidSafeHTML("test", "<b>Jeff</b>", 100, false));
+		$this->assertTrue($instance->isValidSafeHTML("test", "<a href=\"http://www.aspectsecurity.com\">Aspect Security</a>", 100, false));
+		$this->assertFalse($instance->isValidSafeHTML("test", "Test. <script>alert(document.cookie)</script>", 100, false));
 
 		// TODO: waiting for a way to validate text headed for an attribute for scripts		
 		// This would be nice to catch, but just looks like text to AntiSamy

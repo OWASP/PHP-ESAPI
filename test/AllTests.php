@@ -34,7 +34,7 @@ $ESAPI = new ESAPI(dirname(__FILE__)."/testresources/ESAPI.xml");
 
 // Milestones
 
-$test = &new GroupTest('Finished');
+		$test = new GroupTest('Finished');
 $test->addTestFile(dirname(__FILE__).'/errors/EnterpriseSecurityExceptionTest.php');	// AJV
 $test->addTestFile(dirname(__FILE__).'/reference/AccessReferenceMapTest.php');			// AJV
 $test->addTestFile(dirname(__FILE__).'/reference/IntegerAccessReferenceMapTest.php');	// AJV
@@ -42,7 +42,7 @@ $test->addTestFile(dirname(__FILE__).'/reference/SecurityConfigurationTest.php')
 $test->addTestFile(dirname(__FILE__).'/reference/RandomizerTest.php');					// AJV
 $test->run(new HtmlReporter());
 
-$test = &new GroupTest('Allocated');
+		$test = new GroupTest('Allocated');
 $test->addTestFile(dirname(__FILE__).'/reference/AccessControllerTest.php');	// Abius X
 //$test->addTestFile(dirname(__FILE__).'/reference/UserTest.php');				// AbiusX
 
@@ -58,7 +58,7 @@ $test->addTestFile(dirname(__FILE__).'/reference/LoggerTest.php'); //Laura
 
 $test->run(new HtmlReporter());
 
-$test = &new GroupTest('Unallocated');
+$test = new GroupTest('Unallocated');
 
 $test->addTestFile(dirname(__FILE__).'/reference/ExecutorTest.php');
 $test->addTestFile(dirname(__FILE__).'/reference/HTTPUtilitiesTest.php');
