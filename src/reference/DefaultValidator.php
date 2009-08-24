@@ -22,6 +22,7 @@ require_once dirname ( __FILE__ ) . '/../Validator.php';
 require_once dirname ( __FILE__ ) . '/../ValidationRule.php';
 require_once dirname ( __FILE__ ) . '/validation/StringValidationRule.php';
 require_once dirname ( __FILE__ ) . '/validation/CreditCardValidationRule.php';
+require_once dirname ( __FILE__ ) . '/validation/HTMLValidationRule.php';
 
 class DefaultValidator implements Validator {
 	
@@ -169,7 +170,7 @@ class DefaultValidator implements Validator {
 	 */
 	function isValidSafeHTML($context, $input, $maxLength, $allowNull) {
 		try {
-			getValidSafeHTML ( $context, $input, $maxLength, $allowNull );
+			$this->getValidSafeHTML ( $context, $input, $maxLength, $allowNull );
 			return true;
 		} catch ( Exception $e ) {
 			return false;
@@ -196,8 +197,17 @@ class DefaultValidator implements Validator {
 	 * 
 	 * @throws IntrusionException
 	 */
-	function getValidSafeHTML($context, $input, $maxLength, $allowNull, $errorList) {
-		throw new EnterpriseSecurityException ( "Method Not implemented" );
+	function getValidSafeHTML($context, $input, $maxLength, $allowNull,$error=null) {
+		try {
+		      $hvr=new HTMLValidationRule("safehtml",$this->encoder);
+		      $hvr->setMaximumLength($maxLength);
+		      $hvr->setAllowNull($allowNull);
+		      return $hvr->getValid($context,$input);
+		} catch (Exception $e) {
+		  	
+			$errors->addError($context,$e);
+		}
+		return $input;
 	}
 	
 	/**
@@ -263,7 +273,12 @@ class DefaultValidator implements Validator {
 	 * @throws IntrusionException 
 	 */
 	function isValidDirectoryPath($context, $input, $allowNull) {
-		throw new EnterpriseSecurityException ( "Method Not implemented" );
+		try {
+			$this->getValidDirectoryPath($context,$input, $allowNull);
+			return true;
+		} catch ( Exception $e) {
+			return false;
+		}
 	}
 	
 	/**
