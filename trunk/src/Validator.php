@@ -166,7 +166,7 @@ interface Validator {
 	 * 
 	 * @throws IntrusionException
 	 */
-	function getValidSafeHTML($context, $input, $maxLength, $allowNull, $errorList);
+	function getValidSafeHTML($context, $input, $maxLength, $allowNull, $errorList=null);
 
 	/**
 	 * Returns true if input is a valid credit card. Maxlength is mandated by valid credit card type.

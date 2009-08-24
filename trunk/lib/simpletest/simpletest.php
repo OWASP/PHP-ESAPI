@@ -66,13 +66,13 @@ class SimpleTest {
      *    @static
      *    @access public
      */
-    function ignoreParentsIfIgnored($classes) {
+    static function ignoreParentsIfIgnored($classes) {
         $registry = &SimpleTest::_getRegistry();
         foreach ($classes as $class) {
             if (SimpleTest::isIgnored($class)) {
                 $reflection = new SimpleReflection($class);
                 if ($parent = $reflection->getParent()) {
-                    SimpleTest::ignore($parent);
+                    $this->ignore($parent);
                 }
             }
         }
@@ -128,7 +128,7 @@ class SimpleTest {
      *    @access public
      *    @static
      */
-    function isIgnored($class) {
+    static function isIgnored($class) {
         $registry = &SimpleTest::_getRegistry();
         return isset($registry['IgnoreList'][strtolower($class)]);
     }
@@ -202,7 +202,7 @@ class SimpleTest {
      *    @access private
      *    @static
      */
-    function &_getRegistry() {
+    static function &_getRegistry() {
         static $registry = false;
         if (! $registry) {
             $registry = SimpleTest::_getDefaults();
@@ -217,7 +217,7 @@ class SimpleTest {
      *    @access public
      *    @static
      */
-    function &getContext() {
+    static function &getContext() {
         static $context = false;
         if (! $context) {
             $context = new SimpleTestContext();
@@ -231,7 +231,7 @@ class SimpleTest {
      *    @access private
      *    @static
      */
-    function _getDefaults() {
+    static function _getDefaults() {
         return array(
                 'StubBaseClass' => 'SimpleStub',
                 'MockBaseClass' => 'SimpleMock',
@@ -314,7 +314,7 @@ class SimpleTestContext {
      */
     function &get($resource) {
         if (! isset($this->_resources[$resource])) {
-            $this->_resources[$resource] = &new $resource();
+            $this->_resources[$resource] = new $resource();
         }
         return $this->_resources[$resource];
     }
@@ -426,12 +426,7 @@ class SimpleTestOptions extends SimpleTest {
         return Simpletest::ignore($class);
     }
 
-    /**
-     *    @deprecated
-     */
-    function isIgnored($class) {
-        return Simpletest::isIgnored($class);
-    }
+
 
     /**
      *    @deprecated
