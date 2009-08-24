@@ -82,11 +82,11 @@
  */
 
 /**
-	 * Defines the type of log event that is being generated. The Logger interface defines 4 types of Log events: 
-	 * SECURITY, USABILITY, PERFORMANCE, FUNCTIONALITY. 
-     * Your implementation can extend or change this list if desired. The ESAPI reference implementation 
-     * generates only SECURITY events.
-	 */
+ * Defines the type of log event that is being generated. The Logger interface defines 4 types of Log events: 
+ * SECURITY, USABILITY, PERFORMANCE, FUNCTIONALITY. 
+ * Your implementation can extend or change this list if desired. The ESAPI reference implementation 
+ * generates only SECURITY events.
+ */
 class EventType
 {
 
@@ -103,23 +103,26 @@ class EventType
     }
 }
 
-interface Logger
+interface Log4PhpLogger
 {
 
     /**
      * The SECURITY type of log event. 
      */
     // public static final EventType SECURITY = new EventType( "SECURITY" );
+    //$SECURITY = new EventType("SECURITY");
 
     /**
      * The USABILITY type of log event. 
      */
     // public static final EventType USABILITY = new EventType( "USABILITY" );
+    //$USABILITY = new EventType("USABILITY");
 
     /**
      * The PERFORMANCE type of log event. 
      */
     // public static final EventType PERFORMANCE = new EventType( "PERFORMANCE" );
+    //$PERFORMANCE = new EventType("PERFORMANCE");
 
     /**
      * The FUNCTIONALITY type of log event. This is the type of event that non-security focused loggers typically log.
@@ -127,6 +130,7 @@ interface Logger
      * probably want to use this type of log event.  
      */
     // public static final EventType FUNCTIONALITY = new EventType( "FUNCTIONALITY" );
+    //$FUNCTIONALITY = new EventType("FUNCTIONALITY");
 
     /*
      * The Logger interface defines 6 logging levels: FATAL, ERROR, WARNING, INFO, DEBUG, TRACE. It also 
@@ -135,33 +139,42 @@ interface Logger
      */
 
     /** OFF indicates that no messages should be logged. This level is initialized to Integer.MAX_VALUE. */
-    // public static final int OFF = Integer . MAX_VALUE;
+    //define("OFF" , PHP_INT_MAX);
+    
 
     /** FATAL indicates that only FATAL messages should be logged. This level is initialized to 1000. */
-    // public static final int FATAL = 1000;
+    //define("FATAL",1000);
+    
 
     /** ERROR indicates that ERROR messages and above should be logged. 
      * This level is initialized to 800. */
-    // public static final int ERROR = 800;
+    //define("ERROR",800);
+    
 
     /** WARNING indicates that WARNING messages and above should be logged. 
      * This level is initialized to 600. */
-    // public static final int WARNING = 600;
+    //define("WARNING",600);
+    
 
     /** INFO indicates that INFO messages and above should be logged. 
      * This level is initialized to 400. */
-    // public static final int INFO = 400;
+    //define("INFO",400);
+    
 
     /** DEBUG indicates that DEBUG messages and above should be logged. 
      * This level is initialized to 200. */
-    // public static final int DEBUG = 200;
-
+    //define("DEBUG",200);
+    
     /** TRACE indicates that TRACE messages and above should be logged. 
      * This level is initialized to 100. */
-    // public static final int TRACE = 100;
+    //define("TRACE",100);
+    
 
-    /** ALL indicates that all messages should be logged. This level is initialized to Integer.MIN_VALUE. */
     // public static final int ALL = Integer . MIN_VALUE;
+    //define("ALL",(-1 * PHP_INT_MAX ) - 1);
+    
+
+    
 
     /**
      * Dynamically set the logging severity level. All events of this level and higher will be logged from 
