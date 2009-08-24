@@ -61,7 +61,7 @@ class EnterpriseSecurityExceptionTest extends UnitTestCase
         $e = new AuthenticationException();
         $e = new AuthenticationException("m1","m2");
         
-		$e = new AvailabilityException();
+	$e = new AvailabilityException();
         $e = new AvailabilityException("m1","m2");
 
         $e = new CertificateException();
