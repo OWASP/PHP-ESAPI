@@ -824,6 +824,6 @@ class DefaultUser implements User {
 	 * always a real user, the ANONYMOUS user is better than using null to represent
 	 * this.
 	 */
-    public final $ANONYMOUS=null;
+ //   public final $ANONYMOUS=null;
 }
 ?>
