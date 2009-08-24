@@ -12,16 +12,25 @@
  * The ESAPI is published by OWASP under the BSD license. You should read and accept the
  * LICENSE before you use, modify, and/or redistribute this software.
  * 
- * @author 
+ * @author Johannes B. Ullrich
  * @created 2008
  * @since 1.4
  * @package org.owasp.esapi.reference
  */
 
-require_once dirname(__FILE__).'/../Validator.php';
+require_once dirname ( __FILE__ ) . '/../Validator.php';
+require_once dirname ( __FILE__ ) . '/../ValidationRule.php';
+require_once dirname ( __FILE__ ) . '/validation/StringValidationRule.php';
+require_once dirname ( __FILE__ ) . '/validation/CreditCardValidationRule.php';
 
 class DefaultValidator implements Validator {
-
+	
+	private $rules = null;
+	private $encoder = null;
+	private $fileValidator = null;
+	const MAX_PARAMETER_NAME_LENGTH = 100;
+	const MAX_PARAMETER_VALUE_LENGTH = 65535;
+	
 	/**
 	 * Returns true if input is valid according to the specified type. The type parameter must be the name 
 	 * of a defined type in the ESAPI configuration or a valid regular expression. Implementers should take 
@@ -42,8 +51,15 @@ class DefaultValidator implements Validator {
 	 * 
 	 * @throws IntrusionException
 	 */
-	function isValidInput($context, $input, $type, $maxLength, $allowNull) 	{ 		throw new EnterpriseSecurityException("Method Not implemented"); 	}
-
+	function isValidInput($context, $input, $type, $maxLength, $allowNull) {
+		try {
+			getValidInput( $context, $input, $type, $maxLength, $allowNull );
+			return true;
+		} catch ( Exception $e ) {
+			return false;
+		}
+		
+	}
 	
 	/**
 	 * Returns canonicalized and validated input as a String. Invalid input will generate a descriptive ValidationException, 
@@ -67,21 +83,22 @@ class DefaultValidator implements Validator {
 	 * 
 	 * @throws IntrusionException
 	 */
-	function getValidInput($context, $input, $type, $maxLength, $allowNull, $errorList = null) 	{ 		
-
-		// TODO: Security -- add check for null, align with ESAPI 2.0
-
+	function getValidInput($context, $input, $type, $maxLength, $allowNull, $errorList = null) {
+		global $ESAPI;
 		$config = ESAPI::getSecurityConfiguration();
-		$pattern = $config->getValidationPattern($type);
-
-		if (preg_match("/$pattern/", $input))
-			if(strlen($input)<=$maxLength)
-				return $input;
-			else
-				throw new EnterpriseSecurityException("Not valid input");
-		
+		$rvr = new StringValidationRule ( $type, $this->encoder );
+		$p=$config->getValidationPattern($type);
+		if ($p != null) {
+			$rvr->addWhitelistPattern ( $p );
+		} else {
+			$rvr->addWhitelistPattern ( $type );
+		}
+		$rvr->setMaximumLength( $maxLength );
+		$rvr->setAllowNull( $allowNull );
+		return $rvr->getValid( $context, $input );
 	}
 	
+
 	/**
 	 * Returns true if input is a valid date according to the specified date format.
 	 * 
@@ -98,7 +115,14 @@ class DefaultValidator implements Validator {
 	 * 
 	 * @throws IntrusionException
 	 */
-	function isValidDate($context, $input, $format, $allowNull) 	{ 		throw new EnterpriseSecurityException("Method Not implemented"); 	}
+	function isValidDate($context, $input, $format, $allowNull) {
+		try {
+			getValidDate ( $context, $input, $format, $allowNull );
+			return true;
+		} catch ( Exception $e ) {
+			return false;
+		}
+	}
 	
 	/**
 	 * Returns a valid date as a Date. Invalid input will generate a descriptive ValidationException and store it inside of 
@@ -120,8 +144,12 @@ class DefaultValidator implements Validator {
 	 * 
 	 * @throws IntrusionException
 	 */
-	function getValidDate($context, $input, $format, $allowNull, $errorList = null) 	{ 		throw new EnterpriseSecurityException("Method Not implemented"); 	}	
-	
+	function getValidDate($context, $input, $format, $allowNull, $errorList = null) {
+		$dvr = new DateValidationRule("SimpleDate", $this->encoder );
+		$dvr->setAllowNull ( $allowNull );
+		$dvr->setDataFormat ( $DataFormat - getDateInstance () );
+		return $dvr->getValid( $context, $input);
+	}
 	/**
 	 * Returns true if input is "safe" HTML. Implementors should reference the OWASP AntiSamy project for ideas
 	 * on how to do HTML validation in a whitelist way, as this is an extremely difficult problem.
@@ -139,7 +167,14 @@ class DefaultValidator implements Validator {
 	 * 
 	 * @throws IntrusionException
 	 */
-	function isValidSafeHTML($context, $input, $maxLength, $allowNull) 	{ 		throw new EnterpriseSecurityException("Method Not implemented"); 	}
+	function isValidSafeHTML($context, $input, $maxLength, $allowNull) {
+		try {
+			getValidSafeHTML ( $context, $input, $maxLength, $allowNull );
+			return true;
+		} catch ( Exception $e ) {
+			return false;
+		}
+	}
 	
 	/**
 	 * Returns canonicalized and validated "safe" HTML. Implementors should reference the OWASP AntiSamy project for ideas
@@ -161,8 +196,10 @@ class DefaultValidator implements Validator {
 	 * 
 	 * @throws IntrusionException
 	 */
-	function getValidSafeHTML($context, $input, $maxLength, $allowNull, $errorList) 	{ 		throw new EnterpriseSecurityException("Method Not implemented"); 	}
-
+	function getValidSafeHTML($context, $input, $maxLength, $allowNull, $errorList) {
+		throw new EnterpriseSecurityException ( "Method Not implemented" );
+	}
+	
 	/**
 	 * Returns true if input is a valid credit card. Maxlength is mandated by valid credit card type.
 	 * 
@@ -177,7 +214,14 @@ class DefaultValidator implements Validator {
 	 * 
 	 * @throws IntrusionException
 	 */
-	function isValidCreditCard($context, $input, $allowNull) 	{ 		throw new EnterpriseSecurityException("Method Not implemented"); 	}
+	function isValidCreditCard($context, $input, $allowNull) {
+		try {
+			$this->getValidCreditCard($context,$input,$allowNull);
+			return true;
+		} catch ( Exception $e ) {
+			return false;
+		}
+	}
 	
 	/**
 	 * Returns a canonicalized and validated credit card number as a String. Invalid input
@@ -198,7 +242,11 @@ class DefaultValidator implements Validator {
 	 * 
 	 * @throws IntrusionException
 	 */
-	function getValidCreditCard($context, $input, $allowNull, $errorList = null) 	{ 		throw new EnterpriseSecurityException("Method Not implemented"); 	}
+	function getValidCreditCard($context, $input, $allowNull, $errorList = null) {
+		$ccvr=new CreditCardValidationRule('creditcard',$this->encoder);
+		$ccvr->setAllowNull($allowNull);
+		return $ccvr->getValid($context,$input);
+	}
 	
 	/**
 	 * Returns true if input is a valid directory path.
@@ -214,7 +262,9 @@ class DefaultValidator implements Validator {
 	 * 
 	 * @throws IntrusionException 
 	 */
-	function isValidDirectoryPath($context, $input, $allowNull) 	{ 		throw new EnterpriseSecurityException("Method Not implemented"); 	}
+	function isValidDirectoryPath($context, $input, $allowNull) {
+		throw new EnterpriseSecurityException ( "Method Not implemented" );
+	}
 	
 	/**
 	 * Returns a canonicalized and validated directory path as a String. Invalid input
@@ -230,29 +280,32 @@ class DefaultValidator implements Validator {
 	 * 		If allowNull is true then an input that is NULL or an empty string will be legal. If allowNull is false then NULL or an empty String will throw a ValidationException.
 	 * @param errorList 
 	 * 		If validation is in error, resulting error will be stored in the errorList by context
-     * 
-     * @return A valid directory path
-     * 
-     * @throws IntrusionException
+	 * 
+	 * @return A valid directory path
+	 * 
+	 * @throws IntrusionException
 	 */
-	function getValidDirectoryPath($context, $input, $allowNull, $errorList = null) 	{ 		throw new EnterpriseSecurityException("Method Not implemented"); 	}
-	
+	function getValidDirectoryPath($context, $input, $allowNull, $errorList = null) {
+		throw new EnterpriseSecurityException ( "Method Not implemented" );
+	}
 	
 	/**
 	 * Returns true if input is a valid file name.
 	 * 
 	 * @param context 
 	 * 		A descriptive name of the parameter that you are validating (e.g., LoginPage_UsernameField). This value is used by any logging or error handling that is done with respect to the value passed in.
-     * @param input 
-     * 		The actual input data to validate.
-     * @param allowNull 
-     * 		If allowNull is true then an input that is NULL or an empty string will be legal. If allowNull is false then NULL or an empty String will throw a ValidationException.
-     * 
-     * @return true, if input is a valid file name
-     * 
-     * @throws IntrusionException
+	 * @param input 
+	 * 		The actual input data to validate.
+	 * @param allowNull 
+	 * 		If allowNull is true then an input that is NULL or an empty string will be legal. If allowNull is false then NULL or an empty String will throw a ValidationException.
+	 * 
+	 * @return true, if input is a valid file name
+	 * 
+	 * @throws IntrusionException
 	 */
-	function isValidFileName($context, $input, $allowNull) 	{ 		throw new EnterpriseSecurityException("Method Not implemented"); 	}
+	function isValidFileName($context, $input, $allowNull) {
+		throw new EnterpriseSecurityException ( "Method Not implemented" );
+	}
 	
 	/**
 	 * Returns a canonicalized and validated file name as a String. Implementors should check for allowed file extensions here, as well as allowed file name characters, as declared in "ESAPI.properties".  Invalid input
@@ -268,33 +321,37 @@ class DefaultValidator implements Validator {
 	 * 		If allowNull is true then an input that is NULL or an empty string will be legal. If allowNull is false then NULL or an empty String will throw a ValidationException.
 	 * @param errorList 
 	 * 		If validation is in error, resulting error will be stored in the errorList by context
-     * 
-     * @return A valid file name
-     * 
-     * @throws IntrusionException
+	 * 
+	 * @return A valid file name
+	 * 
+	 * @throws IntrusionException
 	 */
-	function getValidFileName($context, $input, $allowNull, $errorList  = null) 	{ 		throw new EnterpriseSecurityException("Method Not implemented"); 	}
-		
+	function getValidFileName($context, $input, $allowNull, $errorList = null) {
+		throw new EnterpriseSecurityException ( "Method Not implemented" );
+	}
+	
 	/**
 	 * Returns true if input is a valid number within the range of minValue to maxValue.
 	 * 
 	 * @param context 
 	 * 		A descriptive name of the parameter that you are validating (e.g., LoginPage_UsernameField). This value is used by any logging or error handling that is done with respect to the value passed in.
-     * @param input 
-     * 		The actual input data to validate.
-     * @param minValue 
-     * 		Lowest legal value for input.
-     * @param maxValue 
-     * 		Highest legal value for input.
-     * @param allowNull 
-     * 		If allowNull is true then an input that is NULL or an empty string will be legal. If allowNull is false then NULL or an empty String will throw a ValidationException.
-     * 
-     * @return true, if input is a valid number
-     * 
-     * @throws IntrusionException
+	 * @param input 
+	 * 		The actual input data to validate.
+	 * @param minValue 
+	 * 		Lowest legal value for input.
+	 * @param maxValue 
+	 * 		Highest legal value for input.
+	 * @param allowNull 
+	 * 		If allowNull is true then an input that is NULL or an empty string will be legal. If allowNull is false then NULL or an empty String will throw a ValidationException.
+	 * 
+	 * @return true, if input is a valid number
+	 * 
+	 * @throws IntrusionException
 	 */
-	function isValidNumber($context, $input, $minValue, $maxValue, $allowNull) 	{ 		throw new EnterpriseSecurityException("Method Not implemented"); 	}
-
+	function isValidNumber($context, $input, $minValue, $maxValue, $allowNull) {
+		throw new EnterpriseSecurityException ( "Method Not implemented" );
+	}
+	
 	/**
 	 * Returns a validated number as a double within the range of minValue to maxValue. Invalid input
 	 * will generate a descriptive ValidationException, and input that is clearly an attack
@@ -307,38 +364,42 @@ class DefaultValidator implements Validator {
 	 * 		The actual input data to validate.
 	 * @param minValue 
 	 * 		Lowest legal value for input.
-     * @param maxValue 
-     * 		Highest legal value for input.
-     * @param allowNull 
-     * 		If allowNull is true then an input that is NULL or an empty string will be legal. If allowNull is false then NULL or an empty String will throw a ValidationException.
+	 * @param maxValue 
+	 * 		Highest legal value for input.
+	 * @param allowNull 
+	 * 		If allowNull is true then an input that is NULL or an empty string will be legal. If allowNull is false then NULL or an empty String will throw a ValidationException.
 	 * @param errorList 
 	 * 		If validation is in error, resulting error will be stored in the errorList by context
 	 * 
 	 * @return A validated number as a double.
-     * 
-     * @throws IntrusionException
+	 * 
+	 * @throws IntrusionException
 	 */
-	function getValidNumber($context, $input, $minValue, $maxValue, $allowNull, $errorList) 	{ 		throw new EnterpriseSecurityException("Method Not implemented"); 	}
-
+	function getValidNumber($context, $input, $minValue, $maxValue, $allowNull, $errorList) {
+		throw new EnterpriseSecurityException ( "Method Not implemented" );
+	}
+	
 	/**
 	 * Returns true if input is a valid integer within the range of minValue to maxValue.
 	 * 
 	 * @param context 
 	 * 		A descriptive name of the parameter that you are validating (e.g., LoginPage_UsernameField). This value is used by any logging or error handling that is done with respect to the value passed in.
-     * @param input 
-     * 		The actual input data to validate.
-     * @param minValue 
-     * 		Lowest legal value for input.
-     * @param maxValue 
-     * 		Highest legal value for input.
-     * @param allowNull 
-     * 		If allowNull is true then an input that is NULL or an empty string will be legal. If allowNull is false then NULL or an empty String will throw a ValidationException.
-     * 
-     * @return true, if input is a valid integer
-     * 
-     * @throws IntrusionException
+	 * @param input 
+	 * 		The actual input data to validate.
+	 * @param minValue 
+	 * 		Lowest legal value for input.
+	 * @param maxValue 
+	 * 		Highest legal value for input.
+	 * @param allowNull 
+	 * 		If allowNull is true then an input that is NULL or an empty string will be legal. If allowNull is false then NULL or an empty String will throw a ValidationException.
+	 * 
+	 * @return true, if input is a valid integer
+	 * 
+	 * @throws IntrusionException
 	 */
-	function isValidInteger($context, $input, $minValue, $maxValue, $allowNull) 	{ 		throw new EnterpriseSecurityException("Method Not implemented"); 	}
+	function isValidInteger($context, $input, $minValue, $maxValue, $allowNull) {
+		throw new EnterpriseSecurityException ( "Method Not implemented" );
+	}
 	
 	/**
 	 * Returns a validated integer. Invalid input
@@ -352,40 +413,44 @@ class DefaultValidator implements Validator {
 	 * 		The actual input data to validate.
 	 * @param minValue 
 	 * 		Lowest legal value for input.
-     * @param maxValue 
-     * 		Highest legal value for input.
-     * @param allowNull 
-     * 		If allowNull is true then an input that is NULL or an empty string will be legal. If allowNull is false then NULL or an empty String will throw a ValidationException.
+	 * @param maxValue 
+	 * 		Highest legal value for input.
+	 * @param allowNull 
+	 * 		If allowNull is true then an input that is NULL or an empty string will be legal. If allowNull is false then NULL or an empty String will throw a ValidationException.
 	 * @param errorList 
 	 * 		If validation is in error, resulting error will be stored in the errorList by context
 	 * 
 	 * @return A validated number as an integer.
-     * 
-     * @throws IntrusionException
+	 * 
+	 * @throws IntrusionException
 	 */
-	function getValidInteger($context, $input, $minValue, $maxValue, $allowNull, $errorList = null) 	{ 		throw new EnterpriseSecurityException("Method Not implemented"); 	}
-		
+	function getValidInteger($context, $input, $minValue, $maxValue, $allowNull, $errorList = null) {
+		throw new EnterpriseSecurityException ( "Method Not implemented" );
+	}
+	
 	/**
 	 * Returns true if input is a valid double within the range of minValue to maxValue.
 	 * 
 	 * @param context 
 	 * 		A descriptive name of the parameter that you are validating (e.g., LoginPage_UsernameField). This value is used by any logging or error handling that is done with respect to the value passed in.
-     * @param input 
-     * 		The actual input data to validate.
-     * @param minValue 
-     * 		Lowest legal value for input.
-     * @param maxValue 
-     * 		Highest legal value for input.
-     * @param allowNull 
-     * 		If allowNull is true then an input that is NULL or an empty string will be legal. If allowNull is false then NULL or an empty String will throw a ValidationException.
-     * 
-     * @return true, if input is a valid double.
-     * 
-     * @throws IntrusionException
+	 * @param input 
+	 * 		The actual input data to validate.
+	 * @param minValue 
+	 * 		Lowest legal value for input.
+	 * @param maxValue 
+	 * 		Highest legal value for input.
+	 * @param allowNull 
+	 * 		If allowNull is true then an input that is NULL or an empty string will be legal. If allowNull is false then NULL or an empty String will throw a ValidationException.
+	 * 
+	 * @return true, if input is a valid double.
+	 * 
+	 * @throws IntrusionException
 	 * 
 	 */
-	function isValidDouble($context, $input, $minValue, $maxValue, $allowNull) 	{ 		throw new EnterpriseSecurityException("Method Not implemented"); 	}
-
+	function isValidDouble($context, $input, $minValue, $maxValue, $allowNull) {
+		throw new EnterpriseSecurityException ( "Method Not implemented" );
+	}
+	
 	/**
 	 * Returns a validated real number as a double. Invalid input
 	 * will generate a descriptive ValidationException, and input that is clearly an attack
@@ -398,19 +463,21 @@ class DefaultValidator implements Validator {
 	 * 		The actual input data to validate.
 	 * @param minValue 
 	 * 		Lowest legal value for input.
-     * @param maxValue 
-     * 		Highest legal value for input.
-     * @param allowNull 
-     * 		If allowNull is true then an input that is NULL or an empty string will be legal. If allowNull is false then NULL or an empty String will throw a ValidationException.
+	 * @param maxValue 
+	 * 		Highest legal value for input.
+	 * @param allowNull 
+	 * 		If allowNull is true then an input that is NULL or an empty string will be legal. If allowNull is false then NULL or an empty String will throw a ValidationException.
 	 * @param errorList 
 	 * 		If validation is in error, resulting error will be stored in the errorList by context
 	 * 
 	 * @return A validated real number as a double.
-     * 
-     * @throws IntrusionException
+	 * 
+	 * @throws IntrusionException
 	 */
-	function getValidDouble($context, $input, $minValue, $maxValue, $allowNull, $errorList = null) 	{ 		throw new EnterpriseSecurityException("Method Not implemented"); 	}
-
+	function getValidDouble($context, $input, $minValue, $maxValue, $allowNull, $errorList = null) {
+		throw new EnterpriseSecurityException ( "Method Not implemented" );
+	}
+	
 	/**
 	 * Returns true if input is valid file content.  This is a good place to check for max file size, allowed character sets, and do virus scans.
 	 * 
@@ -427,8 +494,10 @@ class DefaultValidator implements Validator {
 	 * 
 	 * @throws IntrusionException
 	 */
-	function isValidFileContent($context, $input, $maxBytes, $allowNull) 	{ 		throw new EnterpriseSecurityException("Method Not implemented"); 	}
-
+	function isValidFileContent($context, $input, $maxBytes, $allowNull) {
+		throw new EnterpriseSecurityException ( "Method Not implemented" );
+	}
+	
 	/**
 	 * Returns validated file content as a byte array. This is a good place to check for max file size, allowed character sets, and do virus scans.  Invalid input
 	 * will generate a descriptive ValidationException, and input that is clearly an attack
@@ -450,8 +519,10 @@ class DefaultValidator implements Validator {
 	 * 
 	 * @throws IntrusionException
 	 */
-	function getValidFileContent($context, $input, $maxBytes, $allowNull, $errorList = null) 	{ 		throw new EnterpriseSecurityException("Method Not implemented"); 	}
-
+	function getValidFileContent($context, $input, $maxBytes, $allowNull, $errorList = null) {
+		throw new EnterpriseSecurityException ( "Method Not implemented" );
+	}
+	
 	/**
 	 * Returns true if a file upload has a valid name, path, and content.
 	 * 
@@ -472,8 +543,10 @@ class DefaultValidator implements Validator {
 	 * 
 	 * @throws IntrusionException
 	 */
-	function isValidFileUpload($context, $filepath, $filename, $content, $maxBytes, $allowNull) 	{ 		throw new EnterpriseSecurityException("Method Not implemented"); 	}
-
+	function isValidFileUpload($context, $filepath, $filename, $content, $maxBytes, $allowNull) {
+		throw new EnterpriseSecurityException ( "Method Not implemented" );
+	}
+	
 	/**
 	 * Validates the filepath, filename, and content of a file. Invalid input
 	 * will generate a descriptive ValidationException, and input that is clearly an attack
@@ -497,17 +570,21 @@ class DefaultValidator implements Validator {
 	 * 
 	 * @throws IntrusionException
 	 */
-	function assertValidFileUpload($context, $filepath, $filename, $content, $maxBytes, $allowNull, $errorList = null) 	{ 		throw new EnterpriseSecurityException("Method Not implemented"); 	}
+	function assertValidFileUpload($context, $filepath, $filename, $content, $maxBytes, $allowNull, $errorList = null) {
+		throw new EnterpriseSecurityException ( "Method Not implemented" );
+	}
 	
 	/**
-     * Validate the current HTTP request by comparing parameters, headers, and cookies to a predefined whitelist of allowed
-     * characters. See the SecurityConfiguration class for the methods to retrieve the whitelists.
-     * 
-     * @return true, if is a valid HTTP request
-     * 
-     * @throws IntrusionException
-     */
-	function isValidHTTPRequest() 	{ 		throw new EnterpriseSecurityException("Method Not implemented"); 	}
+	 * Validate the current HTTP request by comparing parameters, headers, and cookies to a predefined whitelist of allowed
+	 * characters. See the SecurityConfiguration class for the methods to retrieve the whitelists.
+	 * 
+	 * @return true, if is a valid HTTP request
+	 * 
+	 * @throws IntrusionException
+	 */
+	function isValidHTTPRequest() {
+		throw new EnterpriseSecurityException ( "Method Not implemented" );
+	}
 	
 	/**
 	 * Validates the current HTTP request by comparing parameters, headers, and cookies to a predefined whitelist of allowed
@@ -517,7 +594,9 @@ class DefaultValidator implements Validator {
 	 * @throws ValidationException
 	 * @throws IntrusionException
 	 */
-	function assertIsValidHTTPRequest() 	{ 		throw new EnterpriseSecurityException("Method Not implemented"); 	}
+	function assertIsValidHTTPRequest() {
+		throw new EnterpriseSecurityException ( "Method Not implemented" );
+	}
 	
 	/**
 	 * Returns true if input is a valid list item.
@@ -533,8 +612,10 @@ class DefaultValidator implements Validator {
 	 * 
 	 * @throws IntrusionException
 	 */
-	function isValidListItem($context, $input, $list) 	{ 		throw new EnterpriseSecurityException("Method Not implemented"); 	}
-
+	function isValidListItem($context, $input, $list) {
+		throw new EnterpriseSecurityException ( "Method Not implemented" );
+	}
+	
 	/**
 	 * Returns the list item that exactly matches the canonicalized input. Invalid or non-matching input
 	 * will generate a descriptive ValidationException, and input that is clearly an attack
@@ -554,7 +635,9 @@ class DefaultValidator implements Validator {
 	 * 
 	 * @throws IntrusionException
 	 */
-	function getValidListItem($context, $input, $list, $errorList = null) 	{ 		throw new EnterpriseSecurityException("Method Not implemented"); 	}
+	function getValidListItem($context, $input, $list, $errorList = null) {
+		throw new EnterpriseSecurityException ( "Method Not implemented" );
+	}
 	
 	/**
 	 * Returns true if the parameters in the current request contain all required parameters and only optional ones in addition.
@@ -570,7 +653,9 @@ class DefaultValidator implements Validator {
 	 * 
 	 * @throws IntrusionException
 	 */
-	function isValidHTTPRequestParameterSet($context, $required, $optional) 	{ 		throw new EnterpriseSecurityException("Method Not implemented"); 	}
+	function isValidHTTPRequestParameterSet($context, $required, $optional) {
+		throw new EnterpriseSecurityException ( "Method Not implemented" );
+	}
 	
 	/**
 	 * Validates that the parameters in the current request contain all required parameters and only optional ones in
@@ -589,7 +674,9 @@ class DefaultValidator implements Validator {
 	 * 
 	 * @throws IntrusionException
 	 */
-	function assertIsValidHTTPRequestParameterSet($context, $required, $optional, $errorList = null) 	{ 		throw new EnterpriseSecurityException("Method Not implemented"); 	}
+	function assertIsValidHTTPRequestParameterSet($context, $required, $optional, $errorList = null) {
+		throw new EnterpriseSecurityException ( "Method Not implemented" );
+	}
 	
 	/**
 	 * Returns true if input contains only valid printable ASCII characters.
@@ -607,8 +694,10 @@ class DefaultValidator implements Validator {
 	 * 
 	 * @throws IntrusionException
 	 */
-	function isValidPrintable($context, $input, $maxLength, $allowNull) 	{ 		throw new EnterpriseSecurityException("Method Not implemented"); 	}
-
+	function isValidPrintable($context, $input, $maxLength, $allowNull) {
+		throw new EnterpriseSecurityException ( "Method Not implemented" );
+	}
+	
 	/**
 	 * Returns canonicalized and validated printable characters as a byte array. Invalid input will generate a descriptive ValidationException, and input that is clearly an attack
 	 * will generate a descriptive IntrusionException. Instead of throwing a ValidationException on error, 
@@ -629,8 +718,9 @@ class DefaultValidator implements Validator {
 	 * 
 	 * @throws IntrusionException
 	 */
-	function getValidPrintable($context, $input, $maxLength, $allowNull, $errorList = null) 	{ 		throw new EnterpriseSecurityException("Method Not implemented"); 	}
-
+	function getValidPrintable($context, $input, $maxLength, $allowNull, $errorList = null) {
+		throw new EnterpriseSecurityException ( "Method Not implemented" );
+	}
 	
 	/**
 	 * Returns true if input is a valid redirect location, as defined by "ESAPI.properties".
@@ -646,9 +736,10 @@ class DefaultValidator implements Validator {
 	 * 
 	 * @throws IntrusionException
 	 */
-	function isValidRedirectLocation($context, $input, $allowNull) 	{ 		throw new EnterpriseSecurityException("Method Not implemented"); 	}
-
-
+	function isValidRedirectLocation($context, $input, $allowNull) {
+		throw new EnterpriseSecurityException ( "Method Not implemented" );
+	}
+	
 	/**
 	 * Returns a canonicalized and validated redirect location as a String. Invalid input will generate a descriptive ValidationException, and input that is clearly an attack
 	 * will generate a descriptive IntrusionException. Instead of throwing a ValidationException 
@@ -667,7 +758,9 @@ class DefaultValidator implements Validator {
 	 * 
 	 * @throws IntrusionException
 	 */
-	function getValidRedirectLocation($context, $input, $allowNull, $errorList = null) 	{ 		throw new EnterpriseSecurityException("Method Not implemented"); 	}
+	function getValidRedirectLocation($context, $input, $allowNull, $errorList = null) {
+		throw new EnterpriseSecurityException ( "Method Not implemented" );
+	}
 	
 	/**
 	 * Reads from an input stream until end-of-line or a maximum number of
@@ -686,7 +779,9 @@ class DefaultValidator implements Validator {
 	 * 
 	 * @throws ValidationException
 	 */
-	function safeReadLine($inputStream, $maxLength) 	{ 		throw new EnterpriseSecurityException("Method Not implemented"); 	}
+	function safeReadLine($inputStream, $maxLength) {
+		throw new EnterpriseSecurityException ( "Method Not implemented" );
+	}
 
 }
 ?>
