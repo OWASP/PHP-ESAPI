@@ -44,7 +44,7 @@ $test->run(new HtmlReporter());
 
 		$test = new GroupTest('Allocated');
 $test->addTestFile(dirname(__FILE__).'/reference/AccessControllerTest.php');	// Abius X
-//$test->addTestFile(dirname(__FILE__).'/reference/UserTest.php');				// AbiusX
+$test->addTestFile(dirname(__FILE__).'/reference/UserTest.php');				// AbiusX
 
 $test->addTestFile(dirname(__FILE__).'/reference/AuthenticatorTest.php');		// Bipin
 
