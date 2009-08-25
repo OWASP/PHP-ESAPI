@@ -14,7 +14,7 @@
  * @author AbiusX
  * @created 2009
  * @since 1.4
- * @version 1.06
+ * @version 1.07
  */
 /**
  * @author AbiusX
@@ -247,7 +247,7 @@ class DefaultUser implements User
             throw new AuthenticationException("Retype does not match Password.", "Password Change Retype Mismatch");
         $realOldPass = $this->getUserInfo("hashedPassword");
         if ($realOldPass != $this->hashPassword($oldPassword))
-            throw AuthenticationException("Old Password provided is not correct.", "Password Change Old Password Wrong");
+            throw new AuthenticationException("Old Password provided is not correct.", "Password Change Old Password Wrong");
             #TODO: add this function
         //if (! CheckComplexity($newPassword1))
         //    throw new AuthenticationException("Password is not complex enough!", "Password Change Complexity Failure");
