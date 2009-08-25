@@ -92,7 +92,14 @@ class UserTest extends UnitTestCase
 		$oldPassword = "Password12!@";
         $user=$this->getUser();
 		$password1 = "SomethingElse34#$";
-		$user->changePassword($oldPassword, $password1, $password1);
+		try {
+		    $user->changePassword($oldPassword, $password1, $password1);
+		}
+		catch (AuthenticationException $e)
+		{
+		    $this->fail();
+		    return;
+		}
 		$this->assertTrue($user->verifyPassword($password1));
 		$password2 = "YetAnother56%^";
 		$user->changePassword($password1, $password2, $password2);
@@ -247,7 +254,14 @@ class UserTest extends UnitTestCase
 		usleep(1000*1000); // need a short delay to separate attempts
         $newPassword=$this->randomString();
 		//String newPassword = ESAPI.authenticator().generateStrongPassword(user, "getLastPasswordChangeTime");
-		$user->changePassword("getLastPasswordChangeTime", $newPassword, $newPassword);
+		try {
+        $user->changePassword("getLastPasswordChangeTime", $newPassword, $newPassword);
+		}
+		catch (AuthenticationException $e)
+		{
+		    $this->fail();
+		    return;
+		}
 		$t2 = $user->getLastPasswordChangeTime();
 		$this->assertTrue($t2>$t1);
 	}
