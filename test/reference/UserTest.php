@@ -15,678 +15,633 @@
  * @version 1.04
  * @created 2009
  */
-
-require_once dirname(__FILE__).'/../../src/ESAPI.php';
-require_once dirname(__FILE__).'/../../src/reference/DefaultUser.php';
-
-class UserTest extends UnitTestCase 
+require_once dirname(__FILE__) . '/../../src/ESAPI.php';
+require_once dirname(__FILE__) . '/../../src/reference/DefaultUser.php';
+class UserTest extends UnitTestCase
 {
-	function setUp() 
-	{
-	    $this->User=new DefaultUser("3smaag0e");
-	}
-	
-	function tearDown()
-	{
-	}
-	
-###############################################
+    function setUp ()
+    {}
+    function tearDown ()
+    {}
+    private $usernames = array("testaccount8","lqc3cmws" , "yjwvnp7q" , "testaccount1" , "dbctro2g" , "isfirstrequest" , "vr0vr7m8" , "omfp2ssc" , "test5" , "hfmcrx2o" , "test8" , "9hravwpm" , "testuser1" , "testaccount7" , "satlhgga" , "test9" , "yytpw3k0" , "uiwuzzon" , "qka44qdh");
+    /**
+     * returns a random user from those who exist in the users.txt
+     * @return DefaultUsert
+     */
+    function getUser ($index = null)
+    {
+        static $in = 0;
+        if ($index === null)
+            $index = $in ++;
+        //if ($index >= count($this->usernames))
+        //    return null;
+        //else
+            return new DefaultUser($this->usernames[rand(0,count($this->usernames)-1)]);
+    }
+    function randomString ($Length = 8)
+    {
+        $alpha = 'abcdefghijklmnopqrstuvwxyz';
+        $str = '';
+        for ($i = 0; $i < $Length; ++ $i)
+            $str .= $alpha[rand(0, 25)];
+        return $str;
+    }
+    ###############################################
+    #XXX: done
+    /**
+     * Test of testAddRole method, of class org.owasp.esapi.$user->
+     * 
+     * @exception Exception
+     * 				any Exception thrown by testing addRole()
+     */
+    public function testAddRole () #throws Exception {
+    {
+        $user = $this->getUser();
+        $role = $this->randomString();
+        $user->addRole($role);
+        $this->assertTrue($user->isInRole($role));
+        $this->assertFalse($user->isInRole("ridiculous"));
+    }
 	/**
-     * Gets this user's account name.
-     * 
-     * @return the account name
-     */
-    function testGetAccountName()
-    {
-	    $this->User=new DefaultUser("3smaag0e");
-        return $this->User->getAccountName();
-    }
-    /**
-     * Adds a role to this user's account.
-     * 
-     * @param role 
-     * 		the role to add
-     * 
-     * @throws AuthenticationException 
-     * 		the authentication exception
-     */
-    function addRole($Role) //throws AuthenticationException
-    {
-        $Roles=$this->getUserInfo("roles");
-        $Roles=explode(",",$Roles);
-        $RolesF=array_flip($Roles);
-        if ($ESAPI->validator->isValidInput("addRole", $Role, "RoleName", MAX_ROLE_LENGTH, false))
-        {
-            if (array_key_exists($Role,$RolesF))
-            {
-                return false;
-            }
-            else
-            {
-                $Roles[]=$Role;
-                $this->setUserInfo("roles",implode(",",$Roles));
-    			//TODO: $Logger.info(Logger.SECURITY_SUCCESS, "Role " + $Role + " added to " + $this->getAccountName() );
-                
-            }
-        }
-        else
-            throw new AuthenticationException( "Add role failed", "Attempt to add invalid role ". $Role ." to " . $this->getAccountName() );
-        
-    }
+	 * Test of addRoles method, of class org.owasp.esapi.$user->
+	 * 
+	 * @#throws AuthenticationException
+	 *             the authentication exception
+	 */
+	public function testAddRoles() #throws AuthenticationException {
+	{
+        $user = $this->getUser();
+        $Roles=array();
+        $Roles[]="rolea";
+		$Roles[]="roleb";
+		$user->addRoles($Roles);
+		$this->assertTrue($user->isInRole("rolea"));
+		$this->assertTrue($user->isInRole("roleb"));
+		$this->assertFalse($user->isInRole("ridiculous"));
+	}
 
-    /**
-     * Adds a set of roles to this user's account.
-     * 
-     * @param Array $newRoles 
-     * 		the new roles to add
-     * 
-     * @throws AuthenticationException 
-     * 		the authentication exception
-     */
-    function addRoles($newRoles) //throws AuthenticationException;
-    {
-        foreach ($newRoles as $Role)
-            $this->addRole($Role);
-    }
+	/**
+	 * Test of changePassword method, of class org.owasp.esapi.$user->
+	 * 
+	 * @#throws Exception
+	 *             the exception
+	 */
+	public function testChangePassword() #throws Exception {
+	{
+        #TODO: this relies on Authenticator
+		$oldPassword = "Password12!@";
+        $user=$this->getUser();
+		$password1 = "SomethingElse34#$";
+		$user->changePassword($oldPassword, $password1, $password1);
+		$this->assertTrue($user->verifyPassword($password1));
+		$password2 = "YetAnother56%^";
+		$user->changePassword($password1, $password2, $password2);
+		try {
+			$user->changePassword($password2, $password1, $password1);
+			$this->fail("Shouldn't be able to reuse a password");
+		} catch( AuthenticationException $e ) {
+			// expected
+		}
+		$this->assertTrue($user->verifyPassword($password2));
+		$this->assertFalse($user->verifyPassword("badpass"));
+	}
 
-    /**
-     * Sets the user's password, performing a verification of the user's old password, the equality of the two new
-     * passwords, and the strength of the new password.
-     * 
-     * @param oldPassword 
-     * 		the old password
-     * @param newPassword1 
-     * 		the new password
-     * @param newPassword2 
-     * 		the new password - used to verify that the new password was typed correctly
-     * 
-     * @throws AuthenticationException 
-     * 		if newPassword1 does not match newPassword2, if oldPassword does not match the stored old password, or if the new password does not meet complexity requirements 
-     * @throws EncryptionException 
-     */
-    function changePassword($oldPassword, $newPassword1, $newPassword2) //throws AuthenticationException, EncryptionException;
-    {
-        if ($newPassword1!==$newPassword2)
-            throw new AuthenticationException("Retype does not match Password.","Password Change Retype Mismatch");
-        $realOldPass=$this->getUserInfo("hashedPassword");
-        if ($realOldPass!=$this->hashPassword($oldPassword))
-            throw AuthenticationException("Old Password provided is not correct.","Password Change Old Password Wrong");
-        
-        #TODO: add this function
-        if (!CheckComplexity($newPassword1))
-            throw new AuthenticationException("Password is not complex enough!","Password Change Complexity Failure");
-        
-        $this->setUserInfo("hashedPassword",$this->hashPassword($newPassword1));
-        
-        //TODO: this is the code in java version:
-        #		ESAPI.authenticator().changePassword(this, oldPassword, newPassword1, newPassword2);
-        
-    }
-    /**
-     * Disable this user's account.
-     */
-    function disable()
-    {
-        $this->setUserInfo("enabled","disabled");
-        #TODO: $logger->info( Logger.SECURITY_SUCCESS, "Account disabled: " + getAccountName() );
-        
-    }
+	/**
+	 * Test of disable method, of class org.owasp.esapi.$user->
+	 * 
+	 * @#throws AuthenticationException
+	 *             the authentication exception
+	 */
+	public function testDisable() #throws AuthenticationException {
+	{
+        $user = $this->getUser();
+	    $user->enable();
+		$this->assertTrue($user->isEnabled());
+		$user->disable();
+		$this->assertFalse($user->isEnabled());
+	}
 
-    /**
-     * Enable this user's account.
-     */
-    function enable()
-    {
-        $this->setUserInfo("enabled","disabled");
-        #TODO: 		logger.info( Logger.SECURITY_SUCCESS, "Account enabled: " + getAccountName() );
+	/**
+	 * Test of enable method, of class org.owasp.esapi.$user->
+	 * 
+	 * @#throws AuthenticationException
+	 *             the authentication exception
+	 */
+	public function testEnable() #throws AuthenticationException {
+	{
+        $user = $this->getUser();
+	    $user->enable();
+		$this->assertTrue($user->isEnabled());
+		$user->disable();
+		$this->assertFalse($user->isEnabled());
+	}
+
+	/**
+	 * Test of failedLoginCount lockout, of class org.owasp.esapi.$user->
+	 * 
+	 * @#throws AuthenticationException
+	 *             the authentication exception
+	 * @#throws EncryptionException
+	 *             any EncryptionExceptions thrown by testing failedLoginLockout()
+	 */
+	public function testFailedLoginLockout() #throws AuthenticationException, EncryptionException {
+	{
+        $user=$this->getUser();
+		$user->enable();
         
-    }
+		$user->setFailedLoginCount(0);
+		#TODO: change the number of fails if allowed login tries changes from 3
+		$user->unlock();
+		try {
+    		$user->loginWithPassword("ridiculous");
+		} catch( AuthenticationException $e ) { 
+    		// expected
+    	}
+		$this->assertFalse($user->isLocked());
 
-    /**
-     * Gets this user's account id number.
-     * 
-     * @return Integer the account id
-     */
-    function getAccountId()
-    {
-        return $this->UID;
-    }
-    
+		try {
+    		$user->loginWithPassword("ridiculous");
+		} catch( AuthenticationException $e ) { 
+    		// expected
+    	}
+		$this->assertFalse($user->isLocked());
 
-    /**
-     * Gets the CSRF token for this user's current sessions.
-     * 
-     * @return String the CSRF token
-     */
-    function getCSRFToken()
-    {
-        return $this->getUserInfo("csrfToken");
-    }
+		try {
+    		$user->loginWithPassword("ridiculous");
+		} catch( AuthenticationException $e ) { 
+    		// expected
+    	}
+		$this->assertTrue($user->isLocked());
+	}
 
-    /**
-     * Returns the date that this user's account will expire.
+	/**
+	 * Test of getAccountName method, of class org.owasp.esapi.$user->
+	 * 
+	 * @#throws AuthenticationException
+	 *             the authentication exception
+	 */
+	public function testGetAccountName() #throws AuthenticationException {
+	{
+        $user=$this->getUser();
+        $accountName=$this->randomString();
+        $user->setAccountName($accountName);
+		$this->assertTrue($accountName== $user->getAccountName());
+		$this->assertFalse("ridiculous"==$user->getAccountName());
+	}
+
+	/**
+	 * Test get last failed login time.
+	 * 
+	 * @#throws Exception
+	 *             the exception
+	 */
+	public function testGetLastFailedLoginTime() #throws Exception {
+	{
+        $user=$this->getUser();
+	    try {
+    		$user->loginWithPassword("ridiculous");
+		} catch( AuthenticationException $e ) { 
+    		// expected
+    	}
+		$time1= $user->getLastFailedLoginTime();
+		usleep(100*1000); // need a short delay to separate attempts
+		try {
+    		$user->loginWithPassword("ridiculous");
+		} catch( AuthenticationException $e ) { 
+    		// expected
+    	}
+		$time2= $user->getLastFailedLoginTime();
+		$this->assertTrue($time1<=$time2);
+	}
+
+	/**
+	 * Test get last login time.
+	 * 
+	 * @#throws Exception
+	 *             the exception
+	 */
+	public function testGetLastLoginTime() #throws Exception {
+	{
+        $user=$this->getUser();
+	    $user->enable();
+	    $user->unlock();
+        $user->setLastLoginTime(time());
+		$t1= $user->getLastLoginTime();
+		usleep(10*1000); // need a short delay to separate attempts
+        $user->setLastLoginTime(time());
+		$t2= $user->getLastLoginTime();
+		$this->assertTrue($t2>=$t1);
+	}
+
+	/**
+	 * Test getLastPasswordChangeTime method, of class org.owasp.esapi.$user->
+	 * 
+	 * @#throws Exception
+	 *             the exception
+	 */
+	public function testGetLastPasswordChangeTime() #throws Exception {
+	{
+        #TODO: this relies on changePassword and that relies on authenticator
+	    $user=$this->getUser();
+	    $t1= $user->getLastPasswordChangeTime();
+		usleep(1000*1000); // need a short delay to separate attempts
+        $newPassword=$this->randomString();
+		//String newPassword = ESAPI.authenticator().generateStrongPassword(user, "getLastPasswordChangeTime");
+		$user->changePassword("getLastPasswordChangeTime", $newPassword, $newPassword);
+		$t2 = $user->getLastPasswordChangeTime();
+		$this->assertTrue($t2>$t1);
+	}
+
+	/**
+	 * Test of getRoles method, of class org.owasp.esapi.$user->
      *
-     * @return Date representing the account expiration time.
+     * @#throws Exception
      */
-    function getExpirationTime()
-    {
-        return $this->getUserInfo("expirationTime");
-    }
-
-    /**
-     * Returns the number of failed login attempts since the last successful login for an account. This method is
-     * intended to be used as a part of the account lockout feature, to help protect against brute force attacks.
-     * However, the implementor should be aware that lockouts can be used to prevent access to an application by a
-     * legitimate user, and should consider the risk of denial of service.
-     * 
-     * @return Integer the number of failed login attempts since the last successful login
-     */
-    function getFailedLoginCount()
-    {
-        return $this->getUserInfo("failedLoginCount");
-    }
-
-    /**
-     * Returns the last host address used by the user. This will be used in any log messages generated by the processing
-     * of this request.
-     * 
-     * @return String the last host address used by the user
-     */
-    function getLastHostAddress()
-    {
-        //return (getenv("HTTP_X_FORWARDED_FOR")) ? getenv("HTTP_X_FORWARDED_FOR") : getenv("REMOTE_ADDR");
-        if ($this->lastHostAddress==null)
-            return "local";
-        else
-            return $this->lastHostAddress;
-    }
-
-	/**
-     * Returns the date of the last failed login time for a user. This date should be used in a message to users after a
-     * successful login, to notify them of potential attack activity on their account.
-     * 
-     * @return date of the last failed login
-     * 
-     * @throws AuthenticationException 
-     * 		the authentication exception
-     */
-    function getLastFailedLoginTime() //throws AuthenticationException;
-    {
-        return $this->getUserInfo("lastFailedLoginTime");
-    }
-
-    /**
-     * Returns the date of the last successful login time for a user. This date should be used in a message to users
-     * after a successful login, to notify them of potential attack activity on their account.
-     * 
-     * @return date of the last successful login
-     */
-    function getLastLoginTime()
-    {
-        return $this->getUserInfo("lastLoginTime");
-    }
-
-    /**
-     * Gets the date of user's last password change.
-     * 
-     * @return the date of last password change
-     */
-    function getLastPasswordChangeTime()
-    {
-       return $this->getUserInfo("lastPasswordChangeTime"); 
-    }
-
-    /**
-     * Gets the roles assigned to a particular account.
-     * 
-     * @return Array an immutable set of roles
-     */
-    function getRoles()
-    {
-        return explode(",",$this->getUserInfo("roles"));
-    }
-
-    /**
-     * Gets the screen name (alias) for the current user.
-     * 
-     * @return String the screen name
-     */
-    function getScreenName()
-    {
-        return $this->screenName;
-        //return $this->getUserInfo("accountName");
-    }
-
-    /**
-     * Adds a session for this User.
-     * 
-     * @param $HttpSession Just for interop
-     */
-    function addSession( $HttpSession=null )
-    {
-        if (session_id()=="") //no session established, throw some errors FIXME
-         ;
-        $_SESSION[$this->getAccountId()][session_id()]=array("start"=>time(),"lastUpdate"=>time());
-    }
-    
-    /**
-     * Removes a session for this User.
-     * 
-     * @param $HttpSession The session to remove from being associated with this user.
-     */
-    function removeSession( $HttpSession=null )
-    {
-        unset($_SESSION[$this->getAccountId()][session_id()]);
-    }
-    
-    /**
-     * Returns the list of sessions associated with this User.
-     * @return Array sessions
-     */
-    function getSessions()
-    {
-        return $_SESSION[$this->getAccountId()];
-    }
-    
-    /**
-     * Increment failed login count.
-     */
-    function incrementFailedLoginCount()
-    {
-        $this->setUserInfo("failedLoginCount",$this->getUserInfo("failedLoginCount")+1);
-    }
-    
-    function setFailedLoginCount($count) 
-    {
-        $this->setUserInfo("failedLoginCount",$count);
-    }
-    
-
-    /**
-     * Checks if user is anonymous.
-     * 
-     * @return true, if user is anonymous
-     */
-    function isAnonymous()
-    {
-        if ($this->UID===null) return true;
-        else return false;
-    }
-
-    /**
-     * Checks if this user's account is currently enabled.
-     * 
-     * @return true, if account is enabled 
-     */
-    function isEnabled()
-    {
-        return $this->getUserInfo("enabled")=="enabled";
-    }
-
-    /**
-     * Checks if this user's account is expired.
-     * 
-     * @return true, if account is expired
-     */
-    function isExpired()
-    {
-        $ExpTime=$this->getUserInfo("expirationTime");
-        if ($ExpTime<time()) return true;
-        else return false;
-    }
-
-    /**
-     * Checks if this user's account is assigned a particular role.
-     * 
-     * @param String $Role the role for which to check
-     * 
-     * @return true, if role has been assigned to user
-     */
-    function isInRole($Role)
-    {
-        $Roles=$this->getUserInfo("roles");
-        $Roles=explode(",",$Roles);
-        $Roles=array_flip($Roles);
-        if (array_key_exists($Role,$Roles))
-            return true;
-        else
-            return false; 
-        
-        
-    }
-
-    /**
-     * Checks if this user's account is locked.
-     * 
-     * @return true, if account is locked
-     */
-    function isLocked()
-    {
-        return $this->getUserInfo("locked")=="locked";
-    }
-
-    /**
-     * Tests to see if the user is currently logged in.
-     * 
-     * @return true, if the user is logged in
-     */
-    function isLoggedIn()
-    {
-        return !($this->UID===null);
-    }
-
-    /**
-     * Tests to see if this user's session has exceeded the absolute time out based 
-      * on ESAPI's configuration settings.
-     * 
-     * @return true, if user's session has exceeded the absolute time out
-     */
-    function isSessionAbsoluteTimeout()
-    {
-         if (isset($_SESSION[$this->getAccountId()][session_id()]['start']))
-         {
-             return (time()-$_SESSION[$this->getAccountId()][session_id()]['start'])>$this->sessionTimeout;
-         }
-         return true; //FIXME: no session data exists!
-    }
-
-    /**
-      * Tests to see if the user's session has timed out from inactivity based 
-      * on ESAPI's configuration settings.
-      * 
-      * A session may timeout prior to ESAPI's configuration setting due to 
-      * the servlet container setting for session-timeout in web.xml. The 
-      * following is an example of a web.xml session-timeout set for one hour. 	
-      *
-      * <session-config>
-      *   <session-timeout>60</session-timeout> 
-      * </session-config>
-      * 
-      * @return true, if user's session has timed out from inactivity based 
-      *               on ESAPI configuration
-      */
-     function isSessionTimeout()
-     {
-         #XXX: You should add some logic to update session time somewhere!
-         if (isset($_SESSION[$this->getAccountId()][session_id()]['lastUpdate']))
-         {
-             return (time()-$_SESSION[$this->getAccountId()][session_id()]['lastUpdate'])>$this->sessionTimeout;
-         }
-         return true; //FIXME: no session data exists!
-     }
-
-    /**
-     * Lock this user's account.
-     */
-    function lock()
-    {
-        $this->setUserInfo("locked","locked");
-    }
-
-    /**
-     * Login with password.
-     * 
-     * @param String $Password the password
-     * @throws AuthenticationException 
-     * 		if login fails
-     */
-    function loginWithPassword($Password) //throws AuthenticationException;
-    {
-        //if ($this->getUserInfo("hashedPassword")!=$this->hashPassword($Password))
-            //throw new AuthenticationException("Invalid password","Invalid Password for login");
-
-    	if ( $Password == null || $Password="" ) 
-    	{
-			$this->setLastFailedLoginTime(time());
-			$this->incrementFailedLoginCount();
-			throw new AuthenticationLoginException( "Login failed", "Missing password: " . $this->getAccountName()  );
-		}
-		
-		// don't let disabled users log in
-		if ( !$this->isEnabled() ) 
-		{
-			$this->setLastFailedLoginTime(time());
-			$this->incrementFailedLoginCount();
-			throw new AuthenticationLoginException("Login failed", "Disabled user attempt to login: " .$this->getAccountName() );
-		}
-		
-		// don't let locked users log in
-		if ( $this->isLocked() ) 
-		{
-			$this->setLastFailedLoginTime(time());
-			$this->incrementFailedLoginCount();
-			throw new AuthenticationLoginException("Login failed", "Locked user attempt to login: " .$this->getAccountName() );
-		}
-		
-		// don't let expired users log in
-		if ( $this->isExpired() ) 
-		{
-			$this->setLastFailedLoginTime(time());
-			$this->incrementFailedLoginCount();
-			throw new AuthenticationLoginException("Login failed", "Expired user attempt to login: " + accountName );
-		}
-		
-		$this->logout();
-
-		if ( $this->verifyPassword( $Password ) ) 
-		{
-			$this->loggedIn = true;
-			
-			/* TODO: add these
-			ESAPI.httpUtilities().changeSessionIdentifier( ESAPI.currentRequest() );
-			ESAPI.authenticator().setCurrentUser(this);
-			*/
-			$this->setLastLoginTime(time());
-            //$this->setLastHostAddress( ESAPI.httpUtilities().getCurrentRequest().getRemoteHost() );
-			//logger.trace(Logger.SECURITY_SUCCESS, "User logged in: " + accountName );
-		} 
-		else 
-		{
-			$this->loggedIn = false;
-			$this->setLastFailedLoginTime(time());
-			$this->incrementFailedLoginCount();
-			if ($this->getFailedLoginCount() >= $this->allowedLoginAttempts) {
-				$this->lock();
-			}
-			throw new AuthenticationLoginException("Login failed", "Incorrect password provided for " .$this->getAccountName() );
-		}    
-    
-    }
-
-    /**
-     * Logout this user.
-     */
-    function logout()
-    {
-		//TODO: ESAPI.httpUtilities().killCookie( ESAPI.currentRequest(), ESAPI.currentResponse(), HTTPUtilities.REMEMBER_TOKEN_COOKIE_NAME );
-		
-		//HttpSession session = ESAPI.currentRequest().getSession(false);
-		if (isset($_SESSION[$this->getUserId()])) 
-		{
-		    unset($_SESSION[$this->getUserId()]);
-		}
-		//TODO: ESAPI.httpUtilities().killCookie(ESAPI.currentRequest(), ESAPI.currentResponse(), "PHPSESSIONID");
-		$this->loggedIn = false;
-		//logger.info(Logger.SECURITY_SUCCESS, "Logout successful" );
-		//ESAPI.authenticator().setCurrentUser(User.ANONYMOUS);
-    }
-    
-
-    /**
-     * Removes a role from this user's account.
-     * 
-     * @param String $Role the role to remove
-     * @throws AuthenticationException 
-     * 		the authentication exception
-     */
-    function removeRole($Role) //throws AuthenticationException;
-    {
-        $Roles=$this->getUserInfo("roles");
-        $Roles=explode(",",$Roles);
-        $Roles=array_flip($Roles);
-        if (!array_key_exists($Role,$Roles))
-        {
-            //TODO: some error
-        }
-        else
-        {
-            unset($Roles[$Role]);
-            $Roles=array_flip($Roles);
-            $this->setUserInfo("roles",implode(",",$Roles));
-        }
-    }
-
-    /**
-     * Returns a token to be used as a prevention against CSRF attacks. This token should be added to all links and
-     * forms. The application should verify that all requests contain the token, or they may have been generated by a
-     * CSRF attack. It is generally best to perform the check in a centralized location, either a filter or controller.
-     * See the verifyCSRFToken method.
-     * 
-     * @return the new CSRF token
-     * 
-     * @throws AuthenticationException 
-     * 		the authentication exception
-     */
-    function resetCSRFToken() //throws AuthenticationException;
-    {
-        //TODO: $csrfToken = ESAPI.randomizer().getRandomString(8, DefaultEncoder.CHAR_ALPHANUMERICS);
-        
-        $this->setUserInfo("csrfToken",$csrfToken);
-		return $csrfToken;
-    }
-
-    /**
-     * Sets this user's account name.
-     * 
-     * @param String $AccountName the new account name
-     */
-    function setAccountName($AccountName)
-    {
-        $this->setUserInfo("accountName",$AccountName);
-    }
-
-    /**
-     * Sets this user's account ID
-     * @param integer $AccountID
-     * @return unknown_type
-     */
-    function setAccountID($AccountID)
-    {
-        $this->setUserInfo("accountID",$AccountID);
-    }
-    /**
-     * Sets the date and time when this user's account will expire.
-     * 
-     * @param $ExpirationTime Timestamp the new expiration time
-     */
-	function setExpirationTime($ExpirationTime)
+	public function testGetRoles() #throws Exception {
 	{
-	    $this->setUserInfo("expirationTime",$ExpirationTime);
+        $user=$this->getUser();
+        $role=$this->randomString();
+	    $user->addRole($role);
+		$roles = $user->getRoles();
+		$this->assertTrue(count($roles) > 0);
+		$this->assertTrue(in_array($role,$roles));
 	}
 
 	/**
-     * Sets the roles for this account.
-     * 
-     * @param Array $Roles the new roles
-     * 
-     * @throws AuthenticationException 
-     * 		the authentication exception
-     */
-    function setRoles($Roles) //throws AuthenticationException;
-    {
-        $this->setUserInfo("roles",implode(",",$Roles));
-    }
-
-    /**
-     * Sets the screen name (username alias) for this user.
-     * 
-     * @param String $ScreenName the new screen name
-     */
-    function setScreenName($ScreenName)
-    {
-        $this->screenName=$ScreenName;
-        //$this->setUserInfo("accountName",$ScreenName);
-        #FIXME: this changes account name! what is screen name?!
-    }
-
-    /**
-     * Unlock this user's account.
-     */
-    function unlock()
-    {
-        $this->setUserInfo("locked","unlocked");
-    }
-
-	/**
-	 * Verify that the supplied password matches the password for this user. This method
-	 * is typically used for "reauthentication" for the most sensitive functions, such
-	 * as transactions, changing email address, and changing other account information.
+	 * Test of getScreenName method, of class org.owasp.esapi.$user->
 	 * 
-	 * @param $Password the password that the user entered
-	 * 
-	 * @return true, if the password passed in matches the account's password
-	 * 
-	 * @throws EncryptionException 
+	 * @#throws AuthenticationException
+	 *             the authentication exception
 	 */
-	public function verifyPassword($Password) //throws EncryptionException;
+	public function testGetScreenName() #throws AuthenticationException {
 	{
-	    //TODO: 		return ESAPI.authenticator().verifyPassword(this, password);
-	    
-	    return ($this->getUserInfo("hashedPassword")==$this->hashPassword($Password));
+	    #TODO: we have problems with screenName here!
+        $user=$this->getUser();
+        $screenName=$this->randomString(7);
+		$user->setScreenName($screenName);
+		$this->assertTrue($screenName==$user->getScreenName());
+		$this->assertFalse("ridiculous"==($user->getScreenName()));
 	}
 
-	/**
-	 * Set the time of the last failed login for this user.
-	 * 
-	 * @param Integer $LastFailedLoginTime Timestamp the date and time when the user just failed to login correctly.
-	 */
-	function setLastFailedLoginTime($LastFailedLoginTime)
-	{
-	    $this->setUserInfo("lastFailedLoginTime",$LastFailedLoginTime);
+    /**
+     *
+     * @#throws org.owasp.esapi.errors.AuthenticationException
+     */
+    public function testGetSessions() #throws AuthenticationException {
+    {
+        $user=$this->getUser();
+        $user->addSession( "session1");
+        $user->addSession( "session2" );
+        $user->addSession( "session3" );
+        $sessions = $user->getSessions();
+        $this->assertTrue(count($sessions) == 3);
 	}
 	
-	/**
-	 * Set the last remote host address used by this user.
-	 * 
-	 * @param $RemoteHost The address of the user's current source host.
-	 */
-	function setLastHostAddress($RemoteHost)
-	{
-		if ( $this->lastHostAddress != null && $this->lastHostAddress!=$RemoteHost)
-		{
-        	// returning remote address not remote hostname to prevent DNS lookup
-			new AuthenticationHostException("Host change", "User session just jumped from " . $this->lastHostAddress . " to " .$RemoteHost );
-		}
-		$this->lastHostAddress = $RemoteHost;
+	
+    /**
+     *
+     */
+    public function testAddSession() {
+        $user=$this->getUser();
+        $user->addSession("session1");
+        $sessions=$user->getSessions();
+        $this->assertTrue(array_key_exists("session1",$sessions));
+    }
+	
+    /**
+     *
+     */
+    public function testRemoveSession() {
+        $user=$this->getUser();
+        $user->addSession("session1");
+        $user->addSession("session2");
+        $user->addSession("session3");
+        $user->removeSession("session2");
+        $sessions=$user->getSessions();
+        $this->assertFalse(array_key_exists("session2",$sessions));
     }
 	
 	/**
-	 * Set the time of the last successful login for this user.
+	 * Test of incrementFailedLoginCount method, of class org.owasp.esapi.$user->
 	 * 
-	 * @param Integer $LastLoginTime Timestamp the date and time when the user just successfully logged in.
+	 * @#throws AuthenticationException
+	 *             the authentication exception
 	 */
-	function setLastLoginTime($LastLoginTime)
+	public function testIncrementFailedLoginCount() #throws AuthenticationException {
 	{
-	    $this->setUserInfo("lastLoginTime",$LastLoginTime);
+	    $user=$this->getUser();
+	    $user->enable();
+	    $user->unlock();
+	    $user->setFailedLoginCount(0);
+		$this->assertTrue($user->getFailedLoginCount()==0);
+		try {
+			$user->loginWithPassword("ridiculous");
+		} catch (AuthenticationException $e) {
+			// expected
+		}
+		$this->assertTrue($user->getFailedLoginCount()==1);
+		try {
+			$user->loginWithPassword("ridiculous");
+		} catch (AuthenticationException $e) {
+			// expected
+		}
+		$this->assertTrue(2==$user->getFailedLoginCount());
+		try {
+			$user->loginWithPassword("ridiculous");
+		} catch (AuthenticationException $e) {
+			// expected
+		}
+		$this->assertTrue(3==$user->getFailedLoginCount());
+		try {
+			$user->loginWithPassword("ridiculous");
+		} catch (AuthenticationException $e) {
+			// expected
+		}
+		$this->assertTrue($user->isLocked());
+	}
+
+	/**
+	 * Test of isEnabled method, of class org.owasp.esapi.$user->
+	 * 
+	 * @#throws AuthenticationException
+	 *             the authentication exception
+	 */
+	public function testIsEnabled() #throws AuthenticationException {
+	{
+        $user=$this->getUser();
+	    $user->disable();
+		$this->assertFalse($user->isEnabled());
+		$user->enable();
+		$this->assertTrue($user->isEnabled());
+	}
+
+    
+    
+	/**
+	 * Test of isInRole method, of class org.owasp.esapi.$user->
+	 * 
+	 * @#throws AuthenticationException
+	 *             the authentication exception
+	 */
+	public function testIsInRole() #throws AuthenticationException {
+	{
+	    $user=$this->getUser();
+		$role = "TestRole";
+		$this->assertFalse($user->isInRole($role));
+		$user->addRole($role);
+		$this->assertTrue($user->isInRole($role));
+		$this->assertFalse($user->isInRole("Ridiculous"));
+	}
+
+	/**
+	 * Test of isLocked method, of class org.owasp.esapi.$user->
+	 * 
+	 * @#throws AuthenticationException
+	 *             the authentication exception
+	 */
+	public function testIsLocked() #throws AuthenticationException {
+	{
+        $user=$this->getUser();
+	    $user->lock();
+		$this->assertTrue($user->isLocked());
+		$user->unlock();
+		$this->assertFalse($user->isLocked());
+	}
+
+	/**
+	 * Test of isSessionAbsoluteTimeout method, of class
+	 * org.owasp.esapi.IntrusionDetector.
+	 * 
+	 * @#throws AuthenticationException
+	 *             the authentication exception
+	 */
+	public function testIsSessionAbsoluteTimeout() #throws AuthenticationException {
+	{
+		$user=$this->getUser();
+		// set session creation -3 hours (default is 2 hour timeout)		
+		$user->addSession("session1");
+        $_SESSION[$user->getAccountId()]["session1"]['start']=time()-(3600*2+1);
+        $this->assertTrue($user->isSessionAbsoluteTimeout("session1"));
+		
+		// set session creation -1 hour (default is 2 hour timeout)
+        $_SESSION[$user->getAccountId()]["session1"]['start']=time()-(3600*2-1);
+        $this->assertFalse($user->isSessionAbsoluteTimeout("session1"));
+	}
+
+	/**
+	 * Test of isSessionTimeout method, of class
+	 * org.owasp.esapi.IntrusionDetector.
+	 * 
+	 * @#throws AuthenticationException
+	 *             the authentication exception
+	 */
+	public function testIsSessionTimeout() #throws AuthenticationException {
+	{
+		$user=$this->getUser();
+		// set session creation -3 hours (default is 2 hour timeout)		
+		$user->addSession("session1");
+        $_SESSION[$user->getAccountId()]["session1"]['lastUpdate']=time()-(3600+1);
+        $this->assertTrue($user->isSessionTimeout("session1"));
+		
+		// set session creation -1 hour (default is 2 hour timeout)
+        $_SESSION[$user->getAccountId()]["session1"]['lastUpdate']=time()-(3600-1);
+        $this->assertFalse($user->isSessionTimeout("session1"));
+	}
+
+	/**
+	 * Test of lockAccount method, of class org.owasp.esapi.$user->
+	 * 
+	 * @#throws AuthenticationException
+	 *             the authentication exception
+	 */
+	public function testLock() #throws AuthenticationException {
+	{
+        $user=$this->getUser();
+        $user->lock();
+		$this->assertTrue($user->isLocked());
+		$user->unlock();
+		$this->assertFalse($user->isLocked());
+	}
+
+	/**
+	 * Test of loginWithPassword method, of class org.owasp.esapi.$user->
+	 * 
+	 * @#throws AuthenticationException
+	 *             the authentication exception
+	 */
+	public function testLoginWithPassword() #throws AuthenticationException {
+	{
+	    #TODO: its not working yet
+	    $user=$this->getUser();
+	    $user->enable();
+	    $user->unlock();
+		try {
+	    $user->loginWithPassword("real password here");
+		}
+		catch(AuthenticationException $e)
+		{
+		    $this->Fail();
+		    return ;
+		}
+		$this->assertTrue($user->isLoggedIn());
+		$user->logout();
+		$this->assertFalse($user->isLoggedIn());
+		$this->assertFalse($user->isLocked());
+		try {
+			$user->loginWithPassword("ridiculous");
+		} catch (AuthenticationException $e) {
+			// expected
+		}
+		$this->assertFalse($user->isLoggedIn());
+		try {
+			$user->loginWithPassword("ridiculous");
+		} catch (AuthenticationException $e) {
+			// expected
+		}
+		try {
+			$user->loginWithPassword("ridiculous");
+		} catch (AuthenticationException $e) {
+			// expected
+		}
+		$this->assertTrue($user->isLocked());
+		$user->unlock();
+		$this->assertTrue($user->getFailedLoginCount() == 0 );
+	}
+
+
+	/**
+	 * Test of logout method, of class org.owasp.esapi.$user->
+	 * 
+	 * @#throws AuthenticationException
+	 *             the authentication exception
+	 */
+	public function testLogout() #throws AuthenticationException {
+	{
+	    #TODO: this is not working
+        $user=$this->getUser();
+	    $user->enable();
+	    $user->unlock();
+	    try {
+		    $user->loginWithPassword("real password here");
+	    }
+	    catch (AuthenticationException $e)
+	    {
+	        #expected
+	    }
+		$this->assertTrue($user->isLoggedIn());
+		#also put the checks about session here
+		// get new session after user logs in
+		$user->logout();
+		$this->assertFalse($user->isLoggedIn());
+	}
+
+	/**
+	 * Test of testRemoveRole method, of class org.owasp.esapi.$user->
+	 * 
+	 * @#throws AuthenticationException
+	 *             the authentication exception
+	 */
+	public function testRemoveRole() #throws AuthenticationException {
+	{
+        $user=$this->getUser();
+        $role=$this->randomString();
+		$user->addRole($role);
+		$this->assertTrue($user->isInRole($role));
+		$user->removeRole($role);
+		$this->assertFalse($user->isInRole($role));
+	}
+
+	/**
+	 * Test of testResetCSRFToken method, of class org.owasp.esapi.$user->
+	 * 
+	 * @#throws AuthenticationException
+	 *             the authentication exception
+	 */
+	public function testResetCSRFToken() #throws AuthenticationException {
+	{
+        #TODO: not working    
+		$user=$this->getUser();
+        $token1= $user->resetCSRFToken();
+        $token2 = $user->resetCSRFToken();
+        $this->assertFalse( $token1==$token2 );
 	}
 	
 	/**
-	 * Set the time of the last password change for this user.
-	 * 
-	 * @param Integer $LastPasswordChangeTime Timestamp the date and time when the user just successfully changed his/her password.
-	 */
-	function setLastPasswordChangeTime($LastPasswordChangeTime)
+	 * Test of setAccountName method, of class org.owasp.esapi.$user->
+     *
+     * @#throws AuthenticationException
+     */
+	public function testSetAccountName() #throws AuthenticationException {
 	{
-	    $this->setUserInfo("lastPasswordChangeTime",$LastPasswordChangeTime);
+        $user=$this->getUser();
+	    $accountName=$this->randomString(7);
+		$user->setAccountName($accountName);
+		$this->assertTrue($accountName==$user->getAccountName());
+		$this->assertFalse("ridiculous"==$user->getAccountName());
+	}
+
+	/**
+	 * Test of setExpirationTime method, of class org.owasp.esapi.$user->
+     *
+     * @#throws Exception
+     */
+	public function testSetExpirationTime() #throws Exception {
+	{
+        $user=$this->getUser();
+	    $user->setExpirationTime(0);
+		$this->assertTrue( $user->isExpired() );
 	}
 
 	
+	/**
+	 * Test of setRoles method, of class org.owasp.esapi.$user->
+	 * 
+	 * @#throws AuthenticationException
+	 *             the authentication exception
+	 */
+	public function testSetRoles() #throws AuthenticationException {
+	{
+        $user=$this->getUser();
+	    $user->addRole("user");
+		$this->assertTrue($user->isInRole("user"));
+        $roles=array();
+		$roles[]=("rolea");
+		$roles[]=("roleb");
+		$user->setRoles($roles);
+		$this->assertFalse($user->isInRole("user"));
+		$this->assertTrue($user->isInRole("rolea"));
+		$this->assertTrue($user->isInRole("roleb"));
+		$this->assertFalse($user->isInRole("ridiculous"));
+	}
 
 	/**
-	 * The ANONYMOUS user is used to represent an unidentified user. Since there is
-	 * always a real user, the ANONYMOUS user is better than using null to represent
-	 * this.
+	 * Test of setScreenName method, of class org.owasp.esapi.$user->
+	 * 
+	 * @#throws AuthenticationException
+	 *             the authentication exception
 	 */
-    public $ANONYMOUS=null;	
+	public function testSetScreenName() #throws AuthenticationException {
+	{
+        $user=$this->getUser();
+        $screenName=$this->randomString();
+        $user->setScreenName($screenName);
+		$this->assertTrue($screenName==$user->getScreenName());
+		$this->assertFalse("ridiculous"==$user->getScreenName());
+	}
+
+	/**
+	 * Test of unlockAccount method, of class org.owasp.esapi.$user->
+	 * 
+	 * @#throws AuthenticationException
+	 *             the authentication exception
+	 */
+	public function testUnlock() #throws AuthenticationException {
+	{
+        $user=$this->getUser();
+	    $user->lock();
+		$this->assertTrue($user->isLocked());
+		$user->unlock();
+		$this->assertFalse($user->isLocked());
+	}
 }
 ?>
