@@ -446,5 +446,12 @@ class SecurityConfigurationTest extends UnitTestCase
 		$config = ESAPI::getSecurityConfiguration();
 		$this->assertEqual($config->getValidationPattern("SafeString"), '^[\\p{L}\\p{N}.]{0,1024}$');
 	}
+		
+	function testWorkingDirectory()
+	{
+		$config = ESAPI::getSecurityConfiguration();
+		$this->assertEqual($config->getWorkingDirectory(), 'C:\\\\Windows\\\\Temp');
+	}
+	
 }
 ?>
