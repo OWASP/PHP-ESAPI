@@ -637,5 +637,16 @@ class DefaultSecurityConfiguration implements SecurityConfiguration
 		return $this->getESAPIValidationExpression($type);;
 	}
 	
+    /**
+     * getWorkingDirectory returns the default directory where processes will be executed
+     * by the Executor.
+     */
+	function getWorkingDirectory() {
+		$dir = $this->getESAPIStringProperty("ExecutorWindows/WorkingDirectory", "");
+		if ( $dir ) {
+			return $dir;
+		}
+		return null;
+	}
 }
 ?>
