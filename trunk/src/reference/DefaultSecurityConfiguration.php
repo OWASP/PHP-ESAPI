@@ -39,6 +39,7 @@ class DefaultSecurityConfiguration implements SecurityConfiguration
 	// Executor
 	
 	private $AllowedExecutables = null;
+	private $WorkingDirectory = null;
 	
 	// Encryptor
 	
@@ -645,19 +646,17 @@ class DefaultSecurityConfiguration implements SecurityConfiguration
      */
 	function getWorkingDirectory() {
 		
-		$path = ( substr(PHP_OS, 0, 3) == 'WIN' ) ? 'ExecutorWindows/WorkingDirectory' : 'ExecutorUnix/WorkingDirectory';
-		
-		$dir = $this->getESAPIStringProperty($path, '');
-		if ( $dir ) {
-			return $dir;
+		if ( $this->WorkingDirectory === null )	{
+			$path = ( substr(PHP_OS, 0, 3) == 'WIN' ) ? 'ExecutorWindows/WorkingDirectory' : 'ExecutorUnix/WorkingDirectory';
+			$this->WorkingDirectory = $this->getESAPIStringProperty($path, '');
 		}
-		return null;
+
+		return $this->WorkingDirectory;
 	}
 	
 	function getAllowedExecutables() {
-		$path = ( substr(PHP_OS, 0, 3) == 'WIN' ) ? 'ExecutorWindows/ApprovedExecutables/command' : 'ExecutorUnix/ApprovedExecutables/command';
-		
 		if ( $this->AllowedExecutables === null )	{
+			$path = ( substr(PHP_OS, 0, 3) == 'WIN' ) ? 'ExecutorWindows/ApprovedExecutables/command' : 'ExecutorUnix/ApprovedExecutables/command';
 			$this->AllowedExecutables = $this->getESAPIArrayProperty($path, null);
 		}
 		
