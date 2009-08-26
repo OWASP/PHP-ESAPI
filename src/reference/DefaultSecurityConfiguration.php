@@ -644,7 +644,10 @@ class DefaultSecurityConfiguration implements SecurityConfiguration
      * by the Executor.
      */
 	function getWorkingDirectory() {
-		$dir = $this->getESAPIStringProperty("ExecutorWindows/WorkingDirectory", "");
+		
+		$path = ( substr(PHP_OS, 0, 3) == 'WIN' ) ? 'ExecutorWindows/WorkingDirectory' : 'ExecutorUnix/WorkingDirectory';
+		
+		$dir = $this->getESAPIStringProperty($path, '');
 		if ( $dir ) {
 			return $dir;
 		}
@@ -652,8 +655,10 @@ class DefaultSecurityConfiguration implements SecurityConfiguration
 	}
 	
 	function getAllowedExecutables() {
+		$path = ( substr(PHP_OS, 0, 3) == 'WIN' ) ? 'ExecutorWindows/ApprovedExecutables/command' : 'ExecutorUnix/ApprovedExecutables/command';
+		
 		if ( $this->AllowedExecutables === null )	{
-			$this->AllowedExecutables = $this->getESAPIArrayProperty("ExecutorWindows/ApprovedExecutables/command", null);
+			$this->AllowedExecutables = $this->getESAPIArrayProperty($path, null);
 		}
 		
 		return $this->AllowedExecutables;
