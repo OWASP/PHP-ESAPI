@@ -453,5 +453,16 @@ class SecurityConfigurationTest extends UnitTestCase
 		$this->assertEqual($config->getWorkingDirectory(), 'C:\\\\Windows\\\\Temp');
 	}
 	
+	function testAllowedExecutables()
+	{
+		$config = ESAPI::getSecurityConfiguration();
+	
+		$exes = $config->getAllowedExecutables();
+		
+		$this->assertEqual(count($exes), 2);
+		$this->assertTrue(in_array('C:\\\\Windows\\\\System32\\\\cmd.exe', $exes));  			// 1
+		$this->assertTrue(in_array('C:\\\\Windows\\\\System32\\\\runas.exe', $exes));  			// 1
+	}
+	
 }
 ?>
