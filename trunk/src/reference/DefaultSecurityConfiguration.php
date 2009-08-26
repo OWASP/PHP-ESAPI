@@ -38,6 +38,8 @@ class DefaultSecurityConfiguration implements SecurityConfiguration
 	
 	// Executor
 	
+	private $AllowedExecutables = null;
+	
 	// Encryptor
 	
 	private $CharacterEncoding = null;
@@ -648,5 +650,14 @@ class DefaultSecurityConfiguration implements SecurityConfiguration
 		}
 		return null;
 	}
+	
+	function getAllowedExecutables() {
+		if ( $this->AllowedExecutables === null )	{
+			$this->AllowedExecutables = $this->getESAPIArrayProperty("ExecutorWindows/ApprovedExecutables/command", null);
+		}
+		
+		return $this->AllowedExecutables;
+	}
+	
 }
 ?>
