@@ -450,7 +450,14 @@ class SecurityConfigurationTest extends UnitTestCase
 	function testWorkingDirectory()
 	{
 		$config = ESAPI::getSecurityConfiguration();
-		$this->assertEqual($config->getWorkingDirectory(), 'C:\\\\Windows\\\\Temp');
+		
+		$directory = $config->getWorkingDirectory();
+		
+		if ( substr(PHP_OS, 0, 3) == 'WIN' ) {
+			$this->assertEqual($directory, 'C:\\\\Windows\\\\Temp');	
+		} else {
+			$this->assertEqual($directory, '/tmp');
+		}
 	}
 	
 	function testAllowedExecutables()
@@ -458,10 +465,15 @@ class SecurityConfigurationTest extends UnitTestCase
 		$config = ESAPI::getSecurityConfiguration();
 	
 		$exes = $config->getAllowedExecutables();
-		
 		$this->assertEqual(count($exes), 2);
-		$this->assertTrue(in_array('C:\\\\Windows\\\\System32\\\\cmd.exe', $exes));  			// 1
-		$this->assertTrue(in_array('C:\\\\Windows\\\\System32\\\\runas.exe', $exes));  			// 1
+				
+		if ( substr(PHP_OS, 0, 3) == 'WIN' ) {
+			$this->assertTrue(in_array('C:\\\\Windows\\\\System32\\\\cmd.exe', $exes));  			// 1
+			$this->assertTrue(in_array('C:\\\\Windows\\\\System32\\\\runas.exe', $exes));  			// 1	
+		} else {
+			$this->assertTrue(in_array('/bin/sh', $exes));  										// 1
+			$this->assertTrue(in_array('/usr/bin/sudo', $exes));  									// 1
+		}
 	}
 	
 }
