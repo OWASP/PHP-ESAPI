@@ -14,21 +14,64 @@
  * @author Andrew van der Stock (vanderaj @ owasp.org)
  * @created 2009
  */
+require_once dirname(__FILE__).'/../../src/ESAPI.php';
+require_once dirname(__FILE__).'/../../src/reference/DefaultExecutor.php';
+
 class ExecutorTest extends UnitTestCase 
 {
 	function setUp() 
 	{
+		global $ESAPI;
 		
+		if ( !isset($ESAPI)) 
+		{
+			$ESAPI = new ESAPI();
+		}
 	}
-	
+		
 	function tearDown()
 	{
 		
 	}
-	
-	function testFail()
-	{
-		$this->fail();
-	}
+		
+	/**
+	 * Test of executeSystemCommand method, of Executor
+	*/
+	function testExecuteWindowsSystemCommand() 
+    {   	
+        if(substr(PHP_OS, 0, 3) != 'WIN') {
+        	return; // Not windows, not going to execute this path
+        }
+        
+        try {
+	    	$instance =  new DefaultExecutor();
+	    	$params = array("/C", "dir");
+	    	$result = $instance->executeSystemCommand("%SYSTEMROOT%\\System32\\cmd.exe", $params);
+	    	echo "RESULT: $result";
+	    	$this->assertNotNull($result);
+        }
+    	catch ( Exception $e ) 
+        {
+        	$this->fail();
+        }
+        
+        //TODO: add more tests
+ 
+    	
+    }
+    
+	/**
+	 * Test of executeSystemCommand method, of Executor
+	*/
+    function testExecuteUnixSystemCommand()
+    {
+        if(substr(PHP_OS, 0, 3) == 'WIN') {
+        	return;
+        }
+        
+        //TODO: add tests
+        	
+        $this->fail();
+    }	
 }
 ?>
