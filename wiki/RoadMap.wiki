@@ -29,7 +29,7 @@ The 1.6 baseline is targeting the (at the time of writing) current stable ESAPI 
   * Test Suite - AJV responsible - 15% complete
   * User - AbiusX - 15% complete
   * Validator - Allocated to Johannes Ullrich - 50% complete
-  * Executor - Allocated to Mike B. - 0% complete
+  * Executor - Allocated to Mike B. - 50% complete
 
 == Unallocated ==
 
