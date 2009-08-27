@@ -45,7 +45,7 @@ class SecurityConfigurationTest extends UnitTestCase
 	
 	function testConfigChecksum()
 	{
-		$this->assertEqual(md5_file(dirname(__FILE__).'/../testresources/ESAPI.xml'),  '0440c7683d4631378406622d487d9a03');
+		$this->assertEqual(md5_file(dirname(__FILE__).'/../testresources/ESAPI.xml'),  '5d12a3e2ddd535e0f0451627b166561d');
 	}
 	
 	/**
@@ -454,7 +454,7 @@ class SecurityConfigurationTest extends UnitTestCase
 		$directory = $config->getWorkingDirectory();
 		
 		if ( substr(PHP_OS, 0, 3) == 'WIN' ) {
-			$this->assertEqual($directory, 'C:\\\\Windows\\\\Temp');	
+			$this->assertEqual($directory, '%SYSTEMROOT%\\Temp');	
 		} else {
 			$this->assertEqual($directory, '/tmp');
 		}
@@ -468,8 +468,8 @@ class SecurityConfigurationTest extends UnitTestCase
 		$this->assertEqual(count($exes), 2);
 				
 		if ( substr(PHP_OS, 0, 3) == 'WIN' ) {
-			$this->assertTrue(in_array('C:\\\\Windows\\\\System32\\\\cmd.exe', $exes));  			// 1
-			$this->assertTrue(in_array('C:\\\\Windows\\\\System32\\\\runas.exe', $exes));  			// 1	
+			$this->assertTrue(in_array('%SYSTEMROOT%\\System32\\cmd.exe', $exes));  			// 1
+			$this->assertTrue(in_array('%SYSTEMROOT%\\System32\\runas.exe', $exes));  			// 1	
 		} else {
 			$this->assertTrue(in_array('/bin/sh', $exes));  										// 1
 			$this->assertTrue(in_array('/usr/bin/sudo', $exes));  									// 1
