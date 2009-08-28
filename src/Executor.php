@@ -54,16 +54,11 @@ interface Executor
      *            the command to execute
      * @param params
      *            the parameters of the command being executed
-     * @param workdir
-     *            the working directory
-     * @param codec
-     *            the codec to use to encode for the particular OS in use
-     * 
      * @return the output of the command being run
      * 
      * @throws ExecutorException
      *             the service exception
      */
-    function executeSystemCommand($executable, $params, $workdir, $codec);
+    function executeSystemCommand($executable, $params);
 
 }
