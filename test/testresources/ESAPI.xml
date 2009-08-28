@@ -41,10 +41,10 @@
 	</Encoder>	
 
 	<ExecutorWindows>
-		<WorkingDirectory>C:\\Windows\\Temp</WorkingDirectory>
+		<WorkingDirectory>%SYSTEMROOT%\Temp</WorkingDirectory>
 		<ApprovedExecutables>
-			<command>C:\\Windows\\System32\\cmd.exe</command>
-			<command>C:\\Windows\\System32\\runas.exe</command>
+			<command>%SYSTEMROOT%\System32\cmd.exe</command>
+			<command>%SYSTEMROOT%\System32\runas.exe</command>
 		</ApprovedExecutables>
 	</ExecutorWindows>
 	
