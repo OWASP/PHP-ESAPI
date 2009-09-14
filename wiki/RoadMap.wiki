@@ -114,4 +114,4 @@ We need to discuss these as PHP is not a tag lib based language. I think the use
   * Rules - Unallocated - 0% complete
   * WAF core (ConfigEx, EWAFF, HttpState, UploadTooLargeException) - Unallocated - 0% complete
 
-Please ask Mike Boberski to be allocated work. Mike is acting as the Project Manager - in control of new work allocations, adding / removing team members, road map, quality bars, etc.
+Please ask Mike Boberski (mike.boberski at owasp.org) to be allocated work. Mike is acting as the Project Manager - in control of new work allocations, adding / removing team members, road map, quality bars, etc.
