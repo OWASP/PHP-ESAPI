@@ -24,17 +24,18 @@ The 1.6 baseline is targeting the (at the time of writing) current stable ESAPI 
   * Encoder & codecs - Allocated to Linden - 0% complete
   * Encryptor - Allocated to AJV - 0% complete 
   * EncryptedProperties - Allocated to AJV - 0% complete
+  * HTTPUtilities - Allocated to Laura Bell - 25% complete
   * IntrusionDetector - Allocated to Aung Khant - 0% complete
   * Logger - Allocated to Laura Bell - 90% complete
   * StringUtilities - Allocated to AJV - 95% complete (need to fix a bug and add tests)
   * Test Suite - AJV responsible - 15% complete
   * User - AbiusX - 15% complete
   * Validator - Allocated to Johannes Ullrich - 50% complete
-  * Executor - Allocated to Mike B. - 50% complete
+  * Executor - Allocated to Laura Bell - 50% complete
 
 == Unallocated ==
 
-  * HTTPUtilities - Unallocated - 25% complete
+
   * SafeFile - Unallocated - 0% complete
 
 = Baseline 2.0 =
