@@ -14,11 +14,19 @@
  * @author Andrew van der Stock (vanderaj @ owasp.org)
  * @created 2009
  */
+require_once dirname(__FILE__).'/../../src/ESAPI.php';
+require_once dirname(__FILE__).'/../../src/reference/DefaultEncoder.php';
+ 
 class EncoderTest extends UnitTestCase 
 {
 	function setUp() 
 	{
+		global $ESAPI;
 		
+		if ( !isset($ESAPI)) 
+		{
+			$ESAPI = new ESAPI(dirname(__FILE__).'/../testresources/ESAPI.xml');
+		}
 	}
 	
 	function tearDown()
@@ -284,32 +292,30 @@ $this->fail(); // DELETE ME ("doubleEncodingCanonicalization");
      * @throws Exception
      */
     function testEncodeForHTML() {
-$this->fail(); // DELETE ME ("encodeForHTML");
-//        Encoder instance = ESAPI.encoder();
-//        assertEquals(null, instance.encodeForHTML(null));
-//        // test invalid characters are replaced with spaces
-//        assertEquals("a b c d e f&#x9;g", instance.encodeForHTML("a" + (char)0 + "b" + (char)4 + "c" + (char)128 + "d" + (char)150 + "e" +(char)159 + "f" + (char)9 + "g"));
-//        
-//        assertEquals("&lt;script&gt;", instance.encodeForHTML("<script>"));
-//        assertEquals("&amp;lt&#x3b;script&amp;gt&#x3b;", instance.encodeForHTML("&lt;script&gt;"));
-//        assertEquals("&#x21;&#x40;&#x24;&#x25;&#x28;&#x29;&#x3d;&#x2b;&#x7b;&#x7d;&#x5b;&#x5d;", instance.encodeForHTML("!@$%()=+{}[]"));
-//        assertEquals("&#x21;&#x40;&#x24;&#x25;&#x28;&#x29;&#x3d;&#x2b;&#x7b;&#x7d;&#x5b;&#x5d;", instance.encodeForHTML(instance.canonicalize("&#33;&#64;&#36;&#37;&#40;&#41;&#61;&#43;&#123;&#125;&#91;&#93;") ) );
-//        assertEquals(",.-_ ", instance.encodeForHTML(",.-_ "));
-//        assertEquals("dir&amp;", instance.encodeForHTML("dir&"));
-//        assertEquals("one&amp;two", instance.encodeForHTML("one&two"));
-//        assertEquals("" + (char)12345 + (char)65533 + (char)1244, "" + (char)12345 + (char)65533 + (char)1244 );
+        $instance = ESAPI::getEncoder();
+        $this->assertEqual(null, $instance->encodeForHTML(null));
+        // test invalid characters are replaced with spaces
+        //$this->assertEqual("a b c d e f&#x9;g", $instance->encodeForHTML("a".(chr(0))."b".(chr(4))."c".(chr(128))."d".(chr(150))."e".(chr(159))."f".(chr(9))."g"));
+        	$this->assertEqual("a b c d e f&#x9;g h i j&#xa0;k&#xa1;l&#xa2;m", $instance->encodeForHTML("a".(chr(0))."b".(chr(4))."c".(chr(128))."d".(chr(150))."e".(chr(159))."f".(chr(9))."g".(chr(127))."h".(chr(129))."i".(chr(159))."j".(chr(160))."k".(chr(161))."l".(chr(162))."m"));
+        $this->assertEqual("&lt;script&gt;", $instance->encodeForHTML("<script>"));
+        $this->assertEqual("&amp;lt&#x3b;script&amp;gt&#x3b;", $instance->encodeForHTML("&lt;script&gt;"));
+        $this->assertEqual("&#x21;&#x40;&#x24;&#x25;&#x28;&#x29;&#x3d;&#x2b;&#x7b;&#x7d;&#x5b;&#x5d;", $instance->encodeForHTML("!@$%()=+{}[]"));
+//        $this->assertEqual("&#x21;&#x40;&#x24;&#x25;&#x28;&#x29;&#x3d;&#x2b;&#x7b;&#x7d;&#x5b;&#x5d;", $instance->encodeForHTML($instance->canonicalize("&#33;&#64;&#36;&#37;&#40;&#41;&#61;&#43;&#123;&#125;&#91;&#93;") ) ); //TODO: open this test up when canonicalize function is done
+        $this->assertEqual(",.-_ ", $instance->encodeForHTML(",.-_ "));
+        $this->assertEqual("dir&amp;", $instance->encodeForHTML("dir&"));
+        $this->assertEqual("one&amp;two", $instance->encodeForHTML("one&two"));
+        $this->assertEqual("".(chr(12345)).(chr(65533)).(chr(1244)), "".(chr(12345)).(chr(65533)).(chr(1244)) );
     }
     
     /**
 	 * Test of encodeForHTMLAttribute method, of class org.owasp.esapi.Encoder.
 	 */
     function testEncodeForHTMLAttribute() {
-$this->fail(); // DELETE ME ("encodeForHTMLAttribute");
-//        Encoder instance = ESAPI.encoder();
-//        assertEquals(null, instance.encodeForHTMLAttribute(null));
-//        assertEquals("&lt;script&gt;", instance.encodeForHTMLAttribute("<script>"));
-//        assertEquals(",.-_", instance.encodeForHTMLAttribute(",.-_"));
-//        assertEquals("&#x20;&#x21;&#x40;&#x24;&#x25;&#x28;&#x29;&#x3d;&#x2b;&#x7b;&#x7d;&#x5b;&#x5d;", instance.encodeForHTMLAttribute(" !@$%()=+{}[]"));
+        $instance = ESAPI::getEncoder();
+        $this->assertEqual(null, $instance->encodeForHTMLAttribute(null));
+        $this->assertEqual("&lt;script&gt;", $instance->encodeForHTMLAttribute("<script>"));
+        $this->assertEqual(",.-_", $instance->encodeForHTMLAttribute(",.-_"));
+        $this->assertEqual("&#x20;&#x21;&#x40;&#x24;&#x25;&#x28;&#x29;&#x3d;&#x2b;&#x7b;&#x7d;&#x5b;&#x5d;", $instance->encodeForHTMLAttribute(" !@$%()=+{}[]"));
     }
     
     

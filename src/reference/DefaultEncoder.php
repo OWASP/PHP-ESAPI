@@ -18,10 +18,33 @@
  */
 
 require_once dirname(__FILE__).'/../Encoder.php';
+require_once dirname(__FILE__).'/../codecs/HTMLEntityCodec.php';
 
 class DefaultEncoder implements Encoder {
-	
-		/**
+
+  private $htmlCodec = null;
+  
+  /**
+   *  Character sets that define characters (in addition to alphanumerics) that are
+   * immune from encoding in various formats
+  */
+  private $immune_html		= array( ',', '.', '-', '_', ' ' );
+  private $immune_htmlattr	= array( ',', '.', '-', '_' );
+  private $immune_css			= array();
+  private $immune_javascript	= array( ',', '.', '_' );
+  private $immune_vbscript	= array( ',', '.', '_' );
+  private $immune_xml			= array( ',', '.', '-', '_', ' ' );
+  private $immune_sql			= array( ' ' );
+  private $immune_os			= array( '-' );
+  private $immune_xmlattr		= array( ',', '.', '-', '_' );
+  private $immune_xpath		= array( ',', '.', '-', '_', ' ' );
+  
+  function __construct()
+  {
+  	$this->htmlCodec = new HTMLEntityCodec();
+  }
+
+	/**
 	 * This method performs canonicalization on data received to ensure that it
 	 * has been reduced to its most basic form before validation. For example,
 	 * URL-encoded data received from ordinary "application/x-www-url-encoded"
@@ -127,7 +150,11 @@ class DefaultEncoder implements Encoder {
 	 */
 	function encodeForHTML($input)
 	{
-		throw new EnterpriseSecurityException("Method Not implemented");	
+		if( $input === null )
+		{
+			return null;
+		}
+		return $this->htmlCodec->encode( $this->immune_html, $input);
 	}
 
 	/**
@@ -140,7 +167,11 @@ class DefaultEncoder implements Encoder {
 	 */
 	function encodeForHTMLAttribute($input)
 	{
-		throw new EnterpriseSecurityException("Method Not implemented");	
+    if( $input === null )
+		{
+			return null;
+		}
+		return $this->htmlCodec->encode( $this->immune_htmlattr, $input);
 	}
 
 	/**
