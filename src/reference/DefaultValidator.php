@@ -22,7 +22,7 @@ require_once dirname ( __FILE__ ) . '/../Validator.php';
 require_once dirname ( __FILE__ ) . '/../ValidationRule.php';
 require_once dirname ( __FILE__ ) . '/validation/StringValidationRule.php';
 require_once dirname ( __FILE__ ) . '/validation/CreditCardValidationRule.php';
-require_once dirname ( __FILE__ ) . '/validation/HTMLValidationRule.php';
+//require_once dirname ( __FILE__ ) . '/validation/HTMLValidationRule.php';
 
 class DefaultValidator implements Validator {
 	
@@ -198,6 +198,9 @@ class DefaultValidator implements Validator {
 	 * @throws IntrusionException
 	 */
 	function getValidSafeHTML($context, $input, $maxLength, $allowNull,$error=null) {
+	 throw new EnterpriseSecurityException ( "Method Not implemented" );
+	 //FIXME: HTMLValidationRule.php needs to be committed
+	 /*
 		try {
 		      $hvr=new HTMLValidationRule("safehtml",$this->encoder);
 		      $hvr->setMaximumLength($maxLength);
@@ -208,6 +211,7 @@ class DefaultValidator implements Validator {
 			$errors->addError($context,$e);
 		}
 		return $input;
+		*/
 	}
 	
 	/**
