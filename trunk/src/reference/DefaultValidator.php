@@ -198,7 +198,6 @@ class DefaultValidator implements Validator {
 	 * @throws IntrusionException
 	 */
 	function getValidSafeHTML($context, $input, $maxLength, $allowNull,$error=null) {
-	 throw new EnterpriseSecurityException ( "Method Not implemented" );
 		try {
 		      $hvr=new HTMLValidationRule("safehtml",$this->encoder);
 		      $hvr->setMaximumLength($maxLength);
