@@ -103,18 +103,17 @@ function testIsValidCreditCard() {
      * @throws Exception
      */
 	function testGetValidSafeHTML() {
-		$this->fail(); // DELETE ME ("getValidSafeHTML");
 		$val = ESAPI::getValidator();
 		$test1 = "<b>Jeff</b>";
-		$result1 = $val->getValidSafeHTML("test", test1, 100, false);
-		$this->assertEquals(test1, result1);
+		$result1 = $val->getValidSafeHTML("test", $test1, 100, false);
+		$this->assertEqual($test1, $result1);
 		$test2 = "<a href=\"http://www.aspectsecurity.com\">Aspect Security</a>";
-		$result2 = $val->getValidSafeHTML("test", test2, 100, false);
-		$this->assertEquals(test2, result2);
+		$result2 = $val->getValidSafeHTML("test", $test2, 100, false);
+		$this->assertEqual($test2, $result2);
 		
 		$test3 = "Test. <script>alert(document.cookie)</script>";
-		$result3 = $instance->getValidSafeHTML("test", test3, 100, false);
-		$this->assertEquals("Test.", result3);
+		$result3 = $val->getValidSafeHTML("test", $test3, 100, false);
+		$this->assertEqual("Test.", $result3);
 		
 		// TODO: ENHANCE waiting for a way to validate text headed for an attribute for scripts		
 		// This would be nice to catch, but just looks like text to AntiSamy
