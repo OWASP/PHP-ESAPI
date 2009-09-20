@@ -74,7 +74,6 @@ abstract class BaseValidationRule implements ValidationRule {
 	public function getSafe($context, $input) {
 		try {
 			return $this->getValid ( $context, $input );
-		
 		} catch ( ValidationException $e ) {
 			return $this->sanitize ( $context, $input );
 		}

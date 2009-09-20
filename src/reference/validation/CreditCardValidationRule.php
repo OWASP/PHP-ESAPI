@@ -37,7 +37,7 @@ class CreditCardValidationRule extends BaseValidationRule {
 	
 	public function getValid($context,$input,$errorlist=null ) {
 		if ( strlen($input)==0 ) {
-			if ( allowNull ) return null;
+			if ( $this->allowNull ) return null;
 			throw new ValidationException($context.": Input credit card required","Input credit card required: context=".$context.", input="+$input,$context);
 		}
 		$canonical=$this->ccrule->getValid($context,$input);

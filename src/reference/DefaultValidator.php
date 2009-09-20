@@ -22,7 +22,7 @@ require_once dirname ( __FILE__ ) . '/../Validator.php';
 require_once dirname ( __FILE__ ) . '/../ValidationRule.php';
 require_once dirname ( __FILE__ ) . '/validation/StringValidationRule.php';
 require_once dirname ( __FILE__ ) . '/validation/CreditCardValidationRule.php';
-//require_once dirname ( __FILE__ ) . '/validation/HTMLValidationRule.php';
+require_once dirname ( __FILE__ ) . '/validation/HTMLValidationRule.php';
 
 class DefaultValidator implements Validator {
 	
@@ -323,9 +323,15 @@ class DefaultValidator implements Validator {
 	 * @throws IntrusionException
 	 */
 	function isValidFileName($context, $input, $allowNull) {
-		throw new EnterpriseSecurityException ( "Method Not implemented" );
+	try {
+		$this->getValidFileName( $context, $input, $allowNull );
+			return true;
+		} catch ( Exception $e ) {
+			return false;
+		}
 	}
 	
+
 	/**
 	 * Returns a canonicalized and validated file name as a String. Implementors should check for allowed file extensions here, as well as allowed file name characters, as declared in "ESAPI.properties".  Invalid input
 	 * will generate a descriptive ValidationException, and input that is clearly an attack
@@ -368,9 +374,15 @@ class DefaultValidator implements Validator {
 	 * @throws IntrusionException
 	 */
 	function isValidNumber($context, $input, $minValue, $maxValue, $allowNull) {
-		throw new EnterpriseSecurityException ( "Method Not implemented" );
+	try {
+			$this->getValidNumber ( $context, $input, $minValue, $maxValue, $allowNull );
+			return true;
+		} catch ( Exception $e ) {
+			return false;
+		}
 	}
 	
+
 	/**
 	 * Returns a validated number as a double within the range of minValue to maxValue. Invalid input
 	 * will generate a descriptive ValidationException, and input that is clearly an attack
@@ -394,10 +406,13 @@ class DefaultValidator implements Validator {
 	 * 
 	 * @throws IntrusionException
 	 */
-	function getValidNumber($context, $input, $minValue, $maxValue, $allowNull, $errorList) {
-		throw new EnterpriseSecurityException ( "Method Not implemented" );
+	function getValidNumber($context, $input, $minValue, $maxValue, $allowNull, $errorList=null) {
+		$ccvr=new CreditCardValidationRule('CreditCard',$this->encoder);
+		$ccvr->setAllowNull($allowNull);
+		return $ccvr->getValid($context,$input);
 	}
 	
+
 	/**
 	 * Returns true if input is a valid integer within the range of minValue to maxValue.
 	 * 
@@ -417,7 +432,12 @@ class DefaultValidator implements Validator {
 	 * @throws IntrusionException
 	 */
 	function isValidInteger($context, $input, $minValue, $maxValue, $allowNull) {
-		throw new EnterpriseSecurityException ( "Method Not implemented" );
+	try {
+			$this->getValidInteger ( $context, $input, $minValue, $maxValue, $allowNull );
+			return true;
+		} catch ( Exception $e ) {
+			return false;
+		}
 	}
 	
 	/**
@@ -467,9 +487,15 @@ class DefaultValidator implements Validator {
 	 * 
 	 */
 	function isValidDouble($context, $input, $minValue, $maxValue, $allowNull) {
-		throw new EnterpriseSecurityException ( "Method Not implemented" );
+	try {
+			$this->getValidDouble ( $context, $input, $minValue, $maxValue, $allowNull );
+			return true;
+		} catch ( Exception $e ) {
+			return false;
+		}
 	}
 	
+
 	/**
 	 * Returns a validated real number as a double. Invalid input
 	 * will generate a descriptive ValidationException, and input that is clearly an attack
@@ -563,9 +589,15 @@ class DefaultValidator implements Validator {
 	 * @throws IntrusionException
 	 */
 	function isValidFileUpload($context, $filepath, $filename, $content, $maxBytes, $allowNull) {
-		throw new EnterpriseSecurityException ( "Method Not implemented" );
+	try {
+			$this->getValidFileUpload ( $context, $filepath, $filename, $content, $maxBytes, $allowNull );
+			return true;
+		} catch ( Exception $e ) {
+			return false;
+		}
 	}
 	
+
 	/**
 	 * Validates the filepath, filename, and content of a file. Invalid input
 	 * will generate a descriptive ValidationException, and input that is clearly an attack
@@ -602,9 +634,15 @@ class DefaultValidator implements Validator {
 	 * @throws IntrusionException
 	 */
 	function isValidHTTPRequest() {
-		throw new EnterpriseSecurityException ( "Method Not implemented" );
+	try {
+			$this->getValidHTTPRequest ();
+			return true;
+		} catch ( Exception $e ) {
+			return false;
+		}
 	}
 	
+
 	/**
 	 * Validates the current HTTP request by comparing parameters, headers, and cookies to a predefined whitelist of allowed
 	 * characters. Invalid input will generate a descriptive ValidationException, and input that is clearly an attack
@@ -632,7 +670,12 @@ class DefaultValidator implements Validator {
 	 * @throws IntrusionException
 	 */
 	function isValidListItem($context, $input, $list) {
-		throw new EnterpriseSecurityException ( "Method Not implemented" );
+	try {
+			$this->getValidListItem ( $context, $input, $list );
+			return true;
+		} catch ( Exception $e ) {
+			return false;
+		}
 	}
 	
 	/**
@@ -673,9 +716,15 @@ class DefaultValidator implements Validator {
 	 * @throws IntrusionException
 	 */
 	function isValidHTTPRequestParameterSet($context, $required, $optional) {
-		throw new EnterpriseSecurityException ( "Method Not implemented" );
+	try {
+			$this->getValidHTTPRequestParameterSet( $context, $required, $optional );
+			return true;
+		} catch ( Exception $e ) {
+			return false;
+		}
 	}
 	
+
 	/**
 	 * Validates that the parameters in the current request contain all required parameters and only optional ones in
 	 * addition. Invalid input will generate a descriptive ValidationException, and input that is clearly an attack
@@ -714,9 +763,15 @@ class DefaultValidator implements Validator {
 	 * @throws IntrusionException
 	 */
 	function isValidPrintable($context, $input, $maxLength, $allowNull) {
-		throw new EnterpriseSecurityException ( "Method Not implemented" );
+	try {
+			$this->getValidPrintable ( $context, $input, $maxLength, $allowNull );
+			return true;
+		} catch ( Exception $e ) {
+			return false;
+		}
 	}
 	
+
 	/**
 	 * Returns canonicalized and validated printable characters as a byte array. Invalid input will generate a descriptive ValidationException, and input that is clearly an attack
 	 * will generate a descriptive IntrusionException. Instead of throwing a ValidationException on error, 
@@ -756,7 +811,12 @@ class DefaultValidator implements Validator {
 	 * @throws IntrusionException
 	 */
 	function isValidRedirectLocation($context, $input, $allowNull) {
-		throw new EnterpriseSecurityException ( "Method Not implemented" );
+	try {
+			$this->getValidRedirectLocation ( $context, $input, $allowNull );
+			return true;
+		} catch ( Exception $e ) {
+			return false;
+		}
 	}
 	
 	/**
