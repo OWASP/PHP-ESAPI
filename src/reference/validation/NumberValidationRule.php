@@ -38,9 +38,7 @@ public class NumberValidationRule extends BaseValidationRule {
             if ( strlen($input)==0 ) {
                         if ($this->allowNull) return null;
                         throw new ValidationException( $context.": Input number required", 
-                        	"Input number required: context=".$context.", input=".$input
-                        
-, $context );
+                        	"Input number required: context=".$context.", input=".$input, $context );
             }
             
             // canonicalize
@@ -54,8 +52,7 @@ public class NumberValidationRule extends BaseValidationRule {
 
                 if ($this->minValue > $this->maxValue) {
                         throw new ValidationException( $context.": Invalid number input: context", 
-                        "Validation parameter error for number: maxValue ( ".
-                        $maxValue.") must be greater than minValue ( ".$minValue + ") for " + $context, $context );
+			                        "Validation parameter error for number: maxValue ( ".$maxValue.") must be greater than minValue ( ".$minValue.") for ".$context, $context );
                 }
                 
                 // validate min and max
@@ -66,15 +63,14 @@ public class NumberValidationRule extends BaseValidationRule {
                 		
                 	}
                 	if ( is_infinite($d) ) {
-                		throw new ValidationException( "Invalid number input: context=" + context, 
+                		throw new ValidationException( "Invalid number input: context=".$context, 
                 		"Invalid double input is infinite: context=".$context.", input=".$input, $context );
-                        if (is_nan($d)) throw new ValidationException( "Invalid number input: context=".$context, 
-                        "Invalid double input is not a number: context=".$context.", input=".$input,$context );
-                        if ($d < $this->minValue) throw new ValidationException( "Invalid number input must be between " + minValue + " and " + maxVal
-ue + ": context=" + context, "Invalid number input must be between " + minValue + " and " + maxValue + ": context=" + context + ", input=" + input, context 
-);
-                        if ($d > $this->maxValue) throw new ValidationException( "Invalid number input must be between " + minValue + " and " + maxVal
-ue + ": context=" + context, "Invalid number input must be between " + minValue + " and " + maxValue + ": context=" + context + ", input=" + input, context 
+                        if (is_nan($d)) 
+			   throw new ValidationException( "Invalid number input: context=".$context, 
+                           	 "Invalid double input is not a number: context=".$context.", input=".$input,$context );
+                        if ($d < $this->minValue) 
+			   throw new ValidationException( "Invalid number input must be between ".$minValue." and ".$maxValue.": context=".$context, "Invalid number input must be between ".$minValue." and ".$maxValue.": context=".$context.", input=".$input, $context );
+                        if ($d > $this->maxValue) throw new ValidationException( "Invalid number input must be between ".$minValue." and ".$maxValue.": context=".$context, "Invalid number input must be between ".$minValue." and ".$maxValue.": context=".$context.", input=".$input, $context 
 );                      
                         return $d;
         } catch (NumberFormatException $e) {
