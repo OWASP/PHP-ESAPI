@@ -40,7 +40,7 @@ $test->addTestFile(dirname(__FILE__).'/reference/AccessReferenceMapTest.php');		
 $test->addTestFile(dirname(__FILE__).'/reference/IntegerAccessReferenceMapTest.php');	// AJV
 $test->addTestFile(dirname(__FILE__).'/reference/SecurityConfigurationTest.php');		// AJV
 $test->addTestFile(dirname(__FILE__).'/reference/RandomizerTest.php');					// AJV
-$test->run(new HtmlReporter());
+$test->run(new HTMLReporter());
 
 		$test = new GroupTest('Allocated');
 $test->addTestFile(dirname(__FILE__).'/reference/AccessControllerTest.php');	// Abius X
@@ -56,7 +56,7 @@ $test->addTestFile(dirname(__FILE__).'/reference/EncryptedPropertiesTest.php'); 
 $test->addTestFile(dirname(__FILE__).'/reference/StringUtilitiesTest.php');		// AJV
 $test->addTestFile(dirname(__FILE__).'/reference/LoggerTest.php'); //Laura
 
-$test->run(new HtmlReporter());
+$test->run(new HTMLReporter());
 
 $test = new GroupTest('Unallocated');
 
@@ -64,5 +64,5 @@ $test->addTestFile(dirname(__FILE__).'/reference/ExecutorTest.php');
 $test->addTestFile(dirname(__FILE__).'/reference/HTTPUtilitiesTest.php');
 $test->addTestFile(dirname(__FILE__).'/reference/IntrusionDetectorTest.php');
 $test->addTestFile(dirname(__FILE__).'/reference/SafeFileTest.php');
-$test->run(new HtmlReporter());
+$test->run(new HTMLReporter());
 ?>

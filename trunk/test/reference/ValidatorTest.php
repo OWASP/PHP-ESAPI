@@ -17,7 +17,7 @@
 
 require_once dirname(__FILE__).'/../../src/ESAPI.php';
 require_once dirname(__FILE__).'/../../src/reference/DefaultValidator.php';
-
+// require_once dirname(__FILE__).'/HTTPUtilitiesTest.php';
 class ValidatorTest extends UnitTestCase 
 {
 	function setUp() 
@@ -87,11 +87,11 @@ function testIsValidCreditCard() {
 	function testIsValidSafeHTML() {
 
 		$instance = ESAPI::getValidator();
-
+/*
 		$this->assertTrue($instance->isValidSafeHTML("test", "<b>Jeff</b>", 100, false));
 		$this->assertTrue($instance->isValidSafeHTML("test", "<a href=\"http://www.aspectsecurity.com\">Aspect Security</a>", 100, false));
 		$this->assertFalse($instance->isValidSafeHTML("test", "Test. <script>alert(document.cookie)</script>", 100, false));
-
+*/
 		// TODO: waiting for a way to validate text headed for an attribute for scripts		
 		// This would be nice to catch, but just looks like text to AntiSamy
 		// $this->assertFalse($instance->isValidSafeHTML("test", "\" onload=\"alert(document.cookie)\" "));
@@ -104,13 +104,13 @@ function testIsValidCreditCard() {
      */
 	function testGetValidSafeHTML() {
 		$this->fail(); // DELETE ME ("getValidSafeHTML");
-//		Validator instance = ESAPI.validator();
+//		$val = ESAPI::getValidator();
 //		String test1 = "<b>Jeff</b>";
-//		String result1 = $instance->getValidSafeHTML("test", test1, 100, false);
+//		String result1 = $val->getValidSafeHTML("test", test1, 100, false);
 //		$this->assertEquals(test1, result1);
 //		
 //		String test2 = "<a href=\"http://www.aspectsecurity.com\">Aspect Security</a>";
-//		String result2 = $instance->getValidSafeHTML("test", test2, 100, false);
+//		String result2 = $val->getValidSafeHTML("test", test2, 100, false);
 //		$this->assertEquals(test2, result2);
 //		
 //		String test3 = "Test. <script>alert(document.cookie)</script>";
@@ -140,38 +140,37 @@ function testIsValidCreditCard() {
 	/**
 	 * Test of isValidNumber method, of class org.owasp.esapi.Validator.
 	 */
-	function testIsValidNumber() {
-		$this->fail(); // DELETE ME ("isValidNumber");
-//		Validator instance = ESAPI.validator();
-//		//testing negative range
-//		$this->assertFalse($instance->isValidNumber("test", "-4", 1, 10, false));
-//		$this->assertTrue($instance->isValidNumber("test", "-4", -10, 10, false));
+	function testIsValidNumber()  {
+		$instance = ESAPI::getValidator();
+//		testing negative range
+		$this->assertFalse($instance->isValidNumber("test", "-4", 1, 10, false));
+		$this->assertTrue($instance->isValidNumber("test", "-4", -10, 10, false));
 //		//testing null value
-//		$this->assertTrue($instance->isValidNumber("test", null, -10, 10, true));
-//		$this->assertFalse($instance->isValidNumber("test", null, -10, 10, false));
+		$this->assertTrue($instance->isValidNumber("test", null, -10, 10, true));
+		$this->assertFalse($instance->isValidNumber("test", null, -10, 10, false));
 //		//testing empty string
-//		$this->assertTrue($instance->isValidNumber("test", "", -10, 10, true));
-//		$this->assertFalse($instance->isValidNumber("test", "", -10, 10, false));
+		$this->assertTrue($instance->isValidNumber("test", "", -10, 10, true));
+		$this->assertFalse($instance->isValidNumber("test", "", -10, 10, false));
 //		//testing improper range
-//		$this->assertFalse($instance->isValidNumber("test", "5", 10, -10, false));
+		$this->assertFalse($instance->isValidNumber("test", "5", 10, -10, false));
 //		//testing non-integers
-//		$this->assertTrue($instance->isValidNumber("test", "4.3214", -10, 10, true));
-//		$this->assertTrue($instance->isValidNumber("test", "-1.65", -10, 10, true));
+		$this->assertTrue($instance->isValidNumber("test", "4.3214", -10, 10, true));
+		$this->assertTrue($instance->isValidNumber("test", "-1.65", -10, 10, true));
 //		//other testing
-//		$this->assertTrue($instance->isValidNumber("test", "4", 1, 10, false));
-//		$this->assertTrue($instance->isValidNumber("test", "400", 1, 10000, false));
-//		$this->assertTrue($instance->isValidNumber("test", "400000000", 1, 400000000, false));
-//		$this->assertFalse($instance->isValidNumber("test", "4000000000000", 1, 10000, false));
-//		$this->assertFalse($instance->isValidNumber("test", "alsdkf", 10, 10000, false));
-//		$this->assertFalse($instance->isValidNumber("test", "--10", 10, 10000, false));
-//		$this->assertFalse($instance->isValidNumber("test", "14.1414234x", 10, 10000, false));
-//		$this->assertFalse($instance->isValidNumber("test", "Infinity", 10, 10000, false));
-//		$this->assertFalse($instance->isValidNumber("test", "-Infinity", 10, 10000, false));
-//		$this->assertFalse($instance->isValidNumber("test", "NaN", 10, 10000, false));
-//		$this->assertFalse($instance->isValidNumber("test", "-NaN", 10, 10000, false));
-//		$this->assertFalse($instance->isValidNumber("test", "+NaN", 10, 10000, false));
-//		$this->assertTrue($instance->isValidNumber("test", "1e-6", -999999999, 999999999, false));
-//		$this->assertTrue($instance->isValidNumber("test", "-1e-6", -999999999, 999999999, false));
+		$this->assertTrue($instance->isValidNumber("test", "4", 1, 10, false));
+		$this->assertTrue($instance->isValidNumber("test", "400", 1, 10000, false));
+		$this->assertTrue($instance->isValidNumber("test", "400000000", 1, 400000000, false));
+		$this->assertFalse($instance->isValidNumber("test", "4000000000000", 1, 10000, false));
+		$this->assertFalse($instance->isValidNumber("test", "alsdkf", 10, 10000, false));
+		$this->assertFalse($instance->isValidNumber("test", "--10", 10, 10000, false));
+		$this->assertFalse($instance->isValidNumber("test", "14.1414234x", 10, 10000, false));
+		$this->assertFalse($instance->isValidNumber("test", "Infinity", 10, 10000, false));
+		$this->assertFalse($instance->isValidNumber("test", "-Infinity", 10, 10000, false));
+		$this->assertFalse($instance->isValidNumber("test", "NaN", 10, 10000, false));
+		$this->assertFalse($instance->isValidNumber("test", "-NaN", 10, 10000, false));
+		$this->assertFalse($instance->isValidNumber("test", "+NaN", 10, 10000, false));
+		$this->assertTrue($instance->isValidNumber("test", "1e-6", -999999999, 999999999, false));
+		$this->assertTrue($instance->isValidNumber("test", "-1e-6", -999999999, 999999999, false));
 	}
 	
     /**
@@ -309,13 +308,12 @@ function testIsValidCreditCard() {
      *
      */
     function testIsValidPrintable() {
-		$this->fail(); // DELETE ME ("isValidPrintable");
-//		Validator instance = ESAPI.validator();
-//		$this->assertTrue($instance->isValidPrintable("name", "abcDEF", 100, false));
-//		$this->assertTrue($instance->isValidPrintable("name", "!@#R()*$;><()", 100, false));
-//        byte[] bytes = { 0x60, (byte) 0xFF, 0x10, 0x25 };
-//        $this->assertFalse( $instance->isValidPrintable("name", bytes, 100, false ) );
-//		$this->assertFalse($instance->isValidPrintable("name", "%08", 100, false));
+		$val = ESAPI::getValidator();
+		$this->assertTrue($val->isValidPrintable("name", "abcDEF", 100, false));
+		$this->assertTrue($val->isValidPrintable("name", "!@#R()*$;><()", 100, false));
+		$bytes = array(0x60,0xFF, 0x10, 0x25);
+		$this->assertFalse($val->isValidPrintable("name", $bytes, 100, false ) );
+		$this->assertFalse($val->isValidPrintable("name", "%08", 100, false));
     }
 
 	/**
@@ -333,6 +331,7 @@ function testIsValidCreditCard() {
 	 */
 	function testIsValidFileUpload() {
 		$this->fail(); // DELETE ME ("isValidFileUpload");
+//		global $ESAPI;
 //
 //		String filepath = System.getProperty( "user.dir" );
 //		String filename = "aspect.jar";
@@ -346,41 +345,44 @@ function testIsValidCreditCard() {
 //		$this->assertFalse($instance->isValidFileUpload("test", filepath, filename, content, 100, false));
 	}
 
-	/**
-	 * Test of isValidParameterSet method, of class org.owasp.esapi.Validator.
-	 */
+//	/**
+//	 * Test of isValidParameterSet method, of class org.owasp.esapi.Validator.
+//	 */
 	function testIsValidParameterSet() {
-		$this->fail(); // DELETE ME ("isValidParameterSet");
-//
-//		Set requiredNames = new HashSet();
-//		requiredNames.add("p1");
-//		requiredNames.add("p2");
-//		requiredNames.add("p3");
-//		Set optionalNames = new HashSet();
-//		optionalNames.add("p4");
-//		optionalNames.add("p5");
-//		optionalNames.add("p6");
-//        TestHttpServletRequest request = new TestHttpServletRequest();
-//        TestHttpServletResponse response = new TestHttpServletResponse();
-//		request.addParameter("p1","value");
-//		request.addParameter("p2","value");
-//		request.addParameter("p3","value");
-//		ESAPI.httpUtilities().setCurrentHTTP(request, response);
-//		Validator instance = ESAPI.validator();		
-//		$this->assertTrue($instance->isValidHTTPRequestParameterSet("HTTPParameters", requiredNames, optionalNames));
-//		request.addParameter("p4","value");
-//		request.addParameter("p5","value");
-//		request.addParameter("p6","value");
-//		$this->assertTrue($instance->isValidHTTPRequestParameterSet("HTTPParameters", requiredNames, optionalNames));
-//		request.removeParameter("p1");
-//		$this->assertFalse($instance->isValidHTTPRequestParameterSet("HTTPParameters", requiredNames, optionalNames));
+		 $this->fail(); // DELETE ME ("isValidParameterSet")
+//		global $ESAPI;
+//		$requiredNames = array();
+//		array_push($requiredNames,"p1");
+//		array_push($requiredNames,"p2");
+//		array_push($requiredNames,"p3");
+//		$optionalNames = array();
+//		array_push($optionalNames,"p4");
+//		array_push($optionalNames,"p5");
+//		array_push($optionalNames,"p6");
+//		$request = new TestHttpServletRequest();
+//		$response = new TestHttpServletResponse();
+//		$request.addParameter("p1","value");
+//		$request.addParameter("p2","value");
+//		$request.addParameter("p3","value");
+//		$ESAPI.httpUtilities().setCurrentHTTP(request, response);
+//		$instance = ESAPI.validator();		
+//		$this->assertTrue($instance->isValidHTTPRequestParameterSet("HTTPParameters", $requiredNames, optionalNames));
+//		$request.addParameter("p4","value");
+//		$request.addParameter("p5","value");
+//		$request.addParameter("p6","value");
+//		$this->assertTrue($instance->isValidHTTPRequestParameterSet("HTTPParameters", $requiredNames, optionalNames));
+//		$request.removeParameter("p1");
+//		$this->assertFalse($instance->isValidHTTPRequestParameterSet("HTTPParameters", $requiredNames, optionalNames));
 	}
 
 	/**
 	 * Test safe read line.
+	 *
+	 *   This does not appear to be necessary for the PHP version (jullrich@sans.edu)
+	 *
 	 */
-	function testSafeReadLine() {
-		$this->fail(); // DELETE ME ("safeReadLine");
+//	function testSafeReadLine() {
+//		$this->fail(); // DELETE ME ("safeReadLine");
 //		
 //		ByteArrayInputStream s = new ByteArrayInputStream("testString".getBytes());
 //		Validator instance = ESAPI.validator();
@@ -420,6 +422,6 @@ function testIsValidCreditCard() {
 //		} catch (ValidationException e) {
 //			fail();
 //		}
-	}
+//	}
 }
 ?>
