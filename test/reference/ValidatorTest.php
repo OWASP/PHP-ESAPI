@@ -211,6 +211,8 @@ function testIsValidCreditCard() {
      * @throws Exception
      */
 	function testGetValidDate() {
+		$this->fail(); // DELETE ME ("isValidFileName");
+		return;
 		$instance = ESAPI::getValidator();
 		$this->assertTrue($instance->getValidDate("test", "June 23, 1967", DateFormat.getDateInstance(DateFormat.MEDIUM, Locale.US), false ) != null);
 		try {
