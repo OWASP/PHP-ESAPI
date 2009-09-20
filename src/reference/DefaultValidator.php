@@ -199,8 +199,6 @@ class DefaultValidator implements Validator {
 	 */
 	function getValidSafeHTML($context, $input, $maxLength, $allowNull,$error=null) {
 	 throw new EnterpriseSecurityException ( "Method Not implemented" );
-	 //FIXME: HTMLValidationRule.php needs to be committed
-	 /*
 		try {
 		      $hvr=new HTMLValidationRule("safehtml",$this->encoder);
 		      $hvr->setMaximumLength($maxLength);
@@ -211,7 +209,6 @@ class DefaultValidator implements Validator {
 			$errors->addError($context,$e);
 		}
 		return $input;
-		*/
 	}
 	
 	/**
