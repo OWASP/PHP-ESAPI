@@ -111,7 +111,7 @@ function testIsValidCreditCard() {
 		$result2 = $val->getValidSafeHTML("test", $test2, 100, false);
 		$this->assertEqual($test2, $result2);
 		
-		$test3 = "Test. <script>alert(document.cookie)</script>";
+		$test3 = "Test.<script>alert(document.cookie)</script>";
 		$result3 = $val->getValidSafeHTML("test", $test3, 100, false);
 		$this->assertEqual("Test.", $result3);
 		
@@ -126,13 +126,10 @@ function testIsValidCreditCard() {
 	 * Test of isValidListItem method, of class org.owasp.esapi.Validator.
 	 */
 	function testIsValidListItem() {
-		$this->fail(); // DELETE ME ("isValidListItem");
-//		Validator instance = ESAPI.validator();
-//		List list = new ArrayList();
-//		list.add("one");
-//		list.add("two");
-//		$this->assertTrue($instance->isValidListItem("test", "one", list));
-//		$this->assertFalse($instance->isValidListItem("test", "three", list));
+		$val = ESAPI::getValidator();
+		$list=array('one','two');
+		$this->assertTrue($val->isValidListItem("test", "one", $list));
+		$this->assertFalse($val->isValidListItem("test", "three", $list));
 	}
 
 	/**

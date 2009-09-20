@@ -21,9 +21,9 @@ public class IntegerValidationRule extends BaseValidationRule {
 	    }
 	    
 	    // canonicalize
-	    String canonical = null;
+	    $canonical = null;
 	    try {
-	    	canonical = encoder.canonicalize( input );
+	    	$canonical = encoder.canonicalize( $input );
 	    } catch (EncodingException e) {
 	        throw new ValidationException( context + ": Invalid number input. Encoding problem detected.", "Error canonicalizing user input", e, context);
 	    }
