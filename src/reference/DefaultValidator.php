@@ -24,6 +24,7 @@ require_once dirname ( __FILE__ ) . '/validation/StringValidationRule.php';
 require_once dirname ( __FILE__ ) . '/validation/CreditCardValidationRule.php';
 require_once dirname ( __FILE__ ) . '/validation/HTMLValidationRule.php';
 require_once dirname ( __FILE__ ) . '/validation/NumberValidationRule.php';
+require_once dirname ( __FILE__ ) . '/validation/IntegerValidationRule.php';
 
 class DefaultValidator implements Validator {
 	
@@ -404,9 +405,9 @@ class DefaultValidator implements Validator {
 	 * @throws IntrusionException
 	 */
 	function getValidNumber($context, $input, $minValue, $maxValue, $allowNull, $errorList=null) {
-		$ccvr=new NumberValidationRule('number',$this->encoder,$minValue,$maxValue);
-		$ccvr->setAllowNull($allowNull);
-		return $ccvr->getValid($context,$input);
+		$nvr=new NumberValidationRule('number',$this->encoder,$minValue,$maxValue);
+		$nvr->setAllowNull($allowNull);
+		return $nvr->getValid($context,$input);
 	}
 	
 
@@ -461,7 +462,9 @@ class DefaultValidator implements Validator {
 	 * @throws IntrusionException
 	 */
 	function getValidInteger($context, $input, $minValue, $maxValue, $allowNull, $errorList = null) {
-		throw new EnterpriseSecurityException ( "Method Not implemented" );
+		$nvr=new IntegerValidationRule('integer',$this->encoder,$minValue,$maxValue);
+		$nvr->setAllowNull($allowNull);
+		return $nvr->getValid($context,$input);
 	}
 	
 	/**

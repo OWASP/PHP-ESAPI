@@ -1,50 +1,54 @@
 <?php
-public class IntegerValidationRule extends BaseValidationRule {
+
+class IntegerValidationRule extends BaseValidationRule {
 	
 	private $minValue;
 	private $maxValue;
 	
 
 
-	public IntegerValidationRule( String typeName, Encoder encoder, int minValue=0, int maxValue=PHP_MAX_INT ) {
-		super( typeName, encoder );
+	public function IntegerValidationRule( $typeName, $encoder, $minValue=0, $maxValue=PHP_MAX_INT ) {
+		parent::BaseValidationRule( $typeName, $encoder );
 		$this->minValue = $minValue;
 		$this->maxValue = $maxValue;
 	}
 
-	public Object getValid( String context, String input ) throws ValidationException {
+	public function getValid( $context, $input,$errorlist=null )  {
 
 		// check null
-	    if ( input == null || input.length()==0 ) {
-			if (allowNull) return null;
-			throw new ValidationException( context + ": Input number required", "Input number required: context=" + context + ", input=" + input, context );
+	    if ( strlen($input)==0 ) {
+			if ($this->allowNull) return null;
+			throw new ValidationException( $context + ": Input number required", "Input number required: context=".$context.", input=".$input, $context );
 	    }
 	    
 	    // canonicalize
 	    $canonical = null;
 	    try {
-	    	$canonical = encoder.canonicalize( $input );
-	    } catch (EncodingException e) {
-	        throw new ValidationException( context + ": Invalid number input. Encoding problem detected.", "Error canonicalizing user input", e, context);
+	    	// TODO: needs to be enabled once encoder is done
+	    	// $canonical = encoder.canonicalize( $input );
+	    	$canonical=$input;
+	    } catch (EncodingException $e) {
+	        throw new ValidationException( $context.": Invalid number input. Encoding problem detected.", "Error canonicalizing user input", $e, $context);
 	    }
 
-		if (minValue > maxValue) {
-			throw new ValidationException( context + ": Invalid number input: context", "Validation parameter error for number: maxValue ( " + maxValue + ") must be greater than minValue ( " + minValue + ") for " + context, context );
+		if ($this->minValue > $this->maxValue) {
+			throw new ValidationException( $context.": Invalid number input: context", "Validation parameter error for number: maxValue ( ".$this->maxValue.") must be greater than minValue ( ".$this->minValue + ") for ".$context, $context );
 		}
 		
 		// validate min and max
 		try {
-			Integer i = new Integer(canonical);
-			if (i.intValue() < minValue) throw new ValidationException( "Invalid number input must be between " + minValue + " and " + maxValue + ": context=" + context, "Invalid number input must be between " + minValue + " and " + maxValue + ": context=" + context + ", input=" + input, context );
-			if (i.intValue() > maxValue) throw new ValidationException( "Invalid number input must be between " + minValue + " and " + maxValue + ": context=" + context, "Invalid number input must be between " + minValue + " and " + maxValue + ": context=" + context + ", input=" + input, context );
-			return i;
-		} catch (NumberFormatException e) {
-			throw new ValidationException( context + ": Invalid number input", "Invalid number input format: context=" + context + ", input=" + input, e, context);
+			$i = $canonical;
+			if ($i!=intval($i)) throw new ValidationException("Invalid integer ".$i,"Invalid integer".$i,$context);
+			if ($i < $this->minValue) throw new ValidationException( "Invalid integer input must be between ".$this->minValue." and ".$this->maxValue.": context=".$context."Invalid integer input must be between ".$this->minValue." and ".$this->maxValue.": context=".$context.", input=".$input, $context );
+			if ($i > $this->maxValue) throw new ValidationException( "Invalid integer input must be between ".$this->minValue." and ".$this->maxValue.": context=".$context."Invalid integer input must be between ".$this->minValue." and ".$this->maxValue.": context=".$context.", input=".$input, $context );
+			return $i;
+		} catch (NumberFormatException $e) {
+			throw new ValidationException( $context + ": Invalid integer input", "Invalid integer input format: context=".$context.", input=".$input, $e, $context);
 		}
 	}
 
-	public Object sanitize( String context, String input ) {
-		return Integer.valueOf( 0 );
+	public function sanitize( $context, $input ) {
+		return 0;
 	}
 	
 }

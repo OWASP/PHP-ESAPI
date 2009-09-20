@@ -42,7 +42,9 @@ class NumberValidationRule extends BaseValidationRule {
             // canonicalize
             $canonical = null;
             try {
-                $canonical = $this->encoder->canonicalize( $input );
+				// TODO: right now commented out as encoder is not yet implemented.
+            	// $canonical = $this->encoder->canonicalize( $input );
+            	$canonical=$input;
             } catch (EncodingException $e) {
                 throw new ValidationException( $context.": Invalid number input. Encoding problem detected.", 
                 "Error canonicalizing user input", $e, $context);
@@ -50,7 +52,7 @@ class NumberValidationRule extends BaseValidationRule {
 
                 if ($this->minValue > $this->maxValue) {
                         throw new ValidationException( $context.": Invalid number input: context", 
-			                        "Validation parameter error for number: maxValue ( ".$maxValue.") must be greater than minValue ( ".$minValue.") for ".$context, $context );
+			                        "Validation parameter error for number: maxValue ( ".$this->maxValue.") must be greater than minValue ( ".$this->minValue.") for ".$context, $context );
                 }
                 
                 // validate min and max
@@ -68,8 +70,8 @@ class NumberValidationRule extends BaseValidationRule {
 		      throw new ValidationException( "Invalid number input: context=".$context, 
                                                      "Invalid double input is not a number: context=".$context.", input=".$input,$context );
                         if ($d < $this->minValue) 
-			   throw new ValidationException( "Invalid number input must be between ".$minValue." and ".$maxValue.": context=".$context, "Invalid number input must be between ".$minValue." and ".$maxValue.": context=".$context.", input=".$input, $context );
-                        if ($d > $this->maxValue) throw new ValidationException( "Invalid number input must be between ".$minValue." and ".$maxValue.": context=".$context, "Invalid number input must be between ".$minValue." and ".$maxValue.": context=".$context.", input=".$input, $context 
+			   throw new ValidationException( "Invalid number input must be between ".$this->minValue." and ".$this->maxValue.": context=".$context, "Invalid number input must be between ".$this->minValue." and ".$this->maxValue.": context=".$context.", input=".$input, $context );
+                        if ($d > $this->maxValue) throw new ValidationException( "Invalid number input must be between ".$this->minValue." and ".$this->maxValue.": context=".$context, "Invalid number input must be between ".$this->minValue." and ".$this->maxValue.": context=".$context.", input=".$input, $context 
 );                      
                         return $d;
         } catch (NumberFormatException $e) {
