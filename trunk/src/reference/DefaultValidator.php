@@ -23,6 +23,7 @@ require_once dirname ( __FILE__ ) . '/../ValidationRule.php';
 require_once dirname ( __FILE__ ) . '/validation/StringValidationRule.php';
 require_once dirname ( __FILE__ ) . '/validation/CreditCardValidationRule.php';
 require_once dirname ( __FILE__ ) . '/validation/HTMLValidationRule.php';
+require_once dirname ( __FILE__ ) . '/validation/NumberValidationRule.php';
 
 class DefaultValidator implements Validator {
 	
@@ -370,7 +371,7 @@ class DefaultValidator implements Validator {
 	 * @throws IntrusionException
 	 */
 	function isValidNumber($context, $input, $minValue, $maxValue, $allowNull) {
-	try {
+		try {
 			$this->getValidNumber ( $context, $input, $minValue, $maxValue, $allowNull );
 			return true;
 		} catch ( Exception $e ) {
@@ -403,7 +404,7 @@ class DefaultValidator implements Validator {
 	 * @throws IntrusionException
 	 */
 	function getValidNumber($context, $input, $minValue, $maxValue, $allowNull, $errorList=null) {
-		$ccvr=new CreditCardValidationRule('CreditCard',$this->encoder);
+		$ccvr=new NumberValidationRule('number',$this->encoder,$minValue,$maxValue);
 		$ccvr->setAllowNull($allowNull);
 		return $ccvr->getValid($context,$input);
 	}
@@ -666,9 +667,8 @@ class DefaultValidator implements Validator {
 	 * @throws IntrusionException
 	 */
 	function isValidListItem($context, $input, $list) {
-	try {
-			$this->getValidListItem ( $context, $input, $list );
-			return true;
+		try {
+			return $this->getValidListItem ( $context, $input, $list );
 		} catch ( Exception $e ) {
 			return false;
 		}
@@ -694,7 +694,10 @@ class DefaultValidator implements Validator {
 	 * @throws IntrusionException
 	 */
 	function getValidListItem($context, $input, $list, $errorList = null) {
-		throw new EnterpriseSecurityException ( "Method Not implemented" );
+		 if ( in_array($input,$list) ) {
+		   return $input;
+		 }
+		 return false;
 	}
 	
 	/**

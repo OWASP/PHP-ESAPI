@@ -26,11 +26,11 @@ abstract class BaseValidationRule implements ValidationRule {
 	protected $encoder = null;
 	
 	protected function BaseValidationRule($typeName, $encoder) {
+		global $ESAPI;
 		if ($encoder) {
 			$this->encoder = $encoder;
 		} else {
-		    // TODO: need to figure out how to do this for PHP
-			// $this->encoder = ESAPI::encoder;
+			$this->encoder = new DefaultEncoder();
 		}
 		$this->typeName = $typeName;
 	}

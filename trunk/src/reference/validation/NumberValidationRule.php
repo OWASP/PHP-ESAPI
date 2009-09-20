@@ -17,9 +17,7 @@
  * @package org.owasp.esapi.reference
  */
 
-
-
-public class NumberValidationRule extends BaseValidationRule {
+class NumberValidationRule extends BaseValidationRule {
         
         private $minValue;
         private $maxValue;
@@ -27,24 +25,24 @@ public class NumberValidationRule extends BaseValidationRule {
         // the use of -1.#INF and 1.#INF attempts to emulate the java version. Not sure yet if it 
         // works TODO
         
-        public NumberValidationRule( $typeName, $encoder, $minValue='-1.#INF', $maxValue='1.#INF' ) {
+        public function NumberValidationRule( $typeName, $encoder, $minValue='-1.#INF', $maxValue='1.#INF' ) {
               	parent::BaseValidationRule($typeName, $encoder);
                 $this->minValue = $minValue;
                 $this->maxValue = $maxValue;
         }
-        public getValid( $context, $input ) {
+        public function getValid( $context, $input,$errorlist=null ) {
 
-                // check null
-            if ( strlen($input)==0 ) {
-                        if ($this->allowNull) return null;
-                        throw new ValidationException( $context.": Input number required", 
+	       // check null
+	       if ( strlen($input)==0 ) {
+                  if ($this->allowNull) return null;
+                     throw new ValidationException( $context.": Input number required", 
                         	"Input number required: context=".$context.", input=".$input, $context );
-            }
+               }
             
             // canonicalize
             $canonical = null;
             try {
-                $canonical = $encoder->canonicalize( $input );
+                $canonical = $this->encoder->canonicalize( $input );
             } catch (EncodingException $e) {
                 throw new ValidationException( $context.": Invalid number input. Encoding problem detected.", 
                 "Error canonicalizing user input", $e, $context);
@@ -57,17 +55,18 @@ public class NumberValidationRule extends BaseValidationRule {
                 
                 // validate min and max
                 try {
-                	$d=$canonical;
-                	if ( ! is_numeric($d)) {
-                		throw new ValidationException("Invalid number input: context=".$context,"Invalid double input is not numeric".$input, $context);
-                		
-                	}
-                	if ( is_infinite($d) ) {
-                		throw new ValidationException( "Invalid number input: context=".$context, 
-                		"Invalid double input is infinite: context=".$context.", input=".$input, $context );
-                        if (is_nan($d)) 
-			   throw new ValidationException( "Invalid number input: context=".$context, 
-                           	 "Invalid double input is not a number: context=".$context.", input=".$input,$context );
+                   $d=$canonical;
+                   if ( ! is_numeric($d)) 
+                      throw new ValidationException("Invalid number input: context=".$context,
+                                                    "Invalid double input is not numeric".$input, $context);
+
+                   if ( is_infinite($d) ) 
+                      throw new ValidationException( "Invalid number input: context=".$context, 
+                	       	                     "Invalid double input is infinite: context=".$context.", input=".$input, $context );
+
+                   if (is_nan($d)) 
+		      throw new ValidationException( "Invalid number input: context=".$context, 
+                                                     "Invalid double input is not a number: context=".$context.", input=".$input,$context );
                         if ($d < $this->minValue) 
 			   throw new ValidationException( "Invalid number input must be between ".$minValue." and ".$maxValue.": context=".$context, "Invalid number input must be between ".$minValue." and ".$maxValue.": context=".$context.", input=".$input, $context );
                         if ($d > $this->maxValue) throw new ValidationException( "Invalid number input must be between ".$minValue." and ".$maxValue.": context=".$context, "Invalid number input must be between ".$minValue." and ".$maxValue.": context=".$context.", input=".$input, $context 
@@ -79,7 +78,7 @@ public class NumberValidationRule extends BaseValidationRule {
                 }
         }
         
-        public sanitize( $context, $input ) {
+        public function sanitize( $context, $input ) {
                 return 0;
         }
 
