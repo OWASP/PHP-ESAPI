@@ -17,49 +17,40 @@
  * @package org.owasp.esapi.reference
  */
 
+// TODO : configuration of htmlpurifier
+//
+// $config->set('Core.Encoding', 'UTF-8'); // replace with your encoding
+// $config->set('HTML.Doctype', 'XHTML 1.0 Transitional'); // replace with your doctype
+//
+//
+
+
 require_once "BaseValidationRule.php";
 require_once "../lib/htmlpurifier/HTMLPurifier.includes.php";
 class HTMLValidationRule extends StringValidationRule {
 	// private static $antiSamyPolicy=null;
 	private static $logger=null;
-	
+	private static $purifier=null;	
 	public function HTMLValidationRule($typeName, $encoder=null,$whitelistPattern=null) {
 		global $ESAPI;
 		parent::BaseValidationRule($typeName, $encoder,$whitelistPattern);
 		// TODO: logging
 		// $this->$logger=$ESAPI->getLogger("HTMLValidationRule");
-		// TODO: antisamy replacement with HTML Purifier
-		// $this->antiSamyPolicy;
-		/*
-		try {
-			if ( antiSamyPolicy==null) {
-				$in=null;
-				$in=$ESAPI->securityConfiguration->getResoureStream("antisamy-esapi.xml");
-				if ( $in != null ) {
-					$this->antiSamyPolicy= new Policy(in);
-					
-				}
-				if ( $this->antiSamyPolicy==null) {
-					throw new IllegalArgumentException ("Can't find antisamy-esapi.xml");
-				}
-			}
-		} catch (Exception $e ) {
-			new ValidationException("Could not initialize AntiSamy","AntiSamy policy failure",$e);
-		
+		$this->purifier = new HTMLPurifier();
+		if ( ! $this->purifier ) {
+		   throw new ValidationException("Could not initialize HTMLPurifier","HTMLPurifier failure",$e);
 		}
-	*/	
 	}
 	public function getValid($context, $input,$errorlist=null) {
-		// TODO: use HTML Purifier instead of AntiSamy
-		// $this->invokeAntiSamy($context,$input,false);
-		return $input;
+		$clean_html = $this->purifier->purify( $input );
+		return $clean_html;
 	}
 	public function sanitize($context,$input) {
 		$safe='';
 		try {
-			$safe=$this->invokeAntiSamy($context,$input, false);
+			$safe=$this->purifier->purify($input);
 		} catch ( VaidationException $e ) {
-			// just retrn safe
+			// just retrun safe
 		}
 		return $safe;
 	}
