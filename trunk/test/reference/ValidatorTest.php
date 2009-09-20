@@ -172,37 +172,36 @@ function testIsValidCreditCard() {
      *
      */
     function testIsValidInteger() {
-		$this->fail(); // DELETE ME ("isValidInteger");
-//		Validator instance = ESAPI.validator();
-//		//testing negative range
-//		$this->assertFalse($instance->isValidInteger("test", "-4", 1, 10, false));
-//		$this->assertTrue($instance->isValidInteger("test", "-4", -10, 10, false));
-//		//testing null value
-//		$this->assertTrue($instance->isValidInteger("test", null, -10, 10, true));
-//		$this->assertFalse($instance->isValidInteger("test", null, -10, 10, false));
-//		//testing empty string
-//		$this->assertTrue($instance->isValidInteger("test", "", -10, 10, true));
-//		$this->assertFalse($instance->isValidInteger("test", "", -10, 10, false));
-//		//testing improper range
-//		$this->assertFalse($instance->isValidInteger("test", "5", 10, -10, false));
-//		//testing non-integers
-//		$this->assertFalse($instance->isValidInteger("test", "4.3214", -10, 10, true));
-//		$this->assertFalse($instance->isValidInteger("test", "-1.65", -10, 10, true));
-//		//other testing
-//		$this->assertTrue($instance->isValidInteger("test", "4", 1, 10, false));
-//		$this->assertTrue($instance->isValidInteger("test", "400", 1, 10000, false));
-//		$this->assertTrue($instance->isValidInteger("test", "400000000", 1, 400000000, false));
-//		$this->assertFalse($instance->isValidInteger("test", "4000000000000", 1, 10000, false));
-//		$this->assertFalse($instance->isValidInteger("test", "alsdkf", 10, 10000, false));
-//		$this->assertFalse($instance->isValidInteger("test", "--10", 10, 10000, false));
-//		$this->assertFalse($instance->isValidInteger("test", "14.1414234x", 10, 10000, false));
-//		$this->assertFalse($instance->isValidInteger("test", "Infinity", 10, 10000, false));
-//		$this->assertFalse($instance->isValidInteger("test", "-Infinity", 10, 10000, false));
-//		$this->assertFalse($instance->isValidInteger("test", "NaN", 10, 10000, false));
-//		$this->assertFalse($instance->isValidInteger("test", "-NaN", 10, 10000, false));
-//		$this->assertFalse($instance->isValidInteger("test", "+NaN", 10, 10000, false));
-//		$this->assertFalse($instance->isValidInteger("test", "1e-6", -999999999, 999999999, false));
-//		$this->assertFalse($instance->isValidInteger("test", "-1e-6", -999999999, 999999999, false));
+	    $instance = ESAPI::getValidator();
+	    //testing negative range
+		$this->assertFalse($instance->isValidInteger("test", "-4", 1, 10, false));
+		$this->assertTrue($instance->isValidInteger("test", "-4", -10, 10, false));
+		//testing null value
+		$this->assertTrue($instance->isValidInteger("test", null, -10, 10, true));
+		$this->assertFalse($instance->isValidInteger("test", null, -10, 10, false));
+		//testing empty string
+		$this->assertTrue($instance->isValidInteger("test", "", -10, 10, true));
+		$this->assertFalse($instance->isValidInteger("test", "", -10, 10, false));
+		//testing improper range
+		$this->assertFalse($instance->isValidInteger("test", "5", 10, -10, false));
+		//testing non-integers
+		$this->assertFalse($instance->isValidInteger("test", "4.3214", -10, 10, true));
+		$this->assertFalse($instance->isValidInteger("test", "-1.65", -10, 10, true));
+		//other testing
+		$this->assertTrue($instance->isValidInteger("test", "4", 1, 10, false));
+		$this->assertTrue($instance->isValidInteger("test", "400", 1, 10000, false));
+		$this->assertTrue($instance->isValidInteger("test", "400000000", 1, 400000000, false));
+		$this->assertFalse($instance->isValidInteger("test", "4000000000000", 1, 10000, false));
+		$this->assertFalse($instance->isValidInteger("test", "alsdkf", 10, 10000, false));
+		$this->assertFalse($instance->isValidInteger("test", "--10", 10, 10000, false));
+		$this->assertFalse($instance->isValidInteger("test", "14.1414234x", 10, 10000, false));
+		$this->assertFalse($instance->isValidInteger("test", "Infinity", 10, 10000, false));
+		$this->assertFalse($instance->isValidInteger("test", "-Infinity", 10, 10000, false));
+		$this->assertFalse($instance->isValidInteger("test", "NaN", 10, 10000, false));
+		$this->assertFalse($instance->isValidInteger("test", "-NaN", 10, 10000, false));
+		$this->assertFalse($instance->isValidInteger("test", "+NaN", 10, 10000, false));
+		$this->assertFalse($instance->isValidInteger("test", "1e-6", -999999999, 999999999, false));
+		$this->assertFalse($instance->isValidInteger("test", "-1e-6", -999999999, 999999999, false));
 
 	}
 
@@ -212,22 +211,21 @@ function testIsValidCreditCard() {
      * @throws Exception
      */
 	function testGetValidDate() {
-		$this->fail(); // DELETE ME ("getValidDate");
-//		Validator instance = ESAPI.validator();
-//		$this->assertTrue($instance->getValidDate("test", "June 23, 1967", DateFormat.getDateInstance(DateFormat.MEDIUM, Locale.US), false ) != null);
-//		try {
-//			$instance->getValidDate("test", "freakshow", DateFormat.getDateInstance(), false );
-//		} catch( ValidationException e ) {
-//			// expected
-//		}
-//		
-//		// This test case fails due to an apparent bug in SimpleDateFormat
-//		try {
-//			$instance->getValidDate( "test", "June 32, 2008", DateFormat.getDateInstance(), false );
-//			// fail();
-//		} catch( ValidationException e ) {
-//			// expected
-//		}
+		$instance = ESAPI::getValidator();
+		$this->assertTrue($instance->getValidDate("test", "June 23, 1967", DateFormat.getDateInstance(DateFormat.MEDIUM, Locale.US), false ) != null);
+		try {
+			$instance->getValidDate("test", "freakshow", DateFormat.getDateInstance(), false );
+		} catch( ValidationException $e ) {
+			// expected
+		}
+		
+		// This test case fails due to an apparent bug in SimpleDateFormat
+		try {
+			$instance->getValidDate( "test", "June 32, 2008", DateFormat.getDateInstance(), false );
+			// fail();
+		} catch( ValidationException $e ) {
+			// expected
+		}
 	}
 
 	/**
