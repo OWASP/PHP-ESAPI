@@ -323,7 +323,7 @@ interface Validator {
      * 
      * @throws IntrusionException
 	 */
-	function getValidNumber($context, $input, $minValue, $maxValue, $allowNull, $errorList);
+	function getValidNumber($context, $input, $minValue, $maxValue, $allowNull, $errorList=null);
 
 	/**
 	 * Returns true if input is a valid integer within the range of minValue to maxValue.
