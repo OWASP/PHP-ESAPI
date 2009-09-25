@@ -60,12 +60,12 @@ abstract class BaseValidationRule implements ValidationRule {
 	}
 	
 	public function assertValid($context, $input) {
-		getValid ( $context, $input );
+		return $this->getValid ( $context, $input );
 	}
 	
 	public function getValid($context, $input, $errorList = null) {
 		try {
-			return getValid ( $context, $input );
+			return getValid($context,$input );
 		} catch ( ValidationException $e ) {
 			$errorList->addError ( $context, $e );
 		}
@@ -81,7 +81,7 @@ abstract class BaseValidationRule implements ValidationRule {
 	
 	public function isValid($context, $input) {
 		try {
-			getValid ( $context, $input );
+			$this->getValid( $context, $input );
 			return true;
 		} catch ( ValidationException $e ) {
 			return false;
