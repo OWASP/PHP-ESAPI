@@ -25,6 +25,7 @@ require_once dirname ( __FILE__ ) . '/validation/CreditCardValidationRule.php';
 require_once dirname ( __FILE__ ) . '/validation/HTMLValidationRule.php';
 require_once dirname ( __FILE__ ) . '/validation/NumberValidationRule.php';
 require_once dirname ( __FILE__ ) . '/validation/IntegerValidationRule.php';
+require_once dirname ( __FILE__ ) . '/validation/DateValidationRule.php';
 
 class DefaultValidator implements Validator {
 	
@@ -150,7 +151,7 @@ class DefaultValidator implements Validator {
 	function getValidDate($context, $input, $format, $allowNull, $errorList = null) {
 		$dvr = new DateValidationRule("SimpleDate", $this->encoder );
 		$dvr->setAllowNull ( $allowNull );
-		$dvr->setDataFormat ( $DataFormat - getDateInstance () );
+		$dvr->setDateFormat ( $format );
 		return $dvr->getValid( $context, $input);
 	}
 	/**
@@ -540,7 +541,12 @@ class DefaultValidator implements Validator {
 	 * @throws IntrusionException
 	 */
 	function isValidFileContent($context, $input, $maxBytes, $allowNull) {
-		throw new EnterpriseSecurityException ( "Method Not implemented" );
+		try {
+        	$this->getValidFileContent( $context, $input, $maxBytes, $allowNull);
+            return true;
+        } catch( Exception $e ) {
+            return false;
+        }		
 	}
 	
 	/**
@@ -565,7 +571,18 @@ class DefaultValidator implements Validator {
 	 * @throws IntrusionException
 	 */
 	function getValidFileContent($context, $input, $maxBytes, $allowNull, $errorList = null) {
-		throw new EnterpriseSecurityException ( "Method Not implemented" );
+		if (strlen($input)==0) {
+            if ($this->allowNull) return null;
+            throw new ValidationException( $context.": Input required", "Input required: context=".$context.", input=".$input, $context );
+        }
+        $config = ESAPI::getSecurityConfiguration();     
+        $esapiMaxBytes = $config->getAllowedFileUploadSize();
+        if (strlen($input) > $esapiMaxBytes ) throw new ValidationException( $context.": Invalid file content can not exceed ".$esapiMaxBytes." bytes",
+ 			"Exceeded ESAPI max length", $context );
+        if (strlen($input) > $maxBytes ) throw new ValidationException( $context.": Invalid file content can not exceed ".$maxBytes." bytes", "Exceeded maxBytes ( ".strlen($input).")", $context );
+                
+        return $input;
+		
 	}
 	
 	/**
@@ -590,7 +607,7 @@ class DefaultValidator implements Validator {
 	 */
 	function isValidFileUpload($context, $filepath, $filename, $content, $maxBytes, $allowNull) {
 	try {
-			$this->getValidFileUpload ( $context, $filepath, $filename, $content, $maxBytes, $allowNull );
+			$this->assertValidFileUpload( $context, $filepath, $filename, $content, $maxBytes, $allowNull );
 			return true;
 		} catch ( Exception $e ) {
 			return false;

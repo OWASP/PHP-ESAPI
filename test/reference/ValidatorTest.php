@@ -211,19 +211,17 @@ function testIsValidCreditCard() {
      * @throws Exception
      */
 	function testGetValidDate() {
-		$this->fail(); // DELETE ME ("isValidFileName");
-		return;
 		$instance = ESAPI::getValidator();
-		$this->assertTrue($instance->getValidDate("test", "June 23, 1967", DateFormat.getDateInstance(DateFormat.MEDIUM, Locale.US), false ) != null);
+		$this->assertTrue($instance->getValidDate("test", "June 23, 1967", '',FALSE), false );
 		try {
-			$instance->getValidDate("test", "freakshow", DateFormat.getDateInstance(), false );
+			$instance->getValidDate("test", "freakshow", FALSE );
 		} catch( ValidationException $e ) {
 			// expected
 		}
 		
 		// This test case fails due to an apparent bug in SimpleDateFormat
 		try {
-			$instance->getValidDate( "test", "June 32, 2008", DateFormat.getDateInstance(), false );
+			$instance->getValidDate( "test", "June 32, 2008", false );
 			// fail();
 		} catch( ValidationException $e ) {
 			// expected
@@ -234,28 +232,24 @@ function testIsValidCreditCard() {
 	 * Test of isValidFileName method, of class org.owasp.esapi.Validator.
 	 */
 	function testIsValidFileName() {
-		$this->fail(); // DELETE ME ("isValidFileName");
-//		Validator instance = ESAPI.validator();
-//		$this->assertTrue($instance->isValidFileName("test", "aspect.jar", false));
-//		$this->assertFalse($instance->isValidFileName("test", "", false));
-//        try {
-//            $instance->isValidFileName("test", "abc/def", false);
-//        } catch( IntrusionException e ) {
-//            // expected
-//        }
+		$instance = ESAPI::getValidator();
+		$this->assertTrue($instance->isValidFileName("test", "aspect.jar", false));
+		$this->assertFalse($instance->isValidFileName("test", "", false));
+        try {
+            $instance->isValidFileName("test", "abc/def", false);
+       } catch( IntrusionException $e ) {
+            // expected
+        }
 	}
 
 	/**
 	 * Test of isValidDirectoryPath method, of class org.owasp.esapi.Validator.
 	 */
 	function testIsValidDirectoryPath() {
-		$this->fail(); // DELETE ME ("isValidDirectoryPath");
-//
-//		// get an encoder with a special list of codecs and make a validator out of it
-//		List list = new ArrayList();
-//		list.add( new HTMLEntityCodec() );
-//		Encoder encoder = new DefaultEncoder( list );
-//		Validator instance = new DefaultValidator( encoder );
+		$list=array();
+		array_push($list,new HTMLEntityCodec());
+		$encoder = new DefaultEncoder($list);
+		$instance = ESAPI::getValidator();
 //		
 //		boolean isWindows = (System.getProperty("os.name").indexOf("Windows") != -1 ) ? true : false;
 //		
@@ -315,29 +309,27 @@ function testIsValidCreditCard() {
 	 * Test of isValidFileContent method, of class org.owasp.esapi.Validator.
 	 */
 	function testIsValidFileContent() {
-		$this->fail(); // DELETE ME ("isValidFileContent");
-//		byte[] content = "This is some file content".getBytes();
-//		Validator instance = ESAPI.validator();
-//		$this->assertTrue($instance->isValidFileContent("test", content, 100, false));
+		$this->fail(); 
+		$content = "This is some file content";
+		$instance = ESAPI::getValidator();
+		$this->assertTrue($instance->isValidFileContent("test", $content, 100, false));
 	}
 
 	/**
 	 * Test of isValidFileUpload method, of class org.owasp.esapi.Validator.
 	 */
 	function testIsValidFileUpload() {
-		$this->fail(); // DELETE ME ("isValidFileUpload");
-//		global $ESAPI;
-//
-//		String filepath = System.getProperty( "user.dir" );
-//		String filename = "aspect.jar";
-//		byte[] content = "This is some file content".getBytes();
-//		Validator instance = ESAPI.validator();
-//		$this->assertTrue($instance->isValidFileUpload("test", filepath, filename, content, 100, false));
-//		
-//		filepath = "/ridiculous";
-//		filename = "aspect.jar";
-//		content = "This is some file content".getBytes();
-//		$this->assertFalse($instance->isValidFileUpload("test", filepath, filename, content, 100, false));
+		$filepath = "/home/";
+		$filename = "aspect.jar";
+		$content = "This is some file content";
+
+		$instance = ESAPI::getValidator();
+		$this->assertTrue($instance->isValidFileUpload("test", $filepath, $filename, $content, 100, false));
+		
+		$filepath = "/ridiculous";
+		$filename = "aspect.jar";
+		$content = "This is some file content";
+		$this->assertFalse($instance->isValidFileUpload("test", $filepath, $filename, $content, 100, false));
 	}
 
 //	/**

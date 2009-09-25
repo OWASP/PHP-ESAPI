@@ -38,10 +38,12 @@ class DefaultEncoder implements Encoder {
   private $immune_os			= array( '-' );
   private $immune_xmlattr		= array( ',', '.', '-', '_' );
   private $immune_xpath		= array( ',', '.', '-', '_', ' ' );
+  private $codecs=array();
   
   function __construct()
   {
   	$this->htmlCodec = new HTMLEntityCodec();
+  	array_push($this->codecs,$this->htmlCodec);
   }
 
 	/**
@@ -99,7 +101,33 @@ class DefaultEncoder implements Encoder {
 	 */
 	function canonicalize($input, $strict = true)
 	{
-		throw new EnterpriseSecurityException("Method Not implemented");	
+		if ( $input==null) {
+			return null;
+		}
+		$working=$input;
+		$codecFound=null;
+		$mixedCount=1;
+		$foundCount=0;
+		$clean=false;
+		while ( ! $clean ) {
+				foreach($this->codecs as $codec) {
+					$old=$working;
+					$working=$codec->decode($working);
+					if ( $old!=$working) {
+						if ( $codecFound != null && $codecFound != $codec ) {
+                        	$mixedCount++;
+                    	}
+                    	$codecFound = $codec;
+                    	if ( $clean ) {
+                        	$foundCount++;
+                    	}
+                    	$clean = false;												
+					}
+				}
+				// TODO: strict test
+				return $working;
+		
+		}
 	}
 
 	/**
