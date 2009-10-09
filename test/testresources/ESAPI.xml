@@ -221,7 +221,10 @@
 			<!-- Validation of file related input -->
 	
 			<regexp name="FileName" value="^[a-zA-Z0-9!@#$%^&amp;{}\\[\\]()_+\\-=,.~'` ]{0,255}$" />
-			<regexp name="DirectoryName" value="^[a-zA-Z0-9:\\\\!@#$%^&amp;{}\\[\\]()_+\\-=,.~'` ]{0,255}$" />
+			<regexp name="DirectoryName" value="^[a-zA-Z0-9:\\\\!@#$%^&amp;{}\\[\\]()_+\\-=,.~'` ]{0,255}$" /><regexp
+				name="Number" value="^[-+]?[0-9]*\.?[0-9]+([eE][-+]?[0-9]+)?$">
+</regexp>
+			<regexp name="Integer" value="^[-+]?[0-9]+$"></regexp>
 		</ValidationExpressions>
 	</Validator>
 
