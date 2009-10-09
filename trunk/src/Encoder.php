@@ -19,6 +19,7 @@
 
 require_once dirname(__FILE__).'/codecs/Codec.php';
 require_once dirname(__FILE__).'/errors/EncodingException.php';
+require_once dirname(__FILE__).'/Encoder.php';
 
 /**
  * The Encoder interface contains a number of methods for decoding input and encoding output
