@@ -405,6 +405,7 @@ class DefaultValidator implements Validator {
 	 * 
 	 * @throws IntrusionException
 	 */
+
 	function getValidNumber($context, $input, $minValue, $maxValue, $allowNull, $errorList=null) {
 		$nvr=new NumberValidationRule('number',$this->encoder,$minValue,$maxValue);
 		$nvr->setAllowNull($allowNull);
@@ -606,6 +607,7 @@ class DefaultValidator implements Validator {
 	 * @throws IntrusionException
 	 */
 	function isValidFileUpload($context, $filepath, $filename, $content, $maxBytes, $allowNull) {
+
 	try {
 			$this->assertValidFileUpload( $context, $filepath, $filename, $content, $maxBytes, $allowNull );
 			return true;
@@ -687,6 +689,7 @@ class DefaultValidator implements Validator {
 	 * @throws IntrusionException
 	 */
 	function isValidListItem($context, $input, $list) {
+
 		try {
 			return $this->getValidListItem ( $context, $input, $list );
 		} catch ( Exception $e ) {
