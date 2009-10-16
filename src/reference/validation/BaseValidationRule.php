@@ -19,6 +19,7 @@
  */
 
 require_once dirname ( __FILE__ ) . '/../../ValidationRule.php';
+require_once dirname ( __FILE__ ) . '/../DefaultEncoder.php';
 
 abstract class BaseValidationRule implements ValidationRule {
 	private $typeName = null;
