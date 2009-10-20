@@ -150,6 +150,14 @@ interface SecurityConfiguration
     function getAllowedIncludes();
     
     /**
+     * getAllowedResources returns an array of resources (files) that are permitted.
+     * This is a new addition for the ESAPI for PHP project, but may be relevant for other ports, too.
+     * 
+     * @return array of allowed resources
+     */
+    function getAllowedResources();
+    
+    /**
      * Gets the maximum number of old password hashes that should be retained. These hashes can 
      * be used to ensure that the user doesn't reuse the specified number of previous passwords
      * when they change their password.

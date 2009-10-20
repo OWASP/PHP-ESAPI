@@ -57,6 +57,7 @@ class DefaultSecurityConfiguration implements SecurityConfiguration
 	private $maxUploadSize = null;
 	private $ResponseContentType = null;
 	private $AllowedIncludes = null;
+	private $AllowedResources = null;
 	
 	// Logger
 	
@@ -693,6 +694,21 @@ class DefaultSecurityConfiguration implements SecurityConfiguration
 		}
 		
 		return $this->AllowedIncludes;
+	}
+	
+	/**
+     * getAllowedResources returns an array of resources (files) that are permitted.
+     * This is a new addition for the ESAPI for PHP project, but may be relevant for other ports, too.
+     * 
+     * @return array of allowed resources
+     */
+    function getAllowedResources() {
+		if ( $this->AllowedResources === null )	{
+			$path = 'HttpUtilities/ApprovedResources/resource';
+			$this->AllowedResources = $this->getESAPIArrayProperty($path, null);
+		}
+		
+		return $this->AllowedResources;
 	}
 }
 ?>
