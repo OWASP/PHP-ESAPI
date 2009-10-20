@@ -137,8 +137,12 @@
 			<include>foo.php</include>
 			<include>bar.php</include>
 		</ApprovedIncludes>
-		
-		
+
+		<ApprovedResources>
+			<resource>foo</resource>
+			<resource>admin</resource>
+			<resource>users.txt</resource>
+		</ApprovedResources>
 	</HttpUtilities>
 
 	<Logger>
