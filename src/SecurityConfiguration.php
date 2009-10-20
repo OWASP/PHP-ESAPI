@@ -141,6 +141,14 @@ interface SecurityConfiguration
      */
     function getAllowedLoginAttempts();
 
+	/**
+     * getAllowedIncludes returns an array of include files that are allowed to be included
+     * by PHP. This is a ESAPI extension for PHP
+     * 
+     * @return array of allowed includes
+     */
+    function getAllowedIncludes();
+    
     /**
      * Gets the maximum number of old password hashes that should be retained. These hashes can 
      * be used to ensure that the user doesn't reuse the specified number of previous passwords

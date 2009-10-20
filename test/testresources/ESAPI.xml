@@ -131,6 +131,14 @@
 			  container, and any other technologies you may be using. Failure to do this may expose you
 			  to Unicode transcoding injection attacks. Use of UTF-8 does not hinder internationalization.  -->
 		<ResponseContentType>text/html; charset=UTF-8</ResponseContentType>
+		
+		<ApprovedIncludes>
+			<include>test.php</include>
+			<include>foo.php</include>
+			<include>bar.php</include>
+		</ApprovedIncludes>
+		
+		
 	</HttpUtilities>
 
 	<Logger>

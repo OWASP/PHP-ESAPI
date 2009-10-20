@@ -141,6 +141,38 @@ class SecurityConfigurationTest extends UnitTestCase
 	}
 
 	/**
+	 * Tests the allowed include feature unique to PHP ESAPI. 
+	 * 
+	 * This test should return three as there's three test includes
+	 */
+	function testAllowedIncludeSize()
+	{
+		$config = ESAPI::getSecurityConfiguration();
+		
+		$includes = $config->getAllowedIncludes();
+		
+		$this->assertEqual(count($includes), 3);
+	}
+
+	/**
+	 * Tests the allowed include feature unique to PHP ESAPI. 
+	 * 
+	 * This test should return three as there's three test includes
+	 */
+	function testAllowedIncludeContents()
+	{
+		$config = ESAPI::getSecurityConfiguration();
+		
+		$includes = $config->getAllowedIncludes();
+		
+		$this->assertEqual($includes[0], 'test.php');
+		$this->assertEqual($includes[1], 'foo.php');
+		$this->assertEqual($includes[2], 'bar.php');
+		$this->assertFalse(in_array('ridiculous.php', $includes, true));
+	}
+	
+	
+	/**
 	 * Gets the name of the password parameter used during user authentication.
 	 * 
 	 * @return the name of the password parameter
