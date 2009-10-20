@@ -25,7 +25,7 @@ class myGroupTest extends GroupTest {
     function myGroupTest() {
         parent::GroupTest('AllTests');
         $this->addTestFile(dirname(__FILE__).'/errors/EnterpriseSecurityExceptionTest.php');
-        $this->addTestFile(dirname(__FILE__).'/reference/AccessReferenceMapTest.php');
+        $this->addTestFile(dirname(__FILE__).'/reference/RandomAccessReferenceMapTest.php');
         $this->addTestFile(dirname(__FILE__).'/reference/IntegerAccessReferenceMapTest.php');
         $this->addTestFile(dirname(__FILE__).'/reference/SecurityConfigurationTest.php');
 
