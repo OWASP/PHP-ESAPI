@@ -56,6 +56,7 @@ class DefaultSecurityConfiguration implements SecurityConfiguration
 	private $AllowedFileExtensions = null;
 	private $maxUploadSize = null;
 	private $ResponseContentType = null;
+	private $AllowedIncludes = null;
 	
 	// Logger
 	
@@ -665,7 +666,9 @@ class DefaultSecurityConfiguration implements SecurityConfiguration
 	}
 	
 	/**
-     * getAllowedExecutables returns an array of executables that are allowed to be run
+     * getAllowedExecutables returns an array of permitted executables.
+     * 
+     * @return an array of executables that are allowed to be run
      * by the Executor.
      */
 	function getAllowedExecutables() {
@@ -677,5 +680,19 @@ class DefaultSecurityConfiguration implements SecurityConfiguration
 		return $this->AllowedExecutables;
 	}
 	
+	/**
+     * getAllowedIncludes returns an array of include files that are allowed to be included
+     * by PHP. This is a ESAPI extension for PHP
+     * 
+     * @return array of allowed includes
+     */
+	function getAllowedIncludes() {
+		if ( $this->AllowedIncludes === null )	{
+			$path = 'HttpUtilities/ApprovedIncludes/include';
+			$this->AllowedIncludes = $this->getESAPIArrayProperty($path, null);
+		}
+		
+		return $this->AllowedIncludes;
+	}
 }
 ?>
