@@ -146,6 +146,64 @@ class RandomizerTest extends UnitTestCase
         }
         $this->assertTrue(($minResult >= $min && $maxResult <= $max));
     }
+    
+    function testGetRandomBoolean() {
+    	$instance = ESAPI::getRandomizer();
+    	
+    	$result = $instance->getRandomBoolean();
+    	
+    	// PHP funkyness: I am using the equal operator with the type equivalence extra '='
+    	// If both true and false are not found, then we don't have a boolean
+    	$this->assertFalse($result !== true && $result !== false);
+    }
+    
+    function testGetRandomLong() {
+    	$instance = ESAPI::getRandomizer();
+    	$result = $instance->getRandomLong();
+    	
+    	$this->assertTrue($result >= 0);
+    	$this->assertTrue($result < mt_getrandmax());
+    }
+    
+    function testGetRandomFilenameCharSet() {
 
+        $instance = ESAPI::getRandomizer();
+        $charset = str_split('abcdefghijklmnopqrstuvxyz0123456789'); // TODO replace with DefaultEncoder...
+        
+        try {
+	        for ( $i = 0; $i < 100; $i++ ) {
+	            $result = $instance->getRandomFilename();
+	            $len = strlen($result);		// Filenames should be 16 characters long
+	            
+	            for ( $j = 0; $j < $len; $j++ ) {
+	            	if ( !in_array($result[$j], $charset) ) {			
+	            		$this->fail("Character [ ".$result[$j]." ] not found in [ ".$result." ]");
+	            	}
+	            }
+	            
+	        }
+        }
+		catch (InvalidArgumentException $e)
+		{
+			$this->fail("getRandomFilename() failed due to too short length (16) or no character set [ abcdefghijklmnopqrstuvxyz0123456789 ]");
+		}	
+    }
+    
+	function testGetRandomFilenameLengthNoExtension() {
+
+        $instance = ESAPI::getRandomizer();
+        
+        $result = $instance->getRandomFilename();
+        $this->assertEqual(16, strlen($result));
+    }
+
+    function testGetRandomFilenameLengthWithExtension() {
+
+        $instance = ESAPI::getRandomizer();
+        
+        $result = $instance->getRandomFilename('.php');
+        $this->assertEqual(20, strlen($result));
+    }
+    
 }
 ?>

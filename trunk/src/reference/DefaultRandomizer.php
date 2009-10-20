@@ -124,7 +124,7 @@ class DefaultRandomizer implements Randomizer
 	 * @return 
 	 * 		a random unguessable filename ending with the specified extension
 	 */
-	function getRandomFilename($extension)
+	function getRandomFilename($extension = '')
 	{
 		// Because PHP runs on case insensitive OS as well as case sensitive OS, only use lowercase
 		
