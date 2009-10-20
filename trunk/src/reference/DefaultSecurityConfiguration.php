@@ -654,6 +654,10 @@ class DefaultSecurityConfiguration implements SecurityConfiguration
 		return $this->WorkingDirectory;
 	}
 	
+	/**
+     * getAllowedExecutables returns an array of executables that are allowed to be run
+     * by the Executor.
+     */
 	function getAllowedExecutables() {
 		if ( $this->AllowedExecutables === null )	{
 			$path = ( substr(PHP_OS, 0, 3) == 'WIN' ) ? 'ExecutorWindows/ApprovedExecutables/command' : 'ExecutorUnix/ApprovedExecutables/command';
