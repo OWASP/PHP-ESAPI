@@ -188,12 +188,16 @@ class DefaultSecurityConfiguration implements SecurityConfiguration
 	
 	private function getESAPIValidationExpression($type) {
 
-		$var = $this->xml->xpath('//regexp');
-			
-		$result = array();
+		$val = null;
 		$found = false;
 		$i = 0;
-		$val;
+		
+		$var = $this->xml->xpath('//regexp');
+
+		if ( $var === false ) {
+			$this->logSpecial( 'getESAPIValidationExpression: No regular expressions in the config file.' );
+			return false;
+		}
 			
 		if (isset($var[0]) ) {
 			while(list( , $node) = each($var)) {
@@ -205,6 +209,7 @@ class DefaultSecurityConfiguration implements SecurityConfiguration
  					  if(!strcmp($b, $type))
  					  {
  					  	$val = $var[$i];
+ 					  	$found = true;
  					  	break;
  					  }
  					
@@ -213,7 +218,12 @@ class DefaultSecurityConfiguration implements SecurityConfiguration
 			}						
 		}
 		
-		return (string)$val->attributes()->value;
+		if ( $found && isset($val->attributes()->value) ) {
+			return (string)$val->attributes()->value;
+		} else {
+			$this->logSpecial( 'getESAPIValidationExpression: Cannot find regular expression: ' . $type );
+			return false;
+		}
 	}
 	
 	private function getESAPIEncodedStringProperty($prop, $def) {
@@ -637,7 +647,7 @@ class DefaultSecurityConfiguration implements SecurityConfiguration
 	
 	function getValidationPattern($type)
 	{		
-		return $this->getESAPIValidationExpression($type);;
+		return $this->getESAPIValidationExpression($type);
 	}
 	
     /**
