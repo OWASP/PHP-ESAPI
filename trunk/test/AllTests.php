@@ -36,7 +36,7 @@ $ESAPI = new ESAPI(dirname(__FILE__)."/testresources/ESAPI.xml");
 
 		$test = new GroupTest('Finished');
 $test->addTestFile(dirname(__FILE__).'/errors/EnterpriseSecurityExceptionTest.php');	// AJV
-$test->addTestFile(dirname(__FILE__).'/reference/AccessReferenceMapTest.php');			// AJV
+$test->addTestFile(dirname(__FILE__).'/reference/RandomAccessReferenceMapTest.php');	// AJV
 $test->addTestFile(dirname(__FILE__).'/reference/IntegerAccessReferenceMapTest.php');	// AJV
 $test->addTestFile(dirname(__FILE__).'/reference/SecurityConfigurationTest.php');		// AJV
 $test->addTestFile(dirname(__FILE__).'/reference/RandomizerTest.php');					// AJV
