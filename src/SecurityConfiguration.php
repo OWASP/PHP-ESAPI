@@ -246,7 +246,18 @@ interface SecurityConfiguration
      * @return the regular expression.
      */
     function getValidationPattern($type);
+    
+    /**
+     * getWorkingDirectory returns the default directory where processes will be executed
+     * by the Executor.
+     */
+	function getWorkingDirectory();
 
+	/**
+     * getAllowedExecutables returns an array of executables that are allowed to be run
+     * by the Executor.
+     */
+	function getAllowedExecutables();
 }
 
 /**
