@@ -45,7 +45,7 @@ class SecurityConfigurationTest extends UnitTestCase
 	
 	function testConfigChecksum()
 	{
-		$this->assertEqual(md5_file(dirname(__FILE__).'/../testresources/ESAPI.xml'),  '5d12a3e2ddd535e0f0451627b166561d');
+		$this->assertEqual(md5_file(dirname(__FILE__).'/../testresources/ESAPI.xml'),  '205ec1e7188154a60e9e26b658986749');
 	}
 	
 	/**
