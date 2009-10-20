@@ -43,11 +43,6 @@ class SecurityConfigurationTest extends UnitTestCase
 		$this->assertTrue(file_exists(dirname(__FILE__).'/../testresources/ESAPI.xml'));
 	}
 	
-	function testConfigChecksum()
-	{
-		$this->assertEqual(md5_file(dirname(__FILE__).'/../testresources/ESAPI.xml'),  '205ec1e7188154a60e9e26b658986749');
-	}
-	
 	/**
 	 * Gets the application name, used for logging
 	 * 
