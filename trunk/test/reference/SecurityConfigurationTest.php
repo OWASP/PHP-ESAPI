@@ -327,13 +327,27 @@ class SecurityConfigurationTest extends UnitTestCase
 	 * 
 	 * @return The ESAPI resource directory.
 	 */
-	function testResourceDirectory()
+	function testGetResourceDirectory()
 	{
 		$config = ESAPI::getSecurityConfiguration();
 		
 		$this->assertEqual($config->getResourceDirectory(), realpath(dirname(__FILE__).'/../testresources/'));
 	}
 
+	function testSetResourceDirectoryRealPath() {
+		$config = ESAPI::getSecurityConfiguration();
+		
+		$config->setResourceDirectory(realpath(dirname(__FILE__).'/../testresources/'));
+		$this->assertEqual($config->getResourceDirectory(), realpath(dirname(__FILE__).'/../testresources/'));
+	}
+
+	function testSetResourceDirectoryNullPath() {
+		$config = ESAPI::getSecurityConfiguration();
+		
+		$config->setResourceDirectory(null);
+		$this->assertEqual($config->getResourceDirectory(), null);
+	}
+	
 	/**
 	 * Gets the content type for responses used when setSafeContentType() is called.
 	 * <br><br>
@@ -470,6 +484,5 @@ class SecurityConfigurationTest extends UnitTestCase
 			$this->assertTrue(in_array('/usr/bin/sudo', $exes));  									// 1
 		}
 	}
-	
 }
 ?>
