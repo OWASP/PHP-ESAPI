@@ -71,13 +71,13 @@ class EnterpriseSecurityExceptionTest extends UnitTestCase
 		$this->assertEqual( $e->getLogMessage(), "m2" );
 	}
 
-	function AuthenticationDefaultException() {
+	function testAuthenticationDefaultException() {
 		$e = new AuthenticationException();
 		$this->assertEqual( $e->getUserMessage(), null );
 		$this->assertEqual( $e->getLogMessage(), '' );
 	}
 	
-	function AuthenticationException() {
+	function testAuthenticationException() {
 		$e = new AuthenticationException("m1","m2");
 		$this->assertEqual( $e->getUserMessage(), "m1" );
 		$this->assertEqual( $e->getLogMessage(), "m2" );
