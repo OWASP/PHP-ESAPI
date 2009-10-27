@@ -116,7 +116,47 @@ class CodecTest extends UnitTestCase
 	
 	function testDecode()
 	{
-		$this->fail();
+		// unixCodec
+		$unixCodec = new UnixCodec();
+		$this->assertEqual("<", $unixCodec->decode("\\<"));
+
+        // windowsCodec
+        $windowsCodec = new WindowsCodec();
+		$this->assertEqual("<", $windowsCodec->decode("^<"));
+		
+/*
+        // htmlCodec
+        assertEquals( "test!", htmlCodec.decode("&#116;&#101;&#115;&#116;!") );
+        assertEquals( "test!", htmlCodec.decode("&#x74;&#x65;&#x73;&#x74;!") );
+        assertEquals( "&jeff;", htmlCodec.decode("&jeff;") );
+
+        // percentCodec
+        assertEquals( "<", percentCodec.decode("%3c") );
+
+        // javaScriptCodec
+        assertEquals( "<", javaScriptCodec.decode("\\x3c") );
+        
+        // vbScriptCodec
+        assertEquals( "<", vbScriptCodec.decode("\"<") );
+
+        // cssCodec
+        assertEquals( "<", cssCodec.decode("\\<") );
+
+        // mySQLCodecANSI
+        assertEquals( "\'", mySQLCodecANSI.decode("\'\'") );
+
+        // mySQLCodecStandard
+        assertEquals( "<", mySQLCodecStandard.decode("\\<") );
+
+        // oracleCodec
+        assertEquals( "<", oracleCodec.decode("\\<") );
+
+        // unixCodec
+        assertEquals( "<", unixCodec.decode("\\<") );
+
+        // windowsCodec
+        assertEquals( "<", windowsCodec.decode("^<") );
+ */
 	}
 		
 	function testDecodeCharacter()
