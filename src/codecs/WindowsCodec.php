@@ -28,7 +28,7 @@ require_once ('Codec.php');
  * @see org.owasp.esapi.Encoder
  */
  
-class WindowsCodec implements Codec
+class WindowsCodec extends Codec
 {
 
     /**
@@ -38,31 +38,44 @@ class WindowsCodec implements Codec
     {
     }
 
+ 
     /**
      * {@inheritDoc}
      */
-    public function encode($input)
+    public function encodeCharacter($immune,$c)
     {
+    	// check for immune characters
+		if ( $this->containsCharacter( $c, $immune ) ) {
+			return $c;
+		}
+    	
+		// check for alphanumeric characters
+		$hex = $this->getHexForNonAlphanumeric( $c );
+		if(is_null($hex)) {
+			return $c;
+		}
+		
+		return "^".$c;
     }
 
-    /**
-     * {@inheritDoc}
-     */
-    public function encodeCharacter($c)
-    {
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function decode($input)
-    {
-    }
-
+ 
+    
     /**
      * {@inheritDoc}
      */
     public function decodeCharacter($input)
     {
+    	$first = mb_substr($input, 0, 1);
+    	if(is_null($first)) {
+			return null;
+		}
+    			
+		// if this is not an encoded character, return null
+		if ( $first != '^' ) {
+			return null;
+		}
+		
+    	$second = mb_substr($input, 1, 1);
+    	return $second;
     }
 }
