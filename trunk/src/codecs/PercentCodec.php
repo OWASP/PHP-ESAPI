@@ -27,7 +27,7 @@ require_once ('Codec.php');
  * @since 1.4
  * @see org.owasp.esapi.Encoder
  */
-class PercentCodec implements Codec
+class PercentCodec extends Codec
 {
 
     /**
