@@ -56,6 +56,11 @@ $test->addTestFile(dirname(__FILE__).'/reference/EncryptedPropertiesTest.php'); 
 $test->addTestFile(dirname(__FILE__).'/reference/StringUtilitiesTest.php');		// AJV
 $test->addTestFile(dirname(__FILE__).'/reference/LoggerTest.php'); //Laura
 
+
+$test->run(new HTMLReporter());
+
+$test = new GroupTest('Codecs');
+$test->addTestFile(dirname(__FILE__).'/codecs/CodecTest.php');
 $test->run(new HTMLReporter());
 
 $test = new GroupTest('Unallocated');
