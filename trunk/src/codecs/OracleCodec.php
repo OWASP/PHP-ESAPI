@@ -30,7 +30,7 @@ require_once ('Codec.php');
  * @since 1.4
  * @see org.owasp.esapi.Encoder
  */
-class OracleCodec implements Codec
+class OracleCodec extends Codec
 {
 
     /**
