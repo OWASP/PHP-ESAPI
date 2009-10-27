@@ -26,7 +26,7 @@ require_once ('Codec.php');
  * @since 1.4
  * @see org.owasp.esapi.Encoder
  */
-class LDAPCodec implements Codec
+class LDAPCodec extends Codec
 {
 
     /**
