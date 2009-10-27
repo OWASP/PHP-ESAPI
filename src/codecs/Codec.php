@@ -101,7 +101,10 @@ abstract class Codec {
 	 * @return
 	 *		return null if null, otherwise return the decoded String
 	 */
-	abstract function decode( $input );
+	function decode( $input )
+	{
+		
+	}
 	
 
 	/**
@@ -113,7 +116,10 @@ abstract class Codec {
 	 * 
 	 * @return the decoded Character
 	 */
-	abstract function decodeCharacter( $input );
+	function decodeCharacter( $input )
+	{
+	
+	}
 	
 		/**
 		 * Lookup the hex value of any character that is not alphanumeric, return null if alphanumeric.
