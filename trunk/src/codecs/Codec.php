@@ -129,6 +129,11 @@ abstract class Codec {
 		 */
 		public static function getHexForNonAlphanumeric( $c ) 
 		{
+			$ordinalValue = ord($c);
+			if ( $ordinalValue > 255 ) return null;
+			return self::$hex[$ordinalValue];
+/*			
+			
       // Assumption/prerequisite: $c is a UTF-32 encoded string
 			$_4ByteString = $c;
 			
@@ -143,7 +148,7 @@ abstract class Codec {
 				return null;
 			}
 			return self::$hex[$ordinalValue];
-		}
+*/		}
 
 	    /**
 	     * Return the hex value of a character as a string without leading zeroes.
@@ -165,8 +170,8 @@ abstract class Codec {
          * @return
          */
         public static function containsCharacter( $c, $array )
-		    {
-                return in_array($c, $array);
+		{
+               return in_array($c, $array);
         }
 
     /**
