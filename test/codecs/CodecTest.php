@@ -61,7 +61,16 @@ class CodecTest extends UnitTestCase
 	
 	function testEncode()
 	{
-
+		$immune = array("");
+		
+		// unixCodec
+		$unixCodec = new UnixCodec();
+		$this->assertEqual("\\<", $unixCodec->encode($immune, "<"));
+		
+		// windowsCodec
+		$windowsCodec = new WindowsCodec();
+		$this->assertEqual("^<", $windowsCodec->encode($immune, "<"));
+		
 /*		
 	    System.out.println("encode");
 
