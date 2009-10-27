@@ -117,13 +117,7 @@ class HTMLEntityCodec extends Codec
   		return $encodedOutput;
     }
 
-    /**
-     * {@inheritDoc}
-     */
-    public function decode($input)
-    {
-    }
-
+ 
     /**
      * {@inheritDoc}
      */
