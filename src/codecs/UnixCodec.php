@@ -35,6 +35,7 @@ class UnixCodec extends Codec
      */
     function __construct()
     {
+  		parent::__construct();
     }
 
  
