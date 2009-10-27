@@ -27,7 +27,7 @@ require_once ('Codec.php');
  * @since 1.4
  * @see org.owasp.esapi.Encoder
  */
-class JavaScriptCodec implements Codec
+class JavaScriptCodec extends Codec
 {
     /**
      * Public Constructor 
