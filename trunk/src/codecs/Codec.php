@@ -103,6 +103,14 @@ abstract class Codec {
 	 */
 	function decode( $input )
 	{
+		$decoded = "";
+		$mbstrlen = mb_strlen($input);
+		for($i=0; $i<$mbstrlen; $i++)
+		{
+			$c = mb_substr($input, $i);
+			$decoded .= $this->decodeCharacter($c);
+		}
+		return $decoded;
 		
 	}
 	
