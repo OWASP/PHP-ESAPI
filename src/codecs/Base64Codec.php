@@ -26,7 +26,7 @@ require_once  dirname(__FILE__).'/Codec.php';
  * @since 1.4
  * @see org.owasp.esapi.Encoder
  */
-class Base64Codec implements Codec
+class Base64Codec extends Codec
 {
 
     /**
