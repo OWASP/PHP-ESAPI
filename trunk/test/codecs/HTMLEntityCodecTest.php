@@ -22,6 +22,7 @@ require_once dirname(__FILE__).'/../../src/codecs/HTMLEntityCodec.php';
 class HTMLEntityCodecTest extends UnitTestCase
 {
 	private $htmlEntityCodec = null;
+	private $immune_html = array( ',', '.', '-', '_', ' ' );	//copied from DefaultEncoder
 	
 	function setUp()
 	{
@@ -43,6 +44,20 @@ class HTMLEntityCodecTest extends UnitTestCase
 		
 		// J2EE test case
 		$this->assertEqual( "test", $this->htmlEntityCodec->encode( $immune, "test") );
+		
+		//copied & modified from old EncoderTest::testEncodeForHtml(), still uses $immune_html as per DefaultEncoder
+		$this->assertEqual(null, $this->htmlEntityCodec->encode(null,null));		
+        // test invalid characters are replaced with spaces
+        //$this->assertEqual("a b c d e f&#x9;g", $this->htmlEntityCodec->encode($this->immune_html,"a".(chr(0))."b".(chr(4))."c".(chr(128))."d".(chr(150))."e".(chr(159))."f".(chr(9))."g"));
+			$this->assertEqual("a b c d e f&#x9;g h i j&#xa0;k&#xa1;l&#xa2;m", $this->htmlEntityCodec->encode($this->immune_html,"a".(chr(0))."b".(chr(4))."c".(chr(128))."d".(chr(150))."e".(chr(159))."f".(chr(9))."g".(chr(127))."h".(chr(129))."i".(chr(159))."j".(chr(160))."k".(chr(161))."l".(chr(162))."m"));
+        $this->assertEqual("&lt;script&gt;", $this->htmlEntityCodec->encode($this->immune_html,"<script>"));
+        $this->assertEqual("&amp;lt&#x3b;script&amp;gt&#x3b;", $this->htmlEntityCodec->encode($this->immune_html,"&lt;script&gt;"));
+        $this->assertEqual("&#x21;&#x40;&#x24;&#x25;&#x28;&#x29;&#x3d;&#x2b;&#x7b;&#x7d;&#x5b;&#x5d;", $this->htmlEntityCodec->encode($this->immune_html,"!@$%()=+{}[]"));
+//        $this->assertEqual("&#x21;&#x40;&#x24;&#x25;&#x28;&#x29;&#x3d;&#x2b;&#x7b;&#x7d;&#x5b;&#x5d;", $this->htmlEntityCodec->encode($this->immune_html,$instance->canonicalize("&#33;&#64;&#36;&#37;&#40;&#41;&#61;&#43;&#123;&#125;&#91;&#93;") ) ); //TODO: open this test up when canonicalize function is done
+        $this->assertEqual(",.-_ ", $this->htmlEntityCodec->encode($this->immune_html,",.-_ "));
+        $this->assertEqual("dir&amp;", $this->htmlEntityCodec->encode($this->immune_html,"dir&"));
+        $this->assertEqual("one&amp;two", $this->htmlEntityCodec->encode($this->immune_html,"one&two"));
+        $this->assertEqual("".(chr(12345)).(chr(65533)).(chr(1244)), "".(chr(12345)).(chr(65533)).(chr(1244)) );
 	}
 	
 	function testEncodeCharacter()
