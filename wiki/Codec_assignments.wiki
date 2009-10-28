@@ -5,13 +5,13 @@
 ==Assigned==
 
  * Base64Codec _-- Andrew_
+ * HTMLEntityCodec _-- Linden_
  * MySQLCodec _-- Andrew_
  * OracleCodec _-- Andrew_
 
 ==Unassigned==
 
  * CSSCodec
- * HTMLEntityCodec
  * JavaScriptCodec
  * LDAPCodec
  * PercentCodec
