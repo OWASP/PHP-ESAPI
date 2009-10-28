@@ -36,21 +36,21 @@ class MySQLCodec extends Codec
     /**
      * Public Constructor 
      */
-    function __construct()
+    function __construct($mode = self::MYSQL_STD)
     {
     }
 
     /**
      * {@inheritDoc}
      */
-    public function encode($input)
+    public function encode($immune, $input)
     {
     }
 
     /**
      * {@inheritDoc}
      */
-    public function encodeCharacter($c)
+    public function encodeCharacter($immune, $c)
     {
     }
 
