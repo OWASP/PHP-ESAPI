@@ -1,8 +1,6 @@
 ==Completed==
 
  * Codec
- * UnixCodec
- * WindowsCodec
 
 ==Assigned==
 
@@ -17,4 +15,6 @@
  * JavaScriptCodec
  * LDAPCodec
  * PercentCodec
+ * UnixCodec
  * VBScriptCodec
+ * WindowsCodec
