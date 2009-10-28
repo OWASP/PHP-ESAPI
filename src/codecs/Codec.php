@@ -137,12 +137,13 @@ abstract class Codec {
 		 */
 		public static function getHexForNonAlphanumeric( $c ) 
 		{
+		/* //original code from esapi java put in place in r152, breaks current implementation of HTMLEntityCodec however
 			$ordinalValue = ord($c);
 			if ( $ordinalValue > 255 ) return null;
 			return self::$hex[$ordinalValue];
-/*			
+		*/
 			
-      // Assumption/prerequisite: $c is a UTF-32 encoded string
+      		// Assumption/prerequisite: $c is a UTF-32 encoded string
 			$_4ByteString = $c;
 			
 			// Grab the 4 byte character.
@@ -156,7 +157,7 @@ abstract class Codec {
 				return null;
 			}
 			return self::$hex[$ordinalValue];
-*/		}
+		}
 
 	    /**
 	     * Return the hex value of a character as a string without leading zeroes.
