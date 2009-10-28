@@ -1,0 +1,20 @@
+==Completed==
+
+  * Codec.php
+  * UnixCodec.php
+  * WindowsCodec.php
+
+==Assigned==
+
+  * Base64Codec.php _-- Andrew_
+  * MySQLCodec.php _-- Andrew_
+  * OracleCodec.php _-- Andrew_
+
+==Unassigned==
+
+  * CSSCodec.php
+  * HTMLEntityCodec.php
+  * JavaScriptCodec.php
+  * LDAPCodec.php
+  * PercentCodec.php
+  * VBScriptCodec.php
