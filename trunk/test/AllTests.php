@@ -60,7 +60,17 @@ $test->addTestFile(dirname(__FILE__).'/reference/LoggerTest.php'); //Laura
 $test->run(new HTMLReporter());
 
 $test = new GroupTest('Codecs');
-$test->addTestFile(dirname(__FILE__).'/codecs/CodecTest.php');
+	$test->addTestFile(dirname(__FILE__).'/codecs/Base64CodecTest.php');
+	$test->addTestFile(dirname(__FILE__).'/codecs/CSSCodecTest.php');
+	$test->addTestFile(dirname(__FILE__).'/codecs/HTMLEntityCodecTest.php');
+	$test->addTestFile(dirname(__FILE__).'/codecs/JavaScriptCodecTest.php');
+	$test->addTestFile(dirname(__FILE__).'/codecs/LDAPCodecTest.php');
+	$test->addTestFile(dirname(__FILE__).'/codecs/MySQLCodecTest.php');
+	$test->addTestFile(dirname(__FILE__).'/codecs/OracleCodecTest.php');
+	$test->addTestFile(dirname(__FILE__).'/codecs/PercentCodecTest.php');
+	$test->addTestFile(dirname(__FILE__).'/codecs/UnixCodecTest.php');
+	$test->addTestFile(dirname(__FILE__).'/codecs/VBScriptCodecTest.php');
+	$test->addTestFile(dirname(__FILE__).'/codecs/WindowsCodecTest.php');
 $test->run(new HTMLReporter());
 
 $test = new GroupTest('Unallocated');

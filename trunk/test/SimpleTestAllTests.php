@@ -42,6 +42,20 @@ class myGroupTest extends GroupTest {
         $this->addTestFile(dirname(__FILE__).'/reference/UserTest.php');
         $this->addTestFile(dirname(__FILE__).'/reference/LoggerTest.php');
 
+        // Codecs
+        
+		$test->addTestFile(dirname(__FILE__).'/codecs/Base64CodecTest.php');
+		$test->addTestFile(dirname(__FILE__).'/codecs/CSSCodecTest.php');
+		$test->addTestFile(dirname(__FILE__).'/codecs/HTMLEntityCodecTest.php');
+		$test->addTestFile(dirname(__FILE__).'/codecs/JavaScriptCodecTest.php');
+		$test->addTestFile(dirname(__FILE__).'/codecs/LDAPCodecTest.php');
+		$test->addTestFile(dirname(__FILE__).'/codecs/MySQLCodecTest.php');
+		$test->addTestFile(dirname(__FILE__).'/codecs/OracleCodecTest.php');
+		$test->addTestFile(dirname(__FILE__).'/codecs/PercentCodecTest.php');
+		$test->addTestFile(dirname(__FILE__).'/codecs/UnixCodecTest.php');
+		$test->addTestFile(dirname(__FILE__).'/codecs/VBScriptCodecTest.php');
+		$test->addTestFile(dirname(__FILE__).'/codecs/WindowsCodecTest.php');
+
         // Unallocated
 
         $this->addTestFile(dirname(__FILE__).'/reference/ExecutorTest.php');

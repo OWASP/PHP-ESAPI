@@ -30,7 +30,9 @@ require_once ('Codec.php');
  */
 class MySQLCodec extends Codec
 {
-
+	const MYSQL_ANSI	= 0;
+	const MYSQL_STD		= 1;
+	
     /**
      * Public Constructor 
      */
