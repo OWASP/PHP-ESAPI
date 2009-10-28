@@ -40,14 +40,14 @@ class PercentCodec extends Codec
     /**
      * {@inheritDoc}
      */
-    public function encode($input)
+    public function encode($immune, $input)
     {
     }
 
     /**
      * {@inheritDoc}
      */
-    public function encodeCharacter($c)
+    public function encodeCharacter($immune, $c)
     {
     }
 
