@@ -1,20 +1,20 @@
 ==Completed==
 
-  * Codec.php
-  * UnixCodec.php
-  * WindowsCodec.php
+  * Codec
+  * UnixCodec
+  * WindowsCodecp
 
 ==Assigned==
 
-  * Base64Codec.php _-- Andrew_
-  * MySQLCodec.php _-- Andrew_
-  * OracleCodec.php _-- Andrew_
+  * Base64Codec _-- Andrew_
+  * MySQLCodec _-- Andrew_
+  * OracleCodec _-- Andrew_
 
 ==Unassigned==
 
-  * CSSCodec.php
-  * HTMLEntityCodec.php
-  * JavaScriptCodec.php
-  * LDAPCodec.php
-  * PercentCodec.php
-  * VBScriptCodec.php
+  * CSSCodec
+  * HTMLEntityCodec
+  * JavaScriptCodec
+  * LDAPCodec
+  * PercentCodec
+  * VBScriptCodec
