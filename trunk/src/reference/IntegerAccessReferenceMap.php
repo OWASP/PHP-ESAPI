@@ -11,9 +11,9 @@
  * The ESAPI is published by OWASP under the BSD license. You should read and accept the
  * LICENSE before you use, modify, and/or redistribute this software.
  * 
- * @author 
- * @created 2008
- * @since 1.4
+ * @author Andrew van der Stock
+ * @created 2009
+ * @since 1.6
  * @package org.owasp.esapi.reference
  */
 
