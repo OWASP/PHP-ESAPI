@@ -6,14 +6,14 @@
  * Enterprise Security API (ESAPI) project. For details, please see
  * <a href="http://www.owasp.org/index.php/ESAPI">http://www.owasp.org/index.php/ESAPI</a>.
  *
- * Copyright (c) 2007 - 2009 The OWASP Foundation
+ * Copyright (c) 2009 The OWASP Foundation
  * 
  * The ESAPI is published by OWASP under the BSD license. You should read and accept the
  * LICENSE before you use, modify, and/or redistribute this software.
  * 
  * @author Andrew van der Stock
- * @created 2008
- * @since 1.4
+ * @created 2009
+ * @since 1.6
  * @package org.owasp.esapi.reference
  */
 
