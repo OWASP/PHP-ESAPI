@@ -13,6 +13,7 @@
  * 
  * @author Andrew van der Stock (vanderaj @ owasp.org)
  * @created 2009
+ * @since 1.6
  */
 class EncryptedPropertiesTest extends UnitTestCase 
 {
