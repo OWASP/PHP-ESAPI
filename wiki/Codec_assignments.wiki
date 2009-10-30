@@ -1,8 +1,6 @@
 ==Completed==
 
  * Codec
- * UnixCodec
- * WindowsCodec
 
 ==Assigned==
 
@@ -10,6 +8,8 @@
  * HTMLEntityCodec _-- Linden_
  * MySQLCodec _-- Andrew_
  * OracleCodec _-- Andrew_
+ * UnixCodec _-- Linden_
+ * WindowsCodec _-- Linden_
 
 ==Unassigned==
 
