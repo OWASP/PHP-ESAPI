@@ -11,9 +11,9 @@
  * The ESAPI is published by OWASP under the LGPL. You should read and accept the
  * LICENSE before you use, modify, and/or redistribute this software.
  *
- * @author Jeff Williams <a href="http://www.aspectsecurity.com">Aspect Security</a>
- * @package org.owasp.esapi
- * @since 2007
+ * @author Andrew van der Stock < van der aj (at) owasp.org > 
+ * @package org.owasp.esapi.test
+ * @since 1.6
  */
 
 error_reporting(E_ALL | ~E_STRICT); 		// TODO - Fix when SimpleTest > 1.0.1 comes out.  
