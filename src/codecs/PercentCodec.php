@@ -35,13 +35,7 @@ class PercentCodec extends Codec
      */
     function __construct()
     {
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function encode($immune, $input)
-    {
+  		parent::__construct();
     }
 
     /**
@@ -49,19 +43,41 @@ class PercentCodec extends Codec
      */
     public function encodeCharacter($immune, $c)
     {
+    	// check for immune characters
+		if ( $this->containsCharacter( $c, $immune ) ) {
+			return $c;
+		}
+    	
+		// check for alphanumeric characters
+		$hex = $this->getHexForNonAlphanumeric( $c );
+		if(is_null($hex)) {
+			return $c;
+		}
+		
+		if(ord($c) < 16){
+			$hex = "0".strtoupper($hex);
+		}
+		
+		return "%".strtoupper($hex);
     }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function decode($input)
-    {
-    }
-
+  
     /**
      * {@inheritDoc}
      */
     public function decodeCharacter($input)
-    {
+   {
+    	$first = mb_substr($input, 0, 1);
+    	if(is_null($first)) {
+			return null;
+		}
+    			
+		// if this is not an encoded character, return null
+		if ( $first != '%' ) {
+			return null;
+		}
+
+	   	$second = chr(intval(mb_substr($input, 1, 2), 16));
+    	
+    	return $second;
     }
 }
