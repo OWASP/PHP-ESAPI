@@ -43,28 +43,71 @@ class PercentCodec extends Codec
      */
     public function encodeCharacter($immune, $c)
     {
-    	// check for immune characters
-		if ( $this->containsCharacter( $c, $immune ) ) {
-			return $c;
-		}
-    	
-		// check for alphanumeric characters
-		$hex = $this->getHexForNonAlphanumeric( $c );
-		if(is_null($hex)) {
-			return $c;
-		}
-		
-		if(ord($c) < 16){
-			$hex = "0".strtoupper($hex);
-		}
-		
-		return "%".strtoupper($hex);
+       //detect encoding, special-handling for chr(172) and chr(128) to chr(159) which fail to be detected by mb_detect_encoding()
+  		if((ord($c) == 172)  || (ord($c) >= 128 && ord($c) <= 159))
+  		{
+  			$initialEncoding = "ASCII";
+  		}
+      else if(ord($c) >= 160 && ord($c) <= 255)
+  		{
+  			$initialEncoding = "ISO-8859-1";
+  		}
+  		else
+  		{
+  			$initialEncoding = mb_detect_encoding($c);
+  		}
+  		
+  		// Normalize encoding to UTF-32
+  		$_4ByteUnencodedOutput = $this->normalizeEncoding($c);
+  		
+  		// Start with nothing; format it to match the encoding of the string passed as an argument.
+  		$encodedOutput = mb_convert_encoding("", $initialEncoding);
+  		
+  		// Grab the 4 byte character.
+  		$_4ByteCharacter = $this->forceToSingleCharacter($_4ByteUnencodedOutput);
+  		
+  		// Get the ordinal value of the character.
+  		list(, $ordinalValue) = unpack("N", $_4ByteCharacter);
+  		
+  		// Check for immune characters.
+  		foreach($immune as $immuneCharacter)
+  		{
+  			// Convert to UTF-32 (4 byte characters, regardless of actual number of bytes in the character).
+  			$_4ByteImmuneCharacter = $this->normalizeEncoding($immuneCharacter);
+  			
+  			// Ensure it's a single 4 byte character (since $immune is an array of strings) by grabbing only the 1st multi-byte character.
+  			$_4ByteImmuneCharacter = $this->forceToSingleCharacter($_4ByteImmuneCharacter);
+  			
+  			// If the character is immune then return it.
+  			if($_4ByteCharacter === $_4ByteImmuneCharacter)
+  			{
+  				return $encodedOutput.chr($ordinalValue);
+  			}
+  		}
+  		
+  		// Check for alphanumeric characters
+  		$hex = $this->getHexForNonAlphanumeric($_4ByteCharacter);
+  		if($hex===null)
+  		{
+  			return $encodedOutput.chr($ordinalValue);
+  		}
+  		
+  		// Check for illegal characters
+  		if($ordinalValue < 16)
+  		{
+  			return $encodedOutput;
+  		}
+   		
+  		$encodedOutput .= "%".$hex;
+  		
+  		// Encoded!
+  		return strtoupper($encodedOutput);
     }
   
     /**
      * {@inheritDoc}
      */
-    public function decodeCharacter($input)
+    public function decodeCharacter(&$input)
    {
     	$first = mb_substr($input, 0, 1);
     	if(is_null($first)) {
