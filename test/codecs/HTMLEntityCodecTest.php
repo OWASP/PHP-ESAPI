@@ -11,8 +11,9 @@
  * The ESAPI is published by OWASP under the BSD license. You should read and accept the
  * LICENSE before you use, modify, and/or redistribute this software.
  *
- * @author Jeff Williams <a href="http://www.aspectsecurity.com">Aspect Security</a>
- * @created 2007
+ * @author Linden Darling <a href="http://www.jds.net.au">JDS Australia</a>
+ * @created 2009
+ * @since 1.6
  */
 
 require_once dirname(__FILE__).'/../../src/ESAPI.php';
