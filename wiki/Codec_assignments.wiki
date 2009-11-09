@@ -1,19 +1,19 @@
 ==Completed==
 
  * Codec
+ * HTMLEntityCodec
+ * UnixCodec_
+ * WindowsCodec
 
 ==Assigned==
 
  * Base64Codec _-- Andrew_
- * HTMLEntityCodec _-- Linden_
+ * CSSCodec _-- Linden_
  * MySQLCodec _-- Andrew_
  * OracleCodec _-- Andrew_
- * UnixCodec _-- Linden_
- * WindowsCodec _-- Linden_
 
 ==Unassigned==
 
- * CSSCodec
  * JavaScriptCodec
  * LDAPCodec
  * PercentCodec
