@@ -157,39 +157,54 @@ class IntegerReferenceMapTest extends UnitTestCase
     	$this->assertEqual($ind, $newInd); 
     }
     
-	/**
-	 * Test of update method of class org.owasp.esapi.AccessReferenceMap
-	 * 
-	 * @throws AuthenticationException
-     *             the authentication exception
-     * @throws EncryptionException
-	 */
-    function testUpdate() 
+	function testUpdatePass() 
 	{
-    	$auth = ESAPI::getAuthenticator();
-    	$pass = $auth->generateStrongPassword();
-    	$u = $auth->createUser( "armUpdate", $pass, $pass );
+		$users = array ('alpha', 'juliet', 'victor');
+        
+        $arm = new IntegerAccessReferenceMap();
+        $arm->update($users);
 
-    	// test to make sure update returns something
-    	
-		$arm = new IntegerAccessReferenceMap();
-		$arm->update( $auth->getUserNames() );
+        $indirect = $arm->getIndirectReference('victor');
+		$this->assertNotNull($indirect);
+    }
+    
+    function testUpdateFail() 
+	{
+		$users = array ('alpha', 'juliet', 'victor');
+        
+        $arm = new IntegerAccessReferenceMap();
+        $arm->update($users);
+
+        $indirect = $arm->getIndirectReference('ridiculous');
+		$this->assertNull($indirect);
+	}
+	
+    function testUpdateRemoveItem() {    
+		$users = array ('alpha', 'juliet', 'victor');
+        
+        $arm = new IntegerAccessReferenceMap();
+        $arm->update($users);
+
+        unset($users[1]);
+        $arm->update($users);
+        
+        $indirect = $arm->getIndirectReference('juliet');
+		$this->assertNull($indirect);
+    }
+    
+    function testUpdateStableReference() {
+		$users = array ('alpha', 'juliet', 'victor');
+        
+        $arm = new IntegerAccessReferenceMap();
+        $arm->update($users);
+		$indirect = $arm->getIndirectReference('juliet');
+
+		$users[] = 'omega'; 
 		
-		$indirect = $arm->getIndirectReference( $u->getAccountName() );
-		$this->assertNotNull($indirect, "Account name [".$u->getAccountName()."] has no indirect mapping");
-		
-		// test to make sure update removes items that are no longer in the list
-		$auth->removeUser( $u->getAccountName() );
-		
-		$arm->update($auth->getUserNames());
-		
-		$indirect = $arm->getIndirectReference( $u->getAccountName() );
-		$this->assertNull($indirect, "Account name [".$u->getAccountName()."] has indirect mapping [".$indirect."]");
-		
-		// test to make sure old indirect reference is maintained after an update
-		$arm->update($auth->getUserNames());
-		$newIndirect = $arm->getIndirectReference( $u->getAccountName() );
-		$this->assertEqual($indirect, $newIndirect);
+        $arm->update($users);
+        
+        $indirect2 = $arm->getIndirectReference('juliet');
+		$this->assertEqual($indirect, $indirect2);
     }
 
 }
