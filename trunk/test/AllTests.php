@@ -6,7 +6,7 @@
  * Enterprise Security API (ESAPI) project. For details, please see
  * http://www.owasp.org/esapi.
  *
- * Copyright (c) 2007 - The OWASP Foundation
+ * Copyright (c) 2009 The OWASP Foundation
  *
  * The ESAPI is published by OWASP under the LGPL. You should read and accept the
  * LICENSE before you use, modify, and/or redistribute this software.
@@ -34,32 +34,28 @@ $ESAPI = new ESAPI(dirname(__FILE__)."/testresources/ESAPI.xml");
 
 // Milestones
 
-		$test = new GroupTest('Finished');
-$test->addTestFile(dirname(__FILE__).'/errors/EnterpriseSecurityExceptionTest.php');	// AJV
-$test->addTestFile(dirname(__FILE__).'/reference/RandomAccessReferenceMapTest.php');	// AJV
-$test->addTestFile(dirname(__FILE__).'/reference/IntegerAccessReferenceMapTest.php');	// AJV
-$test->addTestFile(dirname(__FILE__).'/reference/SecurityConfigurationTest.php');		// AJV
-$test->addTestFile(dirname(__FILE__).'/reference/RandomizerTest.php');					// AJV
+$test = new GroupTest('Finished');
+	$test->addTestFile(dirname(__FILE__).'/errors/EnterpriseSecurityExceptionTest.php');	// AJV
+	$test->addTestFile(dirname(__FILE__).'/reference/RandomAccessReferenceMapTest.php');	// AJV
+	$test->addTestFile(dirname(__FILE__).'/reference/IntegerAccessReferenceMapTest.php');	// AJV
+	$test->addTestFile(dirname(__FILE__).'/reference/SecurityConfigurationTest.php');		// AJV
+	$test->addTestFile(dirname(__FILE__).'/reference/RandomizerTest.php');					// AJV
+	$test->addTestFile(dirname(__FILE__).'/reference/StringUtilitiesTest.php');				// AJV
 $test->run(new HTMLReporter());
 
-		$test = new GroupTest('Allocated');
-$test->addTestFile(dirname(__FILE__).'/reference/AccessControllerTest.php');	// Abius X
-$test->addTestFile(dirname(__FILE__).'/reference/UserTest.php');				// AbiusX
-
-$test->addTestFile(dirname(__FILE__).'/reference/AuthenticatorTest.php');		// Bipin
-
-$test->addTestFile(dirname(__FILE__).'/reference/EncoderTest.php');				// Johannes 2nd priority
-$test->addTestFile(dirname(__FILE__).'/reference/ValidatorTest.php'); 			// Johannes 1st priority
-
-$test->addTestFile(dirname(__FILE__).'/reference/EncryptorTest.php');			// AJV
-$test->addTestFile(dirname(__FILE__).'/reference/EncryptedPropertiesTest.php'); // AJV
-$test->addTestFile(dirname(__FILE__).'/reference/StringUtilitiesTest.php');		// AJV
-$test->addTestFile(dirname(__FILE__).'/reference/LoggerTest.php'); //Laura
-
-
+$test = new GroupTest('Allocated');
+	$test->addTestFile(dirname(__FILE__).'/reference/EncryptorTest.php');					// AJV
+	$test->addTestFile(dirname(__FILE__).'/reference/EncryptedPropertiesTest.php'); 		// AJV
+	$test->addTestFile(dirname(__FILE__).'/reference/IntrusionDetectorTest.php');			// Aung Khant
+	$test->addTestFile(dirname(__FILE__).'/reference/AuthenticatorTest.php');				// Bipin
+	$test->addTestFile(dirname(__FILE__).'/reference/ValidatorTest.php'); 					// Johannes Ullrich
+	$test->addTestFile(dirname(__FILE__).'/reference/LoggerTest.php'); 						// Laura
+	$test->addTestFile(dirname(__FILE__).'/reference/ExecutorTest.php');					// Laura
+	$test->addTestFile(dirname(__FILE__).'/reference/HTTPUtilitiesTest.php');				// Laura
+	$test->addTestFile(dirname(__FILE__).'/reference/EncoderTest.php');						// Linden
 $test->run(new HTMLReporter());
 
-$test = new GroupTest('Codecs');
+$test = new GroupTest('Codecs');															// Linden
 	$test->addTestFile(dirname(__FILE__).'/codecs/Base64CodecTest.php');
 	$test->addTestFile(dirname(__FILE__).'/codecs/CSSCodecTest.php');
 	$test->addTestFile(dirname(__FILE__).'/codecs/HTMLEntityCodecTest.php');
@@ -74,10 +70,9 @@ $test = new GroupTest('Codecs');
 $test->run(new HTMLReporter());
 
 $test = new GroupTest('Unallocated');
+$test->addTestFile(dirname(__FILE__).'/reference/AccessControllerTest.php');	
+$test->addTestFile(dirname(__FILE__).'/reference/UserTest.php');				
 
-$test->addTestFile(dirname(__FILE__).'/reference/ExecutorTest.php');
-$test->addTestFile(dirname(__FILE__).'/reference/HTTPUtilitiesTest.php');
-$test->addTestFile(dirname(__FILE__).'/reference/IntrusionDetectorTest.php');
 $test->addTestFile(dirname(__FILE__).'/reference/SafeFileTest.php');
 $test->run(new HTMLReporter());
 ?>
