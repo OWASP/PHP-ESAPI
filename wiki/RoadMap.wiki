@@ -10,12 +10,13 @@ The 1.6 baseline is targeting the (at the time of writing) current stable ESAPI 
 
 == Completed ==
 
-  * AccessReferenceMaps - AJV - 100% Complete
-  * ESAPI - Allocated to AJV - 100% complete
-  * Exceptions - Allocated to AJV - 100% complete
-  * Interfaces - Allocated to AJV - 100% complete
-  * Randomizer - Allocated to AJV -100% complete
-  * SecurityConfiguration - Allocated to AJV - 100% complete
+  * AccessReferenceMaps
+  * ESAPI
+  * Exceptions
+  * Interfaces
+  * Randomizer
+  * SecurityConfiguration
+  * StringUtilities
 
 == Allocated ==
 
@@ -27,7 +28,6 @@ The 1.6 baseline is targeting the (at the time of writing) current stable ESAPI 
   * HTTPUtilities - Allocated to Laura Bell - 25% complete
   * IntrusionDetector - Allocated to Aung Khant - 0% complete
   * Logger - Allocated to Laura Bell - 90% complete
-  * StringUtilities - Allocated to AJV - 95% complete (need to fix a bug and add tests)
   * Test Suite - AJV responsible - 15% complete
   * User - AbiusX - 15% complete
   * Validator - Allocated to Johannes Ullrich - 50% complete
