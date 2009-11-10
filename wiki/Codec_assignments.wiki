@@ -2,6 +2,7 @@
 
  * Codec
  * HTMLEntityCodec
+ * PercentCodec
  * UnixCodec_
  * WindowsCodec
 
@@ -16,5 +17,4 @@
 
  * JavaScriptCodec
  * LDAPCodec
- * PercentCodec
  * VBScriptCodec
