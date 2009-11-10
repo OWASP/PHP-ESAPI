@@ -32,15 +32,22 @@ class StringUtilities {
 	 * @return the stripped header
 	 */
 	public static function stripControls( $input ) {
+		if (empty($input)) {
+			return '';
+		}
+
+		$i = str_split($input);
+		
 		$sb = '';
-		$sl = strlen($input);
-		for ( $i=0; $i< $sl; $i++ ) {
-			if ( $input[i] > chr(32) && $input[i] < chr(127) ) {
-				$sb .= $input[i];
+		foreach ( $i as $c )
+		{
+			if ( $c > chr(32) && $c < chr(127) ) {
+				$sb .= $c;
 			} else {
 				$sb .= ' ';
 			}
 		}
+		
 		return $sb;
 	}
 
@@ -53,6 +60,11 @@ class StringUtilities {
      * @return the char[]
      */
     public static function union($c1, $c2) {
+    	if (empty($c1) && empty($c2))
+    	{
+    		return null;
+    	}
+    	
 		return sort(array_unique(array_merge($c1, $c2)));
     }
 
@@ -61,6 +73,10 @@ class StringUtilities {
      * Returns true if the character is contained in the provided StringBuffer.
      */
     public static function contains($haystack, $c) {
-    	return in_array($c, $haystack);
+    	if ( empty($haystack) || empty($c) ) {
+    		return false;
+    	}
+    	
+    	return ( strpos($haystack, $c) !== false ) ? true : false;
     }
 }
