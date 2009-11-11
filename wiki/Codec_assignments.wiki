@@ -10,11 +10,11 @@
 
  * Base64Codec _-- Andrew_
  * CSSCodec _-- Linden_
+ * JavaScriptCodec _-- Mike_
  * MySQLCodec _-- Andrew_
  * OracleCodec _-- Andrew_
 
 ==Unassigned==
 
- * JavaScriptCodec
  * LDAPCodec
  * VBScriptCodec
