@@ -12,6 +12,7 @@
  * LICENSE before you use, modify, and/or redistribute this software.
  * 
  * @author Linden Darling <a href="http://www.jds.net.au">JDS Australia</a>
+ * @author Mike Boberski
  * @created 2009 
  * @since 1.6
  */
