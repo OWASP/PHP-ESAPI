@@ -65,20 +65,10 @@ class JavaScriptCodec extends Codec
   		list(, $ordinalValue) = unpack("N", $_4ByteCharacter);
   		
         // check for immune characters
-  		foreach($immune as $immuneCharacter)
-  		{
-  			// Convert to UTF-32 (4 byte characters, regardless of actual number of bytes in the character).
-  			$_4ByteImmuneCharacter = $this->normalizeEncoding($immuneCharacter);
-  			
-  			// Ensure it's a single 4 byte character (since $immune is an array of strings) by grabbing only the 1st multi-byte character.
-  			$_4ByteImmuneCharacter = $this->forceToSingleCharacter($_4ByteImmuneCharacter);
-  			
-  			// If the character is immune then return it.
-  			if($_4ByteCharacter === $_4ByteImmuneCharacter)
-  			{
-  				return $encodedOutput.chr($ordinalValue);
-  			}
-  		}
+		if ( $this->containsCharacter( $_4ByteCharacter, $immune ) )
+		{
+		   return $encodedOutput.chr($ordinalValue);
+		}
     	
     	// Check for alphanumeric characters
   		$hex = $this->getHexForNonAlphanumeric($_4ByteCharacter);
