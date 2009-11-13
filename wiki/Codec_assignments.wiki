@@ -2,15 +2,15 @@
 
  * Codec
  * HTMLEntityCodec
+ * JavaScriptCodec
  * PercentCodec
- * UnixCodec_
+ * UnixCodec
  * WindowsCodec
 
 ==Assigned==
 
  * Base64Codec _-- Andrew_
  * CSSCodec _-- Linden_
- * JavaScriptCodec _-- Mike_
  * MySQLCodec _-- Andrew_
  * OracleCodec _-- Andrew_
 
