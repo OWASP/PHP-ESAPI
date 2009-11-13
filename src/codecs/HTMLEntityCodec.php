@@ -275,7 +275,7 @@ class HTMLEntityCodec extends Codec
 			  list(, $ordinalValue) = unpack("N", mb_substr($input,$i,1,"UTF-32"));
 			
 			  // if character is a hex digit, add it and keep on going
-    		if(eregi("[0-9a-f]",chr($ordinalValue)))
+    		if(preg_match("/^[0-9a-fA-F]/",chr($ordinalValue)))
     		{
     			// hex digit found, add it and continue...
     			$hexString .= mb_substr($input,$i,1,"UTF-32");
