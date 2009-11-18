@@ -1,18 +1,14 @@
 <?php
 /**
- * OWASP Enterprise Security API (ESAPI)
+ * Sample code that calls the reference implementation of the Adapter interface. 
  * 
- * This file is part of the Open Web Application Security Project (OWASP)
- * Enterprise Security API (ESAPI) project. For details, please see
- * <a href="http://www.owasp.org/index.php/ESAPI">http://www.owasp.org/index.php/ESAPI</a>.
- *
  * Copyright (c) 2007 - 2009 The OWASP Foundation
- * 
+ *
  * The ESAPI is published by OWASP under the BSD license. You should read and accept the
  * LICENSE before you use, modify, and/or redistribute this software.
  * 
- * @author Mike Boberski (mike.boberski @ owasp.org)
- * @created 2009
+ * @author <a href="mailto:boberski_michael@bah.com?subject=ESAPI for PHP question">Mike Boberski</a> at <a href="http://www.bah.com">Booz Allen Hamilton</a>
+ * @since Version 1.0
  */
 
 require_once dirname(__FILE__).'/../src/ESAPI.php';
