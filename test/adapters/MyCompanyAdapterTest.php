@@ -8,8 +8,8 @@
  */
 
 require_once dirname(__FILE__).'/../../src/ESAPI.php';
-require_once dirname(__FILE__).'/../../src/adapters/BoozAllenAdapter.php';
-class BoozAllenAdapterTest extends UnitTestCase 
+require_once dirname(__FILE__).'/../../src/adapters/MyCompanyAdapter.php';
+class MyCompanyAdapterTest extends UnitTestCase 
 {
 	function setUp() 
 	{
