@@ -35,25 +35,25 @@ class JavaScriptCodecTest extends UnitTestCase
 		$this->javascriptCodec = new JavaScriptCodec();
 	}
 		
-	function testEncode()
+/*	function testEncode()
 	{
 		$immune = array("");
 		
 		$this->assertEqual( 'TODO', $this->javascriptCodec->encode($immune, '"; eval(alert(/XSS/));') );
 	}
-	
+*/	
 	function testEncodeCharacter()
 	{
 		$immune = array("");
 		
 		$this->assertEqual( "\\x3C", $this->javascriptCodec->encode($immune, "<") );
 	}	
-	
+/*	
 	function testDecode()
 	{
 		$this->assertEqual( '"; eval(alert(/XSS/));', $this->javascriptCodec->decode('TODO') );
 	}
-		
+*/		
 	function testDecodeCharacter()
 	{
 		$this->assertEqual( "<", $this->javascriptCodec->decode("\\x3C") );
