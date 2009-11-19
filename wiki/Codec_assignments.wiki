@@ -13,8 +13,8 @@
  * CSSCodec _-- Linden_
  * MySQLCodec _-- Andrew_
  * OracleCodec _-- Andrew_
+ * VBScriptCodec _--arnaud.labenne@dotsafe.fr_
 
 ==Unassigned==
 
  * LDAPCodec
- * VBScriptCodec
