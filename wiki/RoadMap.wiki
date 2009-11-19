@@ -2,11 +2,13 @@
 
 = Introduction =
 
-The following tasks have been allocated:
+Thank you for your interest in the ESAPI for PHP project!
 
-= Baseline 1.6 =
+Here is what we're working on, and what we plan to work on:
 
-The 1.6 baseline is targeting the (at the time of writing) current stable ESAPI for J2EE reference implementation. We hope to finish this baseline by OWASP USA in November 2009. Please come back often for updates.
+= We are currently working on esapi4php-core-1.0 =
+
+We are currently porting the last stable ESAPI for Java EE release, version 1.4 to PHP. Below is a breakdown of current assignments. Please come back often for updates!
 
 == Completed ==
 
@@ -31,14 +33,13 @@ The 1.6 baseline is targeting the (at the time of writing) current stable ESAPI 
 
 == Unallocated ==
 
-
   * Access Controller - Unallocated - 0% complete
   * Authenticator - Unallocated  - 0% complete
   * IntrusionDetector - Unallocated  - 0% complete
   * SafeFile - Unallocated - 0% complete
   * User - Unallocated - 0% complete
 
-= Baseline 2.0 =
+= Future plans =
 
 Taking ESAPI for PHP to the ESAPI for J2EE Reference 2.0 will commence once 1.6 has completed. 
 
