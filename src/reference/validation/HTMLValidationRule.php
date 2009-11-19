@@ -25,8 +25,8 @@
 //
 
 
-require_once "BaseValidationRule.php";
-require_once "../lib/htmlpurifier/HTMLPurifier.includes.php";
++require_once dirname ( __FILE__ ) . "/BaseValidationRule.php";
++require_once dirname ( __FILE__ ) . "/../../../lib/htmlpurifier/HTMLPurifier.includes.php";
 class HTMLValidationRule extends StringValidationRule {
 	// private static $antiSamyPolicy=null;
 	private static $logger=null;
