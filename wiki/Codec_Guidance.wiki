@@ -1,3 +1,4 @@
+#summary Guidance from Andrew on codecs
 Andrew has tried where possible to have both characters and strings, so string tests are really SQL injections, CSS injections, LDAP injections, etc. If you add more tests, please try to do this as well. 
 
 
