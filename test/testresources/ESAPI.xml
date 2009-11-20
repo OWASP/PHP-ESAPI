@@ -210,23 +210,23 @@
 			<regexp name="Redirect" value="^\\/test.*$" />
 	
 			<!--
-				Global HTTP Validation Rules Values with Base64 encoded data (e.g.
-				encrypted state) will need at least [a-zA-Z0-9\/+=]
+				Global HTTP Validation Rules.
+				Values with Base64 encoded data (e.g. encrypted state) will need at least [a-zA-Z0-9\/+=]
 			-->
 	
 			<regexp name="HTTPScheme" value="^(http|https)$" />
-			<regexp name="HTTPServerName" value="^[a-zA-Z0-9_.\\-]*$" />
+			<regexp name="HTTPServerName" value="^[a-zA-Z0-9_.\-]*$" />
 			<regexp name="HTTPParameterName" value="^[a-zA-Z0-9_]{0,32}$" />
-			<regexp name="HTTPParameterValue" value="^[a-zA-Z0-9.\\-\\/+=_ ]*$" />
-			<regexp name="HTTPCookieName" value="^[a-zA-Z0-9\\-_]{0,32}$" />
-			<regexp name="HTTPCookieValue" value="^[a-zA-Z0-9\\-\\/+=_ ]*$" />
-			<regexp name="HTTPHeaderName" value="^[a-zA-Z0-9\\-_]{0,32}$" />
-			<regexp name="HTTPHeaderValue" value="^[a-zA-Z0-9()\\-=\\*\\.\\?;,+\\/:&amp;_ ]*$" />
+			<regexp name="HTTPParameterValue" value="^[a-zA-Z0-9.\-\/+=_ ]*$" />
+			<regexp name="HTTPCookieName" value="^[a-zA-Z0-9\-_]{0,32}$" />
+			<regexp name="HTTPCookieValue" value="^[a-zA-Z0-9\-\/+=_ ]*$" />
+			<regexp name="HTTPHeaderName" value="^[a-zA-Z0-9\-_]{0,32}$" />
+			<regexp name="HTTPHeaderValue" value="^[a-zA-Z0-9()\-=\*\.\?;,+\/:&amp;_ ]*$" />
 			
-			<regexp name="HTTPContextPath" value="^[a-zA-Z0-9.\\-_]*$" />
-			<regexp name="HTTPPath" value="^[a-zA-Z0-9.\\-_]*$" />
-			<regexp name="HTTPQueryString" value="^[a-zA-Z0-9()\\-=\\*\\.\\?;,+\\/:&amp;_ ](1,50)$" />
-			<regexp name="HTTPURI" value="^[a-zA-Z0-9()\\-=\\*\\.\\?;,+\\/:&amp;_ ]*$" />
+			<regexp name="HTTPContextPath" value="^[a-zA-Z0-9.\-_]*$" />
+			<regexp name="HTTPPath" value="^[a-zA-Z0-9.\-_]*$" />
+			<regexp name="HTTPQueryString" value="^[a-zA-Z0-9()\-=\*\.\?;,+\/:&amp;_ ]{1,50}$" />
+			<regexp name="HTTPURI" value="^[a-zA-Z0-9()\-=\*\.\?;,+\/:&amp;_ ]*$" />
 			<regexp name="HTTPURL" value="^.*$" />
 			<regexp name="HTTPPHPSESSIONID" value="^[A-Z0-9]{10,30}$" />
 	
