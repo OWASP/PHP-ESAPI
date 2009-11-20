@@ -2,6 +2,7 @@
   * [Users ESAPI for PHP Users]
     * [GettingStarted Getting started]
     * [FAQ Frequently asked questions]
+    * [Phpdoc Appendix -- Interface documentation]
   * [RoadMap ESAPI for PHP Contributors]
     * [Completed Completed controls]
     * [Allocated Allocated controls]
