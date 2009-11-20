@@ -23,7 +23,7 @@ We are currently porting the last stable ESAPI for Java EE release, version 1.4 
 || Encryptor || AJV ||
 || EncryptedProperties || AJV ||
 || Executor || Laura Bell ||
-|| HTTPUtilities || xx ||
+|| HTTPUtilities || Laura Bell ||
 || Logger || Laura Bell ||
 || SafeFile || Sarath Kummamuru ||
 || Validator || Johannes Ullrich ||
