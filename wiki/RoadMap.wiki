@@ -1,5 +1,5 @@
 #summary ESAPI for PHP Roadmap
-
+<wiki:toc max_depth="3" />
 === We are currently working on esapi4php-core-1.0 ===
 
 We are currently porting the last stable ESAPI for Java EE release, version 1.4 to PHP. Below is a breakdown of current assignments. Please come back often for updates!
@@ -41,21 +41,21 @@ We are currently porting the last stable ESAPI for Java EE release, version 1.4 
   * Codec - LDAPCodec
   * IntrusionDetector
 
----- 
-= Future plans =
+
+=== Future plans ===
 
 Taking ESAPI for PHP to the ESAPI for J2EE Reference 2.0 will commence once 1.6 has completed. 
 
-== Allocated ==
+==== Allocated ====
 
   * SecurityConfiguration - Allocated to AJV - 10% complete (NEW 2.0)
 
-== Unallocated ==
+==== Unallocated ====
 
   * Convert2UTF8 - Unallocated - 0% complete (2.0)
   * PreparedString - Unallocated - 0% complete (2.0) 
 
-=== Access Control ===
+====Access Control ====
 
   * reference/accesscontrol/policyloader/ACRParameterLoader - Unallocated - 0% complete (NEW 2.0)
   * reference/accesscontrol/policyloader/ ACRParameterLoaderHelper - Unallocated - 0% complete (NEW 2.0)
@@ -74,7 +74,7 @@ Taking ESAPI for PHP to the ESAPI for J2EE Reference 2.0 will commence once 1.6 
 
 The Dynabean stuff is a J2EE-ism. Feel free to have a discussion about not doing this bit.
 
-=== Validator ===
+==== Validator ====
 
   ** reference/validation/BaseValidationRule - Unallocated - 0% complete (NEW 2.0)
   ** reference/validation/CreditCardValidationRule - Unallocated - 0% complete (NEW 2.0)
@@ -85,7 +85,7 @@ The Dynabean stuff is a J2EE-ism. Feel free to have a discussion about not doing
   ** ValidationErrorList - Unallocated - 0% complete (NEW - 2.0)
   ** ValidationRule - Unallocated - 0% complete (NEW 2.0)
 
-=== Filters ===
+====Filters ====
 
   * Filters - ClickJack Filter - Unallocated - 0% complete
   * Filters - SecurityWrapper - Unallocated - 0% complete
@@ -94,7 +94,7 @@ The Dynabean stuff is a J2EE-ism. Feel free to have a discussion about not doing
   * Filters - RequestRateThrottleFilter - Unallocated - 0% complete
   * Filters - ESAPIFitler - Unallocated - 0% complete
 
-=== OWASP Validators / AntiSamy ===
+==== OWASP Validators / AntiSamy ====
 
   * Validators - AntiSamy - Unallocated - 0% complete
   * Validators - CleanResults - Unallocated - 0% complete
@@ -102,7 +102,7 @@ The Dynabean stuff is a J2EE-ism. Feel free to have a discussion about not doing
   * Validators - PolicyException - Unallocated - 0% complete
   * Validators - ScanException - Unallocated - 0% complete;
 
-=== Tags ===
+==== Tags ====
 
 We need to discuss these as PHP is not a tag lib based language. I think the use of _h(), etc might be appropriate, but let's talk when it's time. AJV
 
@@ -111,7 +111,7 @@ We need to discuss these as PHP is not a tag lib based language. I think the use
   * Tags - EncodeForHtmlJavaScript - Unallocated - 0% complete;
   * Tags - EncodeForVMScriptTag - Unallocated - 0% complete;
 
-=== WAF ===
+==== WAF ====
 
   * Actions - Unallocated - 0% complete
   * Configuration - Unallocated - 0% complete
