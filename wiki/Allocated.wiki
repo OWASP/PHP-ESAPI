@@ -1,0 +1,19 @@
+#sidebar TableOfContents
+
+The following controls have been assigned:
+
+|| *Control* || *Assignee* ||
+|| Authenticator || Bipin ||
+|| Codec - Base64Codec || Andrew ||
+|| Codec - CSSCodec || Linden ||
+|| Codec - MySQLCodec || Andrew ||
+|| Codec - OracleCodec || Andrew ||
+|| Codec - VBScriptCodec || Arnaud ||
+|| Encryptor || Andrew ||
+|| EncryptedProperties || Andrew ||
+|| Executor || Laura ||
+|| HTTPUtilities || Laura ||
+|| Logger || Laura ||
+|| SafeFile || Sarath ||
+|| Validator || Johannes ||
+|| User || Bipin ||
