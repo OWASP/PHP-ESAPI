@@ -1,5 +1,5 @@
   * [esapi4php-core-1.0 ESAPI for PHP 1.0]
-    * [Completed Completed controls]
+    * [Completed]
     * [Allocated Allocated controls]
     * [Unallocated Unallocated controls]
   * [esapi4php-core-2.0 Future plans]
