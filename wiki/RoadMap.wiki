@@ -6,16 +6,16 @@ We are currently porting the last stable ESAPI for Java EE release, version 1.4 
 
 === Completed ===
 
-  * AccessReferenceMaps
-  * Codec
-  * Codec - HTMLEntityCodec, JavaScriptCodec, PercentCodec, UnixCodec, WindowsCodec
-  * ESAPI
-  * Exceptions
-  * Interfaces
-  * Randomizer
-  * SecurityConfiguration
-  * StringUtilities
-  * Test Suite
+ * AccessReferenceMaps
+ * Codec
+ * Codec - HTMLEntityCodec, JavaScriptCodec, PercentCodec, UnixCodec, WindowsCodec
+ * ESAPI
+ * Exceptions
+ * Interfaces
+ * Randomizer
+ * SecurityConfiguration
+ * StringUtilities
+ * Test Suite
 
 === Allocated ===
 
