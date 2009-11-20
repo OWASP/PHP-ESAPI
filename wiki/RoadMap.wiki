@@ -25,14 +25,14 @@ We are currently porting the last stable ESAPI for Java EE release, version 1.4 
 || Codec - CSSCodec || Linden ||
 || Codec - MySQLCodec || Andrew ||
 || Codec - OracleCodec || Andrew ||
-|| Codec - VBScriptCodec || Arnaud Labenne||
+|| Codec - VBScriptCodec || Arnaud ||
 || Encryptor || Andrew ||
 || EncryptedProperties || Andrew ||
-|| Executor || Laura Bell ||
-|| HTTPUtilities || Laura Bell ||
-|| Logger || Laura Bell ||
-|| SafeFile || Sarath Kummamuru ||
-|| Validator || Johannes Ullrich ||
+|| Executor || Laura ||
+|| HTTPUtilities || Laura ||
+|| Logger || Laura ||
+|| SafeFile || Sarath ||
+|| Validator || Johannes ||
 || User || jah ||
 
 === Unallocated ====
