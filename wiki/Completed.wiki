@@ -1,3 +1,7 @@
+#sidebar TableOfContents
+
+Initial versions of the following controls have been completed:
+
  * AccessReferenceMaps
  * Codec
  * Codec - HTMLEntityCodec, JavaScriptCodec, PercentCodec, UnixCodec, WindowsCodec
