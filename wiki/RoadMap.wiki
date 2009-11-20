@@ -23,9 +23,9 @@ We are currently porting the last stable ESAPI for Java EE release, version 1.4 
 || Authenticator || jah ||
 || Codec - Base64Codec || Andrew ||
 || Codec - CSSCodec || Linden ||
-|| MySQLCodec || Andrew ||
-|| OracleCodec || Andrew ||
-|| VBScriptCodec || Arnaud Labenne||
+|| Codec - MySQLCodec || Andrew ||
+|| Codec - OracleCodec || Andrew ||
+|| Codec - VBScriptCodec || Arnaud Labenne||
 || Encryptor || Andrew ||
 || EncryptedProperties || Andrew ||
 || Executor || Laura Bell ||
