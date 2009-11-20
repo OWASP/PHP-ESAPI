@@ -1,5 +1,7 @@
   * [Welcome Welcome]
   * [Users ESAPI for PHP Users]
+    * [GettingStarted Getting started]
+    * [FAQ Frequently asked questions]
   * [RoadMap ESAPI for PHP Contributors]
     * [Completed Completed controls]
     * [Allocated Allocated controls]
