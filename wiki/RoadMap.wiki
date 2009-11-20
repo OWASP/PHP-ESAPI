@@ -22,11 +22,12 @@ We are currently porting the last stable ESAPI for Java EE release, version 1.4 
 
 == Allocated ==
 
-  * Encoder & codecs - Allocated to Linden - 0% complete
+  * Encoder & codecs - See codecs assignment wiki
   * Encryptor - Allocated to AJV - 0% complete 
   * EncryptedProperties - Allocated to AJV - 0% complete
   * HTTPUtilities - Allocated to Laura Bell - 25% complete
   * Logger - Allocated to Laura Bell - 90% complete
+  * SafeFile - Allocated to Sarath Kummamuru - 0% complete
   * Test Suite - AJV responsible - 15% complete
   * Validator - Allocated to Johannes Ullrich - 50% complete
   * Executor - Allocated to Laura Bell - 50% complete
@@ -36,7 +37,6 @@ We are currently porting the last stable ESAPI for Java EE release, version 1.4 
   * Access Controller - Unallocated - 0% complete
   * Authenticator - Unallocated  - 0% complete
   * IntrusionDetector - Unallocated  - 0% complete
-  * SafeFile - Unallocated - 0% complete
   * User - Unallocated - 0% complete
 
 = Future plans =
