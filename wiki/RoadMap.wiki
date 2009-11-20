@@ -1,16 +1,11 @@
 #summary One-ESAPI for PHP Road Map
 
-= Introduction =
-
-Thank you for your interest in the ESAPI for PHP project!
-
-Here is what we're working on, and what we plan to work on:
-
+= ESAPI for PHP Roadmap =
 = We are currently working on esapi4php-core-1.0 =
 
 We are currently porting the last stable ESAPI for Java EE release, version 1.4 to PHP. Below is a breakdown of current assignments. Please come back often for updates!
 
-== Completed ==
+=== Completed ===
 
   * AccessReferenceMaps
   * ESAPI
@@ -19,26 +14,28 @@ We are currently porting the last stable ESAPI for Java EE release, version 1.4 
   * Randomizer
   * SecurityConfiguration
   * StringUtilities
+  * Test Suite
 
-== Allocated ==
+=== Allocated ===
 
-  * Encoder & codecs - See codecs assignment wiki
-  * Encryptor - Allocated to AJV - 0% complete 
-  * EncryptedProperties - Allocated to AJV - 0% complete
-  * HTTPUtilities - Allocated to Laura Bell - 25% complete
-  * Logger - Allocated to Laura Bell - 90% complete
-  * SafeFile - Allocated to Sarath Kummamuru - 0% complete
-  * Test Suite - AJV responsible - 15% complete
-  * Validator - Allocated to Johannes Ullrich - 50% complete
-  * Executor - Allocated to Laura Bell - 50% complete
+|| *Control* || *Assignee* ||
+|| Authenticator || jah ||
+|| Encoder & codecs || See codecs assignment wiki ||
+|| Encryptor || AJV ||
+|| EncryptedProperties || AJV ||
+|| Executor || Laura Bell ||
+|| HTTPUtilities || xx ||
+|| Logger || Laura Bell ||
+|| SafeFile || Sarath Kummamuru ||
+|| Validator || Johannes Ullrich ||
+|| User || jah ||
 
-== Unallocated ==
+=== Unallocated ====
 
-  * Access Controller - Unallocated - 0% complete
-  * Authenticator - Unallocated  - 0% complete
-  * IntrusionDetector - Unallocated  - 0% complete
-  * User - Unallocated - 0% complete
+  * Access Controller
+  * IntrusionDetector
 
+---- 
 = Future plans =
 
 Taking ESAPI for PHP to the ESAPI for J2EE Reference 2.0 will commence once 1.6 has completed. 
