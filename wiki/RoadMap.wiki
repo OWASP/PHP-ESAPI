@@ -26,8 +26,8 @@ We are currently porting the last stable ESAPI for Java EE release, version 1.4 
 || MySQLCodec || Andrew ||
 || OracleCodec || Andrew ||
 || VBScriptCodec || Arnaud Labenne||
-|| Encryptor || AJV ||
-|| EncryptedProperties || AJV ||
+|| Encryptor || Andrew ||
+|| EncryptedProperties || Andrew ||
 || Executor || Laura Bell ||
 || HTTPUtilities || Laura Bell ||
 || Logger || Laura Bell ||
