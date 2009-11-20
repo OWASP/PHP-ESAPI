@@ -1,0 +1,4 @@
+<map id="G" name="G">
+<area shape="rect" id="node1" href="$interface_access_controller.html" title="AccessController" alt="" coords="5,5,125,33"/>
+<area shape="rect" id="node3" href="$class_file_based_access_controller.html" title="FileBasedAccessController" alt="" coords="173,5,352,33"/>
+</map>

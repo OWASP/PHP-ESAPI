@@ -1,0 +1,4 @@
+<map id="G" name="G">
+<area shape="rect" id="node1" href="$interface_authenticator.html" title="Authenticator" alt="" coords="5,5,104,33"/>
+<area shape="rect" id="node3" href="$class_file_based_authenticator.html" title="FileBasedAuthenticator" alt="" coords="153,5,308,33"/>
+</map>
