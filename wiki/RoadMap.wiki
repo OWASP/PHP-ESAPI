@@ -1,6 +1,8 @@
 #summary ESAPI for PHP Roadmap
 #sidebar TableOfContents
 
+==esapi4php-core-1.0a==
+
 We are currently porting the last stable ESAPI for Java EE release, version 1.4 to PHP. 
 
 <wiki:toc max_depth="3" />
@@ -44,7 +46,7 @@ We are currently porting the last stable ESAPI for Java EE release, version 1.4 
 
 
 
-=== Future plans ===
+== Future plans ==
 
 Taking ESAPI for PHP to the ESAPI for J2EE Reference 2.0 will commence once 1.6 has completed. 
 
