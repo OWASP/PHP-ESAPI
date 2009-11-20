@@ -1,0 +1,5 @@
+  * [esapi4php-core-1.0 ESAPI for PHP Core Version 1.0]
+    * [Completed Completed]
+    * [Allocated Allocated]
+    * [Unallocated Unallocated]
+  * [Future plans Future plans]
