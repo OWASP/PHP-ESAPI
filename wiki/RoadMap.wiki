@@ -1,5 +1,7 @@
 #summary ESAPI for PHP Roadmap
-We are currently porting the last stable ESAPI for Java EE release, version 1.4 to PHP. Below is a breakdown of current assignments. Please come back often for updates!
+
+We are currently porting the last stable ESAPI for Java EE release, version 1.4 to PHP. 
+
 <wiki:toc max_depth="3" />
 
 === Completed ===
