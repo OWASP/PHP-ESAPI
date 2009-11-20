@@ -5,4 +5,8 @@
 
 We are currently porting the last stable ESAPI for Java EE release, version 1.4 to PHP. 
 
-Please ask Mike Boberski (mike.boberski at owasp.org) to be allocated work. Mike is acting as the Project Manager - in control of new work allocations, adding / removing team members, road map, quality bars, etc.
+Please ask Mike Boberski (mike.boberski at owasp.org) to be allocated work. 
+
+Mike is acting as the Project Manager - in control of new work allocations, adding / removing team members, road map, quality bars, etc.
+
+Thank you for your interest in ESAPI for PHP!
