@@ -37,27 +37,26 @@ class VBScriptCodecTest extends UnitTestCase
 		
 	function testEncode()
 	{
-		$immune = array("");
+		$immune = array(" ");
 
-		$this->assertEqual( 'TODO', $this->vbScriptCodec->encode($immune, '": msgbox("XSS") : rem ') );
+		$this->assertEqual( " \"!\"@\"$\"%\"(\")\"=\"+\"{\"}\"[\"]\"\"\"<script\">", $this->vbScriptCodec->encode($immune, " !@$%()=+{}[]\"<script>") );
 	}
 	
 	function testEncodeCharacter()
 	{
-		$immune = array("");
+		$immune = array(" ");
 		
-		$this->assertEqual( "chrw(60)", $this->vbScriptCodec->encode($immune, "<") );
-	}	
+		$this->assertEqual( "\"<", $this->vbScriptCodec->encode($immune, "<") );
+	}
 	
 	function testDecode()
 	{
-		$this->assertEqual( '": msgbox("XSS") : rem ', $this->vbScriptCodec->decode('TODO') );
+		$this->assertEqual( " !@$%()=+{}[]\"", $this->vbScriptCodec->decode(" \"!\"@\"$\"%\"(\")\"=\"+\"{\"}\"[\"]\"\"") );
 	}
 		
 	function testDecodeCharacter()
 	{
 		$this->assertEqual( "<", $this->vbScriptCodec->decode("\"<") );
-		$this->assertEqual( "<", $this->vbScriptCodec->decode("chrw(60)") );
 	}
 }
 ?>
