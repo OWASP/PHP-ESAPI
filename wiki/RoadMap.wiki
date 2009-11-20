@@ -1,4 +1,5 @@
 #summary ESAPI for PHP Roadmap
+#sidebar TableOfContents
 
 ==esapi4php-core-1.0==
 
