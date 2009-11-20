@@ -7,6 +7,8 @@ We are currently porting the last stable ESAPI for Java EE release, version 1.4 
 === Completed ===
 
   * AccessReferenceMaps
+  * Codec
+  * Codec - HTMLEntityCodec, JavaScriptCodec, PercentCodec, UnixCodec, WindowsCodec
   * ESAPI
   * Exceptions
   * Interfaces
@@ -19,7 +21,11 @@ We are currently porting the last stable ESAPI for Java EE release, version 1.4 
 
 || *Control* || *Assignee* ||
 || Authenticator || jah ||
-|| Encoder & codecs || See codecs assignment wiki ||
+|| Codec - Base64Codec || Andrew ||
+|| Codec - CSSCodec || Linden ||
+|| MySQLCodec || Andrew ||
+|| OracleCodec || Andrew ||
+|| VBScriptCodec || Arnaud Labenne||
 || Encryptor || AJV ||
 || EncryptedProperties || AJV ||
 || Executor || Laura Bell ||
@@ -32,6 +38,7 @@ We are currently porting the last stable ESAPI for Java EE release, version 1.4 
 === Unallocated ====
 
   * Access Controller
+  * Codec - LDAPCodec
   * IntrusionDetector
 
 ---- 
