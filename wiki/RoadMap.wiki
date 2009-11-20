@@ -46,7 +46,7 @@ We are currently porting the last stable ESAPI for Java EE release, version 1.4 
 
 
 
-== Future plans ==
+== esapi4php-core-2.0 ==
 
 Taking ESAPI for PHP to the ESAPI for J2EE Reference 2.0 will commence once 1.6 has completed. 
 
