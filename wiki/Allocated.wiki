@@ -13,7 +13,8 @@ The following controls have been assigned:
 || EncryptedProperties || Andrew ||
 || Executor || Laura ||
 || HTTPUtilities || Laura ||
+|| IntrusionDetector || jah ||
 || Logger || Laura ||
 || SafeFile || Sarath ||
-|| Validator || Johannes ||
 || User || Bipin ||
+|| Validator || Johannes ||
