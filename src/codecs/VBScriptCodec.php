@@ -23,7 +23,7 @@ require_once ('Codec.php');
 /**
  * Implementation of the Codec interface for 'quote' encoding from VBScript.
  * 
- * @author 
+ * @author Arnaud Labenne
  * @since 1.4
  * @see org.owasp.esapi.Encoder
  */
@@ -35,6 +35,7 @@ class VBScriptCodec extends Codec
      */
     function __construct()
     {
+    	parent::__construct();
     }
 
     /**
