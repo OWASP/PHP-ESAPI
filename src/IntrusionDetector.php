@@ -11,7 +11,7 @@
  * The ESAPI is published by OWASP under the BSD license. You should read and accept the
  * LICENSE before you use, modify, and/or redistribute this software.
  * 
- * @author 
+ * @author jah (at jahboite.co.uk)
  * @created 2008
  * @since 1.4
  * @package org.owasp.esapi
@@ -64,5 +64,42 @@ interface IntrusionDetector {
      * 		the intrusion exception
      */
     function addEvent($eventName, $logMessage);
+
+}
+
+/*
+ * Intrusion Event.
+ */
+class Event
+{
+
+	public $key;
+	public $times = array();
+	public $count = 0;       // TODO: remove unused variable $count
+	
+	public function __construct($key)
+	{
+		$this->key = $key;
+	}
+	
+	public function increment($count, $interval)
+	{
+		$now = time();
+		array_unshift($times, $now );
+		
+		while ( sizeof($times) > $count )
+		{
+			array_pop($times);
+		}
+		if ( sizeof($times) == $count )
+		{
+			$plong = end($times);
+			$nlong = time();
+			if ( $nlong - $plong < $interval )
+			{
+				throw new IntrusionException( "Threshold exceeded", "Exceeded threshold for " + $key );
+			}
+		}
+	}
 
 }
