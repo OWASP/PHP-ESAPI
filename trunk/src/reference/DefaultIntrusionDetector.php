@@ -58,7 +58,7 @@ class DefaultIntrusionDetector implements IntrusionDetector {
     	    	
     	// add the exception to the current user, which may trigger a detector 
 		$user = ESAPI::getAuthenticator()->getCurrentUser();
-    	$eventName = 'org.owasp.esapi.errors.' . get_class($exception);
+    	$eventName = get_class($exception);
     	
     	if (is_a($exception, 'IntrusionException'))
         {
@@ -106,11 +106,11 @@ class DefaultIntrusionDetector implements IntrusionDetector {
     	$user = ESAPI::getAuthenticator()->getCurrentUser();
     	try
     	{
-    		$this->addSecurityEvent($user, 'event.' . $eventName);
+    		$this->addSecurityEvent($user, $eventName);
     	}
     	catch (IntrusionException $intrusionException)
     	{
-    		$quota = ESAPI::getSecurityConfiguration()->getQuota('event.' . $eventName);
+    		$quota = ESAPI::getSecurityConfiguration()->getQuota($eventName);
     		$actionsList = '[' . implode(', ', $quota->actions) . ']';
     		foreach ($quota->actions as $action)
     		{
