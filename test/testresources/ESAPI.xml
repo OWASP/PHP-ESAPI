@@ -266,7 +266,7 @@
 		-->
 
 		<!-- any intrusion is an attack -->
-		<event name="org.owasp.esapi.errors.IntrusionException" count="1" interval="1">
+		<event name="IntrusionException" count="1" interval="1">
 			<action>disable</action>
 			<action>log</action>
 			<action>logout</action>
@@ -274,22 +274,23 @@
 
 		<!-- for test purposes -->
 
-		<event name="org.owasp.esapi.errors.IntegrityException" count="10" interval="5">
+		<event name="IntegrityException" count="10" interval="5">
 			<action>disable</action>
 			<action>log</action>
 			<action>logout</action>
 		</event>
 
 		<!-- rapid validation errors indicate scans or attacks in progress -->
-		<!--
-			Disabled for now <event
-			name="org.owasp.esapi.errors.ValidationException" count="10"
-			interval="10"> <action>log</action> <action>logout</action> </event>
+		<!-- Disabled for now
+			<event name="ValidationException" count="10" interval="10">
+				<action>log</action>
+				<action>logout</action>
+			</event>
 		-->
 
 		<!-- sessions jumping between hosts indicates a session hijacking -->
 
-		<event name="org.owasp.esapi.errors.AuthenticationHostException"
+		<event name="AuthenticationHostException"
 			count="2" interval="10">
 			<action>log</action>
 			<action>logout</action>

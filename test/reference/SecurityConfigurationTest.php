@@ -351,8 +351,8 @@ class SecurityConfigurationTest extends UnitTestCase
 		$this->assertEqual($event->actions[1], 'log');
 
 		// Test the integrity exception event
-		$event = $config->getQuota('org.owasp.esapi.errors.IntrusionException');
-		$this->assertEqual($event->name, 'org.owasp.esapi.errors.IntrusionException');
+		$event = $config->getQuota('IntrusionException');
+		$this->assertEqual($event->name, 'IntrusionException');
 		$this->assertEqual($event->count, 1);
 		$this->assertEqual($event->interval, 1);
 		$this->assertEqual(count($event->actions), 3);
@@ -361,8 +361,8 @@ class SecurityConfigurationTest extends UnitTestCase
 		$this->assertEqual($event->actions[2], 'logout');
 
 		// Test the integrity Exception event		
-		$event = $config->getQuota('org.owasp.esapi.errors.IntegrityException');
-		$this->assertEqual($event->name, 'org.owasp.esapi.errors.IntegrityException');
+		$event = $config->getQuota('IntegrityException');
+		$this->assertEqual($event->name, 'IntegrityException');
 		$this->assertEqual($event->count, 10);
 		$this->assertEqual($event->interval, 5);
 		$this->assertEqual(count($event->actions), 3);
@@ -371,8 +371,8 @@ class SecurityConfigurationTest extends UnitTestCase
 		$this->assertEqual($event->actions[2], 'logout');
 
 		// Test the integrity Exception event		
-		$event = $config->getQuota('org.owasp.esapi.errors.AuthenticationHostException');
-		$this->assertEqual($event->name, 'org.owasp.esapi.errors.AuthenticationHostException');
+		$event = $config->getQuota('AuthenticationHostException');
+		$this->assertEqual($event->name, 'AuthenticationHostException');
 		$this->assertEqual($event->count, 2);
 		$this->assertEqual($event->interval, 10);
 		$this->assertEqual(count($event->actions), 2);

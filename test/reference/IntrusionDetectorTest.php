@@ -53,7 +53,7 @@ class IntrusionDetectorTest extends UnitTestCase
 		$user->loginWithPassword('addException');
 			
 		// Now generate some exceptions to disable account
-		for ( $i = 0; $i < ESAPI::getSecurityConfiguration()->getQuota('org.owasp.esapi.errors.IntegrityException')->count; $i++ )
+		for ( $i = 0; $i < ESAPI::getSecurityConfiguration()->getQuota('IntegrityException')->count; $i++ )
 		{
 			// EnterpriseSecurityExceptions are added to IntrusionDetector automatically
 			new IntegrityException("IntegrityException " + $i, "IntegrityException " + $i);
@@ -79,7 +79,7 @@ class IntrusionDetectorTest extends UnitTestCase
 		$user->loginWithPassword('addEvent');
         
         // Now generate some events to disable user account
-        for ( $i = 0; $i < ESAPI::getSecurityConfiguration()->getQuota('event.test')->count; $i++ )
+        for ( $i = 0; $i < ESAPI::getSecurityConfiguration()->getQuota('test')->count; $i++ )
         {
             ESAPI::getIntrusionDetector()->addEvent("test", "test message");
         }
