@@ -4,7 +4,7 @@ The following controls have been assigned:
 
 || *Control* || *Assignee* ||
 || Authenticator || Bipin ||
-|| Codec - Base64Codec || Andrew ||
+|| Codec - Base64Codec || Martin ||
 || Codec - CSSCodec || Linden ||
 || Codec - MySQLCodec || Arnaud ||
 || Codec - OracleCodec || Andrew ||
