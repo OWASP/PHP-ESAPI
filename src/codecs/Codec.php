@@ -313,4 +313,30 @@ abstract class Codec {
 			// Grab first character from UTF-32 encoded string
 			return mb_substr($string, 0, 1, "UTF-32");
 		}
+		
+    /***
+     * Utility method to determine if a single character string is a hex digit
+     * 
+     * @param c
+     * 						Single character string that is potentially a hex digit
+     * 
+     * @return
+     * 						boolean. True indicates that the single character string is a hex digit
+     */
+    function isHexDigit($c)
+    {
+    	// Assumption/prerequisite: $c is a UTF-32 encoded single character
+    	$_4ByteCharacter = $c;
+    	
+    	// Get the ordinal value of the character.
+		  list(, $ordinalValue) = unpack("N", $_4ByteCharacter);
+		
+    	// if character is a hex digit, return true
+    	if(preg_match("/^[0-9a-fA-F]/",chr($ordinalValue)))
+    	{
+    		return true;
+    	}
+    	
+    	return false;
+    }
 }
