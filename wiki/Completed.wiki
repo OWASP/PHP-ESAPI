@@ -4,7 +4,7 @@ Initial versions of the following controls have been completed:
 
  * AccessReferenceMaps
  * Codec
- * Codec - HTMLEntityCodec, JavaScriptCodec, PercentCodec, UnixCodec, VBScriptCodec, WindowsCodec, CSSCodec
+ * Codec - CSSCodec, HTMLEntityCodec, JavaScriptCodec, PercentCodec, UnixCodec, VBScriptCodec, WindowsCodec
  * ESAPI
  * Exceptions
  * Interfaces
