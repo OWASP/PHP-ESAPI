@@ -9,7 +9,7 @@ The following controls have been assigned:
 || Codec - OracleCodec || Linden ||
 || Encryptor || Andrew ||
 || EncryptedProperties || Andrew ||
-|| Executor || Laura ||
+|| Executor || Linden ||
 || HTTPUtilities || Laura ||
 || IntrusionDetector || jah ||
 || Logger || Laura ||
