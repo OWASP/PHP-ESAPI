@@ -10,7 +10,7 @@ The following controls have been assigned:
 || Encryptor || Andrew ||
 || EncryptedProperties || Andrew ||
 || Executor || Linden ||
-|| HTTPUtilities || Laura ||
+|| HTTPUtilities || Linden ||
 || IntrusionDetector || jah ||
 || Logger || Laura ||
 || SafeFile || Sarath ||
