@@ -7,7 +7,7 @@ The following controls have been assigned:
 || Codec - Base64Codec || Martin ||
 || Codec - CSSCodec || Linden ||
 || Codec - MySQLCodec || Arnaud ||
-|| Codec - OracleCodec || Andrew ||
+|| Codec - OracleCodec || Linden ||
 || Encryptor || Andrew ||
 || EncryptedProperties || Andrew ||
 || Executor || Laura ||
