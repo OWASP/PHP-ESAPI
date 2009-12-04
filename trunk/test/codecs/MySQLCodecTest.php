@@ -41,48 +41,60 @@ class MySQLCodecTest extends UnitTestCase
 	{
 		$immune = array("");
 		
-		$this->assertEqual( 'TODO', $this->mysqlAnsiCodec->encode($immune, "') or ('1'='1--") );
+		$this->assertEqual( "'') or (''1''=''1--", $this->mysqlAnsiCodec->encode($immune, "') or ('1'='1--") );
 	}
 	
 	function testANSIEncodeCharacter()
 	{
 		$immune = array("");
 		
-		$this->assertEqual( "\'", $this->mysqlAnsiCodec->encode($immune, "'") );
+		$this->assertEqual( "''", $this->mysqlAnsiCodec->encode($immune, "'") );
 	}	
 	
 	function testANSIDecode()
 	{
-		$this->assertEqual( "') or ('1'='1--", $this->mysqlAnsiCodec->decode('TODO') );
+		$this->assertEqual( "') or ('1'='1--", $this->mysqlAnsiCodec->decode("'') or (''1''=''1--") );
 	}
 		
 	function testANSIDecodeCharacter()
 	{
-		$this->assertEqual( "'", $this->mysqlAnsiCodec->decode("\'") );
+		$this->assertEqual( "'", $this->mysqlAnsiCodec->decode("''") );
 	}
 	
 	function testStdDecode()
 	{
-		$this->assertEqual( "') or ('1'='1--", $this->mysqlStdCodec->decode('TODO') );
+		$this->assertEqual( "') \or ('1'='1--\0\x25", $this->mysqlStdCodec->decode("\\'\\) \\\\or \\(\\'1\\'\\=\\'1\\-\\-\\0\\%") );
 	}
-		
-	function testStdDecodeCharacter()
-	{
-		$this->assertEqual( "<", $this->mysqlStdCodec->decode("\\<") );
-	}
-	
+
 	function testStdEncode()
 	{
-		$immune = array("");
+		$immune = array(" ");
 		
-		$this->assertEqual( 'TODO', $this->mysqlStdCodec->encode($immune, "') or ('1'='1--") );
+		$this->assertEqual( "\\'\\) \\\\or \\(\\'1\\'\\=\\'1\\-\\-\\0\\%", $this->mysqlStdCodec->encode($immune, "') \or ('1'='1--\0\x25") );
+	}
+	
+	function testStdDecodeCharacter()
+	{
+		$this->assertEqual( "'", $this->mysqlStdCodec->decode("\\'") );
 	}
 	
 	function testStdEncodeCharacter()
 	{
-		$immune = array("");
+		$immune = array(" ");
 		
-		$this->assertEqual( "\'", $this->mysqlStdCodec->encode($immune, "'") );
-	}	
+		$this->assertEqual( "\\'", $this->mysqlStdCodec->encode($immune, "'") );
+	}
+	
+	function testStdDecodeExtra()
+	{
+		$this->assertEqual( "\x08 \x0a \x0d \x09 \x1a _ \" ' \\ \x00 \x25", $this->mysqlStdCodec->decode("\\b \\n \\r \\t \\z \\_ \\\" \\' \\\\ \\0 \\%") );
+	}
+
+	function testStdEncodeExtra()
+	{
+		$immune = array(" ");
+		
+		$this->assertEqual( "\\b \\n \\r \\t \\z \\_ \\\" \\' \\\\ \\0 \\%", $this->mysqlStdCodec->encode($immune, "\x08 \x0a \x0d \x09 \x1a _ \" ' \\ \x00 \x25") );
+	}
 }
 ?>
