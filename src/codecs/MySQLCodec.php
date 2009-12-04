@@ -56,6 +56,7 @@ class MySQLCodec extends Codec
      */
     function __construct($mode = self::MYSQL_STD)
     {
+    	parent::__construct();
     	$this->mode = $mode;
     }
 
