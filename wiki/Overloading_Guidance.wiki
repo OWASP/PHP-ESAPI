@@ -12,12 +12,12 @@ I.e.,
 <br><br> 
 E.g.,
 <br><br> 
-logHTTPRequest(HttpServletRequest request, Logger logger)
+`logHTTPRequest(HttpServletRequest request, Logger logger)`
 <br><br> 
-... is logHTTPRequest
+... is `logHTTPRequest`
 <br><br> 
 but
 <br><br> 
-logHTTPRequest(HttpServletRequest request, Logger logger, List parameterNamesToObfuscate)
+`logHTTPRequest(HttpServletRequest request, Logger logger, List parameterNamesToObfuscate)`
  
-... is logHTTPRequest_effectObfuscate
+... is `logHTTPRequest_effectObfuscate`
