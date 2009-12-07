@@ -1,0 +1,22 @@
+#summary Guidance on overloading workaround
+#sidebar TableOfContents
+
+
+Let us use the following convention of, rather than parameter types, intended use of the function, in terms of security check(s) and security effect(s). 
+ 
+I.e.,
+ 
+_checkXXX     //i.e. additional security check performed
+_effectXXX     //i.e. additional security effect results
+ 
+E.g.,
+ 
+logHTTPRequest(HttpServletRequest request, Logger logger)
+ 
+... is logHTTPRequest
+ 
+but
+ 
+logHTTPRequest(HttpServletRequest request, Logger logger, List parameterNamesToObfuscate)
+ 
+... is logHTTPRequest_effectObfuscate
