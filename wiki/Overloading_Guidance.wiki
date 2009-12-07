@@ -2,21 +2,21 @@
 #sidebar TableOfContents
 
 
-Let us use the following convention of, rather than parameter types, intended use of the function, in terms of security check(s) and security effect(s). 
- 
+Please use the following convention of, rather than parameter types, intended use of the function, in terms of security check(s) and security effect(s). 
+<br><br>
 I.e.,
- 
+<br><br>
 _checkXXX     //i.e. additional security check performed
 _effectXXX     //i.e. additional security effect results
- 
+<br><br> 
 E.g.,
- 
+<br><br> 
 logHTTPRequest(HttpServletRequest request, Logger logger)
- 
+<br><br> 
 ... is logHTTPRequest
- 
+<br><br> 
 but
- 
+<br><br> 
 logHTTPRequest(HttpServletRequest request, Logger logger, List parameterNamesToObfuscate)
  
 ... is logHTTPRequest_effectObfuscate
