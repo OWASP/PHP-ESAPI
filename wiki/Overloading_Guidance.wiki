@@ -6,9 +6,9 @@ Please use the following convention of, rather than parameter types, intended us
 <br><br>
 I.e.,
 <br><br>
-_checkXXX     //i.e. additional security check performed
+`_checkXXX     //i.e. additional security check performed`
 <br>
-_effectXXX     //i.e. additional security effect results
+`_effectXXX     //i.e. additional security effect results`
 <br><br> 
 E.g.,
 <br><br> 
