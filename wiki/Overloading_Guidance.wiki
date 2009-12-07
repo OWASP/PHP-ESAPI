@@ -19,5 +19,4 @@ E.g.,
 but
 <br><br> 
 `logHTTPRequest(HttpServletRequest request, Logger logger, List parameterNamesToObfuscate)`
-<br><br>
-... is `logHTTPRequest_effectObfuscate`
+<br><br>... is `logHTTPRequest_effectObfuscate`
