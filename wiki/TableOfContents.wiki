@@ -9,4 +9,5 @@
     * [Allocated Allocated controls]
     * [Unallocated Unallocated controls]
     * [Future Future plans]
-    * [Codec_Guidance Appendix -- Codec guidance]
+    * [Codec_Guidance Appendix A -- Codec guidance]
+    * [Overloading_Guidance Appendix B -- Overloading guidance]
