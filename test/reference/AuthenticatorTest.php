@@ -11,9 +11,10 @@
  * The ESAPI is published by OWASP under the BSD license. You should read and accept the
  * LICENSE before you use, modify, and/or redistribute this software.
  *
- * @author Andrew van der Stock (vanderaj @ owasp.org)
+ * @author Bipin Upadhyay <http://projectbee.org/blog/contact/>
  * @created 2009
  */
+
 class AuthenticatorTest extends UnitTestCase {
 
         private $CHAR_ALPHANUMERICS = 'abcdefghijklmnopqrstuvxyzABCDEFGHIJKLMNOPQRSTUVXYZ01234567890';
