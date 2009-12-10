@@ -16,6 +16,7 @@
  */
 require_once dirname(__FILE__).'/../../src/ESAPI.php';
 require_once dirname(__FILE__).'/../../src/reference/DefaultEncoder.php';
+require_once dirname(__FILE__).'/../../src/codecs/MySQLCodec.php';
  
 class EncoderTest extends UnitTestCase 
 {
@@ -385,20 +386,22 @@ $this->fail(); // DELETE ME ("encodeForXPath");
 	 * Test of encodeForSQL method, of class org.owasp.esapi.Encoder.
 	 */
     function testEncodeForSQL() {
-$this->fail(); // DELETE ME ("encodeForSQL");
-//        Encoder instance = ESAPI.encoder();
-//
-//        Codec mySQL1 = new MySQLCodec( MySQLCodec.ANSI_MODE );
-//        assertEquals("ANSI_MODE", null, instance.encodeForSQL(mySQL1, null));
-//        assertEquals("ANSI_MODE", "Jeff'' or ''1''=''1", instance.encodeForSQL(mySQL1, "Jeff' or '1'='1"));
-//        
-//        Codec mySQL2 = new MySQLCodec( MySQLCodec.MYSQL_MODE );
-//        assertEquals("MYSQL_MODE", null, instance.encodeForSQL(mySQL2, null));
-//        assertEquals("MYSQL_MODE", "Jeff\\' or \\'1\\'\\=\\'1", instance.encodeForSQL(mySQL2, "Jeff' or '1'='1"));
-//
-//        Codec oracle = new OracleCodec();
-//        assertEquals("Oracle", null, instance.encodeForSQL(oracle, null));
-//        assertEquals("Oracle", "Jeff\\' or \\'1\\'\\=\\'1", instance.encodeForSQL(oracle, "Jeff' or '1'='1"));
+        $instance = ESAPI::getEncoder();
+        
+        $mysqlAnsiCodec = new MySQLCodec(MySQLCodec::MYSQL_ANSI);
+		$mysqlStdCodec = new MySQLCodec(MySQLCodec::MYSQL_STD);
+        
+        $this->assertEqual(null, $instance->encodeForSQL($mysqlAnsiCodec, null));
+        $this->assertEqual("Jeff'' or ''1''=''1", $instance->encodeForSQL($mysqlAnsiCodec, "Jeff' or '1'='1"));
+                
+        $this->assertEqual(null, $instance->encodeForSQL($mysqlStdCodec, null));
+        $this->assertEqual("Jeff\\' or \\'1\\'\\=\\'1", $instance->encodeForSQL($mysqlStdCodec, "Jeff' or '1'='1"));
+		$this->assertEqual( "\\b \\n \\r \\t \\z \\_ \\\" \\' \\\\ \\0 \\%", $instance->encodeForSQL($mysqlStdCodec, "\x08 \x0a \x0d \x09 \x1a _ \" ' \\ \x00 \x25") );
+		
+		$this->fail(); //DELETE ME 
+        //Codec oracle = new OracleCodec();
+        //assertEquals("Oracle", null, instance.encodeForSQL(oracle, null));
+        //assertEquals("Oracle", "Jeff\\' or \\'1\\'\\=\\'1", instance.encodeForSQL(oracle, "Jeff' or '1'='1"));
     }
 
     
