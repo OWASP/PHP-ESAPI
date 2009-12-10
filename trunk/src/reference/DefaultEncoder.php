@@ -261,7 +261,12 @@ class DefaultEncoder implements Encoder {
 	 */
 	function encodeForSQL($codec, $input)
 	{
-		throw new EnterpriseSecurityException("Method Not implemented");	
+		if( $input === null )
+		{
+			return null;			
+		}
+		
+		return $codec->encode($this->immune_sql, $input);
 	}
 
 	/**
