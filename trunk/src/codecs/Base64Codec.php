@@ -17,8 +17,9 @@
  * @package org.owasp.esapi.codecs
  */
 
-require_once  dirname(__FILE__).'/Codec.php';
-require_once  dirname(__FILE__).'../ESAPI.php';
+require_once dirname ( __FILE__ ) . '/Codec.php';
+require_once dirname ( __FILE__ ) . '/../ESAPI.php';
+
 
 /**
  * Implementation of the Codec interface for base 64 encoding.
@@ -33,22 +34,22 @@ class Base64Codec extends Codec
 	/** FIELD DECLARATIONS **/
 	
 	 /** No options specified. Value is zero. */
-    public final static $NO_OPTIONS = 0;
+    public static $NO_OPTIONS = 0;
     
     /** Specify encoding. */
-    public final static $ENCODE = 1;
+    public static $ENCODE = 1;
     
     
     /** Specify decoding. */
-    public final static $DECODE = 0;
+    public static $DECODE = 0;
     
     
     /** Specify that data should be gzip-compressed. */
-    public final static $GZIP = 2;
+    public static $GZIP = 2;
     
     
     /** Don't break lines when encoding (violates strict Base64 specification) */
-    public final static $DONT_BREAK_LINES = 8;
+    public static $DONT_BREAK_LINES = 8;
 	
 	/** 
 	 * Encode using Base64-like encoding that is URL- and Filename-safe as described
@@ -58,51 +59,51 @@ class Base64Codec extends Codec
 	 * or at the very least should not be called Base64 without also specifying that is
 	 * was encoded using the URL- and Filename-safe dialect.
 	 */
-	 public final static $URL_SAFE = 16;
+	 public static $URL_SAFE = 16;
 	 
 	 
 	 /**
 	  * Encode using the special "ordered" dialect of Base64 described here:
 	  * <a href="http://www.faqs.org/qa/rfcc-1940.html">http://www.faqs.org/qa/rfcc-1940.html</a>.
 	  */
-	 public final static $ORDERED = 32;
+	 public static $ORDERED = 32;
     
     
 /* ********  P R I V A T E   F I E L D S  ******** */  
     
     
     /** Maximum line length (76) of Base64 output. */
-    private final static $MAX_LINE_LENGTH = 76;
+    private static $MAX_LINE_LENGTH = 76;
     
     
     /** The equals sign (=) as a byte. */
-    private final static $EQUALS_SIGN = '=';
+    private static $EQUALS_SIGN = '=';
     
     
     /** The new line character (\n) as a byte. */
-    private final static $NEW_LINE = '\n';
+    private static $NEW_LINE = '\n';
     
     
     /** Preferred encoding. */
-    private final static $PREFERRED_ENCODING = "UTF-8";
+    private static $PREFERRED_ENCODING = "UTF-8";
     
     /** End of line character. */
-    private final static $EOL;
+    private static $EOL;
 	
 	
     // I think I end up not using the BAD_ENCODING indicator.
     //private final static byte BAD_ENCODING    = -9; // Indicates error in encoding
-    private final static $WHITE_SPACE_ENC = -5; // Indicates white space in encoding
-    private final static $EQUALS_SIGN_ENC = -1; // Indicates equals sign in encoding
+    private static $WHITE_SPACE_ENC = -5; // Indicates white space in encoding
+    private static $EQUALS_SIGN_ENC = -1; // Indicates equals sign in encoding
 	
-    private final static $logger;
+    private static $logger;
 
 	
 	/* ********  S T A N D A R D   B A S E 6 4   A L P H A B E T  ******** */	
     
     /** The 64 valid Base64 values. */
 	/* Host platform me be something funny like EBCDIC, so we hard code these values. */
-    private final static $_STANDARD_ALPHABET = array(
+    private static $_STANDARD_ALPHABET = array(
         'A', 'B', 'C', 'D', 'E', 'F', 'G',
         'H', 'I', 'J', 'K', 'L', 'M', 'N',
         'O', 'P', 'Q', 'R', 'S', 'T', 'U', 
@@ -120,7 +121,7 @@ class Base64Codec extends Codec
      * Translates a Base64 value to either its 6-bit reconstruction value
      * or a negative number indicating some other meaning.
      **/
-    private final static $_STANDARD_DECODABET = array(
+    private static $_STANDARD_DECODABET = array(
         -9,-9,-9,-9,-9,-9,-9,-9,-9,                 // Decimal  0 -  8
         -5,-5,                                      // Whitespace: Tab and Linefeed
         -9,-9,                                      // Decimal 11 - 12
@@ -162,7 +163,7 @@ class Base64Codec extends Codec
 	 * <a href="http://www.faqs.org/rfcs/rfc3548.html">http://www.faqs.org/rfcs/rfc3548.html</a>.
 	 * Notice that the last two bytes become "hyphen" and "underscore" instead of "plus" and "slash."
 	 */
-    private final static $_URL_SAFE_ALPHABET = array(
+    private static $_URL_SAFE_ALPHABET = array(
       'A', 'B', 'C', 'D', 'E', 'F', 'G',
       'H', 'I', 'J', 'K', 'L', 'M', 'N',
       'O', 'P', 'Q', 'R', 'S', 'T', 'U', 
@@ -178,7 +179,7 @@ class Base64Codec extends Codec
 	/**
 	 * Used in decoding URL- and Filename-safe dialects of Base64.
 	 */
-    private final static $_URL_SAFE_DECODABET = array(
+    private static $_URL_SAFE_DECODABET = array(
       -9,-9,-9,-9,-9,-9,-9,-9,-9,                 // Decimal  0 -  8
       -5,-5,                                      // Whitespace: Tab and Linefeed
       -9,-9,                                      // Decimal 11 - 12
@@ -224,7 +225,7 @@ class Base64Codec extends Codec
 	 * I don't get the point of this technique, but it is described here:
 	 * <a href="http://www.faqs.org/qa/rfcc-1940.html">http://www.faqs.org/qa/rfcc-1940.html</a>.
 	 */
-    private final static $_ORDERED_ALPHABET = array(
+    private static $_ORDERED_ALPHABET = array(
       '-',
       '0', '1', '2', '3', '4',
       '5', '6', '7', '8', '9',
@@ -242,7 +243,7 @@ class Base64Codec extends Codec
 	/**
 	 * Used in decoding the "ordered" dialect of Base64.
 	 */
-    private final static $_ORDERED_DECODABET = array(
+    private static $_ORDERED_DECODABET = array(
       -9,-9,-9,-9,-9,-9,-9,-9,-9,                 // Decimal  0 -  8
       -5,-5,                                      // Whitespace: Tab and Linefeed
       -9,-9,                                      // Decimal 11 - 12
@@ -443,7 +444,7 @@ class Base64Codec extends Codec
     {
     	parent::__construct();
         $EOL = chr(27);
-        $logger = ESAPI.getLogger("Base64");
+        $logger = ESAPI::getLogger("Base64");
     }
 
     /**
