@@ -17,7 +17,7 @@
 
 class AuthenticatorTest extends UnitTestCase {
 
-        private $CHAR_ALPHANUMERICS = 'abcdefghijklmnopqrstuvxyzABCDEFGHIJKLMNOPQRSTUVXYZ01234567890';
+        private $CHAR_ALPHANUMERICS = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ01234567890';
 
         function setUp() {
                 global $ESAPI;
