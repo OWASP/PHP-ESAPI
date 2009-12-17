@@ -39,24 +39,26 @@ class OracleCodecTest extends UnitTestCase
 	{
 		$immune = array("");
 		
-		$this->assertEqual( 'TODO', $this->oracleCodec->encode($immune, " || 'x' FROM DUAL;--") );
+		$this->assertEqual(' || \'\'x\'\' FROM DUAL;--', $this->oracleCodec->encode($immune, ' || \'x\' FROM DUAL;--'));
+		$this->assertEqual('\'\'', $this->oracleCodec->encode($immune, '\''));
 	}
 	
 	function testEncodeCharacter()
 	{
 		$immune = array("");
 		
-		$this->assertEqual( "''", $this->oracleCodec->encode($immune, "'") );
+		$this->assertEqual("''", $this->oracleCodec->encode($immune, "'"));
 	}	
 	
 	function testDecode()
 	{
-		$this->assertEqual( " || 'x' FROM DUAL;--", $this->oracleCodec->decode('TODO') );
+		$this->assertEqual(' || \'x\' FROM DUAL;--', $this->oracleCodec->decode(' || \'\'x\'\' FROM DUAL;--'));
+		$this->assertEqual('\'', $this->oracleCodec->decode('\'\''));
 	}
 		
 	function testDecodeCharacter()
 	{
-		$this->assertEqual( "'", $this->oracleCodec->decode("''") );
+		$this->assertEqual("'", $this->oracleCodec->decode("''"));
 	}
 	
 }
