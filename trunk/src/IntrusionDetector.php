@@ -75,7 +75,7 @@ class Event
 
 	public $key;
 	public $times = array();
-	public $count = 0;       // TODO: remove unused variable $count
+	public $count = 0;
 	
 	public function __construct($key)
 	{
@@ -85,19 +85,20 @@ class Event
 	public function increment($count, $interval)
 	{
 		$now = time();
-		array_unshift($times, $now );
+		array_unshift($this->times, $now );
+		$this->count++;
 		
-		while ( sizeof($times) > $count )
+		while ( sizeof($this->times) > $count )
 		{
-			array_pop($times);
+			array_pop($this->times);
 		}
-		if ( sizeof($times) == $count )
+		if ( sizeof($this->times) == $count )
 		{
-			$plong = end($times);
+			$plong = end($this->times);
 			$nlong = time();
-			if ( $nlong - $plong < $interval )
+			if ( $nlong - $plong > $interval )
 			{
-				throw new IntrusionException( "Threshold exceeded", "Exceeded threshold for " + $key );
+				throw new IntrusionException( "Threshold exceeded", "Exceeded threshold for " . $this->key );
 			}
 		}
 	}
