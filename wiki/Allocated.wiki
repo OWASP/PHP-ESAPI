@@ -5,6 +5,7 @@ The following controls have been assigned:
 || *Control* || *Assignee* ||
 || Authenticator || Bipin ||
 || Codec - Base64Codec || Martin ||
+|| Codec - LDAPCodec || jah ||
 || Encryptor || Arnaud ||
 || EncryptedProperties || Arnaud ||
 || Executor || Linden ||
