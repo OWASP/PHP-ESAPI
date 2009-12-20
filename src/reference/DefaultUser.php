@@ -12,6 +12,7 @@
  * LICENSE before you use, modify, and/or redistribute this software.
  *
  * @author AbiusX
+ * @author Bipin Upadhyay <http://projectbee.org/blog/contact/>
  * @created 2009
  * @since 1.4
  * @version 1.07
@@ -200,10 +201,10 @@ class DefaultUser implements User {
             if($this->logger == null){
                 $this->setLoggerService();
             }
-            $this->logger->info(DefaultLogger::SECURITY, TRUE, "Role " + $roleName + " added to " + $this->getAccountName() );
+            $this->logger->info(DefaultLogger::SECURITY, TRUE, "Role ".$roleName." added to ".$this->getAccountName() );
         } else {
             //TODO: Not done in Java, but shouldn't this be logged as well?
-            throw new AuthenticationAccountsException( "Add role failed", "Attempt to add invalid role " + $roleName + " to " + $this->getAccountName() );
+            throw new AuthenticationAccountsException( "Add role failed", "Attempt to add invalid role ".$roleName." to ".$this->getAccountName() );
         }
     }
 
@@ -236,20 +237,10 @@ class DefaultUser implements User {
      * 		if newPassword1 does not match newPassword2, if oldPassword does not match the stored old password, or if the new password does not meet complexity requirements
      * @throws EncryptionException
      */
-    function changePassword ($oldPassword, $newPassword1, $newPassword2) //throws AuthenticationException, EncryptionException;
-    {
-        if ($newPassword1 !== $newPassword2)
-            throw new AuthenticationException("Retype does not match Password.", "Password Change Retype Mismatch");
-        $realOldPass = $this->getUserInfo("hashedPassword");
-        if ($realOldPass != $this->hashPassword($oldPassword))
-            throw new AuthenticationException("Old Password provided is not correct.", "Password Change Old Password Wrong");
-        #TODO: add this function
-        //if (! CheckComplexity($newPassword1))
-        //    throw new AuthenticationException("Password is not complex enough!", "Password Change Complexity Failure");
-        $this->setUserInfo("hashedPassword", $this->hashPassword($newPassword1));
-    //TODO: this is the code in java version:
-    #		ESAPI.authenticator().changePassword(this, oldPassword, newPassword1, newPassword2);
+    function changePassword ($oldPassword, $newPassword1, $newPassword2){
+        ESAPI::getAuthenticator()->changePassword($this, $oldPassword, $newPassword1, $newPassword2);
     }
+    
     /**
      * Disable this user's account.
      */
