@@ -1,16 +1,16 @@
 <?php
 /**
  * OWASP Enterprise Security API (ESAPI)
- * 
+ *
  * This file is part of the Open Web Application Security Project (OWASP)
  * Enterprise Security API (ESAPI) project. For details, please see
  * <a href="http://www.owasp.org/index.php/ESAPI">http://www.owasp.org/index.php/ESAPI</a>.
  *
  * Copyright (c) 2007 - 2009 The OWASP Foundation
- * 
+ *
  * The ESAPI is published by OWASP under the BSD license. You should read and accept the
  * LICENSE before you use, modify, and/or redistribute this software.
- * 
+ *
  * @author AbiusX
  * @created 2009
  * @since 1.4
@@ -18,21 +18,21 @@
  */
 /**
  * @author AbiusX
- * 
+ *
  * @Status:
  * 24 done functions
  * 7 not working right functions
  * 4 empty functions (due to data model mistmatch)
- * 
+ *
  *  A FEW NOTICES:
  * Old Password hashed are not used here anywhere?!
 
  * XXX: there was a bug on java code,
  * user should get locked whenever it's login attempts exceed the allowed count,
  * so the check for locking should be performed in incrementFailedLoginCount,  (and setFailedLoginCount)
- * but it was performed on loginWithPassword,and would cause the tests to fail 
+ * but it was performed on loginWithPassword,and would cause the tests to fail
  * (when a user was disabled and tried to login, it wouldn't become locked), fixed it.
- *  
+ *
  * This is how this class works:
  * In the constructor, You provide it with a username.
  * this class then loads that user's data from users.txt in
@@ -40,35 +40,35 @@
  * into an associative array, namely $UserInfo
  * whenever you get or set a user parameter, its changed in this array
  * the destructor saves the array to the users.txt file.
- * 
+ *
  *  Sessions:
  *  I store every user's session info on
  *  $_SESSION[userid]
- *  
+ *
  *  for every session assigned to a user, there exists
  *  $_SESSION[userid][$sessionID]
- *  
- *  which is an array containing 
+ *
+ *  which is an array containing
  *  	start => timestamp of session assignment (for absolute timeout)
  *  	lastUpdate => timestamp of last session update
- *  
+ *
  *   I've used time() instead of dates, and timestamps everywhere
- *   
+ *
  *   FIXME: in the java implementation, there are three more fields for a user
  *   = lastHostAddress
  *   = accountID
  *   = screenName
  *   which are not in users.txt
  *   i've declared them as public members at the beginning of class code.
- *   
+ *
  *   TODOS:
  *   - update times when loggin, create session for user
- *   - re-check lock and unlock on failed attempt changes 
+ *   - re-check lock and unlock on failed attempt changes
  */
 require_once dirname(__FILE__) . '/../User.php';
 define("MAX_ROLE_LENGTH", 250);
-class DefaultUser implements User
-{
+
+class DefaultUser implements User {
     public $lastHostAddress;
     public $loggedIn = false;
     public $screenName = "";
@@ -82,14 +82,30 @@ class DefaultUser implements User
     private $UID = null;
     private $UserInfo = array();
     private $_PathToUsersFiles = "../../test/testresources/users.txt";
+
+    function __construct ($accountName) {
+        $this->setAccountName($accountName);
+
+        while(true){
+            $id = ESAPI::getRandomizer()->getRandomLong();
+            if(ESAPI::getAuthenticator()->getUserById($id) == null && $id != 0){
+                $this->setAccountID($id);
+                break;
+            }
+        }
+    }
+    
+    function __destruct () {
+        $this->writeUserInfo();
+    }
+
     /**
      * This is intended to compute the password hash for a password
      * @param String $Password
      * @return String the hash
      */
-    function hashPassword ($Password)
-    {
-        //TODO: code this
+    function hashPassword ($Password) {
+    //TODO: code this
         return "";
     }
     /**
@@ -97,37 +113,30 @@ class DefaultUser implements User
      * @var Array
      */
     private $UserInfoFields = array("accountName" , "hashedPassword" , "roles" , "locked" , "enabled" , "rememberToken" , "csrfToken" , "oldPasswordHashes" , "lastPasswordChangeTime" , "lastLoginTime" , "lastFailedLoginTime" , "expirationTime" , "failedLoginCount");
-    private function setUserInfo ($Field, $Value)
-    {
+    private function setUserInfo ($Field, $Value) {
         $this->UserInfo[$Field] = $Value;
     }
-    private function getUserInfo ($Field)
-    {
+    private function getUserInfo ($Field) {
         if (! array_key_exists($Field, $this->UserInfo))
             return null;
         return $this->UserInfo[$Field];
     }
-    private function parseUserInfo ($Data)
-    {
+    private function parseUserInfo ($Data) {
         $Data = explode(" | ", $Data);
         $n = 0;
         $this->UserInfo = array();
-        foreach ($Data as $D)
-        {
+        foreach ($Data as $D) {
             $this->UserInfo[$this->UserInfoFields[$n ++]] = $D;
         }
     }
-    private function readUserInfo ()
-    {
+    private function readUserInfo () {
         $Compare = $this->Username;
         $fp = fopen(dirname(__FILE__) . "/" . $this->_PathToUsersFiles, "r");
         if (! $fp)
             throw new Exception("Can not open the users.txt file!");
-        while (! feof($fp))
-        {
+        while (! feof($fp)) {
             $Line = fgets($fp);
-            if (substr($Line, 0, strlen($Compare)) == $Compare)
-            {
+            if (substr($Line, 0, strlen($Compare)) == $Compare) {
                 $Data = $Line;
                 $this->parseUserInfo($Data);
                 break;
@@ -135,15 +144,13 @@ class DefaultUser implements User
         }
         fclose($fp);
     }
-    private function writeUserInfo ()
-    {
+    private function writeUserInfo () {
         $Compare = $this->Username;
         $fp = fopen(dirname(__FILE__) . "/" . $this->_PathToUsersFiles, "r");
         if (! $fp)
             throw new Exception("Can not open the users.txt file!");
         $Data = "";
-        while (! feof($fp))
-        {
+        while (! feof($fp)) {
             $Line = fgets($fp);
             $Line = trim($Line);
             if (strlen($Line) > strlen($Compare) and substr($Line, 0, strlen($Compare)) != $Compare)
@@ -158,34 +165,22 @@ class DefaultUser implements User
             fwrite($fp, implode(" | ", $this->UserInfo));
         fclose($fp);
     }
-    function __construct ($Username, $UsersFile = null) //, $Password1, $Password2) 
-    {
-        if ($UsersFile)
-            $this->_PathTUsersFile = $UsersFile;
-        $this->Username = $Username;
-        $this->UID = $Username; //FIXME: this should be the userID not username
-        $this->readUserInfo();
-    }
-    function __destruct ()
-    {
-        $this->writeUserInfo();
-    }
+
     /**
      * Gets this user's account name.
-     * 
+     *
      * @return the account name
      */
-    function getAccountName ()
-    {
+    function getAccountName () {
         return $this->getUserInfo("accountName");
     }
     /**
      * Adds a role to this user's account.
-     * 
-     * @param role 
+     *
+     * @param role
      * 		the role to add
-     * 
-     * @throws AuthenticationException 
+     *
+     * @throws AuthenticationException
      * 		the authentication exception
      */
     function addRole ($Role) //throws AuthenticationException
@@ -198,27 +193,25 @@ class DefaultUser implements User
         $RolesF = array_flip($Roles);
         //if ($ESAPI->validator->isValidInput("addRole", $Role, "RoleName", MAX_ROLE_LENGTH, false))
         {
-            if (array_key_exists($Role, $RolesF))
-            {
+            if (array_key_exists($Role, $RolesF)) {
                 return false;
             }
-            else
-            {
+            else {
                 $Roles[] = $Role;
                 $this->setUserInfo("roles", implode(",", $Roles));
-                //TODO: $Logger.info(Logger.SECURITY_SUCCESS, "Role " + $Role + " added to " + $this->getAccountName() );
+            //TODO: $Logger.info(Logger.SECURITY_SUCCESS, "Role " + $Role + " added to " + $this->getAccountName() );
             }
         }
-        //else
+    //else
     //throw new AuthenticationException( "Add role failed", "Attempt to add invalid role ". $Role ." to " . $this->getAccountName() );
     }
     /**
      * Adds a set of roles to this user's account.
-     * 
-     * @param Array $newRoles 
+     *
+     * @param Array $newRoles
      * 		the new roles to add
-     * 
-     * @throws AuthenticationException 
+     *
+     * @throws AuthenticationException
      * 		the authentication exception
      */
     function addRoles ($newRoles) //throws AuthenticationException;
@@ -229,17 +222,17 @@ class DefaultUser implements User
     /**
      * Sets the user's password, performing a verification of the user's old password, the equality of the two new
      * passwords, and the strength of the new password.
-     * 
-     * @param oldPassword 
+     *
+     * @param oldPassword
      * 		the old password
-     * @param newPassword1 
+     * @param newPassword1
      * 		the new password
-     * @param newPassword2 
+     * @param newPassword2
      * 		the new password - used to verify that the new password was typed correctly
-     * 
-     * @throws AuthenticationException 
-     * 		if newPassword1 does not match newPassword2, if oldPassword does not match the stored old password, or if the new password does not meet complexity requirements 
-     * @throws EncryptionException 
+     *
+     * @throws AuthenticationException
+     * 		if newPassword1 does not match newPassword2, if oldPassword does not match the stored old password, or if the new password does not meet complexity requirements
+     * @throws EncryptionException
      */
     function changePassword ($oldPassword, $newPassword1, $newPassword2) //throws AuthenticationException, EncryptionException;
     {
@@ -248,45 +241,41 @@ class DefaultUser implements User
         $realOldPass = $this->getUserInfo("hashedPassword");
         if ($realOldPass != $this->hashPassword($oldPassword))
             throw new AuthenticationException("Old Password provided is not correct.", "Password Change Old Password Wrong");
-            #TODO: add this function
+        #TODO: add this function
         //if (! CheckComplexity($newPassword1))
         //    throw new AuthenticationException("Password is not complex enough!", "Password Change Complexity Failure");
         $this->setUserInfo("hashedPassword", $this->hashPassword($newPassword1));
-        //TODO: this is the code in java version:
+    //TODO: this is the code in java version:
     #		ESAPI.authenticator().changePassword(this, oldPassword, newPassword1, newPassword2);
     }
     /**
      * Disable this user's account.
      */
-    function disable ()
-    {
+    function disable () {
         $this->setUserInfo("enabled", "disabled");
-        #TODO: $logger->info( Logger.SECURITY_SUCCESS, "Account disabled: " + getAccountName() );
+    #TODO: $logger->info( Logger.SECURITY_SUCCESS, "Account disabled: " + getAccountName() );
     }
     /**
      * Enable this user's account.
      */
-    function enable ()
-    {
+    function enable () {
         $this->setUserInfo("enabled", "enabled");
-        #TODO: 		logger.info( Logger.SECURITY_SUCCESS, "Account enabled: " + getAccountName() );
+    #TODO: 		logger.info( Logger.SECURITY_SUCCESS, "Account enabled: " + getAccountName() );
     }
     /**
      * Gets this user's account id number.
-     * 
+     *
      * @return Integer the account id
      */
-    function getAccountId ()
-    {
+    function getAccountId () {
         return $this->UID;
     }
     /**
      * Gets the CSRF token for this user's current sessions.
-     * 
+     *
      * @return String the CSRF token
      */
-    function getCSRFToken ()
-    {
+    function getCSRFToken () {
         return $this->getUserInfo("csrfToken");
     }
     /**
@@ -294,8 +283,7 @@ class DefaultUser implements User
      *
      * @return Date representing the account expiration time.
      */
-    function getExpirationTime ()
-    {
+    function getExpirationTime () {
         return $this->getUserInfo("expirationTime");
     }
     /**
@@ -303,22 +291,20 @@ class DefaultUser implements User
      * intended to be used as a part of the account lockout feature, to help protect against brute force attacks.
      * However, the implementor should be aware that lockouts can be used to prevent access to an application by a
      * legitimate user, and should consider the risk of denial of service.
-     * 
+     *
      * @return Integer the number of failed login attempts since the last successful login
      */
-    function getFailedLoginCount ()
-    {
+    function getFailedLoginCount () {
         return $this->getUserInfo("failedLoginCount");
     }
     /**
      * Returns the last host address used by the user. This will be used in any log messages generated by the processing
      * of this request.
-     * 
+     *
      * @return String the last host address used by the user
      */
-    function getLastHostAddress ()
-    {
-        //return (getenv("HTTP_X_FORWARDED_FOR")) ? getenv("HTTP_X_FORWARDED_FOR") : getenv("REMOTE_ADDR");
+    function getLastHostAddress () {
+    //return (getenv("HTTP_X_FORWARDED_FOR")) ? getenv("HTTP_X_FORWARDED_FOR") : getenv("REMOTE_ADDR");
         if ($this->lastHostAddress == null)
             return "local";
         else
@@ -327,10 +313,10 @@ class DefaultUser implements User
     /**
      * Returns the date of the last failed login time for a user. This date should be used in a message to users after a
      * successful login, to notify them of potential attack activity on their account.
-     * 
+     *
      * @return date of the last failed login
-     * 
-     * @throws AuthenticationException 
+     *
+     * @throws AuthenticationException
      * 		the authentication exception
      */
     function getLastFailedLoginTime () //throws AuthenticationException;
@@ -340,60 +326,54 @@ class DefaultUser implements User
     /**
      * Returns the date of the last successful login time for a user. This date should be used in a message to users
      * after a successful login, to notify them of potential attack activity on their account.
-     * 
+     *
      * @return date of the last successful login
      */
-    function getLastLoginTime ()
-    {
+    function getLastLoginTime () {
         return $this->getUserInfo("lastLoginTime");
     }
     /**
      * Gets the date of user's last password change.
-     * 
+     *
      * @return the date of last password change
      */
-    function getLastPasswordChangeTime ()
-    {
+    function getLastPasswordChangeTime () {
         return $this->getUserInfo("lastPasswordChangeTime");
     }
     /**
      * Gets the roles assigned to a particular account.
-     * 
+     *
      * @return Array an immutable set of roles
      */
-    function getRoles ()
-    {
+    function getRoles () {
         return explode(",", $this->getUserInfo("roles"));
     }
     /**
      * Gets the screen name (alias) for the current user.
-     * 
+     *
      * @return String the screen name
      */
-    function getScreenName ()
-    {
+    function getScreenName () {
         return $this->screenName;
-        //return $this->getUserInfo("accountName");
+    //return $this->getUserInfo("accountName");
     }
     /**
      * Adds a session for this User.
-     * 
+     *
      * @param $HttpSession string sessionID
      */
-    function addSession ($HttpSession = null)
-    {
+    function addSession ($HttpSession = null) {
         if (session_id() == "")//no session established, throw some errors TODO
-;
+            ;
         if ($HttpSession===null) $HttpSession=session_id();
         $_SESSION[$this->getAccountId()][$HttpSession] = array("start" => time() , "lastUpdate" => time());
     }
     /**
      * Removes a session for this User.
-     * 
+     *
      * @param $HttpSession string session id
      */
-    function removeSession ($HttpSession = null)
-    {
+    function removeSession ($HttpSession = null) {
         if ($HttpSession===null) $HttpSession=session_id();
         unset($_SESSION[$this->getAccountId()][$HttpSession]);
     }
@@ -401,36 +381,30 @@ class DefaultUser implements User
      * Returns the list of sessions associated with this User.
      * @return Array sessions
      */
-    function getSessions ()
-    {
+    function getSessions () {
         return $_SESSION[$this->getAccountId()];
     }
     /**
      * Increment failed login count.
      */
-    function incrementFailedLoginCount ()
-    {
+    function incrementFailedLoginCount () {
         $this->setUserInfo("failedLoginCount", $this->getUserInfo("failedLoginCount") + 1);
-        if ($this->getFailedLoginCount() >= $this->allowedLoginAttempts)
-        {
+        if ($this->getFailedLoginCount() >= $this->allowedLoginAttempts) {
             $this->lock();
         }
     }
-    function setFailedLoginCount ($count)
-    {
+    function setFailedLoginCount ($count) {
         $this->setUserInfo("failedLoginCount", $count);
-        if ($this->getFailedLoginCount() >= $this->allowedLoginAttempts)
-        {
+        if ($this->getFailedLoginCount() >= $this->allowedLoginAttempts) {
             $this->lock();
         }
     }
     /**
      * Checks if user is anonymous.
-     * 
+     *
      * @return true, if user is anonymous
      */
-    function isAnonymous ()
-    {
+    function isAnonymous () {
         if ($this->UID === null)
             return true;
         else
@@ -438,20 +412,18 @@ class DefaultUser implements User
     }
     /**
      * Checks if this user's account is currently enabled.
-     * 
-     * @return true, if account is enabled 
+     *
+     * @return true, if account is enabled
      */
-    function isEnabled ()
-    {
+    function isEnabled () {
         return $this->getUserInfo("enabled") == "enabled";
     }
     /**
      * Checks if this user's account is expired.
-     * 
+     *
      * @return true, if account is expired
      */
-    function isExpired ()
-    {
+    function isExpired () {
         $ExpTime = $this->getUserInfo("expirationTime");
         if ($ExpTime < time())
             return true;
@@ -460,13 +432,12 @@ class DefaultUser implements User
     }
     /**
      * Checks if this user's account is assigned a particular role.
-     * 
+     *
      * @param String $Role the role for which to check
-     * 
+     *
      * @return true, if role has been assigned to user
      */
-    function isInRole ($Role)
-    {
+    function isInRole ($Role) {
         $Roles = $this->getUserInfo("roles");
         $Roles = explode(",", $Roles);
         $Roles = array_flip($Roles);
@@ -477,123 +448,110 @@ class DefaultUser implements User
     }
     /**
      * Checks if this user's account is locked.
-     * 
+     *
      * @return true, if account is locked
      */
-    function isLocked ()
-    {
+    function isLocked () {
         return $this->getUserInfo("locked") == "locked";
     }
     /**
      * Tests to see if the user is currently logged in.
-     * 
+     *
      * @return true, if the user is logged in
      */
-    function isLoggedIn ()
-    {
+    function isLoggedIn () {
         return ! ($this->UID === null);
     }
     /**
-     * Tests to see if this user's session has exceeded the absolute time out based 
+     * Tests to see if this user's session has exceeded the absolute time out based
      * on ESAPI's configuration settings.
-     * 
-	 * @param String $HttpSession optional session id
+     *
+     * @param String $HttpSession optional session id
      * @return true, if user's session has exceeded the absolute time out
      */
-    function isSessionAbsoluteTimeout ($HttpSession=null)
-    {
+    function isSessionAbsoluteTimeout ($HttpSession=null) {
         if ($HttpSession===null) $HttpSession=session_id();
-        if (isset($_SESSION[$this->getAccountId()][$HttpSession]['start']))
-        {
+        if (isset($_SESSION[$this->getAccountId()][$HttpSession]['start'])) {
             return (time() - $_SESSION[$this->getAccountId()][$HttpSession]['start']) > $this->sessionAbsoluteTimeout;
         }
         return true;
     }
     /**
-     * Tests to see if the user's session has timed out from inactivity based 
+     * Tests to see if the user's session has timed out from inactivity based
      * on ESAPI's configuration settings.
-     * 
-     * A session may timeout prior to ESAPI's configuration setting due to 
-     * the servlet container setting for session-timeout in web.xml. The 
-     * following is an example of a web.xml session-timeout set for one hour. 	
+     *
+     * A session may timeout prior to ESAPI's configuration setting due to
+     * the servlet container setting for session-timeout in web.xml. The
+     * following is an example of a web.xml session-timeout set for one hour.
      *
      * <session-config>
-     *   <session-timeout>60</session-timeout> 
+     *   <session-timeout>60</session-timeout>
      * </session-config>
-     * 
-	 * @param String $HttpSession optional session id
-     * @return true, if user's session has timed out from inactivity based 
+     *
+     * @param String $HttpSession optional session id
+     * @return true, if user's session has timed out from inactivity based
      *               on ESAPI configuration
      */
-    function isSessionTimeout ($HttpSession=null)
-    {
+    function isSessionTimeout ($HttpSession=null) {
         if ($HttpSession===null) $HttpSession=session_id();
         #XXX: You should add some logic to update session time somewhere!
-        if (isset($_SESSION[$this->getAccountId()][$HttpSession]['lastUpdate']))
-        {
+        if (isset($_SESSION[$this->getAccountId()][$HttpSession]['lastUpdate'])) {
             return (time() - $_SESSION[$this->getAccountId()][$HttpSession]['lastUpdate']) > $this->sessionTimeout;
         }
-        return true; 
+        return true;
     }
     /**
      * Lock this user's account.
      */
-    function lock ()
-    {
+    function lock () {
         $this->setUserInfo("locked", "locked");
     }
     /**
      * Login with password.
-     * 
+     *
      * @param String $Password the password
-     * @throws AuthenticationException 
+     * @throws AuthenticationException
      * 		if login fails
      */
     function loginWithPassword ($Password) //throws AuthenticationException;
     {
-        //if ($this->getUserInfo("hashedPassword")!=$this->hashPassword($Password))
-        //throw new AuthenticationException("Invalid password","Invalid Password for login");
-        if ($Password == null || $Password = "")
-        {
+    //if ($this->getUserInfo("hashedPassword")!=$this->hashPassword($Password))
+    //throw new AuthenticationException("Invalid password","Invalid Password for login");
+        if ($Password == null || $Password = "") {
             $this->setLastFailedLoginTime(time());
             $this->incrementFailedLoginCount();
             throw new AuthenticationLoginException("Login failed", "Missing password: " . $this->getAccountName());
         }
         // don't let disabled users log in
-        if (! $this->isEnabled())
-        {
+        if (! $this->isEnabled()) {
             $this->setLastFailedLoginTime(time());
             $this->incrementFailedLoginCount();
             throw new AuthenticationLoginException("Login failed", "Disabled user attempt to login: " . $this->getAccountName());
         }
         // don't let locked users log in
-        if ($this->isLocked())
-        {
+        if ($this->isLocked()) {
             $this->setLastFailedLoginTime(time());
             $this->incrementFailedLoginCount();
             throw new AuthenticationLoginException("Login failed", "Locked user attempt to login: " . $this->getAccountName());
         }
         // don't let expired users log in
-        if ($this->isExpired())
-        {
+        if ($this->isExpired()) {
             $this->setLastFailedLoginTime(time());
             $this->incrementFailedLoginCount();
             throw new AuthenticationLoginException("Login failed", "Expired user attempt to login: " . $this->getAccountName());
         }
         $this->logout();
-        if ($this->verifyPassword($Password))
-        {
+        if ($this->verifyPassword($Password)) {
             $this->loggedIn = true;
             /* TODO: add these
 			ESAPI.httpUtilities().changeSessionIdentifier( ESAPI.currentRequest() );
 			ESAPI.authenticator().setCurrentUser(this);
 			*/
             $this->setLastLoginTime(time());
-            //$this->setLastHostAddress( ESAPI.httpUtilities().getCurrentRequest().getRemoteHost() );
+        //$this->setLastHostAddress( ESAPI.httpUtilities().getCurrentRequest().getRemoteHost() );
         //logger.trace(Logger.SECURITY_SUCCESS, "User logged in: " + accountName );
         }
-        else
-        {
+        else {
             $this->loggedIn = false;
             $this->setLastFailedLoginTime(time());
             $this->incrementFailedLoginCount();
@@ -603,24 +561,22 @@ class DefaultUser implements User
     /**
      * Logout this user.
      */
-    function logout ()
-    {
-        //TODO: ESAPI.httpUtilities().killCookie( ESAPI.currentRequest(), ESAPI.currentResponse(), HTTPUtilities.REMEMBER_TOKEN_COOKIE_NAME );
-        //HttpSession session = ESAPI.currentRequest().getSession(false);
-        if (isset($_SESSION[$this->getAccountId()]))
-        {
+    function logout () {
+    //TODO: ESAPI.httpUtilities().killCookie( ESAPI.currentRequest(), ESAPI.currentResponse(), HTTPUtilities.REMEMBER_TOKEN_COOKIE_NAME );
+    //HttpSession session = ESAPI.currentRequest().getSession(false);
+        if (isset($_SESSION[$this->getAccountId()])) {
             unset($_SESSION[$this->getAccountId()]);
         }
         //TODO: ESAPI.httpUtilities().killCookie(ESAPI.currentRequest(), ESAPI.currentResponse(), "PHPSESSIONID");
         $this->loggedIn = false;
-        //logger.info(Logger.SECURITY_SUCCESS, "Logout successful" );
+    //logger.info(Logger.SECURITY_SUCCESS, "Logout successful" );
     //ESAPI.authenticator().setCurrentUser(User.ANONYMOUS);
     }
     /**
      * Removes a role from this user's account.
-     * 
+     *
      * @param String $Role the role to remove
-     * @throws AuthenticationException 
+     * @throws AuthenticationException
      * 		the authentication exception
      */
     function removeRole ($Role) //throws AuthenticationException;
@@ -628,11 +584,9 @@ class DefaultUser implements User
         $Roles = $this->getUserInfo("roles");
         $Roles = explode(",", $Roles);
         $Roles = array_flip($Roles);
-        if (! array_key_exists($Role, $Roles))
-        {    //TODO: some error
+        if (! array_key_exists($Role, $Roles)) {    //TODO: some error
         }
-        else
-        {
+        else {
             unset($Roles[$Role]);
             $Roles = array_flip($Roles);
             $this->setUserInfo("roles", implode(",", $Roles));
@@ -643,27 +597,26 @@ class DefaultUser implements User
      * forms. The application should verify that all requests contain the token, or they may have been generated by a
      * CSRF attack. It is generally best to perform the check in a centralized location, either a filter or controller.
      * See the verifyCSRFToken method.
-     * 
+     *
      * @return the new CSRF token
-     * 
-     * @throws AuthenticationException 
+     *
+     * @throws AuthenticationException
      * 		the authentication exception
      */
     function resetCSRFToken () //throws AuthenticationException;
     {
         $csrfToken="constant";
         //TODO: $csrfToken = ESAPI.randomizer().getRandomString(8, DefaultEncoder.CHAR_ALPHANUMERICS);
-        
+
         $this->setUserInfo("csrfToken", $csrfToken);
         return $csrfToken;
     }
     /**
      * Sets this user's account name.
-     * 
+     *
      * @param String $AccountName the new account name
      */
-    function setAccountName ($AccountName)
-    {
+    function setAccountName ($AccountName) {
         $this->setUserInfo("accountName", $AccountName);
     }
     /**
@@ -671,25 +624,23 @@ class DefaultUser implements User
      * @param integer $AccountID
      * @return unknown_type
      */
-    function setAccountID ($AccountID)
-    {    #$this->setUserInfo("accountID",$AccountID);
+    function setAccountID ($AccountID) {    #$this->setUserInfo("accountID",$AccountID);
     #FIXME: no such thing as account ID!
     }
     /**
      * Sets the date and time when this user's account will expire.
-     * 
+     *
      * @param $ExpirationTime Timestamp the new expiration time
      */
-    function setExpirationTime ($ExpirationTime)
-    {
+    function setExpirationTime ($ExpirationTime) {
         $this->setUserInfo("expirationTime", $ExpirationTime);
     }
     /**
      * Sets the roles for this account.
-     * 
+     *
      * @param Array $Roles the new roles
-     * 
-     * @throws AuthenticationException 
+     *
+     * @throws AuthenticationException
      * 		the authentication exception
      */
     function setRoles ($Roles) //throws AuthenticationException;
@@ -698,20 +649,18 @@ class DefaultUser implements User
     }
     /**
      * Sets the screen name (username alias) for this user.
-     * 
+     *
      * @param String $ScreenName the new screen name
      */
-    function setScreenName ($ScreenName)
-    {
+    function setScreenName ($ScreenName) {
         $this->screenName = $ScreenName;
-        //$this->setUserInfo("accountName",$ScreenName);
+    //$this->setUserInfo("accountName",$ScreenName);
     #FIXME: this changes account name! what is screen name?!
     }
     /**
      * Unlock this user's account.
      */
-    function unlock ()
-    {
+    function unlock () {
         $this->setUserInfo("locked", "unlocked");
         $this->setFailedLoginCount(0);
     }
@@ -719,57 +668,52 @@ class DefaultUser implements User
      * Verify that the supplied password matches the password for this user. This method
      * is typically used for "reauthentication" for the most sensitive functions, such
      * as transactions, changing email address, and changing other account information.
-     * 
+     *
      * @param $Password the password that the user entered
-     * 
+     *
      * @return true, if the password passed in matches the account's password
-     * 
-     * @throws EncryptionException 
+     *
+     * @throws EncryptionException
      */
     public function verifyPassword ($Password) //throws EncryptionException;
     {
-        //TODO: 		return ESAPI.authenticator().verifyPassword(this, password);
+    //TODO: 		return ESAPI.authenticator().verifyPassword(this, password);
         return ($this->getUserInfo("hashedPassword") == $this->hashPassword($Password));
     }
     /**
      * Set the time of the last failed login for this user.
-     * 
+     *
      * @param Integer $LastFailedLoginTime Timestamp the date and time when the user just failed to login correctly.
      */
-    function setLastFailedLoginTime ($LastFailedLoginTime)
-    {
+    function setLastFailedLoginTime ($LastFailedLoginTime) {
         $this->setUserInfo("lastFailedLoginTime", $LastFailedLoginTime);
     }
     /**
      * Set the last remote host address used by this user.
-     * 
+     *
      * @param $RemoteHost The address of the user's current source host.
      */
-    function setLastHostAddress ($RemoteHost)
-    {
-        if ($this->lastHostAddress != null && $this->lastHostAddress != $RemoteHost)
-        {
-            // returning remote address not remote hostname to prevent DNS lookup
+    function setLastHostAddress ($RemoteHost) {
+        if ($this->lastHostAddress != null && $this->lastHostAddress != $RemoteHost) {
+        // returning remote address not remote hostname to prevent DNS lookup
             new AuthenticationHostException("Host change", "User session just jumped from " . $this->lastHostAddress . " to " . $RemoteHost);
         }
         $this->lastHostAddress = $RemoteHost;
     }
     /**
      * Set the time of the last successful login for this user.
-     * 
+     *
      * @param Integer $LastLoginTime Timestamp the date and time when the user just successfully logged in.
      */
-    function setLastLoginTime ($LastLoginTime)
-    {
+    function setLastLoginTime ($LastLoginTime) {
         $this->setUserInfo("lastLoginTime", $LastLoginTime);
     }
     /**
      * Set the time of the last password change for this user.
-     * 
+     *
      * @param Integer $LastPasswordChangeTime Timestamp the date and time when the user just successfully changed his/her password.
      */
-    function setLastPasswordChangeTime ($LastPasswordChangeTime)
-    {
+    function setLastPasswordChangeTime ($LastPasswordChangeTime) {
         $this->setUserInfo("lastPasswordChangeTime", $LastPasswordChangeTime);
     }
     /**
@@ -777,6 +721,7 @@ class DefaultUser implements User
      * always a real user, the ANONYMOUS user is better than using null to represent
      * this.
      */
+    //FIXME:
     public $ANONYMOUS = null;
 }
 ?>
