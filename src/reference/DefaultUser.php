@@ -72,6 +72,12 @@ class DefaultUser implements User {
     public $lastHostAddress;
     public $loggedIn = false;
     public $screenName = "";
+
+    /** This user's assigned roles. */
+    private $roles = array();
+
+    private $logger = null;
+    
     //Configs
     public $allowedLoginAttempts = 3;
     public $sessionTimeout = 3600; #one hour
@@ -84,17 +90,18 @@ class DefaultUser implements User {
     private $_PathToUsersFiles = "../../test/testresources/users.txt";
 
     function __construct ($accountName) {
+
         $this->setAccountName($accountName);
 
-        while(true){
+        while(true) {
             $id = ESAPI::getRandomizer()->getRandomLong();
-            if(ESAPI::getAuthenticator()->getUserById($id) == null && $id != 0){
+            if(ESAPI::getAuthenticator()->getUserById($id) == null && $id != 0) {
                 $this->setAccountID($id);
                 break;
             }
         }
     }
-    
+
     function __destruct () {
         $this->writeUserInfo();
     }
@@ -174,6 +181,7 @@ class DefaultUser implements User {
     function getAccountName () {
         return $this->getUserInfo("accountName");
     }
+
     /**
      * Adds a role to this user's account.
      *
@@ -183,28 +191,22 @@ class DefaultUser implements User {
      * @throws AuthenticationException
      * 		the authentication exception
      */
-    function addRole ($Role) //throws AuthenticationException
-    {
-        $Roles = $this->getUserInfo("roles");
-        if ($Roles == "")
-            $Roles = array();
-        else
-            $Roles = explode(",", $Roles);
-        $RolesF = array_flip($Roles);
-        //if ($ESAPI->validator->isValidInput("addRole", $Role, "RoleName", MAX_ROLE_LENGTH, false))
-        {
-            if (array_key_exists($Role, $RolesF)) {
-                return false;
+    function addRole ($role) {
+        $roleName = strtolower($role);
+        if ( ESAPI::getValidator()->isValidInput("addRole", $roleName, "RoleName", MAX_ROLE_LENGTH, false) ) {
+            //TODO: Verify if this is correct
+            $this->roles[] = $roleName;
+            
+            if($this->logger == null){
+                $this->setLoggerService();
             }
-            else {
-                $Roles[] = $Role;
-                $this->setUserInfo("roles", implode(",", $Roles));
-            //TODO: $Logger.info(Logger.SECURITY_SUCCESS, "Role " + $Role + " added to " + $this->getAccountName() );
-            }
+            $this->logger->info(DefaultLogger::SECURITY, TRUE, "Role " + $roleName + " added to " + $this->getAccountName() );
+        } else {
+            //TODO: Not done in Java, but shouldn't this be logged as well?
+            throw new AuthenticationAccountsException( "Add role failed", "Attempt to add invalid role " + $roleName + " to " + $this->getAccountName() );
         }
-    //else
-    //throw new AuthenticationException( "Add role failed", "Attempt to add invalid role ". $Role ." to " . $this->getAccountName() );
     }
+
     /**
      * Adds a set of roles to this user's account.
      *
@@ -216,8 +218,8 @@ class DefaultUser implements User {
      */
     function addRoles ($newRoles) //throws AuthenticationException;
     {
-        foreach ($newRoles as $Role)
-            $this->addRole($Role);
+        foreach ($newRoles as $role)
+            $this->addRole($role);
     }
     /**
      * Sets the user's password, performing a verification of the user's old password, the equality of the two new
@@ -716,6 +718,11 @@ class DefaultUser implements User {
     function setLastPasswordChangeTime ($LastPasswordChangeTime) {
         $this->setUserInfo("lastPasswordChangeTime", $LastPasswordChangeTime);
     }
+
+    private function setLoggerService(){
+        $this->logger = ESAPI::getLogger("DefaultUser");
+    }
+
     /**
      * The ANONYMOUS user is used to represent an unidentified user. Since there is
      * always a real user, the ANONYMOUS user is better than using null to represent
