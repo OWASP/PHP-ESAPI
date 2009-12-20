@@ -20,6 +20,8 @@
 require_once dirname(__FILE__).'/../Authenticator.php';
 require_once dirname(__FILE__).'/DefaultUser.php';
 
+define('MAX_ACCOUNT_NAME_LENGTH', 250);
+
 class FileBasedAuthenticator implements Authenticator {
     private $users;
 
@@ -407,7 +409,13 @@ class FileBasedAuthenticator implements Authenticator {
      *             if account name does not meet complexity requirements
      */
     function verifyAccountNameStrength($accountName) {
-        throw new EnterpriseSecurityException("Method Not implemented");
+        if ($accountName == null) {
+            throw new AuthenticationCredentialsException("Invalid account name", "Attempt to create account with a null account name");
+        }
+
+        if (ESAPI::getValidator()->isValidInput("verifyAccountNameStrength", $accountName, "AccountName", MAX_ACCOUNT_NAME_LENGTH, false )) {
+            throw new AuthenticationCredentialsException("Invalid account name", "New account name is not valid: " + $accountName);
+        }
     }
 
     /**
