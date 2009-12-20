@@ -255,7 +255,91 @@ class FileBasedAuthenticator implements Authenticator {
      * 		if any errors occur
      */
     function changePassword($user, $currentPassword, $newPassword, $newPassword2) {
-        throw new EnterpriseSecurityException("Method Not implemented");
+        $accountName = $user->getAccountName();
+
+        try {
+            $currentHash = $this->getHashedPassword($user);
+            $verifyHash = $this->hashPassword($currentPassword, $accountName);
+
+            if($currentHash != $verifyHash) {
+                throw new AuthenticationCredentialsException("Password change failed", "Authentication failed for password change on user: ".$accountName);
+            }
+
+            if(!$this->isValidString( $newPassword ) || !$this->isValidString($newPassword2) || $newPassword != $newPassword2) {
+                throw new AuthenticationCredentialsException("Password change failed", "Passwords do not match for password change on user: ".$accountName );
+            }
+
+            $this->verifyPasswordStrength($currentPassword, $newPassword);
+            //TODO: Is this actually the expected value?
+            $user->setLastPasswordChangeTime(time());
+            $newHash = $this->hashPassword($newPassword, $accountName);
+            if( in_array($newHash, $this->getOldPasswordHashes($user)) ){
+                throw new AuthenticationCredentialsException( "Password change failed", "Password change matches a recent password for user: ".$accountName );
+            }
+
+            $this->setHashedPassword($user, $newHash);
+            $this->logger->info(DefaultLogger::SECURITY, TRUE, "Password changed for user: ".$accountName);
+        } catch (EncryptionException $e ) {
+            throw new AuthenticationException("Password change failed", "Encryption exception changing password for ".$accountName);
+        }
+    }
+
+    /**
+     * Returns all of the specified User's hashed passwords.  If the User's list of passwords is null,
+     * and create is set to true, an empty password list will be associated with the specified User
+     * and then returned. If the User's password map is null and create is set to false, an exception
+     * will be thrown.
+     *
+     * @param user
+     * 		the User whose old hashes should be returned
+     * @param create
+     * 		true - if no password list is associated with this user, create one
+     * 		false - if no password list is associated with this user, do not create one
+     * @return
+     * 		a List containing all of the specified User's password hashes
+     */
+    public function getAllHashedPasswords($user, $create) {
+        throw new EnterpriseSecurityException("Method not implemented!");
+    //    	$hashes = (List) passwordMap.get(user);
+    //    	if (hashes != null)
+    //    		return hashes;
+    //    	if (create) {
+    //    		hashes = new ArrayList();
+    //    		passwordMap.put(user, hashes);
+    //    		return hashes;
+    //    	}
+    //    	throw new RuntimeException("No hashes found for " + user.getAccountName() + ". Is User.hashcode() and equals() implemented correctly?");
+    }
+
+    /**
+     * Return the specified User's current hashed password.
+     *
+     * @param user
+     * 		this User's current hashed password will be returned
+     * @return
+     * 		the specified User's current hashed password
+     */
+    public function getHashedPassword($user) {
+        $hashes = $this->getAllHashedPasswords($user, false);
+        return $hashes[0];
+    }
+
+
+    /**
+     * Get a List of the specified User's old password hashes.  This will not return the User's current
+     * password hash.
+     *
+     * @param user
+     * 		he user whose old password hashes should be returned
+     * @return
+     * 		the specified User's old password hashes
+     */
+    public function getOldPasswordHashes($user) {
+        $hashes = $this->getAllHashedPasswords($user, false);
+        if (count($hashes) > 1) {
+            return array_slice($hashes, 1, (count($hashes) - 1), TRUE );
+        }
+        return array();
     }
 
     /**
@@ -358,7 +442,26 @@ class FileBasedAuthenticator implements Authenticator {
         throw new EnterpriseSecurityException("Method Not implemented");
     }
 
-    /**
+        /**
+     * Add a hash to a User's hashed password list.  This method is used to store a user's old password hashes
+     * to be sure that any new passwords are not too similar to old passwords.
+     *
+     * @param user
+     * 		the user to associate with the new hash
+     * @param hash
+     * 		the hash to store in the user's password hash list
+     */
+    private function setHashedPassword($user, $hash) {
+    	$hashes = $this->getAllHashedPasswords($user, true);
+		$hashes[0] = $hash;
+		if (count($hashes) > ESAPI::getSecurityConfiguration()->getMaxOldPasswordHashes() ){
+            //TODO: Verify
+			array_pop($hashes);
+        }
+		$this->logger->info(DefaultLogger::SECURITY, TRUE, "New hashed password stored for ".$user->getAccountName() );
+    }
+
+/**
      * Returns a $representation of the hashed password, using the
      * accountName as the salt. The salt helps to prevent against "rainbow"
      * table attacks where the attacker pre-calculates hashes for known strings.
@@ -375,7 +478,8 @@ class FileBasedAuthenticator implements Authenticator {
      * 		the hashed password
      */
     function hashPassword($password, $accountName) {
-        throw new EnterpriseSecurityException("Method Not implemented");
+        $salt = strtolower( $accountName );
+        return ESAPI::getEncryptor()->hash($password, $salt);
     }
 
     /**
@@ -409,12 +513,13 @@ class FileBasedAuthenticator implements Authenticator {
      *             if account name does not meet complexity requirements
      */
     function verifyAccountNameStrength($accountName) {
-        if ($accountName == null) {
-            throw new AuthenticationCredentialsException("Invalid account name", "Attempt to create account with a null account name");
+        if (!$this->isValidString( $accountName ) ) {
+
+            throw new AuthenticationCredentialsException("Invalid account name", "Attempt to create account with a null/empty account name");
         }
 
         if (ESAPI::getValidator()->isValidInput("verifyAccountNameStrength", $accountName, "AccountName", MAX_ACCOUNT_NAME_LENGTH, false )) {
-            throw new AuthenticationCredentialsException("Invalid account name", "New account name is not valid: " + $accountName);
+            throw new AuthenticationCredentialsException("Invalid account name", "New account name is not valid: ".$accountName);
         }
     }
 
