@@ -273,13 +273,13 @@ class FileBasedAuthenticator implements Authenticator {
             //TODO: Is this actually the expected value?
             $user->setLastPasswordChangeTime(time());
             $newHash = $this->hashPassword($newPassword, $accountName);
-            if( in_array($newHash, $this->getOldPasswordHashes($user)) ){
+            if( in_array($newHash, $this->getOldPasswordHashes($user)) ) {
                 throw new AuthenticationCredentialsException( "Password change failed", "Password change matches a recent password for user: ".$accountName );
             }
 
             $this->setHashedPassword($user, $newHash);
             $this->logger->info(DefaultLogger::SECURITY, TRUE, "Password changed for user: ".$accountName);
-        } catch (EncryptionException $e ) {
+        } catch (EncryptionException $e ){
             throw new AuthenticationException("Password change failed", "Encryption exception changing password for ".$accountName);
         }
     }
@@ -442,7 +442,7 @@ class FileBasedAuthenticator implements Authenticator {
         throw new EnterpriseSecurityException("Method Not implemented");
     }
 
-        /**
+    /**
      * Add a hash to a User's hashed password list.  This method is used to store a user's old password hashes
      * to be sure that any new passwords are not too similar to old passwords.
      *
@@ -452,16 +452,16 @@ class FileBasedAuthenticator implements Authenticator {
      * 		the hash to store in the user's password hash list
      */
     private function setHashedPassword($user, $hash) {
-    	$hashes = $this->getAllHashedPasswords($user, true);
-		$hashes[0] = $hash;
-		if (count($hashes) > ESAPI::getSecurityConfiguration()->getMaxOldPasswordHashes() ){
-            //TODO: Verify
-			array_pop($hashes);
+        $hashes = $this->getAllHashedPasswords($user, true);
+        $hashes[0] = $hash;
+        if (count($hashes) > ESAPI::getSecurityConfiguration()->getMaxOldPasswordHashes() ) {
+        //TODO: Verify
+            array_pop($hashes);
         }
-		$this->logger->info(DefaultLogger::SECURITY, TRUE, "New hashed password stored for ".$user->getAccountName() );
+        $this->logger->info(DefaultLogger::SECURITY, TRUE, "New hashed password stored for ".$user->getAccountName() );
     }
 
-/**
+    /**
      * Returns a $representation of the hashed password, using the
      * accountName as the salt. The salt helps to prevent against "rainbow"
      * table attacks where the attacker pre-calculates hashes for known strings.
@@ -539,7 +539,54 @@ class FileBasedAuthenticator implements Authenticator {
      *				if newPassword is too similar to oldPassword or if newPassword does not meet complexity requirements
      */
     function verifyPasswordStrength($oldPassword, $newPassword) {
-        throw new EnterpriseSecurityException("Method Not implemented");
+        if(!$this->ValidString($newPassword)) {
+            throw new AuthenticationCredentialsException("Invalid password", "New password cannot be null" );
+        }
+
+        // can't change to a password that contains any 3 character substring of old password
+        if( $this->isValidString($oldPassword)) {
+            $passwordLength = strlen($oldPassword);
+            for($counter = 0; $counter < $passwordLength-2; $counter++) {
+                $sub = substr($oldPassword, $counter, 3);
+                if( strlen(strstr($newPassword, $sub)) > 0) {
+//                if( strlen(strstr($newPassword, $sub)) > -1) { //TODO: Even this works. Revisit for a more elegant solution
+                    throw new AuthenticationCredentialsException("Invalid password", "New password cannot contain pieces of old password" );
+                }
+            }
+        }
+
+        // new password must have enough character sets and length
+        $charsets = 0;
+        for($counter = 0; $counter < $passwordLength; $counter++) {
+            if(in_array(substr($newPassword, $counter, 1), DefaultEncoder::CHAR_LOWERS)) {
+                $charsets++;
+                break;
+            }
+        }
+        for($counter = 0; $counter < $passwordLength; $counter++) {
+            if(in_array(substr($newPassword, $counter, 1), DefaultEncoder::CHAR_UPPERS)) {
+                $charsets++;
+                break;
+            }
+        }
+        for($counter = 0; $counter < $passwordLength; $counter++) {
+            if(in_array(substr($newPassword, $counter, 1), DefaultEncoder::CHAR_DIGITS)) {
+                $charsets++;
+                break;
+            }
+        }
+        for($counter = 0; $counter < $passwordLength; $counter++) {
+            if(in_array(substr($newPassword, $counter, 1), DefaultEncoder::CHAR_SPECIALS)) {
+                $charsets++;
+                break;
+            }
+        }
+
+        // calculate and verify password strength
+        $passwordStrength = $passwordLength * $charsets;
+        if($passwordStrength < 16) {
+            throw new AuthenticationCredentialsException("Invalid password", "New password is not long and complex enough");
+        }
     }
 
     /**
