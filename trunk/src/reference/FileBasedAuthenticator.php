@@ -40,6 +40,9 @@ class FileBasedAuthenticator implements Authenticator {
     /** Associative array of user: array(AccoundId => UserObjectReference) */
     private $userMap = array();
 
+    // $passwordMap[user] = passwordHash, where the values are password hashes, with the current hash in entry 0
+    private $passwordMap = array();
+
     function __construct() {
         $this->users = array();
         $this->logger = ESAPI::getLogger("Authenticator");
@@ -149,30 +152,30 @@ class FileBasedAuthenticator implements Authenticator {
             throw new AuthenticationAccountsException("Account creation failed", "Attempt to create user with null accountName");
         }
         if ($this->getUserByName($accountName) != null) {
-            throw new AuthenticationAccountsException("Account creation failed", "Duplicate user creation denied for " + $accountName);
+            throw new AuthenticationAccountsException("Account creation failed", "Duplicate user creation denied for ".$accountName);
         }
 
         $this->verifyAccountNameStrength($accountName);
 
         if ( $password1 == null ) {
-            throw new AuthenticationCredentialsException( "Invalid account name", "Attempt to create account " + $accountName + " with a null password" );
+            throw new AuthenticationCredentialsException( "Invalid account name", "Attempt to create account ".$accountName." with a null password" );
         }
         $this->verifyPasswordStrength(null, password1);
 
         if ($password1 != $password2) {
-            throw new AuthenticationCredentialsException("Passwords do not match", "Passwords for " + $accountName + " do not match");
+            throw new AuthenticationCredentialsException("Passwords do not match", "Passwords for ".$accountName." do not match");
         }
 
         $user = new DefaultUser($accountName);
         try {
             $this->setHashedPassword( $user, $this->hashPassword($password1, $accountName) );
         } catch (EncryptionException $ee) {
-            throw new AuthenticationException("Internal error", "Error hashing password for " + $accountName, $ee);
+            throw new AuthenticationException("Internal error", "Error hashing password for ".$accountName);
         }
 
         $this->userMap[$user->getAccountId()] = $user;
 
-        $this->logger->info( DefaultLogger::SECURITY, TRUE, "New user created: " + $accountName);
+        $this->logger->info( DefaultLogger::SECURITY, TRUE, "New user created: ".$accountName);
         $this->saveUsers();
         return $user;
     }
@@ -232,9 +235,19 @@ class FileBasedAuthenticator implements Authenticator {
      * 		a password with strong password strength
      */
     function generateStrongPassword($user = null, $oldPassword = null) {
-    // TODO Change in Milestone 3
+        $randomizer = ESAPI::getRandomizer();
+        $letters = $randomizer->getRandomInteger(4, 6);
+        $digits = 7 - $letters;
+        $passLetters = $randomizer->getRandomString($letters, DefaultEncoder::CHAR_PASSWORD_LETTERS );
+        $passDigits = $randomizer->getRandomString( $digits, DefaultEncoder::CHAR_PASSWORD_DIGITS );
+        $passSpecial = $randomizer->getRandomString( 1, DefaultEncoder::CHAR_PASSWORD_SPECIALS );
+        $newPassword = $passLetters.$passSpecial.$passDigits;
 
-        return "weak password";
+        if ($this->isValidString($newPassword) && $this->isValidString($user) ) {
+            $this->logger->info( DefaultLogger::SECURITY, TRUE, "Generated strong password for ".$user->getAccountName());
+        }
+
+        return $newPassword;
     }
 
     /**
@@ -279,7 +292,7 @@ class FileBasedAuthenticator implements Authenticator {
 
             $this->setHashedPassword($user, $newHash);
             $this->logger->info(DefaultLogger::SECURITY, TRUE, "Password changed for user: ".$accountName);
-        } catch (EncryptionException $e ){
+        } catch (EncryptionException $e ) {
             throw new AuthenticationException("Password change failed", "Encryption exception changing password for ".$accountName);
         }
     }
@@ -299,16 +312,17 @@ class FileBasedAuthenticator implements Authenticator {
      * 		a List containing all of the specified User's password hashes
      */
     public function getAllHashedPasswords($user, $create) {
-        throw new EnterpriseSecurityException("Method not implemented!");
-    //    	$hashes = (List) passwordMap.get(user);
-    //    	if (hashes != null)
-    //    		return hashes;
-    //    	if (create) {
-    //    		hashes = new ArrayList();
-    //    		passwordMap.put(user, hashes);
-    //    		return hashes;
-    //    	}
-    //    	throw new RuntimeException("No hashes found for " + user.getAccountName() + ". Is User.hashcode() and equals() implemented correctly?");
+    //        TODO: Reverify with tests. Something doesn't seem right here
+        $hashes = $this->passwordMap[$user];
+        if ($this->isValidString($hashes)) {
+            return $hashes;
+        }
+        if ($create) {
+            $hashes = array();
+            $this->passwordMap[$user] = $hashes;
+            return hashes;
+        }
+        throw new RuntimeException("No hashes found for ".$user->getAccountName().". Is User.hashcode() and equals() implemented correctly?");
     }
 
     /**
@@ -514,7 +528,6 @@ class FileBasedAuthenticator implements Authenticator {
      */
     function verifyAccountNameStrength($accountName) {
         if (!$this->isValidString( $accountName ) ) {
-
             throw new AuthenticationCredentialsException("Invalid account name", "Attempt to create account with a null/empty account name");
         }
 
@@ -549,7 +562,7 @@ class FileBasedAuthenticator implements Authenticator {
             for($counter = 0; $counter < $passwordLength-2; $counter++) {
                 $sub = substr($oldPassword, $counter, 3);
                 if( strlen(strstr($newPassword, $sub)) > 0) {
-//                if( strlen(strstr($newPassword, $sub)) > -1) { //TODO: Even this works. Revisit for a more elegant solution
+                //                if( strlen(strstr($newPassword, $sub)) > -1) { //TODO: Even this works. Revisit for a more elegant solution
                     throw new AuthenticationCredentialsException("Invalid password", "New password cannot contain pieces of old password" );
                 }
             }
