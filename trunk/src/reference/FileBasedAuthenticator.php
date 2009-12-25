@@ -235,6 +235,8 @@ class FileBasedAuthenticator implements Authenticator {
      * 		a password with strong password strength
      */
     function generateStrongPassword($user = null, $oldPassword = null) {
+        throw new EnterpriseSecurityException("Method Not Implemented!");
+        //TODO: Encoder ain't implemented yet, hence commenting out the code below
         $randomizer = ESAPI::getRandomizer();
         $letters = $randomizer->getRandomInteger(4, 6);
         $digits = 7 - $letters;
