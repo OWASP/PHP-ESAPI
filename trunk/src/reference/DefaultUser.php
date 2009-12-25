@@ -77,8 +77,8 @@ class DefaultUser implements User {
     /** This user's assigned roles. */
     private $roles = array();
 
-    private $logger = null;
-    
+    private $enabled = false;
+
     //Configs
     public $allowedLoginAttempts = 3;
     public $sessionTimeout = 3600; #one hour
@@ -195,15 +195,11 @@ class DefaultUser implements User {
     function addRole ($role) {
         $roleName = strtolower($role);
         if ( ESAPI::getValidator()->isValidInput("addRole", $roleName, "RoleName", MAX_ROLE_LENGTH, false) ) {
-            //TODO: Verify if this is correct
+        //TODO: Verify if this is correct
             $this->roles[] = $roleName;
-            
-            if($this->logger == null){
-                $this->setLoggerService();
-            }
-            $this->logger->info(DefaultLogger::SECURITY, TRUE, "Role ".$roleName." added to ".$this->getAccountName() );
+            ESAPI::getLogger("DefaultUser")->info(DefaultLogger::SECURITY, TRUE, "Role ".$roleName." added to ".$this->getAccountName() );
         } else {
-            //TODO: Not done in Java, but shouldn't this be logged as well?
+        //TODO: Not done in Java, but shouldn't this be logged as well?
             throw new AuthenticationAccountsException( "Add role failed", "Attempt to add invalid role ".$roleName." to ".$this->getAccountName() );
         }
     }
@@ -237,23 +233,23 @@ class DefaultUser implements User {
      * 		if newPassword1 does not match newPassword2, if oldPassword does not match the stored old password, or if the new password does not meet complexity requirements
      * @throws EncryptionException
      */
-    function changePassword ($oldPassword, $newPassword1, $newPassword2){
+    function changePassword ($oldPassword, $newPassword1, $newPassword2) {
         ESAPI::getAuthenticator()->changePassword($this, $oldPassword, $newPassword1, $newPassword2);
     }
-    
+
     /**
      * Disable this user's account.
      */
     function disable () {
-        $this->setUserInfo("enabled", "disabled");
-    #TODO: $logger->info( Logger.SECURITY_SUCCESS, "Account disabled: " + getAccountName() );
+        $this->enabled = FALSE;
+        ESAPI::getLogger("DefaultUser")->info( DefaultLogger::SECURITY_SUCCESS, "Account disabled: ".$this->getAccountName() );
     }
     /**
      * Enable this user's account.
      */
     function enable () {
-        $this->setUserInfo("enabled", "enabled");
-    #TODO: 		logger.info( Logger.SECURITY_SUCCESS, "Account enabled: " + getAccountName() );
+        $this->enable = TRUE;
+        ESAPI::getLogger("DefaultUser")->info(DefaultLogger::SECURITY_SUCCESS, "Account enabled: ".$this->getAccountName() );
     }
     /**
      * Gets this user's account id number.
@@ -409,7 +405,7 @@ class DefaultUser implements User {
      * @return true, if account is enabled
      */
     function isEnabled () {
-        return $this->getUserInfo("enabled") == "enabled";
+        return $this->enabled;
     }
     /**
      * Checks if this user's account is expired.
@@ -708,10 +704,6 @@ class DefaultUser implements User {
      */
     function setLastPasswordChangeTime ($LastPasswordChangeTime) {
         $this->setUserInfo("lastPasswordChangeTime", $LastPasswordChangeTime);
-    }
-
-    private function setLoggerService(){
-        $this->logger = ESAPI::getLogger("DefaultUser");
     }
 
     /**
