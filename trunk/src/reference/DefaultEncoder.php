@@ -29,8 +29,8 @@ class DefaultEncoder implements Encoder {
    *  Character sets that define characters (in addition to alphanumerics) that are
    * immune from encoding in various formats
   */
-  private $immune_html		= array( ',', '.', '-', '_', ' ' );
-  private $immune_htmlattr	= array( ',', '.', '-', '_' );
+  private $immune_html      = array( ',', '.', '-', '_', ' ' );
+  private $immune_htmlattr  = array( ',', '.', '-', '_' );
   private $immune_css       = array();
   private $immune_javascript= array( ',', '.', '_' );
   private $immune_vbscript  = array( ',', '.', '_' );
@@ -38,8 +38,8 @@ class DefaultEncoder implements Encoder {
   private $immune_sql       = array( ' ' );
   private $immune_os        = array( '-' );
   private $immune_xmlattr   = array( ',', '.', '-', '_' );
-  private $immune_xpath		= array( ',', '.', '-', '_', ' ' );
-  private $immune_url		= array( '.', '-', '*', '_');
+  private $immune_xpath     = array( ',', '.', '-', '_', ' ' );
+  private $immune_url       = array( '.', '-', '*', '_');
   private $codecs=array();
   
   function __construct()
