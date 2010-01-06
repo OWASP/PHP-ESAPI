@@ -73,6 +73,12 @@ class PercentCodec extends Codec
         return $encodedOutput.chr($ordinalValue);
       }
       
+      // check for the space character which will be encoded as '+'
+      if ($hex == 20)
+      {
+          return $encodedOutput."+";
+      }
+      
       if($ordinalValue < 16)
       {
       	// ordinalValue is less than 16, therefore prepend hex with a 0...
@@ -93,6 +99,12 @@ class PercentCodec extends Codec
     		// eat the 1st character off the string and return null
     		$input = mb_substr($input,1,mb_strlen($input,"UTF-32"),"UTF-32"); //this is not neccessary
     		return array('decodedCharacter'=>null,'encodedString'=>null);
+    	}
+    	
+    	// if 1st character is '+' then it's decoded character will be a space.
+    	if(mb_substr($input,0,1,"UTF-32") == $this->normalizeEncoding('+'))
+    	{
+    		return array('decodedCharacter'=>$this->normalizeEncoding(' '),'encodedString'=>mb_substr($input,0,1,"UTF-32"));
     	}
     	
     	// if this is not an encoded character, return null

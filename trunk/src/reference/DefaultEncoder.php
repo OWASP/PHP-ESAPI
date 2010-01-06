@@ -18,10 +18,12 @@
 
 require_once dirname(__FILE__).'/../Encoder.php';
 require_once dirname(__FILE__).'/../codecs/HTMLEntityCodec.php';
+require_once dirname(__FILE__).'/../codecs/PercentCodec.php';
 
 class DefaultEncoder implements Encoder {
 
   private $htmlCodec = null;
+  private $percentCodec = null;
   
   /**
    *  Character sets that define characters (in addition to alphanumerics) that are
@@ -29,20 +31,24 @@ class DefaultEncoder implements Encoder {
   */
   private $immune_html		= array( ',', '.', '-', '_', ' ' );
   private $immune_htmlattr	= array( ',', '.', '-', '_' );
-  private $immune_css			= array();
-  private $immune_javascript	= array( ',', '.', '_' );
-  private $immune_vbscript	= array( ',', '.', '_' );
-  private $immune_xml			= array( ',', '.', '-', '_', ' ' );
-  private $immune_sql			= array( ' ' );
-  private $immune_os			= array( '-' );
-  private $immune_xmlattr		= array( ',', '.', '-', '_' );
+  private $immune_css       = array();
+  private $immune_javascript= array( ',', '.', '_' );
+  private $immune_vbscript  = array( ',', '.', '_' );
+  private $immune_xml       = array( ',', '.', '-', '_', ' ' );
+  private $immune_sql       = array( ' ' );
+  private $immune_os        = array( '-' );
+  private $immune_xmlattr   = array( ',', '.', '-', '_' );
   private $immune_xpath		= array( ',', '.', '-', '_', ' ' );
+  private $immune_url		= array( '.', '-', '*', '_');
   private $codecs=array();
   
   function __construct()
   {
   	$this->htmlCodec = new HTMLEntityCodec();
   	array_push($this->codecs,$this->htmlCodec);
+  	
+  	$this->percentCodec = new PercentCodec();
+  	array_push($this->codecs,$this->percentCodec);
   }
 
 	/**
@@ -163,7 +169,7 @@ class DefaultEncoder implements Encoder {
 	 * Encode data for use in HTML using HTML entity encoding
 	 * <p> 
 	 * Note that the following characters:
-	 * 00–08, 0B–0C, 0E–1F, and 7F–9F 
+	 * 00ï¿½08, 0Bï¿½0C, 0Eï¿½1F, and 7Fï¿½9F 
 	 * <p>cannot be used in HTML. 
 	 * 
 	 * @see <a href="http://en.wikipedia.org/wiki/Character_encodings_in_HTML">HTML Encodings [wikipedia.org]</a> 
@@ -404,7 +410,11 @@ class DefaultEncoder implements Encoder {
 	 */
 	function encodeForURL($input)
 	{
-		throw new EnterpriseSecurityException("Method Not implemented");	
+		if( $input === null )
+		{
+			return null;
+		}
+		return $this->percentCodec->encode($this->immune_url, $input);	
 	}
 
 	/**
@@ -423,7 +433,12 @@ class DefaultEncoder implements Encoder {
 	 */
 	function decodeFromURL($input)
 	{
-		throw new EnterpriseSecurityException("Method Not implemented");	
+	    if( $input === null )
+		{
+			return null;
+		}
+		$canonical = $this->canonicalize($input,true);
+		return $this->percentCodec->decode($canonical);
 	}
 
 	/**
