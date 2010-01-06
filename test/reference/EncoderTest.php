@@ -468,10 +468,10 @@ $this->fail(); // DELETE ME ("encodeForXMLAttribute");
      * @throws Exception
      */
     function testEncodeForURL() {
-$this->fail(); // DELETE ME ("encodeForURL");
-//        Encoder instance = ESAPI.encoder();
-//        assertEquals(null, instance.encodeForURL(null));
-//        assertEquals("%3Cscript%3E", instance.encodeForURL("<script>"));
+        $instance = ESAPI::getEncoder();
+        $this->assertEqual(null, $instance->encodeForURL(null));
+        $this->assertEqual("%3Cscript%3E", $instance->encodeForURL("<script>"));
+        $this->assertEqual("+", $instance->encodeForURL(" "));
     }
     
     /**
@@ -480,15 +480,10 @@ $this->fail(); // DELETE ME ("encodeForURL");
      * @throws Exception
      */
     function testDecodeFromURL() {
-$this->fail(); // DELETE ME ("decodeFromURL");
-//        Encoder instance = ESAPI.encoder();
-//        try {
-//        	assertEquals(null, instance.decodeFromURL(null));
-//            assertEquals("<script>", instance.decodeFromURL("%3Cscript%3E"));
-//            assertEquals("     ", instance.decodeFromURL("+++++") );
-//        } catch ( Exception e ) {
-//            fail();
-//        }
+        $instance = ESAPI::getEncoder();
+        $this->assertEqual(null, $instance->decodeFromURL(null));
+        $this->assertEqual("<script>", $instance->decodeFromURL("%3Cscript%3E"));
+        $this->assertEqual("     ", $instance->decodeFromURL("+++++"));
     }
     
     /**
