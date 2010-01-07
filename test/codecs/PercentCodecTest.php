@@ -43,7 +43,7 @@ class PercentCodecTest extends UnitTestCase
 	{
 		$immune = array("/");
 		
-		$this->assertEqual( '%22%3B%20ls%20/%20%3E%20/tmp/foo%3B%20%23%20', $this->percentCodec->encode($immune, '"; ls / > /tmp/foo; # ') );
+		$this->assertEqual( '%22%3B+ls+/+%3E+/tmp/foo%3B+%23+', $this->percentCodec->encode($immune, '"; ls / > /tmp/foo; # ') );
 	}
 	
 	function testEncodeCharacter()
@@ -56,6 +56,11 @@ class PercentCodecTest extends UnitTestCase
 	function testDecode()
 	{
 		$this->assertEqual( '"; ls / > /tmp/foo; # ', $this->percentCodec->decode('%22%3B%20ls%20/%20%3E%20/tmp/foo%3B%20%23%20') );
+	}
+		
+	function testDecodePlus()
+	{
+		$this->assertEqual( '"; ls / > /tmp/foo; # ', $this->percentCodec->decode('%22%3B+ls+/+%3E+/tmp/foo%3B+%23+') );
 	}
 		
 	function testDecodeCharacter()
