@@ -43,24 +43,23 @@ require_once dirname(__FILE__).'/Encoder.php';
 interface Encoder {
 
 	/** Standard character sets */
-//	public final static char[] CHAR_LOWERS = { 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z' };
-//	public final static char[] CHAR_UPPERS = { 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z' };
-//	public final static char[] CHAR_DIGITS = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9' };
-//	public final static char[] CHAR_SPECIALS = { '.', '-', '_', '!', '@', '$', '^', '*', '=', '~', '|', '+', '?' };
-//	public final static char[] CHAR_LETTERS = StringUtilities.union(CHAR_LOWERS, CHAR_UPPERS);
-//	public final static char[] CHAR_ALPHANUMERICS = StringUtilities.union(CHAR_LETTERS, CHAR_DIGITS);
-	
+    const CHAR_LOWERS = 'abcdefghijklmnopqrstuvwxyz';
+    const CHAR_UPPERS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    const CHAR_DIGITS = '0123456789';
+    const CHAR_SPECIALS = '.-_!@$^*=~|+?';
+    const CHAR_LETTERS = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    const CHAR_ALPHANUMERICS = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
 	
 	/**
 	 * Password character set, is alphanumerics (without l, i, I, o, O, and 0)
 	 * selected specials like + (bad for URL encoding, | is like i and 1,
 	 * etc...)
 	 */
-//	public final static char[] CHAR_PASSWORD_LOWERS = { 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'j', 'k', 'm', 'n', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z' };
-//	public final static char[] CHAR_PASSWORD_UPPERS = { 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'J', 'K', 'L', 'M', 'N', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z' };
-//	public final static char[] CHAR_PASSWORD_DIGITS = { '2', '3', '4', '5', '6', '7', '8', '9' };
-//	public final static char[] CHAR_PASSWORD_SPECIALS = { '_', '.', '!', '@', '$', '*', '=', '-', '?' };
-//	public final static char[] CHAR_PASSWORD_LETTERS = StringUtilities.union( CHAR_PASSWORD_LOWERS, CHAR_PASSWORD_UPPERS );
+    const CHAR_PASSWORD_LOWERS = 'abcdefghjkmnpqrstuvwxyz';
+    const CHAR_PASSWORD_UPPERS = 'ABCDEFGHJKLMNPQRSTUVWXYZ';
+    const CHAR_PASSWORD_DIGITS = '123456789';
+    const CHAR_PASSWORD_SPECIALS = '_.!@$*=-?';
+    const CHAR_PASSWORD_LETTERS = 'abcdefghjkmnpqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ';
 	
 	
 	/**
@@ -146,7 +145,7 @@ interface Encoder {
 	 * Encode data for use in HTML using HTML entity encoding
 	 * <p> 
 	 * Note that the following characters:
-	 * 00–08, 0B–0C, 0E–1F, and 7F–9F 
+	 * 00ï¿½08, 0Bï¿½0C, 0Eï¿½1F, and 7Fï¿½9F 
 	 * <p>cannot be used in HTML. 
 	 * 
 	 * @see <a href="http://en.wikipedia.org/wiki/Character_encodings_in_HTML">HTML Encodings [wikipedia.org]</a> 
