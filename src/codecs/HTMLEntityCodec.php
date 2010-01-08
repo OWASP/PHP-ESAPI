@@ -202,7 +202,7 @@ class HTMLEntityCodec extends Codec
     private function parseNumber($input)
     {
     	// decodeCharacter and getNumericEntity should've already established that the 1st 2x characters are '&#', but check again incase this method is being called from elsewhere
-    	if(mb_substr($input,0,1,"UTF-32") != '&' || mb_substr($input,1,1,"UTF-32") != '#')
+    	if(mb_substr($input,0,1,"UTF-32") != $this->normalizeEncoding('&') || mb_substr($input,1,1,"UTF-32") != $this->normalizeEncoding('#'))
     	{
     		// input did not satisfy initial pattern requirements for parseNumber, so return null
     		return array('decodedCharacter'=>null,'encodedString'=>null);
@@ -212,6 +212,7 @@ class HTMLEntityCodec extends Codec
     	//Note: mb_strstr requires PHP 5.2 or greater...therefore shouldnt use here
     	$integerString = mb_convert_encoding("", mb_detect_encoding($input));	//encoding should be UTF-32, so why detect it?
     	$inputLength = mb_strlen($input,"UTF-32");
+    	$posSemiColon = 0;
     	for($i=2; $i<$inputLength; $i++)
     	{
     		// Get the ordinal value of the character.
@@ -223,9 +224,10 @@ class HTMLEntityCodec extends Codec
     			$integerString .= mb_substr($input,$i,1,"UTF-32");
     		}
     		// if character is a semicolon, then eat it and quit
-    		else if(mb_substr($input,$i,1,"UTF-32") == ';')
+    		else if(mb_substr($input,$i,1,"UTF-32") == $this->normalizeEncoding(';'))
     		{
-    			break;
+    			$posSemiColon = $i; // keep track of the trailing semi-colon
+    		    break;
     		}
     		// otherwise just quit
     		else
@@ -235,8 +237,10 @@ class HTMLEntityCodec extends Codec
     	}
         try
     	{
-    		$parsedInteger = (int)$integerString;
+    		$parsedInteger = (int) mb_convert_encoding($integerString, "UTF-8", "UTF-32");
     		$parsedCharacter = chr($parsedInteger);
+    		if ($posSemiColon != 0) $integerString .= mb_substr($input,$posSemiColon,1,"UTF-32");
+    		$posSemiColon = 0;
     		return array('decodedCharacter'=>$parsedCharacter,'encodedString'=>mb_substr($input,0,2,"UTF-32").$integerString);
     	}
     	catch(Exception $e)
