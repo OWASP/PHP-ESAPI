@@ -17,6 +17,7 @@
 require_once dirname(__FILE__).'/../../src/ESAPI.php';
 require_once dirname(__FILE__).'/../../src/reference/DefaultEncoder.php';
 require_once dirname(__FILE__).'/../../src/codecs/MySQLCodec.php';
+require_once dirname(__FILE__).'/../../src/codecs/OracleCodec.php';
  
 class EncoderTest extends UnitTestCase 
 {
@@ -296,12 +297,12 @@ $this->fail(); // DELETE ME ("doubleEncodingCanonicalization");
         $instance = ESAPI::getEncoder();
         $this->assertEqual(null, $instance->encodeForHTML(null));
         // test invalid characters are replaced with spaces
-        //$this->assertEqual("a b c d e f&#x9;g", $instance->encodeForHTML("a".(chr(0))."b".(chr(4))."c".(chr(128))."d".(chr(150))."e".(chr(159))."f".(chr(9))."g"));
-        	$this->assertEqual("a b c d e f&#x9;g h i j&#xa0;k&#xa1;l&#xa2;m", $instance->encodeForHTML("a".(chr(0))."b".(chr(4))."c".(chr(128))."d".(chr(150))."e".(chr(159))."f".(chr(9))."g".(chr(127))."h".(chr(129))."i".(chr(159))."j".(chr(160))."k".(chr(161))."l".(chr(162))."m"));
+        $this->assertEqual("a b c d e f&#x9;g", $instance->encodeForHTML("a".(chr(0))."b".(chr(4))."c".(chr(128))."d".(chr(150))."e".(chr(159))."f".(chr(9))."g"));
+        $this->assertEqual("a b c d e f&#x9;g h i j&#xa0;k&#xa1;l&#xa2;m", $instance->encodeForHTML("a".(chr(0))."b".(chr(4))."c".(chr(128))."d".(chr(150))."e".(chr(159))."f".(chr(9))."g".(chr(127))."h".(chr(129))."i".(chr(159))."j".(chr(160))."k".(chr(161))."l".(chr(162))."m"));
         $this->assertEqual("&lt;script&gt;", $instance->encodeForHTML("<script>"));
         $this->assertEqual("&amp;lt&#x3b;script&amp;gt&#x3b;", $instance->encodeForHTML("&lt;script&gt;"));
         $this->assertEqual("&#x21;&#x40;&#x24;&#x25;&#x28;&#x29;&#x3d;&#x2b;&#x7b;&#x7d;&#x5b;&#x5d;", $instance->encodeForHTML("!@$%()=+{}[]"));
-//        $this->assertEqual("&#x21;&#x40;&#x24;&#x25;&#x28;&#x29;&#x3d;&#x2b;&#x7b;&#x7d;&#x5b;&#x5d;", $instance->encodeForHTML($instance->canonicalize("&#33;&#64;&#36;&#37;&#40;&#41;&#61;&#43;&#123;&#125;&#91;&#93;") ) ); //TODO: open this test up when canonicalize function is done
+        $this->assertEqual("&#x21;&#x40;&#x24;&#x25;&#x28;&#x29;&#x3d;&#x2b;&#x7b;&#x7d;&#x5b;&#x5d;", $instance->encodeForHTML($instance->canonicalize("&#33;&#64;&#36;&#37;&#40;&#41;&#61;&#43;&#123;&#125;&#91;&#93;")));
         $this->assertEqual(",.-_ ", $instance->encodeForHTML(",.-_ "));
         $this->assertEqual("dir&amp;", $instance->encodeForHTML("dir&"));
         $this->assertEqual("one&amp;two", $instance->encodeForHTML("one&two"));
@@ -324,11 +325,10 @@ $this->fail(); // DELETE ME ("doubleEncodingCanonicalization");
      *
      */
     function testEncodeForCSS() {
-$this->fail(); // DELETE ME ("encodeForCSS");
-//        Encoder instance = ESAPI.encoder();
-//        assertEquals(null, instance.encodeForCSS(null));
-//        assertEquals("\\3c script\\3e ", instance.encodeForCSS("<script>"));
-//        assertEquals("\\21 \\40 \\24 \\25 \\28 \\29 \\3d \\2b \\7b \\7d \\5b \\5d ", instance.encodeForCSS("!@$%()=+{}[]"));
+        $instance = ESAPI::getEncoder();
+        $this->assertEqual(null, $instance->encodeForCSS(null));
+        $this->assertEqual("\\3c script\\3e ", $instance->encodeForCSS("<script>"));
+        $this->assertEqual("\\21 \\40 \\24 \\25 \\28 \\29 \\3d \\2b \\7b \\7d \\5b \\5d ", $instance->encodeForCSS("!@$%()=+{}[]"));
     }
     
 
@@ -337,36 +337,29 @@ $this->fail(); // DELETE ME ("encodeForCSS");
 	 * Test of encodeForJavaScript method, of class org.owasp.esapi.Encoder.
 	 */
     function testEncodeForJavascript() {
-$this->fail(); // DELETE ME ("encodeForJavascript");
-//        Encoder instance = ESAPI.encoder();
-//        assertEquals(null, instance.encodeForJavaScript(null));
-//        assertEquals("\\x3Cscript\\x3E", instance.encodeForJavaScript("<script>"));
-//        assertEquals(",.\\x2D_\\x20", instance.encodeForJavaScript(",.-_ "));
-//        assertEquals("\\x21\\x40\\x24\\x25\\x28\\x29\\x3D\\x2B\\x7B\\x7D\\x5B\\x5D", instance.encodeForJavaScript("!@$%()=+{}[]"));
-        // assertEquals( "\\0", instance.encodeForJavaScript("\0"));
-        // assertEquals( "\\b", instance.encodeForJavaScript("\b"));
-        // assertEquals( "\\t", instance.encodeForJavaScript("\t"));
-        // assertEquals( "\\n", instance.encodeForJavaScript("\n"));
-        // assertEquals( "\\v", instance.encodeForJavaScript("" + (char)0x0b));
-        // assertEquals( "\\f", instance.encodeForJavaScript("\f"));
-        // assertEquals( "\\r", instance.encodeForJavaScript("\r"));
-        // assertEquals( "\\'", instance.encodeForJavaScript("\'"));
-        // assertEquals( "\\\"", instance.encodeForJavaScript("\""));
-        // assertEquals( "\\\\", instance.encodeForJavaScript("\\"));
+        $instance = ESAPI::getEncoder();
+        $this->assertEqual(null, $instance->encodeForJavaScript(null));
+        $this->assertEqual("\\x3Cscript\\x3E", $instance->encodeForJavaScript("<script>"));
+        $this->assertEqual(",.\\x2D_\\x20", $instance->encodeForJavaScript(",.-_ "));
+        $this->assertEqual("\\x21\\x40\\x24\\x25\\x28\\x29\\x3D\\x2B\\x7B\\x7D\\x5B\\x5D", $instance->encodeForJavaScript("!@$%()=+{}[]"));
+        $this->assertEqual( "\\x00", $instance->encodeForJavaScript("\0"));
+        $this->assertEqual( "\\x5C", $instance->encodeForJavaScript("\\"));
     }
         
     /**
      *
      */
     function testEncodeForVBScript() {
-$this->fail(); // DELETE ME ("encodeForVBScript");        
-//        Encoder instance = ESAPI.encoder();
-//        assertEquals(null, instance.encodeForVBScript(null));
-//        assertEquals( "chrw(60)&\"script\"&chrw(62)", instance.encodeForVBScript("<script>"));
-//        assertEquals( "x\"&chrw(32)&chrw(33)&chrw(64)&chrw(36)&chrw(37)&chrw(40)&chrw(41)&chrw(61)&chrw(43)&chrw(123)&chrw(125)&chrw(91)&chrw(93)", instance.encodeForVBScript("x !@$%()=+{}[]"));
-//        assertEquals( "alert\"&chrw(40)&chrw(39)&\"ESAPI\"&chrw(32)&\"test\"&chrw(33)&chrw(39)&chrw(41)", instance.encodeForVBScript("alert('ESAPI test!')" ));
-//        assertEquals( "jeff.williams\"&chrw(64)&\"aspectsecurity.com", instance.encodeForVBScript("jeff.williams@aspectsecurity.com"));
-//        assertEquals( "test\"&chrw(32)&chrw(60)&chrw(62)&chrw(32)&\"test", instance.encodeForVBScript("test <> test" ));
+        $instance = ESAPI::getEncoder();
+        $this->assertEqual(null, $instance->encodeForVBScript(null));
+        
+        $this->fail(); /* DELETE ME
+        $this->assertEqual("chrw(60)&\"script\"&chrw(62)", $instance->encodeForVBScript("<script>"));
+        $this->assertEqual("x\"&chrw(32)&chrw(33)&chrw(64)&chrw(36)&chrw(37)&chrw(40)&chrw(41)&chrw(61)&chrw(43)&chrw(123)&chrw(125)&chrw(91)&chrw(93)", $instance->encodeForVBScript("x !@$%()=+{}[]"));
+        $this->assertEqual("alert\"&chrw(40)&chrw(39)&\"ESAPI\"&chrw(32)&\"test\"&chrw(33)&chrw(39)&chrw(41)", $instance->encodeForVBScript("alert('ESAPI test!')" ));
+        $this->assertEqual( "jeff.williams\"&chrw(64)&\"aspectsecurity.com", $instance->encodeForVBScript("jeff.williams@aspectsecurity.com"));
+        $this->assertEqual( "test\"&chrw(32)&chrw(60)&chrw(62)&chrw(32)&\"test", $instance->encodeForVBScript("test <> test" ));
+        */
     }
 
         
@@ -398,10 +391,9 @@ $this->fail(); // DELETE ME ("encodeForXPath");
         $this->assertEqual("Jeff\\' or \\'1\\'\\=\\'1", $instance->encodeForSQL($mysqlStdCodec, "Jeff' or '1'='1"));
 		$this->assertEqual( "\\b \\n \\r \\t \\z \\_ \\\" \\' \\\\ \\0 \\%", $instance->encodeForSQL($mysqlStdCodec, "\x08 \x0a \x0d \x09 \x1a _ \" ' \\ \x00 \x25") );
 		
-		$this->fail(); //DELETE ME 
-        //Codec oracle = new OracleCodec();
-        //assertEquals("Oracle", null, instance.encodeForSQL(oracle, null));
-        //assertEquals("Oracle", "Jeff\\' or \\'1\\'\\=\\'1", instance.encodeForSQL(oracle, "Jeff' or '1'='1"));
+		$oracleCodec = new OracleCodec();
+        $this->assertEqual(null, $instance->encodeForSQL($oracleCodec, null));
+        $this->assertEqual("Jeff'' or ''1''=''1", $instance->encodeForSQL($oracleCodec, "Jeff' or '1'='1"));
     }
 
     

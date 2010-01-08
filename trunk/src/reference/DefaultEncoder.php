@@ -17,13 +17,23 @@
  */
 
 require_once dirname(__FILE__).'/../Encoder.php';
+//require_once dirname(__FILE__).'/../codecs/Base64Codec.php';
+require_once dirname(__FILE__).'/../codecs/CSSCodec.php';
 require_once dirname(__FILE__).'/../codecs/HTMLEntityCodec.php';
+require_once dirname(__FILE__).'/../codecs/JavaScriptCodec.php';
+//require_once dirname(__FILE__).'/../codecs/LDAPCodec.php';
 require_once dirname(__FILE__).'/../codecs/PercentCodec.php';
+require_once dirname(__FILE__).'/../codecs/VBScriptCodec.php';
 
 class DefaultEncoder implements Encoder {
 
-    private $htmlCodec = null;
-    private $percentCodec = null;
+//  private $base64Codec     = null;
+    private $cssCodec        = null;
+    private $htmlCodec       = null;
+    private $javascriptCodec = null;
+//  private $ldapCodec       = null;
+    private $percentCodec    = null;
+    private $vbscriptCodec   = null;
 
     /**
      *  Character sets that define characters (in addition to alphanumerics) that are
@@ -44,11 +54,23 @@ class DefaultEncoder implements Encoder {
 
     function __construct()
     {
-        $this->htmlCodec = new HTMLEntityCodec();
-        array_push($this->codecs,$this->htmlCodec);
-
-        $this->percentCodec = new PercentCodec();
-        array_push($this->codecs,$this->percentCodec);
+        // initialise codecs
+//      $this->base64Codec     = new Base64Codec();
+        $this->cssCodec        = new CSSCodec();
+        $this->htmlCodec       = new HTMLEntityCodec();
+        $this->javascriptCodec = new JavaScriptCodec();
+//      $this->ldapCodec       = new LDAPCodec();
+        $this->percentCodec    = new PercentCodec();
+        $this->vbscriptCodec   = new VBScriptCodec();
+        
+        // initialise array of codecs for use by canonicalize
+        array_push($this->codecs, $this->percentCodec);
+        array_push($this->codecs, $this->htmlCodec);
+        array_push($this->codecs, $this->javascriptCodec);
+        // leaving css and vbs codecs out - they eat / and " chars respectively
+        // array_push($this->codecs,$this->cssCodec);
+        // array_push($this->codecs,$this->vbscriptCodec);
+        
     }
 
     /**
@@ -106,24 +128,26 @@ class DefaultEncoder implements Encoder {
      */
     function canonicalize($input, $strict = true)
     {
-        if ( $input==null) {
+        if ($input == null) {
             return null;
         }
-        $working=$input;
-        $codecFound=null;
-        $mixedCount=1;
-        $foundCount=0;
-        $clean=false;
-        while ( ! $clean ) {
-            foreach($this->codecs as $codec) {
-                $old=$working;
-                $working=$codec->decode($working);
-                if ( $old!=$working) {
-                    if ( $codecFound != null && $codecFound != $codec ) {
+        $working = $input;
+        $codecFound = null;
+        $mixedCount = 1;
+        $foundCount = 0;
+        $clean = false;
+        while (! $clean)
+        {
+            foreach($this->codecs as $codec)
+            {
+                $old = $working;
+                $working = $codec->decode($working);
+                if ($old != $working) {
+                    if ($codecFound != null && $codecFound != $codec) {
                         $mixedCount++;
                     }
                     $codecFound = $codec;
-                    if ( $clean ) {
+                    if ($clean) {
                         $foundCount++;
                     }
                     $clean = false;
@@ -162,7 +186,11 @@ class DefaultEncoder implements Encoder {
      */
     function encodeForCSS($input)
     {
-        throw new EnterpriseSecurityException("Method Not implemented");
+        if ($input === null)
+        {
+            return null;
+        }
+        return $this->cssCodec->encode($this->immune_css, $input);
     }
 
     /**
@@ -183,11 +211,11 @@ class DefaultEncoder implements Encoder {
      */
     function encodeForHTML($input)
     {
-        if( $input === null )
+        if ($input === null)
         {
             return null;
         }
-        return $this->htmlCodec->encode( $this->immune_html, $input);
+        return $this->htmlCodec->encode($this->immune_html, $input);
     }
 
     /**
@@ -200,11 +228,11 @@ class DefaultEncoder implements Encoder {
      */
     function encodeForHTMLAttribute($input)
     {
-        if( $input === null )
+        if ($input === null)
         {
             return null;
         }
-        return $this->htmlCodec->encode( $this->immune_htmlattr, $input);
+        return $this->htmlCodec->encode($this->immune_htmlattr, $input);
     }
 
     /**
@@ -219,7 +247,11 @@ class DefaultEncoder implements Encoder {
      */
     function encodeForJavaScript($input)
     {
-        throw new EnterpriseSecurityException("Method Not implemented");
+        if ($input === null)
+        {
+            return null;
+        }
+        return $this->javascriptCodec->encode($this->immune_javascript, $input);
     }
 
     /**
@@ -236,7 +268,11 @@ class DefaultEncoder implements Encoder {
      */
     function encodeForVBScript($input)
     {
-        throw new EnterpriseSecurityException("Method Not implemented");
+        if ($input === null)
+        {
+            return null;
+        }
+        return $this->vbscriptCodec->encode($this->immune_vbscript, $input);
     }
 
 
@@ -267,11 +303,10 @@ class DefaultEncoder implements Encoder {
      */
     function encodeForSQL($codec, $input)
     {
-        if( $input === null )
+        if ($input === null)
         {
             return null;
         }
-
         return $codec->encode($this->immune_sql, $input);
     }
 
@@ -410,7 +445,7 @@ class DefaultEncoder implements Encoder {
      */
     function encodeForURL($input)
     {
-        if( $input === null )
+        if ($input === null)
         {
             return null;
         }
@@ -433,11 +468,11 @@ class DefaultEncoder implements Encoder {
      */
     function decodeFromURL($input)
     {
-        if( $input === null )
+        if ($input === null)
         {
             return null;
         }
-        $canonical = $this->canonicalize($input,true);
+        $canonical = $this->canonicalize($input, true);
         return $this->percentCodec->decode($canonical);
     }
 
