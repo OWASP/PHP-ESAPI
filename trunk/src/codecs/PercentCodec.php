@@ -172,7 +172,7 @@ class PercentCodec extends Codec
     	try
     	{
     		// trying to convert hexString to integer...
-    		
+    		if ($hexString == mb_convert_encoding("", mb_detect_encoding($input))) return null;
     		$parsedInteger = (int)hexdec($hexString);
     		$parsedCharacter = chr($parsedInteger);
     		return $parsedCharacter;
