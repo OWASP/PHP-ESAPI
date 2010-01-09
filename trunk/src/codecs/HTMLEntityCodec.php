@@ -210,23 +210,24 @@ class HTMLEntityCodec extends Codec
     	
     	//get numeric characters up until first occurance of ';', return null if format doesn't conform
     	//Note: mb_strstr requires PHP 5.2 or greater...therefore shouldnt use here
-    	$integerString = mb_convert_encoding("", mb_detect_encoding($input));	//encoding should be UTF-32, so why detect it?
+    	$integerStringAscii = "";
+    	$integerString = mb_substr($input,0,2,"UTF-32");
     	$inputLength = mb_strlen($input,"UTF-32");
-    	$posSemiColon = 0;
     	for($i=2; $i<$inputLength; $i++)
     	{
     		// Get the ordinal value of the character.
 			  list(, $ordinalValue) = unpack("N", mb_substr($input,$i,1,"UTF-32"));
 			
 			  // if character is a digit, add it and keep on going
-    		if(eregi("[0-9]",chr($ordinalValue)))
+    		if(preg_match("/^[0-9]/",chr($ordinalValue)))
     		{
     			$integerString .= mb_substr($input,$i,1,"UTF-32");
+    			$integerStringAscii .= chr($ordinalValue);
     		}
     		// if character is a semicolon, then eat it and quit
     		else if(mb_substr($input,$i,1,"UTF-32") == $this->normalizeEncoding(';'))
     		{
-    			$posSemiColon = $i; // keep track of the trailing semi-colon
+    			$integerString .= mb_substr($input,$i,1,"UTF-32");
     		    break;
     		}
     		// otherwise just quit
@@ -237,11 +238,9 @@ class HTMLEntityCodec extends Codec
     	}
         try
     	{
-    		$parsedInteger = (int) mb_convert_encoding($integerString, "UTF-8", "UTF-32");
+    		$parsedInteger = (int) $integerStringAscii;
     		$parsedCharacter = chr($parsedInteger);
-    		if ($posSemiColon != 0) $integerString .= mb_substr($input,$posSemiColon,1,"UTF-32");
-    		$posSemiColon = 0;
-    		return array('decodedCharacter'=>$parsedCharacter,'encodedString'=>mb_substr($input,0,2,"UTF-32").$integerString);
+    		return array('decodedCharacter'=>$parsedCharacter,'encodedString'=>$integerString);
     	}
     	catch(Exception $e)
     	{
