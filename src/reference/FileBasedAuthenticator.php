@@ -160,7 +160,7 @@ class FileBasedAuthenticator implements Authenticator {
         if ( $password1 == null ) {
             throw new AuthenticationCredentialsException( "Invalid account name", "Attempt to create account ".$accountName." with a null password" );
         }
-        $this->verifyPasswordStrength(null, password1);
+        $this->verifyPasswordStrength(null, $password1);
 
         if ($password1 != $password2) {
             throw new AuthenticationCredentialsException("Passwords do not match", "Passwords for ".$accountName." do not match");
@@ -235,8 +235,6 @@ class FileBasedAuthenticator implements Authenticator {
      * 		a password with strong password strength
      */
     function generateStrongPassword($user = null, $oldPassword = null) {
-        throw new EnterpriseSecurityException("Method Not Implemented!");
-        //TODO: Encoder ain't implemented yet, hence commenting out the code below
         $randomizer = ESAPI::getRandomizer();
         $letters = $randomizer->getRandomInteger(4, 6);
         $digits = 7 - $letters;
@@ -533,7 +531,7 @@ class FileBasedAuthenticator implements Authenticator {
             throw new AuthenticationCredentialsException("Invalid account name", "Attempt to create account with a null/empty account name");
         }
 
-        if (ESAPI::getValidator()->isValidInput("verifyAccountNameStrength", $accountName, "AccountName", MAX_ACCOUNT_NAME_LENGTH, false )) {
+        if (!ESAPI::getValidator()->isValidInput("verifyAccountNameStrength", $accountName, "AccountName", MAX_ACCOUNT_NAME_LENGTH, false )) {
             throw new AuthenticationCredentialsException("Invalid account name", "New account name is not valid: ".$accountName);
         }
     }
@@ -554,7 +552,7 @@ class FileBasedAuthenticator implements Authenticator {
      *				if newPassword is too similar to oldPassword or if newPassword does not meet complexity requirements
      */
     function verifyPasswordStrength($oldPassword, $newPassword) {
-        if(!$this->ValidString($newPassword)) {
+        if(!$this->isValidString($newPassword)) {
             throw new AuthenticationCredentialsException("Invalid password", "New password cannot be null" );
         }
 
@@ -572,26 +570,27 @@ class FileBasedAuthenticator implements Authenticator {
 
         // new password must have enough character sets and length
         $charsets = 0;
+        $passwordLength = strlen($newPassword);
         for($counter = 0; $counter < $passwordLength; $counter++) {
-            if(in_array(substr($newPassword, $counter, 1), DefaultEncoder::CHAR_LOWERS)) {
+            if(in_array(substr($newPassword, $counter, 1), str_split(DefaultEncoder::CHAR_LOWERS))) {
                 $charsets++;
                 break;
             }
         }
         for($counter = 0; $counter < $passwordLength; $counter++) {
-            if(in_array(substr($newPassword, $counter, 1), DefaultEncoder::CHAR_UPPERS)) {
+            if(in_array(substr($newPassword, $counter, 1), str_split(DefaultEncoder::CHAR_UPPERS))) {
                 $charsets++;
                 break;
             }
         }
         for($counter = 0; $counter < $passwordLength; $counter++) {
-            if(in_array(substr($newPassword, $counter, 1), DefaultEncoder::CHAR_DIGITS)) {
+            if(in_array(substr($newPassword, $counter, 1), str_split(DefaultEncoder::CHAR_DIGITS))) {
                 $charsets++;
                 break;
             }
         }
         for($counter = 0; $counter < $passwordLength; $counter++) {
-            if(in_array(substr($newPassword, $counter, 1), DefaultEncoder::CHAR_SPECIALS)) {
+            if(in_array(substr($newPassword, $counter, 1), str_split(DefaultEncoder::CHAR_SPECIALS))) {
                 $charsets++;
                 break;
             }
