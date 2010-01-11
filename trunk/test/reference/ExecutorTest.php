@@ -47,7 +47,8 @@ class ExecutorTest extends UnitTestCase
 	    	$instance =  new DefaultExecutor();
 	    	$params = array("/C", "dir");
 	    	$result = $instance->executeSystemCommand("%SYSTEMROOT%\\System32\\cmd.exe", $params);
-	    	echo "RESULT: $result";
+	    	$result = ESAPI::getEncoder()->encodeForHTML($result);
+	    	echo "<br />RESULT: $result<br />\n";
 	    	$this->assertNotNull($result);
         }
     	catch ( Exception $e ) 
