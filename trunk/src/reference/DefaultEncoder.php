@@ -52,7 +52,7 @@ class DefaultEncoder implements Encoder {
     private $immune_url       = array( '.', '-', '*', '_');
     private $codecs=array();
 
-    function __construct()
+    function __construct($codecArrayForCanonicalizer=null)
     {
         // initialise codecs
 //      $this->base64Codec     = new Base64Codec();
@@ -64,12 +64,28 @@ class DefaultEncoder implements Encoder {
         $this->vbscriptCodec   = new VBScriptCodec();
         
         // initialise array of codecs for use by canonicalize
-        array_push($this->codecs, $this->percentCodec);
-        array_push($this->codecs, $this->htmlCodec);
-        array_push($this->codecs, $this->javascriptCodec);
-        // leaving css and vbs codecs out - they eat / and " chars respectively
-        // array_push($this->codecs,$this->cssCodec);
-        // array_push($this->codecs,$this->vbscriptCodec);
+        if ($codecArrayForCanonicalizer === null)
+        {
+            array_push($this->codecs, $this->percentCodec);
+            array_push($this->codecs, $this->htmlCodec);
+            array_push($this->codecs, $this->javascriptCodec);
+            // leaving css and vbs codecs out - they eat / and " chars respectively
+            // array_push($this->codecs,$this->cssCodec);
+            // array_push($this->codecs,$this->vbscriptCodec);
+        }
+        elseif (! is_array($codecArrayForCanonicalizer))
+        {
+            throw new Exception('Invalid Argument. Codec list must be of type Array.');
+        }
+        else
+        {
+            // check array only contains codec instances
+            foreach ($codecArrayForCanonicalizer as $codec)
+            {
+                if (! is_a($codec, 'Codec')) throw new Exception('Invalid Argument. Codec list must contain only Codec instances.');
+            }
+            $this->codecs = array_merge($this->codecs, $codecArrayForCanonicalizer);
+        }
         
     }
 
