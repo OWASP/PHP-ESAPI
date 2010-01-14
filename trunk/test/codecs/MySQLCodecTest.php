@@ -87,7 +87,7 @@ class MySQLCodecTest extends UnitTestCase
 	
 	function testStdDecodeExtra()
 	{
-		$this->assertEqual( "\x08 \x0a \x0d \x09 \x1a _ \" ' \\ \x00 \x25", $this->mysqlStdCodec->decode("\\b \\n \\r \\t \\z \\_ \\\" \\' \\\\ \\0 \\%") );
+		$this->assertEqual( "\x08 \x0a \x0d \x09 \x1a _ \" ' \\ \x00 \x25", $this->mysqlStdCodec->decode("\\b \\n \\r \\t \\Z \\_ \\\" \\' \\\\ \\0 \\%") );
 	}
 
 	function testStdEncodeExtra()
