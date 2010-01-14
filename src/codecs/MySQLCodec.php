@@ -39,7 +39,7 @@ class MySQLCodec extends Codec
 	const ORD_VALUE_T = 116;
 	const ORD_VALUE_N = 110;
 	const ORD_VALUE_R = 114;
-	const ORD_VALUE_Z = 122;
+	const ORD_VALUE_Z = 90;
 	const ORD_VALUE_DQUOTE = 34;
 	const ORD_VALUE_PERCENT = 37;
 	const ORD_VALUE_QUOTE = 39;
