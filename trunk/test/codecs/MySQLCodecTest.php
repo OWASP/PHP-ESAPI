@@ -94,7 +94,7 @@ class MySQLCodecTest extends UnitTestCase
 	{
 		$immune = array(" ");
 		
-		$this->assertEqual( "\\b \\n \\r \\t \\z \\_ \\\" \\' \\\\ \\0 \\%", $this->mysqlStdCodec->encode($immune, "\x08 \x0a \x0d \x09 \x1a _ \" ' \\ \x00 \x25") );
+		$this->assertEqual( "\\b \\n \\r \\t \\Z \\_ \\\" \\' \\\\ \\0 \\%", $this->mysqlStdCodec->encode($immune, "\x08 \x0a \x0d \x09 \x1a _ \" ' \\ \x00 \x25") );
 	}
 }
 ?>
