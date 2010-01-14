@@ -171,7 +171,7 @@ class MySQLCodec extends Codec
     		case 0x09:return "\\t";
     		case 0x0a:return "\\n";
     		case 0x0d:return "\\r";
-    		case 0x1a:return "\\z";
+    		case 0x1a:return "\\Z";
     		case 0x22:return "\\\"";
     		case 0x25:return "\\%";
     		case 0x27:return "\\'";
