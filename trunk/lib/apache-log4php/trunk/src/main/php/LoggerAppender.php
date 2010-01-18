@@ -15,12 +15,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *
+ * @package log4php
  */
 
 /**
  * Abstract class that defines output logs strategies.
  *
- * @version $Revision: 805681 $
+ * @version $Revision: 822392 $
  * @package log4php
  */
 abstract class LoggerAppender {
@@ -34,7 +35,7 @@ abstract class LoggerAppender {
 	 * The first filter in the filter chain
 	 * @var LoggerFilter
 	 */
-	protected $headFilter = null;
+	protected $filter = null;
 			
 	/**
 	 * LoggerLayout for this appender. It can be null if appender has its own layout
@@ -46,12 +47,6 @@ abstract class LoggerAppender {
 	 * @var string Appender name
 	 */
 	protected $name;
-		   
-	/**
-	 * The last filter in the filter chain
-	 * @var LoggerFilter
-	 */
-	protected $tailFilter = null; 
 		   
 	/**
 	 * @var LoggerLevel There is no level threshold filtering by default.
@@ -70,7 +65,6 @@ abstract class LoggerAppender {
 	 */
 	public function __construct($name = '') {
 		$this->name = $name;
-		$this->clearFilters();
 	}
 
 	/**
@@ -79,12 +73,10 @@ abstract class LoggerAppender {
 	 * @param LoggerFilter $newFilter add a new LoggerFilter
 	 */
 	public function addFilter($newFilter) {
-		if($this->headFilter === null) {
-			$this->headFilter = $newFilter;
-			$this->tailFilter = $this->headFilter;
+		if($this->filter === null) {
+			$this->filter = $newFilter;
 		} else {
-			$this->tailFilter->next = $newFilter;
-			$this->tailFilter = $this->tailFilter->next;
+			$this->filter->addNext($newFilter);
 		}
 	}
 	
@@ -93,10 +85,8 @@ abstract class LoggerAppender {
 	 * @abstract
 	 */
 	public function clearFilters() {
-		unset($this->headFilter);
-		unset($this->tailFilter);
-		$this->headFilter = null;
-		$this->tailFilter = null;
+		unset($this->filter);
+		$this->filter = null;
 	}
 
 	/**
@@ -105,7 +95,7 @@ abstract class LoggerAppender {
 	 * @return LoggerFilter
 	 */
 	public function getFilter() {
-		return $this->headFilter;
+		return $this->filter;
 	} 
 	
 	/** 
@@ -114,7 +104,7 @@ abstract class LoggerAppender {
 	 * @return LoggerFilter
 	 */
 	public function getFirstFilter() {
-		return $this->headFilter;
+		return $this->filter;
 	}
 	
 	
@@ -124,7 +114,7 @@ abstract class LoggerAppender {
 	 * @see LoggerAppender::doAppend()
 	 * @param LoggerLoggingEvent $event
 	 */
-	public function doAppend($event) {
+	public function doAppend(LoggerLoggingEvent $event) {
 		if($this->closed) {
 			return;
 		}
@@ -235,14 +225,14 @@ abstract class LoggerAppender {
 	 *
 	 *
 	 * If there is no threshold set, then the return value is always <i>true</i>.
-	 * @param LoggerLevel $priority
+	 * @param LoggerLevel $level
 	 * @return boolean true if priority is greater or equal than threshold	
 	 */
-	public function isAsSevereAsThreshold($priority) {
+	public function isAsSevereAsThreshold($level) {
 		if($this->threshold === null) {
 			return true;
 		}
-		return $priority->isGreaterOrEqual($this->getThreshold());
+		return $level->isGreaterOrEqual($this->getThreshold());
 	}
 
 	/**
@@ -259,7 +249,7 @@ abstract class LoggerAppender {
 	 * @see doAppend()
 	 * @abstract
 	 */
-	abstract protected function append($event); 
+	abstract protected function append(LoggerLoggingEvent $event); 
 
 	/**
 	 * Release any resources allocated.
@@ -268,39 +258,4 @@ abstract class LoggerAppender {
 	 * @abstract
 	 */
 	abstract public function close();
-
-	/**
-	 * Finalize this appender by calling the derived class' <i>close()</i> method.
-	 */
-	public function finalize()  {
-		// An appender might be closed then garbage collected. There is no
-		// point in closing twice.
-		if($this->closed) {
-			return;
-		}
-		$this->close();
-	}
-		
-	/**
-	 * Perform actions before object serialization.
-	 *
-	 * Call {@link finalize()} to properly close the appender.
-	 */
-	public function __sleep() {
-		$this->finalize();
-		return array_keys(get_object_vars($this)); 
-	}
-
-	public function __destruct() {
-		$this->finalize();
-	}
-
-/**
-	 * Perform actions after object de-serialization.
-	 *
-	 * Call {@link activateOptions()} to properly setup the appender.
-	 */
-	public function __wakeup() {
-		$this->activateOptions();
-	}
 }

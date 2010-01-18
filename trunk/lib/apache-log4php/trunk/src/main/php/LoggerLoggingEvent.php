@@ -15,12 +15,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *
+ * @package log4php
  */
 
 /**
  * The internal representation of logging event.
  *
- * @version $Revision: 800094 $
+ * @version $Revision: 832662 $
  * @package log4php
  */
 class LoggerLoggingEvent {
@@ -163,13 +164,16 @@ class LoggerLoggingEvent {
 				// make a downsearch to identify the caller
 				$hop = array_pop($trace);
 				while($hop !== null) {
-					$className = @strtolower($hop['class']);
-					if(!empty($className) and ($className == 'logger' or $className == 'loggercategory' or 
-						@strtolower(get_parent_class($className)) == 'logger' or
-						@strtolower(get_parent_class($className)) == 'loggercategory')) {
-						$locationInfo['line'] = $hop['line'];
-						$locationInfo['file'] = $hop['file'];
-						break;
+					if(isset($hop['class'])) {
+						// we are sometimes in functions = no class available: avoid php warning here
+						$className = strtolower($hop['class']);
+						if(!empty($className) and ($className == 'logger' or $className == 'loggercategory' or 
+							strtolower(get_parent_class($className)) == 'logger' or
+							strtolower(get_parent_class($className)) == 'loggercategory')) {
+							$locationInfo['line'] = $hop['line'];
+							$locationInfo['file'] = $hop['file'];
+							break;
+						}
 					}
 					$prevHop = $hop;
 					$hop = array_pop($trace);
@@ -260,17 +264,13 @@ class LoggerLoggingEvent {
 			if(is_string($this->message)) {
 					$this->renderedMessage = $this->message;
 			} else {
-				if($this->logger !== null) {
-					$repository = $this->logger->getLoggerRepository();
-				} else {
-					$repository = Logger::getLoggerRepository();
-				}
-				if(method_exists($repository, 'getRendererMap')) {
-					$rendererMap = $repository->getRendererMap();
-					$this->renderedMessage= $rendererMap->findAndRender($this->message);
-				} else {
-					$this->renderedMessage = (string)$this->message;
-				}
+			    // $this->logger might be null or an instance of Logger or RootLogger
+			    // But in contrast to log4j, in log4php there is only have one LoggerHierarchy so there is
+			    // no need figure out which one is $this->logger part of.
+			    // TODO: Logger::getHierarchy() is marked @deprecated!
+				$repository = Logger::getHierarchy();
+				$rendererMap = $repository->getRendererMap();
+				$this->renderedMessage= $rendererMap->findAndRender($this->message);
 			}
 		}
 		return $this->renderedMessage;
