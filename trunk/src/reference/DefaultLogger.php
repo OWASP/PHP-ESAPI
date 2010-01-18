@@ -45,6 +45,7 @@ class DefaultLogger implements Log4PhpLogger {
      private $logger;
 
      function __construct($name) {
+         Logger::configure(dirname(__FILE__)."/../../lib/apache-log4php/trunk/src/examples/resources/echo.properties");
          $this->logger = Logger::getLogger($name);
      }
 
@@ -314,6 +315,8 @@ class DefaultLogger implements Log4PhpLogger {
                         $clean .= " (Encoded)";
                     }
                 }
+                // TODO remove this temporary html break element
+                $clean .= "<br />";
 
                         // log user information - username:session@ipaddr
                         //TODO commented out as $ESAPI->getAuthenticator()->getCurrentUser(); not yet implemented
@@ -335,7 +338,7 @@ class DefaultLogger implements Log4PhpLogger {
                         }
 
                         // log the message                        
-//                        $this->logger->log($level , "[" + $userInfo + " -> " + $appInfo + "] " + $clean, $throwable);
+                        $this->logger->log($level , "[" . $userInfo . " -> " . $appInfo . "] " . $clean, $throwable);
         	
         }
 }
