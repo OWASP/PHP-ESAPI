@@ -59,45 +59,18 @@ abstract class BaseValidationRule implements ValidationRule {
 	public function setEncoder($encoder) {
 		$this->encoder = $encoder;
 	}
-	
-	public function assertValid($context, $input) {
-		return $this->getValid ( $context, $input );
-	}
-	
-	public function getValid($context, $input, $errorList = null) {
-		try {
-			return getValid($context,$input );
-		} catch ( ValidationException $e ) {
-			$errorList->addError ( $context, $e );
-		}
-		return null;
-	}
-	public function getSafe($context, $input) {
-		try {
-			return $this->getValid ( $context, $input );
-		} catch ( ValidationException $e ) {
-			return $this->sanitize ( $context, $input );
-		}
-	}
-	
-	public function isValid($context, $input) {
-		try {
-			$this->getValid( $context, $input );
-			return true;
-		} catch ( ValidationException $e ) {
-			return false;
-		} catch ( Exception $e ) {
-			return false;
-		}
-	}
-	// TODO: the "list" is not used in the java version. I assume it is suppose to provide a 
-	//       list of valid characters. Need to read up on specs to see how this is supposed to 
-	//       work. Right now, the java version appears to allow only digits which is what this
-	//	     function attempts to provide.
-	
 
-	public function whitelist($input, $list = null) {
-		return preg_replace ( "/[^0-9]/", '', $input );
+	public function whitelist($input, $list) {
+		$array = str_split($input);
+		$stripped = "";
+		foreach($array as $char) {
+			foreach ( $list as $pattern ) {
+				if ( preg_match("/$pattern/",$input) ){
+					$stripped = $stripped.$char;
+				}
+			}		
+		}
+		return $stripped;		
 	}
 
 }
