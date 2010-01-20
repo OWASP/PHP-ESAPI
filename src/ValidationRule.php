@@ -20,15 +20,10 @@
 require_once dirname(__FILE__).'/errors/IntrusionException.php';
 require_once dirname(__FILE__).'/errors/ValidationException.php';
 
-
 interface ValidationRule {
 	public function getAllowNull();
 	public function setTypeName($typeName);
 	public function setEncoder($encoder);
-	public function assertValid($context,$input);
-	public function getValid($context,$input, $errorList=null);
-	public function getSafe($context,$input);
-	public function isValid($context,$input);
-	public function whitelist($input,$list=null);
+	public function whitelist($input,$list);
 }
 ?>
