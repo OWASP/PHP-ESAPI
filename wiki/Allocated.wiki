@@ -2,12 +2,12 @@
 
 The following controls have been assigned:
 
-|| *Control* || *Assignee* ||
-|| Codec - Base64Codec || Martin ||
-|| Codec - LDAPCodec || jah ||
-|| Encoder || jah ||
-|| Encryptor || Arnaud (on hold) ||
-|| EncryptedProperties || Arnaud (on hold) ||
-|| Executor || Linden ||
-|| HTTPUtilities || Linden ||
-|| IntrusionDetector || jah ||
+|| *Control* || *Task* || *Assignee* ||
+|| Codec - Base64Codec || Initial development || Martin ||
+|| Codec - LDAPCodec || Initial development || jah ||
+|| Encoder || Initial development || jah ||
+|| Encryptor || Initial development || Arnaud ||
+|| EncryptedProperties || Initial development || Arnaud (on hold) ||
+|| Executor || Last mile || Linden ||
+|| HTTPUtilities || Initial development || Linden ||
+|| IntrusionDetector || Initial development || jah ||
