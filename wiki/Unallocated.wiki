@@ -2,8 +2,8 @@
 
 The following controls have not yet been assigned:
 
-|| *Control* ||
-|| Access Controller ||
-|| Logger || 
-|| SafeFile || 
-|| Validator ||
+|| *Control* || *What remains to be done* || *Priority* ||
+|| Access Controller || Initial development || Low ||
+|| Logger || Last mile || High ||
+|| SafeFile || Initial development || Low ||
+|| Validator || Last mile || High ||
