@@ -270,7 +270,7 @@ class DefaultValidator implements Validator {
 	function getValidInteger($context, $input, $minValue, $maxValue, $allowNull, $errorList = null) {
 		$nvr=new IntegerValidationRule('integer',$this->encoder,$minValue,$maxValue);
 		$nvr->setAllowNull($allowNull);
-		return $nvr->getValid($context,$input);
+		return $nvr->sanitize( $context, $input );
 	}
 	
 	
