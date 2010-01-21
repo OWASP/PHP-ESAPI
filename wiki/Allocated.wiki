@@ -3,7 +3,6 @@
 The following controls have been assigned:
 
 || *Control* || *Assignee* ||
-|| Authenticator || Bipin, Arnaud (tests) ||
 || Codec - Base64Codec || Martin ||
 || Codec - LDAPCodec || jah ||
 || Encoder || jah ||
@@ -12,7 +11,3 @@ The following controls have been assigned:
 || Executor || Linden ||
 || HTTPUtilities || Linden ||
 || IntrusionDetector || jah ||
-|| Logger || Laura ||
-|| SafeFile || Sarath ||
-|| User || Bipin, Arnaud (tests) ||
-|| Validator || Johannes ||
