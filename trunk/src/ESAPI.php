@@ -26,7 +26,6 @@
  */
 class ESAPI {
     private static $accessController = null;
-    private static $authenticator = null;
     private static $encoder = null;
     private static $encryptor = null;
     private static $executor = null;
@@ -86,26 +85,7 @@ class ESAPI {
         self::$accessController = $accessController;
     }
 
-    /**
-     * @return the current ESAPI Authenticator object being used to authenticate users for this application.
-     */
-    public static function getAuthenticator() {
-        if ( is_null(self::$authenticator) ) {
-            require_once dirname(__FILE__).'/reference/FileBasedAuthenticator.php';
-            self::$authenticator = new FileBasedAuthenticator();
-        }
-
-        return self::$authenticator;
-    }
-
-    /**
-     * Change the current ESAPI Authenticator to the Authenticator provided.
-     * @param authenticator
-     *            the Authenticator to set to be the current ESAPI Authenticator.
-     */
-    public static function setAuthenticator($authenticator) {
-        self::$authenticator = $authenticator;
-    }
+ 
 
     /**
      * @return the current ESAPI Encoder object being used to encode and decode data for this application.
