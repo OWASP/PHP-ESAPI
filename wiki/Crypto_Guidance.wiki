@@ -3,4 +3,20 @@
 
 Here are the most recent thoughts on the topic:
 
-<Coming soon>
+Here are my most recent thoughts on the topic:
+
+For the first release, let us keep things as absolutely simple as possible, something like:
+
+  * loginApplicationKeyStore($file, $password) //E.g., PKCS#12
+  * logoutApplicationKeyStore()
+  * hash($plaintext, $salt) //E.g., SHA-1
+  * encryptUsingApplicationSymmetricKey($plaintext) //E.g., AES ECB 128
+  * decryptUsingApplicationSymmetricKey($ciphertext) //E.g., AES ECB 128
+  * signUsingApplicationPrivateKey($plaintext) //E.g., RSA 1024 with SHA-1
+  * verifyUsingCRL($signeddata) //Are we generating CMS, or PKCS#7? Do CRL/OCSP PHP libraries exist?
+  * verifyUsingOCSP($signeddata)
+  * random() //Randomizer really needs to call Encryptor
+
+We may not be able to be able to solve the "patchwork of algorithm implementations provided by different libraries" problem.
+
+What collection of libraries might we need to implement the above? What is your opinion of the above proposed list in the first place? One goal of the long names is to clarify key management, to clarify which key(s) are being used.
