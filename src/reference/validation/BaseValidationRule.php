@@ -65,7 +65,7 @@ abstract class BaseValidationRule implements ValidationRule {
 		$stripped = "";
 		foreach($array as $char) {
 			foreach ( $list as $pattern ) {
-				if ( preg_match("/$pattern/",$input) ){
+				if ( preg_match("/$pattern/",$char) ){
 					$stripped = $stripped.$char;
 				}
 			}		
