@@ -4,7 +4,6 @@ The following controls have been assigned:
 
 || *Control* || *Task* || *Assignee* ||
 || Codec - Base64Codec || Initial development || Martin ||
-|| Codec - LDAPCodec || Initial development || jah ||
 || Encoder || Last mile || jah ||
 || Encryptor || Initial development || Arnaud ||
 || EncryptedProperties || Initial development || Arnaud (on hold) ||
