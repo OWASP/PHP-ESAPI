@@ -1,8 +1,6 @@
 #summary Guidance on crypto implementation
 #sidebar TableOfContents
 
-Here are the most recent thoughts on the topic:
-
 Here are my most recent thoughts on the topic:
 
 For the first release, let us keep things as absolutely simple as possible, something like:
