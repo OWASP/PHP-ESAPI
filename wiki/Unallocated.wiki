@@ -2,6 +2,7 @@
 
 The following controls have not yet been assigned:
 
+|| *Control* || *Assignee* ||
 || Access Controller || <TBD> ||
 || Logger || <TBD> ||
 || SafeFile || <TBD> ||
