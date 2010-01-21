@@ -2,7 +2,7 @@
 
 The following controls have been assigned:
 
-|| *Control* || *Task* || *Assignee* ||
+|| *Control* || *Current status* || *Assignee* ||
 || Codec - Base64Codec || Initial development || Martin ||
 || Encoder || Last mile || jah ||
 || Encryptor || Initial development || Arnaud ||
