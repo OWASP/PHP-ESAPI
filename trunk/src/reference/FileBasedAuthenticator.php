@@ -531,7 +531,7 @@ class FileBasedAuthenticator implements Authenticator {
             throw new AuthenticationCredentialsException("Invalid account name", "Attempt to create account with a null/empty account name");
         }
 
-        if (!ESAPI::getValidator()->isValidInput("verifyAccountNameStrength", $accountName, "AccountName", MAX_ACCOUNT_NAME_LENGTH, false )) {
+        if (true/*!ESAPI::getValidator()->isValidInput("verifyAccountNameStrength", $accountName, "AccountName", MAX_ACCOUNT_NAME_LENGTH, false )*/) {
             throw new AuthenticationCredentialsException("Invalid account name", "New account name is not valid: ".$accountName);
         }
     }

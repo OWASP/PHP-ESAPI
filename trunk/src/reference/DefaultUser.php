@@ -198,7 +198,7 @@ class DefaultUser implements User {
      */
     function addRole ($role) {
         $roleName = strtolower($role);
-        if ( ESAPI::getValidator()->isValidInput("addRole", $roleName, "RoleName", MAX_ROLE_LENGTH, false) ) {
+        if ( false/*ESAPI::getValidator()->isValidInput("addRole", $roleName, "RoleName", MAX_ROLE_LENGTH, false) */) {
         //TODO: Verify if this is correct
             $this->roles[] = $roleName;
             ESAPI::getLogger("DefaultUser")->info(DefaultLogger::SECURITY, TRUE, "Role ".$roleName." added to ".$this->getAccountName() );
@@ -245,14 +245,14 @@ class DefaultUser implements User {
      */
     function disable () {
         $this->enabled = FALSE;
-        ESAPI::getLogger("DefaultUser")->info( DefaultLogger::SECURITY_SUCCESS, "Account disabled: ".$this->getAccountName() );
+        ESAPI::getLogger("DefaultUser")->info( DefaultLogger::SECURITY, TRUE, "Account disabled: ".$this->getAccountName() );
     }
     /**
      * Enable this user's account.
      */
     function enable () {
         $this->enable = TRUE;
-        ESAPI::getLogger("DefaultUser")->info(DefaultLogger::SECURITY_SUCCESS, "Account enabled: ".$this->getAccountName() );
+        ESAPI::getLogger("DefaultUser")->info(DefaultLogger::SECURITY, TRUE, "Account enabled: ".$this->getAccountName() );
     }
 
     /**
