@@ -42,6 +42,7 @@ class IntrusionDetectorTest extends UnitTestCase
 	 */
 	function testAddException()
 	{
+		$this->fail(); /*
 		ESAPI::getIntrusionDetector()->addException(new IntrusionException("user message", "log message"));
 		$username = ESAPI::getRandomizer()->getRandomString(8, $this->CHAR_ALPHANUMERICS); // FIXME: DefaultEncoder::CHAR_ALPHANUMERICS
 		$auth = ESAPI::getAuthenticator();
@@ -59,6 +60,7 @@ class IntrusionDetectorTest extends UnitTestCase
 			new IntegrityException("IntegrityException " + $i, "IntegrityException " + $i);
 		}
 		$this->assertFalse($user->isLoggedIn());
+		*/
 	}
 	
 	/**
@@ -69,6 +71,7 @@ class IntrusionDetectorTest extends UnitTestCase
 	 */
     function testAddEvent()
     {
+        $this->fail(); /*
         $username = ESAPI::getRandomizer()->getRandomString(8, $this->CHAR_ALPHANUMERICS); // FIXME: DefaultEncoder::CHAR_ALPHANUMERICS
         $auth = ESAPI::getAuthenticator();
 		$user = $auth->createUser($username, 'addEvent', 'addEvent');
@@ -83,7 +86,7 @@ class IntrusionDetectorTest extends UnitTestCase
         {
             ESAPI::getIntrusionDetector()->addEvent("test", "test message");
         }
-        $this->assertFalse($user->isEnabled());
+        $this->assertFalse($user->isEnabled()); */
     }
 }
 ?>
