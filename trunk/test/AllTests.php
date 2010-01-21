@@ -47,7 +47,6 @@ $test = new GroupTest('Allocated');
 	$test->addTestFile(dirname(__FILE__).'/reference/EncryptorTest.php');					// AJV
 	$test->addTestFile(dirname(__FILE__).'/reference/EncryptedPropertiesTest.php'); 		// AJV
 	$test->addTestFile(dirname(__FILE__).'/reference/IntrusionDetectorTest.php');			// Aung Khant
-	$test->addTestFile(dirname(__FILE__).'/reference/AuthenticatorTest.php');				// Bipin
 	$test->addTestFile(dirname(__FILE__).'/reference/ValidatorTest.php'); 					// Johannes Ullrich
 	$test->addTestFile(dirname(__FILE__).'/reference/LoggerTest.php'); 						// Laura
 	$test->addTestFile(dirname(__FILE__).'/reference/ExecutorTest.php');					// Laura
@@ -71,7 +70,6 @@ $test->run(new HTMLReporter());
 
 $test = new GroupTest('Unallocated');
 $test->addTestFile(dirname(__FILE__).'/reference/AccessControllerTest.php');	
-$test->addTestFile(dirname(__FILE__).'/reference/UserTest.php');				
 
 $test->addTestFile(dirname(__FILE__).'/reference/SafeFileTest.php');
 $test->run(new HTMLReporter());
