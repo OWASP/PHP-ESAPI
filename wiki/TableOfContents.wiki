@@ -11,3 +11,4 @@
     * [Future Future plans]
     * [Codec_Guidance Appendix A -- Codec guidance]
     * [Overloading_Guidance Appendix B -- Overloading guidance]
+    * [Crypto_Guidance Appendix C -- Crypto guidance]
