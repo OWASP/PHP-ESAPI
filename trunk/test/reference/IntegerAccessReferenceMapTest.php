@@ -41,6 +41,7 @@ class IntegerReferenceMapTest extends UnitTestCase
 	 */
     function testIterator() 
     {
+        $this->fail(); /*
         $auth = ESAPI::getAuthenticator();
         
         $arm = new IntegerAccessReferenceMap();
@@ -52,7 +53,7 @@ class IntegerReferenceMapTest extends UnitTestCase
 			$u = $auth->getUserByName( $userName );
  	 	 	$this->assertNotNull($u, "Username = [".$userName."] not found, produced null user");
 			$i->next();
-		}
+		}*/
     }
     
 	/**

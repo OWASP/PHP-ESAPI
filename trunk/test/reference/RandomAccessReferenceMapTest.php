@@ -41,6 +41,7 @@ class RandomAccessReferenceMapTest extends UnitTestCase
 	 */
     function testIterator() 
     {
+        $this->fail(); /* 
         $auth = ESAPI::getAuthenticator();
         
         $arm = new RandomAccessReferenceMap();
@@ -52,7 +53,7 @@ class RandomAccessReferenceMapTest extends UnitTestCase
 			$u = $auth->getUserByName( $userName );
  	 	 	$this->assertNotNull($u, "Username = [".$userName."] not found, produced null user");
 			$i->next();
-		}
+		} */
     }
     
 	/**
