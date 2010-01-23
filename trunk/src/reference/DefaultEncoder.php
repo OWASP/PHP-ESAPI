@@ -12,6 +12,8 @@
  * LICENSE before you use, modify, and/or redistribute this software.
  *
  * @author Linden Darling <a href="http://www.jds.net.au">JDS Australia</a>
+ * @author jah (at jahboite.co.uk)
+ *
  * @created 2009
  * @since 1.6
  */
@@ -25,6 +27,13 @@ require_once dirname(__FILE__).'/../codecs/JavaScriptCodec.php';
 require_once dirname(__FILE__).'/../codecs/PercentCodec.php';
 require_once dirname(__FILE__).'/../codecs/VBScriptCodec.php';
 
+/**
+ * Reference implementation of the Encoder interface. This implementation takes
+ * a whitelist approach to encoding, meaning that everything not specifically identified in a
+ * list of "immune" characters is encoded.
+ *
+ * @see Encoder
+ */
 class DefaultEncoder implements Encoder {
 
 //  private $base64Codec     = null;
@@ -52,8 +61,13 @@ class DefaultEncoder implements Encoder {
     private $immune_url       = array( '.', '-', '*', '_');
     private $codecs=array();
 
-    function __construct($codecArrayForCanonicalizer=null)
+    private $logger = null;
+
+
+    function __construct($canonCodecs=null)
     {
+        $this->logger = ESAPI::getLogger("Encoder");
+
         // initialise codecs
 //      $this->base64Codec     = new Base64Codec();
         $this->cssCodec        = new CSSCodec();
@@ -62,9 +76,9 @@ class DefaultEncoder implements Encoder {
 //      $this->ldapCodec       = new LDAPCodec();
         $this->percentCodec    = new PercentCodec();
         $this->vbscriptCodec   = new VBScriptCodec();
-        
+
         // initialise array of codecs for use by canonicalize
-        if ($codecArrayForCanonicalizer === null)
+        if ($canonCodecs === null)
         {
             array_push($this->codecs, $this->percentCodec);
             array_push($this->codecs, $this->htmlCodec);
@@ -73,18 +87,18 @@ class DefaultEncoder implements Encoder {
             // array_push($this->codecs,$this->cssCodec);
             // array_push($this->codecs,$this->vbscriptCodec);
         }
-        elseif (! is_array($codecArrayForCanonicalizer))
+        elseif (! is_array($canonCodecs))
         {
             throw new Exception('Invalid Argument. Codec list must be of type Array.');
         }
         else
         {
             // check array only contains codec instances
-            foreach ($codecArrayForCanonicalizer as $codec)
+            foreach ($canonCodecs as $codec)
             {
                 if (! is_a($codec, 'Codec')) throw new Exception('Invalid Argument. Codec list must contain only Codec instances.');
             }
-            $this->codecs = array_merge($this->codecs, $codecArrayForCanonicalizer);
+            $this->codecs = array_merge($this->codecs, $canonCodecs);
         }
         
     }
@@ -154,6 +168,8 @@ class DefaultEncoder implements Encoder {
         $clean = false;
         while (! $clean)
         {
+            $clean = true;
+
             foreach($this->codecs as $codec)
             {
                 $old = $working;
@@ -169,7 +185,29 @@ class DefaultEncoder implements Encoder {
                     $clean = false;
                 }
             }
-            // TODO: strict test
+
+            // do strict tests and handle if any mixed, multiple, nested encoding were found
+            if ( $foundCount >= 2 && $mixedCount > 1 ) {
+                if ( $strict == true ) {
+                    throw new IntrusionException( "Input validation failure", "Multiple (". $foundCount ."x) and mixed encoding (". $mixedCount ."x) detected in " . $input );
+                } else {
+                    $this->logger->warning( DefaultLogger::SECURITY, false, "Multiple (". $foundCount ."x) and mixed encoding (". $mixedCount ."x) detected in " . $input );
+                }
+            }
+            else if ( $foundCount >= 2 ) {
+                if ( $strict == true ) {
+                    throw new IntrusionException( "Input validation failure", "Multiple (". $foundCount ."x) encoding detected in " . $input );
+                } else {
+                    $this->logger->warning( DefaultLogger::SECURITY, false, "Multiple (". $foundCount ."x) encoding detected in " . $input );
+                }
+            }
+            else if ( $mixedCount > 1 ) {
+                if ( $strict == true ) {
+                    throw new IntrusionException( "Input validation failure", "Mixed encoding (". $mixedCount ."x) detected in " . $input );
+                } else {
+                    $this->logger->warning( DefaultLogger::SECURITY, false, "Mixed encoding (". $mixedCount ."x) detected in " . $input );
+                }
+            }
             return $working;
 
         }
