@@ -16,6 +16,7 @@
  * @since 1.6
  */
 
+require_once(dirname(__FILE__) . "/CodecDebug.php");
 
 /**
  * The Codec interface defines a set of methods for encoding and decoding application level encoding schemes,
@@ -56,6 +57,9 @@ abstract class Codec {
 	 */
 	public function encode( $immune, $input )
 	{
+		// debug
+		CodecDebug::getInstance()->setInitial($input);
+		
     $encoding =  mb_detect_encoding($input);
 		$mbstrlen = mb_strlen($input);
 		$encodedString = mb_convert_encoding("", $encoding);
@@ -64,6 +68,7 @@ abstract class Codec {
 			$c = mb_substr($input, $i, 1, $encoding);
 			$encodedString .= $this->encodeCharacter($immune, $c);
 		}
+		CodecDebug::getInstance()->outputEncoded($input, $encodedString);
 		return $encodedString;
   }
 	
@@ -106,6 +111,9 @@ abstract class Codec {
 	{
     //TODO: need to add comments
     
+		// debug
+		CodecDebug::getInstance()->setInitial($input);
+		
 		$initialEncoding = mb_detect_encoding($input);
 		
 		// Normalize string to UTF-32
@@ -167,6 +175,8 @@ abstract class Codec {
 			}
 		}
 		
+		// debug
+		CodecDebug::getInstance()->outputDecoded($input, $decodedString);
 		return $decodedString;
 	}
 	
