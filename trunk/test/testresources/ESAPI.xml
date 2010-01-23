@@ -146,7 +146,7 @@
 	</HttpUtilities>
 
 	<Logger>
-		<!-- Logging level values are ALL, SEVERE, WARNING, INFO, DEBUG -->
+		<!-- Logging level values are ALL, DEBUG, INFO, WARN, ERROR, SEVERE -->
 		<LogLevel>ALL</LogLevel> 
 		
 		<!-- If you expect logs to contain HTML or hostile input, set this to true -->
