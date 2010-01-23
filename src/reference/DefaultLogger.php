@@ -18,20 +18,17 @@
  */
 
 
-
 #include apache log4php requirements
 define("LOG4PHP_DIR",dirname(__FILE__)."/../../lib/apache-log4php/trunk/src/main/php/");
-
-//define('LOG4PHP_CONFIGURATION', 'log4php.properties');
-//define('LOG4PHP_CONFIGURATOR_CLASS', 'LoggerBasicConfigurator');
 require_once LOG4PHP_DIR.'/Logger.php';
+
 
 require_once dirname(__FILE__).'/../Log4PhpLogger.php';
 
+
 class DefaultLogger implements Log4PhpLogger {
+
     const SECURITY = 0;
-
-
 
     const OFF = PHP_INT_MAX;
     const FATAL =1000;
@@ -43,9 +40,13 @@ class DefaultLogger implements Log4PhpLogger {
     //const ALL = (-1 * PHP_INT_MAX) - 1;
 
     private $logger;
+    private static $initialised = false;
 
-    function __construct($name) {
-        Logger::configure(dirname(__FILE__)."/../../lib/apache-log4php/trunk/src/examples/resources/echo.properties");
+    function __construct($name)
+    {
+        if (self::$initialised == false) {
+            self::initialise();
+        }
         $this->logger = Logger::getLogger($name);
     }
 
@@ -60,36 +61,75 @@ class DefaultLogger implements Log4PhpLogger {
         try {
             $this->logger->setLevel($this->convertESAPILeveltoLoggerLevel( $level ));
         }
-        catch (IllegalArgumentException $e) {
-            $this->logger->error(DefaultLogger::SECURITY,false, "", $e);
+        catch (Exception $e) {
+            $this->error(DefaultLogger::SECURITY, false, "IllegalArgumentException", $e);
         }
     }
 
-
     /**
-     * Converts the ESAPI logging level (a number) into the levels used by Java's logger.
-     * @param level The ESAPI to convert.
-     * @return The Log4J logging Level that is equivalent.
-     * @throws IllegalArgumentException if the supplied ESAPI level doesn't make a level that is currently defined.
+     * Converts the ESAPI logging level (a number) or level defined in ESAPI.xml
+     * (a string) into the levels used by Apache's log4php.
+     * @param level The ESAPI logging level to convert.
+     * @return The log4php logging Level that is equivalent.
+     * @throws Exception if the supplied ESAPI level doesn't make a level that is currently defined.
      */
     private function convertESAPILeveltoLoggerLevel($level)
     {
-        switch ($level) {
-            case DefaultLogger::OFF:     return LoggerLevel::getLevelOff();
-            case DefaultLogger::FATAL:   return LoggerLevel::getLevelFatal();
-            case DefaultLogger::ERROR:   return LoggerLevel::getLevelError();
-            case DefaultLogger::WARNING: return LoggerLevel::getLevelWarn();
-            case DefaultLogger::INFO:    return LoggerLevel::getLevelInfo();
-            case DefaultLogger::DEBUG:   return LoggerLevel::getLevelDebug(); //fine
-            case DefaultLogger::TRACE:   return LoggerLevel::getLevelAll(); //finest
-            case DefaultLogger::ALL:     return LoggerLevel::getLevelAll();
-            default: {
-                throw new IllegalArgumentException("Invalid logging level Value was: " + $level);
+        if(is_string($level)) {
+            switch(strtoupper($level)) {
+                case 'ALL':    return LoggerLevel::getLevelAll();
+                case 'DEBUG':  return LoggerLevel::getLevelDebug();
+                case 'INFO':   return LoggerLevel::getLevelInfo();
+                case 'WARN':   return LoggerLevel::getLevelWarn();
+                case 'ERROR':  return LoggerLevel::getLevelError();
+                case 'SEVERE': return LoggerLevel::getLevelFatal();
+                default: {
+                    throw new Exception("Invalid logging level Value was: " . $level);
+                }
+            }
+        } else {
+            switch($level) {
+                case self::TRACE:   return LoggerLevel::getLevelAll();
+                case self::DEBUG:   return LoggerLevel::getLevelDebug();
+                case self::INFO:    return LoggerLevel::getLevelInfo();
+                case self::WARNING: return LoggerLevel::getLevelWarn();
+                case self::ERROR:   return LoggerLevel::getLevelError();
+                case self::FATAL:   return LoggerLevel::getLevelFatal();
+                case self::OFF:     return LoggerLevel::getLevelOff();
+                default: {
+                    throw new Exception("Invalid logging level Value was: " . $level);
+                }
             }
         }
     }
 
 
+    /**
+     * configure the root log4php logger - all logger instances will inherit these config values
+     */
+    private static function initialise()
+    {
+        self::$initialised = true;
+
+        $appenders = array();
+        array_push($appenders, new LoggerAppenderEcho('echo'));
+        array_push($appenders, new LoggerAppenderConsole('console'));
+
+        $rootLogger = Logger::getRootLogger();
+        $rootLogger->removeAllAppenders();
+
+        foreach ($appenders as $a) {
+            $layout = new LoggerLayoutTTCC("%Y-%d-%m %H:%M:%S");
+            $layout->setThreadPrinting(false);
+            $layout->setContextPrinting(false);
+            $layout->setMicroSecondsPrinting(false);
+            $layout->setCategoryPrefixing(true);
+            $a->setLayout($layout);
+            $rootLogger->addAppender($a);
+        }
+
+        $rootLogger->setLevel(self::convertESAPILeveltoLoggerLevel(ESAPI::getSecurityConfiguration()->getLogLevel()));
+    }
 
 
     /**
@@ -276,13 +316,13 @@ class DefaultLogger implements Log4PhpLogger {
      * @param message the message
      * @param throwable the throwable
      */
-    private function log($level, $type,$success, $message, $throwable) {
+    private function log($level, $type, $success, $message, $throwable) {
         global $ESAPI;
 
         $level = $this->convertESAPILeveltoLoggerLevel( $level );
         // Check to see if we need to log
         if (!$this->logger->isEnabledFor($level)) return;
-
+/* TODO Removed until AccessController is done.
         // create a random session number for the user to represent the user's 'session', if it doesn't exist already
         $sid = null;
 
@@ -294,13 +334,12 @@ class DefaultLogger implements Log4PhpLogger {
                 $sid = $session->getAttribute("ESAPI_SESSION");
                 // if there is no session ID for the user yet, we create one and store it in the user's session
                 if ( $sid == null ) {
-
                     $sid = "". $ESAPI->getRandomizer()->getRandomInteger(0, 1000000);
                     $session->setAttribute("ESAPI_SESSION", $sid);
                 }
             }
         }
-
+*/
         // ensure there's something to log
         if ( $message == null ) {
             $message = "";
@@ -315,9 +354,11 @@ class DefaultLogger implements Log4PhpLogger {
                 $clean .= " (Encoded)";
             }
         }
+
         // TODO remove this temporary html break element
         $clean .= "<br />";
 
+/* TODO Removed until AccessController is done.
         // log user information - username:session@ipaddr
         //TODO commented out as $ESAPI->getAuthenticator()->getCurrentUser(); not yet implemented
         //$user = $ESAPI->getAuthenticator()->getCurrentUser();
@@ -336,10 +377,10 @@ class DefaultLogger implements Log4PhpLogger {
         if ($currentRequest  != null && $logServerIP ) {
             $appInfo.= $ESAPI->currentRequest()->getLocalAddr() . ":" . $ESAPI->currentRequest()->getLocalPort();
         }
-
+*/
         // log the message
-        $this->logger->log($level , "[" . $userInfo . " -> " . $appInfo . "] " . $clean, $throwable);
-         
+        // $this->logger->log($level, "[" . $userInfo . " -> " . $appInfo . "] " . $clean, $throwable);
+        $this->logger->log($level, $clean, $throwable);
     }
 }
 ?>
