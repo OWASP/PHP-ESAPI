@@ -60,7 +60,7 @@ abstract class Codec {
 		// debug
 		CodecDebug::getInstance()->setInitial($input);
 		
-    $encoding =  mb_detect_encoding($input);
+		$encoding =  self::detectEncoding($input);
 		$mbstrlen = mb_strlen($input);
 		$encodedString = mb_convert_encoding("", $encoding);
 		for($i=0; $i<$mbstrlen; $i++)
@@ -114,7 +114,7 @@ abstract class Codec {
 		// debug
 		CodecDebug::getInstance()->setInitial($input);
 		
-		$initialEncoding = mb_detect_encoding($input);
+		$initialEncoding = self::detectEncoding($input);
 		
 		// Normalize string to UTF-32
 		$_4ByteString = self::normalizeEncoding($input);
