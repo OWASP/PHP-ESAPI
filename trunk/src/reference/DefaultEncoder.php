@@ -185,32 +185,30 @@ class DefaultEncoder implements Encoder {
                     $clean = false;
                 }
             }
-
-            // do strict tests and handle if any mixed, multiple, nested encoding were found
-            if ( $foundCount >= 2 && $mixedCount > 1 ) {
-                if ( $strict == true ) {
-                    throw new IntrusionException( "Input validation failure", "Multiple (". $foundCount ."x) and mixed encoding (". $mixedCount ."x) detected in " . $input );
-                } else {
-                    $this->logger->warning( DefaultLogger::SECURITY, false, "Multiple (". $foundCount ."x) and mixed encoding (". $mixedCount ."x) detected in " . $input );
-                }
-            }
-            else if ( $foundCount >= 2 ) {
-                if ( $strict == true ) {
-                    throw new IntrusionException( "Input validation failure", "Multiple (". $foundCount ."x) encoding detected in " . $input );
-                } else {
-                    $this->logger->warning( DefaultLogger::SECURITY, false, "Multiple (". $foundCount ."x) encoding detected in " . $input );
-                }
-            }
-            else if ( $mixedCount > 1 ) {
-                if ( $strict == true ) {
-                    throw new IntrusionException( "Input validation failure", "Mixed encoding (". $mixedCount ."x) detected in " . $input );
-                } else {
-                    $this->logger->warning( DefaultLogger::SECURITY, false, "Mixed encoding (". $mixedCount ."x) detected in " . $input );
-                }
-            }
-            return $working;
-
         }
+        // do strict tests and handle if any mixed, multiple, nested encoding were found
+        if ( $foundCount >= 2 && $mixedCount > 1 ) {
+            if ( $strict == true ) {
+                throw new IntrusionException( "Input validation failure", "Multiple (". $foundCount ."x) and mixed encoding (". $mixedCount ."x) detected in " . $input );
+            } else {
+                $this->logger->warning( DefaultLogger::SECURITY, false, "Multiple (". $foundCount ."x) and mixed encoding (". $mixedCount ."x) detected in " . $input );
+            }
+        }
+        else if ( $foundCount >= 2 ) {
+            if ( $strict == true ) {
+                throw new IntrusionException( "Input validation failure", "Multiple (". $foundCount ."x) encoding detected in " . $input );
+            } else {
+                $this->logger->warning( DefaultLogger::SECURITY, false, "Multiple (". $foundCount ."x) encoding detected in " . $input );
+            }
+        }
+        else if ( $mixedCount > 1 ) {
+            if ( $strict == true ) {
+                throw new IntrusionException( "Input validation failure", "Mixed encoding (". $mixedCount ."x) detected in " . $input );
+            } else {
+                $this->logger->warning( DefaultLogger::SECURITY, false, "Mixed encoding (". $mixedCount ."x) detected in " . $input );
+            }
+        }
+        return $working;
     }
 
     /**
