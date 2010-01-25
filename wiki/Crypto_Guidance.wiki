@@ -8,8 +8,7 @@ Here are my latest greatest thoughts:
 Let us keep it simple, assume there are manually-entered keys in ESAPI.xml...
 {{{
 public km_getSymmetricKey($keyname, $iv = null) //does not return a value, sets private vars
-public km_getAsymmetricPrivateKey($keyname)
-public km_getAsymmetricPublicKey($keyname)
+public km_getAsymmetricKeyPair($keyname)
 public km_getMessageAuthenticationKeys($keyname) //includes precomputed subkeys
 }}}
 E.g., Encryptor -> 
