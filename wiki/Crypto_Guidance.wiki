@@ -1,7 +1,7 @@
 #summary Guidance on crypto implementation
 #sidebar TableOfContents
 
-Here are my latest greatest thoughts:
+Here are my latest greatest thoughts for ESAPI for PHP:
 
 ==First, we need cryptographic key management functions.==
 
@@ -127,8 +127,6 @@ Signatures should use [http://www.ietf.org/rfc/rfc3852.txt CMS (i.e. RFC 3852)] 
 || FIPS mode enable/disable || Enables/Disables FIPS mode for cryptomodules that require this configuration to be done programmatically ||None ||
 || op_symmetric || Performs symmetric key encryption using the key loaded from the ESAPI configuration file using km_getSymmetricKey || Keys/AES_.., Keys/3DES_.. ||
 ||...||...||...||
-
-
 
 
 
