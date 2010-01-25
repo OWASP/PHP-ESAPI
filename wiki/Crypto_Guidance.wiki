@@ -61,7 +61,7 @@ private ESAPI_CRYPTO_3DES_KO2_TCFB
 private ESAPI_CRYPTO_3DES_KO2_TCFB_P
 private ESAPI_CRYPTO_3DES_KO2_OFB
 private ESAPI_CRYPTO_3DES_KO2_OFB_I
-... continue on, e.g. for signatures, according to FIPS 140-2, as above
+//... continue on, e.g. for signatures, according to FIPS 140-2, as above
 
 private $algorithm_symmetric //combination of algorithm/key/mode, set using ESAPI.xml
 private $algorithm_asymmetric
@@ -84,11 +84,11 @@ public op_random() //DefaultRandomizer should be calling this, which in turn wil
 public op_mac($data)
 }}}
 E.g., op_symmetric, inputs/outputs hex characters (e.g. 32 hex chars = 128 bit key)
-
+{{{
 KEY = 4278b840fb44aaa757c1bf04acbe1a3e
 IV = 57f02a5c5339daeb0a2908a06ac6393f
 PLAINTEXT = 3c888bbbb1a8eb9f3e9b87acaad986c466e2f7071c83083b8a557971918850e5
 CIPHERTEXT = 479c89ec14bc98994e62b2c705b5014e175bd7832e7e60a1e92aac568a861eb7
-
-Signatures should use CMS (i.e. RFC 3852) and they should be input/output in base 64.
+}}}
+Signatures should use [http://www.ietf.org/rfc/rfc3852.txt CMS (i.e. RFC 3852)] and they should be input/output in base 64.
  
