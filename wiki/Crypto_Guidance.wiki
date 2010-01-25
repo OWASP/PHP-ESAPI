@@ -118,7 +118,7 @@ Signatures should use [http://www.ietf.org/rfc/rfc3852.txt CMS (i.e. RFC 3852)] 
 ||*Key/CSP*||*Type*||*Generation*||*Storage & Zeroization*||*Use*||
 ||...||...||...||...||...||
 || Keys/AES_.., Keys/3DES_.. || 128-bit AES key || Externally generated || Stored as plaintext on disk || Encrypts application data according to key purpose ||
-|| MasterSalt || Configurable-length salt || Externally generated || Stored as plaintext on disk || Used to salt password hashes ||
+|| Keys/MasterSalt || Configurable-length salt || Externally generated || Stored as plaintext on disk || Used to salt password hashes ||
 || Keys/HMAC_SHA1_.. || HMAC SHA-1 keys || Externally generated || Stored as plaintext on disk || Secures application-specific traffic according to key purpose ||
 ||...||...||...||...||...||
 
