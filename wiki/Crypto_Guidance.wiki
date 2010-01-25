@@ -85,7 +85,7 @@ private $mac_subkey2
 private op_init() //called by constructor, sets available algorithm/key/mode
 public op_symmetric($data, $operation)
 public op_asymmetric($data, $operation)
-public op_hash($plaintext, $salt = null) //maybe later, add the ability to do hash updates
+public op_hash($data, $salt = null) //maybe later, add the ability to do hash updates
 public op_random() //DefaultRandomizer should be calling this, which in turn will call mt_rand (for now)
 public op_mac($data)
 }}}
