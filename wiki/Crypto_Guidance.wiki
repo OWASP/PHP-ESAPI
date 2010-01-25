@@ -11,11 +11,15 @@ public km_getSymmetricKey($keyname, $ivname = null) //does not return a value, s
 public km_getAsymmetricKeyPair($keyname)
 public km_getMessageAuthenticationKeys($keyname) //includes precomputed subkeys
 }}}
-E.g., Encryptor -> 
-{{{
-AES_128_CBC_MyKey = 4278b840fb44aaa757c1bf04acbe1a3e
-AES_128_CBC_MyIV = 57f02a5c5339daeb0a2908a06ac6393f
-}}}
+E.g.,
+
+||ESAPI.xml|| || || || ||
+|| || Encryptor || || || ||
+|| || || ... || ... || ||
+|| || || Keys || || ||
+|| || || || AES_128_CBC_MyKey || 4278b840fb44aaa757c1bf04acbe1a3e ||
+|| || || || AES_128_CBC_MyIV || 57f02a5c5339daeb0a2908a06ac6393f ||
+|| || || || ... || ... ||
 
 We don't need any key import/export functionality for a first release.
 
@@ -77,13 +81,27 @@ private $mac_symmetric_key
 private $mac_subkey1
 private $mac_subkey2
 
+private op_init() //called by constructor, sets available algorithm/key/mode
 public op_symmetric($data, $operation)
 public op_asymmetric($data, $operation)
 public op_hash($plaintext, $salt = null) //maybe later, add the ability to do hash updates
 public op_random() //DefaultRandomizer should be calling this, which in turn will call mt_rand (for now)
 public op_mac($data)
 }}}
-E.g., op_symmetric, inputs/outputs hex characters (e.g. 32 hex chars = 128 bit key)
+
+E.g.,
+
+||ESAPI.xml|| || || || ||
+|| || Encryptor || || || ||
+|| || || ... || ... || ||
+|| || || Modes || || ||
+|| || || || SymmetricAlgorithm || ESAPI_CRYPTO_AES_128_CBC ||
+|| || || || AsymmetricAlgorithm || ... ||
+|| || || || HashAlgorithm || ESAPI_CRYPTO_SHA224 ||
+|| || || || RandomAlgorithm || ... ||
+|| || || || ... || ... ||
+
+E.g., op_symmetric, e.g. SYMMETRIC_KEY_ENCRYPT_ASCII_HEX, inputs/outputs ASCII hex characters (e.g. 32 hex chars = 128 bit key)
 {{{
 KEY = 4278b840fb44aaa757c1bf04acbe1a3e
 IV = 57f02a5c5339daeb0a2908a06ac6393f
