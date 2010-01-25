@@ -101,6 +101,7 @@ E.g.,
 || || || || AsymmetricAlgorithm || ... ||
 || || || || HashAlgorithm || ESAPI_CRYPTO_SHA224 ||
 || || || || RandomAlgorithm || ... ||
+|| || || || MessageAuthenticationAlgorithm || ... ||
 || || || || ... || ... ||
 
 E.g., op_symmetric, e.g. SYMMETRIC_KEY_ENCRYPT_ASCII_HEX, inputs/outputs plain-old ASCII hex characters (e.g. 32 hex chars = 128 bit key)
@@ -127,4 +128,3 @@ Signatures should use [http://www.ietf.org/rfc/rfc3852.txt CMS (i.e. RFC 3852)] 
 || FIPS mode enable/disable ESAPI.xml configuration setting || Enables/Disables FIPS mode for cryptomodules that require this configuration to be done programmatically ||None ||
 || op_symmetric || Performs symmetric key encryption using the key loaded from the ESAPI configuration file using km_getSymmetricKey || Keys/AES_.., Keys/3DES_.. ||
 ||...||...||...||
-
