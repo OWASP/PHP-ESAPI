@@ -17,7 +17,7 @@ E.g.,
 || || Encryptor || || || ||
 || || || ... || ... || ||
 || || || Keys || || ||
-|| || || || AES_128_CBC_MyKey || 4278b840fb44aaa757c1bf04acbe1a3e ||
+|| || || || AES_128_CBC_MyKey || 4278b840fb44aaa757c1bf04acbe1a3e (this would be the actual key in the reference implementation, could in one's own implementation be e.g. additional identifiers to use to retrieve a key from somewhere||
 || || || || AES_128_CBC_MyIV || 57f02a5c5339daeb0a2908a06ac6393f ||
 || || || || ... || ... ||
 || || || || MasterSalt || A17FED27EAA842282862FF7C1B9C8395A26AC320 ||
