@@ -13,7 +13,7 @@ class IntegerValidationRule extends BaseValidationRule {
 		$this->maxValue = $maxValue;
 	}
 
-	private function getValid( $context, $input,$errorlist=null )  {
+	public function getValid( $context, $input,$errorlist=null )  {
 
 		// check null
 	    if ( strlen($input)==0 ) {
@@ -48,12 +48,7 @@ class IntegerValidationRule extends BaseValidationRule {
 	}
 
 	public function sanitize( $context, $input ) {
-		try {
-			return $this->getValid($context, $input);
-		}
-		catch (ValidationException $e) {
-			return 0;
-		}
+		return 0;
 	}
 	
 }
