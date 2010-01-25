@@ -2,7 +2,7 @@
 #sidebar TableOfContents
 
 Here are my latest greatest thoughts:
-
+---- 
 *First, we need cryptographic key management functions.*
 
 Let us keep it simple, assume there are manually-entered keys in ESAPI.xml...
@@ -18,7 +18,7 @@ AES_128_CBC_MyIV = 57f02a5c5339daeb0a2908a06ac6393f
 }}}
 
 We don't need any key import/export functionality for a first release.
-
+---- 
 *Second, we need cryptographic operation functions.*
 
 We need some definitions...
