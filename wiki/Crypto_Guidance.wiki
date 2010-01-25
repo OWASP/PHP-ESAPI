@@ -102,7 +102,7 @@ E.g.,
 || || || || RandomAlgorithm || ... ||
 || || || || ... || ... ||
 
-E.g., op_symmetric, e.g. SYMMETRIC_KEY_ENCRYPT_ASCII_HEX, inputs/outputs ASCII hex characters (e.g. 32 hex chars = 128 bit key)
+E.g., op_symmetric, e.g. SYMMETRIC_KEY_ENCRYPT_ASCII_HEX, inputs/outputs plain-old ASCII hex characters (e.g. 32 hex chars = 128 bit key)
 {{{
 KEY = 4278b840fb44aaa757c1bf04acbe1a3e
 IV = 57f02a5c5339daeb0a2908a06ac6393f
