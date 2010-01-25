@@ -1,20 +1,95 @@
 #summary Guidance on crypto implementation
 #sidebar TableOfContents
 
-Here are my most recent thoughts on the topic:
+Here are my latest greatest thoughts:
 
-For the first release, let us keep things as absolutely simple as possible, something like:
+*First, we need cryptographic key management functions.*
 
-  * loginApplicationKeyStore($file, $password) //E.g., PKCS#12
-  * logoutApplicationKeyStore()
-  * hash($plaintext, $salt) //E.g., SHA-1
-  * encryptUsingApplicationSymmetricKey($plaintext) //E.g., AES ECB 128
-  * decryptUsingApplicationSymmetricKey($ciphertext) //E.g., AES ECB 128
-  * signUsingApplicationPrivateKey($plaintext) //E.g., RSA 1024 with SHA-1
-  * verifyUsingCRL($signeddata) //Are we generating CMS, or PKCS#7? Do CRL/OCSP PHP libraries exist?
-  * verifyUsingOCSP($signeddata)
-  * random() //Randomizer really needs to call Encryptor
+Let us keep it simple, assume there are manually-entered keys in ESAPI.xml...
+{{{
+public km_getSymmetricKey($keyname, $iv = null) //does not return a value, sets private vars
+public km_getAsymmetricPrivateKey($keyname)
+public km_getAsymmetricPublicKey($keyname)
+public km_getMessageAuthenticationKeys($keyname) //includes precomputed subkeys
+}}}
+E.g., Encryptor -> 
+{{{
+AES_128_CBC_MyKey = 4278b840fb44aaa757c1bf04acbe1a3e
+AES_128_CBC_MyIV = 57f02a5c5339daeb0a2908a06ac6393f
+}}}
 
-We may not be able to be able to solve the "patchwork of algorithm implementations provided by different libraries" problem.
+We don't need any key import/export functionality for a first release.
 
-What collection of libraries might we need to implement the above? What is your opinion of the above proposed list in the first place? One goal of the long names is to clarify key management, to clarify which key(s) are being used.
+*Second, we need cryptographic operation functions.*
+
+We need some definitions...
+{{{
+const SYMMETRIC_KEY_ENCRYPT_ASCII_HEX
+const SYMMETRIC_KEY_DECRYPT_ASCII_HEX
+const ASYMMETRIC_KEY_SIGN_CREATE_BASE64_CMS
+const ASYMMETRIC_KEY_VERIFY_BASE64_CMS
+}}}
+Here are the supported configuration values to validate as input from ESAPI.xml, only 1 - 2 will be supported in first release...
+{{{
+private ESAPI_CRYPTO_SHA1
+private ESAPI_CRYPTO_SHA224
+private ESAPI_CRYPTO_SHA384
+private ESAPI_CRYPTO_SHA512
+private ESAPI_CRYPTO_AES_128_ECB
+private ESAPI_CRYPTO_AES_128_CBC
+private ESAPI_CRYPTO_AES_128_CFB
+private ESAPI_CRYPTO_AES_128_CTR
+private ESAPI_CRYPTO_AES_128_OFB
+private ESAPI_CRYPTO_AES_192_ECB
+private ESAPI_CRYPTO_AES_192_CBC
+private ESAPI_CRYPTO_AES_192_CFB
+private ESAPI_CRYPTO_AES_192_CTR
+private ESAPI_CRYPTO_AES_192_OFB
+private ESAPI_CRYPTO_AES_256_ECB
+private ESAPI_CRYPTO_AES_256_CBC
+private ESAPI_CRYPTO_AES_256_CFB
+private ESAPI_CRYPTO_AES_256_CTR
+private ESAPI_CRYPTO_AES_256_OFB
+private ESAPI_CRYPTO_3DES_KO1_TECB
+private ESAPI_CRYPTO_3DES_KO1_TCBC
+private ESAPI_CRYPTO_3DES_KO1_TCBC_I
+private ESAPI_CRYPTO_3DES_KO1_TCFB
+private ESAPI_CRYPTO_3DES_KO1_TCFB_P
+private ESAPI_CRYPTO_3DES_KO1_OFB
+private ESAPI_CRYPTO_3DES_KO1_OFB_I
+private ESAPI_CRYPTO_3DES_KO2_TCBC_I
+private ESAPI_CRYPTO_3DES_KO2_TCFB
+private ESAPI_CRYPTO_3DES_KO2_TCFB_P
+private ESAPI_CRYPTO_3DES_KO2_OFB
+private ESAPI_CRYPTO_3DES_KO2_OFB_I
+... continue on, e.g. for signatures, according to FIPS 140-2, as above
+
+private $algorithm_symmetric //combination of algorithm/key/mode, set using ESAPI.xml
+private $algorithm_asymmetric
+private $algorithm_shs //hash algorithm, set using ESAPI.xml
+private $algorithm_rng
+private $algorithm_mac
+
+private $symmetric_key
+private $symmetric_iv
+private $asymmetric_public_key
+private $asymmetric_private_key
+private $mac_symmetric_key
+private $mac_subkey1
+private $mac_subkey2
+
+public op_symmetric($data, $operation)
+public op_asymmetric($data, $operation)
+public op_hash($plaintext, $salt = null) //maybe later, add the ability to do hash updates
+public op_random() //DefaultRandomizer should be calling this, which in turn will call mt_rand (for now)
+public op_mac($data)
+}}}
+E.g., op_symmetric, inputs/outputs hex characters (e.g. 32 hex chars = 128 bit key)
+
+KEY = 4278b840fb44aaa757c1bf04acbe1a3e
+IV = 57f02a5c5339daeb0a2908a06ac6393f
+PLAINTEXT = 3c888bbbb1a8eb9f3e9b87acaad986c466e2f7071c83083b8a557971918850e5
+CIPHERTEXT = 479c89ec14bc98994e62b2c705b5014e175bd7832e7e60a1e92aac568a861eb7
+
+Signatures should use CMS (i.e. RFC 3852) and they should be input/output in base 64.
+ 
