@@ -13,7 +13,7 @@ public km_getMessageAuthenticationKeys($keyname) //includes precomputed subkeys
 }}}
 E.g.,
 
-||ESAPI.xml|| || || || ||
+||*ESAPI.xml*|| || || || ||
 || || Encryptor || || || ||
 || || || ... || ... || ||
 || || || Keys || || ||
@@ -92,7 +92,7 @@ public op_mac($data)
 
 E.g.,
 
-||ESAPI.xml|| || || || ||
+||*ESAPI.xml*|| || || || ||
 || || Encryptor || || || ||
 || || || ... || ... || ||
 || || || Modes || || ||
@@ -111,3 +111,11 @@ CIPHERTEXT = 479c89ec14bc98994e62b2c705b5014e175bd7832e7e60a1e92aac568a861eb7
 }}}
 Signatures should use [http://www.ietf.org/rfc/rfc3852.txt CMS (i.e. RFC 3852)] and they should be input/output in base 64.
  
+==So our key management policy would look something like...==
+
+||*Key/CSP*||*Type*||*Generation*||*Storage & Zeroization*||*Use*||
+||...||...||...||...||...||
+|| Keys/AES_.., Keys/3DES_.. || 128-bit AES key || Externally generated || Stored as plaintext on disk || Encrypts application data according to key purpose ||
+|| MasterSalt || Configurable-length salt || Externally generated || Stored as plaintext on disk || Used to salt password hashes ||
+|| Keys/HMAC_SHA1_.. || HMAC SHA-1 keys || Externally generated || Stored as plaintext on disk || Secures application-specific traffic according to key purpose ||
+||...||...||...||...||...||
