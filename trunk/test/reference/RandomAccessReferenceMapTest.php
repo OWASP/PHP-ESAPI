@@ -41,19 +41,21 @@ class RandomAccessReferenceMapTest extends UnitTestCase
 	 */
     function testIterator() 
     {
-        $this->fail(); /* 
-        $auth = ESAPI::getAuthenticator();
+	    $users = array ("andrew", "bipin", "laura", "jah", "linden", "mike", "arnaud");        
         
         $arm = new RandomAccessReferenceMap();
-		$arm->update($auth->getUserNames());
+		$arm->update($users);
 		
 		$i = $arm->iterator();
+		
 		while ( $i->valid() ) {
 			$userName = $arm->getDirectReference($i->current());
-			$u = $auth->getUserByName( $userName );
- 	 	 	$this->assertNotNull($u, "Username = [".$userName."] not found, produced null user");
+			if ( in_array($userName, $users) === false )
+			{
+				$this->fail("Username = [".$userName."] not in users array");	
+			}
 			$i->next();
-		} */
+		}
     }
     
 	/**

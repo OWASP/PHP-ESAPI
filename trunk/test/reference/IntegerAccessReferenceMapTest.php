@@ -41,19 +41,20 @@ class IntegerReferenceMapTest extends UnitTestCase
 	 */
     function testIterator() 
     {
-        $this->fail(); /*
-        $auth = ESAPI::getAuthenticator();
+		$users = array ("andrew", "bipin", "laura", "jah", "linden", "mike", "arnaud");        
         
         $arm = new IntegerAccessReferenceMap();
-		$arm->update($auth->getUserNames());
+		$arm->update($users);
 		
 		$i = $arm->iterator();
+		$j = 0;
 		while ( $i->valid() ) {
 			$userName = $arm->getDirectReference($i->current());
-			$u = $auth->getUserByName( $userName );
- 	 	 	$this->assertNotNull($u, "Username = [".$userName."] not found, produced null user");
+			$u = $users[$j];
+ 	 	 	$this->assertEqual($u, $userName);
 			$i->next();
-		}*/
+			$j++;
+		}
     }
     
 	/**
