@@ -299,8 +299,7 @@ class HTMLEntityCodec extends Codec
     	{
     		// try to convert hexString to integer...
     		$parsedInteger = (int)hexdec($hexString);
-    		
-    		$parsedCharacter = chr($parsedInteger);
+    		$parsedCharacter = $this->normalizeEncoding(chr($parsedInteger));
     		return array('decodedCharacter'=>$parsedCharacter,'encodedString'=>mb_substr($input,0,3,"UTF-32").$hexString.$trailingSemicolon);
     	}
     	catch(Exception $e)
