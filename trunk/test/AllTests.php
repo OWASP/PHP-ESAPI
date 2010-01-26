@@ -47,7 +47,7 @@ $test = new GroupTest('Allocated');
 	$test->addTestFile(dirname(__FILE__).'/reference/EncryptorTest.php');					// AJV
 	$test->addTestFile(dirname(__FILE__).'/reference/EncryptedPropertiesTest.php'); 		// AJV
 	$test->addTestFile(dirname(__FILE__).'/reference/IntrusionDetectorTest.php');			// Aung Khant
-	$test->addTestFile(dirname(__FILE__).'/reference/ValidatorTest.php'); 					// Johannes Ullrich
+	$test->addTestFile(dirname(__FILE__).'/reference/ValidatorTest.php'); 					// AJV & Johannes Ullrich
 	$test->addTestFile(dirname(__FILE__).'/reference/LoggerTest.php'); 						// Laura
 	$test->addTestFile(dirname(__FILE__).'/reference/ExecutorTest.php');					// Laura
 	$test->addTestFile(dirname(__FILE__).'/reference/HTTPUtilitiesTest.php');				// Laura
@@ -59,7 +59,6 @@ $test = new GroupTest('Codecs');															// Linden
 	$test->addTestFile(dirname(__FILE__).'/codecs/CSSCodecTest.php');
 	$test->addTestFile(dirname(__FILE__).'/codecs/HTMLEntityCodecTest.php');
 	$test->addTestFile(dirname(__FILE__).'/codecs/JavaScriptCodecTest.php');
-	$test->addTestFile(dirname(__FILE__).'/codecs/LDAPCodecTest.php');
 	$test->addTestFile(dirname(__FILE__).'/codecs/MySQLCodecTest.php');
 	$test->addTestFile(dirname(__FILE__).'/codecs/OracleCodecTest.php');
 	$test->addTestFile(dirname(__FILE__).'/codecs/PercentCodecTest.php');
@@ -70,7 +69,7 @@ $test->run(new HTMLReporter());
 
 $test = new GroupTest('Unallocated');
 $test->addTestFile(dirname(__FILE__).'/reference/AccessControllerTest.php');	
-
 $test->addTestFile(dirname(__FILE__).'/reference/SafeFileTest.php');
+	// $test->addTestFile(dirname(__FILE__).'/codecs/LDAPCodecTest.php');					// No longer part of the project
 $test->run(new HTMLReporter());
 ?>

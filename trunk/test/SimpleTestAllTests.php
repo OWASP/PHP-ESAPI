@@ -24,43 +24,37 @@ $ESAPI = new ESAPI(dirname(__FILE__)."/testresources/ESAPI.xml");
 class myGroupTest extends GroupTest {
     function myGroupTest() {
         parent::GroupTest('AllTests');
-       
-        	$this->addTestFile(dirname(__FILE__).'/errors/EnterpriseSecurityExceptionTest.php');	// AJV
-			$this->addTestFile(dirname(__FILE__).'/reference/RandomAccessReferenceMapTest.php');	// AJV
-			$this->addTestFile(dirname(__FILE__).'/reference/IntegerAccessReferenceMapTest.php');	// AJV
-			$this->addTestFile(dirname(__FILE__).'/reference/SecurityConfigurationTest.php');		// AJV
-			$this->addTestFile(dirname(__FILE__).'/reference/RandomizerTest.php');					// AJV
-			$this->addTestFile(dirname(__FILE__).'/reference/StringUtilitiesTest.php');				// AJV
-			
-			// In progress
-			
-			$this->addTestFile(dirname(__FILE__).'/reference/EncryptorTest.php');					// AJV
-			$this->addTestFile(dirname(__FILE__).'/reference/EncryptedPropertiesTest.php'); 		// AJV
-			$this->addTestFile(dirname(__FILE__).'/reference/IntrusionDetectorTest.php');			// Aung Khant
-			$this->addTestFile(dirname(__FILE__).'/reference/AuthenticatorTest.php');				// Bipin
-			$this->addTestFile(dirname(__FILE__).'/reference/ValidatorTest.php'); 					// Johannes Ullrich
-			$this->addTestFile(dirname(__FILE__).'/reference/LoggerTest.php'); 						// Laura
-			$this->addTestFile(dirname(__FILE__).'/reference/ExecutorTest.php');					// Laura
-			$this->addTestFile(dirname(__FILE__).'/reference/HTTPUtilitiesTest.php');				// Laura
-			$this->addTestFile(dirname(__FILE__).'/reference/EncoderTest.php');						// Linden
-			$this->addTestFile(dirname(__FILE__).'/codecs/Base64CodecTest.php');
-			$this->addTestFile(dirname(__FILE__).'/codecs/CSSCodecTest.php');
-			$this->addTestFile(dirname(__FILE__).'/codecs/HTMLEntityCodecTest.php');
-			$this->addTestFile(dirname(__FILE__).'/codecs/JavaScriptCodecTest.php');
-			$this->addTestFile(dirname(__FILE__).'/codecs/LDAPCodecTest.php');
-			$this->addTestFile(dirname(__FILE__).'/codecs/MySQLCodecTest.php');
-			$this->addTestFile(dirname(__FILE__).'/codecs/OracleCodecTest.php');
-			$this->addTestFile(dirname(__FILE__).'/codecs/PercentCodecTest.php');
-			$this->addTestFile(dirname(__FILE__).'/codecs/UnixCodecTest.php');
-			$this->addTestFile(dirname(__FILE__).'/codecs/VBScriptCodecTest.php');
-			$this->addTestFile(dirname(__FILE__).'/codecs/WindowsCodecTest.php');
-			
-			// Unallocated
-			
-			$this->addTestFile(dirname(__FILE__).'/reference/AccessControllerTest.php');	
-			$this->addTestFile(dirname(__FILE__).'/reference/UserTest.php');				
-			$this->addTestFile(dirname(__FILE__).'/reference/SafeFileTest.php');
-        
+    // Finished
+	$test->addTestFile(dirname(__FILE__).'/errors/EnterpriseSecurityExceptionTest.php');	// AJV
+	$test->addTestFile(dirname(__FILE__).'/reference/RandomAccessReferenceMapTest.php');	// AJV
+	$test->addTestFile(dirname(__FILE__).'/reference/IntegerAccessReferenceMapTest.php');	// AJV
+	$test->addTestFile(dirname(__FILE__).'/reference/SecurityConfigurationTest.php');		// AJV
+	$test->addTestFile(dirname(__FILE__).'/reference/RandomizerTest.php');					// AJV
+	$test->addTestFile(dirname(__FILE__).'/reference/StringUtilitiesTest.php');				// AJV
+	// Allocated
+	$test->addTestFile(dirname(__FILE__).'/reference/EncryptorTest.php');					// AJV
+	$test->addTestFile(dirname(__FILE__).'/reference/EncryptedPropertiesTest.php'); 		// AJV
+	$test->addTestFile(dirname(__FILE__).'/reference/IntrusionDetectorTest.php');			// Aung Khant
+	$test->addTestFile(dirname(__FILE__).'/reference/ValidatorTest.php'); 					// AJV & Johannes Ullrich
+	$test->addTestFile(dirname(__FILE__).'/reference/LoggerTest.php'); 						// Laura
+	$test->addTestFile(dirname(__FILE__).'/reference/ExecutorTest.php');					// Laura
+	$test->addTestFile(dirname(__FILE__).'/reference/HTTPUtilitiesTest.php');				// Laura
+	$test->addTestFile(dirname(__FILE__).'/reference/EncoderTest.php');						// Linden
+	// Codecs
+	$test->addTestFile(dirname(__FILE__).'/codecs/Base64CodecTest.php');
+	$test->addTestFile(dirname(__FILE__).'/codecs/CSSCodecTest.php');
+	$test->addTestFile(dirname(__FILE__).'/codecs/HTMLEntityCodecTest.php');
+	$test->addTestFile(dirname(__FILE__).'/codecs/JavaScriptCodecTest.php');
+	$test->addTestFile(dirname(__FILE__).'/codecs/MySQLCodecTest.php');
+	$test->addTestFile(dirname(__FILE__).'/codecs/OracleCodecTest.php');
+	$test->addTestFile(dirname(__FILE__).'/codecs/PercentCodecTest.php');
+	$test->addTestFile(dirname(__FILE__).'/codecs/UnixCodecTest.php');
+	$test->addTestFile(dirname(__FILE__).'/codecs/VBScriptCodecTest.php');
+	$test->addTestFile(dirname(__FILE__).'/codecs/WindowsCodecTest.php');
+	// Unallocated
+	$test->addTestFile(dirname(__FILE__).'/reference/AccessControllerTest.php');	
+	$test->addTestFile(dirname(__FILE__).'/reference/SafeFileTest.php');
+	// $test->addTestFile(dirname(__FILE__).'/codecs/LDAPCodecTest.php');					// No longer part of the project
     }
 }        
 
