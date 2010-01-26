@@ -170,7 +170,7 @@ class DefaultEncoder implements Encoder {
         {
             $clean = true;
 
-            foreach($this->codecs as $codec)
+            foreach ($this->codecs as $codec)
             {
                 $old = $working;
                 $working = $codec->decode($working);
@@ -187,6 +187,7 @@ class DefaultEncoder implements Encoder {
             }
         }
         // do strict tests and handle if any mixed, multiple, nested encoding were found
+        // FIXME why is $input not the original input??
         if ( $foundCount >= 2 && $mixedCount > 1 ) {
             if ( $strict == true ) {
                 throw new IntrusionException( "Input validation failure", "Multiple (". $foundCount ."x) and mixed encoding (". $mixedCount ."x) detected in " . $input );
@@ -375,7 +376,16 @@ class DefaultEncoder implements Encoder {
      */
     function encodeForOS($codec, $input)
     {
-        throw new EnterpriseSecurityException("Method Not implemented");
+        if ($input === null)
+        {
+            return null;
+        }
+        if (! is_a($codec, "Codec"))
+        {
+            ESAPI::getLogger(get_class($this))->error(DefaultLogger::SECURITY, false, "Invalid Argument, expected a valid Codec.");
+            return null;
+        }
+        return $codec->encode($this->immune_os, $input);
     }
 
     /**
@@ -430,7 +440,11 @@ class DefaultEncoder implements Encoder {
      */
     function encodeForXPath($input)
     {
-        throw new EnterpriseSecurityException("Method Not implemented");
+        if ($input === null)
+        {
+            return null;
+        }
+        return $this->htmlCodec->encode($this->immune_xpath, $input);
     }
 
     /**
@@ -453,7 +467,11 @@ class DefaultEncoder implements Encoder {
      */
     function encodeForXML($input)
     {
-        throw new EnterpriseSecurityException("Method Not implemented");
+        if ($input === null)
+        {
+            return null;
+        }
+        return $this->htmlCodec->encode($this->immune_xml, $input);
     }
 
     /**
@@ -476,7 +494,11 @@ class DefaultEncoder implements Encoder {
      */
     function encodeForXMLAttribute($input)
     {
-        throw new EnterpriseSecurityException("Method Not implemented");
+        if ($input === null)
+        {
+            return null;
+        }
+        return $this->htmlCodec->encode($this->immune_xmlattr, $input);
     }
 
     /**
