@@ -10,6 +10,7 @@
         * [Allocated Allocated controls]
         * [Unallocated Unallocated controls]
     * [Technical Technical Guidance]
+        * [Coding_Style_Guidance Coding style]
         * [Codec_Guidance How to implement codecs]
         * [Overloading_Guidance How to do overloading]
         * [Crypto_Guidance Our crypto security policy]
