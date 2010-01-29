@@ -1,0 +1,14 @@
+#sidebar TableOfContents
+
+The following controls have been assigned:
+
+|| *Control* || *Current status* || *Assignee* ||
+|| Codec - Base64Codec || Initial development || Martin ||
+|| Encoder || Last mile || jah, Andrew ||
+|| Encryptor || Initial development || Arnaud ||
+|| EncryptedProperties || Initial development || Arnaud (on hold) ||
+|| Executor || Last mile || Linden ||
+|| HTTPUtilities || Initial development || Linden ||
+|| IntrusionDetector || Initial development || jah ||
+|| Logger || Last mile || jah ||
+|| Validator || Last mile || Andrew ||
