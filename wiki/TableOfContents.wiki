@@ -9,7 +9,7 @@
     * [Assignments Current Assignments]
         * [Allocated Allocated controls]
         * [Unallocated Unallocated controls]
-        * [Other_Assignements Other assignments]
+        * [Other_Assignments Other assignments]
     * [Technical Technical Guidance]
         * [Coding_Style_Guidance Coding style]
         * [Codec_Guidance How to implement codecs]
