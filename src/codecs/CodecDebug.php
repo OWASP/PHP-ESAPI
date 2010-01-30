@@ -167,7 +167,7 @@ class CodecDebug
                     $pos = 6;
                     $trace .= $dt[$pos]['class'] . '-&gt;' .  $dt[$pos--]['function'] . ', ';
                 } else {
-                    $pos = 5;
+                    $pos = ($dt[5]['class'] == 'SimpleInvoker') ? 4 : 5;
                     $objName = ', ' . get_class($dt[$i]['object']);
                 }
                 break;
