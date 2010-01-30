@@ -49,9 +49,6 @@ class PercentCodec extends Codec
   		// Normalize encoding to UTF-32
   		$_4ByteUnencodedOutput = $this->normalizeEncoding($c);
   		
-  		// debug
-  		CodecDebug::getInstance()->addToEncode($_4ByteUnencodedOutput);
-  		
   		// Start with nothing; format it to match the encoding of the string passed as an argument.
   		$encodedOutput = mb_convert_encoding("", $initialEncoding);
   		
@@ -101,24 +98,18 @@ class PercentCodec extends Codec
     		// 1st character is null, so return null
     		// eat the 1st character off the string and return null
     		$input = mb_substr($input,1,mb_strlen($input,"UTF-32"),"UTF-32"); //this is not neccessary
-    		// debug
-    		CodecDebug::getInstance()->addToDecode($this->normalizeEncoding(null));
     		return array('decodedCharacter'=>null,'encodedString'=>null);
     	}
     	
     	// if 1st character is '+' then it's decoded character will be a space.
     	if(mb_substr($input,0,1,"UTF-32") == $this->normalizeEncoding('+'))
     	{
-    		// debug
-    		CodecDebug::getInstance()->addToDecode($this->normalizeEncoding('+'));
     		return array('decodedCharacter'=>$this->normalizeEncoding(' '),'encodedString'=>mb_substr($input,0,1,"UTF-32"));
     	}
     	
     	// if this is not an encoded character, return null
     	if(mb_substr($input,0,1,"UTF-32") != $this->normalizeEncoding('%'))
     	{
-    		// debug
-    		CodecDebug::getInstance()->addToDecode(mb_substr($input,0,1,"UTF-32"));
     		// 1st character is not part of encoding pattern, so return null
     		return array('decodedCharacter'=>null,'encodedString'=>null);
     	}
@@ -135,16 +126,8 @@ class PercentCodec extends Codec
    		if(mb_strlen($potentialHexString,"UTF-32") == 2)
    		{
    			$charFromHex = $this->normalizeEncoding($this->parseHex($potentialHexString));
-   			// debug
-   			CodecDebug::getInstance()->addToDecode($this->normalizeEncoding('%'));
-   			for ($z=0; $z<2; $z++)
-   			{
-   				CodecDebug::getInstance()->addToDecode(mb_substr($input,1+$z,1,"UTF-32"));
-   			}
    			return array('decodedCharacter'=>$charFromHex,'encodedString'=>mb_substr($input,0,3,"UTF-32"));
    		}
-   		// debug
-   		CodecDebug::getInstance()->addToDecode($this->normalizeEncoding(null));
    		return array('decodedCharacter'=>null,'encodedString'=>null);
     }
     
