@@ -58,7 +58,7 @@ abstract class Codec {
 	public function encode( $immune, $input )
 	{
 		// debug
-		CodecDebug::getInstance()->setInitial($input);
+		CodecDebug::getInstance()->addUnencodedString(self::normalizeEncoding($input));
 		
 		$encoding =  self::detectEncoding($input);
 		$mbstrlen = mb_strlen($input);
@@ -68,7 +68,10 @@ abstract class Codec {
 			$c = mb_substr($input, $i, 1, $encoding);
 			$encodedString .= $this->encodeCharacter($immune, $c);
 		}
-		CodecDebug::getInstance()->outputEncoded($input, $encodedString);
+
+		// debug
+		CodecDebug::getInstance()->output($encodedString);
+
 		return $encodedString;
   }
 	
@@ -111,14 +114,14 @@ abstract class Codec {
 	{
     //TODO: need to add comments
     
-		// debug
-		CodecDebug::getInstance()->setInitial($input);
-		
 		$initialEncoding = self::detectEncoding($input);
 		
 		// Normalize string to UTF-32
 		$_4ByteString = self::normalizeEncoding($input);
 		
+		// debug
+		CodecDebug::getInstance()->addEncodedString($_4ByteString);
+
 		// Start with nothing; format it to match the encoding of the string passed as an argument.
 		$decodedString = mb_convert_encoding("", $initialEncoding);
 		
@@ -176,7 +179,8 @@ abstract class Codec {
 		}
 		
 		// debug
-		CodecDebug::getInstance()->outputDecoded($input, $decodedString);
+		CodecDebug::getInstance()->output($decodedString);
+
 		return $decodedString;
 	}
 	
