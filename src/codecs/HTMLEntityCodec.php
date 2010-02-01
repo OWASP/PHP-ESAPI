@@ -239,7 +239,7 @@ class HTMLEntityCodec extends Codec
         try
     	{
     		$parsedInteger = (int) $integerStringAscii;
-    		$parsedCharacter = chr($parsedInteger);
+    		$parsedCharacter = $this->normalizeEncoding(chr($parsedInteger));
     		return array('decodedCharacter'=>$parsedCharacter,'encodedString'=>$integerString);
     	}
     	catch(Exception $e)

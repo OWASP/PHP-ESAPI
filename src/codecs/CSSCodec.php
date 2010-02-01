@@ -134,6 +134,7 @@ class CSSCodec extends Codec
    		{
    			// in the case of escape character followed by a newline, the encoding should be ignored
    			// note: ESAPI4JAVA does not specifically handle this situation (it would be handled but throw a malformed entity exception)
+   			//FIXME: ASCII whitespace being passed back here as 'decodedCharacter' due to issue #27 "Codec::decode cannot accept a UTF-32 encoded empty string as decodedCharacter".
    			return array('decodedCharacter'=>' ','encodedString'=>mb_substr($input,0,2,"UTF-32"));  //FIXME: by passing an ASCII space as decodedCharacter, rather than UTF_32 encoded space, the decode method will effectively eat the encodedString while not adding anything to the decoded result...
    		}
       else

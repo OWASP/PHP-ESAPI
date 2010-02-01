@@ -212,7 +212,7 @@ class JavaScriptCodec extends Codec
 					$digits = $digit1.$digit2.$digit3;
 				}
 			}
-			return array('decodedCharacter'=>chr(octdec($digits)), 'encodedString'=>mb_substr($_4ByteEncodedInput,0,1,"UTF-32").$digits);
+			return array('decodedCharacter'=>$this->normalizeEncoding(chr(octdec($digits))), 'encodedString'=>mb_substr($_4ByteEncodedInput,0,1,"UTF-32").$digits);
 		}	
 			
   		// ignore the backslash and return the character

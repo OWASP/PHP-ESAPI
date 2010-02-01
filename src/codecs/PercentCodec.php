@@ -104,6 +104,7 @@ class PercentCodec extends Codec
     	// if 1st character is '+' then it's decoded character will be a space.
     	if(mb_substr($input,0,1,"UTF-32") == $this->normalizeEncoding('+'))
     	{
+    		//note: due to issue #27, this situation may give rise to erroneous behaviour - beware!
     		return array('decodedCharacter'=>$this->normalizeEncoding(' '),'encodedString'=>mb_substr($input,0,1,"UTF-32"));
     	}
     	
