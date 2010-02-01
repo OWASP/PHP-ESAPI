@@ -142,7 +142,7 @@ class HTMLEntityCodec extends Codec
     		// Get the ordinal value of the 2nd character.
 			  list(, $ordinalValue) = unpack("N", mb_substr($input,1,1,"UTF-32"));
 			
-    		if(eregi("[a-zA-Z]", chr($ordinalValue)))
+    		if(preg_match("/^[a-zA-Z]/", chr($ordinalValue)))
     		{
     			// 2nd character is an alphabetical char, so handle entities...
     			
