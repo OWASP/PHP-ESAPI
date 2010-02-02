@@ -379,59 +379,58 @@ class EncoderTest extends UnitTestCase
         $this->assertEqual( "\0", $this->encoderInstance->canonicalize("\\0"));
     }
     function testCanonicalize_098() {
-        $this->fail('bug!'); //$this->assertEqual( "\b", $this->encoderInstance->canonicalize("\\b"));
+        $this->assertEqual( "".chr(0x08), $this->encoderInstance->canonicalize("\\b"));
     }
     function testCanonicalize_099() {
-        $this->fail('bug!'); //$this->assertEqual( "\t", $this->encoderInstance->canonicalize("\\t"));
+        $this->assertEqual( "\t", $this->encoderInstance->canonicalize("\\t"));
     }
     function testCanonicalize_100() {
-        $this->fail('bug!'); //$this->assertEqual( "\n", $this->encoderInstance->canonicalize("\\n"));
+        $this->assertEqual( "\n", $this->encoderInstance->canonicalize("\\n"));
     }
     function testCanonicalize_101() {
-        $this->fail('bug!'); //$this->assertEqual( "".chr(0x0b), $this->encoderInstance->canonicalize("\\v"));
+        $this->assertEqual( "".chr(0x0b), $this->encoderInstance->canonicalize("\\v"));
     }
     function testCanonicalize_102() {
-        $this->fail('bug!'); //$this->assertEqual( "\f", $this->encoderInstance->canonicalize("\\f"));
+        $this->assertEqual( "\f", $this->encoderInstance->canonicalize("\\f"));
     }
     function testCanonicalize_103() {
-        $this->fail('bug!'); //$this->assertEqual( "\r", $this->encoderInstance->canonicalize("\\r"));
+        $this->assertEqual( "\r", $this->encoderInstance->canonicalize("\\r"));
     }
     function testCanonicalize_104() {
-        $this->fail('bug!'); //$this->assertEqual( "\'", $this->encoderInstance->canonicalize("\\'"));
+        $this->assertEqual( "'", $this->encoderInstance->canonicalize("\\'"));
     }
     function testCanonicalize_105() {
-        $this->fail('bug!'); //$this->assertEqual( "\"", $this->encoderInstance->canonicalize("\\\""));
+        $this->assertEqual( "\"", $this->encoderInstance->canonicalize("\\\""));
     }
     function testCanonicalize_106() {
-        $this->fail('bug!'); //$this->assertEqual( "\\", $this->encoderInstance->canonicalize("\\\\"));
+        $this->assertEqual( "\\", $this->encoderInstance->canonicalize("\\\\"));
     }
     function testCanonicalize_107() {
-        $this->fail('bug!'); //$this->assertEqual( "<", $this->encoderInstance->canonicalize("\\<"));
+        $this->assertEqual( "<", $this->encoderInstance->canonicalize("\\<"));
     }
-    
     function testCanonicalize_108() {
-        $this->fail('bug!'); //$this->assertEqual( "<", $this->encoderInstance->canonicalize("\\u003c"));
+        $this->assertEqual( "<", $this->encoderInstance->canonicalize("\\u003c"));
     }
     function testCanonicalize_109() {
-        $this->fail('bug!'); //$this->assertEqual( "<", $this->encoderInstance->canonicalize("\\U003c"));
+        $this->assertEqual( "<", $this->encoderInstance->canonicalize("\\U003c"));
     }
     function testCanonicalize_110() {
-        $this->fail('bug!'); //$this->assertEqual( "<", $this->encoderInstance->canonicalize("\\u003C"));
+        $this->assertEqual( "<", $this->encoderInstance->canonicalize("\\u003C"));
     }
     function testCanonicalize_111() {
-        $this->fail('bug!'); //$this->assertEqual( "<", $this->encoderInstance->canonicalize("\\U003C"));
+        $this->assertEqual( "<", $this->encoderInstance->canonicalize("\\U003C"));
     }
     function testCanonicalize_112() {
-        $this->fail('bug!'); //$this->assertEqual( "<", $this->encoderInstance->canonicalize("\\x3c"));
+        $this->assertEqual( "<", $this->encoderInstance->canonicalize("\\x3c"));
     }
     function testCanonicalize_113() {
-        $this->fail('bug!'); //$this->assertEqual( "<", $this->encoderInstance->canonicalize("\\X3c"));
+        $this->assertEqual( "<", $this->encoderInstance->canonicalize("\\X3c"));
     }
     function testCanonicalize_114() {
-        $this->fail('bug!'); //$this->assertEqual( "<", $this->encoderInstance->canonicalize("\\x3C"));
+        $this->assertEqual( "<", $this->encoderInstance->canonicalize("\\x3C"));
     }
     function testCanonicalize_115() {
-        $this->fail('bug!'); //$this->assertEqual( "<", $this->encoderInstance->canonicalize("\\X3C"));
+        $this->assertEqual( "<", $this->encoderInstance->canonicalize("\\X3C"));
     }
     
     // css escape syntax
