@@ -38,6 +38,10 @@ class CodecDebug
      */
     public function addEncodedString($stringNormalizedEncoding)
     {
+        if (! ESAPI::getLogger(LOG)->isDebugEnabled() || ! $this->allowRecurse)
+        {
+            return;
+        }
         $this->verb = "Decod";
         $this->addString($stringNormalizedEncoding);
     }
@@ -52,6 +56,10 @@ class CodecDebug
      */
     public function addUnencodedString($stringNormalizedEncoding)
     {
+        if (! ESAPI::getLogger(LOG)->isDebugEnabled() || ! $this->allowRecurse)
+        {
+            return;
+        }
         $this->verb = "Encod";
         $this->addString($stringNormalizedEncoding);
     }
@@ -68,13 +76,23 @@ class CodecDebug
      */
     public function output($codecOutput)
     {
-        if (! ESAPI::getLogger(LOG)->isDebugEnabled() || ! $this->allowRecurse) return;
+        if (! ESAPI::getLogger(LOG)->isDebugEnabled() || ! $this->allowRecurse)
+        {
+            return;
+        }
         if ($this->buf === null)
         {
             return; // the codec being tested has not added any normalised inputs.
         }
+        $output = '';
+        
         $this->allowRecurse = false;
-        $output = $this->buf . $this->verb . 'ed: [' . ESAPI::getEncoder()->encodeForHTML($codecOutput) . ']';
+        $htmlCodecOutput = ESAPI::getEncoder()->encodeForHTML($codecOutput);
+        if ($htmlCodecOutput == '') {
+            $output = $this->buf . $this->verb . 'ed string was an empty string.';
+        } else {
+            $output = $this->buf . $this->verb . 'ed: [' . $htmlCodecOutput . ']';
+        }
 
         ESAPI::getLogger(LOG)->debug(new EventType('Codec Debugging'), true, $output);
         $this->allowRecurse = true;
@@ -94,7 +112,10 @@ class CodecDebug
      */
     private function addString($string)
     {
-        if (! ESAPI::getLogger(LOG)->isDebugEnabled() || ! $this->allowRecurse) return;
+        if (! ESAPI::getLogger(LOG)->isDebugEnabled() || ! $this->allowRecurse)
+        {
+            return;
+        }
         // start with some details about the caller
         if ($this->buf === null)
         {
@@ -176,9 +197,9 @@ class CodecDebug
         if ($pos == 0) {
             throw new Exception('backtrace is odd!'); // abort!
         }
-        $trace .= $dt[$pos]['class'] . '-&gt;' .  $dt[$pos--]['function'] . ', ';
-        $trace .= $dt[$pos]['class'] . '-&gt;' .  $dt[$pos--]['function'] . ', ';
-        $trace .= $dt[$pos]['class'] . '-&gt;' .  $dt[$pos]['function']   . $objName;
+        $trace .= $dt[$pos]['class'] . '.' .  $dt[$pos--]['function'] . ', ';
+        $trace .= $dt[$pos]['class'] . '.' .  $dt[$pos--]['function'] . ', ';
+        $trace .= $dt[$pos]['class'] . '.' .  $dt[$pos]['function']   . $objName;
         
         return $trace;
     }
