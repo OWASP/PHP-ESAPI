@@ -585,17 +585,6 @@ class EncoderTest extends UnitTestCase
             // expected
         }
     }
-	
-	/**
-	 * Test of normalize method, of class org.owasp.esapi.Validator.
-	 * 
-	 * @throws ValidationException
-	 *             the validation exception
-	 */
-	function testNormalize() {
-		$this->fail();
-		// $this->AssertEqual( "e a i _ @ \" < > ", ESAPI.encoder().normalize("é á î _ @ \" < > \u20A0"));
-	}
 
 	
     /**
@@ -807,25 +796,25 @@ class EncoderTest extends UnitTestCase
      * Test of encodeForLDAP method of class Encoder.
      */
     function testEncodeForLDAP_01() {
-        $this->fail(); /* DELETE ME ("encodeForLDAP");
+        $this->skip(); /* DELETE ME ("encodeForLDAP");
         $instance = ESAPI::getEncoder();
         $this->AssertEqual(null, $instance->encodeForLDAP(null));
         */
     }
     function testEncodeForLDAP_02() {
-        $this->fail(); /* DELETE ME ("encodeForLDAP");
+        $this->skip(); /* DELETE ME ("encodeForLDAP");
         $instance = ESAPI::getEncoder();
         $this->AssertEqual("No special characters to escape", "Hi This is a test #��", $instance->encodeForLDAP("Hi This is a test #��"));
         */
     }
     function testEncodeForLDAP_03() {
-        $this->fail(); /* DELETE ME ("encodeForLDAP");
+        $this->skip(); /* DELETE ME ("encodeForLDAP");
         $instance = ESAPI::getEncoder();
         $this->AssertEqual("Zeros", "Hi \\00", $instance->encodeForLDAP("Hi \u0000"));
         */
     }
     function testEncodeForLDAP_04() {
-        $this->fail(); /* DELETE ME ("encodeForLDAP");
+        $this->skip(); /* DELETE ME ("encodeForLDAP");
         $instance = ESAPI::getEncoder();
         $this->AssertEqual("LDAP Christams Tree", "Hi \\28This\\29 = is \\2a a \\5c test # � � �", $instance->encodeForLDAP("Hi (This) = is * a \\ test # � � �"));
         */
@@ -836,49 +825,49 @@ class EncoderTest extends UnitTestCase
      * Test of encodeForDN method of class Encoder.
      */
     function testEncodeForDN_01() {
-        $this->fail(); /* DELETE ME ("encodeForDN");
+        $this->skip(); /* DELETE ME ("encodeForDN");
         $instance = ESAPI::getEncoder();
         $this->AssertEqual(null, $instance->encodeForDN(null));
         */
     }
     function testEncodeForDN_02() {
-        $this->fail(); /* DELETE ME ("encodeForDN");
+        $this->skip(); /* DELETE ME ("encodeForDN");
         $instance = ESAPI::getEncoder();
         $this->AssertEqual("No special characters to escape", "Hello�", $instance->encodeForDN("Hello�"));
         */
     }
     function testEncodeForDN_03() {
-        $this->fail(); /* DELETE ME ("encodeForDN");
+        $this->skip(); /* DELETE ME ("encodeForDN");
         $instance = ESAPI::getEncoder();
         $this->AssertEqual("leading #", "\\# Hello�", $instance->encodeForDN("# Hello�"));
         */
     }
     function testEncodeForDN_04() {
-        $this->fail(); /* DELETE ME ("encodeForDN");
+        $this->skip(); /* DELETE ME ("encodeForDN");
         $instance = ESAPI::getEncoder();
         $this->AssertEqual("leading space", "\\ Hello�", $instance->encodeForDN(" Hello�"));
         */
     }
     function testEncodeForDN_05() {
-        $this->fail(); /* DELETE ME ("encodeForDN");
+        $this->skip(); /* DELETE ME ("encodeForDN");
         $instance = ESAPI::getEncoder();
         $this->AssertEqual("trailing space", "Hello�\\ ", $instance->encodeForDN("Hello� "));
         */
     }
     function testEncodeForDN_06() {
-        $this->fail(); /* DELETE ME ("encodeForDN");
+        $this->skip(); /* DELETE ME ("encodeForDN");
         $instance = ESAPI::getEncoder();
         $this->AssertEqual("less than greater than", "Hello\\<\\>", $instance->encodeForDN("Hello<>"));
         */
     }
     function testEncodeForDN_07() {
-        $this->fail(); /* DELETE ME ("encodeForDN");
+        $this->skip(); /* DELETE ME ("encodeForDN");
         $instance = ESAPI::getEncoder();
         $this->AssertEqual("only 3 spaces", "\\  \\ ", $instance->encodeForDN("   "));
         */
     }
     function testEncodeForDN_08() {
-        $this->fail(); /* DELETE ME ("encodeForDN");
+        $this->skip(); /* DELETE ME ("encodeForDN");
         $instance = ESAPI::getEncoder();
         $this->AssertEqual("Christmas Tree DN", "\\ Hello\\\\ \\+ \\, \\\"World\\\" \\;\\ ", $instance->encodeForDN(" Hello\\ + , \"World\" ; "));
         */
@@ -995,7 +984,7 @@ class EncoderTest extends UnitTestCase
         */
     }
     function testEncodeForBase64_04() {
-        $this->fail(); /* DELETE ME ("encodeForBase64");
+        $this->fail('Test is not yet implemented.'); /* DELETE ME ("encodeForBase64");
         $instance = ESAPI::getEncoder();
         try {
             for ( $i=0; $i < 100; $i++ ) {
@@ -1015,7 +1004,7 @@ class EncoderTest extends UnitTestCase
      * Test of decodeFromBase64 method, of class org.owasp.esapi.Encoder.
      */
     function testDecodeFromBase64() {
-$this->fail(); // DELETE ME ("decodeFromBase64");
+$this->fail('Test is not yet implemented.'); // DELETE ME ("decodeFromBase64");
 //        $instance = ESAPI::getEncoder();
 //        for ( int i=0; i < 100; i++ ) {
 //            try {
