@@ -103,7 +103,8 @@ class HTMLEntityCodec extends Codec
     {
       //TODO: add comments
       
-    	if(mb_substr($input,0,1,"UTF-32") === null)
+    	$decodeResult = null;
+    	if (mb_substr($input,0,1,"UTF-32") == null)
     	{
     		// first character is null, so eat the 1st character off the string and return null
     		$input = mb_substr($input,1,mb_strlen($input,"UTF-32"),"UTF-32"); //this isn't necessary, can simply return null...no need to eat 1st character off input string
@@ -119,13 +120,13 @@ class HTMLEntityCodec extends Codec
     	// 1st character is part of encoding pattern...
 
     	// test for numeric encodings
-    	if(mb_substr($input,1,1,"UTF-32") === null)
+    	if (mb_substr($input,1,1,"UTF-32") == null)
     	{
     		// 2nd character is null, so return decodedCharacter=null and encodedString=(1st character, malformed encoding)
     		return array('decodedCharacter'=>null,'encodedString'=>mb_substr($input,0,1,"UTF-32")); //could potentially speed this up simply using 'encodedString'=>$this->normalizeEncoding('&')
     	}
     	
-    	if(mb_substr($input,1,1,"UTF-32") == $this->normalizeEncoding('#'))
+    	if (mb_substr($input,1,1,"UTF-32") == $this->normalizeEncoding('#'))
     	{
     		// 2nd character is hash, so handle numbers...
     		
@@ -140,7 +141,7 @@ class HTMLEntityCodec extends Codec
     	else
     	{
     		// Get the ordinal value of the 2nd character.
-			  list(, $ordinalValue) = unpack("N", mb_substr($input,1,1,"UTF-32"));
+			list(, $ordinalValue) = unpack("N", mb_substr($input,1,1,"UTF-32"));
 			
     		if(preg_match("/^[a-zA-Z]/", chr($ordinalValue)))
     		{
@@ -153,6 +154,11 @@ class HTMLEntityCodec extends Codec
 	    		{
 	    			return $decodeResult;
 	    		}
+    		}
+    		else
+    		{
+    		    // 2nd character does not form a known entity, so re
+    		    return array('decodedCharacter'=>null,'encodedString'=>null);
     		}
     	}
     	
@@ -321,7 +327,11 @@ class HTMLEntityCodec extends Codec
      * &aaaaaa;
      * &aaaaaaa;
      * 
-     * note: the case of the first letter is important and should be preserved so as to differentiate between, say, &Oacute; and &oacute;
+     * note: the case of the first letter is important and should be preserved
+     * so as to differentiate between, say, &Oacute; and &oacute; .  To ensure
+     * that cases where the first letter is capitalised are not missed when a
+     * capitalised entity does not exist, an alternative, lowercase entity will
+     * be sought.
      * 
      * @param input
      * 							A string containing a named entity like &quot;,
@@ -341,26 +351,35 @@ class HTMLEntityCodec extends Codec
     		return array('decodedCharacter'=>null,'encodedString'=>null);
     	}
     	
-    	$possible = mb_convert_encoding("", mb_detect_encoding($input));	//encoding should be UTF-32, so why detect it?
+    	$possible      = mb_convert_encoding("", mb_detect_encoding($input));	//encoding should be UTF-32, so why detect it?
+    	$possibleLower = mb_convert_encoding("", mb_detect_encoding($input));
     	$possibleAscii = "";
+    	$possibleAsciiLower = "";
     	$inputLength = min(mb_strlen($input,"UTF-32"),7);
     	for($i=1; $i<$inputLength; $i++)
     	{
     		if($i > 1)
     		{
     			// character is not the first in possible entity, so force to lowercase...
-    			$possible .= strtolower(mb_substr($input,$i,1,"UTF-32"));
+    			$c = strtolower(mb_substr($input,$i,1,"UTF-32"));
+    			$possible .= $c;
+    			$possibleLower .= $c;
     			list(, $ordinalValue) = unpack("N", strtolower(mb_substr($input,$i,1,"UTF-32")));
     			$possibleAscii .= chr($ordinalValue);
+    			$possibleAsciiLower .= chr($ordinalValue);
     		}
     		else
     		{
     			// character is the first in possible entity, so preserve its case...
-    			$possible .= mb_substr($input,$i,1,"UTF-32");
+    			$c = mb_substr($input,$i,1,"UTF-32");
+    			$possible .= $c;
+    			$possibleLower .= strtolower($c);
     			
     			//entity keys in entityToCharacterMap are ASCII encoded so take an ASCII conversion of current character for comparison
     			list(, $ordinalValue) = unpack("N", mb_substr($input,$i,1,"UTF-32"));
     			$possibleAscii .= chr($ordinalValue);
+    			list(, $ordinalValue) = unpack("N", strtolower(mb_substr($input,$i,1,"UTF-32")));
+    			$possibleAsciiLower .= chr($ordinalValue);
     		}
     		
 			  // attempting to map possible entity value to a character...
@@ -379,7 +398,23 @@ class HTMLEntityCodec extends Codec
   				}
   				
   				return array('decodedCharacter'=>$entityValue,'encodedString'=>$encodedString);
-			  }
+			}
+  			else if(array_key_exists($possibleAsciiLower,self::$entityToCharacterMap))
+    		{
+    			$entityValue = self::$entityToCharacterMap[$possibleAsciiLower];
+  				// entity value is not null, so return the entity value and encodedString
+  				
+  				if(mb_substr($input,$i+1,1,"UTF-32") === $this->normalizeEncoding(';'))
+  				{
+  					$encodedString = $this->normalizeEncoding('&').$possibleLower.$this->normalizeEncoding(';');
+  				}
+  				else
+  				{
+  					$encodedString = $this->normalizeEncoding('&').$possibleLower;
+  				}
+  				
+  				return array('decodedCharacter'=>$entityValue,'encodedString'=>$encodedString);
+			}
   			else if(mb_substr($input,$i,1,"UTF-32") == $this->normalizeEncoding(';'))
   			{
   				// entity encoding found to be malformed, so return null

@@ -104,7 +104,8 @@ class CSSCodec extends Codec
    		// Search for up to 6 hex digits following until a space
    		$potentialHexString = $this->normalizeEncoding('');
    		$hexDigitCount = 0;
-   		for($i=0; $i<6; $i++)
+   		$limit = min(6, mb_strlen($input, 'UTF-32') - 1);
+   		for($i=0; $i<$limit; $i++)
    		{
    			$_4ByteCharacter = mb_substr($input,1+$i,1,"UTF-32");
    			if($this->isHexDigit($_4ByteCharacter))
