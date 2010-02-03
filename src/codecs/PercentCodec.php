@@ -73,12 +73,6 @@ class PercentCodec extends Codec
         return $encodedOutput.chr($ordinalValue);
       }
       
-      // check for the space character which will be encoded as '+'
-      if ($hex == 20)
-      {
-          return $encodedOutput."+";
-      }
-      
       if($ordinalValue < 16)
       {
       	// ordinalValue is less than 16, therefore prepend hex with a 0...
@@ -101,13 +95,6 @@ class PercentCodec extends Codec
     		return array('decodedCharacter'=>null,'encodedString'=>null);
     	}
     	
-    	// if 1st character is '+' then it's decoded character will be a space.
-    	if(mb_substr($input,0,1,"UTF-32") == $this->normalizeEncoding('+'))
-    	{
-    		//note: due to issue #27, this situation may give rise to erroneous behaviour - beware!
-    		return array('decodedCharacter'=>$this->normalizeEncoding(' '),'encodedString'=>mb_substr($input,0,1,"UTF-32"));
-    	}
-    	
     	// if this is not an encoded character, return null
     	if(mb_substr($input,0,1,"UTF-32") != $this->normalizeEncoding('%'))
     	{
@@ -119,10 +106,16 @@ class PercentCodec extends Codec
     	
    		// check for exactly two hex digits following
    		$potentialHexString = $this->normalizeEncoding('');
-   		for($i=0; $i<2; $i++)
+   		$limit = min(2, mb_strlen($input, "UTF-32") - 1);
+   		for($i=0; $i<$limit; $i++)
    		{
-   			$c = mb_substr($input,1+$i,1,"UTF-32");
-   			if($c!=null) $potentialHexString .= $c;
+   			$c = mb_substr($input, 1+$i, 1, "UTF-32");
+   			if ($c != '') {
+   			    $ph = $this->parseHex($c);
+   			    if ($ph !== null) {
+   			        $potentialHexString .= $c;
+   			    }
+   			}
    		}
    		if(mb_strlen($potentialHexString,"UTF-32") == 2)
    		{

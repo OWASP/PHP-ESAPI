@@ -523,7 +523,41 @@ class DefaultEncoder implements Encoder {
         {
             return null;
         }
-        return $this->percentCodec->encode($this->immune_url, $input);
+        $encoded = $this->percentCodec->encode($this->immune_url, $input);
+        
+        $initialEncoding = $this->percentCodec->detectEncoding($encoded);
+        $decodedString = mb_convert_encoding('', $initialEncoding);
+        
+        $pcnt = $this->percentCodec->normalizeEncoding('%');
+        $two = $this->percentCodec->normalizeEncoding('2');
+        $zero = $this->percentCodec->normalizeEncoding('0');
+        $char_plus = mb_convert_encoding('+', $initialEncoding);
+        
+        $index = 0;
+        $limit = mb_strlen($encoded, $initialEncoding);
+        for ($i = 0; $i < $limit; $i++)
+        {
+            if ($index > $i) {
+                continue; // already dealt with this character
+            }
+            $c = mb_substr($encoded, $i, 1, $initialEncoding);
+            $d = mb_substr($encoded, $i+1, 1, $initialEncoding);
+            $e = mb_substr($encoded, $i+2, 1, $initialEncoding);
+            if (
+                $this->percentCodec->normalizeEncoding($c) == $pcnt &&
+                $this->percentCodec->normalizeEncoding($d) == $two  &&
+                $this->percentCodec->normalizeEncoding($e) == $zero
+            )
+            {
+                $decodedString .= $char_plus;
+                $index += 3;
+            } else {
+                $decodedString .= $c;
+                $index++;
+            }
+        }
+        
+        return $decodedString;
     }
 
     /**
@@ -547,7 +581,26 @@ class DefaultEncoder implements Encoder {
             return null;
         }
         $canonical = $this->canonicalize($input, true);
-        return $this->percentCodec->decode($canonical);
+        
+        // Replace '+' with ' '
+        $initialEncoding = $this->percentCodec->detectEncoding($canonical);
+        $decodedString = mb_convert_encoding('', $initialEncoding);
+        
+        $find = $this->percentCodec->normalizeEncoding('+');
+        $char_space = mb_convert_encoding(' ', $initialEncoding);
+        
+        $limit = mb_strlen($canonical, $initialEncoding);
+        for ($i = 0; $i < $limit; $i++)
+        {
+            $c = mb_substr($canonical, $i, 1, $initialEncoding);
+            if ($this->percentCodec->normalizeEncoding($c) == $find) {
+                $decodedString .= $char_space;
+            } else {
+                $decodedString .= $c;
+            }
+        }
+        
+        return $this->percentCodec->decode($decodedString);
     }
 
     /**
