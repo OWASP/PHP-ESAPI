@@ -10,4 +10,5 @@ The following controls have been assigned:
 || HTTPUtilities || Initial development || Linden ||
 || IntrusionDetector || Initial development || jah ||
 || Logger || Last mile || jah ||
+|| SafeFile || Initial development || Martin ||
 || Validator || Last mile || Andrew ||
