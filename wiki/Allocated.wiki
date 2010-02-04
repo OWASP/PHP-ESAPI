@@ -3,7 +3,6 @@
 The following controls have been assigned:
 
 || *Control* || *Current status* || *Assignee* ||
-|| Codec - Base64Codec || Initial development || Martin ||
 || Encoder || Last mile || jah, Andrew ||
 || Encryptor || Initial development || Arnaud ||
 || EncryptedProperties || Initial development || Arnaud (on hold) ||
