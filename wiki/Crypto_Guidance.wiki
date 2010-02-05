@@ -7,7 +7,7 @@ Here are my latest greatest thoughts for ESAPI for PHP:
 
 Let us keep it simple, assume there are manually-entered keys in ESAPI.xml...
 {{{
-public setKeys($keyname, $ivname = null) //parse key name to determine key type
+public setKey($keyname, $ivname = null) //parse key name to determine key type
 }}}
 E.g.,
 
@@ -123,5 +123,5 @@ Signatures should use [http://www.ietf.org/rfc/rfc3852.txt CMS (i.e. RFC 3852)] 
 
 ||*Service*||*Description*||*Keys Accessed*||
 || FIPS mode enable/disable ESAPI.xml configuration setting || Enables/Disables FIPS mode for cryptomodules that require this configuration to be done programmatically ||None ||
-|| getCrypto() || Performs ... using the key loaded from the ESAPI configuration file using setKeys() || Keys/AES_.., Keys/3DES_.. ||
+|| getCrypto() || Performs ... using the key loaded from the ESAPI configuration file using setKey() || Keys/AES_.., Keys/3DES_.. ||
 ||...||...||...||
