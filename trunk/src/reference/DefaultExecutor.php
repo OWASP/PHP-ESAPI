@@ -29,31 +29,9 @@ class DefaultExecutor implements Executor {
 	private $LogFileName = null;
 	private $MaxLogFileSize = null;
 	
-	// Codecs
-	
-	private $codec = null;
-	
 	function __construct()
 	{
-        //TODO: Use codecs
-		try {
-	       	if(strstr(php_uname('s'),'Windows')) {
-	       		$this->logSpecial( 'Using WindowsCodec for Executor. If this is not running on Windows this could allow injection');
-//	       	    $this->codec = new WindowsCodec();
-	       	}
-	       	else {
-	       		$this->logSpecial( 'Using UnixCodec for Executor. If this is not running on Unix this could allow injection');
-//	       	    $this->codec = new UnixCodec();
-	       	}       	
-        } 
-        catch ( Exception $e ) {
-        	$this->logSpecial($e->getMessage());
-        }
-	}
-	
-	private function logSpecial($msg) {
-		echo $msg;
-	}
+ 	}
 
     /**
      * Executes a system command after checking that the executable exists and
@@ -119,9 +97,7 @@ class DefaultExecutor implements Executor {
             foreach($params as $param) {
             	$paramstr = $paramstr." ".$param;
             }
-            $this->logSpecial( "Initiating executable: $executable $paramstr in $workdir");
             $output = `$executable $paramstr`;
-            $this->logSpecial( "System command complete");
             return $output;
     	}
     	catch ( Exception $e ) {
