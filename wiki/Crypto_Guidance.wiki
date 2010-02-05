@@ -7,7 +7,7 @@ Here are my latest greatest thoughts for ESAPI for PHP:
 
 Let us keep it simple, assume there are manually-entered keys in ESAPI.xml...
 {{{
-public manage($operation, $keyname, $ivname = null)
+public setKey($keyname, $ivname = null) //parse key name to determine key type
 }}}
 E.g.,
 
@@ -15,8 +15,8 @@ E.g.,
 || || Encryptor || || || ||
 || || || ... || ... || ||
 || || || Keys || || ||
-|| || || || AES_128_CBC_MY_KEY || 4278b840fb44aaa757c1bf04acbe1a3e (this would be the actual key in the reference implementation, could in one's own implementation be e.g. additional identifiers to use to retrieve a key from somewhere) ||
-|| || || || AES_128_CBC_MY_IV || 57f02a5c5339daeb0a2908a06ac6393f ||
+|| || || || AES_128_MY_KEY || 4278b840fb44aaa757c1bf04acbe1a3e (this would be the actual key in the reference implementation, could in one's own implementation be e.g. additional identifiers to use to retrieve a key from somewhere) ||
+|| || || || AES_128_MY_IV || 57f02a5c5339daeb0a2908a06ac6393f ||
 || || || || ... || ... ||
 || || || || MasterSalt || A17FED27EAA842282862FF7C1B9C8395A26AC320 ||
 || || || || ... || ... ||
@@ -27,10 +27,6 @@ We don't need any key import/export functionality for a first release.
 
 We need some definitions...
 {{{
-const ESAPI_CRYPTO_KM_SET_ENCRYPT_DECRYPT_KEY
-const ESAPI_CRYPTO_KM_SET_SIGN_VERIFY_KEY_PAIR
-const ESAPI_CRYPTO_KM_SET_MESSAGE_AUTHENTICATION_KEYS
-//...
 const ESAPI_CRYPTO_OP_ENCRYPT_ASCII_HEX
 const ESAPI_CRYPTO_OP_DECRYPT_ASCII_HEX
 const ESAPI_CRYPTO_OP_SIGNATURE_CREATE_BASE64_CMS
@@ -87,8 +83,9 @@ private $_mac_subkey1
 private $_mac_subkey2
 
 private _op_init() //called by constructor, sets available algorithm/key/mode
-public operate($operation, $data, $salt = null)
-public random() //DefaultRandomizer should be calling this, which in turn will call mt_rand (for now)
+public getCrypto($operation, $data, $salt = null)
+public getRandom() //DefaultRandomizer should be calling this, which in turn will call mt_rand (for now)
+public getTime()
 }}}
 
 E.g.,
@@ -104,7 +101,7 @@ E.g.,
 || || || || MessageAuthenticationAlgorithm || ... ||
 || || || || ... || ... ||
 
-E.g., operate(), e.g. ESAPI_CRYPTO_OP_SYMMETRIC_KEY_ENCRYPT_ASCII_HEX, inputs/outputs plain-old ASCII hex characters (e.g. 32 hex chars = 128 bit key)
+E.g., getCrypto(), e.g. ESAPI_CRYPTO_OP_SYMMETRIC_KEY_ENCRYPT_ASCII_HEX, inputs/outputs plain-old ASCII hex characters (e.g. 32 hex chars = 128 bit key)
 {{{
 KEY = 4278b840fb44aaa757c1bf04acbe1a3e
 IV = 57f02a5c5339daeb0a2908a06ac6393f
@@ -126,5 +123,5 @@ Signatures should use [http://www.ietf.org/rfc/rfc3852.txt CMS (i.e. RFC 3852)] 
 
 ||*Service*||*Description*||*Keys Accessed*||
 || FIPS mode enable/disable ESAPI.xml configuration setting || Enables/Disables FIPS mode for cryptomodules that require this configuration to be done programmatically ||None ||
-|| operate() || Performs ... using the key loaded from the ESAPI configuration file using manage() || Keys/AES_.., Keys/3DES_.. ||
+|| getCrypto() || Performs ... using the key loaded from the ESAPI configuration file using setKeys() || Keys/AES_.., Keys/3DES_.. ||
 ||...||...||...||
