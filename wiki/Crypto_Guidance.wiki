@@ -7,8 +7,8 @@ Here are my latest greatest thoughts for ESAPI for PHP:
 
 Let us keep it simple, assume there are manually-entered keys in ESAPI.xml...
 {{{
-public km_setSymmetricKey($keyname, $ivname = null) //does not return a value, sets private vars
-public km_setAsymmetricKeyPair($keyname)
+public km_setEncryptDecryptKey($keyname, $ivname = null) //does not return a value, sets private vars
+public km_setSignVerifyKeyPair($keyname)
 public km_setMessageAuthenticationKeys($keyname) //includes precomputed subkeys
 }}}
 E.g.,
@@ -84,11 +84,11 @@ private $_mac_subkey1
 private $_mac_subkey2
 
 private _op_init() //called by constructor, sets available algorithm/key/mode
-public op_symmetric($data, $operation)
-public op_asymmetric($data, $operation)
+public op_encryptOrDecrypt($data, $operation)
+public op_signOrVerify($data, $operation)
 public op_hash($data, $salt = null) //maybe later, add the ability to do hash updates
 public op_random() //DefaultRandomizer should be calling this, which in turn will call mt_rand (for now)
-public op_mac($data)
+//public op_mac($data, $operation) //need better name
 }}}
 
 E.g.,
