@@ -6,7 +6,6 @@ The following controls have been assigned:
 || Encoder || Last mile || jah, Andrew, Linden ||
 || Encryptor || Initial development || Arnaud ||
 || EncryptedProperties || Initial development || Arnaud (on hold) ||
-|| Executor || Last mile || Linden ||
 || HTTPUtilities || Initial development || Linden ||
 || IntrusionDetector || Initial development || jah ||
 || Logger || Last mile || jah ||
