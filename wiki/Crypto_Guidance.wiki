@@ -69,21 +69,21 @@ private ESAPI_CRYPTO_3DES_KO2_OFB
 private ESAPI_CRYPTO_3DES_KO2_OFB_I
 //... continue on, e.g. for signatures, according to FIPS 140-2, as above
 
-private $algorithm_symmetric //combination of algorithm/key/mode, set using ESAPI.xml
-private $algorithm_asymmetric
-private $algorithm_shs //hash algorithm, set using ESAPI.xml
-private $algorithm_rng
-private $algorithm_mac
+private $_algorithm_symmetric //combination of algorithm/key/mode, set using ESAPI.xml
+private $_algorithm_asymmetric
+private $_algorithm_shs //hash algorithm, set using ESAPI.xml
+private $_algorithm_rng
+private $_algorithm_mac
 
-private $symmetric_key
-private $symmetric_iv
-private $asymmetric_public_key
-private $asymmetric_private_key
-private $mac_symmetric_key
-private $mac_subkey1
-private $mac_subkey2
+private $_symmetric_key
+private $_symmetric_iv
+private $_asymmetric_public_key
+private $_asymmetric_private_key
+private $_mac_symmetric_key
+private $_mac_subkey1
+private $_mac_subkey2
 
-private op_init() //called by constructor, sets available algorithm/key/mode
+private _op_init() //called by constructor, sets available algorithm/key/mode
 public op_symmetric($data, $operation)
 public op_asymmetric($data, $operation)
 public op_hash($data, $salt = null) //maybe later, add the ability to do hash updates
