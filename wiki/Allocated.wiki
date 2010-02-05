@@ -8,6 +8,6 @@ The following controls have been assigned:
 || EncryptedProperties || Initial development || Arnaud (on hold) ||
 || HTTPUtilities || Initial development || Linden ||
 || IntrusionDetector || Initial development || jah ||
-|| Logger || Last mile || Martin ||
+|| Logger || Last mile || jah ||
 || SafeFile || Initial development completed, waiting for review based on questions || Martin ||
 || Validator || Last mile || Andrew ||
