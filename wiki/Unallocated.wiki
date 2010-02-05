@@ -4,4 +4,3 @@ The following controls have not yet been assigned:
 
 || *Control* || *What remains to be done* || *Priority* ||
 || Access Controller || Initial development || Low ||
-|| SafeFile || Initial development || Low ||
