@@ -17,8 +17,8 @@ E.g.,
 || || Encryptor || || || ||
 || || || ... || ... || ||
 || || || Keys || || ||
-|| || || || AES_128_CBC_MyKey || 4278b840fb44aaa757c1bf04acbe1a3e (this would be the actual key in the reference implementation, could in one's own implementation be e.g. additional identifiers to use to retrieve a key from somewhere) ||
-|| || || || AES_128_CBC_MyIV || 57f02a5c5339daeb0a2908a06ac6393f ||
+|| || || || AES_128_CBC_MY_KEY || 4278b840fb44aaa757c1bf04acbe1a3e (this would be the actual key in the reference implementation, could in one's own implementation be e.g. additional identifiers to use to retrieve a key from somewhere) ||
+|| || || || AES_128_CBC_MY_IV || 57f02a5c5339daeb0a2908a06ac6393f ||
 || || || || ... || ... ||
 || || || || MasterSalt || A17FED27EAA842282862FF7C1B9C8395A26AC320 ||
 || || || || ... || ... ||
@@ -29,10 +29,10 @@ We don't need any key import/export functionality for a first release.
 
 We need some definitions...
 {{{
-const SYMMETRIC_KEY_ENCRYPT_ASCII_HEX
-const SYMMETRIC_KEY_DECRYPT_ASCII_HEX
-const ASYMMETRIC_KEY_SIGN_CREATE_BASE64_CMS
-const ASYMMETRIC_KEY_VERIFY_BASE64_CMS
+const ESAPI_CRYPTO_OP_SYMMETRIC_KEY_ENCRYPT_ASCII_HEX
+const ESAPI_CRYPTO_OP_SYMMETRIC_KEY_DECRYPT_ASCII_HEX
+const ESAPI_CRYPTO_OP_ASYMMETRIC_KEY_SIGN_CREATE_BASE64_CMS
+const ESAPI_CRYPTO_OP_ASYMMETRIC_KEY_VERIFY_BASE64_CMS
 }}}
 Here are the supported configuration values to validate as input from ESAPI.xml, only 1 - 2 will be supported in first release...
 {{{
