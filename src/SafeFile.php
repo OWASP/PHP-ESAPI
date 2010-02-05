@@ -6,99 +6,95 @@
  * Enterprise Security API (ESAPI) project. For details, please see
  * <a href="http://www.owasp.org/index.php/ESAPI">http://www.owasp.org/index.php/ESAPI</a>.
  *
- * Copyright (c) 2007 - 2009 The OWASP Foundation
+ * Copyright (c) 2007 - 2010 The OWASP Foundation
  * 
  * The ESAPI is published by OWASP under the BSD license. You should read and accept the
- * LICENSE before you use, modify, and/or redistribute this software.
+ * LICENSE before you use, modify,   and/or redistribute this software.
  * 
- * @author 
- * @created 2008
+ * @author Martin Reiche <martin.reiche.ka@googlemail.com>
  * @since 1.4
- * @package org.owasp.esapi
  */
 
 require_once dirname(__FILE__).'/errors/ValidationException.php';
 
 /**
- * Extension to java.io.File to prevent against null byte injections and
+ * Extension to SplFileObject to prevent against null byte injections and
  * other unforeseen problems resulting from unprintable characters
  * causing problems in path lookups. This does _not_ prevent against
  * directory traversal attacks.
  * 
- * @author 
  * @since 1.4
  */
-class SafeFile extends File {
+class SafeFile extends SplFileObject {
 
-	function SafeFile($path) {
-//		super(path);
-//		doDirCheck(this.getParent());
-//		doFileCheck(this.getName());
+        private $PERCENTS_PAT = "(%)([0-9a-fA-F])([0-9a-fA-F])";
+        private $FILE_BLACKLIST_PAT = "([\\\\/:*?<>|])";
+        private $DIR_BLACKLIST_PAT = "([*?<>|])";
+
+        /**
+         * Creates an extended SplFileObject from the given filename, which
+         * prevents against null byte injections and unprintable characters.
+         * @param String $path the path to the file (path && file name)
+         */
+
+	function __construct($path) {
+		parent::__construct($path);
+		$this->doDirCheck($this->getPath());
+		$this->doFileCheck($this->getFilename());
 	}
 
-//	public SafeFile(String parent, String child) throws ValidationException {
-//		super(parent, child);
-//		doDirCheck(this.getParent());
-//		doFileCheck(this.getName());
-//	}
-//
-//	public SafeFile(File parent, String child) throws ValidationException {
-//		super(parent, child);
-//		doDirCheck(this.getParent());
-//		doFileCheck(this.getName());
-//	}
-//
-//	public SafeFile(URI uri) throws ValidationException {
-//		super(uri);
-//		doDirCheck(this.getParent());
-//		doFileCheck(this.getName());
-//	}
-
-	
-//	Pattern percents = Pattern.compile("(%)([0-9a-fA-F])([0-9a-fA-F])");	
-//	Pattern dirblacklist = Pattern.compile("([*?<>|])");
+	/**
+         * Checks the directory against null bytes and unprintable characters.
+         * @param String $path the directory path (without the file name)
+         */
 	private function doDirCheck($path) {
-//		Matcher m1 = dirblacklist.matcher( path );
-//		if ( m1.find() ) {
-//			throw new ValidationException( "Invalid directory", "Directory path (" + path + ") contains illegal character: " + m1.group() );
-//		}
-//
-//		Matcher m2 = percents.matcher( path );
-//		if ( m2.find() ) {
-//			throw new ValidationException( "Invalid directory", "Directory path (" + path + ") contains encoded characters: " + m2.group() );
-//		}
-//		
-//		int ch = containsUnprintableCharacters(path);
-//		if (ch != -1) {
-//			throw new ValidationException("Invalid directory", "Directory path (" + path + ") contains unprintable character: " + ch);
-//		}
+		if ( preg_match($this->DIR_BLACKLIST_PAT, $path) ) {
+			throw new ValidationException("Invalid directory", "Directory path (" + $path + ") contains illegal character. ");
+		}
+
+		if ( preg_match($this->PERCENTS_PAT, $path) ) {
+			throw new ValidationException("Invalid directory", "Directory path (" + $path + ") contains encoded characters. ");
+		}
+		
+		$ch = $this->containsUnprintableCharacters($path);
+		if (ch != -1) {
+			throw new ValidationException("Invalid directory", "Directory path (" + $path + ") contains unprintable character. ");
+		}
 	}
 	
-//	Pattern fileblacklist = Pattern.compile("([\\\\/:*?<>|])");	
+        /**
+         * Checks the file name against null bytes and unprintable characters.
+         * @param String $path the file name
+         */
 	private function doFileCheck($path) {
-//		Matcher m1 = fileblacklist.matcher( path );
-//		if ( m1.find() ) {
-//			throw new ValidationException( "Invalid directory", "Directory path (" + path + ") contains illegal character: " + m1.group() );
-//		}
-//
-//		Matcher m2 = percents.matcher( path );
-//		if ( m2.find() ) {
-//			throw new ValidationException( "Invalid file", "File path (" + path + ") contains encoded characters: " + m2.group() );
-//		}
-//		
-//		int ch = containsUnprintableCharacters(path);
-//		if (ch != -1) {
-//			throw new ValidationException("Invalid file", "File path (" + path + ") contains unprintable character: " + ch);
-//		}
+		if ( preg_match($this->FILE_BLACKLIST_PAT, $path) ) {
+			throw new ValidationException("Invalid directory", "Directory path (" + $path + ") contains illegal character.");
+		}
+
+		if ( preg_match($this->PERCENTS_PAT, $path) ) {
+			throw new ValidationException("Invalid file", "File path (" + $path + ") contains encoded characters.");
+		}
+		
+		$ch = $this->containsUnprintableCharacters($path);
+		if (ch != -1) {
+			throw new ValidationException("Invalid file", "File path (" + $path + ") contains unprintable character.");
+		}
 	}
 
+        /**
+         * Checks the specified string for unprintable characters (ASCII range
+         * from 0 to 31 and from 127 to 255).
+         * @param String $s the String to check for unprintable characters
+         * @return int  the value of the first unprintable character found.
+         *              If no unprintable character was found, -1 is returned.
+         */
 	private function containsUnprintableCharacters($s) {
-//		for (int i = 0; i < s.length(); i++) {
-//			char ch = s.charAt(i);
-//			if (((int) ch) < 32 || ((int) ch) > 126) {
-//				return (int) ch;
-//			}
-//		}
-//		return -1;
+		for ($i = 0; $i < strlen($s); $i++) {
+			$ch = $s[i];
+			if (ord($ch) < 32 || ord($ch) > 126) {
+				return $ch;
+			}
+		}
+		return -1;
 	}
 }
