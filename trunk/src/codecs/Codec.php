@@ -61,7 +61,7 @@ abstract class Codec {
 		CodecDebug::getInstance()->addUnencodedString(self::normalizeEncoding($input));
 		
 		$encoding =  self::detectEncoding($input);
-		$mbstrlen = mb_strlen($input);
+		$mbstrlen = mb_strlen($input, $encoding);
 		$encodedString = mb_convert_encoding("", $encoding);
 		for($i=0; $i<$mbstrlen; $i++)
 		{
