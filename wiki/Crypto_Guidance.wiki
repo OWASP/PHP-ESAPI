@@ -7,9 +7,7 @@ Here are my latest greatest thoughts for ESAPI for PHP:
 
 Let us keep it simple, assume there are manually-entered keys in ESAPI.xml...
 {{{
-public km_setEncryptDecryptKey($keyname, $ivname = null) //does not return a value, sets private vars
-public km_setSignVerifyKeyPair($keyname)
-public km_setMessageAuthenticationKeys($keyname) //includes precomputed subkeys
+public km_setKey($keymanage, $keyname, $ivname = null)
 }}}
 E.g.,
 
@@ -29,6 +27,10 @@ We don't need any key import/export functionality for a first release.
 
 We need some definitions...
 {{{
+const ESAPI_CRYPTO_KM_SET_ENCRYPT_DECRYPT_KEY
+const ESAPI_CRYPTO_KM_SET_SIGN_VERIFY_KEY_PAIR
+const ESAPI_CRYPTO_KM_SET_MESSAGE_AUTHENTICATION_KEYS
+//...
 const ESAPI_CRYPTO_OP_ENCRYPT_ASCII_HEX
 const ESAPI_CRYPTO_OP_DECRYPT_ASCII_HEX
 const ESAPI_CRYPTO_OP_SIGNATURE_CREATE_BASE64_CMS
