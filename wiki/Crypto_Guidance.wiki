@@ -7,9 +7,9 @@ Here are my latest greatest thoughts for ESAPI for PHP:
 
 Let us keep it simple, assume there are manually-entered keys in ESAPI.xml...
 {{{
-public km_getSymmetricKey($keyname, $ivname = null) //does not return a value, sets private vars
-public km_getAsymmetricKeyPair($keyname)
-public km_getMessageAuthenticationKeys($keyname) //includes precomputed subkeys
+public km_setSymmetricKey($keyname, $ivname = null) //does not return a value, sets private vars
+public km_setAsymmetricKeyPair($keyname)
+public km_setMessageAuthenticationKeys($keyname) //includes precomputed subkeys
 }}}
 E.g.,
 
@@ -36,37 +36,37 @@ const ESAPI_CRYPTO_OP_ASYMMETRIC_KEY_VERIFY_BASE64_CMS
 }}}
 Here are the supported configuration values to validate as input from ESAPI.xml, only 1 - 2 will be supported in first release...
 {{{
-private ESAPI_CRYPTO_SHA1
-private ESAPI_CRYPTO_SHA224
-private ESAPI_CRYPTO_SHA384
-private ESAPI_CRYPTO_SHA512
-private ESAPI_CRYPTO_AES_128_ECB
-private ESAPI_CRYPTO_AES_128_CBC
-private ESAPI_CRYPTO_AES_128_CFB
-private ESAPI_CRYPTO_AES_128_CTR
-private ESAPI_CRYPTO_AES_128_OFB
-private ESAPI_CRYPTO_AES_192_ECB
-private ESAPI_CRYPTO_AES_192_CBC
-private ESAPI_CRYPTO_AES_192_CFB
-private ESAPI_CRYPTO_AES_192_CTR
-private ESAPI_CRYPTO_AES_192_OFB
-private ESAPI_CRYPTO_AES_256_ECB
-private ESAPI_CRYPTO_AES_256_CBC
-private ESAPI_CRYPTO_AES_256_CFB
-private ESAPI_CRYPTO_AES_256_CTR
-private ESAPI_CRYPTO_AES_256_OFB
-private ESAPI_CRYPTO_3DES_KO1_TECB
-private ESAPI_CRYPTO_3DES_KO1_TCBC
-private ESAPI_CRYPTO_3DES_KO1_TCBC_I
-private ESAPI_CRYPTO_3DES_KO1_TCFB
-private ESAPI_CRYPTO_3DES_KO1_TCFB_P
-private ESAPI_CRYPTO_3DES_KO1_OFB
-private ESAPI_CRYPTO_3DES_KO1_OFB_I
-private ESAPI_CRYPTO_3DES_KO2_TCBC_I
-private ESAPI_CRYPTO_3DES_KO2_TCFB
-private ESAPI_CRYPTO_3DES_KO2_TCFB_P
-private ESAPI_CRYPTO_3DES_KO2_OFB
-private ESAPI_CRYPTO_3DES_KO2_OFB_I
+private ESAPI_CRYPTO_MODE_SHA1
+private ESAPI_CRYPTO_MODE_SHA224
+private ESAPI_CRYPTO_MODE_SHA384
+private ESAPI_CRYPTO_MODE_SHA512
+private ESAPI_CRYPTO_MODE_AES_128_ECB
+private ESAPI_CRYPTO_MODE_AES_128_CBC
+private ESAPI_CRYPTO_MODE_AES_128_CFB
+private ESAPI_CRYPTO_MODE_AES_128_CTR
+private ESAPI_CRYPTO_MODE_AES_128_OFB
+private ESAPI_CRYPTO_MODE_AES_192_ECB
+private ESAPI_CRYPTO_MODE_AES_192_CBC
+private ESAPI_CRYPTO_MODE_AES_192_CFB
+private ESAPI_CRYPTO_MODE_AES_192_CTR
+private ESAPI_CRYPTO_MODE_AES_192_OFB
+private ESAPI_CRYPTO_MODE_AES_256_ECB
+private ESAPI_CRYPTO_MODE_AES_256_CBC
+private ESAPI_CRYPTO_MODE_AES_256_CFB
+private ESAPI_CRYPTO_MODE_AES_256_CTR
+private ESAPI_CRYPTO_MODE_AES_256_OFB
+private ESAPI_CRYPTO_MODE_3DES_KO1_TECB
+private ESAPI_CRYPTO_MODE_3DES_KO1_TCBC
+private ESAPI_CRYPTO_MODE_3DES_KO1_TCBC_I
+private ESAPI_CRYPTO_MODE_3DES_KO1_TCFB
+private ESAPI_CRYPTO_MODE_3DES_KO1_TCFB_P
+private ESAPI_CRYPTO_MODE_3DES_KO1_OFB
+private ESAPI_CRYPTO_MODE_3DES_KO1_OFB_I
+private ESAPI_CRYPTO_MODE_3DES_KO2_TCBC_I
+private ESAPI_CRYPTO_MODE_3DES_KO2_TCFB
+private ESAPI_CRYPTO_MODE_3DES_KO2_TCFB_P
+private ESAPI_CRYPTO_MODE_3DES_KO2_OFB
+private ESAPI_CRYPTO_MODE_3DES_KO2_OFB_I
 //... continue on, e.g. for signatures, according to FIPS 140-2, as above
 
 private $_algorithm_symmetric //combination of algorithm/key/mode, set using ESAPI.xml
@@ -97,14 +97,14 @@ E.g.,
 || || Encryptor || || || ||
 || || || ... || ... || ||
 || || || Modes || || ||
-|| || || || SymmetricAlgorithm || ESAPI_CRYPTO_AES_128_CBC ||
+|| || || || SymmetricAlgorithm || ESAPI_CRYPTO_MODE_AES_128_CBC ||
 || || || || AsymmetricAlgorithm || ... ||
-|| || || || HashAlgorithm || ESAPI_CRYPTO_SHA224 ||
+|| || || || HashAlgorithm || ESAPI_CRYPTO_MODE_SHA224 ||
 || || || || RandomAlgorithm || ... ||
 || || || || MessageAuthenticationAlgorithm || ... ||
 || || || || ... || ... ||
 
-E.g., op_symmetric, e.g. SYMMETRIC_KEY_ENCRYPT_ASCII_HEX, inputs/outputs plain-old ASCII hex characters (e.g. 32 hex chars = 128 bit key)
+E.g., op_symmetric, e.g. ESAPI_CRYPTO_OP_SYMMETRIC_KEY_ENCRYPT_ASCII_HEX, inputs/outputs plain-old ASCII hex characters (e.g. 32 hex chars = 128 bit key)
 {{{
 KEY = 4278b840fb44aaa757c1bf04acbe1a3e
 IV = 57f02a5c5339daeb0a2908a06ac6393f
