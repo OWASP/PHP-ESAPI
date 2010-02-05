@@ -29,10 +29,11 @@ We don't need any key import/export functionality for a first release.
 
 We need some definitions...
 {{{
-const ESAPI_CRYPTO_OP_SYMMETRIC_KEY_ENCRYPT_ASCII_HEX
-const ESAPI_CRYPTO_OP_SYMMETRIC_KEY_DECRYPT_ASCII_HEX
-const ESAPI_CRYPTO_OP_ASYMMETRIC_KEY_SIGN_CREATE_BASE64_CMS
-const ESAPI_CRYPTO_OP_ASYMMETRIC_KEY_VERIFY_BASE64_CMS
+const ESAPI_CRYPTO_OP_ENCRYPT_ASCII_HEX
+const ESAPI_CRYPTO_OP_DECRYPT_ASCII_HEX
+const ESAPI_CRYPTO_OP_SIGNATURE_CREATE_BASE64_CMS
+const ESAPI_CRYPTO_OP_SIGNATURE_VERIFY_BASE64_CMS
+//...
 }}}
 Here are the supported configuration values to validate as input from ESAPI.xml, only 1 - 2 will be supported in first release...
 {{{
@@ -84,11 +85,8 @@ private $_mac_subkey1
 private $_mac_subkey2
 
 private _op_init() //called by constructor, sets available algorithm/key/mode
-public op_encryptOrDecrypt($data, $operation)
-public op_signOrVerify($data, $operation)
-public op_hash($data, $salt = null) //maybe later, add the ability to do hash updates
+public op_crypto($operation, $data, $salt = null)
 public op_random() //DefaultRandomizer should be calling this, which in turn will call mt_rand (for now)
-//public op_mac($data, $operation) //need better name
 }}}
 
 E.g.,
