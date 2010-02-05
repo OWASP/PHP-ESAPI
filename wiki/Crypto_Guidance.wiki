@@ -8,6 +8,7 @@ Here are my latest greatest thoughts for ESAPI for PHP:
 Let us keep it simple, assume there are manually-entered keys in ESAPI.xml...
 {{{
 public setKey($keyname, $ivname = null) //parse key name to determine key type
+public getKeyName()
 }}}
 E.g.,
 
