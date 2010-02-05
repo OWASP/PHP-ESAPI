@@ -87,7 +87,7 @@ private $_mac_subkey1
 private $_mac_subkey2
 
 private _op_init() //called by constructor, sets available algorithm/key/mode
-public op_crypto($operation, $data, $salt = null)
+public op_getCrypto($operation, $data, $salt = null)
 public op_random() //DefaultRandomizer should be calling this, which in turn will call mt_rand (for now)
 }}}
 
