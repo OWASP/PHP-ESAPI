@@ -41,7 +41,8 @@ $test = new GroupTest('Finished');
 	$test->addTestFile(dirname(__FILE__).'/reference/SecurityConfigurationTest.php');		// AJV
 	$test->addTestFile(dirname(__FILE__).'/reference/RandomizerTest.php');					// AJV
 	$test->addTestFile(dirname(__FILE__).'/reference/StringUtilitiesTest.php');				// AJV
-$test->run(new HTMLReporter());
+	$test->addTestFile(dirname(__FILE__).'/reference/ExecutorTest.php');					// Laura
+	$test->run(new HTMLReporter());
 
 $test = new GroupTest('Allocated');
 	$test->addTestFile(dirname(__FILE__).'/reference/EncryptorTest.php');					// AJV
@@ -49,7 +50,6 @@ $test = new GroupTest('Allocated');
 	$test->addTestFile(dirname(__FILE__).'/reference/IntrusionDetectorTest.php');			// Aung Khant
 	$test->addTestFile(dirname(__FILE__).'/reference/ValidatorTest.php'); 					// AJV & Johannes Ullrich
 	$test->addTestFile(dirname(__FILE__).'/reference/LoggerTest.php'); 						// Laura
-	$test->addTestFile(dirname(__FILE__).'/reference/ExecutorTest.php');					// Laura
 	$test->addTestFile(dirname(__FILE__).'/reference/HTTPUtilitiesTest.php');				// Laura
 	$test->addTestFile(dirname(__FILE__).'/reference/EncoderTest.php');						// Linden
 $test->run(new HTMLReporter());
