@@ -7,7 +7,7 @@ Here are my latest greatest thoughts for ESAPI for PHP:
 
 Let us keep it simple, assume there are manually-entered keys in ESAPI.xml...
 {{{
-public km_key($keymanage, $keyname, $ivname = null)
+public manage($keymanage, $keyname, $ivname = null)
 }}}
 E.g.,
 
@@ -87,8 +87,8 @@ private $_mac_subkey1
 private $_mac_subkey2
 
 private _op_init() //called by constructor, sets available algorithm/key/mode
-public op_crypto($operation, $data, $salt = null)
-public op_random() //DefaultRandomizer should be calling this, which in turn will call mt_rand (for now)
+public operate($operation, $data, $salt = null)
+public random() //DefaultRandomizer should be calling this, which in turn will call mt_rand (for now)
 }}}
 
 E.g.,
@@ -104,7 +104,7 @@ E.g.,
 || || || || MessageAuthenticationAlgorithm || ... ||
 || || || || ... || ... ||
 
-E.g., op_crypto, e.g. ESAPI_CRYPTO_OP_SYMMETRIC_KEY_ENCRYPT_ASCII_HEX, inputs/outputs plain-old ASCII hex characters (e.g. 32 hex chars = 128 bit key)
+E.g., operate(), e.g. ESAPI_CRYPTO_OP_SYMMETRIC_KEY_ENCRYPT_ASCII_HEX, inputs/outputs plain-old ASCII hex characters (e.g. 32 hex chars = 128 bit key)
 {{{
 KEY = 4278b840fb44aaa757c1bf04acbe1a3e
 IV = 57f02a5c5339daeb0a2908a06ac6393f
@@ -126,5 +126,5 @@ Signatures should use [http://www.ietf.org/rfc/rfc3852.txt CMS (i.e. RFC 3852)] 
 
 ||*Service*||*Description*||*Keys Accessed*||
 || FIPS mode enable/disable ESAPI.xml configuration setting || Enables/Disables FIPS mode for cryptomodules that require this configuration to be done programmatically ||None ||
-|| op_crypto || Performs ... using the key loaded from the ESAPI configuration file using km_key || Keys/AES_.., Keys/3DES_.. ||
+|| operate() || Performs ... using the key loaded from the ESAPI configuration file using manage() || Keys/AES_.., Keys/3DES_.. ||
 ||...||...||...||
