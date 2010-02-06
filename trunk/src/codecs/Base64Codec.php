@@ -23,7 +23,7 @@ require_once dirname ( __FILE__ ) . '/../ESAPI.php';
 /**
  * Implementation of the Codec Interface for Base64 en/decoding.
  */
-class Base64CodecSimple extends Codec
+class Base64Codec extends Codec
 {
 
     /**
