@@ -28,16 +28,20 @@ require_once ('Codec.php');
  */
 class HTMLEntityCodec extends Codec
 {
-  private static $characterToEntityMap = Array();
+	private static $characterToEntityMap = Array();
 	private static $entityToCharacterMap = Array();
+	private static $longestEntity = 0;
+	private static $mapIsInitialized = false;
 
     /**
      * Public Constructor 
      */
     function __construct()
     {
-  		parent::__construct();
-  		$this->initializeMaps();
+		parent::__construct();
+		if (self::$mapIsInitialized == false) {
+			$this->initializeMaps();
+		}
     }
 
     /**
@@ -315,10 +319,10 @@ class HTMLEntityCodec extends Codec
     	}
     }
     
-	/**
+    /**
      * Returns the decoded version of the character starting at index, or
      * null if no decoding is possible.
-     * 
+     *
      * Formats all are legal both with and without semi-colon, upper/lower case:
      * &aa;
      * &aaa;
@@ -326,103 +330,138 @@ class HTMLEntityCodec extends Codec
      * &aaaaa;
      * &aaaaaa;
      * &aaaaaaa;
-     * 
+     * &aaaaaaaa;
+     *
      * note: the case of the first letter is important and should be preserved
-     * so as to differentiate between, say, &Oacute; and &oacute; .  To ensure
-     * that cases where the first letter is capitalised are not missed when a
-     * capitalised entity does not exist, an alternative, lowercase entity will
-     * be sought.
-     * 
+     * so as to differentiate between, say, &Oacute; and &oacute; .
+     *
      * @param input
-     * 							A string containing a named entity like &quot;,
-     * 							may contain trailing characters like &quot;quotlala or &quotquotlala
-     * 
+     *         A string containing a named entity like &quot; and may contain
+     *         trailing characters like &quot;quotlala or &quotquotlala .
+     *
      * @return
-     * 							Returns an array containing two objects:
-     * 							'decodedCharacter' => the decoded version of the character starting at index, or null if no decoding is possible.
-     * 							'encodedString' => the string that was decoded or found to be malformed
+     *         Returns an array containing two objects:
+     *         'decodedCharacter' => the decoded version of the character
+     *         starting at index, or null if no decoding is possible.
+     *         'encodedString' => the string that was decoded or found to be
+     *         malformed
      */
     private function getNamedEntity($input)
     {
-      // decodeCharacter should've already established that the 1st character are '&' or '&', but check again incase this method is being called from elsewhere
-    	if(mb_substr($input,0,1,"UTF-32") != $this->normalizeEncoding('&'))
-    	{
-    		// input did not satisfy initial pattern requirements for getNamedEntity, so return null
-    		return array('decodedCharacter'=>null,'encodedString'=>null);
-    	}
-    	
-    	$possible      = mb_convert_encoding("", mb_detect_encoding($input));	//encoding should be UTF-32, so why detect it?
-    	$possibleLower = mb_convert_encoding("", mb_detect_encoding($input));
-    	$possibleAscii = "";
-    	$possibleAsciiLower = "";
-    	$inputLength = min(mb_strlen($input,"UTF-32"),7);
-    	for($i=1; $i<$inputLength; $i++)
-    	{
-    		if($i > 1)
-    		{
-    			// character is not the first in possible entity, so force to lowercase...
-    			$c = strtolower(mb_substr($input,$i,1,"UTF-32"));
-    			$possible .= $c;
-    			$possibleLower .= $c;
-    			list(, $ordinalValue) = unpack("N", strtolower(mb_substr($input,$i,1,"UTF-32")));
-    			$possibleAscii .= chr($ordinalValue);
-    			$possibleAsciiLower .= chr($ordinalValue);
-    		}
-    		else
-    		{
-    			// character is the first in possible entity, so preserve its case...
-    			$c = mb_substr($input,$i,1,"UTF-32");
-    			$possible .= $c;
-    			$possibleLower .= strtolower($c);
-    			
-    			//entity keys in entityToCharacterMap are ASCII encoded so take an ASCII conversion of current character for comparison
-    			list(, $ordinalValue) = unpack("N", mb_substr($input,$i,1,"UTF-32"));
-    			$possibleAscii .= chr($ordinalValue);
-    			list(, $ordinalValue) = unpack("N", strtolower(mb_substr($input,$i,1,"UTF-32")));
-    			$possibleAsciiLower .= chr($ordinalValue);
-    		}
-    		
-			  // attempting to map possible entity value to a character...
-    		if(array_key_exists($possibleAscii,self::$entityToCharacterMap))
-    		{
-    			$entityValue = self::$entityToCharacterMap[$possibleAscii];
-  				// entity value is not null, so return the entity value and encodedString
-  				
-  				if(mb_substr($input,$i+1,1,"UTF-32") === $this->normalizeEncoding(';'))
-  				{
-  					$encodedString = $this->normalizeEncoding('&').$possible.$this->normalizeEncoding(';');
-  				}
-  				else
-  				{
-  					$encodedString = $this->normalizeEncoding('&').$possible;
-  				}
-  				
-  				return array('decodedCharacter'=>$entityValue,'encodedString'=>$encodedString);
-			}
-  			else if(array_key_exists($possibleAsciiLower,self::$entityToCharacterMap))
-    		{
-    			$entityValue = self::$entityToCharacterMap[$possibleAsciiLower];
-  				// entity value is not null, so return the entity value and encodedString
-  				
-  				if(mb_substr($input,$i+1,1,"UTF-32") === $this->normalizeEncoding(';'))
-  				{
-  					$encodedString = $this->normalizeEncoding('&').$possibleLower.$this->normalizeEncoding(';');
-  				}
-  				else
-  				{
-  					$encodedString = $this->normalizeEncoding('&').$possibleLower;
-  				}
-  				
-  				return array('decodedCharacter'=>$entityValue,'encodedString'=>$encodedString);
-			}
-  			else if(mb_substr($input,$i,1,"UTF-32") == $this->normalizeEncoding(';'))
-  			{
-  				// entity encoding found to be malformed, so return null
-  				//TODO: throw an exception for malformed entity?
-  				return array('decodedCharacter'=>null,'encodedString'=>mb_substr($input,0,$i,"UTF-32"));
-  			}
-    	}
-    	return array('decodedCharacter'=>null,'encodedString'=>mb_substr($input,0,$i,"UTF-32"));
+        // decodeCharacter should've already established that the 1st character
+        // is '&', but check again in case this method is being called from elsewhere
+        if (mb_substr($input,0,1,'UTF-32') != $this->normalizeEncoding('&'))
+        {
+            // input did not satisfy initial pattern requirements for getNamedEntity,
+            // so return null
+            return array('decodedCharacter'=>null,'encodedString'=>null);
+        }
+        
+        // Get the first alpanum input character
+        $inputCaseUnchanged = mb_substr($input, 1, 1, 'UTF-32');
+        if ($inputCaseUnchanged === '') {
+            return array('decodedCharacter'=>null,'encodedString'=>null);
+        }
+        list(, $ordinalValue) = unpack('N', $inputCaseUnchanged);
+        $asciiCaseUnchanged = chr($ordinalValue);
+        
+        // Is it alphanumeric
+        $alphanums = str_split(Encoder::CHAR_ALPHANUMERICS, 1);
+        if ($this->containsCharacter($inputCaseUnchanged, $alphanums) !== true) {
+            return array('decodedCharacter'=>null, 'encodedString'=>null);
+        }
+        
+        // Preserving the case of the first character
+        $inputCaseLowerPreserveFirst = $inputCaseUnchanged;
+        $asciiCaseLowerPreserveFirst = $asciiCaseUnchanged;
+        
+        // The first character as lower case.
+        $inputCaseLower = strtolower($inputCaseUnchanged);
+        $ordinalValue = null;
+        list(, $ordinalValue) = unpack('N', $inputCaseLower);
+        $asciiCaseLower = chr($ordinalValue);
+        
+        $entityValue   = null; // the most recently found entity name
+        $originalInput = null; // the corresponding original input
+        
+        // If first char is lowercase CaseLowerPreserveFirst can be discarded.
+        if ($asciiCaseUnchanged === $asciiCaseLower) {
+            $inputCaseLowerPreserveFirst = null;
+            $asciiCaseLowerPreserveFirst = null;
+        }
+        
+        // Test for a valid entity
+        if ($asciiCaseLowerPreserveFirst !== null
+            && array_key_exists($asciiCaseLower, self::$entityToCharacterMap)
+        ) {
+            $entityValue = self::$entityToCharacterMap[$asciiCaseLower];
+            $originalInput = $inputCaseLower;
+        }
+        
+        if (array_key_exists($asciiCaseUnchanged, self::$entityToCharacterMap)) {
+            $entityValue = self::$entityToCharacterMap[$asciiCaseUnchanged];
+            $originalInput = $inputCaseUnchanged;
+        }
+        
+        // Loop through remaining characters.
+        $limit = min(mb_strlen($input, 'UTF-32'), self::$longestEntity);
+        for ($i = 2; $i < $limit; $i++)
+        {
+            $c = mb_substr($input, $i, 1, 'UTF-32');
+            if ($c === '') {
+                break;
+            }
+            list(, $ordVal) = unpack('N', $c);
+            $a = chr($ordVal);
+            if ($a == ';' && $entityValue !== null) {
+                $originalInput .= $c;
+                break;
+            }
+            if ($this->containsCharacter($c, $alphanums) !== true) {
+                break;
+            }
+            // we have an alphanum!
+            $inputCaseUnchanged .= $c;
+            $asciiCaseUnchanged .= $a;
+
+            $cLower = strtolower($c);
+            if ($inputCaseLowerPreserveFirst !== null) {
+                $inputCaseLowerPreserveFirst .= $cLower;
+            }
+            $inputCaseLower .= $cLower;
+            list(, $ordValL) = unpack('N', $cLower);
+            if ($asciiCaseLowerPreserveFirst !== null) {
+                $asciiCaseLowerPreserveFirst .= chr($ordValL);
+            }
+            $asciiCaseLower .= chr($ordValL);
+            
+            if ($asciiCaseLower !== $asciiCaseUnchanged
+                && array_key_exists($asciiCaseLower, self::$entityToCharacterMap))
+            {
+                $entityValue = self::$entityToCharacterMap[$asciiCaseLower];
+                $originalInput = $inputCaseLower;
+            }
+            if ($asciiCaseLowerPreserveFirst !== null
+                && $asciiCaseLowerPreserveFirst !== $asciiCaseLower
+                && array_key_exists($asciiCaseLowerPreserveFirst, self::$entityToCharacterMap))
+            {
+                $entityValue = self::$entityToCharacterMap[$asciiCaseLowerPreserveFirst];
+                $originalInput = $inputCaseLowerPreserveFirst;
+            }
+            if (array_key_exists($asciiCaseUnchanged, self::$entityToCharacterMap))
+            {
+                $entityValue = self::$entityToCharacterMap[$asciiCaseUnchanged];
+                $originalInput = $inputCaseUnchanged;
+            }
+        }
+        if ($originalInput !== null) {
+            $originalInput = $this->normalizeEncoding('&') . $originalInput;
+        }
+        
+        return array (
+            'decodedCharacter' => $entityValue,
+            'encodedString'    => $originalInput,
+        );
     }
 
 	/**
@@ -941,11 +980,19 @@ class HTMLEntityCodec extends Codec
 		);
 		for($i=0; $i<count($entityNames); $i++)
 		{
-			$character = html_entity_decode('&'.$entityNames[$i].';',ENT_QUOTES,"UTF-8");
+			$character = html_entity_decode('&'.$entityNames[$i].';', ENT_NOQUOTES, 'UTF-8');
 			// Normalize encoding to UTF-32
-			$character = $this->normalizeEncoding($character);
+			$character = mb_convert_encoding($character, 'UTF-32', 'UTF-8');
 			self::$characterToEntityMap[$character] = $entityNames[$i];
 			self::$entityToCharacterMap[$entityNames[$i]] = $character;
+			
+			// get the length of the longest entity name
+			$len = mb_strlen($entityNames[$i], 'UTF-8');
+			if ($len > self::$longestEntity) {
+			    self::$longestEntity = $len;
+			}
 		}
+		self::$longestEntity += 2;
+		self::$mapIsInitialized = true;
 	}
 }
