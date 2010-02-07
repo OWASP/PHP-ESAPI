@@ -288,7 +288,14 @@ class JavaScriptCodec extends Codec
     		// trying to convert hexString to integer...
     		
     		$parsedInteger = (int)hexdec($hexString);
-    		$parsedCharacter = chr($parsedInteger);
+    		if ($parsedInteger <= 0xFF)
+    		{
+    		    $parsedCharacter = chr($parsedInteger);
+    		}
+    		else
+    		{
+    		    $parsedCharacter = mb_convert_encoding('&#' . $parsedInteger . ';', 'UTF-8', 'HTML-ENTITIES');
+    		}
     		return $parsedCharacter;
     	}
     	catch(Exception $e)

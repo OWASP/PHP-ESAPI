@@ -168,7 +168,14 @@ class PercentCodec extends Codec
     		// trying to convert hexString to integer...
     		if ($hexString == mb_convert_encoding("", mb_detect_encoding($input))) return null;
     		$parsedInteger = (int)hexdec($hexString);
-    		$parsedCharacter = chr($parsedInteger);
+    		if ($parsedInteger <= 0xFF)
+    		{
+    		    $parsedCharacter = chr($parsedInteger);
+    		}
+    		else
+    		{
+    		    $parsedCharacter = mb_convert_encoding('&#' . $parsedInteger . ';', 'UTF-8', 'HTML-ENTITIES');
+    		}
     		return $parsedCharacter;
     	}
     	catch(Exception $e)

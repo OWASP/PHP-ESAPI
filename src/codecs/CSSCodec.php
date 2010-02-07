@@ -186,12 +186,19 @@ class CSSCodec extends Codec
     		// trying to convert hexString to integer...
     		
     		$parsedInteger = (int)hexdec($hexString);
-    		if($parsedInteger == 0)
+    		if ($parsedInteger == 0)
     		{
     			// codepoint of zero not recognised in CSS, therefore return null
     			return null;
     		}
-    		$parsedCharacter = chr($parsedInteger);
+    		else if ($parsedInteger <= 0xFF)
+    		{
+    		    $parsedCharacter = chr($parsedInteger);
+    		}
+    		else
+    		{
+    		    $parsedCharacter = mb_convert_encoding('&#' . $parsedInteger . ';', 'UTF-8', 'HTML-ENTITIES');
+    		}
     		return $parsedCharacter;
     	}
     	catch(Exception $e)
