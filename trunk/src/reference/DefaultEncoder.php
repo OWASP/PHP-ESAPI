@@ -19,7 +19,7 @@
  */
 
 require_once dirname(__FILE__).'/../Encoder.php';
-//require_once dirname(__FILE__).'/../codecs/Base64Codec.php';
+require_once dirname(__FILE__).'/../codecs/Base64Codec.php';
 require_once dirname(__FILE__).'/../codecs/CSSCodec.php';
 require_once dirname(__FILE__).'/../codecs/HTMLEntityCodec.php';
 require_once dirname(__FILE__).'/../codecs/JavaScriptCodec.php';
@@ -36,7 +36,7 @@ require_once dirname(__FILE__).'/../codecs/VBScriptCodec.php';
  */
 class DefaultEncoder implements Encoder {
 
-//  private $base64Codec     = null;
+    private $base64Codec     = null;
     private $cssCodec        = null;
     private $htmlCodec       = null;
     private $javascriptCodec = null;
@@ -48,28 +48,29 @@ class DefaultEncoder implements Encoder {
      *  Character sets that define characters (in addition to alphanumerics) that are
      * immune from encoding in various formats
      */
+    private $immune_css       = array();
+    private $immune_base64    = array();
     private $immune_html      = array( ',', '.', '-', '_', ' ' );
     private $immune_htmlattr  = array( ',', '.', '-', '_' );
-    private $immune_css       = array();
     private $immune_javascript= array( ',', '.', '_' );
+    private $immune_os        = array( '-' );
+    private $immune_sql       = array( ' ' );
     private $immune_vbscript  = array( ',', '.', '_' );
     private $immune_xml       = array( ',', '.', '-', '_', ' ' );
-    private $immune_sql       = array( ' ' );
-    private $immune_os        = array( '-' );
     private $immune_xmlattr   = array( ',', '.', '-', '_' );
     private $immune_xpath     = array( ',', '.', '-', '_', ' ' );
     private $immune_url       = array( '.', '-', '*', '_');
-    private $codecs=array();
-
+    
+    private $codecs = array();
     private $logger = null;
 
 
-    function __construct($canonCodecs=null)
+    function __construct($canonCodecs = null)
     {
         $this->logger = ESAPI::getLogger("Encoder");
 
         // initialise codecs
-//      $this->base64Codec     = new Base64Codec();
+        $this->base64Codec     = new Base64Codec();
         $this->cssCodec        = new CSSCodec();
         $this->htmlCodec       = new HTMLEntityCodec();
         $this->javascriptCodec = new JavaScriptCodec();
@@ -80,23 +81,24 @@ class DefaultEncoder implements Encoder {
         // initialise array of codecs for use by canonicalize
         if ($canonCodecs === null)
         {
-            array_push($this->codecs, $this->percentCodec);
             array_push($this->codecs, $this->htmlCodec);
             array_push($this->codecs, $this->javascriptCodec);
+            array_push($this->codecs, $this->percentCodec);
             // leaving css and vbs codecs out - they eat / and " chars respectively
             // array_push($this->codecs,$this->cssCodec);
             // array_push($this->codecs,$this->vbscriptCodec);
         }
-        elseif (! is_array($canonCodecs))
+        else if (! is_array($canonCodecs))
         {
             throw new Exception('Invalid Argument. Codec list must be of type Array.');
         }
         else
         {
-            // check array only contains codec instances
-            foreach ($canonCodecs as $codec)
-            {
-                if (! is_a($codec, 'Codec')) throw new Exception('Invalid Argument. Codec list must contain only Codec instances.');
+            // check array contains only codec instances
+            foreach ($canonCodecs as $codec) {
+                if (! is_a($codec, 'Codec')) {
+                    throw new Exception('Invalid Argument. Codec list must contain only Codec instances.');
+                }
             }
             $this->codecs = array_merge($this->codecs, $canonCodecs);
         }
@@ -158,7 +160,7 @@ class DefaultEncoder implements Encoder {
      */
     function canonicalize($input, $strict = true)
     {
-        if ($input == null) {
+        if ($input === null) {
             return null;
         }
         $working = $input;
@@ -186,45 +188,39 @@ class DefaultEncoder implements Encoder {
                 }
             }
         }
-        // do strict tests and handle if any mixed, multiple, nested encoding were found
         // FIXME why is $input not the original input??
-        if ( $foundCount >= 2 && $mixedCount > 1 ) {
+        if ( $foundCount >= 2 && $mixedCount > 1 )
+        {
             if ( $strict == true ) {
-                throw new IntrusionException( "Input validation failure", "Multiple (". $foundCount ."x) and mixed encoding (". $mixedCount ."x) detected in " . $input );
+                throw new IntrusionException('Input validation failure',
+                    'Multiple (' . $foundCount . 'x) and mixed encoding ('
+                    . $mixedCount . 'x) detected in ' . $input
+                );
             } else {
-                $this->logger->warning( DefaultLogger::SECURITY, false, "Multiple (". $foundCount ."x) and mixed encoding (". $mixedCount ."x) detected in " . $input );
+                $this->logger->warning(DefaultLogger::SECURITY, false,
+                    'Multiple (' . $foundCount . 'x) and mixed encoding ('
+                    . $mixedCount . 'x) detected in ' . $input );
             }
         }
-        else if ( $foundCount >= 2 ) {
+        else if ( $foundCount >= 2 )
+        {
             if ( $strict == true ) {
-                throw new IntrusionException( "Input validation failure", "Multiple (". $foundCount ."x) encoding detected in " . $input );
+                throw new IntrusionException('Input validation failure',
+                    'Multiple (' . $foundCount . 'x) encoding detected in ' . $input );
             } else {
-                $this->logger->warning( DefaultLogger::SECURITY, false, "Multiple (". $foundCount ."x) encoding detected in " . $input );
+                $this->logger->warning(DefaultLogger::SECURITY, false,
+                    'Multiple (' . $foundCount . 'x) encoding detected in ' . $input );
             }
         }
-        else if ( $mixedCount > 1 ) {
+        else if ( $mixedCount > 1 )
+        {
             if ( $strict == true ) {
-                throw new IntrusionException( "Input validation failure", "Mixed encoding (". $mixedCount ."x) detected in " . $input );
+                throw new IntrusionException( 'Input validation failure', 'Mixed encoding ('. $mixedCount .'x) detected in ' . $input );
             } else {
-                $this->logger->warning( DefaultLogger::SECURITY, false, "Mixed encoding (". $mixedCount ."x) detected in " . $input );
+                $this->logger->warning( DefaultLogger::SECURITY, false, 'Mixed encoding ('. $mixedCount .'x) detected in ' . $input );
             }
         }
         return $working;
-    }
-
-    /**
-     * Reduce all non-ascii characters to their ASCII form so that simpler
-     * validation rules can be applied. For example, an accented-e character
-     * will be changed into a regular ASCII e character.
-     *
-     * @param input
-     *         the text to normalize
-     *
-     * @return a normalized String
-     */
-    function normalize($input)
-    {
-        throw new EnterpriseSecurityException("Method Not implemented");
     }
 
     /**
@@ -250,7 +246,7 @@ class DefaultEncoder implements Encoder {
      * Encode data for use in HTML using HTML entity encoding
      * <p>
      * Note that the following characters:
-     * 00�08, 0B�0C, 0E�1F, and 7F�9F
+     * 0x00-0x08, 0x0B-0x0C, 0x0E-0x1F and 0x7F-0x9F
      * <p>cannot be used in HTML.
      *
      * @see <a href="http://en.wikipedia.org/wiki/Character_encodings_in_HTML">HTML Encodings [wikipedia.org]</a>
@@ -615,7 +611,30 @@ class DefaultEncoder implements Encoder {
      */
     function encodeForBase64($input, $wrap = false)
     {
-        throw new EnterpriseSecurityException("Method Not implemented");
+        if ($input === null)
+        {
+            return null;
+        }
+        if ($wrap == false)
+        {
+            return $this->base64Codec->encode($this->immune_base64, $input);
+        }
+        
+        // wrap encoded string into lines of not more than 64 characters
+        $encoded = $this->base64Codec->encode($this->immune_base64, $input);
+        $initialEncoding = $this->base64Codec->detectEncoding($encoded);
+        $wrapped = '';
+        $limit = mb_strlen($encoded, $initialEncoding);
+        $index = 0;
+        
+        while ($index < $limit) {
+            if ($wrapped != '') {
+                 $wrapped .= "\n";
+            }
+            $wrapped .= mb_substr($encoded, $index, 64);
+            $index += 64;
+        }
+        return $wrapped; 
     }
 
     /**
@@ -631,7 +650,11 @@ class DefaultEncoder implements Encoder {
      */
     function decodeFromBase64($input)
     {
-        throw new EnterpriseSecurityException("Method Not implemented");
+        if ($input === null)
+        {
+            return null;
+        }
+        return $this->base64Codec->decode($input);
     }
 }
 ?>

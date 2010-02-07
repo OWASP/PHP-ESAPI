@@ -118,18 +118,6 @@ interface Encoder {
 	function canonicalize($input, $strict = true);
 
 	/**
-	 * Reduce all non-ascii characters to their ASCII form so that simpler
-	 * validation rules can be applied. For example, an accented-e character
-	 * will be changed into a regular ASCII e character.
-	 * 
-	 * @param input 
-	 * 		the text to normalize
-	 * 
-	 * @return a normalized String
-	 */
-	function normalize($input);
-
-	/**
 	 * Encode data for use in Cascading Style Sheets (CSS) content.
 	 * 
 	 * @see <a href="http://www.w3.org/TR/CSS21/syndata.html#escaped-characters">CSS Syntax [w3.org]</a>
@@ -145,7 +133,7 @@ interface Encoder {
 	 * Encode data for use in HTML using HTML entity encoding
 	 * <p> 
 	 * Note that the following characters:
-	 * 00�08, 0B�0C, 0E�1F, and 7F�9F 
+	 * 0x00-0x08, 0x0B-0x0C, 0x0E-0x1F, and 0x7F-0x9F 
 	 * <p>cannot be used in HTML. 
 	 * 
 	 * @see <a href="http://en.wikipedia.org/wiki/Character_encodings_in_HTML">HTML Encodings [wikipedia.org]</a> 

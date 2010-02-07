@@ -944,7 +944,7 @@ class EncoderTest extends UnitTestCase
     
     
     /**
-     * Test of decodeFromURL method, of class org.owasp.esapi.Encoder.
+     * Test of decodeFromURL method, of class Encoder.
      *
      * @throws Exception
      */
@@ -966,66 +966,70 @@ class EncoderTest extends UnitTestCase
      * Test of encodeForBase64 method of class Encoder.
      */
     function testEncodeForBase64_01() {
-        $this->fail(); /* DELETE ME ("encodeForBase64");
         $instance = ESAPI::getEncoder();
         $this->assertEqual(null, $instance->encodeForBase64(null, false));
-        */
     }
     function testEncodeForBase64_02() {
-        $this->fail(); /* DELETE ME ("encodeForBase64");
         $instance = ESAPI::getEncoder();
         $this->assertEqual(null, $instance->encodeForBase64(null, true));
-        */
     }
     function testEncodeForBase64_03() {
-        $this->fail(); /* DELETE ME ("encodeForBase64");
         $instance = ESAPI::getEncoder();
         $this->assertEqual(null, $instance->decodeFromBase64(null));
-        */
     }
+    // Test wrapping at 64 chars
     function testEncodeForBase64_04() {
-        $this->fail('Test is not yet implemented.'); /* DELETE ME ("encodeForBase64");
+        $instance = ESAPI::getEncoder();
+        $unencoded = ESAPI::getRandomizer()->getRandomString( 64, Encoder::CHAR_SPECIALS );
+        $encoded = $instance->encodeForBase64( $unencoded, false );
+        $encodedWrapped = $instance->encodeForBase64( $unencoded, true );
+        $expected = mb_substr($encoded, 0, 64, 'ASCII') . "\n" . mb_substr($encoded, 64, mb_strlen($encoded, 'ASCII')-64, 'ASCII');
+        $this->assertEqual( $expected, $encodedWrapped );
+    }
+    function testEncodeForBase64_05() {
         $instance = ESAPI::getEncoder();
         try {
             for ( $i=0; $i < 100; $i++ ) {
-                $r = str_split(ESAPI::getRandomizer()->getRandomString( 20, DefaultEncoder::CHAR_SPECIALS ));
-                $encoded = $instance->encodeForBase64( $r, ESAPI::getRandomizer().getRandomBoolean() );
-                $decoded = str_split($instance->decodeFromBase64( $encoded ));
-                $this->assertEqual( $r, $decoded );
+                $unencoded = ESAPI::getRandomizer()->getRandomString( 20, Encoder::CHAR_SPECIALS );
+                $encoded = $instance->encodeForBase64( $unencoded, ESAPI::getRandomizer()->getRandomBoolean() );
+                $decoded = $instance->decodeFromBase64( $encoded );
+                $this->assertEqual( $unencoded, $decoded );
             }
         } catch ( Exception $unexpected ) {
             $this->fail();
         }
-        */
     }
     
     
     /**
-     * Test of decodeFromBase64 method, of class org.owasp.esapi.Encoder.
+     * Test of decodeFromBase64 method, of class Encoder.
      */
-    function testDecodeFromBase64() {
-$this->fail('Test is not yet implemented.'); // DELETE ME ("decodeFromBase64");
-//        $instance = ESAPI::getEncoder();
-//        for ( int i=0; i < 100; i++ ) {
-//            try {
-//                byte[] r = ESAPI.randomizer().getRandomString( 20, DefaultEncoder.CHAR_SPECIALS ).getBytes();
-//                String encoded = $instance->encodeForBase64( r, ESAPI.randomizer().getRandomBoolean() );
-//                byte[] decoded = $instance->decodeFromBase64( encoded );
-//                assertTrue( Arrays.equals( r, decoded ) );
-//            } catch ( IOException e ) {
-//                fail();
-//            }
-//        }
-//        for ( int i=0; i < 100; i++ ) {
-//            try {
-//                byte[] r = ESAPI.randomizer().getRandomString( 20, DefaultEncoder.CHAR_SPECIALS ).getBytes();
-//                String encoded = ESAPI.randomizer().getRandomString(1, DefaultEncoder.CHAR_ALPHANUMERICS) + $instance->encodeForBase64( r, ESAPI.randomizer().getRandomBoolean() );
-//                byte[] decoded = $instance->decodeFromBase64( encoded );
-//                assertFalse( Arrays.equals(r, decoded) );
-//            } catch ( IOException e ) {
-//                // expected
-//            }
-//        }
+    function testDecodeFromBase64_01() {
+        $instance = ESAPI::getEncoder();
+        for ( $i=0; $i < 100; $i++ ) {
+            try {
+                $unencoded = ESAPI::getRandomizer()->getRandomString( 20, Encoder::CHAR_SPECIALS );
+                $encoded = $instance->encodeForBase64( $unencoded, ESAPI::getRandomizer()->getRandomBoolean() );
+                $decoded = $instance->decodeFromBase64( $encoded );
+                $this->assertEqual( $unencoded, $decoded );
+            } catch ( Exception $unexpected ) {
+                $this->fail();
+            }
+        }
+        for ( $i=0; $i < 100; $i++ ) {
+            try {
+                // get a string of 20 char_specials.
+                $unencoded = ESAPI::getRandomizer()->getRandomString( 20, Encoder::CHAR_SPECIALS );
+                // encode the string of char_specials and then prepend an alplanum
+                $encoded = ESAPI::getRandomizer()->getRandomString(1, Encoder::CHAR_ALPHANUMERICS) . $instance->encodeForBase64( $unencoded, ESAPI::getRandomizer()->getRandomBoolean() );
+                // decoding the encoded (and prepended to) string
+                $decoded = $instance->decodeFromBase64( $encoded );
+                // the decoded result should not equal the original string of 20 char_specials.
+                $this->assertNotEqual( $unencoded, $decoded );
+            } catch ( Exception $unexpected ) {
+                $this->fail();  // Note: java expects an IO exception, but base64_decode() doesn't throw one
+            }
+        }
     }
 
 
