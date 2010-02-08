@@ -55,15 +55,41 @@ class CSSCodecTest extends UnitTestCase
 		$this->assertEqual( "background:expression(window.x?0:(alert(/XSS/),window.x=1));", $this->cssCodec->decode('background\3a expression\28 window\2e x\3f 0\3a \28 alert\28 \2f XSS\2f \29 \2c window\2e x\3d 1\29 \29 \3b ') );
 	}
 		
-	function testDecodeCharacter()
+	function testDecodeLessThan()
 	{
 		$this->assertEqual( "<", $this->cssCodec->decode("\\3c ") );
+	}
+		
+	function testDecodeLTNonHexTerminated()
+	{
 		$this->assertEqual( "<YEEHAA", $this->cssCodec->decode("\\3cYEEHAA") );
+	}
+		
+	function testDecodeLTSpaceTerminated()
+	{
 		$this->assertEqual( "<AHAHA", $this->cssCodec->decode("\\3c AHAHA") );
-		$this->assertEqual( "?HAHA", $this->cssCodec->decode("\\3cAHAHA") );
-		$this->assertEqual( "?g", $this->cssCodec->decode("\\abcdefg") );
+	}
+		
+	function testDecodeUpToFirstNonHex()
+	{
+		$expected = mb_convert_encoding('&#' . 0x03CA . ';', 'UTF-8', 'HTML-ENTITIES') . 'HAHA';
+		$this->assertEqual( $expected, $this->cssCodec->decode("\\3cAHAHA") );
+	}
+		
+	function testDecodeMaxHexChars()
+	{
+		$expected = mb_convert_encoding('&#' . 0xABCDEF . ';', 'UTF-8', 'HTML-ENTITIES') . 'g';
+		$this->assertEqual( $expected, $this->cssCodec->decode("\\abcdefg") );
+	}
+		
+	function testDecodeIgnoreEscapedNewline()
+	{
 		$this->assertEqual( "ESCAPED NEW LINE GETS IGNORED", $this->cssCodec->decode("\\\nESCAP\\\nED NEW\\\n LINE GETS IGNORED\\\n") );	//FIXME: consider adding logic to all ESAPI implementations to handle this situation properly (i.e. without throwing malformed entity exception)
-		//$this->assertEqual( "CODEPOINT ZERO NOT RECOGNISED IN CSS", $this->cssCodec->decode("\\0 CODEP\\0 OINT ZER\\0O NOT\\0  RECOGNISED IN CSS\\0") );	//FIXME: this test yeilds an unexpected error when unpacking in Codec
+	}
+		
+	function testDecodeEatNullChar()
+	{
+		$this->assertEqual( "CODEPOINT ZERO NOT RECOGNISED IN CSS", $this->cssCodec->decode("\\0 CODEP\\0 OINT ZER\\0O NOT\\0  RECOGNISED IN CSS\\0") );	//FIXME: this test yeilds an unexpected error when unpacking in Codec
 	}
 	
 }

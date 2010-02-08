@@ -222,11 +222,11 @@ abstract class Codec {
 			// Get the ordinal value of the character.
 			list(, $ordinalValue) = unpack("N", $_4ByteCharacter);
 			
-			if ( $ordinalValue > 255 )
+			if ($ordinalValue <= 255)
 			{
-				return null;
+				return self::$hex[$ordinalValue];
 			}
-			return self::$hex[$ordinalValue];
+			return self::toHex($ordinalValue);
 		}
 
 	    /**
