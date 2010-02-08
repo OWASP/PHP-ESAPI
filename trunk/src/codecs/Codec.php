@@ -274,30 +274,78 @@ abstract class Codec {
     	  		return false;
         }
 
-    /**
-     * Utility to detect a (potentially multibyte) string's encoding with extra logic to deal with single characters that mb_detect_encoding() fails upon.
-     * 
-     * @param string
-     * @return detectedEncoding
-     */
-        
+        /**
+         * Utility to detect a (potentially multibyte) string's encoding with extra logic to deal with single characters that mb_detect_encoding() fails upon.
+         *
+         * @param string
+         * @return detectedEncoding
+         */
+
         public static function detectEncoding($string)
         {
-	        //detect encoding, special-handling for chr(172) and chr(128) to chr(159) which fail to be detected by mb_detect_encoding()
-  	  		if((ord($string) == 172)  || (ord($string) >= 128 && ord($string) <= 159))
-  	  		{
-  	  			$detectedEncoding = "ASCII";	//although these chars are beyond ASCII range, if encoding is forced to ISO-8859-1 they will all encode to &#x31;
-  	  		}
-  	      	else if(ord($string) >= 160 && ord($string) <= 255)
-  	  		{
-  	  			$detectedEncoding = "ISO-8859-1";
-  	  		}
-  	  		else
-  	  		{
-  	  			$detectedEncoding = mb_detect_encoding($string);
-  	  		}
-  	  		
-  	  		return $detectedEncoding;
+            // detect encoding, special-handling for chr(172) and chr(128) to chr(159) which fail to be detected by mb_detect_encoding()
+            $is_single_byte = false;
+            try {
+                $bytes = unpack('C*', $string);
+                if (is_array($bytes) && sizeof($bytes, 0) == 1) {
+                    $is_single_byte = true;
+                }
+            } catch (Exception $e) {
+                // unreach?
+                ESAPI::getLogger('Codec')->warn(DefaultLogger::SECURITY, false, 'Codec::detectEncoding threw an exception whilst attempting to unpack an input string', $e);
+            }
+            
+            if ($is_single_byte === false)
+            {
+                // NoOp
+            }
+            else if ((ord($string) == 172)  || (ord($string) >= 128 && ord($string) <= 159))
+            {
+                return 'ASCII'; //although these chars are beyond ASCII range, if encoding is forced to ISO-8859-1 they will all encode to &#x31;
+            }
+            else if(ord($string) >= 160 && ord($string) <= 255)
+            {
+                return 'ISO-8859-1';
+            }
+             
+            // Strict encoding detection with fallback to non-strict detection.
+            if (mb_detect_encoding($string, 'UTF-32', true))
+            {
+                return 'UTF-32';  // TODO possibly remove this - never happens?
+            }
+            else if (mb_detect_encoding($string, 'UTF-16', true))
+            {
+                return 'UTF-16';  // TODO possibly remove this - never happens?
+            }
+            else if (mb_detect_encoding($string, 'UTF-8', true))
+            {
+                return 'UTF-8';
+            }
+            else if (mb_detect_encoding($string, 'ISO-8859-1', true))
+            {
+                // To try an catch strings containing mixed encoding, search
+                // the string for chars of ordinal in the range 128 to 159 and
+                // 172 and don't return ISO-8859-1 if present.
+                $limit = mb_strlen($string, 'ISO-8859-1');
+                for ($i=0; $i<$limit; $i++)
+                {
+                    $char = mb_substr($string, $i, 1, 'ISO-8859-1');
+                    if (   (ord($char) == 172)
+                        || (ord($char) >= 128 && ord($char) <= 159)
+                    ) {
+                        return 'UTF-8';
+                    }
+                }
+                return 'ISO-8859-1';
+            }
+            else if (mb_detect_encoding($string, 'ASCII', true))
+            {
+                return 'ASCII';
+            }
+            else
+            {
+                return mb_detect_encoding($string);
+            }
         }
 
     /**
