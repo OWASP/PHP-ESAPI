@@ -105,30 +105,75 @@ class DefaultLogger implements Log4PhpLogger {
 
 
     /**
-     * configure the root log4php logger - all logger instances will inherit these config values
+     *  initialise() configures Apache's Log4PHP RootLogger to append events to
+     *  STDOUT and a RollingFile, the latter of which takes its properties from
+     *  SecurityConfiguration.
+     *  FIXME MaxLogFileBackups does not net have a corresponding property in
+     *  SecurityConfiguration and is set to 10
+     *  @see LoggerAppenderRollingFile::maxBackupIndex
+     *  
      */
     private static function initialise()
     {
         self::$initialised = true;
 
-        $appenders = array();
-        array_push($appenders, new LoggerAppenderEcho('echo'));
-        array_push($appenders, new LoggerAppenderConsole('console'));
-
+        $secConfig = ESAPI::getSecurityConfiguration();
+        $logLevel = $secConfig->getLogLevel();
+        
+        // LogFile properties.
+        $logFileName = $secConfig->getLogFileName();
+        $maxLogFileSize = $secConfig->getMaxLogFileSize();
+        // TODO - Perhaps add MaxLogFileBackups property to ESAPI.xml?
+        $maxLogFileBackups = 10;
+        
+        // Pattern representing the format of Log entries
+        // $layoutPattern = LoggerLayoutPattern::TTCC_CONVERSION_PATTERN;
+        
+        // Get a LoggerLayout - Using TTCC for now, but Pattern later.
+        $layout = new LoggerLayoutTTCC("%Y-%d-%m %H:%M:%S");
+        $layout->setThreadPrinting(false);
+        $layout->setContextPrinting(false);
+        $layout->setMicroSecondsPrinting(false);
+        $layout->setCategoryPrefixing(true);
+        // TODO - LoggerLayoutPattern is not working...using LoggerLayoutTTCC
+        // $logfileLayout = new LoggerLayoutPattern($layoutPattern);
+        // 
+        // Get a LoggerFilter - Use LevelMatch to deny DEBUG in the logfile.
+        // TODO remove LoggerFilter when codec debugging is done and before
+        // release.
+        $loggerFilter = new LoggerFilterLevelMatch();
+        $loggerFilter->setLevelToMatch(LoggerLevel::DEBUG);
+        $loggerFilter->setAcceptOnMatch("false");
+        $loggerFilter->activateOptions();
+        
+        // Get a LoggerAppender and add the LoggerLayout - Using Echo for now,
+        // RollingFile later.
+        $appenderEcho = new LoggerAppenderEcho('Echo Output');
+        $appenderEcho->setLayout($layout);
+        $appenderEcho->activateOptions();
+        // RollingFile
+        $appenderLogfile = new LoggerAppenderRollingFile('ESAPI LogFile');
+        $appenderLogfile->setFile($logFileName, true);
+        $appenderLogfile->setMaxFileSize($maxLogFileSize);
+        $appenderLogfile->setMaxBackupIndex($maxLogFileBackups);
+        // TODO set $logfileLayout when LoggerLayoutPattern is working.
+        // $appenderLogfile->setLayout($logfileLayout);
+        $appenderLogfile->setLayout($layout);
+        $appenderLogfile->addFilter($loggerFilter); // TODO remove temp filter
+        $appenderLogfile->activateOptions();
+        
+        // Get the RootLogger and reset it, before adding our Appender and
+        // setting our Loglevel
         $rootLogger = Logger::getRootLogger();
         $rootLogger->removeAllAppenders();
-
-        foreach ($appenders as $a) {
-            $layout = new LoggerLayoutTTCC("%Y-%d-%m %H:%M:%S");
-            $layout->setThreadPrinting(false);
-            $layout->setContextPrinting(false);
-            $layout->setMicroSecondsPrinting(false);
-            $layout->setCategoryPrefixing(true);
-            $a->setLayout($layout);
-            $rootLogger->addAppender($a);
-        }
-
-        $rootLogger->setLevel(self::convertESAPILeveltoLoggerLevel(ESAPI::getSecurityConfiguration()->getLogLevel()));
+        $rootLogger->addAppender($appenderEcho);
+        // Logfile Appender
+        $rootLogger->addAppender($appenderLogfile);
+        
+        $rootLogger->setLevel(
+            self::convertESAPILeveltoLoggerLevel($logLevel)
+        );
+        
     }
 
 
