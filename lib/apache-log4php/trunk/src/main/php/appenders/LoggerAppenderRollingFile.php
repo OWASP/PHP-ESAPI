@@ -126,7 +126,7 @@ class LoggerAppenderRollingFile extends LoggerAppenderFile {
 			// Rename fileName to fileName.1
 			$target = $fileName . ".1";
 	
-			$this->closeFile(); // keep windows happy.
+			$this->close(); // keep windows happy.
 	
 			$file = $fileName;
 			rename($file, $target);
@@ -207,7 +207,7 @@ class LoggerAppenderRollingFile extends LoggerAppenderFile {
 	/**
 	 * @param LoggerLoggingEvent $event
 	 */
-	public function append($event) {
+	public function append(LoggerLoggingEvent $event) {
 		parent::append($event);
 		if(ftell($this->fp) > $this->getMaximumFileSize()) {
 			$this->rollOver();
