@@ -37,8 +37,11 @@ require_once dirname(__FILE__).'/../codecs/VBScriptCodec.php';
  * everything not specifically identified in a list of "immune" characters is
  * encoded.
  *
- * Users of encoding methods should ensure that data is first canonicalised
- * before invoking them to prevent double encoding
+ * Users of encoding methods should ensure that data is first canonicalized
+ * before invoking them to prevent double encoding.  In future versions of the
+ * reference implementation, encoding methods will perhaps perform
+ * canonicalization prior to encoding and callers will not have to concern
+ * themselves with ensuring canonicalization is done.
  *
  * @see Encoder
  *
