@@ -736,7 +736,7 @@ class HTMLEntityCodec extends Codec
             38,          /* &amp; : ampersand */
             60,          /* &lt; : less-than sign */
             62,          /* &gt; : greater-than sign */
-            160,         /*   : no-break space */
+            160,         /* &nbsp;  : no-break space */
             161,         /* &iexcl; : inverted exclamation mark */
             162,         /* &cent; : cent sign */
             163,         /* &pound; : pound sign */
