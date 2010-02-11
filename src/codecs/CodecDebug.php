@@ -94,7 +94,7 @@ class CodecDebug
             $output = $this->buf . $this->verb . 'ed: [' . $htmlCodecOutput . ']';
         }
 
-        ESAPI::getLogger(LOG)->debug(new EventType('Codec Debugging'), true, $output);
+        ESAPI::getLogger(LOG)->debug(ESAPILogger::SECURITY, true, $output);
         $this->allowRecurse = true;
 
         $this->buf  = null;
