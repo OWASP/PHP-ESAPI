@@ -97,9 +97,6 @@ class DefaultLogger implements ESAPILogger {
      *  initialise() configures Apache's Log4PHP RootLogger to append events to
      *  STDOUT and a RollingFile, the latter of which takes its properties from
      *  SecurityConfiguration.
-     *  FIXME MaxLogFileBackups does not net have a corresponding property in
-     *  SecurityConfiguration and is set to 10
-     *  @see LoggerAppenderRollingFile::maxBackupIndex
      *  
      */
     private static function initialise()
@@ -112,8 +109,7 @@ class DefaultLogger implements ESAPILogger {
         // LogFile properties.
         $logFileName = $secConfig->getLogFileName();
         $maxLogFileSize = $secConfig->getMaxLogFileSize();
-        // TODO - Perhaps add MaxLogFileBackups property to ESAPI.xml?
-        $maxLogFileBackups = 10;
+        $maxLogFileBackups = $secConfig->getMaxLogFileBackups();
         
         // Pattern representing the format of Log entries
         // $layoutPattern = LoggerLayoutPattern::TTCC_CONVERSION_PATTERN;
