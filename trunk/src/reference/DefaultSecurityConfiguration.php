@@ -66,6 +66,7 @@ class DefaultSecurityConfiguration implements SecurityConfiguration
 	private $LogLevel = null;
 	private $LogFileName = null;
 	private $MaxLogFileSize = null;
+	private $MaxLogFileBackups = null;
 	
 	// Validator
 	
@@ -645,6 +646,24 @@ class DefaultSecurityConfiguration implements SecurityConfiguration
 		}
 		
 		return $this->MaxLogFileSize;
+	}
+	
+	/**
+	 * Get the maximum number of log file backups. A backup is made whenever
+	 * MaxLogFileSize is reached.  Backups are named as LogFileName with .N
+	 * appended to the name where N is a number between 1 and MaxLogFileBackups.
+	 * the highest numbered backup is the oldest and will be overwritten to
+	 * ensure MaxLogFileBackups is not exceeded.
+	 * 
+	 * @return the maximum number of backup log files.
+	 */
+	function getMaxLogFileBackups()
+	{
+		if ( $this->MaxLogFileBackups === null )	{
+			$this->MaxLogFileBackups = $this->getESAPIIntProperty("Logger/MaxLogFileBackups", 10);
+		}
+		
+		return $this->MaxLogFileBackups;
 	}
 	
 	function getValidationPattern($type)
