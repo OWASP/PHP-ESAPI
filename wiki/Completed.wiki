@@ -6,6 +6,7 @@ Initial versions of the following controls have been completed:
  * Codec
  * Codec - Base64Codec, CSSCodec, HTMLEntityCodec, JavaScriptCodec, MySQLCodec, OracleCodec, PercentCodec, UnixCodec, VBScriptCodec, WindowsCodec
  * ESAPI
+ * Encoder
  * Exceptions
  * Executor
  * Interfaces
