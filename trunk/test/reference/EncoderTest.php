@@ -14,6 +14,11 @@
  * @author Andrew van der Stock (vanderaj @ owasp.org)
  * @created 2009
  */
+
+
+/**
+ * 
+ */
 require_once dirname(__FILE__).'/../../src/ESAPI.php';
 require_once dirname(__FILE__).'/../../src/reference/DefaultEncoder.php';
 require_once dirname(__FILE__).'/../../src/codecs/MySQLCodec.php';
@@ -21,6 +26,13 @@ require_once dirname(__FILE__).'/../../src/codecs/OracleCodec.php';
 require_once dirname(__FILE__).'/../../src/codecs/UnixCodec.php';
 require_once dirname(__FILE__).'/../../src/codecs/WindowsCodec.php';
 
+
+/**
+ * Tests of DefaultEncoder methods.
+ * 
+ * @author jah (at jaboite.co.uk)
+ * @since  1.6
+ */
 class EncoderTest extends UnitTestCase
 {
     private $encoderInstance = null;
@@ -37,11 +49,11 @@ class EncoderTest extends UnitTestCase
 
     function tearDown()
     {
-
+        // NoOp
     }
 
 
-    /**
+    /*
      * Test for exception thrown when DefaultEncoder is constructed with an array
      * containing an object other than a Codec instance.
      */
@@ -49,29 +61,25 @@ class EncoderTest extends UnitTestCase
         $codecList = array();
         array_push( $codecList, new HTMLEntityCodec() );
         array_push( $codecList, new Exception() ); // any class except a codec will suffice.
-        try {
-            $instance = new DefaultEncoder( $codecList );
-            $this->fail();
-        }
-        catch (Exception $expected) {
-            // expected
-        }
+
+        $this->expectException('Exception',
+            'DefaultEncoder constructor should throw an Exception when passed something other than an array of Codec instances.');
+        $instance = new DefaultEncoder( $codecList );
     }
 
 
-    /**
+    /*
      * Test of canonicalize method of class Encoder.
      *
      * @throws EncodingException
      */
-    // Test null paths
     function testCanonicalize_001() {
         // This block sets-up the encoder for subsequent canonicalize tests
         $codecArray = array();
         array_push( $codecArray, new HTMLEntityCodec() );
         array_push( $codecArray, new PercentCodec() );
         $this->encoderInstance = new DefaultEncoder( $codecArray );
-         
+
         $this->assertEqual( null, $this->encoderInstance->canonicalize(null));
     }
     function testCanonicalize_002() {
@@ -81,7 +89,6 @@ class EncoderTest extends UnitTestCase
         $this->assertEqual( null, $this->encoderInstance->canonicalize(null, false));
     }
 
-    // Test exception paths
     function testCanonicalize_004() {
         $this->assertEqual( "%", $this->encoderInstance->canonicalize("%25", true));
     }
@@ -365,10 +372,12 @@ class EncoderTest extends UnitTestCase
     }
 
     function testCanonicalize_095() {
-        $this->assertEqual( "<script>alert(\"hello\");</script>", $this->encoderInstance->canonicalize("%3Cscript%3Ealert%28%22hello%22%29%3B%3C%2Fscript%3E") );
+        $this->assertEqual( "<script>alert(\"hello\");</script>",
+            $this->encoderInstance->canonicalize("%3Cscript%3Ealert%28%22hello%22%29%3B%3C%2Fscript%3E") );
     }
     function testCanonicalize_096() {
-        $this->assertEqual( "<script>alert(\"hello\");</script>", $this->encoderInstance->canonicalize("%3Cscript&#x3E;alert%28%22hello&#34%29%3B%3C%2Fscript%3E", false) );
+        $this->assertEqual( "<script>alert(\"hello\");</script>",
+            $this->encoderInstance->canonicalize("%3Cscript&#x3E;alert%28%22hello&#34%29%3B%3C%2Fscript%3E", false) );
     }
 
     // javascript escape syntax
@@ -438,7 +447,7 @@ class EncoderTest extends UnitTestCase
         $this->encoderInstance = null;
         $this->encoderInstance = new DefaultEncoder( array(new CSSCodec()) );
 
-        $this->assertEqual( "<", $this->encoderInstance->canonicalize("\\3c"));  // add strings to prevent null byte
+        $this->assertEqual( "<", $this->encoderInstance->canonicalize("\\3c"));
     }
     function testCanonicalize_117() {
         $this->assertEqual( "<", $this->encoderInstance->canonicalize("\\03c"));
@@ -468,12 +477,6 @@ class EncoderTest extends UnitTestCase
         $this->assertEqual( "<", $this->encoderInstance->canonicalize("\\00003C"));
     }
 
-
-    /**
-     * Test of canonicalize method, of class org.owasp.esapi.Encoder.
-     *
-     * @throws EncodingException
-     */
 
     // note these examples use the strict=false flag on canonicalize to allow
     // full decoding without throwing an IntrusionException. Generally, you
@@ -556,38 +559,23 @@ class EncoderTest extends UnitTestCase
     // test strict mode with both mixed and multiple encoding
     function testDoubleEncodingCanonicalization_16()
     {
-        try
-        {
-            $this->AssertEqual( "< < < < < < <", $this->encoderInstance->canonicalize( "%26lt; %26lt; &#X25;3c &#x25;3c %2526lt%253B %2526lt%253B %2526lt%253B" ) );
-        } catch( IntrusionException $e )
-        {
-            // expected
-        }
+        $this->expectException('IntrusionException');
+        $this->encoderInstance->canonicalize('%26lt; %26lt; &#X25;3c &#x25;3c %2526lt%253B %2526lt%253B %2526lt%253B');
     }
     function testDoubleEncodingCanonicalization_17()
     {
 
-        try
-        {
-            $this->AssertEqual( "<script", $this->encoderInstance->canonicalize("%253Cscript" ) );
-        } catch( IntrusionException $e )
-        {
-            // expected
-        }
+        $this->expectException('IntrusionException');
+        $this->encoderInstance->canonicalize('%253Cscript');
     }
     function testDoubleEncodingCanonicalization_18()
     {
-        try
-        {
-            $this->AssertEqual( "<script", $this->encoderInstance->canonicalize("&#37;3Cscript" ) );
-        } catch( IntrusionException $e )
-        {
-            // expected
-        }
+        $this->expectException('IntrusionException');
+        $this->encoderInstance->canonicalize('&#37;3Cscript');
     }
 
 
-    /**
+    /*
      * Test of encodeForHTML method of class Encoder.
      *
      * @throws Exception
@@ -603,7 +591,7 @@ class EncoderTest extends UnitTestCase
     }
     function testEncodeForHTML_03() {
         $instance = ESAPI::getEncoder();
-        $this->assertEqual("a b c d e f&#x9;g h i j&#xa0;k&#xa1;l&#xa2;m", $instance->encodeForHTML("a".(chr(0))."b".(chr(4))."c".(chr(128))."d".(chr(150))."e".(chr(159))."f".(chr(9))."g".(chr(127))."h".(chr(129))."i".(chr(159))."j".(chr(160))."k".(chr(161))."l".(chr(162))."m"));
+        $this->assertEqual("a b c d e f&#x9;g h i j&nbsp;k&iexcl;l&cent;m", $instance->encodeForHTML("a".(chr(0))."b".(chr(4))."c".(chr(128))."d".(chr(150))."e".(chr(159))."f".(chr(9))."g".(chr(127))."h".(chr(129))."i".(chr(159))."j".(chr(160))."k".(chr(161))."l".(chr(162))."m"));
     }
     function testEncodeForHTML_04() {
         $instance = ESAPI::getEncoder();
@@ -639,7 +627,7 @@ class EncoderTest extends UnitTestCase
     }
 
 
-    /**
+    /*
      * Test of encodeForHTMLAttribute method of class Encoder.
      */
     function testEncodeForHTMLAttribute_01() {
@@ -660,7 +648,7 @@ class EncoderTest extends UnitTestCase
     }
 
 
-    /**
+    /*
      * Test of encodeForCSS method of class Encoder.
      */
     function testEncodeForCSS_01() {
@@ -677,8 +665,10 @@ class EncoderTest extends UnitTestCase
     }
 
 
-    /**
+    /*
      * Test of encodeForJavaScript method of class Encoder.
+     * Note that JavaScriptCodec is closer to ESAPI 2 for Java and so these
+     * tests are taken from that version.
      */
     function testEncodeForJavascript_01() {
         $instance = ESAPI::getEncoder();
@@ -706,7 +696,7 @@ class EncoderTest extends UnitTestCase
     }
 
 
-    /**
+    /*
      * Test of encodeForVBScript method of class Encoder.
      */
     function testEncodeForVBScript_01() {
@@ -715,31 +705,19 @@ class EncoderTest extends UnitTestCase
     }
     function testEncodeForVBScript_02() {
         $instance = ESAPI::getEncoder();
-        $this->assertEqual("\"\"", $instance->encodeForVBScript("\""));
+        $this->assertEqual('""', $instance->encodeForVBScript('"'));
     }
     function testEncodeForVBScript_03() {
         $instance = ESAPI::getEncoder();
-        $this->assertEqual("chrw(60)&\"script\"&chrw(62)", $instance->encodeForVBScript("<script>"));
+        $this->assertEqual('"<script">', $instance->encodeForVBScript('<script>'));
     }
     function testEncodeForVBScript_04() {
         $instance = ESAPI::getEncoder();
-        $this->assertEqual("x\"&chrw(32)&chrw(33)&chrw(64)&chrw(36)&chrw(37)&chrw(40)&chrw(41)&chrw(61)&chrw(43)&chrw(123)&chrw(125)&chrw(91)&chrw(93)", $instance->encodeForVBScript("x !@$%()=+{}[]"));
-    }
-    function testEncodeForVBScript_05() {
-        $instance = ESAPI::getEncoder();
-        $this->assertEqual("alert\"&chrw(40)&chrw(39)&\"ESAPI\"&chrw(32)&\"test\"&chrw(33)&chrw(39)&chrw(41)", $instance->encodeForVBScript("alert('ESAPI test!')" ));
-    }
-    function testEncodeForVBScript_06() {
-        $instance = ESAPI::getEncoder();
-        $this->assertEqual( "jeff.williams\"&chrw(64)&\"aspectsecurity.com", $instance->encodeForVBScript("jeff.williams@aspectsecurity.com"));
-    }
-    function testEncodeForVBScript_07() {
-        $instance = ESAPI::getEncoder();
-        $this->assertEqual( "test\"&chrw(32)&chrw(60)&chrw(62)&chrw(32)&\"test", $instance->encodeForVBScript("test <> test" ));
+        $this->assertEqual(' "!"@"$"%"(")"="+"{"}"["]""', $instance->encodeForVBScript(' !@$%()=+{}[]"'));
     }
 
 
-    /**
+    /*
      * Test of encodeForXPath method of class Encoder.
      */
     function testEncodeForXPath_01() {
@@ -752,7 +730,7 @@ class EncoderTest extends UnitTestCase
     }
 
 
-    /**
+    /*
      * Test of encodeForSQL method of class Encoder.
      */
     function testEncodeForSQL_MySQL_ANSI_01() {
@@ -778,7 +756,7 @@ class EncoderTest extends UnitTestCase
     function testEncodeForSQL_MySQL_STD_03() {
         $instance = ESAPI::getEncoder();
         $mysqlStdCodec = new MySQLCodec(MySQLCodec::MYSQL_STD);
-        $this->assertEqual( "\\b \\n \\r \\t \\z \\_ \\\" \\' \\\\ \\0 \\%", $instance->encodeForSQL($mysqlStdCodec, "\x08 \x0a \x0d \x09 \x1a _ \" ' \\ \x00 \x25") );
+        $this->assertEqual( "\\b \\n \\r \\t \\Z \\_ \\\" \\' \\\\ \\0 \\%", $instance->encodeForSQL($mysqlStdCodec, "\x08 \x0a \x0d \x09 \x1a _ \" ' \\ \x00 \x25") );
     }
     function testEncodeForSQL_Oracle01() {
         $instance = ESAPI::getEncoder();
@@ -792,7 +770,7 @@ class EncoderTest extends UnitTestCase
     }
 
 
-    /**
+    /*
      * Test of encodeForLDAP method of class Encoder.
      */
     function testEncodeForLDAP_01() {
@@ -821,7 +799,7 @@ class EncoderTest extends UnitTestCase
     }
 
 
-    /**
+    /*
      * Test of encodeForDN method of class Encoder.
      */
     function testEncodeForDN_01() {
@@ -874,60 +852,65 @@ class EncoderTest extends UnitTestCase
     }
 
 
-    /**
+    /*
      * Test of encodeForXML method of class Encoder.
      */
-    function testEncodeForXML_01() {
+    function testEncodeForXML_null() {
         $instance = ESAPI::getEncoder();
         $this->AssertEqual(null, $instance->encodeForXML(null));
     }
-    function testEncodeForXML_02() {
+    function testEncodeForXML_space() {
         $instance = ESAPI::getEncoder();
-        $this->AssertEqual(" ", $instance->encodeForXML(" "));
+        $this->AssertEqual(' ', $instance->encodeForXML(' '));
     }
-    function testEncodeForXML_03() {
+    function testEncodeForXML_scripttag() {
         $instance = ESAPI::getEncoder();
-        $this->AssertEqual("&lt;script&gt;", $instance->encodeForXML("<script>"));
+        $this->AssertEqual('&lt;script&gt;', $instance->encodeForXML('<script>'));
     }
-    function testEncodeForXML_04() {
+    function testEncodeForXML_immune() {
         $instance = ESAPI::getEncoder();
-        $this->AssertEqual(",.-_", $instance->encodeForXML(",.-_"));
+        $this->AssertEqual(',.-_', $instance->encodeForXML(',.-_'));
     }
-    function testEncodeForXML_05() {
+    function testEncodeForXML_symbols() {
         $instance = ESAPI::getEncoder();
-        $this->AssertEqual("&#x21;&#x40;&#x24;&#x25;&#x28;&#x29;&#x3d;&#x2b;&#x7b;&#x7d;&#x5b;&#x5d;", $instance->encodeForXML("!@$%()=+{}[]"));
+        $this->AssertEqual('&#x21;&#x40;&#x24;&#x25;&#x28;&#x29;&#x3d;&#x2b;&#x7b;&#x7d;&#x5b;&#x5d;', $instance->encodeForXML('!@$%()=+{}[]'));
+    }
+    function testEncodeForXML_pound() {
+        $instance = ESAPI::getEncoder();
+        $this->AssertEqual('&#xa3;', $instance->encodeForXML("\xA3"));
     }
 
-
-    /**
+    /*
      * Test of encodeForXMLAttribute method of class Encoder.
      */
-    function testEncodeForXMLAttribute_01() {
+    function testEncodeForXMLAttribute_null() {
         $instance = ESAPI::getEncoder();
         $this->AssertEqual(null, $instance->encodeForXMLAttribute(null));
     }
-    function testEncodeForXMLAttribute_02() {
+    function testEncodeForXMLAttribute_space() {
         $instance = ESAPI::getEncoder();
         $this->AssertEqual("&#x20;", $instance->encodeForXMLAttribute(" "));
     }
-    function testEncodeForXMLAttribute_03() {
+    function testEncodeForXMLAttribute_scripttag() {
         $instance = ESAPI::getEncoder();
         $this->AssertEqual("&lt;script&gt;", $instance->encodeForXMLAttribute("<script>"));
     }
-    function testEncodeForXMLAttribute_04() {
+    function testEncodeForXMLAttribute_immune() {
         $instance = ESAPI::getEncoder();
         $this->AssertEqual(",.-_", $instance->encodeForXMLAttribute(",.-_"));
     }
-    function testEncodeForXMLAttribute_05() {
+    function testEncodeForXMLAttribute_symbols() {
         $instance = ESAPI::getEncoder();
         $this->AssertEqual("&#x20;&#x21;&#x40;&#x24;&#x25;&#x28;&#x29;&#x3d;&#x2b;&#x7b;&#x7d;&#x5b;&#x5d;", $instance->encodeForXMLAttribute(" !@$%()=+{}[]"));
     }
+    function testEncodeForXMLAttribute_pound() {
+        $instance = ESAPI::getEncoder();
+        $this->AssertEqual('&#xa3;', $instance->encodeForXMLAttribute("\xA3"));
+    }
 
 
-    /**
+    /*
      * Test of encodeForURL method of class Encoder.
-     *
-     * @throws Exception
      */
     function testEncodeForURL_01() {
         $instance = ESAPI::getEncoder();
@@ -943,10 +926,8 @@ class EncoderTest extends UnitTestCase
     }
 
 
-    /**
+    /*
      * Test of decodeFromURL method, of class Encoder.
-     *
-     * @throws Exception
      */
     function testDecodeFromURL_01() {
         $instance = ESAPI::getEncoder();
@@ -962,7 +943,7 @@ class EncoderTest extends UnitTestCase
     }
 
 
-    /**
+    /*
      * Test of encodeForBase64 method of class Encoder.
      */
     function testEncodeForBase64_01() {
@@ -1001,7 +982,7 @@ class EncoderTest extends UnitTestCase
     }
 
 
-    /**
+    /*
      * Test of decodeFromBase64 method, of class Encoder.
      */
     function testDecodeFromBase64_01() {
@@ -1033,7 +1014,7 @@ class EncoderTest extends UnitTestCase
     }
 
 
-    /**
+    /*
      * Test of WindowsCodec
      */
     function testWindowsCodec_01() {
@@ -1080,7 +1061,6 @@ class EncoderTest extends UnitTestCase
         $codec_win = new WindowsCodec();
         $instance = ESAPI::getEncoder();
 
-        // TODO: Check that this is acceptable for Windows
         $this->assertEqual("c^:^\\jeff", $instance->encodeForOS($codec_win, "c:\\jeff"));
     }
     function testWindowsCodec_08() {
@@ -1088,14 +1068,12 @@ class EncoderTest extends UnitTestCase
 
         $immune = array();
 
-        // TODO: Check that this is acceptable for Windows
         $this->assertEqual("c^:^\\jeff", $codec_win->encode($immune, "c:\\jeff"));
     }
     function testWindowsCodec_09() {
         $codec_win = new WindowsCodec();
         $instance = ESAPI::getEncoder();
 
-        // TODO: Check that this is acceptable for Windows
         $this->assertEqual("dir^ ^&^ foo", $instance->encodeForOS($codec_win, "dir & foo"));
     }
     function testWindowsCodec_10() {
@@ -1103,11 +1081,10 @@ class EncoderTest extends UnitTestCase
 
         $immune = array();
 
-        // TODO: Check that this is acceptable for Windows
         $this->assertEqual("dir^ ^&^ foo", $codec_win->encode($immune, "dir & foo"));
     }
 
-    /**
+    /*
      * Test of UnixCodec
      */
     function testUnixCodec_01() {
@@ -1290,4 +1267,3 @@ class EncoderTest extends UnitTestCase
         }
     }
 }
-?>
