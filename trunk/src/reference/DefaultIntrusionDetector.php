@@ -46,11 +46,11 @@ class DefaultIntrusionDetector implements IntrusionDetector {
     {
         if (is_a($exception, 'EnterpriseSecurityException'))
         {
-            $this->logger->warning( DefaultLogger::SECURITY, false, $exception->getLogMessage(), $exception );
+            $this->logger->warning( ESAPILogger::SECURITY, false, $exception->getLogMessage(), $exception );
         }
         else
         {
-            $this->logger->warning( DefaultLogger::SECURITY, false, $exception->getMessage(), $exception );
+            $this->logger->warning( ESAPILogger::SECURITY, false, $exception->getMessage(), $exception );
         }
 
          // FIXME: when getCurrentUser() is implemented, remove next 1 line which prevents infinite loop of addException() calls!
@@ -100,7 +100,7 @@ class DefaultIntrusionDetector implements IntrusionDetector {
      */
     public function addEvent($eventName, $logMessage)
     {
-        $this->logger->warning( DefaultLogger::SECURITY, false, 'Security event ' . $eventName . ' received : ' . $logMessage);
+        $this->logger->warning( ESAPILogger::SECURITY, false, 'Security event ' . $eventName . ' received : ' . $logMessage);
 
         // add the event to the current user, which may trigger a detector
         $user = ESAPI::getAuthenticator()->getCurrentUser();
@@ -134,7 +134,7 @@ class DefaultIntrusionDetector implements IntrusionDetector {
     {
         if ($action === 'log' )
         {
-            $this->logger->fatal(DefaultLogger::SECURITY, false, 'INTRUSION - ' . $message);
+            $this->logger->fatal(ESAPILogger::SECURITY, false, 'INTRUSION - ' . $message);
         }
         $user = ESAPI::getAuthenticator()->getCurrentUser();
 

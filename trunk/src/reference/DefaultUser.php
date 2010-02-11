@@ -201,7 +201,7 @@ class DefaultUser implements User {
         if ( false/*ESAPI::getValidator()->isValidInput("addRole", $roleName, "RoleName", MAX_ROLE_LENGTH, false) */) {
         //TODO: Verify if this is correct
             $this->roles[] = $roleName;
-            ESAPI::getLogger("DefaultUser")->info(DefaultLogger::SECURITY, TRUE, "Role ".$roleName." added to ".$this->getAccountName() );
+            ESAPI::getLogger("DefaultUser")->info(ESAPILogger::SECURITY, TRUE, "Role ".$roleName." added to ".$this->getAccountName() );
         } else {
         //TODO: Not done in Java, but shouldn't this be logged as well?
             throw new AuthenticationAccountsException( "Add role failed", "Attempt to add invalid role ".$roleName." to ".$this->getAccountName() );
@@ -245,14 +245,14 @@ class DefaultUser implements User {
      */
     function disable () {
         $this->enabled = FALSE;
-        ESAPI::getLogger("DefaultUser")->info( DefaultLogger::SECURITY, TRUE, "Account disabled: ".$this->getAccountName() );
+        ESAPI::getLogger("DefaultUser")->info( ESAPILogger::SECURITY, TRUE, "Account disabled: ".$this->getAccountName() );
     }
     /**
      * Enable this user's account.
      */
     function enable () {
         $this->enable = TRUE;
-        ESAPI::getLogger("DefaultUser")->info(DefaultLogger::SECURITY, TRUE, "Account enabled: ".$this->getAccountName() );
+        ESAPI::getLogger("DefaultUser")->info(ESAPILogger::SECURITY, TRUE, "Account enabled: ".$this->getAccountName() );
     }
 
     /**
@@ -511,7 +511,7 @@ class DefaultUser implements User {
      */
     function lock () {
         $this->locked = TRUE;
-        ESAPI::getLogger("DefaultUser")->info(DefaultLogger::SECURITY, TRUE, "Account locked: ".$this->getAccountName() );
+        ESAPI::getLogger("DefaultUser")->info(ESAPILogger::SECURITY, TRUE, "Account locked: ".$this->getAccountName() );
     }
 
     /**
@@ -558,7 +558,7 @@ class DefaultUser implements User {
             ESAPI::getAuthenticator()->setCurrentUser($this);
             $this->setLastLoginTime(time());
             $this->setLastHostAddress( ESAPI::getHttpUtilities()->getCurrentRequest()->getRemoteHost() );
-            ESAPI::getLogger("DefaultUser")->trace(DefaultLogger::SECURITY, "User logged in: " . $this->accountName );
+            ESAPI::getLogger("DefaultUser")->trace(ESAPILogger::SECURITY, "User logged in: " . $this->accountName );
         }
         else {
             $this->loggedIn = false;
@@ -593,7 +593,7 @@ class DefaultUser implements User {
     function removeRole ($role) {
         $role = strtolower($role);
         unset($this->roles[$role]);
-        ESAPI::getLogger("DefaultLogger")->trace(DefaultLogger::SECURITY, TRUE, "Role " . $role . " removed from " . $this->getAccountName() );
+        ESAPI::getLogger("DefaultLogger")->trace(ESAPILogger::SECURITY, TRUE, "Role " . $role . " removed from " . $this->getAccountName() );
     }
 
     /**
@@ -623,7 +623,7 @@ class DefaultUser implements User {
         $oldAccountName = $this->getAccountName();
         $this->accountName = strtolower($accountName);
         if ( !is_null($oldAccountName) )
-            ESAPI::getLogger("DefaultUser")->info(DefaultLogger::SECURITY, TRUE, "Account name changed from " . $oldAccountName . " to " . $this->getAccountName() );
+            ESAPI::getLogger("DefaultUser")->info(ESAPILogger::SECURITY, TRUE, "Account name changed from " . $oldAccountName . " to " . $this->getAccountName() );
     }
     
     /**
@@ -666,7 +666,7 @@ class DefaultUser implements User {
      */
     function setScreenName ($screenName) {
         $this->screenName = $screenName;
-        ESAPI::getLogger("DefaultUser")->info(DefaultLogger::SECURITY, TRUE, "ScreenName changed to ". $screenName . " for " . $this->getAccountName() );
+        ESAPI::getLogger("DefaultUser")->info(ESAPILogger::SECURITY, TRUE, "ScreenName changed to ". $screenName . " for " . $this->getAccountName() );
     }
     
     /**
@@ -675,7 +675,7 @@ class DefaultUser implements User {
     function unlock () {
         $this->locked = FALSE;
         $this->failedLoginCount = 0;
-        ESAPI::getLogger("DefaultUser")->info(DefaultLogger::SECURITY, TRUE, "Account unlocked: " . $this->getAccountName() );
+        ESAPI::getLogger("DefaultUser")->info(ESAPILogger::SECURITY, TRUE, "Account unlocked: " . $this->getAccountName() );
     }
     /**
      * Verify that the supplied password matches the password for this user. This method
