@@ -19,25 +19,14 @@
 
 
 #include apache log4php requirements
-define("LOG4PHP_DIR",dirname(__FILE__)."/../../lib/apache-log4php/trunk/src/main/php/");
-require_once LOG4PHP_DIR.'/Logger.php';
+define("LOG4PHP_DIR", dirname(__FILE__) . "/../../lib/apache-log4php/trunk/src/main/php/");
+require_once LOG4PHP_DIR . '/Logger.php';
 
 
-require_once dirname(__FILE__).'/../Log4PhpLogger.php';
+require_once dirname(__FILE__).'/../ESAPILogger.php';
 
 
-class DefaultLogger implements Log4PhpLogger {
-
-    const SECURITY = 0;
-
-    const OFF = PHP_INT_MAX;
-    const FATAL =1000;
-    const ERROR = 800;
-    const WARNING = 600;
-    const INFO = 400;
-    const DEBUG = 200;
-    const TRACE = 100;
-    //const ALL = (-1 * PHP_INT_MAX) - 1;
+class DefaultLogger implements ESAPILogger {
 
     private $logger;
     private static $initialised = false;
@@ -62,7 +51,7 @@ class DefaultLogger implements Log4PhpLogger {
             $this->logger->setLevel($this->convertESAPILeveltoLoggerLevel( $level ));
         }
         catch (Exception $e) {
-            $this->error(DefaultLogger::SECURITY, false, "IllegalArgumentException", $e);
+            $this->error(ESAPILogger::SECURITY, false, "IllegalArgumentException", $e);
         }
     }
 
@@ -89,13 +78,13 @@ class DefaultLogger implements Log4PhpLogger {
             }
         } else {
             switch($level) {
-                case self::TRACE:   return LoggerLevel::getLevelAll();
-                case self::DEBUG:   return LoggerLevel::getLevelDebug();
-                case self::INFO:    return LoggerLevel::getLevelInfo();
-                case self::WARNING: return LoggerLevel::getLevelWarn();
-                case self::ERROR:   return LoggerLevel::getLevelError();
-                case self::FATAL:   return LoggerLevel::getLevelFatal();
-                case self::OFF:     return LoggerLevel::getLevelOff();
+                case ESAPILogger::TRACE:   return LoggerLevel::getLevelAll();
+                case ESAPILogger::DEBUG:   return LoggerLevel::getLevelDebug();
+                case ESAPILogger::INFO:    return LoggerLevel::getLevelInfo();
+                case ESAPILogger::WARNING: return LoggerLevel::getLevelWarn();
+                case ESAPILogger::ERROR:   return LoggerLevel::getLevelError();
+                case ESAPILogger::FATAL:   return LoggerLevel::getLevelFatal();
+                case ESAPILogger::OFF:     return LoggerLevel::getLevelOff();
                 default: {
                     throw new Exception("Invalid logging level Value was: " . $level);
                 }
@@ -192,7 +181,7 @@ class DefaultLogger implements Log4PhpLogger {
      *         the exception to be logged
      */
     function fatal($type, $success, $message, $throwable = null) {
-        $this->log(DefaultLogger::FATAL,$type, $success, $message, $throwable);
+        $this->log(ESAPILogger::FATAL,$type, $success, $message, $throwable);
     }
 
     /**
@@ -221,7 +210,7 @@ class DefaultLogger implements Log4PhpLogger {
      *         the exception to be logged
      */
     function error($type, $success, $message, $throwable = null) {
-        $this->log(DefaultLogger::ERROR,$type, $success, $message, $throwable);
+        $this->log(ESAPILogger::ERROR,$type, $success, $message, $throwable);
     }
 
     /**
@@ -249,7 +238,7 @@ class DefaultLogger implements Log4PhpLogger {
      *         the exception to be logged
      */
     function warning($type, $success, $message, $throwable = null) {
-        $this->log(DefaultLogger::WARNING,$type, $success, $message, $throwable);
+        $this->log(ESAPILogger::WARNING,$type, $success, $message, $throwable);
     }
 
     /**
@@ -277,7 +266,7 @@ class DefaultLogger implements Log4PhpLogger {
      *         the exception to be logged
      */
     function info($type, $success, $message, $throwable = null) {
-        $this->log(DefaultLogger::INFO,$type, $success, $message, $throwable);
+        $this->log(ESAPILogger::INFO,$type, $success, $message, $throwable);
     }
 
     /**
@@ -305,7 +294,7 @@ class DefaultLogger implements Log4PhpLogger {
      *         the exception to be logged
      */
     function debug($type, $success, $message, $throwable = null) {
-        $this->log(DefaultLogger::DEBUG,$type, $success, $message, $throwable);
+        $this->log(ESAPILogger::DEBUG,$type, $success, $message, $throwable);
     }
 
     /**
@@ -333,7 +322,7 @@ class DefaultLogger implements Log4PhpLogger {
      *         the exception to be logged
      */
     function trace($type, $success, $message, $throwable = null){
-        $this->log(DefaultLogger::TRACE,$type, $success, $message, $throwable);
+        $this->log(ESAPILogger::TRACE,$type, $success, $message, $throwable);
     }
 
     /**

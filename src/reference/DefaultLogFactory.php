@@ -13,37 +13,39 @@
  * @see org.owasp.esapi.reference.Log4JLogFactory.Log4JLogger
  */
 
-require_once dirname(__FILE__).'/../LogFactory.php';
+require_once dirname(__FILE__).'/../ESAPILogFactory.php';
 require_once dirname(__FILE__).'/DefaultLogger.php';
 
-class Log4PhpFactory implements LogFactory {
+class DefaultLogFactory implements LogFactory {
 
-        var $loggerMap = array();
+    var $loggerMap = array();
 
-        /**
-        * Null argument constructor for this implementation of the LogFactory interface
-        * needed for dynamic configuration.
-        */
-        function __construct() {
-            
+    /**
+     * Null argument constructor for this implementation of the LogFactory interface
+     * needed for dynamic configuration.
+     */
+    function __construct()
+    {
+        // NoOp
+    }
+
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getLogger($moduleName) {
+
+        // If a logger for this module already exists, we return the same one, otherwise we create a new one.
+        if (   array_key_exists($moduleName, $this->loggerMap)
+            && $this->loggerMap[$moduleName] instanceof DefaultLogger
+        ) {
+            return $this->loggerMap[$moduleName];
+        } else {
+            $moduleLogger = new DefaultLogger($moduleName);
+            $this->loggerMap[$moduleName] = $moduleLogger;
+            return $moduleLogger;
         }
-
-
-       /**
-        * {@inheritDoc}
-        */
-        public function getLogger($moduleName) {
-
-            // If a logger for this module already exists, we return the same one, otherwise we create a new one.
-            if(array_key_exists($moduleName,$this->loggerMap)
-                && $this->loggerMap[$moduleName] instanceof Logger) {
-                return $this->loggerMap[$moduleName];
-            } else {
-                $moduleLogger = new DefaultLogger($moduleName);
-                $this->loggerMap[$moduleName] = $moduleLogger;
-                    return $moduleLogger;
-            }
-        }
+    }
 
 }
 

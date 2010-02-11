@@ -199,8 +199,8 @@ class ESAPI {
      */
     public static function getLogger($moduleName) {
         if(self::$logFactory == null){
-            require_once dirname(__FILE__).'/reference/Log4PhpFactory.php';
-            self::setLogFactory(new Log4PhpFactory());
+            require_once dirname(__FILE__).'/reference/DefaultLogFactory.php';
+            self::setLogFactory(new DefaultLogFactory());
         }
         return self::$logFactory->getLogger($moduleName);
     }
