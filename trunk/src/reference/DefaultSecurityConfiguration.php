@@ -62,11 +62,13 @@ class DefaultSecurityConfiguration implements SecurityConfiguration
 	// Logger
 	
 	private $ApplicationName = null;
+	private $LogApplicationName = null;
 	private $LogEncodingRequired = null;
 	private $LogLevel = null;
 	private $LogFileName = null;
 	private $MaxLogFileSize = null;
 	private $MaxLogFileBackups = null;
+	private $LogFileDateFormat = null;
 	
 	// Validator
 	
@@ -589,6 +591,21 @@ class DefaultSecurityConfiguration implements SecurityConfiguration
 	}
 
 	/**
+	 * Returns whether the Application Name should be added to log entries.
+	 * 
+	 * @return True if log entries are to include ApplicationName. False
+	 *         otherwise.
+	 */
+	function getLogApplicationName()
+	{
+		if ( $this->LogApplicationName === null )	{
+			$this->LogApplicationName = $this->getESAPIBooleanProperty("Logger/LogApplicationName", false);
+		}
+		
+		return $this->LogApplicationName;
+	}
+
+	/**
 	 * Returns whether HTML entity encoding should be applied to log entries.
 	 * 
 	 * @return True if log entries are to be HTML Entity encoded. False otherwise.
@@ -664,6 +681,21 @@ class DefaultSecurityConfiguration implements SecurityConfiguration
 		}
 		
 		return $this->MaxLogFileBackups;
+	}
+	
+	/**
+	 * Get the log file date format string used to format the date displayed in
+	 * Log entries.
+	 * 
+	 * @return the date format string.
+	 */
+	function getLogFileDateFormat()
+	{
+		if ( $this->LogFileDateFormat === null )	{
+			$this->LogFileDateFormat = $this->getESAPIStringProperty("Logger/LogFileDateFormat", 'Y-m-d H:i:s P');
+		}
+		
+		return $this->LogFileDateFormat;
 	}
 	
 	function getValidationPattern($type)

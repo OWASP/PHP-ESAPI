@@ -54,9 +54,9 @@ class EnterpriseSecurityExceptionTest extends UnitTestCase
 	}
 
 	function testEnterpriseSecurityException() {
-		$e = new EnterpriseSecurityException("m1","m2");
-		$this->assertEqual( $e->getUserMessage(), "m1" );
-		$this->assertEqual( $e->getLogMessage(), "m2" );
+		$e = new EnterpriseSecurityException("This is a message for users.","This is a message for the log.");
+		$this->assertEqual( $e->getUserMessage(), "This is a message for users." );
+		$this->assertEqual( $e->getLogMessage(), "This is a message for the log." );
 	}
 	
 	function testAccessControlDefaultException() {
@@ -66,9 +66,9 @@ class EnterpriseSecurityExceptionTest extends UnitTestCase
 	}
 	
 	function testAccessControlException() {
-		$e = new AccessControlException("m1","m2");
-		$this->assertEqual( $e->getUserMessage(), "m1" );
-		$this->assertEqual( $e->getLogMessage(), "m2" );
+		$e = new AccessControlException("This is a message for users.","This is a message for the log.");
+		$this->assertEqual( $e->getUserMessage(), "This is a message for users." );
+		$this->assertEqual( $e->getLogMessage(), "This is a message for the log." );
 	}
 
 	function testAuthenticationDefaultException() {
@@ -78,9 +78,9 @@ class EnterpriseSecurityExceptionTest extends UnitTestCase
 	}
 	
 	function testAuthenticationException() {
-		$e = new AuthenticationException("m1","m2");
-		$this->assertEqual( $e->getUserMessage(), "m1" );
-		$this->assertEqual( $e->getLogMessage(), "m2" );
+		$e = new AuthenticationException("This is a message for users.","This is a message for the log.");
+		$this->assertEqual( $e->getUserMessage(), "This is a message for users." );
+		$this->assertEqual( $e->getLogMessage(), "This is a message for the log." );
 	}
 
 	function testAvailabilityDefaultException() {
@@ -90,9 +90,9 @@ class EnterpriseSecurityExceptionTest extends UnitTestCase
 	}
 	
 	function testAvailabilityException() {
-		$e = new AvailabilityException("m1","m2");
-		$this->assertEqual( $e->getUserMessage(), "m1" );
-		$this->assertEqual( $e->getLogMessage(), "m2" );
+		$e = new AvailabilityException("This is a message for users.","This is a message for the log.");
+		$this->assertEqual( $e->getUserMessage(), "This is a message for users." );
+		$this->assertEqual( $e->getLogMessage(), "This is a message for the log." );
 	}
 
 	function testCertificateDefaultException() {
@@ -102,9 +102,9 @@ class EnterpriseSecurityExceptionTest extends UnitTestCase
 	}
 	
 	function testCertificateException() {
-		$e = new CertificateException("m1","m2");
-		$this->assertEqual( $e->getUserMessage(), "m1" );
-		$this->assertEqual( $e->getLogMessage(), "m2" );
+		$e = new CertificateException("This is a message for users.","This is a message for the log.");
+		$this->assertEqual( $e->getUserMessage(), "This is a message for users." );
+		$this->assertEqual( $e->getLogMessage(), "This is a message for the log." );
 	}
 
 	function testEncodingDefaultException() {
@@ -114,9 +114,9 @@ class EnterpriseSecurityExceptionTest extends UnitTestCase
 	}
 		
 	function testEncodingException() {
-		$e = new EncodingException("m1","m2");
-		$this->assertEqual( $e->getUserMessage(), "m1" );
-		$this->assertEqual( $e->getLogMessage(), "m2" );
+		$e = new EncodingException("This is a message for users.","This is a message for the log.");
+		$this->assertEqual( $e->getUserMessage(), "This is a message for users." );
+		$this->assertEqual( $e->getLogMessage(), "This is a message for the log." );
 	}
 
 	function testEncryptionDefaultException() {
@@ -126,9 +126,9 @@ class EnterpriseSecurityExceptionTest extends UnitTestCase
 	}
 	
 	function testEncryptionException() {
-		$e = new EncryptionException("m1","m2");
-		$this->assertEqual( $e->getUserMessage(), "m1" );
-		$this->assertEqual( $e->getLogMessage(), "m2" );
+		$e = new EncryptionException("This is a message for users.","This is a message for the log.");
+		$this->assertEqual( $e->getUserMessage(), "This is a message for users." );
+		$this->assertEqual( $e->getLogMessage(), "This is a message for the log." );
 	}
 	
 	function testExecutorDefaultException() {
@@ -138,9 +138,9 @@ class EnterpriseSecurityExceptionTest extends UnitTestCase
 	}
 	
 	function testExecutorException() {
-		$e = new ExecutorException("m1","m2");
-		$this->assertEqual( $e->getUserMessage(), "m1" );
-		$this->assertEqual( $e->getLogMessage(), "m2" );
+		$e = new ExecutorException("This is a message for users.","This is a message for the log.");
+		$this->assertEqual( $e->getUserMessage(), "This is a message for users." );
+		$this->assertEqual( $e->getLogMessage(), "This is a message for the log." );
 	}
 	
 	function testValidationDefaultException() {
@@ -150,9 +150,9 @@ class EnterpriseSecurityExceptionTest extends UnitTestCase
 	}
 	
 	function testValidationException() {
-		$e = new ValidationException("m1","m2");
-		$this->assertEqual( $e->getUserMessage(), "m1" );
-		$this->assertEqual( $e->getLogMessage(), "m2" );
+		$e = new ValidationException("This is a message for users.","This is a message for the log.");
+		$this->assertEqual( $e->getUserMessage(), "This is a message for users." );
+		$this->assertEqual( $e->getLogMessage(), "This is a message for the log." );
 	}
 	
 	function testValidationExceptionContext() {
@@ -168,9 +168,9 @@ class EnterpriseSecurityExceptionTest extends UnitTestCase
 	}
 	
 	function testIntegrityException() {
-		$e = new IntegrityException("m1","m2");
-		$this->assertEqual( $e->getUserMessage(), "m1" );
-		$this->assertEqual( $e->getLogMessage(), "m2" );
+		$e = new IntegrityException("This is a message for users.","This is a message for the log.");
+		$this->assertEqual( $e->getUserMessage(), "This is a message for users." );
+		$this->assertEqual( $e->getLogMessage(), "This is a message for the log." );
 	}
 	
 	function testAuthenticationHostDefaultException() {
@@ -180,9 +180,9 @@ class EnterpriseSecurityExceptionTest extends UnitTestCase
 	}
 	
 	function testAuthenticationHostException() {
-		$e = new AuthenticationHostException("m1","m2");
-		$this->assertEqual( $e->getUserMessage(), "m1" );
-		$this->assertEqual( $e->getLogMessage(), "m2" );
+		$e = new AuthenticationHostException("This is a message for users.","This is a message for the log.");
+		$this->assertEqual( $e->getUserMessage(), "This is a message for users." );
+		$this->assertEqual( $e->getLogMessage(), "This is a message for the log." );
 	}
 	function testAuthenticationAccountsDefaultException() {
 		$e = new AuthenticationAccountsException();
@@ -191,9 +191,9 @@ class EnterpriseSecurityExceptionTest extends UnitTestCase
 	}
 	
 	function testAuthenticationAccountsException() {
-		$e = new AuthenticationAccountsException("m1","m2");
-		$this->assertEqual( $e->getUserMessage(), "m1" );
-		$this->assertEqual( $e->getLogMessage(), "m2" );
+		$e = new AuthenticationAccountsException("This is a message for users.","This is a message for the log.");
+		$this->assertEqual( $e->getUserMessage(), "This is a message for users." );
+		$this->assertEqual( $e->getLogMessage(), "This is a message for the log." );
 	}
 	
 	function testAuthenticationCredentialsDefaultException() {
@@ -203,9 +203,9 @@ class EnterpriseSecurityExceptionTest extends UnitTestCase
 	}
 	
 	function testAuthenticationCredentialsException() {
-		$e = new AuthenticationCredentialsException("m1","m2");
-		$this->assertEqual( $e->getUserMessage(), "m1" );
-		$this->assertEqual( $e->getLogMessage(), "m2" );
+		$e = new AuthenticationCredentialsException("This is a message for users.","This is a message for the log.");
+		$this->assertEqual( $e->getUserMessage(), "This is a message for users." );
+		$this->assertEqual( $e->getLogMessage(), "This is a message for the log." );
 	}
 	function testAuthenticationLoginDefaultException() {
 		$e = new AuthenticationLoginException();
@@ -214,9 +214,9 @@ class EnterpriseSecurityExceptionTest extends UnitTestCase
 	}
 	
 	function testAuthenticationLoginException() {
-		$e = new AuthenticationLoginException("m1","m2");
-		$this->assertEqual( $e->getUserMessage(), "m1" );
-		$this->assertEqual( $e->getLogMessage(), "m2" );
+		$e = new AuthenticationLoginException("This is a message for users.","This is a message for the log.");
+		$this->assertEqual( $e->getUserMessage(), "This is a message for users." );
+		$this->assertEqual( $e->getLogMessage(), "This is a message for the log." );
 	}
 	
 	function testValidationAvailabilityDefaultException() {
@@ -226,9 +226,9 @@ class EnterpriseSecurityExceptionTest extends UnitTestCase
 	}
 	
 	function testValidationAvailabilityException() {
-		$e = new ValidationAvailabilityException("m1","m2");
-		$this->assertEqual( $e->getUserMessage(), "m1" );
-		$this->assertEqual( $e->getLogMessage(), "m2" );
+		$e = new ValidationAvailabilityException("This is a message for users.","This is a message for the log.");
+		$this->assertEqual( $e->getUserMessage(), "This is a message for users." );
+		$this->assertEqual( $e->getLogMessage(), "This is a message for the log." );
 	}
 
 	function testValidationUploadDefaultException() {
@@ -237,9 +237,9 @@ class EnterpriseSecurityExceptionTest extends UnitTestCase
 		$this->assertEqual( $e->getLogMessage(), '' );
 	}
 	function testValidationUploadException() {
-		$e = new ValidationUploadException("m1","m2");
-		$this->assertEqual( $e->getUserMessage(), "m1" );
-		$this->assertEqual( $e->getLogMessage(), "m2" );
+		$e = new ValidationUploadException("This is a message for users.","This is a message for the log.");
+		$this->assertEqual( $e->getUserMessage(), "This is a message for users." );
+		$this->assertEqual( $e->getLogMessage(), "This is a message for the log." );
 	}
 
 	function testIntrusionDefaultException() {
@@ -249,9 +249,9 @@ class EnterpriseSecurityExceptionTest extends UnitTestCase
 	}
 	
 	function testIntrusionException() {
-		$e = new IntrusionException("m1","m2");
-		$this->assertEqual( $e->getUserMessage(), "m1" );
-		$this->assertEqual( $e->getLogMessage(), "m2" );
+		$e = new IntrusionException("This is a message for users.","This is a message for the log.");
+		$this->assertEqual( $e->getUserMessage(), "This is a message for users." );
+		$this->assertEqual( $e->getLogMessage(), "This is a message for the log." );
 	}
 }
 ?>

@@ -29,6 +29,7 @@ require_once dirname(__FILE__).'/../ESAPILogger.php';
 class DefaultLogger implements ESAPILogger {
 
     private $logger;
+    private $loggerName;
     private static $initialised = false;
 
     function __construct($name)
@@ -37,7 +38,9 @@ class DefaultLogger implements ESAPILogger {
             self::initialise();
         }
         $this->logger = Logger::getLogger($name);
+        $this->loggerName = $name;
     }
+
 
     /**
      * {@inheritDoc}
@@ -54,6 +57,7 @@ class DefaultLogger implements ESAPILogger {
             $this->error(ESAPILogger::SECURITY, false, "IllegalArgumentException", $e);
         }
     }
+
 
     /**
      * Converts the ESAPI logging level (a number) or level defined in ESAPI.xml
@@ -72,8 +76,11 @@ class DefaultLogger implements ESAPILogger {
                 case 'WARN':   return LoggerLevel::getLevelWarn();
                 case 'ERROR':  return LoggerLevel::getLevelError();
                 case 'SEVERE': return LoggerLevel::getLevelFatal();
+              //case 'OFF':    return LoggerLevel::getLevelOff();     // TODO allow this?
                 default: {
-                    throw new Exception("Invalid logging level Value was: " . $level);
+                    throw new Exception(
+                        "Invalid logging level Value was: {$level}"
+                    );
                 }
             }
         } else {
@@ -86,7 +93,9 @@ class DefaultLogger implements ESAPILogger {
                 case ESAPILogger::FATAL:   return LoggerLevel::getLevelFatal();
                 case ESAPILogger::OFF:     return LoggerLevel::getLevelOff();
                 default: {
-                    throw new Exception("Invalid logging level Value was: " . $level);
+                    throw new Exception(
+                        "Invalid logging level Value was: {$level}"
+                    );
                 }
             }
         }
@@ -97,7 +106,7 @@ class DefaultLogger implements ESAPILogger {
      *  initialise() configures Apache's Log4PHP RootLogger to append events to
      *  STDOUT and a RollingFile, the latter of which takes its properties from
      *  SecurityConfiguration.
-     *  
+     *
      */
     private static function initialise()
     {
@@ -105,24 +114,22 @@ class DefaultLogger implements ESAPILogger {
 
         $secConfig = ESAPI::getSecurityConfiguration();
         $logLevel = $secConfig->getLogLevel();
-        
+
+        // Patterns representing the format of Log entries
+        // d date, p priority (level), m message, n newline
+        $dateFormat = $secConfig->getLogFileDateFormat();
+        $logfileLayoutPattern = "%d{{$dateFormat}} %-5p %m %n";
+        $consoleLayoutPattern = "%d{{$dateFormat}} %-5p %m <br />%n";
+
         // LogFile properties.
         $logFileName = $secConfig->getLogFileName();
         $maxLogFileSize = $secConfig->getMaxLogFileSize();
         $maxLogFileBackups = $secConfig->getMaxLogFileBackups();
-        
-        // Pattern representing the format of Log entries
-        // $layoutPattern = LoggerLayoutPattern::TTCC_CONVERSION_PATTERN;
-        
-        // Get a LoggerLayout - Using TTCC for now, but Pattern later.
-        $layout = new LoggerLayoutTTCC("%Y-%d-%m %H:%M:%S");
-        $layout->setThreadPrinting(false);
-        $layout->setContextPrinting(false);
-        $layout->setMicroSecondsPrinting(false);
-        $layout->setCategoryPrefixing(true);
-        // TODO - LoggerLayoutPattern is not working...using LoggerLayoutTTCC
-        // $logfileLayout = new LoggerLayoutPattern($layoutPattern);
-        // 
+
+        // LogFile layout
+        $logfileLayout = new LoggerLayoutPattern();
+        $logfileLayout->setConversionPattern($logfileLayoutPattern); // no idea why the constructor doesn't do this!
+
         // Get a LoggerFilter - Use LevelMatch to deny DEBUG in the logfile.
         // TODO remove LoggerFilter when codec debugging is done and before
         // release.
@@ -130,35 +137,35 @@ class DefaultLogger implements ESAPILogger {
         $loggerFilter->setLevelToMatch(LoggerLevel::DEBUG);
         $loggerFilter->setAcceptOnMatch("false");
         $loggerFilter->activateOptions();
-        
-        // Get a LoggerAppender and add the LoggerLayout - Using Echo for now,
-        // RollingFile later.
-        $appenderEcho = new LoggerAppenderEcho('Echo Output');
-        $appenderEcho->setLayout($layout);
-        $appenderEcho->activateOptions();
-        // RollingFile
+
+        // LogFile RollingFile Appender
         $appenderLogfile = new LoggerAppenderRollingFile('ESAPI LogFile');
         $appenderLogfile->setFile($logFileName, true);
         $appenderLogfile->setMaxFileSize($maxLogFileSize);
         $appenderLogfile->setMaxBackupIndex($maxLogFileBackups);
-        // TODO set $logfileLayout when LoggerLayoutPattern is working.
-        // $appenderLogfile->setLayout($logfileLayout);
-        $appenderLogfile->setLayout($layout);
         $appenderLogfile->addFilter($loggerFilter); // TODO remove temp filter
+        $appenderLogfile->setLayout($logfileLayout);
         $appenderLogfile->activateOptions();
-        
-        // Get the RootLogger and reset it, before adding our Appender and
+
+        // Console layout
+        $consoleLayout = new LoggerLayoutPattern();
+        $consoleLayout->setConversionPattern($consoleLayoutPattern);
+
+        // Console Echo Appender
+        $appenderEcho = new LoggerAppenderEcho('Echo Output');
+        $appenderEcho->setLayout($consoleLayout);
+        $appenderEcho->activateOptions();
+
+        // Get the RootLogger and reset it, before adding our Appenders and
         // setting our Loglevel
         $rootLogger = Logger::getRootLogger();
         $rootLogger->removeAllAppenders();
         $rootLogger->addAppender($appenderEcho);
-        // Logfile Appender
         $rootLogger->addAppender($appenderLogfile);
-        
         $rootLogger->setLevel(
             self::convertESAPILeveltoLoggerLevel($logLevel)
         );
-        
+
     }
 
 
@@ -176,9 +183,11 @@ class DefaultLogger implements ESAPILogger {
      * @param throwable
      *         the exception to be logged
      */
-    function fatal($type, $success, $message, $throwable = null) {
-        $this->log(ESAPILogger::FATAL,$type, $success, $message, $throwable);
+    function fatal($type, $success, $message, $throwable = null)
+    {
+        $this->log(ESAPILogger::FATAL, $type, $success, $message, $throwable);
     }
+
 
     /**
      * Allows the caller to determine if messages logged at this level
@@ -186,7 +195,8 @@ class DefaultLogger implements ESAPILogger {
      *
      * @return true if fatal level messages will be output to the log
      */
-    function isFatalEnabled() {
+    function isFatalEnabled()
+    {
         return $this->logger->isEnabledFor(LoggerLevel::getLevelFatal());
     }
 
@@ -205,9 +215,11 @@ class DefaultLogger implements ESAPILogger {
      * @param throwable
      *         the exception to be logged
      */
-    function error($type, $success, $message, $throwable = null) {
-        $this->log(ESAPILogger::ERROR,$type, $success, $message, $throwable);
+    function error($type, $success, $message, $throwable = null)
+    {
+        $this->log(ESAPILogger::ERROR, $type, $success, $message, $throwable);
     }
+
 
     /**
      * Allows the caller to determine if messages logged at this level
@@ -215,9 +227,11 @@ class DefaultLogger implements ESAPILogger {
      *
      * @return true if error level messages will be output to the log
      */
-    function isErrorEnabled() {
+    function isErrorEnabled()
+    {
         return $this->logger->isEnabledFor(LoggerLevel::getLevelError());
     }
+
 
     /**
      * Log a warning level security event if 'warning' level logging is enabled
@@ -233,9 +247,11 @@ class DefaultLogger implements ESAPILogger {
      * @param throwable
      *         the exception to be logged
      */
-    function warning($type, $success, $message, $throwable = null) {
-        $this->log(ESAPILogger::WARNING,$type, $success, $message, $throwable);
+    function warning($type, $success, $message, $throwable = null)
+    {
+        $this->log(ESAPILogger::WARNING, $type, $success, $message, $throwable);
     }
+
 
     /**
      * Allows the caller to determine if messages logged at this level
@@ -243,9 +259,11 @@ class DefaultLogger implements ESAPILogger {
      *
      * @return true if warning level messages will be output to the log
      */
-    function isWarningEnabled() {
+    function isWarningEnabled()
+    {
         return $this->logger->isEnabledFor(LoggerLevel::getLevelWarn());
     }
+
 
     /**
      * Log an info level security event if 'info' level logging is enabled
@@ -261,9 +279,11 @@ class DefaultLogger implements ESAPILogger {
      * @param throwable
      *         the exception to be logged
      */
-    function info($type, $success, $message, $throwable = null) {
-        $this->log(ESAPILogger::INFO,$type, $success, $message, $throwable);
+    function info($type, $success, $message, $throwable = null)
+    {
+        $this->log(ESAPILogger::INFO, $type, $success, $message, $throwable);
     }
+
 
     /**
      * Allows the caller to determine if messages logged at this level
@@ -271,9 +291,11 @@ class DefaultLogger implements ESAPILogger {
      *
      * @return true if info level messages will be output to the log
      */
-    function isInfoEnabled() {
+    function isInfoEnabled()
+    {
         return $this->logger->isEnabledFor(LoggerLevel::getLevelInfo());
     }
+
 
     /**
      * Log a debug level security event if 'debug' level logging is enabled
@@ -289,9 +311,11 @@ class DefaultLogger implements ESAPILogger {
      * @param throwable
      *         the exception to be logged
      */
-    function debug($type, $success, $message, $throwable = null) {
+    function debug($type, $success, $message, $throwable = null)
+    {
         $this->log(ESAPILogger::DEBUG,$type, $success, $message, $throwable);
     }
+
 
     /**
      * Allows the caller to determine if messages logged at this level
@@ -299,9 +323,11 @@ class DefaultLogger implements ESAPILogger {
      *
      * @return true if debug level messages will be output to the log
      */
-    function isDebugEnabled() {
+    function isDebugEnabled()
+    {
         return $this->logger->isEnabledFor(LoggerLevel::getLevelDebug());
     }
+
 
     /**
      * Log a trace level security event if 'trace' level logging is enabled
@@ -317,9 +343,11 @@ class DefaultLogger implements ESAPILogger {
      * @param throwable
      *         the exception to be logged
      */
-    function trace($type, $success, $message, $throwable = null){
-        $this->log(ESAPILogger::TRACE,$type, $success, $message, $throwable);
+    function trace($type, $success, $message, $throwable = null)
+    {
+        $this->log(ESAPILogger::TRACE, $type, $success, $message, $throwable);
     }
+
 
     /**
      * Allows the caller to determine if messages logged at this level
@@ -327,9 +355,11 @@ class DefaultLogger implements ESAPILogger {
      *
      * @return true if trace level messages will be output to the log
      */
-    function isTraceEnabled() {
+    function isTraceEnabled()
+    {
         return $this->logger->isEnabledFor(LoggerLevel::getLevelAll());
     }
+
 
     /**
      * Log the message after optionally encoding any special characters that might be dangerous when viewed
@@ -346,13 +376,15 @@ class DefaultLogger implements ESAPILogger {
      * @param message the message
      * @param throwable the throwable
      */
-    private function log($level, $type, $success, $message, $throwable) {
-        global $ESAPI;
+    private function log($level, $type, $success, $message, $throwable)
+    {
+        // If this log level is below the threshold we can quit now.
+        $logLevel = $this->convertESAPILeveltoLoggerLevel($level);
+        if (!$this->logger->isEnabledFor($logLevel)) {
+            return;
+        }
 
-        $level = $this->convertESAPILeveltoLoggerLevel( $level );
-        // Check to see if we need to log
-        if (!$this->logger->isEnabledFor($level)) return;
-/* TODO Removed until AccessController is done.
+        /* TODO Removed until AccessController is done.
         // create a random session number for the user to represent the user's 'session', if it doesn't exist already
         $sid = null;
 
@@ -369,26 +401,40 @@ class DefaultLogger implements ESAPILogger {
                 }
             }
         }
-*/
+        */
+
         // ensure there's something to log
-        if ( $message == null ) {
-            $message = "";
+        if ($message == null) {
+            $message = '';
         }
 
+        // Add some context to log the message.
+        // Application name, Logger name, success or failure.
+        $context = '';
+        $logAppName = ESAPI::getSecurityConfiguration()->getLogApplicationName();
+        if ($logAppName) {
+            $context .= ESAPI::getSecurityConfiguration()->getApplicationName() . ' ';
+        }
+        $context .= $this->loggerName . ' ';
+        if ($success === true) {
+            $context .= 'Success: ';
+        } else {
+            $context .= 'Failure: ';
+        }
+        $message = $context . $message;
+
         // ensure no CRLF injection into logs for forging records
+        // FIXME - fix this when we don't want pretty CodecDebug output - or maybe Log4PHP can do it on a layout basis...
         $clean = str_replace('\r', '_',str_replace( '\n', '_',$message ));
-         
-        if ($ESAPI->getSecurityConfiguration()->getLogEncodingRequired() ) {
-            $clean = $ESAPI->getEncoder()->encodeForHTML($message);
-            if (!$message == $clean) {
-                $clean .= " (Encoded)";
+
+        if (ESAPI::getSecurityConfiguration()->getLogEncodingRequired() ) {
+            $clean = ESAPI::getEncoder()->encodeForHTML($message);
+            if ($message != $clean) {
+                $clean .= ' (Encoded)';
             }
         }
 
-        // TODO remove this temporary html break element
-        $clean .= "<br />";
-
-/* TODO Removed until AccessController is done.
+        /* TODO Removed until AccessController is done.
         // log user information - username:session@ipaddr
         //TODO commented out as $ESAPI->getAuthenticator()->getCurrentUser(); not yet implemented
         //$user = $ESAPI->getAuthenticator()->getCurrentUser();
@@ -407,10 +453,9 @@ class DefaultLogger implements ESAPILogger {
         if ($currentRequest  != null && $logServerIP ) {
             $appInfo.= $ESAPI->currentRequest()->getLocalAddr() . ":" . $ESAPI->currentRequest()->getLocalPort();
         }
-*/
+        */
         // log the message
         // $this->logger->log($level, "[" . $userInfo . " -> " . $appInfo . "] " . $clean, $throwable);
-        $this->logger->log($level, $clean, $throwable);
+        $this->logger->log($logLevel, $clean, $throwable);
     }
 }
-?>
