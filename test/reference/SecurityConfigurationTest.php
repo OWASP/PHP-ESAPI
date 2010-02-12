@@ -55,7 +55,7 @@ class SecurityConfigurationTest extends UnitTestCase
 	{
 		$config = ESAPI::getSecurityConfiguration();
 		
-		$this->assertEqual($config->getApplicationName(), 'ExampleApplication');
+		$this->assertEqual($config->getApplicationName(), 'ExampleApplicationName');
 	}
 
 	/**

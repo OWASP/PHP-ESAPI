@@ -153,13 +153,10 @@
 		<LogEncodingRequired>false</LogEncodingRequired>
 		
 		<!-- Application name used not only by the logger, but by ESAPI itself -->
-		<ApplicationName>ExampleApplication</ApplicationName>
-
-		<!-- If you use an HTML log viewer that does not properly HTML escape log data, you can set LogEncodingRequired to true --> 
-		<LogEncodingRequired>false</LogEncodingRequired>
+		<ApplicationName>ExampleApplicationName</ApplicationName>
 
 		<!-- Determines whether ESAPI should log the application name. This might be clutter in some single-server/single-app environments. --> 
-		<LogApplicationName>true</LogApplicationName>
+		<LogApplicationName>false</LogApplicationName>
 
 		<!-- Determines whether ESAPI should log the server IP and port. This might be clutter in some single-server environments. --> 
 		<LogServerIP>true</LogServerIP>
@@ -177,6 +174,14 @@
 		 backup is to be made. Default value is 10.
 		 -->
 		<MaxLogFileBackups>10</MaxLogFileBackups>
+
+		<!--
+		 LogFileDateFormat, is a date format string following the PHP date()
+		 function format {@link http://php.net/manual/en/function.date.php} and
+		 is used to format the date in log file entries.  The default format is
+		 'Y-m-d H:i:s P' which produces, for example: 2010-01-31 23:59:59 +00:00
+		 -->
+		<LogFileDateFormat>Y-m-d H:i:s P</LogFileDateFormat>
 		
 	</Logger>
 
