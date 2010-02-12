@@ -339,4 +339,57 @@ class LoggerTest extends UnitTestCase {
         );
     }
 
+
+    /*
+     * A test to ensure that logging to file is working. This test should work
+     * even if logging is turned off. ;)
+     * Uses FATAL level log entry to log a random string that hopefully will not
+     * exist otherwise, before locating and reading the log file in search of
+     * the random string.
+     */
+    function testEntryIsActuallyLogged() {
+        ESAPI::getEncoder();
+        $rndString = ESAPI::getRandomizer()->getRandomString(
+            32, Encoder::CHAR_ALPHANUMERICS
+        );
+
+        if (! $this->testLogger->isFatalEnabled()) {
+            $this->testLogger->setLevel(ESAPILogger::FATAL);
+        }
+
+        if (preg_match('/[a-zA-Z0-9]{32,32}/', $rndString))
+        {
+            // log the random message
+            $this->testLogger->fatal(
+                ESAPILogger::SECURITY, true,
+                "test EntryIsActuallyLogged random string message: {$rndString}"
+            );
+
+            // get the logfile location
+            $sc = ESAPI::getSecurityConfiguration();
+            $file = $sc->getLogFileName();
+            $loc = realpath($file);
+
+            // read the logfile
+            $f = file_get_contents($loc);
+
+            if ($f === false) {
+                $this->fail("Failed to read the log file from {$loc}");
+            } else if (preg_match("/{$rndString}/", $f)) {
+                $this->pass('
+                    Log file contains our random string. ' .
+                    'Logging to file verified working.'
+                );
+            } else {
+                $this->fail(
+                    'Log file does not contain our random string. ' .
+                    'Cannot verify that logging to file is working.'
+                );
+            }
+        }
+        else
+        {
+            $this->fail('Failed to get a random string to perform this test.');
+        }
+    }
 }
