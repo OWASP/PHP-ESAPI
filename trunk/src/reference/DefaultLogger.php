@@ -28,11 +28,11 @@ require_once dirname(__FILE__).'/../ESAPILogger.php';
 
 /**
  * Reference Implementation of the ESAPILogger Interface.
- * 
+ *
  * This implementation makes use of Apache's Log4PHP {@link
  * http://incubator.apache.org/log4php/index.html} and implements five of the
  * six requirements for logging {@see ESAPILogger}.
- * 
+ *
  *
  * @author Andrew van der Stock
  * @author Laura D. Bell
@@ -295,7 +295,6 @@ class DefaultLogger implements ESAPILogger {
      */
     private function log($level, $type, $success, $message, $throwable)
     {
-
         // If this log level is below the threshold we can quit now.
         $logLevel = $this->convertESAPILeveltoLoggerLevel($level);
         if (! $this->logger->isEnabledFor($logLevel)) {
@@ -354,7 +353,7 @@ class DefaultLogger implements ESAPILogger {
 
             // create a random session number for the user to represent the
             // user's session, if it doesn't exist already
-            $userSessionIDforLogging = 'session unknown';
+            $userSessionIDforLogging = 'SessionUnknown';
             try
             {
                 $session = $request->getSession(false);
@@ -369,29 +368,19 @@ class DefaultLogger implements ESAPILogger {
             {
                 // continue
             }
-            $context .= $userSessionIDforLogging;
+            $context .= "[ID:{$userSessionIDforLogging}]";
         }
 
         // Now comes the message.
         if (! is_string($message)) {
             $message = '';
         }
-        // Encode CRLF - this bit might have to go in a try block
-        $detectedEncoding = Codec::detectEncoding($message);
-        $len = mb_strlen($message, $detectedEncoding);
-        $crlfEncoded = ''; // an empty string is an empty string, no?
-        for ($i = 0; $i < $len; $i++) {
-            $c = mb_substr($message, $i, 1, $detectedEncoding);
-            if ($c == "\r" || $c == "\n") {
-                $crlfEncoded .= $c; // '_'; FIXME when we don't want pretty CodecDebug output
-            } else {
-                $crlfEncoded .= $c;
-            }
-        }
 
-        $encodedMessage = null;
+        // Encode CRLF - this bit might have to go in a try block
+        $crlfEncoded = $this->replaceCRLF($message, null /* '_' FIXME when we don't want pretty CodecDebug output */);
 
         // Encode for HTML if ESAPI.xml says so
+        $encodedMessage = null;
         if ($secConfig->getLogEncodingRequired() )
         {
             try
@@ -412,11 +401,65 @@ class DefaultLogger implements ESAPILogger {
             $encodedMessage = $crlfEncoded;
         }
 
-        $messageForLog = $context . ' ' . $encodedMessage;
+        // Now handle the exception
+        $dumpedException = '';
+        if ($throwable !== null && $throwable instanceof Exception)
+        {
+            $dumpedException = ' ' . $this->replaceCRLF($throwable, ' | ');
+        }
 
-        $this->logger->log($logLevel, $messageForLog, $throwable);
+        $messageForLog = $context . ' ' . $encodedMessage . $dumpedException;
+
+        $this->logger->log($logLevel, $messageForLog, $this);
     }
 
+
+    /**
+     * Helper method to replace carriage return and line feed characters in the
+     * supplied message with the supplied substitute character(s). The sequence
+     * CRLF (\r\n) is treated as one character.
+     *
+     * @param $message string message to process.
+     * @param $substitute string replacement for CR, LF or CRLF.
+     *
+     * @return string message with characters replaced.
+     */
+    private function replaceCRLF($message, $substitute)
+    {
+        if ($message === null || $substitute === null) {
+            return $message;
+        }
+        $detectedEncoding = Codec::detectEncoding($message);
+        $len = mb_strlen($message, $detectedEncoding);
+        $crlfEncoded = '';
+        $nextChar = null;
+        $index = 0;
+        for ($i = 0; $i < $len; $i++) {
+            if ($i < $index) {
+                continue;
+            }
+            if ($nextChar === null) {
+                $thisChar = mb_substr($message, $i, 1, $detectedEncoding);
+            } else {
+                $thisChar = $nextChar;
+            }
+            if ($i+1 < $len) {
+                $nextChar = mb_substr($message, $i+1, 1, $detectedEncoding);
+            } else {
+                $nextChar = null;
+            }
+            if ($thisChar == "\r" && $nextChar == "\n") {
+                $index = $i+2;
+                $nextChar = null;
+                $crlfEncoded .= $substitute;
+            } else if ($thisChar == "\r" || $thisChar == "\n") {
+                $crlfEncoded .= $substitute;
+            } else {
+                $crlfEncoded .= $thisChar;
+            }
+        }
+        return $crlfEncoded;
+    }
 
     /**
      * Converts a logging level.
