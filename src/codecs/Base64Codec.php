@@ -8,20 +8,33 @@
  *
  * Copyright (c) 2007 - 2010 The OWASP Foundation
  *
- * The ESAPI is published by OWASP under the BSD license. You should read and accept the
- * LICENSE before you use, modify, and/or redistribute this software.
+ * The ESAPI is published by OWASP under the BSD license. You should read and
+ * accept the LICENSE before you use, modify, and/or redistribute this software.
  *
  * @author martin.reiche
  * @created 2009
- * @since 1.4
+ * @since 1.6
  * @package org.owasp.esapi.codecs
  */
 
+
+/**
+ *
+ */
 require_once dirname ( __FILE__ ) . '/Codec.php';
 require_once dirname ( __FILE__ ) . '/../ESAPI.php';
 
+
 /**
- * Implementation of the Codec Interface for Base64 en/decoding.
+ * Implementation of the Codec Interface for Base64 encoding and decoding.
+ *
+ * This implementation makes use of the standard PHP base64_encode function and
+ * implements Section 6.8 of RFC 2045.
+ *
+ * For more information see:
+ * {@link http://tools.ietf.org/html/rfc2045#section-6.8}
+ * {@link http://en.wikipedia.org/wiki/Base64#MIME}
+ *
  */
 class Base64Codec extends Codec
 {
@@ -36,45 +49,60 @@ class Base64Codec extends Codec
     }
 
     /**
-     * Encodes the input string to Base64. This function will not touch
-     * characters that are provided in the $immune array.
+     * Encodes the input string to Base64.
      *
-     * @param immune the array of characters that shall not be encoded
+     * The output is wrapped at 76 characters by default, but this behaviour may
+     * be overridden by supplying a value of boolean false for the $wrap
+     * parameter.
+     *
      * @param input the input string to be encoded
      * @return the encoded string
      */
-    public function encode($immune, $input)
+    public function encode($input, $wrap = true)
     {
-        /* The simple variant if no immune characters are given */
-        if (empty($immune)){
-            return base64_encode($input);
+        $encoded = base64_encode($input);
+
+        if ($wrap === false)
+        {
+            return $encoded;
         }
 
-        /* The more expensive variant if we want to have immune chars */
-        foreach($input as $inputchar) {
-            $b64end .= $this->encodeCharacter($immune, $inputchar);
+        // wrap encoded string into lines of not more than 76 characters
+        $detectedCharacterEncoding = self::detectEncoding($encoded);
+        $wrapped = '';
+        $limit = mb_strlen($encoded, $detectedCharacterEncoding);
+        $index = 0;
+        while ($index < $limit) {
+            if ($wrapped != '') {
+                $wrapped .= "\r\n";
+            }
+            $wrapped .= mb_substr($encoded, $index, 76);
+            $index += 76;
         }
-        return $b64end;
+
+        return $wrapped;
+
     }
 
     /**
-     * Encodes the character $c if it is not listed in the $immune array.
+     * Encodes a single character to Base64.
      *
-     * @param immune array of characters that should not be encoded
-     * @param c the character to encode
-     * @returns the base64 encoded character
+     * @param  $input the character to encode
+     * @return the base64 encoded character
      */
-    public function encodeCharacter($immune, $c)
+    public function encodeCharacter($input)
     {
-        /* only encode if char is no immune char */
-        return in_array($c, $immune) ? base64_encode($c) : $c;
+        $detectedCharacterEncoding = self::detectEncoding($input);
+        $c = mb_substr($input, 0, 1, $detectedCharacterEncoding);
+
+        return $this->encode($c, false);
     }
 
 
     /**
      * Decodes the given input string from Base64 to plain text.
      *
-     * @param input the base64 encoded input string
+     * @param  $input the base64 encoded input string
      * @return the decoded string
      */
     public function decode($input)
@@ -85,7 +113,7 @@ class Base64Codec extends Codec
     /**
      * Decodes a character from Base64 to plain text
      *
-     * @param input the character to decode
+     * @param  $input the character to decode
      * @return the decoded character
      */
     public function decodeCharacter($input)
@@ -93,4 +121,3 @@ class Base64Codec extends Codec
         return $this->decode($input);
     }
 }
-?>

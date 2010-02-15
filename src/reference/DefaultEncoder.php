@@ -64,7 +64,6 @@ class DefaultEncoder implements Encoder {
      *  Character sets that define characters (in addition to alphanumerics) that are
      * immune from encoding in various formats
      */
-    private $immune_base64     = array();
     private $immune_css        = array( ' ' );    // Note: zero immune chars in Java ESAPI 2
     private $immune_html       = array( ',', '.', '-', '_', ' ' );
     private $immune_htmlattr   = array( ',', '.', '-', '_' );
@@ -623,37 +622,18 @@ class DefaultEncoder implements Encoder {
      * Encode data with Base64 encoding.
      *
      * @param  $input string to encode for Base64
-     * @param  $wrap boolean the encoder will wrap lines every 64 characters of
-     *               output if true
+     * @param  $wrap boolean optional false to prevent wrapping of the output at
+     *         76 characters.
      *
      * @return the input string encoded for Base64
      */
-    function encodeForBase64($input, $wrap = false)
+    function encodeForBase64($input, $wrap = true)
     {
         if ($input === null)
         {
             return null;
         }
-        if ($wrap == false)
-        {
-            return $this->base64Codec->encode($this->immune_base64, $input);
-        }
-
-        // wrap encoded string into lines of not more than 64 characters
-        $encoded = $this->base64Codec->encode($this->immune_base64, $input);
-        $initialEncoding = $this->base64Codec->detectEncoding($encoded);
-        $wrapped = '';
-        $limit = mb_strlen($encoded, $initialEncoding);
-        $index = 0;
-
-        while ($index < $limit) {
-            if ($wrapped != '') {
-                 $wrapped .= "\n";
-            }
-            $wrapped .= mb_substr($encoded, $index, 64);
-            $index += 64;
-        }
-        return $wrapped;
+        return $this->base64Codec->encode($input, $wrap);
     }
 
 
