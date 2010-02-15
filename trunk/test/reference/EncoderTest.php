@@ -958,13 +958,13 @@ class EncoderTest extends UnitTestCase
         $instance = ESAPI::getEncoder();
         $this->assertEqual(null, $instance->decodeFromBase64(null));
     }
-    // Test wrapping at 64 chars
+    // Test wrapping at 76 chars
     function testEncodeForBase64_04() {
         $instance = ESAPI::getEncoder();
-        $unencoded = ESAPI::getRandomizer()->getRandomString( 64, Encoder::CHAR_SPECIALS );
+        $unencoded = ESAPI::getRandomizer()->getRandomString( 76, Encoder::CHAR_SPECIALS );
         $encoded = $instance->encodeForBase64( $unencoded, false );
         $encodedWrapped = $instance->encodeForBase64( $unencoded, true );
-        $expected = mb_substr($encoded, 0, 64, 'ASCII') . "\n" . mb_substr($encoded, 64, mb_strlen($encoded, 'ASCII')-64, 'ASCII');
+        $expected = mb_substr($encoded, 0, 76, 'ASCII') . "\r\n" . mb_substr($encoded, 76, mb_strlen($encoded, 'ASCII')-76, 'ASCII');
         $this->assertEqual( $expected, $encodedWrapped );
     }
     function testEncodeForBase64_05() {
@@ -1011,6 +1011,47 @@ class EncoderTest extends UnitTestCase
                 $this->fail();  // Note: java expects an IO exception, but base64_decode() doesn't throw one
             }
         }
+    }
+
+    function testDecodeSingleCharacter_NumeralZero()
+    {
+        $instance = ESAPI::getEncoder();
+        $this->assertEqual( '', $instance->decodeFromBase64('0') );
+    }
+    function testDecodeSingleCharacter_NumeralOne()
+    {
+        $instance = ESAPI::getEncoder();
+        $this->assertEqual( '', $instance->decodeFromBase64('1') );
+    }
+    function testDecodeSingleCharacter_AlphaLower()
+    {
+        $instance = ESAPI::getEncoder();
+        $this->assertEqual( '', $instance->decodeFromBase64('a') );
+    }
+    function testDecodeSingleCharacter_AlphaUpper()
+    {
+        $instance = ESAPI::getEncoder();
+        $this->assertEqual( '', $instance->decodeFromBase64('A') );
+    }
+    function testDecodeSingleCharacter_CharBackslash()
+    {
+        $instance = ESAPI::getEncoder();
+        $this->assertEqual( '', $instance->decodeFromBase64('\\') );
+    }
+    function testDecodeSingleCharacter_CharPlus()
+    {
+        $instance = ESAPI::getEncoder();
+        $this->assertEqual( '', $instance->decodeFromBase64('+') );
+    }
+    function testDecodeSingleCharacter_CharPad()
+    {
+        $instance = ESAPI::getEncoder();
+        $this->assertEqual( '', $instance->decodeFromBase64('=') );
+    }
+    function testDecodeSingleInvalidCharacter_CharHyphen()
+    {
+        $instance = ESAPI::getEncoder();
+        $this->assertEqual( '', $instance->decodeFromBase64('-') );
     }
 
 

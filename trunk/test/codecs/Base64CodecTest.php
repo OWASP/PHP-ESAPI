@@ -36,21 +36,17 @@ class Base64CodecTest extends UnitTestCase
 		
 	function testEncode()
 	{
-		$immune = array("");
-		
-		$this->assertEqual( 'Ij48c2NyaXB0PmFsZXJ0KC9YU1MvKTwvc2NyaXB0Pjxmb28gYXR0cj0i', $this->base64Codec->encode($immune, '"><script>alert(/XSS/)</script><foo attr="') );
+		$this->assertEqual('Ij48c2NyaXB0PmFsZXJ0KC9YU1MvKTwvc2NyaXB0Pjxmb28gYXR0cj0i', $this->base64Codec->encode('"><script>alert(/XSS/)</script><foo attr="') );
 	}
 	
 	function testEncodeCharacter()
 	{
-		$immune = array("");
-		
-		$this->assertEqual( "PA==", $this->base64Codec->encode($immune, "<") );
+		$this->assertEqual( "PA==", $this->base64Codec->encode("<") );
 	}	
 	
 	function testDecode()
 	{
-		$this->assertEqual( "><script>alert(/XSS/)</script><foo attr=", $this->base64Codec->decode('Ij48c2NyaXB0PmFsZXJ0KC9YU1MvKTwvc2NyaXB0Pjxmb28gYXR0cj0i') );
+		$this->assertEqual('"><script>alert(/XSS/)</script><foo attr="', $this->base64Codec->decode('Ij48c2NyaXB0PmFsZXJ0KC9YU1MvKTwvc2NyaXB0Pjxmb28gYXR0cj0i') );
 	}
 		
 	function testDecodeCharacter()
