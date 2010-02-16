@@ -136,39 +136,27 @@ abstract class Codec {
 			
 			$encodedString = $decodeResult['encodedString'];
 			
-			//FIXME: this isn't handling potential double-encodings
-			if($decodedCharacter != null)
+			if ($decodedCharacter !== null)
 			{
-				//decodedCharacter is not null, so add it to the decodedString and remove the encodedString portion from start of input string
-				// set of characters matched an entity or numeric encoding, so use the decoded character
-				if($decodedCharacter===";"
-					|| $decodedCharacter==="!"
-					|| $decodedCharacter==="@"
-					|| $decodedCharacter==="$"
-					|| $decodedCharacter==="%"
-					|| $decodedCharacter==="("
-					|| $decodedCharacter===")"
-					|| $decodedCharacter==="="
-					|| $decodedCharacter==="+"
-					|| $decodedCharacter==="{"
-					|| $decodedCharacter==="}"
-					|| $decodedCharacter==="["
-					|| $decodedCharacter==="]")	//TODO: widened but could be more and neater...TODO: prolly need to widen this akin to the special-case handling in encoding methods, since EncoderTest line 324 fails
+				// decodedCharacter is not null, so add it to the decodedString
+				// and remove the encodedString portion from start of input
+				// string set of characters matched an entity or numeric
+				// encoding, so use the decoded character.
+				if ($decodedCharacter != '')
 				{
-					//special case handling for semicolon since mb_convert_encoding fails for it
-					$decodedString .= $decodedCharacter;
+					$decodedString .= mb_convert_encoding($decodedCharacter,
+						$initialEncoding, "UTF-32"
+					);
 				}
-				else
-				{
-					$decodedString .= mb_convert_encoding($decodedCharacter,$initialEncoding,"UTF-32");
-				}				
 				
 				// eat the encodedString portion off the start of the UTF-32 converted input string
 				$_4ByteString = mb_substr($_4ByteString,mb_strlen($encodedString,"UTF-32"),mb_strlen($_4ByteString,"UTF-32"),"UTF-32");		
 			}
 			else
 			{
-				//decodedCharacter is null, so add the single, unencoded character to the decodedString and remove the 1st character from start of input string
+				// decodedCharacter is null, so add the single, unencoded
+				// character to the decodedString and remove the 1st character
+				// from the start of the input string.
 				
 				// character did not match an entity or numeric encoding in context of trailing characters, so use the character
 				$decodedString .= mb_convert_encoding(mb_substr($_4ByteString,0,1,"UTF-32"),$initialEncoding,"UTF-32");
@@ -311,11 +299,11 @@ abstract class Codec {
             // Strict encoding detection with fallback to non-strict detection.
             if (mb_detect_encoding($string, 'UTF-32', true))
             {
-                return 'UTF-32';  // TODO possibly remove this - never happens?
+                return 'UTF-32';
             }
             else if (mb_detect_encoding($string, 'UTF-16', true))
             {
-                return 'UTF-16';  // TODO possibly remove this - never happens?
+                return 'UTF-16';
             }
             else if (mb_detect_encoding($string, 'UTF-8', true))
             {
