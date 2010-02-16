@@ -91,6 +91,13 @@ class CSSCodecTest extends UnitTestCase
 	{
 		$this->assertEqual( "CODEPOINT ZERO NOT RECOGNISED IN CSS", $this->cssCodec->decode("\\0 CODEP\\0 OINT ZER\\0O NOT\\0  RECOGNISED IN CSS\\0") );	//FIXME: this test yeilds an unexpected error when unpacking in Codec
 	}
+	function testEncodeZero()
+	{
+		$this->expectException('Exception', 'Encoding of a zero character code should throw an exception. %s');
+
+		$immune = array("");
+		$this->cssCodec->encodeCharacter($immune, chr(0x00));
+	}
 	
 }
 ?>

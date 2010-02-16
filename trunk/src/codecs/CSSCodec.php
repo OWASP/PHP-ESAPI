@@ -56,6 +56,12 @@ class CSSCodec extends Codec
   		
   		// Get the ordinal value of the character.
   		list(, $ordinalValue) = unpack("N", $_4ByteCharacter);
+  		
+  		// CSS 2.1 section 4.1.3: "It is undefined in CSS 2.1 what happens if a
+  		// style sheet does contain a character with Unicode codepoint zero."
+  		if ($ordinalValue === 0) {
+  			throw new Exception("IllegalArgumentException - Chracter value zero is not valid in CSS");
+  		}
     	
       // check for immune characters
       if ( $this->containsCharacter( $_4ByteCharacter, $immune ) )
@@ -135,8 +141,7 @@ class CSSCodec extends Codec
    		{
    			// in the case of escape character followed by a newline, the encoding should be ignored
    			// note: ESAPI4JAVA does not specifically handle this situation (it would be handled but throw a malformed entity exception)
-   			//FIXME: ASCII whitespace being passed back here as 'decodedCharacter' due to issue #27 "Codec::decode cannot accept a UTF-32 encoded empty string as decodedCharacter".
-   			return array('decodedCharacter'=>' ','encodedString'=>mb_substr($input,0,2,"UTF-32"));  //FIXME: by passing an ASCII space as decodedCharacter, rather than UTF_32 encoded space, the decode method will effectively eat the encodedString while not adding anything to the decoded result...
+   			return array('decodedCharacter'=>'', 'encodedString'=>mb_substr($input,0,2,"UTF-32"));
    		}
       else
    		{
@@ -161,7 +166,6 @@ class CSSCodec extends Codec
      */
     private function parseHex($input)
     {
-    	//TODO: consider refactoring the bulk of this implementation into a generic utility method: Codec::parseHex.
     	$hexString = mb_convert_encoding("", mb_detect_encoding($input));	//encoding should be UTF-32, so why detect it?
     	$inputLength = mb_strlen($input,"UTF-32");
     	for($i=0; $i<$inputLength; $i++)
