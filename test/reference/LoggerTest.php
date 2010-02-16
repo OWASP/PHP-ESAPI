@@ -1108,7 +1108,7 @@ class LoggerTest extends UnitTestCase {
      */
     private function getExpected($level, $type, $success, $msg, $exceptionClassName = null) {
         $date = '[0-9-]{10,10} [0-9:]{8,8} [+-][0-9:]{5,5}';
-        $success = $success ? 'Success:' : 'Failure:';
+        $success = $success ? '-SUCSESS' : '-FAIL';
         $num = $this->testCount -1;
         $name = "LoggerTest #{$num}";
         $localSocket = '[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}:[0-9]{1,5}';
@@ -1118,6 +1118,6 @@ class LoggerTest extends UnitTestCase {
         if ($exceptionClassName !== null) {
             $msg .= " exception '{$exceptionClassName}'";
         }
-        return "/{$date} {$level}[ ]{1,5}{$name} {$type} {$success} {$localSocket} {$username}{$remoteAddr}\[ID:{$sessionID}\] {$msg}/";
+        return "/{$date} {$level}[ ]{1,5}{$name} {$type}{$success} {$localSocket} {$username}{$remoteAddr}\[ID:{$sessionID}\] {$msg}/";
     }
 }
