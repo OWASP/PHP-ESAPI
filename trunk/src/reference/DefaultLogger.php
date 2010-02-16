@@ -318,15 +318,15 @@ class DefaultLogger implements ESAPILogger {
 
         // Event Type
         if (! is_string($type)) {
-            $type = 'Event Type Unknown';
+            $type = 'EVENT_UNKNOWN';
         }
         $context .= ' ' . $type;
 
         // Success or Failure of Event
         if ($success === true) {
-            $context .= ' Success:';
+            $context .= '-SUCCESS';
         } else {
-            $context .= ' Failure:';
+            $context .= '-FAIL';
         }
 
         // Local IP:PortNumber, Generated Session ID and Remote User ID and Host
