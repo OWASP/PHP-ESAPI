@@ -123,7 +123,6 @@ class JavaScriptCodec extends Codec
     	{
     		// 1st character is null, so return null
     		// eat the 1st character off the string and return null
-    		$_4ByteEncodedInput = mb_substr($input,1,mb_strlen($_4ByteEncodedInput,"UTF-32"),"UTF-32");	//no point in doing this
     		return array('decodedCharacter'=>null,'encodedString'=>null);
     	}
     	
@@ -136,6 +135,11 @@ class JavaScriptCodec extends Codec
     	
     	// 1st character is part of encoding pattern...
    		$second = mb_substr($_4ByteEncodedInput,1,1,"UTF-32");
+   		
+   		// There is no second character, return null.
+   		if ($second == '') {
+   			return array('decodedCharacter'=>null,'encodedString'=>null);
+   		}
 
         // \0 collides with the octal decoder and is non-standard
         // if ( second.charValue() == '0' ) {
