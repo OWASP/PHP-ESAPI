@@ -8,107 +8,330 @@
  *
  * Copyright (c) 2007 - The OWASP Foundation
  *
- * The ESAPI is published by OWASP under the BSD license. You should read and accept the
- * LICENSE before you use, modify, and/or redistribute this software.
+ * The ESAPI is published by OWASP under the BSD license. You should read and
+ * accept the LICENSE before you use, modify, and/or redistribute this software.
  *
  * @author Linden Darling <a href="http://www.jds.net.au">JDS Australia</a>
- * @created 2009
- * @since 1.6
+ * @since  2009
+ * @since  1.6
  */
 
+
+/**
+ *
+ */
 require_once dirname(__FILE__).'/../../src/ESAPI.php';
 require_once dirname(__FILE__).'/../../src/codecs/HTMLEntityCodec.php';
 
 
+/**
+ * Test case for HTMLEntityCodec.
+ */
 class HTMLEntityCodecTest extends UnitTestCase
 {
-	private $htmlEntityCodec = null;
-	private $immune_html = array( ',', '.', '-', '_', ' ' );	//copied from DefaultEncoder
-	private $immune_htmlattr	= array( ',', '.', '-', '_' );	//copied from DefaultEncoder
-	
-	function setUp()
-	{
-		global $ESAPI;
+    private $htmlEntityCodec = null;
 
-		if ( !isset($ESAPI))
-		{
-			$ESAPI = new ESAPI();
-		}
-		
-		$this->htmlEntityCodec = new HTMLEntityCodec();
-	}
-		
-	function testEncode()
-	{
-		$immune = array("");
-		
-		// vanderaj test
-		//$this->assertEqual( 'TODO', $this->htmlEntityCodec->encode($immune, '"><script>alert(/XSS/)</script><foo attr="') );
-		
-		// J2EE test case
-		//$this->assertEqual( "test", $this->htmlEntityCodec->encode( $immune, "test") );
-		
-		//TEST encodeForHTML
-		//copied & modified from old EncoderTest::testEncodeForHtml(), still uses $immune_html as per DefaultEncoder
-		$this->assertEqual(null, $this->htmlEntityCodec->encode($this->immune_html,null));		
-    // test invalid characters are replaced with spaces
-    //$this->assertEqual("a b c d e f&#x9;g", $this->htmlEntityCodec->encode($this->immune_html,"a".(chr(0))."b".(chr(4))."c".(chr(128))."d".(chr(150))."e".(chr(159))."f".(chr(9))."g"));
-			$this->assertEqual("a b c d e f&#x9;g h i j&#xa0;k&#xa1;l&#xa2;m", $this->htmlEntityCodec->encode($this->immune_html,"a".(chr(0))."b".(chr(4))."c".(chr(128))."d".(chr(150))."e".(chr(159))."f".(chr(9))."g".(chr(127))."h".(chr(129))."i".(chr(159))."j".(chr(160))."k".(chr(161))."l".(chr(162))."m"));
-    $this->assertEqual("&lt;script&gt;", $this->htmlEntityCodec->encode($this->immune_html,"<script>"));
-    $this->assertEqual("&amp;lt&#x3b;script&amp;gt&#x3b;", $this->htmlEntityCodec->encode($this->immune_html,"&lt;script&gt;"));
-    $this->assertEqual("&#x21;&#x40;&#x24;&#x25;&#x28;&#x29;&#x3d;&#x2b;&#x7b;&#x7d;&#x5b;&#x5d;", $this->htmlEntityCodec->encode($this->immune_html,"!@$%()=+{}[]"));
-//        $this->assertEqual("&#x21;&#x40;&#x24;&#x25;&#x28;&#x29;&#x3d;&#x2b;&#x7b;&#x7d;&#x5b;&#x5d;", $this->htmlEntityCodec->encode($this->immune_html,$instance->canonicalize("&#33;&#64;&#36;&#37;&#40;&#41;&#61;&#43;&#123;&#125;&#91;&#93;") ) ); //TODO: open this test up when canonicalize function is done
-    $this->assertEqual(",.-_ ", $this->htmlEntityCodec->encode($this->immune_html,",.-_ "));
-    $this->assertEqual("dir&amp;", $this->htmlEntityCodec->encode($this->immune_html,"dir&"));
-    $this->assertEqual("one&amp;two", $this->htmlEntityCodec->encode($this->immune_html,"one&two"));
-    $this->assertEqual("".(chr(12345)).(chr(65533)).(chr(1244)), "".(chr(12345)).(chr(65533)).(chr(1244)) );
-        
-    //TEST encodeForHTMLAttribute
-    //copied & modified from old EncoderTest::testEncodeForHtmlAttribute(), still uses $immune_htmlattr as per DefaultEncoder
-    $this->assertEqual(null, $this->htmlEntityCodec->encode($this->immune_htmlattr,null));
-    $this->assertEqual("&lt;script&gt;", $this->htmlEntityCodec->encode($this->immune_htmlattr,"<script>"));
-    $this->assertEqual(",.-_", $this->htmlEntityCodec->encode($this->immune_htmlattr,",.-_"));
-    $this->assertEqual("&#x20;&#x21;&#x40;&#x24;&#x25;&#x28;&#x29;&#x3d;&#x2b;&#x7b;&#x7d;&#x5b;&#x5d;", $this->htmlEntityCodec->encode($this->immune_htmlattr," !@$%()=+{}[]"));
-	}
-	
-	function testEncodeCharacter()
-	{
-		$immune = array("");
-		
-		$this->assertEqual( "&lt;", $this->htmlEntityCodec->encode($immune, "<") );
-	}	
-	
-	function testDecode()
-	{
-	 //vanderaj test
-		//$this->assertEqual( "><script>alert(/XSS/)</script><foo attr=", $this->htmlEntityCodec->decode('TODO') );
-		
-		// J2EE test cases
-		//$this->assertEqual( "test!", $this->htmlEntityCodec->decode('&#116;&#101;&#115;&#116;!') );
-		//$this->assertEqual( "test!", $this->htmlEntityCodec->decode('&#x74;&#x65;&#x73;&#x74;!') );
-		//$this->assertEqual( "&jeff;", $this->htmlEntityCodec->decode("&jeff;") );
-		
-		//TEST decodeFromHTML
-		//copied & modified from old EncoderTest::testEncodeForHtml()
-		$this->assertEqual(null, $this->htmlEntityCodec->decode(null));
-    // test invalid characters are replaced with spaces
-    //$this->assertEqual("a b c d e f&#x9;g", $this->htmlEntityCodec->decode("a".(chr(0))."b".(chr(4))."c".(chr(128))."d".(chr(150))."e".(chr(159))."f".(chr(9))."g"));
-    	//$this->assertEqual("a b c d e f".(chr(9))."g h i j".(chr(160))."k".(chr(161))."l".(chr(162))."m", $this->htmlEntityCodec->decode("a b c d e f&#x9;g h i j&#xa0;k&#xa1;l&#xa2;m"));
-    	$this->assertEqual("a b c d e fg h i jklm", $this->htmlEntityCodec->decode("a b c d e f&#x9;g h i j&#xa0;k&#xa1;l&#xa2;m"));	//FIXME: TEST IS ERRONEOUS
-    $this->assertEqual("<script>", $this->htmlEntityCodec->decode("&lt;script&gt;"));
-    $this->assertEqual("&lt;script&gt;", $this->htmlEntityCodec->decode("&amp;lt&#x3b;script&amp;gt&#x3b;"));	//FAILING: have not yet handled double+encoding (20 passes, 38 fails)...fixed using special-case handler for semicolon (21 passes, 37 fails)...
-    $this->assertEqual("!@$%()=+{}[]", $this->htmlEntityCodec->decode("&#x21;&#x40;&#x24;&#x25;&#x28;&#x29;&#x3d;&#x2b;&#x7b;&#x7d;&#x5b;&#x5d;"));	//new failure (21 passes, 38 fails)...fixed by widening special-case chars in Codec::decode() that fail in mb_detect_encoding (22 passes, 37 fails)...
-//        $this->assertEqual($instance->canonicalize("&#x21;&#x40;&#x24;&#x25;&#x28;&#x29;&#x3d;&#x2b;&#x7b;&#x7d;&#x5b;&#x5d;"), $instance->decodeFromHTML("&#33;&#64;&#36;&#37;&#40;&#41;&#61;&#43;&#123;&#125;&#91;&#93;" ) ); //TODO: open this test up when canonicalize function is done
-    $this->assertEqual(",.-_ ", $this->htmlEntityCodec->decode(",.-_ "));
-    $this->assertEqual("dir&", $this->htmlEntityCodec->decode("dir&amp;"));
-    $this->assertEqual("one&two", $this->htmlEntityCodec->decode("one&amp;two"));
-    $this->assertEqual("".(chr(12345)).(chr(65533)).(chr(1244)), "".(chr(12345)).(chr(65533)).(chr(1244)) );
-	}
-		
-	function testDecodeCharacter()
-	{
-		$this->assertEqual( "<", $this->htmlEntityCodec->decode("&lt;") );
-	}
-	
+    // these immune characters are the ones defined in DefaultEncoder.
+    private $immune_html     = array( ',', '.', '-', '_', ' ' );
+    private $immune_htmlattr = array( ',', '.', '-', '_' );
+
+    function setUp()
+    {
+        global $ESAPI;
+
+        if ( !isset($ESAPI))
+        {
+            $ESAPI = new ESAPI();
+        }
+
+        $this->htmlEntityCodec = new HTMLEntityCodec();
+    }
+
+
+    /* ENCODING METHODS */
+
+
+    // nice example of encoding for HTML.
+    function testEncodeForHTML()
+    {
+        $this->assertEqual(
+            '&quot;&gt;&lt;script&gt;alert&#x28;&#x2f;XSS&#x2f;&#x29;&lt;&#x2f;script&gt;&lt;foo attr&#x3d;&quot;',
+            $this->htmlEntityCodec->encode(
+                $this->immune_html,
+                '"><script>alert(/XSS/)</script><foo attr="'
+            )
+        );
+    }
+
+    // test that characters normally immune from encoding, can be encoded.
+    function testEncodeImmuneCharsForHTML()
+    {
+        $immune = array('');
+        $this->assertEqual(
+            'testTEST0123&#x2c;&#x2e;&#x2d;&#x5f;&#x20;',
+            $this->htmlEntityCodec->encode(
+                $immune,
+                'testTEST0123,.-_ '
+            )
+        );
+    }
+
+    // characters immune from encoding don't get encoded.
+    function testNoEncodeImmuneCharsForHTML()
+    {
+        $this->assertEqual(
+            'testTEST0123,.-_ ',
+            $this->htmlEntityCodec->encode(
+                $this->immune_html,
+                'testTEST0123,.-_ '
+            )
+        );
+    }
+
+    // null stays null
+    function testEncodeNullForHTML()
+    {
+        $this->assertEqual(
+            null,
+            $this->htmlEntityCodec->encode($this->immune_html, null)
+        );
+    }
+
+    // chars that must not be encoded for html are replaced with spaces. These
+    // two tests expect the same as ESAPI 2.0 for Java.
+    function testEncodeInvalidCharsReplacedBySpace_01()
+    {
+        $this->assertEqual(
+            'a b c d e f&#x9;g',
+            $this->htmlEntityCodec->encode(
+                $this->immune_html,
+                'a' . (chr(0)) . 'b' . (chr(4)) . 'c' . (chr(128)) . 'd' .
+                (chr(150)) . 'e' . (chr(159)) . 'f' . (chr(9)) . 'g'
+            )
+        );
+    }
+
+    function testEncodeInvalidCharsReplacedBySpace_02()
+    {
+        $this->assertEqual(
+            'a b c d e f&#x9;g h i j&nbsp;k&iexcl;l&cent;m',
+            $this->htmlEntityCodec->encode(
+                $this->immune_html,
+                'a' . (chr(0))   . 'b' . (chr(4))   . 'c' . (chr(128)) .
+                'd' . (chr(150)) . 'e' . (chr(159)) . 'f' . (chr(9))   .
+                'g' . (chr(127)) . 'h' . (chr(129)) . 'i' . (chr(159)) .
+                'j' . (chr(160)) . 'k' . (chr(161)) . 'l' . (chr(162)) .
+                'm'
+            )
+        );
+    }
+
+    function testEncodeScriptTag()
+    {
+        $this->assertEqual(
+            '&lt;script&gt;',
+            $this->htmlEntityCodec->encode($this->immune_html, '<script>')
+        );
+    }
+
+    function testEncodeEncodedScriptTag()
+    {
+        $this->assertEqual(
+            '&amp;lt&#x3b;script&amp;gt&#x3b;',
+            $this->htmlEntityCodec->encode($this->immune_html, '&lt;script&gt;')
+        );
+    }
+
+    function testEncodeSpecialsForHTML()
+    {
+        $this->assertEqual(
+            '&#x21;&#x40;&#x24;&#x25;&#x28;&#x29;&#x3d;&#x2b;&#x7b;&#x7d;&#x5b;&#x5d;',
+            $this->htmlEntityCodec->encode($this->immune_html, '!@$%()=+{}[]')
+        );
+    }
+
+    function testEncodeCanonicalisedEncodedSpecials()
+    {
+        $instance = ESAPI::getEncoder();
+        $this->assertEqual(
+            '&#x21;&#x40;&#x24;&#x25;&#x28;&#x29;&#x3d;&#x2b;&#x7b;&#x7d;&#x5b;&#x5d;',
+            $this->htmlEntityCodec->encode(
+                $this->immune_html,
+                $instance->canonicalize(
+                    '&#33;&#64;&#36;&#37;&#40;&#41;&#61;&#43;&#123;&#125;&#91;&#93;'
+                )
+            )
+        );
+    }
+
+    function testEncodeAmpForHTMLEoS()
+    {
+        $this->assertEqual(
+            'dir&amp;',
+            $this->htmlEntityCodec->encode($this->immune_html, 'dir&')
+        );
+    }
+
+    function testEncodeAmpForHTMLMidS()
+    {
+        $this->assertEqual(
+            'one&amp;two',
+            $this->htmlEntityCodec->encode($this->immune_html, 'one&two')
+        );
+    }
+
+    function testSomeChars ()
+    {
+        $this->assertEqual(
+            ''.(chr(12345)).(chr(65533)).(chr(1244)),
+            ''.(chr(12345)).(chr(65533)).(chr(1244))
+        );
+    }
+
+    function testEncodeNullForHTMLAttribute()
+    {
+        $this->assertEqual(
+            null,
+            $this->htmlEntityCodec->encode($this->immune_htmlattr, null)
+        );
+    }
+
+    function testEncodeImmuneCharsForHTMLAttribute()
+    {
+        $immune = array('');
+        $this->assertEqual(
+            'testTEST0123&#x2c;&#x2e;&#x2d;&#x5f;',
+            $this->htmlEntityCodec->encode(
+                $immune,
+                'testTEST0123,.-_'
+            )
+        );
+    }
+
+    function testNoEncodeImmuneCharsForHTMLAttribute()
+    {
+        $this->assertEqual(
+            'testTEST0123,.-_',
+            $this->htmlEntityCodec->encode(
+                $this->immune_htmlattr,
+                'testTEST0123,.-_'
+            )
+        );
+    }
+
+    function testEncodeSpecialsForHTMLAttribute()
+    {
+        $this->assertEqual(
+            '&#x20;&#x21;&#x40;&#x24;&#x25;&#x28;&#x29;&#x3d;&#x2b;&#x7b;&#x7d;&#x5b;&#x5d;',
+            $this->htmlEntityCodec->encode($this->immune_htmlattr, ' !@$%()=+{}[]')
+        );
+    }
+
+
+    /* DECODE METHODS */
+
+
+    function testDecodeFromHTML()
+    {
+        $this->assertEqual(
+           '"><script>alert(/XSS/)</script><foo attr="',
+            $this->htmlEntityCodec->decode(
+                '&quot;&gt;&lt;script&gt;alert&#x28;&#x2f;XSS&#x2f;&#x29;&lt;&#x2f;script&gt;&lt;foo attr&#x3d;&quot;'
+            ));
+    }
+
+    function testDecodeNullFromHTML()
+    {
+        $this->assertEqual(null, $this->htmlEntityCodec->decode(null));
+    }
+
+    function testDecodeDecimalNumericEntitiesFromHTML()
+    {
+        $this->assertEqual(
+            'test!',
+            $this->htmlEntityCodec->decode('&#116;&#101;&#115;&#116;!')
+        );
+    }
+
+    function testDecodeHexNumericEntitiesFromHTML()
+    {
+        $this->assertEqual(
+            'test!',
+            $this->htmlEntityCodec->decode('&#x74;&#x65;&#x73;&#x74;!')
+        );
+    }
+
+    function testDecodeInvalidNamedEntityFromHTML()
+    {
+        $this->assertEqual('&jeff;', $this->htmlEntityCodec->decode('&jeff;'));
+    }
+
+    function testDecodeValidCharsFromHTML()
+    {
+        $this->assertEqual(
+            'a b c d e f' . (chr(9)) . 'g h i j' . (chr(160)) .
+            'k' . (chr(161)) . 'l' . (chr(162)) . 'm',
+            $this->htmlEntityCodec->decode(
+                'a b c d e f&#x9;g h i j&#xa0;k&#xa1;l&#xa2;m'
+            )
+        );
+    }
+
+    function testDecodeScriptTag()
+    {
+        $this->assertEqual(
+            '<script>',
+            $this->htmlEntityCodec->decode('&lt;script&gt;')
+        );
+    }
+
+    function testDecodeOnceDoubleEncodedScriptTag()
+    {
+        $this->assertEqual(
+            '&lt;script&gt;',
+            $this->htmlEntityCodec->decode('&amp;lt&#x3b;script&amp;gt&#x3b;')
+        );
+    }
+
+    function testDecodeSpecials()
+    {
+        $this->assertEqual(
+            '!@$%()=+{}[]',
+            $this->htmlEntityCodec->decode(
+                '&#x21;&#x40;&#x24;&#x25;&#x28;&#x29;&#x3d;&#x2b;&#x7b;&#x7d;&#x5b;&#x5d;'
+            )
+        );
+    }
+
+    function testDecodeSpecialsEqualsCanonicalisedEncodedSpecials()
+    {
+        $instance = ESAPI::getEncoder();
+        $this->assertEqual(
+            $instance->canonicalize(
+                '&#x21;&#x40;&#x24;&#x25;&#x28;&#x29;&#x3d;&#x2b;&#x7b;&#x7d;&#x5b;&#x5d;'
+            ),
+            $this->htmlEntityCodec->decode(
+                '&#33;&#64;&#36;&#37;&#40;&#41;&#61;&#43;&#123;&#125;&#91;&#93;'
+            )
+        );
+    }
+
+    function testDecodeAmpFromHTMLEoS()
+    {
+        $this->assertEqual('dir&', $this->htmlEntityCodec->decode('dir&amp;'));
+    }
+
+    function testDecodeAmpFromHTMLMidS()
+    {
+        $this->assertEqual(
+            'one&two',
+            $this->htmlEntityCodec->decode('one&amp;two')
+        );
+    }
+
+    function testDecodeCharacter()
+    {
+        $this->assertEqual( '<', $this->htmlEntityCodec->decode('&lt;') );
+    }
+
 }
-?>
