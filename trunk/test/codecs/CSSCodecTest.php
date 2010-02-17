@@ -78,8 +78,14 @@ class CSSCodecTest extends UnitTestCase
 		
 	function testDecodeMaxHexChars()
 	{
-		$expected = mb_convert_encoding('&#' . 0xABCDEF . ';', 'UTF-8', 'HTML-ENTITIES') . 'g';
-		$this->assertEqual( $expected, $this->cssCodec->decode("\\abcdefg") );
+		$this->assertEqual( ' 0', $this->cssCodec->decode('\\0000200') );
+	}
+		
+	function testDoNotDecodeInvalidCodePoint()
+	{
+		// 0xABCDEF is not a valid code point so the escape seqence is not a
+		// valid one.
+		$this->assertEqual( '\\abcdefg', $this->cssCodec->decode('\\abcdefg') );
 	}
 		
 	function testDecodeIgnoreEscapedNewline()
