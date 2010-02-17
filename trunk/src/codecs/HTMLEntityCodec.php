@@ -987,7 +987,7 @@ class HTMLEntityCodec extends Codec
         );
         for($i=0; $i<count($entityNames); $i++)
         {
-            $character = html_entity_decode('&'.$entityNames[$i].';', ENT_NOQUOTES, 'UTF-8');
+            $character = html_entity_decode('&'.$entityNames[$i].';', ENT_QUOTES, 'UTF-8');
             // Normalize encoding to UTF-32
             $character = mb_convert_encoding($character, 'UTF-32', 'UTF-8');
             self::$characterToEntityMap[$character] = $entityNames[$i];
