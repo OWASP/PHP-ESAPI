@@ -16,7 +16,8 @@
  * @since 1.6
  */
 
-require_once(dirname(__FILE__) . "/CodecDebug.php");
+require_once(dirname(__FILE__) . '/CodecDebug.php');
+require_once(dirname(__FILE__) . '/../Encoder.php');
 
 /**
  * The Codec interface defines a set of methods for encoding and decoding application level encoding schemes,
@@ -114,16 +115,15 @@ abstract class Codec {
 	{
     //TODO: need to add comments
     
-		$initialEncoding = self::detectEncoding($input);
-		
 		// Normalize string to UTF-32
 		$_4ByteString = self::normalizeEncoding($input);
 		
 		// debug
 		CodecDebug::getInstance()->addEncodedString($_4ByteString);
 
-		// Start with nothing; format it to match the encoding of the string passed as an argument.
-		$decodedString = mb_convert_encoding("", $initialEncoding);
+		// Start with an empty string.
+		$decodedString = '';
+		$targetCharacterEncoding = 'ASCII';
 		
 		//logic to iterate through the string's characters, while(input has characters remaining){}
 		//feed whole sequence into decoder, which then determines the first decoded character from the input and "pushes back" the encodedPortion of seuquence and the resultant decodedCharacter to here
@@ -144,13 +144,77 @@ abstract class Codec {
 				// encoding, so use the decoded character.
 				if ($decodedCharacter != '')
 				{
-					$decodedString .= mb_convert_encoding($decodedCharacter,
-						$initialEncoding, "UTF-32"
-					);
+					// first check whether the character needs special handling
+					// 0-159, 172 ASCII
+					// 160-171, 173-255 ISO-8859-1
+				    $decodedCharCharacterEncoding = null;
+				    list(, $ordinalValue) = unpack('N', $decodedCharacter);
+				    if ($ordinalValue >= 0x00 && $ordinalValue <= 0x7F)
+				    {
+				        $decodedCharCharacterEncoding = 'ASCII';
+				    }
+				    else if ($ordinalValue >= 0x80 && $ordinalValue <= 0xFF)
+				    {
+				        $decodedCharCharacterEncoding = 'ISO-8859-1';
+				    }
+				    else if ($ordinalValue >= 0x0100 && $ordinalValue <= 0xFFFF)
+				    {
+				       $decodedCharCharacterEncoding = self::detectEncoding($decodedCharacter);
+				    }
+				    else if ($ordinalValue >= 0x010000 && $ordinalValue <= 0x10FFFF)
+				    {
+				        // Invalid codepoint 
+				        //$decodedCharCharacterEncoding = 'UTF-8';
+				        $decodedCharCharacterEncoding = self::detectEncoding($decodedCharacter);
+				    }
+				    else if ($ordinalValue > 0x110000)
+				    {
+				        // Invalid codepoint 
+				         $decodedString .= mb_convert_encoding(mb_substr($_4ByteString,0,1,"UTF-32"),$targetCharacterEncoding,"UTF-32");
+				         $_4ByteString = mb_substr($_4ByteString,1,mb_strlen($_4ByteString,"UTF-32"),"UTF-32");
+				         continue;
+				    }
+				    // first check that the character can exist in the target
+					// character encoding ($targetCharacterEncoding).  If it can't then
+					// let's find out what it can exist in and convert
+					// the $decodeString to that encoding, which will become the
+					// target encoding.
+				    
+				    if ($decodedCharCharacterEncoding === $targetCharacterEncoding) {
+				        $decodedString .= mb_convert_encoding($decodedCharacter,
+				            $targetCharacterEncoding, "UTF-32"
+				        );
+				    } else if ($decodedCharCharacterEncoding === 'ASCII') {
+				        // An ASCII character can be appended to a string of any
+				        // character encoding
+				        $decodedString .= mb_convert_encoding($decodedCharacter,
+				            'ASCII', "UTF-32"
+				        );
+				    } else if ($decodedCharCharacterEncoding === 'ISO-8859-1') {
+				        // Both ASCII and UTF-8 can be converted to ISO-8859-1
+				        if ($targetCharacterEncoding == 'ASCII') {
+				            $decodedString .= mb_convert_encoding($decodedCharacter,
+				            'ISO-8859-1', "UTF-32"
+				            );
+				        } else {
+				            $decodedString .= mb_convert_encoding($decodedCharacter,
+				            'UTF-8', "UTF-32"
+				            );
+				        }
+				    } else if ($decodedCharCharacterEncoding === 'UTF-8') {
+				        $decodedString = mb_convert_encoding($decodedString,
+				            'UTF-8', $targetCharacterEncoding
+				        );
+				        $targetCharacterEncoding = 'UTF-8';
+				        $decodedString .= mb_convert_encoding($decodedCharacter,
+				            'UTF-8', "UTF-32"
+				        );
+				        
+				    }
 				}
 				
 				// eat the encodedString portion off the start of the UTF-32 converted input string
-				$_4ByteString = mb_substr($_4ByteString,mb_strlen($encodedString,"UTF-32"),mb_strlen($_4ByteString,"UTF-32"),"UTF-32");		
+				$_4ByteString = mb_substr($_4ByteString,mb_strlen($encodedString,"UTF-32"),mb_strlen($_4ByteString,"UTF-32"),"UTF-32");	
 			}
 			else
 			{
@@ -159,7 +223,7 @@ abstract class Codec {
 				// from the start of the input string.
 				
 				// character did not match an entity or numeric encoding in context of trailing characters, so use the character
-				$decodedString .= mb_convert_encoding(mb_substr($_4ByteString,0,1,"UTF-32"),$initialEncoding,"UTF-32");
+				$decodedString .= mb_convert_encoding(mb_substr($_4ByteString,0,1,"UTF-32"),$targetCharacterEncoding,"UTF-32");
 				
 				// eat the single, unencoded character portion off the start of the UTF-32 converted input string
 				$_4ByteString = mb_substr($_4ByteString,1,mb_strlen($_4ByteString,"UTF-32"),"UTF-32");
