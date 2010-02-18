@@ -144,77 +144,62 @@ abstract class Codec {
 				// encoding, so use the decoded character.
 				if ($decodedCharacter != '')
 				{
-					// first check whether the character needs special handling
-					// 0-159, 172 ASCII
-					// 160-171, 173-255 ISO-8859-1
-				    $decodedCharCharacterEncoding = null;
-				    list(, $ordinalValue) = unpack('N', $decodedCharacter);
-				    if ($ordinalValue >= 0x00 && $ordinalValue <= 0x7F)
-				    {
-				        $decodedCharCharacterEncoding = 'ASCII';
-				    }
-				    else if ($ordinalValue >= 0x80 && $ordinalValue <= 0xFF)
-				    {
-				        $decodedCharCharacterEncoding = 'ISO-8859-1';
-				    }
-				    else if ($ordinalValue >= 0x0100 && $ordinalValue <= 0xFFFF)
-				    {
-				       $decodedCharCharacterEncoding = self::detectEncoding($decodedCharacter);
-				    }
-				    else if ($ordinalValue >= 0x010000 && $ordinalValue <= 0x10FFFF)
-				    {
-				        // Invalid codepoint 
-				        //$decodedCharCharacterEncoding = 'UTF-8';
-				        $decodedCharCharacterEncoding = self::detectEncoding($decodedCharacter);
-				    }
-				    else if ($ordinalValue > 0x110000)
-				    {
-				        // Invalid codepoint 
-				         $decodedString .= mb_convert_encoding(mb_substr($_4ByteString,0,1,"UTF-32"),$targetCharacterEncoding,"UTF-32");
-				         $_4ByteString = mb_substr($_4ByteString,1,mb_strlen($_4ByteString,"UTF-32"),"UTF-32");
-				         continue;
-				    }
-				    // first check that the character can exist in the target
-					// character encoding ($targetCharacterEncoding).  If it can't then
-					// let's find out what it can exist in and convert
-					// the $decodeString to that encoding, which will become the
-					// target encoding.
-				    
-				    if ($decodedCharCharacterEncoding === $targetCharacterEncoding) {
-				        $decodedString .= mb_convert_encoding($decodedCharacter,
-				            $targetCharacterEncoding, "UTF-32"
-				        );
-				    } else if ($decodedCharCharacterEncoding === 'ASCII') {
-				        // An ASCII character can be appended to a string of any
-				        // character encoding
-				        $decodedString .= mb_convert_encoding($decodedCharacter,
-				            'ASCII', "UTF-32"
-				        );
-				    } else if ($decodedCharCharacterEncoding === 'ISO-8859-1') {
-				        // Both ASCII and UTF-8 can be converted to ISO-8859-1
-				        if ($targetCharacterEncoding == 'ASCII') {
-				            $decodedString .= mb_convert_encoding($decodedCharacter,
-				            'ISO-8859-1', "UTF-32"
-				            );
-				        } else {
-				            $decodedString .= mb_convert_encoding($decodedCharacter,
-				            'UTF-8', "UTF-32"
-				            );
-				        }
-				    } else if ($decodedCharCharacterEncoding === 'UTF-8') {
-				        $decodedString = mb_convert_encoding($decodedString,
-				            'UTF-8', $targetCharacterEncoding
-				        );
-				        $targetCharacterEncoding = 'UTF-8';
-				        $decodedString .= mb_convert_encoding($decodedCharacter,
-				            'UTF-8', "UTF-32"
-				        );
-				        
-				    }
+					list(, $ordinalValue) = unpack('N', $decodedCharacter);
+					if ($ordinalValue >= 0x00 && $ordinalValue <= 0x7F)
+					{
+						// An ASCII character can be appended to a string of any
+						// character encoding
+						$decodedString .= mb_convert_encoding($decodedCharacter,
+							'ASCII', "UTF-32"
+						);
+					}
+					else if ($ordinalValue <= 0x10FFFF)
+					{
+						// convert the decoded character to UTF-8
+						$decodedCharacterUTF8 = mb_convert_encoding(
+							$decodedCharacter, 'UTF-8', 'UTF-32'
+						);
+						// convert decodedString to UTF-8 if necessary
+						if (	$decodedString !== ''
+							&&	$targetCharacterEncoding != 'UTF-8'
+						) {
+							$decodedString = mb_convert_encoding(
+								$decodedString, 'UTF-8', $targetCharacterEncoding
+							);
+						}
+						
+						// now append the character to the string
+						$decodedString .= $decodedCharacterUTF8;
+						
+						// see if decodedString can exist in
+						// targetCharacterEncoding and if so, convert back to
+						// it. Otherwise the target character encoding is
+						// changed to 'UTF-8'
+						if (	$targetCharacterEncoding != 'UTF-8'
+							&&	$targetCharacterEncoding === mb_detect_encoding(
+								$decodedString, $targetCharacterEncoding, true)
+						) {
+							// we can convert back to target encoding
+							$decodedString = mb_convert_encoding(
+								$decodedString, $targetCharacterEncoding, 'UTF-8'
+							);
+						} else {
+							// decoded String now contains characters that are
+							// UTF-8
+							$targetCharacterEncoding = 'UTF-8';
+						}
+					}
+					else if ($ordinalValue > 0x110000)
+					{
+						// Invalid codepoint
+						$decodedString .= mb_convert_encoding(mb_substr($_4ByteString,0,1,"UTF-32"),$targetCharacterEncoding,"UTF-32");
+						$_4ByteString = mb_substr($_4ByteString,1,mb_strlen($_4ByteString,"UTF-32"),"UTF-32");
+						continue;
+					}
 				}
-				
+
 				// eat the encodedString portion off the start of the UTF-32 converted input string
-				$_4ByteString = mb_substr($_4ByteString,mb_strlen($encodedString,"UTF-32"),mb_strlen($_4ByteString,"UTF-32"),"UTF-32");	
+				$_4ByteString = mb_substr($_4ByteString,mb_strlen($encodedString,"UTF-32"),mb_strlen($_4ByteString,"UTF-32"),"UTF-32");
 			}
 			else
 			{

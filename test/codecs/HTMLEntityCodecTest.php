@@ -266,12 +266,34 @@ class HTMLEntityCodecTest extends UnitTestCase
         $this->assertEqual('&jeff;', $this->htmlEntityCodec->decode('&jeff;'));
     }
 
-    function testDecodeValidCharsFromHTML()
+    // Mixed character encoding should not be returned from decode.
+    // In this case, ASCII and Latin Supplement characters will exist in the
+    // decoded string and should be presented as UTF-8
+    function testDecodeDoesNotProduceMixedCharacterEncoding()
     {
+        $codec = new HTMLEntityCodec();
+        // expecting a UTF-8 encoded string
+        $expected = mb_convert_encoding("a b c d e f\x09g h i j\xa0k\xa1l\xa2m", 'UTF-8');
+        // check that the encoding conversion went well and the expected string is correct
+        $expected_unpacked = array(
+            1 => 0x61,  2 => 0x20,  3 => 0x62,  4 => 0x20,
+            5 => 0x63,  6 => 0x20,  7 => 0x64,  8 => 0x20,
+            9 => 0x65, 10 => 0x20, 11 => 0x66, 12 => 0x09,
+           13 => 0x67, 14 => 0x20, 15 => 0x68, 16 => 0x20,
+           17 => 0x69, 18 => 0x20, 19 => 0x6a, 20 => 0xc2,
+           21 => 0xa0, 22 => 0x6b, 23 => 0xc2, 24 => 0xa1,
+           25 => 0x6c, 26 => 0xc2, 27 => 0xa2, 28 => 0x6d,
+        );
+        $unpacked = unpack('C*', $expected);
+        $this->assertIdentical(
+            $expected_unpacked,
+            $unpacked,
+            'Ensuring expected value was correctly encoded to UTF-8 - %s'
+        );
+        // decode and hope we get $expected!
         $this->assertEqual(
-            'a b c d e f' . (chr(9)) . 'g h i j' . (chr(160)) .
-            'k' . (chr(161)) . 'l' . (chr(162)) . 'm',
-            $this->htmlEntityCodec->decode(
+            $expected,
+            $codec->decode(
                 'a b c d e f&#x9;g h i j&#xa0;k&#xa1;l&#xa2;m'
             )
         );
