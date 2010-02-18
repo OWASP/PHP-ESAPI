@@ -1266,7 +1266,7 @@ class EncoderTest extends UnitTestCase
             }
             $this->assertEqual($expected, $instance->encode(array(), chr($i)));
             $input = $expected;
-            $expected = mb_convert_encoding(chr($i), 'UTF-8', 'HTML-ENTITIES');
+            $expected = mb_convert_encoding(chr($i), 'UTF-8');
             $this->assertEqual($expected, $instance->decode($input));
         }
     }
@@ -1284,7 +1284,7 @@ class EncoderTest extends UnitTestCase
             }
             $this->assertEqual($expected, $instance->encode(array(), 'a' . chr($i)));
             $input = $expected;
-            $expected = 'a' . mb_convert_encoding(chr($i), 'UTF-8', 'HTML-ENTITIES');
+            $expected = 'a' . mb_convert_encoding(chr($i), 'UTF-8');
             $this->assertEqual($expected, $instance->decode($input));
         }
     }
@@ -1303,7 +1303,7 @@ class EncoderTest extends UnitTestCase
             }
             $this->assertEqual($expected, $instance->encode(array(), $input));
             $input = $expected;
-            $expected = 'ϑ' . mb_convert_encoding(chr($i), 'UTF-8', 'HTML-ENTITIES');
+            $expected = 'ϑ' . mb_convert_encoding(chr($i), 'UTF-8');
             $this->assertEqual($expected, $instance->decode($input));
         }
     }
