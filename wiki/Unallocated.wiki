@@ -2,5 +2,5 @@
 
 The following controls have not yet been assigned:
 
-|| *Control* || *What remains to be done* || *Priority* ||
-|| Access Controller || Initial development || Low ||
+|| *Control* || *What remains to be done* || *Priority* || *Notes* ||
+|| Access Controller || Initial development || Low || Should make decisions based on possibly PHP_AUTH_USER's value ||
