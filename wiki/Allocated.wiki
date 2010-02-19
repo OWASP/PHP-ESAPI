@@ -3,7 +3,6 @@
 The following controls have been assigned:
 
 || *Control* || *Current status* || *Assignee* ||
-|| Encoder || Last mile || jah, Andrew, Linden ||
 || Encryptor || Initial development || Arnaud, Mike ||
 || EncryptedProperties || Initial development || Arnaud (on hold) ||
 || HTTPUtilities || Initial development || Linden ||
