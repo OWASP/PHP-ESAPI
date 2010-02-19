@@ -2,6 +2,6 @@
 
 The following items have been assigned:
 
-|| *Assignment* || *Current status* || *Assignee* ||
-|| PEAR coding standard Linux EOL conversion || In progress || Andrew ||
-|| PEAR coding standard indentation, other conversion || In progress || Andrew ||
+|| *Assignment* || *Current status* || *Assignee* || *Notes* ||
+|| PEAR coding standard Linux EOL conversion || In progress || Andrew || Mike's additional thoughts, [https://lists.owasp.org/pipermail/esapi-php/2010-February/000624.html here] ||
+|| PEAR coding standard indentation, other conversion || In progress || Andrew || Mike's additional thoughts, [https://lists.owasp.org/pipermail/esapi-php/2010-February/000624.html here] ||
