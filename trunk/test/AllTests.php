@@ -43,18 +43,6 @@ $test = new GroupTest('Finished');
 	$test->addTestFile(dirname(__FILE__).'/reference/StringUtilitiesTest.php');				// AJV
 	$test->addTestFile(dirname(__FILE__).'/reference/ExecutorTest.php');					// Laura
 	$test->addTestFile(dirname(__FILE__).'/reference/EncoderTest.php');						// Linden
-	$test->run(new HTMLReporter());
-
-$test = new GroupTest('Allocated');
-	$test->addTestFile(dirname(__FILE__).'/reference/EncryptorTest.php');					// AJV
-	$test->addTestFile(dirname(__FILE__).'/reference/EncryptedPropertiesTest.php'); 		// AJV
-	$test->addTestFile(dirname(__FILE__).'/reference/IntrusionDetectorTest.php');			// Aung Khant
-	$test->addTestFile(dirname(__FILE__).'/reference/ValidatorTest.php'); 					// AJV & Johannes Ullrich
-	$test->addTestFile(dirname(__FILE__).'/reference/LoggerTest.php'); 						// Laura
-	$test->addTestFile(dirname(__FILE__).'/reference/HTTPUtilitiesTest.php');				// Laura
-$test->run(new HTMLReporter());
-
-$test = new GroupTest('Codecs');															// Linden
 	$test->addTestFile(dirname(__FILE__).'/codecs/Base64CodecTest.php');
 	$test->addTestFile(dirname(__FILE__).'/codecs/CSSCodecTest.php');
 	$test->addTestFile(dirname(__FILE__).'/codecs/HTMLEntityCodecTest.php');
@@ -65,6 +53,15 @@ $test = new GroupTest('Codecs');															// Linden
 	$test->addTestFile(dirname(__FILE__).'/codecs/UnixCodecTest.php');
 	$test->addTestFile(dirname(__FILE__).'/codecs/VBScriptCodecTest.php');
 	$test->addTestFile(dirname(__FILE__).'/codecs/WindowsCodecTest.php');
+	$test->run(new HTMLReporter());
+
+$test = new GroupTest('Allocated');
+	$test->addTestFile(dirname(__FILE__).'/reference/EncryptorTest.php');					// AJV
+	$test->addTestFile(dirname(__FILE__).'/reference/EncryptedPropertiesTest.php'); 		// AJV
+	$test->addTestFile(dirname(__FILE__).'/reference/IntrusionDetectorTest.php');			// Aung Khant
+	$test->addTestFile(dirname(__FILE__).'/reference/ValidatorTest.php'); 					// AJV & Johannes Ullrich
+	$test->addTestFile(dirname(__FILE__).'/reference/LoggerTest.php'); 						// Laura
+	$test->addTestFile(dirname(__FILE__).'/reference/HTTPUtilitiesTest.php');				// Laura
 $test->run(new HTMLReporter());
 
 $test = new GroupTest('Unallocated');
