@@ -66,10 +66,10 @@
 
 		<CharacterEncoding>UTF-8</CharacterEncoding>
 		
-		<EncryptionAlgorithm>AES</EncryptionAlgorithm>
+		<EncryptionAlgorithm>ESAPI_CRYPTO_MODE_RIJNDAEL-256_ECB</EncryptionAlgorithm>
 		<EncryptionKeyLength>256</EncryptionKeyLength>
 		
-		<HashAlgorithm>SHA-512</HashAlgorithm>
+		<HashAlgorithm>ESAPI_CRYPTO_MODE_SHA1</HashAlgorithm>
 		<HashIterations>1024</HashIterations>
 		
 		<RandomAlgorithm>SHA1PRNG</RandomAlgorithm>
