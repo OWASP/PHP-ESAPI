@@ -73,7 +73,7 @@ class DefaultExecutor implements Executor {
             // exact, absolute, canonical path to executable must be listed in ESAPI configuration 
             $approved = $config->getAllowedExecutables();
             if(!in_array($executable, $approved)){
-                throw new ExecutorException("Execution failure, Attempt to invoke executable that is not listed as an approved executable in ESAPI configuration: " . $executable . " not listed in " + $approved);
+                throw new ExecutorException("Execution failure, Attempt to invoke executable that is not listed as an approved executable in ESAPI configuration: " . $executable . " not listed in " . $approved);
             }            
 
             // escape any special characters in the parameters
