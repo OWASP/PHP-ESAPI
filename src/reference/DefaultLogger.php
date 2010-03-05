@@ -296,7 +296,7 @@ class DefaultLogger implements ESAPILogger {
     private function log($level, $type, $success, $message, $throwable)
     {
         // If this log level is below the threshold we can quit now.
-        $logLevel = $this->convertESAPILeveltoLoggerLevel($level);
+        $logLevel = self::convertESAPILeveltoLoggerLevel($level);
         if (! $this->logger->isEnabledFor($logLevel)) {
             return;
         }
@@ -476,7 +476,7 @@ class DefaultLogger implements ESAPILogger {
      * @throws Exception if the supplied level doesn't match a level currently
      *         defined.
      */
-    private function convertESAPILeveltoLoggerLevel($level)
+    private static function convertESAPILeveltoLoggerLevel($level)
     {
         if (is_string($level))
         {
