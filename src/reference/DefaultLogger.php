@@ -307,6 +307,17 @@ class DefaultLogger implements ESAPILogger {
         // Add some context to log the message.
         $context = '';
 
+        // The output of log level is handled here instead of providing a
+        // LayoutPattern to Log4PHP.  This allows us to print TRACE instead of
+        // ALL and WARNING instead of WARN.
+        $levelStr = $logLevel->toString();
+        if ($levelStr == 'ALL') {
+            $levelStr = 'TRACE';
+        } else if ($levelStr == 'WARN') {
+            $levelStr = 'WARNING';
+        }
+        $context .= $levelStr;
+
         // Application name.
         // $this->appName is set only if it is to be logged.
         if ($this->appName !== null) {
@@ -326,7 +337,7 @@ class DefaultLogger implements ESAPILogger {
         if ($success === true) {
             $context .= '-SUCCESS';
         } else {
-            $context .= '-FAIL';
+            $context .= '-FAILURE';
         }
 
         // Local IP:PortNumber, Generated Session ID and Remote User ID and Host
@@ -550,8 +561,8 @@ class DefaultLogger implements ESAPILogger {
         // Patterns representing the format of Log entries
         // d date, p priority (level), m message, n newline
         $dateFormat = $secConfig->getLogFileDateFormat();
-        $logfileLayoutPattern = "%d{{$dateFormat}} %-5p %m %n";
-        $consoleLayoutPattern = "%d{{$dateFormat}} %-5p %m <br />%n";
+        $logfileLayoutPattern = "%d{{$dateFormat}} %m %n";
+        $consoleLayoutPattern = "%d{{$dateFormat}} %m <br />%n";
 
         // LogFile properties.
         $logFileName = $secConfig->getLogFileName();
