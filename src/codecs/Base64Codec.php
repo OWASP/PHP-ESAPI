@@ -12,6 +12,7 @@
  * accept the LICENSE before you use, modify, and/or redistribute this software.
  *
  * @author martin.reiche
+ * @author jah (at jahboite.co.uk)
  * @created 2009
  * @since 1.6
  * @package org.owasp.esapi.codecs
@@ -36,7 +37,7 @@ require_once dirname ( __FILE__ ) . '/../ESAPI.php';
  * {@link http://en.wikipedia.org/wiki/Base64#MIME}
  *
  */
-class Base64Codec extends Codec
+class Base64Codec
 {
 
     /**
@@ -44,7 +45,6 @@ class Base64Codec extends Codec
      */
     function __construct()
     {
-        parent::__construct();
         $logger = ESAPI::getLogger("Base64");
     }
 
@@ -68,7 +68,7 @@ class Base64Codec extends Codec
         }
 
         // wrap encoded string into lines of not more than 76 characters
-        $detectedCharacterEncoding = self::detectEncoding($encoded);
+        $detectedCharacterEncoding = Codec::detectEncoding($encoded);
         $wrapped = '';
         $limit = mb_strlen($encoded, $detectedCharacterEncoding);
         $index = 0;
@@ -92,7 +92,7 @@ class Base64Codec extends Codec
      */
     public function encodeCharacter($input)
     {
-        $detectedCharacterEncoding = self::detectEncoding($input);
+        $detectedCharacterEncoding = Codec::detectEncoding($input);
         $c = mb_substr($input, 0, 1, $detectedCharacterEncoding);
 
         return $this->encode($c, false);
