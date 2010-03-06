@@ -60,7 +60,10 @@ class EnterpriseSecurityException extends Exception
         
         $this->logMessage = $logMessage;
         $this->logger = ESAPI::getLogger("EnterpriseSecurityException");
-        ESAPI::getIntrusionDetector()->addException($this);
+        if (! ESAPI::getSecurityConfiguration()->getDisableIntrusionDetection())
+        {
+            ESAPI::getIntrusionDetector()->addException($this);
+        }
     }
 
     /**

@@ -176,6 +176,13 @@ interface SecurityConfiguration
     function getQuota($eventName);
 
     /**
+     * Allows for complete disabling of all intrusion detection mechanisms.
+     * 
+     * @return true if intrusion detection should be disabled.
+     */
+    function getDisableIntrusionDetection();
+
+    /**
      * Gets the name of the ESAPI resource directory as a String.
      * 
      * @return The ESAPI resource directory.

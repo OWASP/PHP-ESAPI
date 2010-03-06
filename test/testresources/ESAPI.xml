@@ -17,9 +17,7 @@
         <Encryptor>reference/DefaultEncryptor</Encryptor>
         <Executor>reference/DefaultExecutor</Executor>
         <HTTPUtilities>reference/DefaultHTTPUtilities</HTTPUtilities>
-        <IntrusionDetector>
-            reference/DefaultIntrusionDetector
-        </IntrusionDetector>
+        <IntrusionDetector>reference/DefaultIntrusionDetector</IntrusionDetector>
         <Logger>reference/DefaultLogFactory</Logger>
         <Randomizer>reference/DefaultRandomizer</Randomizer>
         <Validator>reference/DefaultValidator</Validator>
@@ -71,9 +69,7 @@
 
         <CharacterEncoding>UTF-8</CharacterEncoding>
 
-        <EncryptionAlgorithm>
-            ESAPI_CRYPTO_MODE_RIJNDAEL-256_ECB
-        </EncryptionAlgorithm>
+        <EncryptionAlgorithm>ESAPI_CRYPTO_MODE_RIJNDAEL-256_ECB</EncryptionAlgorithm>
         <EncryptionKeyLength>256</EncryptionKeyLength>
 
         <HashAlgorithm>ESAPI_CRYPTO_MODE_SHA1</HashAlgorithm>
@@ -281,16 +277,15 @@
 
     <IntrusionDetector>
         <!--
-        Intrusion Detection Each event has a base to which .count, .interval,
-        and .action are added The IntrusionException will fire if we receive
-        "count" events within "interval" seconds The IntrusionDetector is
-        configurable to take the following actions: log, logout, and disable
-        (multiple actions separated by commas are allowed e.g.
-        event.test.actions=log,disable Custom Events Names must start with
-        "event." as the base Use IntrusionDetector.addEvent( "test" ) in your
-        code to trigger "event.test" here
+        Intrusion Detection.  Each event has a base to which .count, .interval,
+        and .action are added.  The IntrusionException will fire if we receive
+        "count" events within "interval" seconds.  The IntrusionDetector is
+        configurable to take the following actions: log, logout and disable
+        (multiple actions are allowed).  It can be disabled completely by
+        setting the DisableIntrusionDetection to true.
         -->
 
+        <DisableIntrusionDetection>false</DisableIntrusionDetection>
 
         <event name="test" count="2" interval="10">
             <action>disable</action>
@@ -300,8 +295,8 @@
         <!--
             Exception Events All EnterpriseSecurityExceptions are registered
             automatically Call IntrusionDetector.getInstance().addException(e)
-            for Exceptions that do not extend EnterpriseSecurityException Use the
-            fully qualified classname of the exception as the base
+            for Exceptions that do not extend EnterpriseSecurityException. Use
+            the classname of the exception as the base.
         -->
 
         <!-- any intrusion is an attack -->
