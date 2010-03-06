@@ -74,10 +74,12 @@ class DefaultSecurityConfiguration implements SecurityConfiguration
 	
 	private $patternCache = array();
 	
-	public $events = null;
-		
 	// IntrusionDetector
 	
+	private $DisableIntrusionDetection = null;
+	
+	public $events = null;
+		
 	private $resourceDir = null;
 	
 	function __construct($path = '')
@@ -551,6 +553,23 @@ class DefaultSecurityConfiguration implements SecurityConfiguration
 		}
 		
 		return $theEvent;
+	}
+
+	/**
+	 * Returns whether or not intrusion detection should be disabled.
+	 * 
+	 * @return true if intrusion detection should be disabled.
+	 */
+	function getDisableIntrusionDetection()
+	{
+		if ($this->DisableIntrusionDetection === null)
+		{
+			$this->DisableIntrusionDetection = $this->getESAPIBooleanProperty(
+				"IntrusionDetector/DisableIntrusionDetection", false
+			);
+		}
+		
+		return $this->DisableIntrusionDetection;
 	}
 
 	/**
