@@ -3,22 +3,55 @@
  * OWASP Enterprise Security API (ESAPI)
  *
  * This file is part of the Open Web Application Security Project (OWASP)
- * Enterprise Security API (ESAPI) project. For details, please see
- * <a href="http://www.owasp.org/index.php/ESAPI">http://www.owasp.org/index.php/ESAPI</a>.
+ * Enterprise Security API (ESAPI) project.
  *
- * Copyright (c) 2007 - 2009 The OWASP Foundation
+ * LICENSE: This source file is subject to the New BSD license.  You should read
+ * and accept the LICENSE before you use, modify, and/or redistribute this
+ * software.
  *
- * The ESAPI is published by OWASP under the BSD license. You should read and accept the
- * LICENSE before you use, modify, and/or redistribute this software.
- *
- * @author jah (at jahboite.co.uk)
- * @created 2009
- * @since 1.4
- * @package org.owasp.esapi.reference
+ * @category  OWASP
+ * @package   ESAPI
+ * @author    Jeff Williams <jeff.williams@owasp.org>
+ * @copyright 2009-2010 The OWASP Foundation
+ * @license   http://www.opensource.org/licenses/bsd-license.php New BSD license
+ * @link      http://www.owasp.org/index.php/ESAPI
  */
 
-require_once dirname(__FILE__).'/../IntrusionDetector.php';
 
+/**
+ * DefaultIntrusionDetector requires IntrusionDetector.
+ */
+require_once dirname(__FILE__) . '/../IntrusionDetector.php';
+
+
+/**
+ * Reference implementation of the IntrusionDetector interface.
+ *
+ * This implementation monitors EnterpriseSecurityExceptions, custom Exceptions
+ * and other custom events to see if any user exceeds a configurable threshold
+ * in a configurable time period.
+ * For example, it can monitor to see if a user exceeds 10 input validation
+ * issues in a 1 minute period. Or if there are more than 3 authentication
+ * problems in a 10 second period. More complex implementations are certainly
+ * possible, such as one that establishes a baseline of expected behaviour, and
+ * then detects deviations from that baseline.
+ * Events are persisted in the PHP Session, if one is available at the time they
+ * are generated, to allow tracking of events across requests.  If a PHP Session
+ * is not available then the events are persisted only as long as the current
+ * DefaultIntrusionDetector instance.
+ *
+ * PHP version 5.2.9
+ *
+ * @category  OWASP
+ * @package   ESAPI
+ * @version   1.0
+ * @author    Jeff Williams <jeff.williams@owasp.org>
+ * @author    jah <jah@jahboite.co.uk>
+ * @copyright 2009-2010 The OWASP Foundation
+ * @license   http://www.opensource.org/licenses/bsd-license.php New BSD license
+ * @link      http://www.owasp.org/index.php/ESAPI
+ * @see       IntrusionDetector
+ */
 class DefaultIntrusionDetector implements IntrusionDetector {
 
     private $logger     = null;
@@ -30,54 +63,57 @@ class DefaultIntrusionDetector implements IntrusionDetector {
         $this->userEvents = array();
     }
 
+
     /**
-     * Adds the exception to the IntrusionDetector.  This method should immediately log the exception so that developers throwing an
-     * IntrusionException do not have to remember to log every error.  The implementation should store the exception somewhere for the current user
-     * in order to check if the User has reached the threshold for any Enterprise Security Exceptions.  The User object is the recommended location for storing
-     * the current user's security exceptions.  If the User has reached any security thresholds, the appropriate security action can be taken and logged.
+     * Adds an exception to the IntrusionDetector.
      *
-     * @param exception
-     *      the exception thrown
+     * This method immediately logs the supplied exception and stores it in
+     * order to check if the request causes a threshold to be reached for any
+     * EnterpriseSecurity Exceptions. If any security thresholds are reached
+     * then the resultant IntrusionException is handled and the appropriate
+     * security action taken and logged.
      *
-     * @throws IntrusionException
-     *      the intrusion exception
+     * @param $exception the exception thrown.
+     *
      */
     public function addException($exception)
     {
-        if (is_a($exception, 'EnterpriseSecurityException'))
+        $secConfig = ESAPI::getSecurityConfiguration();
+
+        if ($secConfig->getDisableIntrusionDetection()) {
+            return;
+        }
+
+        if ($exception instanceof EnterpriseSecurityException)
         {
-            $this->logger->warning( ESAPILogger::SECURITY, false, $exception->getLogMessage(), $exception );
+            $this->logger->warning(
+                ESAPILogger::SECURITY, false,
+                $exception->getLogMessage(), $exception
+            );
         }
         else
         {
-            $this->logger->warning( ESAPILogger::SECURITY, false, $exception->getMessage(), $exception );
+            $this->logger->warning(
+                ESAPILogger::SECURITY, false,
+                $exception->getMessage(), $exception
+            );
         }
 
-         // FIXME: when getCurrentUser() is implemented, remove next 1 line which prevents infinite loop of addException() calls!
-        while (1) return;
-
-        // add the exception to the current user, which may trigger a detector
-        $user = ESAPI::getAuthenticator()->getCurrentUser();
+        // add the exception, which may trigger a detector
         $eventName = get_class($exception);
-
-        if (is_a($exception, 'IntrusionException'))
-        {
-            return;
-        }
-
-        // add the exception to the user's store, handle IntrusionException if thrown
         try
         {
-            $this->addSecurityEvent($user, $eventName);
+            $this->addSecurityEvent($eventName);
         }
         catch (IntrusionException $intrusionException)
         {
             $quota = ESAPI::getSecurityConfiguration()->getQuota($eventName);
-            $actionsList = '[' . implode(', ', $quota->actions) . ']';
+            $message = 'User exceeded quota of ' . $quota->count . ' per ' .
+                $quota->interval . ' seconds for event ' . $eventName .
+                '. Taking actions [' . implode(', ', $quota->actions) . ']';
+
             foreach ($quota->actions as $action)
             {
-                $message = 'User exceeded quota of ' . $quota->count . ' per ' . $quota->interval .
-                            ' seconds for event ' . $eventName . '. Taking actions ' . $actionsList;
                 $this->takeSecurityAction($action, $message);
             }
         }
@@ -86,106 +122,235 @@ class DefaultIntrusionDetector implements IntrusionDetector {
     }
 
     /**
-     * Adds the event to the IntrusionDetector.  This method should immediately log the event.  The implementation should store the event somewhere for the current user
-     * in order to check if the User has reached the threshold for any Enterprise Security Exceptions.  The User object is the recommended location for storing
-     * the current user's security event.  If the User has reached any security thresholds, the appropriate security action can be taken and logged.
+     * Adds an event to the IntrusionDetector.
      *
-     * @param eventName
-     *      the event to add
-     * @param logMessage
-     *      the message to log with the event
+     * This method immediately logs the event and stores it in order to check if
+     * the request causes a threshold to be reached for any Enterprise Security
+     * Exceptions. If any security thresholds are reached then the resultant
+     * IntrusionException is handled and the appropriate security action taken
+     * and logged.
      *
-     * @throws IntrusionException
-     *      the intrusion exception
+     * @param $eventName string event to add.
+     * @param $logMessage string message to log with the event.
+     *
      */
     public function addEvent($eventName, $logMessage)
     {
-        $this->logger->warning( ESAPILogger::SECURITY, false, 'Security event ' . $eventName . ' received : ' . $logMessage);
+        $secConfig = ESAPI::getSecurityConfiguration();
 
-        // add the event to the current user, which may trigger a detector
-        $user = ESAPI::getAuthenticator()->getCurrentUser();
+        if ($secConfig->getDisableIntrusionDetection()) {
+            return;
+        }
+
+        $this->logger->warning(
+            ESAPILogger::SECURITY,
+            false,
+            "Security event {$eventName} received : {$logMessage}"
+        );
+
+        // add the event, which may trigger an IntrusionException
         try
         {
-            $this->addSecurityEvent($user, $eventName);
+            $this->addSecurityEvent($eventName);
         }
         catch (IntrusionException $intrusionException)
         {
-            $quota = ESAPI::getSecurityConfiguration()->getQuota($eventName);
-            $actionsList = '[' . implode(', ', $quota->actions) . ']';
+            $quota = $secConfig->getQuota($eventName);
+            $message = 'User exceeded quota of ' . $quota->count . ' per ' .
+                $quota->interval . ' seconds for event ' . $eventName .
+                '. Taking actions [' . implode(', ', $quota->actions) . ']';
+
             foreach ($quota->actions as $action)
             {
-                $message = 'User exceeded quota of ' . $quota->count . ' per ' . $quota->interval .
-                            ' seconds for event ' . $eventName . '. Taking actions ' . $actionsList;
                 $this->takeSecurityAction($action, $message);
             }
         }
     }
 
+
     /**
-     * Take a specified security action.  In this implementation, acceptable
-     * actions are: log, disable, logout.
+     * Take a specified security action.
      *
-     * @param action
-     *      the action to take (log, disable, logout)
-     * @param message
-     *      the message to log if the action is "log"
+     * At the moment the only acceptable action in this implementation is: log.
+     * Other actions will be ignored.
+     *
+     * @param $action string action to take.
+     * @param $message string message to log where the action is 'log'.
      */
     private function takeSecurityAction($action, $message)
     {
-        if ($action === 'log' )
+        if ($action == 'log' )
         {
-            $this->logger->fatal(ESAPILogger::SECURITY, false, 'INTRUSION - ' . $message);
-        }
-        $user = ESAPI::getAuthenticator()->getCurrentUser();
-
-        if ($user === DefaultUser::ANONYMOUS )
-        {
-            return;
-        }
-        if ($action === 'disable' )
-        {
-            $user->disable();
-        }
-        if ($action === 'logout' )
-        {
-            $user->logout();
+            $this->logger->fatal(
+                ESAPILogger::SECURITY,
+                false,
+                "INTRUSION - {$message}"
+            );
         }
     }
 
+
      /**
-     * Adds a security event to the user.  These events are used to check that the user has not
-     * reached the security thresholds set in the properties file.
+     * Adds a security event.  These events are used to check that the user has
+     * not reached the security thresholds set in the properties file.  If a PHP
+     * session has been started the events are stored there, otherwise they are
+     * merely stored as an instance property.  This means that if a session has
+     * not been started prior to calling this function then events will not be
+     * tracked across requests.
      *
-     * @param user
-     *          The user that caused the event.
-     * @param eventName
-     *          The name of the event that occurred.
+     * @param $eventName string name of the event that occurred.
      */
-    private function addSecurityEvent($user, $eventName)
+    private function addSecurityEvent($eventName)
     {
-        if ($user->isAnonymous()) return; // FIXME: in esapi4java 2.0 isAnonymous() always returns bool false...
-
-        $eventMap = $user->getEventMap();
-
         // if there is a threshold, then track this event
         $threshold = ESAPI::getSecurityConfiguration()->getQuota($eventName);
-        if ($threshold == null) return;
+        if ($threshold === null) {
+            return;
+        }
+
+        // determine the storage for events
+        if (isset($_SESSION))
+        {
+            if (! array_key_exists('ESAPI', $_SESSION)) {
+                $_SESSION['ESAPI'] = array();
+            }
+            if (! array_key_exists('IntrusionDetector', $_SESSION['ESAPI'])
+            ) {
+                $_SESSION['ESAPI']['IntrusionDetector'] = array();
+            }
+            if (! array_key_exists(
+                    'UserEvents', $_SESSION['ESAPI']['IntrusionDetector'])
+            ) {
+                $_SESSION['ESAPI']['IntrusionDetector']['UserEvents'] = array();
+            }
+            // If a session was started after events existed then ensure those
+            // events are added to the session store
+            if (is_array($this->userEvents)
+                && $this->userEvents !==
+                    $_SESSION['ESAPI']['IntrusionDetector']['UserEvents']
+            ) {
+                $_SESSION['ESAPI']['IntrusionDetector']['UserEvents'] =
+                    $this->userEvents;
+            }
+            // Assign a reference to the session store
+            $this->userEvents =&
+                $_SESSION['ESAPI']['IntrusionDetector']['UserEvents'];
+        }
+        else if (! isset($this->userEvents))
+        {
+            $this->userEvents = array();
+        }
 
         $event = null;
-        if (array_key_exists($eventName, $eventMap))
+        if (array_key_exists($eventName, $this->userEvents))
         {
-            $event = $eventMap[$eventName];
+            $event = $this->userEvents[$eventName];
         }
         if ($event == null)
         {
-            $eventMap[$eventName] = new Event($eventName);
-            $event = $eventMap[$eventName];
-            $user->setEventMap($eventMap);
+            $this->userEvents[$eventName] = new Event($eventName);
+            $event = $this->userEvents[$eventName];
         }
         if ($threshold->count > 0)
         {
-        	$event->increment($threshold->count, $threshold->interval);
+            $event->increment($threshold->count, $threshold->interval);
         }
     }
 }
-?>
+
+
+
+
+/**
+ * Reference implementation of an Intrusion Event.
+ *
+ * Represents the count of and times at which a user generated an event that
+ * corresponds to a defined IntrusionDetector threshold.  The intrusion detector
+ * stores instances of events and invokes their increment method which
+ * determines whether the corresponding threshold has been reached.
+ *
+ * PHP version 5.2.9
+ *
+ * @category  OWASP
+ * @package   ESAPI
+ * @author    Jeff Williams <jeff.williams@owasp.org>
+ * @author    jah <jah@jahboite.co.uk>
+ * @copyright 2009-2010 The OWASP Foundation
+ * @license   http://www.opensource.org/licenses/bsd-license.php New BSD license
+ * @link      http://www.owasp.org/index.php/ESAPI
+ */
+class Event
+{
+    private $key;
+    private $times = array();
+
+    /**
+     *
+     * @var $count integer number of times this event occurred for a given user.
+     */
+    public $count = 0;
+
+
+    /**
+     * @param $key string name by which the event is known
+     *        e.g. 'IntegrityException'.
+     */
+    public function __construct($key)
+    {
+        $this->key = $key;
+    }
+
+
+    /**
+     * The increment method increments the number of times this event occurred
+     * for this user.
+     *
+     * Each time increment is called it will decide whether or not to throw an
+     * IntrusionException based on the supplied count and interval parameters.
+     * If $count is exceeded within $interval seconds then the exception will be
+     * thrown.  This implementation maintains a kind of sliding window of
+     * timestamps so that it can track event occurrences over time.
+     *
+     * @param $count integer times that will trigger Intrusion Detection within
+     *        the supplied period.
+     * @param $interval integer seconds within which the supplied quota of
+     *        event occurrences will trigger Intrusion Detection.
+     */
+    public function increment($count, $interval)
+    {
+        $now = null;
+        if (function_exists('microtime')) {
+            $now = microtime(true);
+            $interval = (float) $interval;
+        } else {
+            $now = time();
+        }
+
+        $this->count++;
+        array_push($this->times, $now);
+
+        // if the threshold has been exceeded
+        while (sizeof($this->times) > $count) {
+            array_shift($this->times);
+        }
+
+        if (sizeof($this->times) == $count)
+        {
+            $past = reset($this->times);
+            if ($past === false) {
+                // this should not happen because events are validated in
+                // SecurityConfiguration...
+                $past = $now;
+            }
+            $present = $now;
+            if ($present - $past < $interval)
+            {
+                throw new IntrusionException(
+                    "Threshold exceeded",
+                    "Exceeded threshold for " . $this->key
+                );
+            }
+        }
+    }
+
+}
