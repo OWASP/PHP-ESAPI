@@ -3,24 +3,28 @@
  * OWASP Enterprise Security API (ESAPI)
  *
  * This file is part of the Open Web Application Security Project (OWASP)
- * Enterprise Security API (ESAPI) project. For details, please see
- * <a href="http://www.owasp.org/index.php/ESAPI">http://www.owasp.org/index.php/ESAPI</a>.
+ * Enterprise Security API (ESAPI) project.
  *
- * Copyright (c) 2007 - 2009 The OWASP Foundation
+ * LICENSE: This source file is subject to the New BSD license.  You should read
+ * and accept the LICENSE before you use, modify, and/or redistribute this
+ * software.
  *
- * The ESAPI is published by OWASP under the BSD license. You should read and
- * accept the LICENSE before you use, modify, and/or redistribute this software.
- *
- * @author Jeff Williams <a href="http://www.aspectsecurity.com">Aspect Security</a>
- * @created 2009
- * @since 1.6
+ * @category  OWASP
+ * @package   ESAPI
+ * @author    Jeff Williams <jeff.williams@aspectsecurity.com>
+ * @author    Andrew van der Stock <vanderaj@owasp.org>
+ * @author    Linden Darling <Linden.Darling@jds.net.au>
+ * @author    jah <jah@jahboite.co.uk>
+ * @copyright 2009-2010 The OWASP Foundation
+ * @license   http://www.opensource.org/licenses/bsd-license.php New BSD license
+ * @link      http://www.owasp.org/index.php/ESAPI
  */
 
 
 /**
- *
+ * Implementations will require Codec.
  */
-require_once dirname(__FILE__).'/codecs/Codec.php';
+require_once dirname(__FILE__) . '/codecs/Codec.php';
 
 
 /**
@@ -41,9 +45,18 @@ require_once dirname(__FILE__).'/codecs/Codec.php';
  * doubly encoded characters (using the same encoding scheme or two different
  * encoding schemes) should be rejected.
  *
- * @author Linden Darling <a href="http://www.jds.net.au">JDS Australia</a>
- * @author jah (at jahboite.co.uk)
- * @since 1.6
+ * PHP version 5.2.9
+ *
+ * @category  OWASP
+ * @package   ESAPI
+ * @version   1.0
+ * @author    Jeff Williams <jeff.williams@aspectsecurity.com>
+ * @author    Andrew van der Stock <vanderaj@owasp.org>
+ * @author    Linden Darling <Linden.Darling@jds.net.au>
+ * @author    jah <jah@jahboite.co.uk>
+ * @copyright 2009-2010 The OWASP Foundation
+ * @license   http://www.opensource.org/licenses/bsd-license.php New BSD license
+ * @link      http://www.owasp.org/index.php/ESAPI
  */
 interface Encoder {
 
@@ -61,17 +74,17 @@ interface Encoder {
      * Password character sets.
      */
     /**
-     * Lower case alphabet, for passwords, which exludes 'l', 'i' and 'o'.
+     * Lower case alphabet, for passwords, which excludes 'l', 'i' and 'o'.
      */
     const CHAR_PASSWORD_LOWERS = 'abcdefghjkmnpqrstuvwxyz';
 
     /**
-     * Upper case alphabet, for passwords, which exludes 'I' and 'O'.
+     * Upper case alphabet, for passwords, which excludes 'I' and 'O'.
      */
     const CHAR_PASSWORD_UPPERS = 'ABCDEFGHJKLMNPQRSTUVWXYZ';
 
     /**
-     * Numerical digits, for passwords, which exludes '0'.
+     * Numerical digits, for passwords, which excludes '0'.
      */
     const CHAR_PASSWORD_DIGITS = '123456789';
 

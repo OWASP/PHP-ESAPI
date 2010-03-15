@@ -1,22 +1,27 @@
 <?php
 /**
  * OWASP Enterprise Security API (ESAPI)
- * 
- * This file is part of the Open Web Application Security Project (OWASP)
- * Enterprise Security API (ESAPI) project. For details, please see
- * <a href="http://www.owasp.org/index.php/ESAPI">http://www.owasp.org/index.php/ESAPI</a>.
  *
- * Copyright (c) 2007 - 2009 The OWASP Foundation
- * 
- * The ESAPI is published by OWASP under the BSD license. You should read and accept the
- * LICENSE before you use, modify, and/or redistribute this software.
- * 
- * @author 
- * @created 2008
- * @since 1.4
- * @package org.owasp.esapi
+ * This file is part of the Open Web Application Security Project (OWASP)
+ * Enterprise Security API (ESAPI) project.
+ *
+ * LICENSE: This source file is subject to the New BSD license.  You should read
+ * and accept the LICENSE before you use, modify, and/or redistribute this
+ * software.
+ *
+ * @category  OWASP
+ * @package   ESAPI
+ * @author    Jeff Williams <jeff.williams@aspectsecurity.com>
+ * @author    Andrew van der Stock <vanderaj@owasp.org>
+ * @copyright 2009-2010 The OWASP Foundation
+ * @license   http://www.opensource.org/licenses/bsd-license.php New BSD license
+ * @link      http://www.owasp.org/index.php/ESAPI
  */
 
+
+/**
+ * 
+ */
 require_once dirname(__FILE__).'/errors/AccessControlException.php';
 require_once dirname(__FILE__).'/errors/AuthenticationException.php';
 require_once dirname(__FILE__).'/errors/EncryptionException.php';
@@ -28,14 +33,22 @@ require_once dirname(__FILE__).'/filters/SafeResponse.php';
 
 
 /**
- * The HTTPUtilities interface is a collection of methods that provide additional security related to HTTP requests,
- * responses, sessions, cookies, headers, and logging.
- * <P>
+ * The HTTPUtilities interface is a collection of methods that provide
+ * additional security related to HTTP requests, responses, sessions, cookies,
+ * headers, and logging.
+ *
  * <img src="doc-files/HTTPUtilities.jpg">
- * <P>
- * 
- * @author 
- * @since 1.4
+ *
+ * PHP version 5.2.9
+ *
+ * @category  OWASP
+ * @package   ESAPI
+ * @version   1.0
+ * @author    Jeff Williams <jeff.williams@aspectsecurity.com>
+ * @author    Andrew van der Stock <vanderaj@owasp.org>
+ * @copyright 2009-2010 The OWASP Foundation
+ * @license   http://www.opensource.org/licenses/bsd-license.php New BSD license
+ * @link      http://www.owasp.org/index.php/ESAPI
  */
 interface HTTPUtilities {
 

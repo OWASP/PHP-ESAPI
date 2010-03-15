@@ -1,42 +1,54 @@
 <?php
-
 /**
  * OWASP Enterprise Security API (ESAPI)
- * 
- * This file is part of the Open Web Application Security Project (OWASP)
- * Enterprise Security API (ESAPI) project. For details, please see
- * <a href="http://www.owasp.org/index.php/ESAPI">http://www.owasp.org/index.php/ESAPI</a>.
  *
- * Copyright (c) 2007 - 2009 The OWASP Foundation
- * 
- * The ESAPI is published by OWASP under the BSD license. You should read and accept the
- * LICENSE before you use, modify, and/or redistribute this software.
- * 
- * @author 
- * @created 2008
- * @since 1.4
- * @package org.owasp.esapi
+ * This file is part of the Open Web Application Security Project (OWASP)
+ * Enterprise Security API (ESAPI) project.
+ *
+ * LICENSE: This source file is subject to the New BSD license.  You should read
+ * and accept the LICENSE before you use, modify, and/or redistribute this
+ * software.
+ *
+ * @category  OWASP
+ * @package   ESAPI
+ * @author    Jeff Williams <jeff.williams@aspectsecurity.com>
+ * @author    Mike Fauzy <mike.fauzy@aspectsecurity.com>
+ * @author    Andrew van der Stock <vanderaj@owasp.org>
+ * @copyright 2009-2010 The OWASP Foundation
+ * @license   http://www.opensource.org/licenses/bsd-license.php New BSD license
+ * @link      http://www.owasp.org/index.php/ESAPI
  */
 
+
 /**
- * The SecurityConfiguration interface stores all configuration information
- * that directs the behavior of the ESAPI implementation.
- * <br><br>
+ * The SecurityConfiguration interface stores all configuration information that
+ * directs the behavior of the ESAPI implementation.
+ *
  * Protection of this configuration information is critical to the secure
  * operation of the application using the ESAPI. You should use operating system
  * access controls to limit access to wherever the configuration information is
  * stored.
- * <br><br>
+ *
  * Please note that adding another layer of encryption does not make the
  * attackers job much more difficult. Somewhere there must be a master "secret"
  * that is stored unencrypted on the application platform. Creating another
- * layer of indirection doesn't provide any real additional security. Its up to the
- * reference implementation to decide whether this file should be encrypted or not.
- * The ESAPI reference implementation (DefaultSecurityConfiguration.java) does not encrypt
- * its properties file.
- * 
- * @author 
- * @since 1.4
+ * layer of indirection doesn't provide any real additional security. Its up to
+ * the reference implementation to decide whether this file should be encrypted
+ * or not.
+ * The ESAPI reference implementation (DefaultSecurityConfiguration.java) does
+ * not encrypt its properties file.
+ *
+ * PHP version 5.2.9
+ *
+ * @category  OWASP
+ * @package   ESAPI
+ * @version   1.0
+ * @author    Jeff Williams <jeff.williams@aspectsecurity.com>
+ * @author    Mike Fauzy <mike.fauzy@aspectsecurity.com>
+ * @author    Andrew van der Stock <vanderaj@owasp.org>
+ * @copyright 2009-2010 The OWASP Foundation
+ * @license   http://www.opensource.org/licenses/bsd-license.php New BSD license
+ * @link      http://www.owasp.org/index.php/ESAPI
  */
 interface SecurityConfiguration
 {
@@ -284,11 +296,24 @@ interface SecurityConfiguration
 }
 
 /**
-	 * Models a simple threshold as a count and an interval, along with a set of actions to take if 
-	 * the threshold is exceeded. These thresholds are used to define when the accumulation of a particular event
-	 * has met a set number within the specified time period. Once a threshold value has been met, various
-	 * actions can be taken at that point.
-	 */
+ * Models a simple threshold as a count and an interval, along with a set of
+ * actions to take if the threshold is exceeded.
+ * 
+ * These thresholds are used to define when the accumulation of a particular
+ * event has met a set number within the specified time period. Once a threshold
+ * value has been met, various actions can be taken at that point.
+ *
+ * PHP version 5.2.9
+ *
+ * @category  OWASP
+ * @package   ESAPI
+ * @version   1.0
+ * @author    Jeff Williams <jeff.williams@owasp.org>
+ * @author    Andrew van der Stock <vanderaj@owasp.org>
+ * @copyright 2009-2010 The OWASP Foundation
+ * @license   http://www.opensource.org/licenses/bsd-license.php New BSD license
+ * @link      http://www.owasp.org/index.php/ESAPI
+ */
 class Threshold
 {
     /** The name of this threshold. */

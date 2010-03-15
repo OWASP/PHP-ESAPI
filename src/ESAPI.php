@@ -1,21 +1,45 @@
 <?php
 /**
- * ESAPI locator class implementation. 
- * 
- * PHP version 5.2.9
- * 
- * LICENSE: This source file is subject to the New BSD license.
- * 
+ * OWASP Enterprise Security API (ESAPI)
+ *
+ * This file is part of the Open Web Application Security Project (OWASP)
+ * Enterprise Security API (ESAPI) project.
+ *
+ * LICENSE: This source file is subject to the New BSD license.  You should read
+ * and accept the LICENSE before you use, modify, and/or redistribute this
+ * software.
+ *
+ * @category  OWASP
+ * @package   ESAPI
+ * @author    Mike Fauzy <mike.fauzy@aspectsecurity.com>
+ * @author    Rogan Dawes <rogan@dawes.za.net>
  * @author    Andrew van der Stock <vanderaj@owasp.org>
+ * @author    Bipin Upadhyay <bipin.code@gmail.com>
+ * @author    Mike Boberski <boberski_michael@bah.com>
  * @copyright 2009-2010 The OWASP Foundation
- * @license   http://www.opensource.org/licenses/bsd-license.php
+ * @license   http://www.opensource.org/licenses/bsd-license.php New BSD license
  * @link      http://www.owasp.org/index.php/ESAPI
  */
 
+
 /**
- * ESAPI locator class is provided to make it easy to gain access to the current 
- * ESAPI classes in use. Use the set methods to override the reference 
- * implementations with instances of any custom ESAPI implementations. 
+ * ESAPI locator class is provided to make it easy to gain access to the current
+ * ESAPI classes in use. Use the set methods to override the reference
+ * implementations with instances of any custom ESAPI implementations.
+ *
+ * PHP version 5.2.9
+ *
+ * @category  OWASP
+ * @package   ESAPI
+ * @version   1.0
+ * @author    Mike Fauzy <mike.fauzy@aspectsecurity.com>
+ * @author    Rogan Dawes <rogan@dawes.za.net>
+ * @author    Andrew van der Stock <vanderaj@owasp.org>
+ * @author    Bipin Upadhyay <bipin.code@gmail.com>
+ * @author    Mike Boberski <boberski_michael@bah.com>
+ * @copyright 2009-2010 The OWASP Foundation
+ * @license   http://www.opensource.org/licenses/bsd-license.php New BSD license
+ * @link      http://www.owasp.org/index.php/ESAPI
  */
 class ESAPI
 {
