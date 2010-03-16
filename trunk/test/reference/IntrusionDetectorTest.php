@@ -17,6 +17,11 @@
  * @link      http://www.owasp.org/index.php/ESAPI
  */
 
+/**
+ * Require Test Helpers
+ */
+require_once dirname(__FILE__) . '/../testresources/TestHelpers.php';
+
 
 /**
  * Test for the DefaultIntrusionDetector implementation of the IntrusionDetector
@@ -36,8 +41,12 @@ class IntrusionDetectorTest extends UnitTestCase
 {
 
     private $logFileLoc = null;
-    private $charset = null;
-    private $rnd = null;
+    
+    function __construct()
+    {
+        ESAPI::getEncoder();
+        $this->logFileLoc = getLogFileLoc();
+    }
 
     function setUp()
     {
@@ -58,7 +67,6 @@ class IntrusionDetectorTest extends UnitTestCase
      */
     function testExceptionAutoAdd()
     {
-        $this->getLogFileLoc();
         if ($this->logFileLoc === false) {
             $this->fail(
                 'Cannot perform this test because the log file cannot be found.'
@@ -66,14 +74,14 @@ class IntrusionDetectorTest extends UnitTestCase
         }
 
         $logMsg = 'testExceptionAutoAdd:';
-        $logMsg .= $this->getRandomAlphaNumString(32);
+        $logMsg .= getRandomAlphaNumString(32);
         new EnterpriseSecurityException(
             'user message: testExceptionAutoAdd', $logMsg
         );
 
         $m = 'Test attempts to detect exception log message in logfile: %s';
         $this->assertTrue(
-            $this->fileContainsExpected($this->logFileLoc, $logMsg),
+            fileContainsExpected($this->logFileLoc, $logMsg),
             $m
         );
     }
@@ -85,7 +93,6 @@ class IntrusionDetectorTest extends UnitTestCase
      */
     function testAddException()
     {
-        $this->getLogFileLoc();
         if ($this->logFileLoc === false) {
             $this->fail(
                 'Cannot perform this test because the log file cannot be found.'
@@ -93,12 +100,12 @@ class IntrusionDetectorTest extends UnitTestCase
         }
 
         $logMsg = 'testAddException:';
-        $logMsg .= $this->getRandomAlphaNumString(32);
+        $logMsg .= getRandomAlphaNumString(32);
         ESAPI::getIntrusionDetector()->addException(new Exception($logMsg));
 
         $m = 'Test attempts to detect exception log message in logfile: %s';
         $this->assertTrue(
-            $this->fileContainsExpected($this->logFileLoc, $logMsg),
+            fileContainsExpected($this->logFileLoc, $logMsg),
             $m
         );
     }
@@ -113,8 +120,14 @@ class IntrusionDetectorTest extends UnitTestCase
      */
     function testAddEvent()
     {
+        if ($this->logFileLoc === false) {
+            $this->fail(
+                'Cannot perform this test because the log file cannot be found.'
+            );
+        }
+
         // generate a random event name
-        $eventName = $this->getRandomAlphaNumString(16);
+        $eventName = getRandomAlphaNumString(16);
 
         // create a threshold for this event so that it will be tracked by IDS
         require_once dirname(__FILE__) . '/../../src/SecurityConfiguration.php';
@@ -128,13 +141,17 @@ class IntrusionDetectorTest extends UnitTestCase
             $eventName,
             'This is a Test Event for IntrusionDetectorTest.'
         );
+        
+        array_pop($secConfig->events);
 
-        $find = 'User exceeded quota of 1 per 60 seconds for event ' .
-            $eventName . '. Taking actions \[log\]';
+        $find = "User exceeded quota of {$threshold->count} " .
+            "per {$threshold->interval} seconds for event " .
+            "{$eventName}. Taking actions \[" .
+            implode(', ', $threshold->actions) . '\]';
         $m = 'Test attempts to detect IntrusionDetector' .
             ' action log message in logfile: %s';
         $this->assertTrue(
-            $this->fileContainsExpected($this->logFileLoc, $find),
+            fileContainsExpected($this->logFileLoc, $find),
             $m
         );
     }
@@ -147,33 +164,38 @@ class IntrusionDetectorTest extends UnitTestCase
      */
     function testAddIntrusionExceptionIsTracked()
     {
-        $this->getLogFileLoc();
         if ($this->logFileLoc === false) {
             $this->fail(
                 'Cannot perform this test because the log file cannot be found.'
             );
         }
 
+        $eventName = 'IntrusionException';
+        
         // modify the threshold for this event so that it can be reliably
         // detected in the log file.
         require_once dirname(__FILE__) . '/../../src/SecurityConfiguration.php';
-        $dummyAction = 'TEST' . $this->getRandomAlphaNumString(16);
+        $dummyAction = 'TEST' . getRandomAlphaNumString(16);
         $moddedThreshold = new Threshold(
-            'IntrusionException', 1, 1, array('log', $dummyAction)
+            $eventName, 1, 1, array('log', $dummyAction)
         );
         $secConfig = ESAPI::getSecurityConfiguration();
         $secConfig->getQuota('1'); // make sure events are loaded
         $ieKey = null;
         $restoreThreshold = null;
         foreach ($secConfig->events as $key => $threshold) {
-            if ($threshold->name == 'IntrusionException') {
+            if ($threshold->name == $eventName) {
                 $ieKey = $key;
                 $restoreThreshold = $threshold;
-                $secConfig->events[$key] = $moddedThreshold;
                 break;
             }
         }
-
+        if ($ieKey !== null) {
+            $secConfig->events[$ieKey] = $moddedThreshold;
+        } else {
+            $secConfig->events[] = $moddedThreshold;
+        }
+        
         ESAPI::getIntrusionDetector()->addException(
             new IntrusionException(
                 'Naughty User!',
@@ -182,84 +204,264 @@ class IntrusionDetectorTest extends UnitTestCase
         );
 
         // restore the threshold actions
-        $secConfig->events[$ieKey] = $restoreThreshold;
+        if ($ieKey !== null) {
+            $secConfig->events[$ieKey] = $restoreThreshold;
+        } else {
+            array_pop($secConfig->events);
+        }
         
 
-        $find = 'User exceeded quota of 1 per 1 seconds for event ' .
-            "IntrusionException. Taking actions \[log, {$dummyAction}\]";
+        $find = "User exceeded quota of {$moddedThreshold->count} " .
+            "per {$moddedThreshold->interval} seconds for event " .
+            "{$eventName}. Taking actions \[" .
+            implode(', ', $moddedThreshold->actions) . '\]';
         $m = 'Test attempts to detect IntrusionDetector' .
             ' action log message in logfile: %s';
         $this->assertTrue(
-            $this->fileContainsExpected($this->logFileLoc, $find),
+            fileContainsExpected($this->logFileLoc, $find),
             $m
         );
     }
 
 
     /**
-     * Helper method which opens a file handle to the supplied path, reads it
-     * line-by-line and performs preg_match on the line with the supplied regex.
+     * Test Rapid events
      *
-     * @param  $filename string path to file.
-     * @param  $expected string regex to match in the file
-     *
-     * @return true if the regex matches, false if not, null if the file
-     *         cannot be opened.
      */
-    private function fileContainsExpected($filename, $expected)
+    function testRapidIDSEvents()
     {
-        if (empty($filename) || ! is_string($filename)) {
-            return null;
+        if ($this->logFileLoc === false) {
+            $this->fail(
+                'Cannot perform this test because the log file cannot be found.'
+            );
         }
-        $f = fopen($filename, 'r');
-        if ($f === false) {
-            return null;
-        }
-        while (! feof($f)) {
-            $line = fgets($f, 2048);
-            if (preg_match("/{$expected}/", $line)) {
-                fclose($f);
-                return true;
+
+        $eventName = 'RapidEvent';
+        
+        // make a new threshold with a dummy action that can be detected in the
+        // logfile
+        require_once dirname(__FILE__) . '/../../src/SecurityConfiguration.php';
+        $dummyAction = 'TEST' . getRandomAlphaNumString(16);
+        $moddedThreshold = new Threshold(
+            $eventName, 10, 20, array('log', $dummyAction)
+        );
+        $secConfig = ESAPI::getSecurityConfiguration();
+        $secConfig->getQuota('1'); // make sure events are loaded
+        $ieKey = null;
+        $restoreThreshold = null;
+        foreach ($secConfig->events as $key => $threshold) {
+            if ($threshold->name == $eventName) {
+                $ieKey = $key;
+                $restoreThreshold = $threshold;
+                break;
             }
         }
-        fclose($f);
-        return false;
+        if ($ieKey !== null) {
+            $secConfig->events[$ieKey] = $moddedThreshold;
+        } else {
+            $secConfig->events[] = $moddedThreshold;
+        }     
+
+        // Generate Exceptions
+        $ids = ESAPI::getIntrusionDetector();
+        for ($i = 1; $i < 11; $i++) {
+            $ids->addEvent(
+                $eventName,
+                'This is a Test Event for IntrusionDetectorTest.'
+            );
+        }
+        
+        // Cleanup - remove the test threshold from secConfig
+        if ($ieKey !== null) {
+            $secConfig->events[$ieKey] = $restoreThreshold;
+        } else {
+            array_pop($secConfig->events);
+        }
+        
+
+        $find = "User exceeded quota of {$moddedThreshold->count} " .
+            "per {$moddedThreshold->interval} seconds for event " .
+            "{$eventName}. Taking actions \[" .
+            implode(', ', $moddedThreshold->actions) . '\]';
+        $m = 'Test attempts to detect IntrusionDetector' .
+            ' action log message in logfile: %s';
+        $this->assertTrue(
+            fileContainsExpected($this->logFileLoc, $find),
+            $m
+        );
     }
 
 
     /**
-     * Helper method sets $this->logFileLoc with the ESAPILogger log file path.
+     * Once IntrusionDetector has been triggered, it can be triggered again with
+     * another occurrence of the same event
+     *
      */
-    private function getLogFileLoc()
+    function testTripTwice()
     {
-        if ($this->logFileLoc !== null) {
-            return;
+        if ($this->logFileLoc === false) {
+            $this->fail(
+                'Cannot perform this test because the log file cannot be found.'
+            );
         }
-        $filename = ESAPI::getSecurityConfiguration()->getLogFileName();
-        $this->logFileLoc = realpath($filename);
+
+        $eventName = 'RapidEvent';
+        
+        // make a new threshold with a dummy action that can be detected in the
+        // logfile
+        require_once dirname(__FILE__) . '/../../src/SecurityConfiguration.php';
+        $dummyAction = 'TEST' . getRandomAlphaNumString(16);
+        $moddedThreshold = new Threshold(
+            $eventName, 10, 20, array('log', $dummyAction)
+        );
+        $secConfig = ESAPI::getSecurityConfiguration();
+        $secConfig->getQuota('1'); // make sure events are loaded
+        $ieKey = null;
+        $restoreThreshold = null;
+        foreach ($secConfig->events as $key => $threshold) {
+            if ($threshold->name == $eventName) {
+                $ieKey = $key;
+                $restoreThreshold = $threshold;
+                break;
+            }
+        }
+        if ($ieKey !== null) {
+            $secConfig->events[$ieKey] = $moddedThreshold;
+        } else {
+            $secConfig->events[] = $moddedThreshold;
+        }     
+        
+        // Note that the previous test testRapidValidationErrors has triggered
+        // IDS for this event so we only need one more event to trigger again.
+        ESAPI::getIntrusionDetector()->addEvent(
+            $eventName,
+            'This is a Test Event for IntrusionDetectorTest.'
+        );
+        
+        // Cleanup - remove the test threshold from secConfig
+        if ($ieKey !== null) {
+            $secConfig->events[$ieKey] = $restoreThreshold;
+        } else {
+            array_pop($secConfig->events);
+        }
+        
+
+        $find = "User exceeded quota of {$moddedThreshold->count} " .
+            "per {$moddedThreshold->interval} seconds for event " .
+            "{$eventName}. Taking actions \[" .
+            implode(', ', $moddedThreshold->actions) . '\]';
+        $m = 'Test attempts to detect IntrusionDetector' .
+            ' action log message in logfile: %s';
+        $this->assertTrue(
+            fileContainsExpected($this->logFileLoc, $find),
+            $m
+        );
     }
 
 
     /**
-     * Helper method returns a random string of alphanumeric characters of the
-     * supplied length.
-     *
-     * @param  $len integer length of the required string.
-     *
-     * @return string of $len alphanumeric characters.
+     * This test will trigger IDS at a point which demonstrates the calculation
+     * of event intervals.  Using a threshold that triggers after 5 events
+     * within 5 seconds, four events will occur at 1 second intervals, then a
+     * pause of 3 seconds and then 3 more events in quick succession.  IDS
+     * should not trigger until the 7th event.
+     * 
+     *                                   *
+     *         e   e   e   e           eee
+     *         |-+-|-+-|-+-|-+-|-+-|-+-|-+-|-+-|
+     *         0   1   2   3   4   5   6   7   8
+     *                 |___________________|
+     *                   5 second interval
      */
-    private function getRandomAlphaNumString($len)
+    function testSlidingInterval()
     {
-        if ($this->charset === null) {
-            ESAPI::getEncoder();
-            $this->charset = Encoder::CHAR_ALPHANUMERICS;
+        if ($this->logFileLoc === false) {
+            $this->fail(
+                'Cannot perform this test because the log file cannot be found.'
+            );
         }
-        if ($this->rnd === null) {
-            $this->rnd = ESAPI::getRandomizer();
+
+        $eventName = 'SlidingIntervalTestEvent';
+        
+        // make a new threshold with a dummy action that can be detected in the
+        // logfile
+        require_once dirname(__FILE__) . '/../../src/SecurityConfiguration.php';
+        $dummyAction = 'TEST' . getRandomAlphaNumString(16);
+        $moddedThreshold = new Threshold(
+            $eventName, 5, 5, array('log', $dummyAction)
+        );
+        $find = "User exceeded quota of {$moddedThreshold->count} " .
+            "per {$moddedThreshold->interval} seconds for event " .
+            "{$eventName}. Taking actions \[" .
+            implode(', ', $moddedThreshold->actions) . '\]';
+        $m = 'Test attempts to detect IntrusionDetector' .
+            ' action log message in logfile: %s';
+        
+        $secConfig = ESAPI::getSecurityConfiguration();
+        $secConfig->getQuota('1'); // make sure events are loaded
+        $ieKey = null;
+        $restoreThreshold = null;
+        foreach ($secConfig->events as $key => $threshold) {
+            if ($threshold->name == $eventName) {
+                $ieKey = $key;
+                $restoreThreshold = $threshold;
+                break;
+            }
         }
-        if (empty($len)) {
-            return null;
+        if ($ieKey !== null) {
+            $secConfig->events[$ieKey] = $moddedThreshold;
+        } else {
+            $secConfig->events[] = $moddedThreshold;
+        }     
+        
+        // Generate 4 events at 1 sec intervals
+        for ($i = 0; $i < 4; $i++) {
+            ESAPI::getIntrusionDetector()->addEvent(
+                $eventName,
+                'This is a Test Event for IntrusionDetectorTest.'
+            );
+            usleep(1000000);
         }
-        return $this->rnd->getRandomString($len, $this->charset);
+        // Sleep for a further 2 secs (for a total of 3 secs between this and
+        // the next event.
+        usleep(2000000);
+        
+        // The following two events should not trigger...
+        ESAPI::getIntrusionDetector()->addEvent(
+            $eventName,
+            'This is a Test Event for IntrusionDetectorTest.'
+        );
+
+        $this->assertFalse(
+            fileContainsExpected($this->logFileLoc, $find),
+            $m
+        );
+        
+        ESAPI::getIntrusionDetector()->addEvent(
+            $eventName,
+            'This is a Test Event for IntrusionDetectorTest.'
+        );
+        $this->assertFalse(
+            fileContainsExpected($this->logFileLoc, $find),
+            $m
+        );
+        
+        // OK this event SHOULD trigger!
+        ESAPI::getIntrusionDetector()->addEvent(
+            $eventName,
+            'This is a Test Event for IntrusionDetectorTest.'
+        );
+        $this->assertTrue(
+            fileContainsExpected($this->logFileLoc, $find),
+            $m
+        );
+        
+        
+        // Cleanup - remove the test threshold from secConfig
+        if ($ieKey !== null) {
+            $secConfig->events[$ieKey] = $restoreThreshold;
+        } else {
+            array_pop($secConfig->events);
+        }
     }
 }
