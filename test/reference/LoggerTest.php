@@ -20,8 +20,9 @@
 /**
  *
  */
-require_once dirname(__FILE__).'/../../src/ESAPI.php';
-require_once dirname(__FILE__).'/../../src/errors/ValidationException.php';
+require_once dirname(__FILE__) . '/../testresources/TestHelpers.php';
+require_once dirname(__FILE__) . '/../../src/ESAPI.php';
+require_once dirname(__FILE__) . '/../../src/errors/ValidationException.php';
 
 
 /**
@@ -43,12 +44,18 @@ class LoggerTest extends UnitTestCase {
     private $logFileLoc = null;
     /**
      * Set the first time we attempt to read the logfile.  Used to differentiate
-     * between failure to read the lofile and failure to match a pattern in the
+     * between failure to read the logfile and failure to match a pattern in the
      * logfile.
      *
      * @var boolean
      */
     private $logfileIsReadable = false;
+    
+    function __construct()
+    {
+        ESAPI::getEncoder();
+        $this->logFileLoc = getLogFileLoc();
+    }
 
     function setUp() {
         global $ESAPI;
@@ -314,17 +321,17 @@ class LoggerTest extends UnitTestCase {
 
     function testLoggingToFile() {
         $testMsg = null;
-        $r = $this->getRandomAlphaNumString(32);
+        $r = getRandomAlphaNumString(32);
         $logMsg = "Test message. {$r}";
         $this->testLogger->fatal(ESAPILogger::SECURITY, true, $logMsg);
-        $this->logfileIsReadable = $this->verifyLogEntry("/{$logMsg}/", $testMsg);
+        $this->logfileIsReadable = $this->verifyLogEntry("{$logMsg}", $testMsg);
         $this->assertTrue($this->logfileIsReadable, $testMsg);
     }
 
 
     function testFatalSecuritySuccess() {
         $testMsg = null;
-        $r = $this->getRandomAlphaNumString(32);
+        $r = getRandomAlphaNumString(32);
         $logMsg = "Fatal level test message. {$r}";
         $expected = $this->getExpected('FATAL', 'SECURITY', true, $logMsg);
         $this->testLogger->fatal(ESAPILogger::SECURITY, true, $logMsg);
@@ -333,7 +340,7 @@ class LoggerTest extends UnitTestCase {
 
     function testFatalSecurityFailure() {
         $testMsg = null;
-        $r = $this->getRandomAlphaNumString(32);
+        $r = getRandomAlphaNumString(32);
         $logMsg = "Fatal level test message. {$r}";
         $expected = $this->getExpected('FATAL', 'SECURITY', false, $logMsg);
         $this->testLogger->fatal(ESAPILogger::SECURITY, false, $logMsg);
@@ -342,7 +349,7 @@ class LoggerTest extends UnitTestCase {
 
     function testFatalNullException() {
         $testMsg = null;
-        $r = $this->getRandomAlphaNumString(32);
+        $r = getRandomAlphaNumString(32);
         $logMsg = "Fatal level test message. {$r}";
         $expected = $this->getExpected('FATAL', 'SECURITY', true, $logMsg);
         $this->testLogger->fatal(ESAPILogger::SECURITY, true, $logMsg, null);
@@ -351,7 +358,7 @@ class LoggerTest extends UnitTestCase {
 
     function testFatalWithException() {
         $testMsg = null;
-        $r = $this->getRandomAlphaNumString(32);
+        $r = getRandomAlphaNumString(32);
         $logMsg = "Fatal level test message. {$r}";
         $throwable = new Exception('This is a message from a generic exception.');
         $expected = $this->getExpected('FATAL', 'SECURITY', false, $logMsg,
@@ -363,7 +370,7 @@ class LoggerTest extends UnitTestCase {
 
     function testWarningSecuritySuccess() {
         $testMsg = null;
-        $r = $this->getRandomAlphaNumString(32);
+        $r = getRandomAlphaNumString(32);
         $logMsg = "Warning level test message. {$r}";
         $expected = $this->getExpected('WARNING', 'SECURITY', true, $logMsg);
         $this->testLogger->warning(ESAPILogger::SECURITY, true, $logMsg);
@@ -372,7 +379,7 @@ class LoggerTest extends UnitTestCase {
 
     function testWarningSecurityFailure() {
         $testMsg = null;
-        $r = $this->getRandomAlphaNumString(32);
+        $r = getRandomAlphaNumString(32);
         $logMsg = "Warning level test message. {$r}";
         $expected = $this->getExpected('WARNING', 'SECURITY', false, $logMsg);
         $this->testLogger->warning(ESAPILogger::SECURITY, false, $logMsg);
@@ -381,7 +388,7 @@ class LoggerTest extends UnitTestCase {
 
     function testWarningNullException() {
         $testMsg = null;
-        $r = $this->getRandomAlphaNumString(32);
+        $r = getRandomAlphaNumString(32);
         $logMsg = "Warning level test message. {$r}";
         $expected = $this->getExpected('WARNING', 'SECURITY', true, $logMsg);
         $this->testLogger->warning(ESAPILogger::SECURITY, true, $logMsg, null);
@@ -390,7 +397,7 @@ class LoggerTest extends UnitTestCase {
 
     function testWarningWithException() {
         $testMsg = null;
-        $r = $this->getRandomAlphaNumString(32);
+        $r = getRandomAlphaNumString(32);
         $logMsg = "Warning level test message. {$r}";
         $throwable = new ValidationException('This is a message from a ValidationException.');
         $expected = $this->getExpected('WARNING', 'SECURITY', false, $logMsg,
@@ -402,7 +409,7 @@ class LoggerTest extends UnitTestCase {
 
     function testErrorSecuritySuccess() {
         $testMsg = null;
-        $r = $this->getRandomAlphaNumString(32);
+        $r = getRandomAlphaNumString(32);
         $logMsg = "Error level test message. {$r}";
         $expected = $this->getExpected('ERROR', 'SECURITY', true, $logMsg);
         $this->testLogger->error(ESAPILogger::SECURITY, true, $logMsg);
@@ -411,7 +418,7 @@ class LoggerTest extends UnitTestCase {
 
     function testErrorSecurityFailure() {
         $testMsg = null;
-        $r = $this->getRandomAlphaNumString(32);
+        $r = getRandomAlphaNumString(32);
         $logMsg = "Error level test message. {$r}";
         $expected = $this->getExpected('ERROR', 'SECURITY', false, $logMsg);
         $this->testLogger->error(ESAPILogger::SECURITY, false, $logMsg);
@@ -420,7 +427,7 @@ class LoggerTest extends UnitTestCase {
 
     function testErrorNullException() {
         $testMsg = null;
-        $r = $this->getRandomAlphaNumString(32);
+        $r = getRandomAlphaNumString(32);
         $logMsg = "Error level test message. {$r}";
         $expected = $this->getExpected('ERROR', 'SECURITY', true, $logMsg);
         $this->testLogger->error(ESAPILogger::SECURITY, true, $logMsg, null);
@@ -429,7 +436,7 @@ class LoggerTest extends UnitTestCase {
 
     function testErrorWithException() {
         $testMsg = null;
-        $r = $this->getRandomAlphaNumString(32);
+        $r = getRandomAlphaNumString(32);
         $logMsg = "Error level test message. {$r}";
         $throwable = new Exception('This is a message from a generic exception.');
         $expected = $this->getExpected('ERROR', 'SECURITY', false, $logMsg,
@@ -441,7 +448,7 @@ class LoggerTest extends UnitTestCase {
 
     function testInfoSecuritySuccess() {
         $testMsg = null;
-        $r = $this->getRandomAlphaNumString(32);
+        $r = getRandomAlphaNumString(32);
         $logMsg = "Info level test message. {$r}";
         $expected = $this->getExpected('INFO', 'SECURITY', true, $logMsg);
         $this->testLogger->info(ESAPILogger::SECURITY, true, $logMsg);
@@ -450,7 +457,7 @@ class LoggerTest extends UnitTestCase {
 
     function testInfoSecurityFailure() {
         $testMsg = null;
-        $r = $this->getRandomAlphaNumString(32);
+        $r = getRandomAlphaNumString(32);
         $logMsg = "Info level test message. {$r}";
         $expected = $this->getExpected('INFO', 'SECURITY', false, $logMsg);
         $this->testLogger->info(ESAPILogger::SECURITY, false, $logMsg);
@@ -459,7 +466,7 @@ class LoggerTest extends UnitTestCase {
 
     function testInfoNullException() {
         $testMsg = null;
-        $r = $this->getRandomAlphaNumString(32);
+        $r = getRandomAlphaNumString(32);
         $logMsg = "Info level test message. {$r}";
         $expected = $this->getExpected('INFO', 'SECURITY', true, $logMsg);
         $this->testLogger->info(ESAPILogger::SECURITY, true, $logMsg, null);
@@ -468,7 +475,7 @@ class LoggerTest extends UnitTestCase {
 
     function testInfoWithException() {
         $testMsg = null;
-        $r = $this->getRandomAlphaNumString(32);
+        $r = getRandomAlphaNumString(32);
         $logMsg = "Info level test message. {$r}";
         $throwable = new Exception('This is a message from a generic exception.');
         $expected = $this->getExpected('INFO', 'SECURITY', false, $logMsg,
@@ -480,7 +487,7 @@ class LoggerTest extends UnitTestCase {
 
     function testDebugSecuritySuccess() {
         $testMsg = null;
-        $r = $this->getRandomAlphaNumString(32);
+        $r = getRandomAlphaNumString(32);
         $logMsg = "Debug level test message. {$r}";
         $expected = $this->getExpected('DEBUG', 'SECURITY', true, $logMsg);
         $this->testLogger->debug(ESAPILogger::SECURITY, true, $logMsg);
@@ -489,7 +496,7 @@ class LoggerTest extends UnitTestCase {
 
     function testDebugSecurityFailure() {
         $testMsg = null;
-        $r = $this->getRandomAlphaNumString(32);
+        $r = getRandomAlphaNumString(32);
         $logMsg = "Debug level test message. {$r}";
         $expected = $this->getExpected('DEBUG', 'SECURITY', false, $logMsg);
         $this->testLogger->debug(ESAPILogger::SECURITY, false, $logMsg);
@@ -498,7 +505,7 @@ class LoggerTest extends UnitTestCase {
 
     function testDebugNullException() {
         $testMsg = null;
-        $r = $this->getRandomAlphaNumString(32);
+        $r = getRandomAlphaNumString(32);
         $logMsg = "Debug level test message. {$r}";
         $expected = $this->getExpected('DEBUG', 'SECURITY', true, $logMsg);
         $this->testLogger->debug(ESAPILogger::SECURITY, true, $logMsg, null);
@@ -507,7 +514,7 @@ class LoggerTest extends UnitTestCase {
 
     function testDebugWithException() {
         $testMsg = null;
-        $r = $this->getRandomAlphaNumString(32);
+        $r = getRandomAlphaNumString(32);
         $logMsg = "Debug level test message. {$r}";
         $throwable = new Exception('This is a message from a generic exception.');
         $expected = $this->getExpected('DEBUG', 'SECURITY', false, $logMsg,
@@ -519,7 +526,7 @@ class LoggerTest extends UnitTestCase {
 
     function testTraceSecuritySuccess() {
         $testMsg = null;
-        $r = $this->getRandomAlphaNumString(32);
+        $r = getRandomAlphaNumString(32);
         $logMsg = "Trace level test message. {$r}";
         $expected = $this->getExpected('TRACE', 'SECURITY', true, $logMsg);
         $this->testLogger->trace(ESAPILogger::SECURITY, true, $logMsg);
@@ -528,7 +535,7 @@ class LoggerTest extends UnitTestCase {
 
     function testTraceSecurityFailure() {
         $testMsg = null;
-        $r = $this->getRandomAlphaNumString(32);
+        $r = getRandomAlphaNumString(32);
         $logMsg = "Trace level test message. {$r}";
         $expected = $this->getExpected('TRACE', 'SECURITY', false, $logMsg);
         $this->testLogger->trace(ESAPILogger::SECURITY, false, $logMsg);
@@ -537,7 +544,7 @@ class LoggerTest extends UnitTestCase {
 
     function testTraceNullException() {
         $testMsg = null;
-        $r = $this->getRandomAlphaNumString(32);
+        $r = getRandomAlphaNumString(32);
         $logMsg = "Trace level test message. {$r}";
         $expected = $this->getExpected('TRACE', 'SECURITY', true, $logMsg);
         $this->testLogger->trace(ESAPILogger::SECURITY, true, $logMsg, null);
@@ -546,7 +553,7 @@ class LoggerTest extends UnitTestCase {
 
     function testTraceWithException() {
         $testMsg = null;
-        $r = $this->getRandomAlphaNumString(32);
+        $r = getRandomAlphaNumString(32);
         $logMsg = "Trace level test message. {$r}";
         $throwable = new Exception('This is a message from a generic exception.');
         $expected = $this->getExpected('TRACE', 'SECURITY', false, $logMsg,
@@ -558,7 +565,7 @@ class LoggerTest extends UnitTestCase {
 
     function testFatalUsabilitySuccess() {
         $testMsg = null;
-        $r = $this->getRandomAlphaNumString(32);
+        $r = getRandomAlphaNumString(32);
         $logMsg = "Fatal level test message. {$r}";
         $expected = $this->getExpected('FATAL', 'USABILITY', true, $logMsg);
         $this->testLogger->fatal(ESAPILogger::USABILITY, true, $logMsg);
@@ -567,7 +574,7 @@ class LoggerTest extends UnitTestCase {
 
     function testFatalUsabilityFailure() {
         $testMsg = null;
-        $r = $this->getRandomAlphaNumString(32);
+        $r = getRandomAlphaNumString(32);
         $logMsg = "Fatal level test message. {$r}";
         $expected = $this->getExpected('FATAL', 'USABILITY', false, $logMsg);
         $this->testLogger->fatal(ESAPILogger::USABILITY, false, $logMsg);
@@ -576,7 +583,7 @@ class LoggerTest extends UnitTestCase {
 
     function testWarningUsabilitySuccess() {
         $testMsg = null;
-        $r = $this->getRandomAlphaNumString(32);
+        $r = getRandomAlphaNumString(32);
         $logMsg = "Warning level test message. {$r}";
         $expected = $this->getExpected('WARNING', 'USABILITY', true, $logMsg);
         $this->testLogger->warning(ESAPILogger::USABILITY, true, $logMsg);
@@ -585,7 +592,7 @@ class LoggerTest extends UnitTestCase {
 
     function testWarningUsabilityFailure() {
         $testMsg = null;
-        $r = $this->getRandomAlphaNumString(32);
+        $r = getRandomAlphaNumString(32);
         $logMsg = "Warning level test message. {$r}";
         $expected = $this->getExpected('WARNING', 'USABILITY', false, $logMsg);
         $this->testLogger->warning(ESAPILogger::USABILITY, false, $logMsg);
@@ -594,7 +601,7 @@ class LoggerTest extends UnitTestCase {
 
     function testErrorUsabilitySuccess() {
         $testMsg = null;
-        $r = $this->getRandomAlphaNumString(32);
+        $r = getRandomAlphaNumString(32);
         $logMsg = "Error level test message. {$r}";
         $expected = $this->getExpected('ERROR', 'USABILITY', true, $logMsg);
         $this->testLogger->error(ESAPILogger::USABILITY, true, $logMsg);
@@ -603,7 +610,7 @@ class LoggerTest extends UnitTestCase {
 
     function testErrorUsabilityFailure() {
         $testMsg = null;
-        $r = $this->getRandomAlphaNumString(32);
+        $r = getRandomAlphaNumString(32);
         $logMsg = "Error level test message. {$r}";
         $expected = $this->getExpected('ERROR', 'USABILITY', false, $logMsg);
         $this->testLogger->error(ESAPILogger::USABILITY, false, $logMsg);
@@ -612,7 +619,7 @@ class LoggerTest extends UnitTestCase {
 
     function testInfoUsabilitySuccess() {
         $testMsg = null;
-        $r = $this->getRandomAlphaNumString(32);
+        $r = getRandomAlphaNumString(32);
         $logMsg = "Info level test message. {$r}";
         $expected = $this->getExpected('INFO', 'USABILITY', true, $logMsg);
         $this->testLogger->info(ESAPILogger::USABILITY, true, $logMsg);
@@ -621,7 +628,7 @@ class LoggerTest extends UnitTestCase {
 
     function testInfoUsabilityFailure() {
         $testMsg = null;
-        $r = $this->getRandomAlphaNumString(32);
+        $r = getRandomAlphaNumString(32);
         $logMsg = "Info level test message. {$r}";
         $expected = $this->getExpected('INFO', 'USABILITY', false, $logMsg);
         $this->testLogger->info(ESAPILogger::USABILITY, false, $logMsg);
@@ -630,7 +637,7 @@ class LoggerTest extends UnitTestCase {
 
     function testDebugUsabilitySuccess() {
         $testMsg = null;
-        $r = $this->getRandomAlphaNumString(32);
+        $r = getRandomAlphaNumString(32);
         $logMsg = "Debug level test message. {$r}";
         $expected = $this->getExpected('DEBUG', 'USABILITY', true, $logMsg);
         $this->testLogger->debug(ESAPILogger::USABILITY, true, $logMsg);
@@ -639,7 +646,7 @@ class LoggerTest extends UnitTestCase {
 
     function testDebugUsabilityFailure() {
         $testMsg = null;
-        $r = $this->getRandomAlphaNumString(32);
+        $r = getRandomAlphaNumString(32);
         $logMsg = "Debug level test message. {$r}";
         $expected = $this->getExpected('DEBUG', 'USABILITY', false, $logMsg);
         $this->testLogger->debug(ESAPILogger::USABILITY, false, $logMsg);
@@ -648,7 +655,7 @@ class LoggerTest extends UnitTestCase {
 
     function testTraceUsabilitySuccess() {
         $testMsg = null;
-        $r = $this->getRandomAlphaNumString(32);
+        $r = getRandomAlphaNumString(32);
         $logMsg = "Trace level test message. {$r}";
         $expected = $this->getExpected('TRACE', 'USABILITY', true, $logMsg);
         $this->testLogger->trace(ESAPILogger::USABILITY, true, $logMsg);
@@ -657,7 +664,7 @@ class LoggerTest extends UnitTestCase {
 
     function testTraceUsabilityFailure() {
         $testMsg = null;
-        $r = $this->getRandomAlphaNumString(32);
+        $r = getRandomAlphaNumString(32);
         $logMsg = "Trace level test message. {$r}";
         $expected = $this->getExpected('TRACE', 'USABILITY', false, $logMsg);
         $this->testLogger->trace(ESAPILogger::USABILITY, false, $logMsg);
@@ -666,7 +673,7 @@ class LoggerTest extends UnitTestCase {
 
     function testFatalPerformanceSuccess() {
         $testMsg = null;
-        $r = $this->getRandomAlphaNumString(32);
+        $r = getRandomAlphaNumString(32);
         $logMsg = "Fatal level test message. {$r}";
         $expected = $this->getExpected('FATAL', 'PERFORMANCE', true, $logMsg);
         $this->testLogger->fatal(ESAPILogger::PERFORMANCE, true, $logMsg);
@@ -675,7 +682,7 @@ class LoggerTest extends UnitTestCase {
 
     function testFatalPerformanceFailure() {
         $testMsg = null;
-        $r = $this->getRandomAlphaNumString(32);
+        $r = getRandomAlphaNumString(32);
         $logMsg = "Fatal level test message. {$r}";
         $expected = $this->getExpected('FATAL', 'PERFORMANCE', false, $logMsg);
         $this->testLogger->fatal(ESAPILogger::PERFORMANCE, false, $logMsg);
@@ -684,7 +691,7 @@ class LoggerTest extends UnitTestCase {
 
     function testWarningPerformanceSuccess() {
         $testMsg = null;
-        $r = $this->getRandomAlphaNumString(32);
+        $r = getRandomAlphaNumString(32);
         $logMsg = "Warning level test message. {$r}";
         $expected = $this->getExpected('WARNING', 'PERFORMANCE', true, $logMsg);
         $this->testLogger->warning(ESAPILogger::PERFORMANCE, true, $logMsg);
@@ -693,7 +700,7 @@ class LoggerTest extends UnitTestCase {
 
     function testWarningPerformanceFailure() {
         $testMsg = null;
-        $r = $this->getRandomAlphaNumString(32);
+        $r = getRandomAlphaNumString(32);
         $logMsg = "Warning level test message. {$r}";
         $expected = $this->getExpected('WARNING', 'PERFORMANCE', false, $logMsg);
         $this->testLogger->warning(ESAPILogger::PERFORMANCE, false, $logMsg);
@@ -702,7 +709,7 @@ class LoggerTest extends UnitTestCase {
 
     function testErrorPerformanceSuccess() {
         $testMsg = null;
-        $r = $this->getRandomAlphaNumString(32);
+        $r = getRandomAlphaNumString(32);
         $logMsg = "Error level test message. {$r}";
         $expected = $this->getExpected('ERROR', 'PERFORMANCE', true, $logMsg);
         $this->testLogger->error(ESAPILogger::PERFORMANCE, true, $logMsg);
@@ -711,7 +718,7 @@ class LoggerTest extends UnitTestCase {
 
     function testErrorPerformanceFailure() {
         $testMsg = null;
-        $r = $this->getRandomAlphaNumString(32);
+        $r = getRandomAlphaNumString(32);
         $logMsg = "Error level test message. {$r}";
         $expected = $this->getExpected('ERROR', 'PERFORMANCE', false, $logMsg);
         $this->testLogger->error(ESAPILogger::PERFORMANCE, false, $logMsg);
@@ -720,7 +727,7 @@ class LoggerTest extends UnitTestCase {
 
     function testInfoPerformanceSuccess() {
         $testMsg = null;
-        $r = $this->getRandomAlphaNumString(32);
+        $r = getRandomAlphaNumString(32);
         $logMsg = "Info level test message. {$r}";
         $expected = $this->getExpected('INFO', 'PERFORMANCE', true, $logMsg);
         $this->testLogger->info(ESAPILogger::PERFORMANCE, true, $logMsg);
@@ -729,7 +736,7 @@ class LoggerTest extends UnitTestCase {
 
     function testInfoPerformanceFailure() {
         $testMsg = null;
-        $r = $this->getRandomAlphaNumString(32);
+        $r = getRandomAlphaNumString(32);
         $logMsg = "Info level test message. {$r}";
         $expected = $this->getExpected('INFO', 'PERFORMANCE', false, $logMsg);
         $this->testLogger->info(ESAPILogger::PERFORMANCE, false, $logMsg);
@@ -738,7 +745,7 @@ class LoggerTest extends UnitTestCase {
 
     function testDebugPerformanceSuccess() {
         $testMsg = null;
-        $r = $this->getRandomAlphaNumString(32);
+        $r = getRandomAlphaNumString(32);
         $logMsg = "Debug level test message. {$r}";
         $expected = $this->getExpected('DEBUG', 'PERFORMANCE', true, $logMsg);
         $this->testLogger->debug(ESAPILogger::PERFORMANCE, true, $logMsg);
@@ -747,7 +754,7 @@ class LoggerTest extends UnitTestCase {
 
     function testDebugPerformanceFailure() {
         $testMsg = null;
-        $r = $this->getRandomAlphaNumString(32);
+        $r = getRandomAlphaNumString(32);
         $logMsg = "Debug level test message. {$r}";
         $expected = $this->getExpected('DEBUG', 'PERFORMANCE', false, $logMsg);
         $this->testLogger->debug(ESAPILogger::PERFORMANCE, false, $logMsg);
@@ -756,7 +763,7 @@ class LoggerTest extends UnitTestCase {
 
     function testTracePerformanceSuccess() {
         $testMsg = null;
-        $r = $this->getRandomAlphaNumString(32);
+        $r = getRandomAlphaNumString(32);
         $logMsg = "Trace level test message. {$r}";
         $expected = $this->getExpected('TRACE', 'PERFORMANCE', true, $logMsg);
         $this->testLogger->trace(ESAPILogger::PERFORMANCE, true, $logMsg);
@@ -765,7 +772,7 @@ class LoggerTest extends UnitTestCase {
 
     function testTracePerformanceFailure() {
         $testMsg = null;
-        $r = $this->getRandomAlphaNumString(32);
+        $r = getRandomAlphaNumString(32);
         $logMsg = "Trace level test message. {$r}";
         $expected = $this->getExpected('TRACE', 'PERFORMANCE', false, $logMsg);
         $this->testLogger->trace(ESAPILogger::PERFORMANCE, false, $logMsg);
@@ -774,7 +781,7 @@ class LoggerTest extends UnitTestCase {
 
     function testFatalFunctionalitySuccess() {
         $testMsg = null;
-        $r = $this->getRandomAlphaNumString(32);
+        $r = getRandomAlphaNumString(32);
         $logMsg = "Fatal level test message. {$r}";
         $expected = $this->getExpected('FATAL', 'FUNCTIONALITY', true, $logMsg);
         $this->testLogger->fatal(ESAPILogger::FUNCTIONALITY, true, $logMsg);
@@ -783,7 +790,7 @@ class LoggerTest extends UnitTestCase {
 
     function testFatalFunctionalityFailure() {
         $testMsg = null;
-        $r = $this->getRandomAlphaNumString(32);
+        $r = getRandomAlphaNumString(32);
         $logMsg = "Fatal level test message. {$r}";
         $expected = $this->getExpected('FATAL', 'FUNCTIONALITY', false, $logMsg);
         $this->testLogger->fatal(ESAPILogger::FUNCTIONALITY, false, $logMsg);
@@ -792,7 +799,7 @@ class LoggerTest extends UnitTestCase {
 
     function testWarningFunctionalitySuccess() {
         $testMsg = null;
-        $r = $this->getRandomAlphaNumString(32);
+        $r = getRandomAlphaNumString(32);
         $logMsg = "Warning level test message. {$r}";
         $expected = $this->getExpected('WARNING', 'FUNCTIONALITY', true, $logMsg);
         $this->testLogger->warning(ESAPILogger::FUNCTIONALITY, true, $logMsg);
@@ -801,7 +808,7 @@ class LoggerTest extends UnitTestCase {
 
     function testWarningFunctionalityFailure() {
         $testMsg = null;
-        $r = $this->getRandomAlphaNumString(32);
+        $r = getRandomAlphaNumString(32);
         $logMsg = "Warning level test message. {$r}";
         $expected = $this->getExpected('WARNING', 'FUNCTIONALITY', false, $logMsg);
         $this->testLogger->warning(ESAPILogger::FUNCTIONALITY, false, $logMsg);
@@ -810,7 +817,7 @@ class LoggerTest extends UnitTestCase {
 
     function testErrorFunctionalitySuccess() {
         $testMsg = null;
-        $r = $this->getRandomAlphaNumString(32);
+        $r = getRandomAlphaNumString(32);
         $logMsg = "Error level test message. {$r}";
         $expected = $this->getExpected('ERROR', 'FUNCTIONALITY', true, $logMsg);
         $this->testLogger->error(ESAPILogger::FUNCTIONALITY, true, $logMsg);
@@ -819,7 +826,7 @@ class LoggerTest extends UnitTestCase {
 
     function testErrorFunctionalityFailure() {
         $testMsg = null;
-        $r = $this->getRandomAlphaNumString(32);
+        $r = getRandomAlphaNumString(32);
         $logMsg = "Error level test message. {$r}";
         $expected = $this->getExpected('ERROR', 'FUNCTIONALITY', false, $logMsg);
         $this->testLogger->error(ESAPILogger::FUNCTIONALITY, false, $logMsg);
@@ -828,7 +835,7 @@ class LoggerTest extends UnitTestCase {
 
     function testInfoFunctionalitySuccess() {
         $testMsg = null;
-        $r = $this->getRandomAlphaNumString(32);
+        $r = getRandomAlphaNumString(32);
         $logMsg = "Info level test message. {$r}";
         $expected = $this->getExpected('INFO', 'FUNCTIONALITY', true, $logMsg);
         $this->testLogger->info(ESAPILogger::FUNCTIONALITY, true, $logMsg);
@@ -837,7 +844,7 @@ class LoggerTest extends UnitTestCase {
 
     function testInfoFunctionalityFailure() {
         $testMsg = null;
-        $r = $this->getRandomAlphaNumString(32);
+        $r = getRandomAlphaNumString(32);
         $logMsg = "Info level test message. {$r}";
         $expected = $this->getExpected('INFO', 'FUNCTIONALITY', false, $logMsg);
         $this->testLogger->info(ESAPILogger::FUNCTIONALITY, false, $logMsg);
@@ -846,7 +853,7 @@ class LoggerTest extends UnitTestCase {
 
     function testDebugFunctionalitySuccess() {
         $testMsg = null;
-        $r = $this->getRandomAlphaNumString(32);
+        $r = getRandomAlphaNumString(32);
         $logMsg = "Debug level test message. {$r}";
         $expected = $this->getExpected('DEBUG', 'FUNCTIONALITY', true, $logMsg);
         $this->testLogger->debug(ESAPILogger::FUNCTIONALITY, true, $logMsg);
@@ -855,7 +862,7 @@ class LoggerTest extends UnitTestCase {
 
     function testDebugFunctionalityFailure() {
         $testMsg = null;
-        $r = $this->getRandomAlphaNumString(32);
+        $r = getRandomAlphaNumString(32);
         $logMsg = "Debug level test message. {$r}";
         $expected = $this->getExpected('DEBUG', 'FUNCTIONALITY', false, $logMsg);
         $this->testLogger->debug(ESAPILogger::FUNCTIONALITY, false, $logMsg);
@@ -864,7 +871,7 @@ class LoggerTest extends UnitTestCase {
 
     function testTraceFunctionalitySuccess() {
         $testMsg = null;
-        $r = $this->getRandomAlphaNumString(32);
+        $r = getRandomAlphaNumString(32);
         $logMsg = "Trace level test message. {$r}";
         $expected = $this->getExpected('TRACE', 'FUNCTIONALITY', true, $logMsg);
         $this->testLogger->trace(ESAPILogger::FUNCTIONALITY, true, $logMsg);
@@ -873,7 +880,7 @@ class LoggerTest extends UnitTestCase {
 
     function testTraceFunctionalityFailure() {
         $testMsg = null;
-        $r = $this->getRandomAlphaNumString(32);
+        $r = getRandomAlphaNumString(32);
         $logMsg = "Trace level test message. {$r}";
         $expected = $this->getExpected('TRACE', 'FUNCTIONALITY', false, $logMsg);
         $this->testLogger->trace(ESAPILogger::FUNCTIONALITY, false, $logMsg);
@@ -890,8 +897,8 @@ class LoggerTest extends UnitTestCase {
             $failMessage = 'CRLF Encoding FAILED!';
         }
         $testMsg = null;
-        $r = $this->getRandomAlphaNumString(16);
-        $expected = "/{$r}_{$r}/";
+        $r = getRandomAlphaNumString(16);
+        $expected = "{$r}_{$r}";
         $this->testLogger->trace(ESAPILogger::SECURITY, true, "{$r}\n{$r}");
         $result = $this->verifyLogEntry($expected, $testMsg);
         if ($result === true) {
@@ -917,8 +924,8 @@ class LoggerTest extends UnitTestCase {
             $failMessage = 'HTML Encoding FAILED!';
         }
         $testMsg = null;
-        $r = $this->getRandomAlphaNumString(16);
-        $expected = "/{$r}&amp;{$r}/";
+        $r = getRandomAlphaNumString(16);
+        $expected = "{$r}&amp;{$r}";
         $this->testLogger->trace(ESAPILogger::SECURITY, true, "{$r}&{$r}");
         $result = $this->verifyLogEntry($expected, $testMsg);
         if ($result === true) {
@@ -926,30 +933,6 @@ class LoggerTest extends UnitTestCase {
         } else {
             $this->fail($failMessage);
         }
-    }
-
-
-    /**
-     * Helper method returns a random string of alphanumeric caharacters of the
-     * supplied length.
-     *
-     * @param  $len integer length of the required string.
-     *
-     * @return string of $len alphanumeric characters.
-     */
-    private function getRandomAlphaNumString($len)
-    {
-        if ($this->alphanum == null) {
-            ESAPI::getEncoder();
-            $this->alphanum = Encoder::CHAR_ALPHANUMERICS;
-        }
-        if ($this->rnd == null) {
-            $this->rnd = ESAPI::getRandomizer();
-        }
-        if (empty($len)) {
-            return null;
-        }
-        return $this->rnd->getRandomString($len, $this->alphanum);
     }
 
 
@@ -972,22 +955,15 @@ class LoggerTest extends UnitTestCase {
             return false; // another fail because we couldn't find the logfile.
         }
 
-        if ($this->logFileLoc == null) {
-            // get the logfile location
-            $sc = ESAPI::getSecurityConfiguration();
-            $file = $sc->getLogFileName();
-            $this->logFileLoc = realpath($file);
-        }
-
         // read the logfile
-        $f = file_get_contents($this->logFileLoc);
+        $result = fileContainsExpected($this->logFileLoc, $expected);
 
-        if ($f === false) {
+        if ($result === null) {
             $this->logFileLoc = false;
             $msg = "Failed to read the log file from {$this->logFileLoc}. All" .
                 ' further LoggerTest tests will fail!';
             return false;
-        } else if (preg_match($expected, $f)) {
+        } else if ($result === true) {
             $msg = 'Log file contains the expected entry. Logging to file' .
                     ' with the supplied parameters is verified.';
             return true;
@@ -996,7 +972,6 @@ class LoggerTest extends UnitTestCase {
                 ' that logging to file is working for the supplied parameters.';
             return false;
         }
-        // unreach
     }
 
     /**
@@ -1027,6 +1002,6 @@ class LoggerTest extends UnitTestCase {
         if ($exceptionClassName !== null) {
             $msg .= " exception '{$exceptionClassName}'";
         }
-        return "/{$date} {$level} {$name} {$type}{$success} {$localSocket} {$username}{$remoteAddr}\[ID:{$sessionID}\] {$msg}/";
+        return "{$date} {$level} {$name} {$type}{$success} {$localSocket} {$username}{$remoteAddr}\[ID:{$sessionID}\] {$msg}";
     }
 }

@@ -17,6 +17,7 @@
 
 require_once dirname(__FILE__).'/../../src/ESAPI.php';
 require_once dirname(__FILE__).'/../../src/reference/DefaultValidator.php';
+require_once dirname(__FILE__) . '/../testresources/TestHelpers.php';
 // require_once dirname(__FILE__).'/HTTPUtilitiesTest.php';
 class ValidatorTest extends UnitTestCase 
 {
@@ -32,10 +33,67 @@ class ValidatorTest extends UnitTestCase
 	
 	function tearDown()
 	{
-		
 	}
 	
-function testIsValidCreditCard() {
+	function testValidationErrorsTriggerIDS()
+	{
+	    $logFileLoc = getLogFileLoc();
+	    if ($logFileLoc === false) {
+	        $this->fail(
+                'Cannot perform this test because the log file cannot be found.'
+            );
+	    }
+
+	    $eventName = 'ValidationException';
+	    
+	    // make a new threshold with a dummy action that can be detected in the
+	    // logfile
+	    require_once dirname(__FILE__) . '/../../src/SecurityConfiguration.php';
+	    $dummyAction = 'TEST' . getRandomAlphaNumString(16);
+	    $moddedThreshold = new Threshold(
+            $eventName, 10, 10, array('log', $dummyAction)
+	    );
+	    $secConfig = ESAPI::getSecurityConfiguration();
+	    $secConfig->getQuota('1'); // make sure events are loaded
+	    $ieKey = null;
+	    $restoreThreshold = null;
+	    foreach ($secConfig->events as $key => $threshold) {
+	        if ($threshold->name == $eventName) {
+	            $ieKey = $key;
+	            $restoreThreshold = $threshold;
+	            break;
+	        }
+	    }
+	    $secConfig->events[$ieKey] = $moddedThreshold;
+
+	    // Generate Exceptions
+	    $val = ESAPI::getValidator();
+	    for ($i = 1; $i < 11; $i++) {
+	        $val->isValidCreditCard("test", "12349876000000081", false);
+	    }
+
+	    // Cleanup - remove the test threshold from secConfig
+	    if ($restoreThreshold !== null) {
+	        $secConfig->events[$ieKey] = $restoreThreshold;
+	    } else {
+	        array_pop($secConfig->events);
+	    }
+
+
+	    $find = "User exceeded quota of {$moddedThreshold->count} " .
+            "per {$moddedThreshold->interval} seconds for event " .
+            "{$eventName}. Taking actions \[" .
+            implode(', ', $moddedThreshold->actions) . '\]';
+        $m = 'Test attempts to detect IntrusionDetector' .
+            ' action log message in logfile: %s';
+	    $this->assertTrue(
+	        fileContainsExpected($logFileLoc, $find),
+	    $m
+	    );
+	}
+	
+	
+    function testIsValidCreditCard() {
 		
 		$val = ESAPI::getValidator();
 		$this->assertTrue($val->isValidCreditCard("test", "1234 9876 0000 0008", false));

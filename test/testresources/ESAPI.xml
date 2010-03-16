@@ -315,12 +315,10 @@
         </event>
 
         <!-- rapid validation errors indicate scans or attacks in progress -->
-        <!-- Disabled for now
         <event name="ValidationException" count="10" interval="10">
             <action>log</action>
             <action>logout</action>
         </event>
-        -->
 
         <!-- sessions jumping between hosts indicates a session hijacking -->
 
