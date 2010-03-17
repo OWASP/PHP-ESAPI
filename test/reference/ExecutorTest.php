@@ -157,62 +157,69 @@ class ExecutorTest extends UnitTestCase
 	*/
     function testExecuteUnixSystemCommand()
     {
-        if(substr(PHP_OS, 0, 3) == 'WIN') {
-        	return;
+        if(substr(PHP_OS, 0, 3) == 'WIN')
+        {
+        	echo "testExecuteUnixSystemCommand - on Windows platform, exiting<br />\n";
+        	return;		// Is windows, not going to execute this path
         }
         
-        $this->fail();
+        $instance =  new DefaultExecutor();
         
-        //TODO: convert JAVA tests to PHP
-        /*
-        // make sure we have what /bin/sh is pointing at in the allowed exes for the test
-                // and a usable working dir
-                File binSh = new File("/bin/sh").getCanonicalFile();
-                ESAPI.setSecurityConfiguration(
-                        new Conf(
-                                ESAPI.securityConfiguration(),
-                                Collections.singletonList(binSh.getPath()),
-                                new File("/tmp")
-                        )
-                );
-
-                Executor instance = ESAPI.executor();
-                File executable = binSh;
-                List params = new ArrayList();
-                try {
-                        params.add("-c");
-                        params.add("ls");
-                        params.add("/");
-                        String result = instance.executeSystemCommand(executable, new ArrayList(params) );
-                        System.out.println( "RESULT: " + result );
-                        assertTrue(result.length() > 0);
-                } catch (Exception e) {
-                        fail(e.getMessage());
-                }
-                try {
-                        File exec2 = new File( executable.getPath() + ";./inject" );
-                        String result = instance.executeSystemCommand(exec2, new ArrayList(params) );
-                        System.out.println( "RESULT: " + result );
-                        fail();
-                } catch (Exception e) {
-                        // expected
-                }
-                try {
-                        File exec2 = new File( executable.getPath() + "/../bin/sh" );
-                        String result = instance.executeSystemCommand(exec2, new ArrayList(params) );
-                        System.out.println( "RESULT: " + result );
-                        fail();
-                } catch (Exception e) {
-                        // expected
-                }
-                try {
-                        params.add(";ls");
-                        String result = instance.executeSystemCommand(executable, new ArrayList(params) );
-                        System.out.println( "RESULT: " + result );
-                } catch (Exception e) {
-                        fail();
-                }
-        */
+    	try
+        {
+        	$executable = '/bin/sh';
+	    	$params = array("-c", "ls", "/");
+	    	$result = $instance->executeSystemCommand($executable, $params);
+	    	$result = ESAPI::getEncoder()->encodeForHTML($result);
+	    	echo "RESULT: $result<br /><br />\n";
+	    	$this->assertNotNull($result);
+        }
+    	catch ( Exception $e ) 
+        {
+        	$this->fail();
+        }
+        
+    	try
+        {
+        	$executable = '/bin/sh;./inject';
+	    	$params = array("-c", "ls", "/");
+	    	$result = $instance->executeSystemCommand($executable, $params);
+	    	$result = ESAPI::getEncoder()->encodeForHTML($result);
+	    	echo "RESULT: $result<br /><br />\n";
+	    	$this->assertNull($result);
+        }
+    	catch ( Exception $e ) 
+        {
+        	//expected
+        }
+        
+    	try
+        {
+        	$executable = '/bin/sh/../bin/sh';
+	    	$params = array("-c", "ls", "/");
+	    	$result = $instance->executeSystemCommand($executable, $params);
+	    	$result = ESAPI::getEncoder()->encodeForHTML($result);
+	    	echo "RESULT: $result<br /><br />\n";
+	    	$this->assertNull($result);
+        }
+    	catch ( Exception $e ) 
+        {
+        	//expected
+        }
+        
+    	try
+        {
+        	$executable = '/bin/sh';
+	    	$params = array("-c", "ls", "/", ";ls");
+	    	$result = $instance->executeSystemCommand($executable, $params);
+	    	$result = ESAPI::getEncoder()->encodeForHTML($result);
+	    	echo "RESULT: $result<br /><br />\n";
+	    	$this->assertNotNull($result);
+        }
+    	catch ( Exception $e ) 
+        {
+        	$this->fail();
+        }
     }
 }
 ?>
