@@ -17,6 +17,7 @@
  */
 require_once dirname(__FILE__).'/../../src/ESAPI.php';
 require_once dirname(__FILE__).'/../../src/reference/DefaultExecutor.php';
+require_once dirname(__FILE__).'/../../src/codecs/WindowsCodec.php';
 
 class ExecutorTest extends UnitTestCase 
 {
