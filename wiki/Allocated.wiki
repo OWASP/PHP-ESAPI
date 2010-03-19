@@ -2,11 +2,11 @@
 
 The following controls have been assigned:
 
-|| *Control* || *Current status* || *Assignee* ||
-|| Encryptor || Initial development ||Arnaud (change in approach, target ESAPI for Java 2.0 design) ||
-|| EncryptedProperties || Initial development || Arnaud ||
-|| HTTPUtilities || Initial development || Linden ||
-|| IntrusionDetector || Last mile || jah ||
-|| Logger || Last mile || jah ||
-|| SafeFile || Last mile || Arnaud (tests added, one last question about functionality) ||
-|| Validator || Last mile || jah (isValidXX vs assertValid etc.) ||
+|| *Control* || *Current status* || *Assignee* || *Notes* ||
+|| Encryptor || Initial development ||Arnaud || change in approach, target ESAPI for Java 2.0 design ||
+|| EncryptedProperties || Initial development || Arnaud || ||
+|| HTTPUtilities || Initial development || Linden || ||
+|| IntrusionDetector || Last mile || jah || ||
+|| Logger || Last mile || jah || ||
+|| SafeFile || Last mile || Arnaud || tests added, one last question about functionality ||
+|| Validator || Last mile || jah || isValidXX vs assertValid etc. ||
