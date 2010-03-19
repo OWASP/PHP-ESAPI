@@ -3,8 +3,8 @@
 The following controls have been assigned:
 
 || *Control* || *Current status* || *Assignee* ||
-|| Encryptor || Initial development ||Arnaud (on hold) ||
-|| EncryptedProperties || Initial development || Arnaud (on hold) ||
+|| Encryptor || Initial development ||Arnaud (change in approach, target ESAPI for Java 2.0 design) ||
+|| EncryptedProperties || Initial development || Arnaud ||
 || HTTPUtilities || Initial development || Linden ||
 || IntrusionDetector || Initial development || jah ||
 || Logger || Last mile || jah ||
