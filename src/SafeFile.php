@@ -27,9 +27,9 @@ require_once dirname(__FILE__).'/errors/ValidationException.php';
  */
 class SafeFile extends SplFileObject {
 
-        private $PERCENTS_PAT = "(%)([0-9a-fA-F])([0-9a-fA-F])";
-        private $FILE_BLACKLIST_PAT = "([\\\\/:*?<>|])";
-        private $DIR_BLACKLIST_PAT = "([*?<>|])";
+        private $PERCENTS_PAT = "/(%)([0-9a-f])([0-9a-f])/i";
+        private $FILE_BLACKLIST_PAT = "/([\\/:*?<>|])/";
+        private $DIR_BLACKLIST_PAT = "/([*?<>|])/";
 
         /**
          * Creates an extended SplFileObject from the given filename, which
@@ -38,7 +38,12 @@ class SafeFile extends SplFileObject {
          */
 
         function __construct($path) {
-            parent::__construct($path);
+            try {
+                @parent::__construct($path);
+            } catch (Exception $e) {
+                throw new EnterpriseSecurityException("Failed to open stream", "Failed to open stream " . $e->getMessage());
+            }
+            
             $this->doDirCheck($this->getPath());
             $this->doFileCheck($this->getFilename());
         }
@@ -57,7 +62,7 @@ class SafeFile extends SplFileObject {
             }
 
             $ch = $this->containsUnprintableCharacters($path);
-            if (ch != -1) {
+            if ($ch != -1) {
                 throw new ValidationException("Invalid directory", "Directory path (" + $path + ") contains unprintable character. ");
             }
         }
@@ -76,7 +81,7 @@ class SafeFile extends SplFileObject {
             }
 
             $ch = $this->containsUnprintableCharacters($path);
-            if (ch != -1) {
+            if ($ch != -1) {
                 throw new ValidationException("Invalid file", "File path (" + $path + ") contains unprintable character.");
             }
         }
@@ -90,7 +95,7 @@ class SafeFile extends SplFileObject {
          */
         private function containsUnprintableCharacters($s) {
             for ($i = 0; $i < strlen($s); $i++) {
-                $ch = $s[i];
+                $ch = $s[$i];
                 if (ord($ch) < 32 || ord($ch) > 126) {
                     return $ch;
                 }
