@@ -10,6 +10,7 @@ Initial versions of the following controls have been completed:
  * Exceptions
  * Executor
  * Interfaces
+ * IntrusionDetector
  * Randomizer
  * SecurityConfiguration
  * StringUtilities
