@@ -6,7 +6,6 @@ The following controls have been assigned:
 || Encryptor || Initial development ||Arnaud || change in approach, target ESAPI for Java 2.0 design ||
 || EncryptedProperties || Initial development || Arnaud || ||
 || HTTPUtilities || Initial development || Linden || ||
-|| IntrusionDetector || Last mile || jah || done? ||
 || Logger || Last mile || jah || done? ||
 || SafeFile || Last mile || Arnaud || tests added, one last question about functionality ||
 || Validator || Last mile || jah || isValidXX vs assertValid etc. ||
