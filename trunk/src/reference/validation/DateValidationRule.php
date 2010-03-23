@@ -41,13 +41,16 @@ class DateValidationRule extends BaseValidationRule {
 	        throw new ValidationException( $context.": Invalid date input. Encoding problem detected.", "Error canonicalizing user input", $e, $context);
 	    }
 
-		try {			
-			$date=date_create($canonical);
-			// validation passed
-			return $date;
-		} catch (Exception $e) {
-			throw new ValidationException( $context.": Invalid date must follow the ".$format->getNumberFormat() + " format", "Invalid date: context=".$context.", format=".$format.", input=".$input, $e, $context);
+		$date = date_create($canonical); // TODO available in PHP 5 >= 5.2
+		if ($date === false) {
+			throw new ValidationException(
+				$context . ": Invalid date must follow the " . $this->format . " format",
+				"Invalid date: context=" . $context . ", format=" . $this->format . ", input=" . $input,
+				$context
+			);
 		}
+		// validation passed
+		return $date;
 	}
 	
 	public function sanitize( $context, $input )  {
