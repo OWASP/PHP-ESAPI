@@ -11,6 +11,7 @@ Initial versions of the following controls have been completed:
  * Executor
  * Interfaces
  * IntrusionDetector
+ * Logger
  * Randomizer
  * SecurityConfiguration
  * StringUtilities
