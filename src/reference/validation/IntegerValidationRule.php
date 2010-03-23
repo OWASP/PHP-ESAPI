@@ -18,21 +18,19 @@ class IntegerValidationRule extends BaseValidationRule {
 		// check null
 	    if ( strlen($input)==0 ) {
 			if ($this->allowNull) return null;
-			throw new ValidationException( $context + ": Input number required", "Input number required: context=".$context.", input=".$input, $context );
+			throw new ValidationException( $context . ": Input number required", "Input number required: context=".$context.", input=".$input, $context );
 	    }
 	    
 	    // canonicalize
 	    $canonical = null;
 	    try {
-	    	// TODO: needs to be enabled once encoder is done
-	    	// $canonical = encoder.canonicalize( $input );
-	    	$canonical=$input;
+	    	$canonical = $this->encoder->canonicalize($input);
 	    } catch (EncodingException $e) {
 	        throw new ValidationException( $context.": Invalid number input. Encoding problem detected.", "Error canonicalizing user input", $e, $context);
 	    }
 
 		if ($this->minValue > $this->maxValue) {
-			throw new ValidationException( $context.": Invalid number input: context", "Validation parameter error for number: maxValue ( ".$this->maxValue.") must be greater than minValue ( ".$this->minValue + ") for ".$context, $context );
+			throw new ValidationException( $context.": Invalid number input: context", "Validation parameter error for number: maxValue ( ".$this->maxValue.") must be greater than minValue ( ".$this->minValue . ") for ".$context, $context );
 		}
 		
 		// validate min and max
@@ -43,7 +41,7 @@ class IntegerValidationRule extends BaseValidationRule {
 			if ($i > $this->maxValue) throw new ValidationException( "Invalid integer input must be between ".$this->minValue." and ".$this->maxValue.": context=".$context."Invalid integer input must be between ".$this->minValue." and ".$this->maxValue.": context=".$context.", input=".$input, $context );
 			return $i;
 		} catch (NumberFormatException $e) {
-			throw new ValidationException( $context + ": Invalid integer input", "Invalid integer input format: context=".$context.", input=".$input, $e, $context);
+			throw new ValidationException( $context . ": Invalid integer input", "Invalid integer input format: context=".$context.", input=".$input, $e, $context);
 		}
 	}
 

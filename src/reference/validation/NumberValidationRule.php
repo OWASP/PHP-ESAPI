@@ -42,9 +42,7 @@ class NumberValidationRule extends BaseValidationRule {
             // canonicalize
             $canonical = null;
             try {
-				// TODO: right now commented out as encoder is not yet implemented.
-            	// $canonical = $this->encoder->canonicalize( $input );
-            	$canonical=$input;
+                $canonical = $this->encoder->canonicalize($input);
             } catch (EncodingException $e) {
                 throw new ValidationException( $context.": Invalid number input. Encoding problem detected.", 
                 "Error canonicalizing user input", $e, $context);
