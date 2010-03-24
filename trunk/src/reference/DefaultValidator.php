@@ -1,23 +1,27 @@
 <?php
-
 /**
  * OWASP Enterprise Security API (ESAPI)
- * 
- * This file is part of the Open Web Application Security Project (OWASP)
- * Enterprise Security API (ESAPI) project. For details, please see
- * <a href="http://www.owasp.org/index.php/ESAPI">http://www.owasp.org/index.php/ESAPI</a>.
  *
- * Copyright (c) 2007 - 2009 The OWASP Foundation
- * 
- * The ESAPI is published by OWASP under the BSD license. You should read and accept the
- * LICENSE before you use, modify, and/or redistribute this software.
- * 
- * @author Johannes B. Ullrich
- * @created 2008
- * @since 1.4
- * @package org.owasp.esapi.reference
+ * This file is part of the Open Web Application Security Project (OWASP)
+ * Enterprise Security API (ESAPI) project.
+ *
+ * LICENSE: This source file is subject to the New BSD license.  You should read
+ * and accept the LICENSE before you use, modify, and/or redistribute this
+ * software.
+ *
+ * @category  OWASP
+ * @package   ESAPI
+ * @author    Johannes B. Ullrich <jullrich@sans.edu>
+ * @copyright 2009-2010 The OWASP Foundation
+ * @license   http://www.opensource.org/licenses/bsd-license.php New BSD license
+ * @link      http://www.owasp.org/index.php/ESAPI
  */
 
+
+/**
+ * Require the Validator and ValidationRule interfaces and the various
+ * ValidationRule implementations.
+ */
 require_once dirname ( __FILE__ ) . '/../Validator.php';
 require_once dirname ( __FILE__ ) . '/../ValidationRule.php';
 require_once dirname ( __FILE__ ) . '/validation/StringValidationRule.php';
@@ -27,133 +31,170 @@ require_once dirname ( __FILE__ ) . '/validation/NumberValidationRule.php';
 require_once dirname ( __FILE__ ) . '/validation/IntegerValidationRule.php';
 require_once dirname ( __FILE__ ) . '/validation/DateValidationRule.php';
 
-class DefaultValidator implements Validator {
-	
-	private $rules = null;
-	private $encoder = null;
-	private $fileValidator = null;
-	const MAX_PARAMETER_NAME_LENGTH = 100;
-	const MAX_PARAMETER_VALUE_LENGTH = 65535;
-	
-	/**
-	 * Returns true if input is valid according to the specified type. The type parameter must be the name 
-	 * of a defined type in the ESAPI configuration or a valid regular expression. Implementers should take 
-	 * care to make the type storage simple to understand and configure.
-	 * 
-	 * @param context 
-	 * 		A descriptive name of the parameter that you are validating (e.g., LoginPage_UsernameField). This value is used by any logging or error handling that is done with respect to the value passed in.
-	 * @param input 
-	 * 		The actual user input data to validate.
-	 * @param type 
-	 * 		The regular expression name that maps to the actual regular expression from "ESAPI.properties".
-	 * @param maxLength 
-	 * 		The maximum post-canonicalized String length allowed.
-	 * @param allowNull 
-	 * 		If allowNull is true then an input that is NULL or an empty string will be legal. If allowNull is false then NULL or an empty String will throw a ValidationException.
-	 * 
-	 * @return true, if the input is valid based on the rules set by 'type'
-	 * 
-	 * @throws IntrusionException
-	 */
-	function isValidInput($context, $input, $type, $maxLength, $allowNull) {
-		try {
-			$this->getValidInput( $context, $input, $type, $maxLength, $allowNull );
-			return true;
-		} catch ( Exception $e ) {
-			return false;
-		}
-		
-	}
-	
-	/**
-	 * Returns canonicalized and validated input as a String. Invalid input will generate a descriptive ValidationException, 
-	 * and input that is clearly an attack will generate a descriptive IntrusionException.  Instead of
-	 * throwing a ValidationException on error, this variant will store the exception inside of the ValidationErrorList.
-	 * 
-	 * @param context 
-	 * 		A descriptive name of the parameter that you are validating (e.g., LoginPage_UsernameField). This value is used by any logging or error handling that is done with respect to the value passed in.
-	 * @param input 
-	 * 		The actual user input data to validate.
-	 * @param type 
-	 * 		The regular expression name that maps to the actual regular expression from "ESAPI.properties".
-	 * @param maxLength 
-	 * 		The maximum post-canonicalized String length allowed.
-	 * @param allowNull 
-	 * 		If allowNull is true then an input that is NULL or an empty string will be legal. If allowNull is false then NULL or an empty String will throw a ValidationException.
-	 * @param errorList 
-	 * 		If validation is in error, resulting error will be stored in the errorList by context
-	 * 
-	 * @return The canonicalized user input.
-	 * 
-	 * @throws IntrusionException
-	 */
-	function getValidInput($context, $input, $type, $maxLength, $allowNull, $errorList = null) {
-		global $ESAPI;
-		$config = ESAPI::getSecurityConfiguration();
-		$rvr = new StringValidationRule ( $type, $this->encoder );
-		$p=$config->getValidationPattern($type);
-		if ($p != null) {
-			$rvr->addWhitelistPattern ( $p );
-		} else {
-			$rvr->addWhitelistPattern ( $type );
-		}
-		$rvr->setMaximumLength( $maxLength );
-		$rvr->setAllowNull( $allowNull );
-		return $rvr->getValid( $context, $input );
-	}
-	
 
-	/**
-	 * Returns true if input is a valid date according to the specified date format.
-	 * 
-	 * @param context 
-	 * 		A descriptive name of the parameter that you are validating (e.g., LoginPage_UsernameField). This value is used by any logging or error handling that is done with respect to the value passed in.
-	 * @param input 
-	 * 		The actual user input data to validate.
-	 * @param format 
-	 * 		Required formatting of date inputted.
-	 * @param allowNull 
-	 * 		If allowNull is true then an input that is NULL or an empty string will be legal. If allowNull is false then NULL or an empty String will throw a ValidationException. 
-	 * 
-	 * @return true, if input is a valid date according to the format specified by 'format'
-	 * 
-	 * @throws IntrusionException
-	 */
-	function isValidDate($context, $input, $format, $allowNull) {
-		try {
-			getValidDate ( $context, $input, $format, $allowNull );
-			return true;
-		} catch ( Exception $e ) {
-			return false;
-		}
-	}
-	
-	/**
-	 * Returns a valid date as a Date. Invalid input will generate a descriptive ValidationException and store it inside of 
-	 * the errorList argument, and input that is clearly an attack will generate a descriptive IntrusionException.  Instead of
-	 * throwing a ValidationException on error, this variant will store the exception inside of the ValidationErrorList.
-	 * 
-	 * @param context 
-	 * 		A descriptive name of the parameter that you are validating (e.g., LoginPage_UsernameField). This value is used by any logging or error handling that is done with respect to the value passed in.
-	 * @param input 
-	 * 		The actual user input data to validate.
-	 * @param format 
-	 * 		Required formatting of date inputted.
-	 * @param allowNull 
-	 * 		If allowNull is true then an input that is NULL or an empty string will be legal. If allowNull is false then NULL or an empty String will throw a ValidationException.
-	 * @param errorList 
-	 * 		If validation is in error, resulting error will be stored in the errorList by context
-	 * 
-	 * @return A valid date as a Date
-	 * 
-	 * @throws IntrusionException
-	 */
-	function getValidDate($context, $input, $format, $allowNull, $errorList = null) {
-		$dvr = new DateValidationRule("SimpleDate", $this->encoder );
-		$dvr->setAllowNull ( $allowNull );
-		$dvr->setDateFormat ( $format );
-		return $dvr->getValid( $context, $input);
-	}
+/**
+ * Reference Implementation of the Validator interface.
+ *
+ * PHP version 5.2.9
+ *
+ * @category  OWASP
+ * @package   ESAPI
+ * @version   1.0
+ * @author    Johannes B. Ullrich <jullrich@sans.edu>
+ * @copyright 2009-2010 The OWASP Foundation
+ * @license   http://www.opensource.org/licenses/bsd-license.php New BSD license
+ * @link      http://www.owasp.org/index.php/ESAPI
+ */
+class DefaultValidator implements Validator {
+
+    private $rules = null;
+    private $encoder = null;
+    private $fileValidator = null;
+    const MAX_PARAMETER_NAME_LENGTH = 100;
+    const MAX_PARAMETER_VALUE_LENGTH = 65535;
+
+
+    /**
+     * Returns true if input is valid according to the specified type. The type
+     * parameter must be the name of a defined type in the ESAPI configuration
+     * or a valid regular expression. This method does not perform
+     * canonicalization of the input.
+     *
+     * @param  $context A descriptive name of the parameter that you are
+     *         validating (e.g. LoginPage_UsernameField). This value is used by
+     *         any logging or error handling that is done with respect to the
+     *         value passed in.
+     * @param  $input The actual user input data to validate.
+     * @param  $type The regular expression name that maps to the actual regular
+     *         expression from "ESAPI.xml".
+     * @param  $maxLength The maximum string length allowed.
+     * @param  $allowNull If allowNull is true then an input that is NULL or an
+     *         empty string will be legal. If allowNull is false then NULL or an
+     *         empty String will not be valid.
+     *
+     * @return true, if the input is valid based on the rules set by 'type' or
+     *         false otherwise.
+     */
+    function isValidInput($context, $input, $type, $maxLength, $allowNull)
+    {
+        try
+        {
+            $this->assertValidInput(
+                $context, $input, $type, $maxLength, $allowNull
+            );
+            return true;
+        }
+        catch ( Exception $e )
+        {
+            return false;
+        }
+
+    }
+
+
+    /**
+     * Asserts that the input is valid according to the supplied type.
+     * Invalid input will generate a descriptive ValidationException.  This
+     * method does not perform canonicalization of the input.
+     *
+     * @param  $context A descriptive name of the parameter that you are
+     *         validating (e.g. LoginPage_UsernameField). This value is used by
+     *         any logging or error handling that is done with respect to the
+     *         value passed in.
+     * @param  $input The actual user input data to validate.
+     * @param  $type The regular expression name that maps to the actual regular
+     *         expression from "ESAPI.xml".
+     * @param  $maxLength The maximum string length allowed.
+     * @param  $allowNull If allowNull is true then an input that is NULL or an
+     *         empty string will be legal. If allowNull is false then NULL or an
+     *         empty String will throw a ValidationException.
+     *
+     * @return null.
+     *
+     * @throws ValidationException.
+     */
+    function assertValidInput($context, $input, $type, $maxLength, $allowNull)
+    {
+        global $ESAPI;
+        $config = ESAPI::getSecurityConfiguration();
+        $validationRule = new StringValidationRule ($type, $this->encoder);
+
+        $pattern = $config->getValidationPattern($type);
+        if ($pattern != null) {
+            $validationRule->addWhitelistPattern ($pattern);
+        } else {
+            $validationRule->addWhitelistPattern ($type);
+        }
+
+        $validationRule->setMaximumLength($maxLength);
+        $validationRule->setAllowNull($allowNull);
+
+        return $validationRule->assertValid($context, $input);
+    }
+
+
+    /**
+     * Returns true if input is a valid date according to the specified date
+     * format or false otherwise. This method canonicalizes non-null and
+     * non-empty inputs before performing validation.
+     *
+     * @param  $context A descriptive name of the parameter that you are
+     *         validating (e.g. ProfilePage_DoB). This value is used by any
+     *         logging or error handling that is done with respect to the value
+     *         passed in.
+     * @param  $input The actual user input data to validate.
+     * @param  $format Required formatting of date inputted {@see strftime}.
+     * @param  $allowNull If allowNull is true then an input that is NULL or an
+     *         empty string will be legal. If allowNull is false then NULL or an
+     *         empty String will throw a ValidationException.
+     *
+     * @return true if input is a valid date according to the format specified
+     *         by $format, or false otherwise.
+     */
+    function isValidDate($context, $input, $format, $allowNull)
+    {
+        try
+        {
+            $this->assertValidDate ($context, $input, $format, $allowNull);
+            return true;
+        }
+        catch ( Exception $e )
+        {
+            return false;
+        }
+    }
+
+
+    /**
+     * Asserts that the input is a valid date according to the supplied format.
+     * Invalid input will throw a descriptive ValidationException or, in the
+     * case of inputs which are found to contain mixed or double encoding, an
+     * IntrusionException. This method canonicalizes non-null and non-empty
+     * inputs before performing validation.
+     *
+     * @param  $context A descriptive name of the parameter that you are
+     *         validating (e.g. ProfilePage_DoB). This value is used by any
+     *         logging or error handling that is done with respect to the value
+     *         passed in.
+     * @param  $input The actual user input data to validate.
+     * @param  $format Required formatting of date inputted {@see strftime}.
+     * @param  $allowNull If allowNull is true then an input that is NULL or an
+     *         empty string will be legal. If allowNull is false then NULL or an
+     *         empty String will throw a ValidationException.
+     *
+     * @return null.
+     *
+     * @throws ValidationException or IntrusionException.
+     */
+    function assertValidDate($context, $input, $format, $allowNull)
+    {
+        $dvr = new DateValidationRule("SimpleDate", $this->encoder, $format);
+        $dvr->setAllowNull($allowNull);
+
+        return $dvr->assertValid( $context, $input);
+    }
+
+
 	/**
 	 * Returns true if input is "safe" HTML. Implementors should reference the OWASP AntiSamy project for ideas
 	 * on how to do HTML validation in a whitelist way, as this is an extremely difficult problem.
