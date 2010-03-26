@@ -43,6 +43,7 @@ $test = new GroupTest('Finished');
 	$test->addTestFile(dirname(__FILE__).'/reference/StringUtilitiesTest.php');				// AJV
 	$test->addTestFile(dirname(__FILE__).'/reference/ExecutorTest.php');					// Laura
 	$test->addTestFile(dirname(__FILE__).'/reference/EncoderTest.php');						// Linden
+	$test->addTestFile(dirname(__FILE__).'/reference/ValidationRulesTest.php');
 	$test->addTestFile(dirname(__FILE__).'/codecs/Base64CodecTest.php');
 	$test->addTestFile(dirname(__FILE__).'/codecs/CSSCodecTest.php');
 	$test->addTestFile(dirname(__FILE__).'/codecs/HTMLEntityCodecTest.php');
