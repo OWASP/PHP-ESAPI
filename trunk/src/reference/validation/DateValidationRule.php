@@ -1,62 +1,187 @@
 <?php
 /**
- * A validator performs syntax and possibly semantic validation of a single
- * piece of data from an untrusted source.
- * 
- * @author Jeff Williams (jeff.williams .at. aspectsecurity.com) <a
- *         href="http://www.aspectsecurity.com">Aspect Security</a>
- * @since June 1, 2007
- * @see org.owasp.esapi.Validator
+ * OWASP Enterprise Security API (ESAPI)
+ *
+ * This file is part of the Open Web Application Security Project (OWASP)
+ * Enterprise Security API (ESAPI) project.
+ *
+ * LICENSE: This source file is subject to the New BSD license.  You should read
+ * and accept the LICENSE before you use, modify, and/or redistribute this
+ * software.
+ *
+ * @category  OWASP
+ * @package   ESAPI
+ * @author    Jeff Williams <jeff.williams@aspectsecurity.com>
+ * @author    Johannes B. Ullrich <jullrich@sans.edu>
+ * @author    jah <jah@jahboite.co.uk>
+ * @copyright 2009-2010 The OWASP Foundation
+ * @license   http://www.opensource.org/licenses/bsd-license.php New BSD license
+ * @link      http://www.owasp.org/index.php/ESAPI
  */
-class DateValidationRule extends BaseValidationRule {
-	
-	private $format;
-	
-	public function DateValidationRule( $typeName, $encoder, $newFormat ) {
-		parent::BaseValidationRule( $typeName, $encoder );      
-		if ( $newFormat=='' ) {
-			$newFormat='%Y-%m-%d';
-		}
-		$this->setDateFormat( $newFormat );
-	}
-	
-    public function setDateFormat( $newFormat ) {
-        if ($newFormat == null) throw new RuntimeException("DateValidationRule.setDateFormat requires a non-null DateFormat");
+
+
+/**
+ * DateValidationRule requires the BaseValidationRule.
+ */
+require_once dirname(__FILE__) . '/BaseValidationRule.php';
+
+
+/**
+ * DateValidationRule implementation of the ValidationRule interface.
+ *
+ * PHP version 5.2.9
+ *
+ * @category  OWASP
+ * @package   ESAPI
+ * @version   1.0
+ * @author    Jeff Williams <jeff.williams@aspectsecurity.com>
+ * @author    Johannes B. Ullrich <jullrich@sans.edu>
+ * @author    jah <jah@jahboite.co.uk>
+ * @copyright 2009-2010 The OWASP Foundation
+ * @license   http://www.opensource.org/licenses/bsd-license.php New BSD license
+ * @link      http://www.owasp.org/index.php/ESAPI
+ */
+class DateValidationRule extends BaseValidationRule
+{
+    private $format;
+
+
+    /**
+     * Constructor sets-up the validation rule with a descriptive name for this
+     * validator, an optional Encoder instance (for canonicalization) and an
+     * optional date format string. The date format string should be of the type
+     * accepted by PHP's date() function.
+     *
+     * @param  $typeName string descriptive name for this validator.
+     * @param  $encoder object providing canonicalize method.
+     * @param  $newFormat string date format {@see date()}.
+     */
+    public function __construct($typeName, $encoder = null, $newFormat = null)
+    {
+        parent::__construct($typeName, $encoder);
+
+        if (! is_string($newFormat) || $newFormat == '')
+        {
+            $newFormat = 'Y-m-d';
+        }
+        $this->setDateFormat($newFormat);
+    }
+
+
+    /**
+     * Sets the date format string which valid inputs must adhere to. The format
+     * should be of the type accepted by PHP's date() function e.g. 'Y-m-d'.
+     *
+     * @param  $newFormat string date format string {@see date()}.
+     */
+    public function setDateFormat($newFormat)
+    {
+        if (! is_string($newFormat) || $newFormat == '')
+        {
+            throw new RuntimeException('setDateFormat requires a non-empty string DateFormat as accepted by date().');
+        }
         $this->format = $newFormat;
     }
 
-	public function getValid( $context, $input,$errorlist=null )  {
 
-		// check null
-	    if ( strlen($input)==0 ) {
-			if ($this->allowNull) return null;
-			throw new ValidationException( $context.": Input date required", "Input date required: context=".$context.", input=".$input, $context );
-	    }
-	    
-	    // canonicalize
-	    $canonical = null;
-	    try {
-	    	$canonical = $this->encoder->canonicalize( $input );
-	    } catch (EncodingException $e) {
-	        throw new ValidationException( $context.": Invalid date input. Encoding problem detected.", "Error canonicalizing user input", $e, $context);
-	    }
+    /**
+     * Returns the canonicalized, valid input.
+     * Throws ValidationException if the input is not valid or
+     * IntrusionException if the input is an obvious attack.
+     *
+     * @param  $context A descriptive name of the parameter that you are
+     *         validating (e.g., LoginPage_UsernameField). This value is used by
+     *         any logging or error handling that is done with respect to the
+     *         value passed in.
+     * @param  $input The actual string user input data to validate.
+     *
+     * @return DateTime object parsed from canonicalized, valid input.
+     *
+     * @throws ValidationException, IntrusionException
+     */
+    public function getValid($context, $input)
+    {
+        // Some sanity checks first
+        if (! is_string($context)) {
+            $context = 'NoContextSupplied'; // TODO Invalid Arg Exception?
+        }
+        if (! is_string($input) && $input !== null) {
+            throw new ValidationException(
+                "{$context}: Input required",
+                "Input was not a string or NULL: context={$context}",
+                $context
+            );
+        }
 
-		$date = date_create($canonical); // TODO available in PHP 5 >= 5.2
-		if ($date === false) {
-			throw new ValidationException(
-				$context . ": Invalid date must follow the " . $this->format . " format",
-				"Invalid date: context=" . $context . ", format=" . $this->format . ", input=" . $input,
-				$context
-			);
-		}
-		// validation passed
-		return $date;
-	}
-	
-	public function sanitize( $context, $input )  {
-		return date();
-	}
-	
+        if ($input === null || $input == '')
+        {
+            if ($this->allowNull) {
+                return null;
+            }
+            throw new ValidationException(
+                "{$context}: Input required",
+                "Input required: context={$context}",
+                $context
+            );
+        }
+
+        // strict canonicalization
+        $canonical = null;
+        try
+        {
+            $canonical = $this->encoder->canonicalize($input, true);
+        }
+        catch (EncodingException $e)
+        {
+            throw new ValidationException(
+                $context . ': Invalid input. Encoding problem detected.',
+                'An EncodingException was thrown during canonicalization of the input.',
+                $context
+            );
+        }
+
+        // try to create a DateTime object from the canonical input
+        $date = date_create($canonical);
+        if ($date === false) {
+            throw new ValidationException(
+                $context . ": Invalid date must follow the " . $this->format . " format",
+                "Invalid date: context=" . $context . ", format=" . $this->format . ", input=" . $input,
+                $context
+            );
+        }
+
+        // the DateTime object, formatted with $format, must equal the canonical input
+        $formatted = $date->format($this->format);
+        if ($formatted !== $canonical) {
+            throw new ValidationException(
+                $context . ": Invalid date must follow the " . $this->format . " format",
+                "Invalid date: context=" . $context . ", format=" . $this->format . ", input=" . $input,
+                $context
+            );
+        }
+
+        // validation passed
+        return $date;
+    }
+
+
+    /**
+     * Returns a default DateTime object created by calling date_create without
+     * supplying any parameters.
+     *
+     * @param  $context A descriptive name of the parameter that you are
+     *         validating (e.g., UserPage_DoB). This value is used by
+     *         any logging or error handling that is done with respect to the
+     *         value passed in.
+     * @param  $input The actual user input data to validate.
+     *
+     * @return DateTime object for the current date and time and default
+     *         Timezone.
+     */
+    public function sanitize($context, $input)
+    {
+        return date_create();
+    }
+
+
 }
-
-?>
