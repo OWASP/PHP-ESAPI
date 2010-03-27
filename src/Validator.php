@@ -15,6 +15,7 @@
  * @author    Andrew van der Stock <vanderaj@owasp.org>
  * @author    Johannes B. Ullrich <jullrich@sans.edu>
  * @author    Mike Boberski <boberski_michael@bah.com>
+ * @author    jah <jah@jahboite.co.uk>
  * @copyright 2009-2010 The OWASP Foundation
  * @license   http://www.opensource.org/licenses/bsd-license.php New BSD license
  * @link      http://www.owasp.org/index.php/ESAPI
@@ -52,40 +53,17 @@ require_once dirname(__FILE__).'/errors/ValidationException.php';
  * @author    Andrew van der Stock <vanderaj@owasp.org>
  * @author    Johannes B. Ullrich <jullrich@sans.edu>
  * @author    Mike Boberski <boberski_michael@bah.com>
+ * @author    jah <jah@jahboite.co.uk>
  * @copyright 2009-2010 The OWASP Foundation
  * @license   http://www.opensource.org/licenses/bsd-license.php New BSD license
  * @link      http://www.owasp.org/index.php/ESAPI
  */
-interface Validator {
-
+interface Validator
+{
     /**
-     * Returns true if input is valid according to the specified type. The type
-     * parameter must be the name of a defined type in the ESAPI configuration
-     * or a valid regular expression. Implementers should take care to make the
-     * type storage simple to understand and configure.
-     *
-     * @param context A descriptive name of the parameter that you are
-     *        validating (e.g. LoginPage_UsernameField). This value is used by
-     *        any logging or error handling that is done with respect to the
-     *        value passed in.
-     * @param input The actual user input data to validate.
-     * @param type The regular expression name that maps to the actual regular
-     *        expression from "ESAPI.xml".
-     * @param maxLength The maximum post-canonicalized String length allowed.
-     * @param allowNull If allowNull is true then an input that is NULL or an
-     *        empty string will be legal. If allowNull is false then NULL or an
-     *        empty String will throw a ValidationException.
-     *
-     * @return true, if the input is valid based on the rules set by 'type' or
-     *         false otherwise.
-     */
-    function isValidInput($context, $input, $type, $maxLength, $allowNull);
-
-
-    /**
-     * Asserts that the input is valid according to the supplied type.
-     * Invalid input will generate a descriptive ValidationException.  This
-     * method does not perform canonicalization of the input.
+     * Returns true if input is valid according to the specified type after
+     * canonicalization. The type parameter must be the name of a defined type
+     * in the ESAPI configuration or a valid regular expression pattern.
      *
      * @param  $context A descriptive name of the parameter that you are
      *         validating (e.g. LoginPage_UsernameField). This value is used by
@@ -93,30 +71,54 @@ interface Validator {
      *         value passed in.
      * @param  $input The actual user input data to validate.
      * @param  $type The regular expression name that maps to the actual regular
-     *         expression from "ESAPI.xml".
-     * @param  $maxLength The maximum string length allowed.
+     *         expression from "ESAPI.xml" or an actual regular expression.
+     * @param  $maxLength The maximum post-canonicalized String length allowed.
+     * @param  $allowNull If allowNull is true then an input that is NULL or an
+     *         empty string will be legal. If allowNull is false then NULL or an
+     *         empty String will throw a ValidationException.
+     *
+     * @return true, if the input is valid based on the rules set by 'type' or
+     *         false otherwise.
+     */
+    public function isValidInput($context, $input, $type, $maxLength, $allowNull);
+
+
+    /**
+     * Asserts that the input is valid according to the supplied type after
+     * canonicalization. The type parameter must be the name of a defined type
+     * in the ESAPI configuration or a valid regular expression pattern.
+     * Invalid input will generate a descriptive ValidationException and input
+     * that is clearly an attack will generate a descriptive IntrusionException.
+     *
+     * @param  $context A descriptive name of the parameter that you are
+     *         validating (e.g. LoginPage_UsernameField). This value is used by
+     *         any logging or error handling that is done with respect to the
+     *         value passed in.
+     * @param  $input The actual user input data to validate.
+     * @param  $type The regular expression name that maps to the actual regular
+     *         expression from "ESAPI.xml" or an actual regular expression.
+     * @param  $maxLength The maximum post-canonicalized String length allowed.
      * @param  $allowNull If allowNull is true then an input that is NULL or an
      *         empty string will be legal. If allowNull is false then NULL or an
      *         empty String will throw a ValidationException.
      *
      * @return null.
      *
-     * @throws ValidationException.
+     * @throws ValidationException, IntrusionException.
      */
-    function assertValidInput($context, $input, $type, $maxLength, $allowNull);
+    public function assertValidInput($context, $input, $type, $maxLength, $allowNull);
 
 
     /**
-     * Returns true if input is a valid date according to the specified date
-     * format or false otherwise. This method canonicalizes non-null and
-     * non-empty inputs before performing validation.
+     * Returns true if the canonicalized input is a valid date according to the
+     * specified date format string, or false otherwise.
      *
      * @param  $context A descriptive name of the parameter that you are
      *         validating (e.g. ProfilePage_DoB). This value is used by any
      *         logging or error handling that is done with respect to the value
      *         passed in.
      * @param  $input The actual user input data to validate.
-     * @param  $format Required formatting of date inputted {@see strftime}.
+     * @param  $format Required formatting of date inputted {@see date}.
      * @param  $allowNull If allowNull is true then an input that is NULL or an
      *         empty string will be legal. If allowNull is false then NULL or an
      *         empty String will throw a ValidationException.
@@ -124,15 +126,14 @@ interface Validator {
      * @return true if input is a valid date according to the format specified
      *         by $format, or false otherwise.
      */
-    function isValidDate($context, $input, $format, $allowNull);
+    public function isValidDate($context, $input, $format, $allowNull);
 
 
     /**
-     * Asserts that the input is a valid date according to the supplied format.
-     * Invalid input will throw a descriptive ValidationException or, in the
-     * case of inputs which are found to contain mixed or double encoding, an
-     * IntrusionException. This method canonicalizes non-null and non-empty
-     * inputs before performing validation.
+     * Asserts that the canonicalized input is a valid date according to the
+     * specified date format string. Invalid input will generate a descriptive
+     * ValidationException and input that is clearly an attack will generate a
+     * descriptive IntrusionException.
      *
      * @param  $context A descriptive name of the parameter that you are
      *         validating (e.g. ProfilePage_DoB). This value is used by any
@@ -146,557 +147,602 @@ interface Validator {
      *
      * @return null.
      *
-     * @throws ValidationException or IntrusionException.
+     * @throws ValidationException.
+     * @throws IntrusionException.
      */
-    function assertValidDate($context, $input, $format, $allowNull);
+    public function assertValidDate($context, $input, $format, $allowNull);
 
 
-	/**
-	 * Returns true if input is "safe" HTML. Implementors should reference the OWASP AntiSamy project for ideas
-	 * on how to do HTML validation in a whitelist way, as this is an extremely difficult problem.
-	 * 
-	 * @param context 
-	 * 		A descriptive name of the parameter that you are validating (e.g., LoginPage_UsernameField). This value is used by any logging or error handling that is done with respect to the value passed in.
-	 * @param input 
-	 * 		The actual user input data to validate.
-	 * @param maxLength 
-	 * 		The maximum post-canonicalized String length allowed.
-	 * @param allowNull 
-	 * 		If allowNull is true then an input that is NULL or an empty string will be legal. If allowNull is false then NULL or an empty String will throw a ValidationException.
-	 * 
-	 * @return true, if input is valid safe HTML
-	 * 
-	 * @throws IntrusionException
-	 */
-	function isValidSafeHTML($context, $input, $maxLength, $allowNull);
-	
-	/**
-	 * Returns canonicalized and validated "safe" HTML. Implementors should reference the OWASP AntiSamy project for ideas
-	 * on how to do HTML validation in a whitelist way, as this is an extremely difficult problem. Instead of
-	 * throwing a ValidationException on error, this variant will store the exception inside of the ValidationErrorList.
-	 * 
-	 * @param context 
-	 * 		A descriptive name of the parameter that you are validating (e.g., LoginPage_UsernameField). This value is used by any logging or error handling that is done with respect to the value passed in.
-	 * @param input 
-	 * 		The actual user input data to validate.
-	 * @param maxLength 
-	 * 		The maximum post-canonicalized String length allowed.
-	 * @param allowNull 
-	 * 		If allowNull is true then an input that is NULL or an empty string will be legal. If allowNull is false then NULL or an empty String will throw a ValidationException.
-	 * @param errorList 
-	 * 		If validation is in error, resulting error will be stored in the errorList by context
-	 * 
-	 * @return Valid safe HTML
-	 * 
-	 * @throws IntrusionException
-	 */
-	function getValidSafeHTML($context, $input, $maxLength, $allowNull, $errorList=null);
-
-	/**
-	 * Returns true if input is a valid credit card. Maxlength is mandated by valid credit card type.
-	 * 
-	 * @param context 
-	 * 		A descriptive name of the parameter that you are validating (e.g., LoginPage_UsernameField). This value is used by any logging or error handling that is done with respect to the value passed in.
-	 * @param input 
-	 * 		The actual user input data to validate.
-	 * @param allowNull 
-	 * 		If allowNull is true then an input that is NULL or an empty string will be legal. If allowNull is false then NULL or an empty String will throw a ValidationException.
-	 * 
-	 * @return true, if input is a valid credit card number
-	 * 
-	 * @throws IntrusionException
-	 */
-	function isValidCreditCard($context, $input, $allowNull);
-	
-	/**
-	 * Returns a canonicalized and validated credit card number as a String. Invalid input
-	 * will generate a descriptive ValidationException, and input that is clearly an attack
-	 * will generate a descriptive IntrusionException. Instead of throwing a ValidationException 
-	 * on error, this variant will store the exception inside of the ValidationErrorList.
-	 * 
-	 * @param context 
-	 * 		A descriptive name of the parameter that you are validating (e.g., LoginPage_UsernameField). This value is used by any logging or error handling that is done with respect to the value passed in.
-	 * @param input 
-	 * 		The actual input data to validate.
-	 * @param allowNull 
-	 * 		If allowNull is true then an input that is NULL or an empty string will be legal. If allowNull is false then NULL or an empty String will throw a ValidationException.
-	 * @param errorList 
-	 * 		If validation is in error, resulting error will be stored in the errorList by context
-	 * 
-	 * @return A valid credit card number
-	 * 
-	 * @throws IntrusionException
-	 */
-	function getValidCreditCard($context, $input, $allowNull, $errorList = null);
-	
-	/**
-	 * Returns true if input is a valid directory path.
-	 * 
-	 * @param context 
-	 * 		A descriptive name of the parameter that you are validating (e.g., LoginPage_UsernameField). This value is used by any logging or error handling that is done with respect to the value passed in.
-	 * @param input 
-	 * 		The actual input data to validate.
-	 * @param allowNull 
-	 * 		If allowNull is true then an input that is NULL or an empty string will be legal. If allowNull is false then NULL or an empty String will throw a ValidationException.
-	 * 
-	 * @return true, if input is a valid directory path
-	 * 
-	 * @throws IntrusionException 
-	 */
-	function isValidDirectoryPath($context, $input, $allowNull);
-	
-	/**
-	 * Returns a canonicalized and validated directory path as a String. Invalid input
-	 * will generate a descriptive ValidationException, and input that is clearly an attack
-	 * will generate a descriptive IntrusionException. Instead of throwing a ValidationException 
-	 * on error, this variant will store the exception inside of the ValidationErrorList.
-	 *  
-	 * @param context 
-	 * 		A descriptive name of the parameter that you are validating (e.g., LoginPage_UsernameField). This value is used by any logging or error handling that is done with respect to the value passed in.
-	 * @param input 
-	 * 		The actual input data to validate.
-	 * @param allowNull 
-	 * 		If allowNull is true then an input that is NULL or an empty string will be legal. If allowNull is false then NULL or an empty String will throw a ValidationException.
-	 * @param errorList 
-	 * 		If validation is in error, resulting error will be stored in the errorList by context
+    /**
+     * Returns true if the canonicalized input is valid, "safe" HTML.
      * 
-     * @return A valid directory path
+     * Implementors should reference the OWASP AntiSamy project for ideas on how
+     * to do HTML validation in a whitelist way, as this is an extremely
+     * difficult problem. It is recommended that PHP implementations make use of
+     * HTMLPurifier {@link http://htmlpurifier.org}.
      * 
-     * @throws IntrusionException
-	 */
-	function getValidDirectoryPath($context, $input, $allowNull, $errorList = null);
-	
-	
-	/**
-	 * Returns true if input is a valid file name.
-	 * 
-	 * @param context 
-	 * 		A descriptive name of the parameter that you are validating (e.g., LoginPage_UsernameField). This value is used by any logging or error handling that is done with respect to the value passed in.
-     * @param input 
-     * 		The actual input data to validate.
-     * @param allowNull 
-     * 		If allowNull is true then an input that is NULL or an empty string will be legal. If allowNull is false then NULL or an empty String will throw a ValidationException.
+     * @param  $context A descriptive name of the parameter that you are
+     *         validating (e.g. ProfilePage_Sig). This value is used by any
+     *         logging or error handling that is done with respect to the value
+     *         passed in.
+     * @param  $input The actual user input data to validate.
+     * @param  $maxLength The maximum post-canonicalized String length allowed.
+     * @param  $allowNull If allowNull is true then an input that is NULL or an
+     *         empty string will be legal. If allowNull is false then NULL or an
+     *         empty String will throw a ValidationException.
      * 
-     * @return true, if input is a valid file name
-     * 
-     * @throws IntrusionException
-	 */
-	function isValidFileName($context, $input, $allowNull);
-	
-	/**
-	 * Returns a canonicalized and validated file name as a String. Implementors should check for allowed file extensions here, as well as allowed file name characters, as declared in "ESAPI.properties".  Invalid input
-	 * will generate a descriptive ValidationException, and input that is clearly an attack
-	 * will generate a descriptive IntrusionException. Instead of throwing a ValidationException 
-	 * on error, this variant will store the exception inside of the ValidationErrorList.
-	 * 
-	 * @param context 
-	 * 		A descriptive name of the parameter that you are validating (e.g., LoginPage_UsernameField). This value is used by any logging or error handling that is done with respect to the value passed in.
-	 * @param input 
-	 * 		The actual input data to validate.
-	 * @param allowNull 
-	 * 		If allowNull is true then an input that is NULL or an empty string will be legal. If allowNull is false then NULL or an empty String will throw a ValidationException.
-	 * @param errorList 
-	 * 		If validation is in error, resulting error will be stored in the errorList by context
-     * 
-     * @return A valid file name
-     * 
-     * @throws IntrusionException
-	 */
-	function getValidFileName($context, $input, $allowNull, $errorList  = null);
-		
-	/**
-	 * Returns true if input is a valid number within the range of minValue to maxValue.
-	 * 
-	 * @param context 
-	 * 		A descriptive name of the parameter that you are validating (e.g., LoginPage_UsernameField). This value is used by any logging or error handling that is done with respect to the value passed in.
-     * @param input 
-     * 		The actual input data to validate.
-     * @param minValue 
-     * 		Lowest legal value for input.
-     * @param maxValue 
-     * 		Highest legal value for input.
-     * @param allowNull 
-     * 		If allowNull is true then an input that is NULL or an empty string will be legal. If allowNull is false then NULL or an empty String will throw a ValidationException.
-     * 
-     * @return true, if input is a valid number
-     * 
-     * @throws IntrusionException
-	 */
-	function isValidNumber($context, $input, $minValue, $maxValue, $allowNull);
-
-	/**
-	 * Returns a validated number as a double within the range of minValue to maxValue. Invalid input
-	 * will generate a descriptive ValidationException, and input that is clearly an attack
-	 * will generate a descriptive IntrusionException. Instead of throwing a ValidationException 
-	 * on error, this variant will store the exception inside of the ValidationErrorList.
-	 * 
-	 * @param context 
-	 * 		A descriptive name of the parameter that you are validating (e.g., LoginPage_UsernameField). This value is used by any logging or error handling that is done with respect to the value passed in.
-	 * @param input 
-	 * 		The actual input data to validate.
-	 * @param minValue 
-	 * 		Lowest legal value for input.
-     * @param maxValue 
-     * 		Highest legal value for input.
-     * @param allowNull 
-     * 		If allowNull is true then an input that is NULL or an empty string will be legal. If allowNull is false then NULL or an empty String will throw a ValidationException.
-	 * @param errorList 
-	 * 		If validation is in error, resulting error will be stored in the errorList by context
-	 * 
-	 * @return A validated number as a double.
-     * 
-     * @throws IntrusionException
-	 */
-	function getValidNumber($context, $input, $minValue, $maxValue, $allowNull, $errorList=null);
-
-	/**
-	 * Returns true if input is a valid integer within the range of minValue to maxValue.
-	 * 
-	 * @param context 
-	 * 		A descriptive name of the parameter that you are validating (e.g., LoginPage_UsernameField). This value is used by any logging or error handling that is done with respect to the value passed in.
-     * @param input 
-     * 		The actual input data to validate.
-     * @param minValue 
-     * 		Lowest legal value for input.
-     * @param maxValue 
-     * 		Highest legal value for input.
-     * @param allowNull 
-     * 		If allowNull is true then an input that is NULL or an empty string will be legal. If allowNull is false then NULL or an empty String will throw a ValidationException.
-     * 
-     * @return true, if input is a valid integer
-     * 
-     * @throws IntrusionException
-	 */
-	function isValidInteger($context, $input, $minValue, $maxValue, $allowNull);
-	
-	/**
-	 * Returns a validated integer. Invalid input
-	 * will generate a descriptive ValidationException, and input that is clearly an attack
-	 * will generate a descriptive IntrusionException. Instead of throwing a ValidationException 
-	 * on error, this variant will store the exception inside of the ValidationErrorList.
-	 * 
-	 * @param context 
-	 * 		A descriptive name of the parameter that you are validating (e.g., LoginPage_UsernameField). This value is used by any logging or error handling that is done with respect to the value passed in.
-	 * @param input 
-	 * 		The actual input data to validate.
-	 * @param minValue 
-	 * 		Lowest legal value for input.
-     * @param maxValue 
-     * 		Highest legal value for input.
-     * @param allowNull 
-     * 		If allowNull is true then an input that is NULL or an empty string will be legal. If allowNull is false then NULL or an empty String will throw a ValidationException.
-	 * @param errorList 
-	 * 		If validation is in error, resulting error will be stored in the errorList by context
-	 * 
-	 * @return A validated number as an integer.
-     * 
-     * @throws IntrusionException
-	 */
-	function getValidInteger($context, $input, $minValue, $maxValue, $allowNull, $errorList = null);
-		
-	/**
-	 * Returns true if input is a valid double within the range of minValue to maxValue.
-	 * 
-	 * @param context 
-	 * 		A descriptive name of the parameter that you are validating (e.g., LoginPage_UsernameField). This value is used by any logging or error handling that is done with respect to the value passed in.
-     * @param input 
-     * 		The actual input data to validate.
-     * @param minValue 
-     * 		Lowest legal value for input.
-     * @param maxValue 
-     * 		Highest legal value for input.
-     * @param allowNull 
-     * 		If allowNull is true then an input that is NULL or an empty string will be legal. If allowNull is false then NULL or an empty String will throw a ValidationException.
-     * 
-     * @return true, if input is a valid double.
-     * 
-     * @throws IntrusionException
-	 * 
-	 */
-	function isValidDouble($context, $input, $minValue, $maxValue, $allowNull);
-
-	/**
-	 * Returns a validated real number as a double. Invalid input
-	 * will generate a descriptive ValidationException, and input that is clearly an attack
-	 * will generate a descriptive IntrusionException. Instead of throwing a ValidationException 
-	 * on error, this variant will store the exception inside of the ValidationErrorList.
-	 * 
-	 * @param context 
-	 * 		A descriptive name of the parameter that you are validating (e.g., LoginPage_UsernameField). This value is used by any logging or error handling that is done with respect to the value passed in.
-	 * @param input 
-	 * 		The actual input data to validate.
-	 * @param minValue 
-	 * 		Lowest legal value for input.
-     * @param maxValue 
-     * 		Highest legal value for input.
-     * @param allowNull 
-     * 		If allowNull is true then an input that is NULL or an empty string will be legal. If allowNull is false then NULL or an empty String will throw a ValidationException.
-	 * @param errorList 
-	 * 		If validation is in error, resulting error will be stored in the errorList by context
-	 * 
-	 * @return A validated real number as a double.
-     * 
-     * @throws IntrusionException
-	 */
-	function getValidDouble($context, $input, $minValue, $maxValue, $allowNull, $errorList = null);
-
-	/**
-	 * Returns true if input is valid file content.  This is a good place to check for max file size, allowed character sets, and do virus scans.
-	 * 
-	 * @param context 
-	 * 		A descriptive name of the parameter that you are validating (e.g., LoginPage_UsernameField). This value is used by any logging or error handling that is done with respect to the value passed in.
-	 * @param input 
-	 * 		The actual input data to validate.
-	 * @param maxBytes 
-	 * 		The maximum number of bytes allowed in a legal file.
-	 * @param allowNull 
-	 * 		If allowNull is true then an input that is NULL or an empty string will be legal. If allowNull is false then NULL or an empty String will throw a ValidationException.
-	 * 
-	 * @return true, if input contains valid file content.
-	 * 
-	 * @throws IntrusionException
-	 */
-	function isValidFileContent($context, $input, $maxBytes, $allowNull);
-
-	/**
-	 * Returns validated file content as a byte array. This is a good place to check for max file size, allowed character sets, and do virus scans.  Invalid input
-	 * will generate a descriptive ValidationException, and input that is clearly an attack
-	 * will generate a descriptive IntrusionException. Instead of throwing a ValidationException 
-	 * on error, this variant will store the exception inside of the ValidationErrorList.
-	 * 
-	 * @param context 
-	 * 		A descriptive name of the parameter that you are validating (e.g., LoginPage_UsernameField). This value is used by any logging or error handling that is done with respect to the value passed in.
-	 * @param input 
-	 * 		The actual input data to validate.
-	 * @param maxBytes 
-	 * 		The maximum number of bytes allowed in a legal file.
-	 * @param allowNull 
-	 * 		If allowNull is true then an input that is NULL or an empty string will be legal. If allowNull is false then NULL or an empty String will throw a ValidationException.
-	 * @param errorList 
-	 * 		If validation is in error, resulting error will be stored in the errorList by context.
-	 * 
-	 * @return A byte array containing valid file content.
-	 * 
-	 * @throws IntrusionException
-	 */
-	function getValidFileContent($context, $input, $maxBytes, $allowNull, $errorList = null);
-
-	/**
-	 * Returns true if a file upload has a valid name, path, and content.
-	 * 
-	 * @param context 
-	 * 		A descriptive name of the parameter that you are validating (e.g., LoginPage_UsernameField). This value is used by any logging or error handling that is done with respect to the value passed in.
-	 * @param filepath 
-	 * 		The file path of the uploaded file.
-	 * @param filename 
-	 * 		The filename of the uploaded file
-	 * @param content 
-	 * 		A byte array containing the content of the uploaded file.
-	 * @param maxBytes 
-	 * 		The max number of bytes allowed for a legal file upload.
-	 * @param allowNull 
-	 * 		If allowNull is true then an input that is NULL or an empty string will be legal. If allowNull is false then NULL or an empty String will throw a ValidationException.
-	 * 
-	 * @return true, if a file upload has a valid name, path, and content.
-	 * 
-	 * @throws IntrusionException
-	 */
-	function isValidFileUpload($context, $filepath, $filename, $content, $maxBytes, $allowNull);
-
-	/**
-	 * Validates the filepath, filename, and content of a file. Invalid input
-	 * will generate a descriptive ValidationException, and input that is clearly an attack
-	 * will generate a descriptive IntrusionException. Instead of throwing a ValidationException 
-	 * on error, this variant will store the exception inside of the ValidationErrorList.
-	 * 
-	 * @param context 
-	 * 		A descriptive name of the parameter that you are validating (e.g., LoginPage_UsernameField). This value is used by any logging or error handling that is done with respect to the value passed in.
-	 * @param filepath 
-	 * 		The file path of the uploaded file.
-	 * @param filename 
-	 * 		The filename of the uploaded file
-	 * @param content 
-	 * 		A byte array containing the content of the uploaded file.
-	 * @param maxBytes 
-	 * 		The max number of bytes allowed for a legal file upload.
-	 * @param allowNull 
-	 * 		If allowNull is true then an input that is NULL or an empty string will be legal. If allowNull is false then NULL or an empty String will throw a ValidationException.
-	 * @param errorList 
-	 * 		If validation is in error, resulting error will be stored in the errorList by context
-	 * 
-	 * @throws IntrusionException
-	 */
-	function assertValidFileUpload($context, $filepath, $filename, $content, $maxBytes, $allowNull, $errorList = null);
-	
-	/**
-     * Validate the current HTTP request by comparing parameters, headers, and cookies to a predefined whitelist of allowed
-     * characters. See the SecurityConfiguration class for the methods to retrieve the whitelists.
-     * 
-     * @return true, if is a valid HTTP request
-     * 
-     * @throws IntrusionException
+     * @return true if input is a valid safe HTML, or false otherwise.
      */
-	function isValidHTTPRequest();
-	
-	/**
-	 * Validates the current HTTP request by comparing parameters, headers, and cookies to a predefined whitelist of allowed
-	 * characters. Invalid input will generate a descriptive ValidationException, and input that is clearly an attack
-	 * will generate a descriptive IntrusionException.
-	 * 
-	 * @throws ValidationException
-	 * @throws IntrusionException
-	 */
-	function assertIsValidHTTPRequest();
-	
-	/**
-	 * Returns true if input is a valid list item.
-	 * 
-	 * @param context 
-	 * 		A descriptive name of the parameter that you are validating (e.g., LoginPage_UsernameField). This value is used by any logging or error handling that is done with respect to the value passed in.
-	 * @param input 
-	 * 		The value to search 'list' for.
-	 * @param list 
-	 * 		The list to search for 'input'.
-	 * 
-	 * @return true, if 'input' was found in 'list'.
-	 * 
-	 * @throws IntrusionException
-	 */
-	function isValidListItem($context, $input, $list);
+    public function isValidHTML($context, $input, $maxLength, $allowNull);
+    
+    
+    /**
+     * Asserts that the canonicalized input is valid, "safe" HTML.
+     * Invalid input will generate a descriptive ValidationException and input
+     * that is clearly an attack will generate a descriptive IntrusionException.
+     * 
+     * Implementors should reference the OWASP AntiSamy project for ideas on how
+     * to do HTML validation in a whitelist way, as this is an extremely
+     * difficult problem. It is recommended that PHP implementations make use of
+     * HTMLPurifier {@link http://htmlpurifier.org}. 
+     * 
+     * @param  $context A descriptive name of the parameter that you are
+     *         validating (e.g. ProfilePage_Sig). This value is used by any
+     *         logging or error handling that is done with respect to the value
+     *         passed in.
+     * @param  $input The actual user input data to validate.
+     * @param  $maxLength The maximum post-canonicalized String length allowed.
+     * @param  $allowNull If allowNull is true then an input that is NULL or an
+     *         empty string will be legal. If allowNull is false then NULL or an
+     *         empty String will throw a ValidationException.
+     *
+     * @return null.
+     *
+     * @throws ValidationException.
+     * @throws IntrusionException.
+     */
+    public function assertValidHTML($context, $input, $maxLength, $allowNull);
 
-	/**
-	 * Returns the list item that exactly matches the canonicalized input. Invalid or non-matching input
-	 * will generate a descriptive ValidationException, and input that is clearly an attack
-	 * will generate a descriptive IntrusionException. Instead of throwing a ValidationException 
-	 * on error, this variant will store the exception inside of the ValidationErrorList.
-	 * 
-	 * @param context 
-	 * 		A descriptive name of the parameter that you are validating (e.g., LoginPage_UsernameField). This value is used by any logging or error handling that is done with respect to the value passed in.
-	 * @param input 
-	 * 		The value to search 'list' for.
-	 * @param list 
-	 * 		The list to search for 'input'.
-	 * @param errorList 
-	 * 		If validation is in error, resulting error will be stored in the errorList by context
-	 * 
-	 * @return The list item that exactly matches the canonicalized input.
-	 * 
-	 * @throws IntrusionException
-	 */
-	function getValidListItem($context, $input, $list, $errorList = null);
-	
-	/**
-	 * Returns true if the parameters in the current request contain all required parameters and only optional ones in addition.
-	 * 
-	 * @param context 
-	 * 		A descriptive name of the parameter that you are validating (e.g., LoginPage_UsernameField). This value is used by any logging or error handling that is done with respect to the value passed in.
-	 * @param required 
-	 * 		parameters that are required to be in HTTP request 
-	 * @param optional 
-	 * 		additional parameters that may be in HTTP request
-	 * 
-	 * @return true, if all required parameters are in HTTP request and only optional parameters in addition.  Returns false if parameters are found in HTTP request that are not in either set (required or optional), or if any required parameters are missing from request.
-	 * 
-	 * @throws IntrusionException
-	 */
-	function isValidHTTPRequestParameterSet($context, $required, $optional);
-	
-	/**
-	 * Validates that the parameters in the current request contain all required parameters and only optional ones in
-	 * addition. Invalid input will generate a descriptive ValidationException, and input that is clearly an attack
-	 * will generate a descriptive IntrusionException. Instead of throwing a ValidationException on error, 
-	 * this variant will store the exception inside of the ValidationErrorList.
-	 * 
-	 * @param context 
-	 * 		A descriptive name of the parameter that you are validating (e.g., LoginPage_UsernameField). This value is used by any logging or error handling that is done with respect to the value passed in.
-	 * @param required 
-	 * 		parameters that are required to be in HTTP request
-	 * @param optional 
-	 * 		additional parameters that may be in HTTP request
-	 * @param errorList 
-	 * 		If validation is in error, resulting error will be stored in the errorList by context
-	 * 
-	 * @throws IntrusionException
-	 */
-	function assertIsValidHTTPRequestParameterSet($context, $required, $optional, $errorList = null);
-	
-	/**
-	 * Returns true if input contains only valid printable ASCII characters.
-	 * 
-	 * @param context 
-	 * 		A descriptive name of the parameter that you are validating (e.g., LoginPage_UsernameField). This value is used by any logging or error handling that is done with respect to the value passed in.
-	 * @param input 
-	 * 		data to be checked for validity
-	 * @param maxLength 
-	 * 		Maximum number of bytes stored in 'input'
-	 * @param allowNull 
-	 * 		If allowNull is true then an input that is NULL or an empty string will be legal. If allowNull is false then NULL or an empty String will throw a ValidationException.
-	 * 
-	 * @return true, if 'input' is less than maxLength and contains only valid, printable characters
-	 * 
-	 * @throws IntrusionException
-	 */
-	function isValidPrintable($context, $input, $maxLength, $allowNull);
+    
+    /**
+     * Returns true if the canonicalized input is a valid Credit Card Number.
+     * 
+     * @param  $context A descriptive name of the parameter that you are
+     *         validating (e.g. PurchasePage_CCNum). This value is used by any
+     *         logging or error handling that is done with respect to the value
+     *         passed in.
+     * @param  $input The actual user input data to validate.
+     * @param  $allowNull If allowNull is true then an input that is NULL or an
+     *         empty string will be legal. If allowNull is false then NULL or an
+     *         empty String will throw a ValidationException.
+     *
+     * @return true if the input is a valid Credit Card number, otherwise false.
+     */
+    public function isValidCreditCard($context, $input, $allowNull);
+    
+    
+    /**
+     * Asserts that the canonicalized input is a valid Credit Card Number.
+     * Invalid input will generate a descriptive ValidationException and input
+     * that is clearly an attack will generate a descriptive IntrusionException.
+     * 
+     * @param  $context A descriptive name of the parameter that you are
+     *         validating (e.g. PurchasePage_CCNum). This value is used by any
+     *         logging or error handling that is done with respect to the value
+     *         passed in.
+     * @param  $input The actual user input data to validate.
+     * @param  $allowNull If allowNull is true then an input that is NULL or an
+     *         empty string will be legal. If allowNull is false then NULL or an
+     *         empty String will throw a ValidationException.
+     *
+     * @return null.
+     *
+     * @throws ValidationException.
+     * @throws IntrusionException.
+     */
+    public function assertValidCreditCard($context, $input, $allowNull);
+    
+    
+    /**
+     * Returns true if the canonicalized input is a valid directory path.
+     * 
+     * @param  $context A descriptive name of the parameter that you are
+     *         validating (e.g. IncludeFile). This value is used by any logging
+     *         or error handling that is done with respect to the value passed
+     *         in.
+     * @param  $input The actual user input data to validate.
+     * @param  $allowNull If allowNull is true then an input that is NULL or an
+     *         empty string will be legal. If allowNull is false then NULL or an
+     *         empty String will throw a ValidationException.
+     *
+     * 
+     * @return true if the canonicalized input is a valid directory path or
+     *         false otherwise.
+     */
+    public function isValidDirectoryPath($context, $input, $allowNull);
+    
+    
+    /**
+     * Asserts that the canonicalized input is a valid directory path.
+     * Invalid input will generate a descriptive ValidationException, and input
+     * that is clearly an attack will generate a descriptive IntrusionException.
+     *  
+     * @param  $context A descriptive name of the parameter that you are
+     *         validating (e.g. IncludeFile). This value is used by any logging
+     *         or error handling that is done with respect to the value passed
+     *         in.
+     * @param  $input The actual user input data to validate.
+     * @param  $allowNull If allowNull is true then an input that is NULL or an
+     *         empty string will be legal. If allowNull is false then NULL or an
+     *         empty String will throw a ValidationException.
+     * 
+     * @return null.
+     * 
+     * @throws ValidationException.
+     * @throws IntrusionException.
+     */
+    public function assertValidDirectoryPath($context, $input, $allowNull);
+    
+    
+    /**
+     * Returns true if the canonicalized input is a valid file name.
+     * 
+     * @param  $context A descriptive name of the parameter that you are
+     *         validating (e.g. IncludeFile). This value is used by any logging
+     *         or error handling that is done with respect to the value passed
+     *         in.
+     * @param  $input The actual user input data to validate.
+     * @param  $allowNull If allowNull is true then an input that is NULL or an
+     *         empty string will be legal. If allowNull is false then NULL or an
+     *         empty String will throw a ValidationException.
+     * 
+     * @return true if the canonicalized input is a valid file name or false
+     *         otherwise.
+     */
+    public function isValidFileName($context, $input, $allowNull);
+    
+    
+    /**
+     * Asserts that the canonicalized input is a valid file name.
+     * Invalid input will generate a descriptive ValidationException, and input
+     * that is clearly an attack will generate a descriptive IntrusionException.
+     *
+     * Implementors should check for allowed file extensions here, as well as
+     * allowed file name characters, as declared in "ESAPI.xml".
+     * 
+     * @param  $context A descriptive name of the parameter that you are
+     *         validating (e.g. IncludeFile). This value is used by any logging
+     *         or error handling that is done with respect to the value passed
+     *         in.
+     * @param  $input The actual user input data to validate.
+     * @param  $allowNull If allowNull is true then an input that is NULL or an
+     *         empty string will be legal. If allowNull is false then NULL or an
+     *         empty String will throw a ValidationException.
+     * 
+     * @return null.
+     * 
+     * @throws ValidationException.
+     * @throws IntrusionException.
+     */
+    public function assertValidFileName($context, $input, $allowNull);
+        
+    
+    /**
+     * Returns true if the canonicalized input is a valid, real number within
+     * the specified range minValue to maxValue.
+     * 
+     * @param  $context A descriptive name of the parameter that you are
+     *         validating (e.g. PurchasePage_Quantity). This value is used by
+     *         any logging or error handling that is done with respect to the
+     *         value passed in.
+     * @param  $input The actual user input data to validate.
+     * @param  $minValue numeric lowest legal value for input.
+     * @param  $maxValue numeric highest legal value for input.
+     * @param  $allowNull If allowNull is true then an input that is NULL or an
+     *         empty string will be legal. If allowNull is false then NULL or an
+     *         empty String will throw a ValidationException.
+     * 
+     * @return true if the canonicalized input is a valid number or false
+     *         otherwise.
+     */
+    public function isValidNumber($context, $input, $minValue, $maxValue, $allowNull);
 
-	/**
-	 * Returns canonicalized and validated printable characters as a byte array. Invalid input will generate a descriptive ValidationException, and input that is clearly an attack
-	 * will generate a descriptive IntrusionException. Instead of throwing a ValidationException on error, 
-	 * this variant will store the exception inside of the ValidationErrorList.
-	 * 
-	 * @param context 
-	 * 		A descriptive name of the parameter that you are validating (e.g., LoginPage_UsernameField). This value is used by any logging or error handling that is done with respect to the value passed in.
-	 * @param input 
-	 * 		data to be returned as valid and printable
-	 * @param maxLength 
-	 * 		Maximum number of bytes stored in 'input'
-	 * @param allowNull 
-	 * 		If allowNull is true then an input that is NULL or an empty string will be legal. If allowNull is false then NULL or an empty String will throw a ValidationException.
-	 * @param errorList 
-	 * 		If validation is in error, resulting error will be stored in the errorList by context
-	 * 
-	 * @return a byte array containing only printable characters, made up of data from 'input'
-	 * 
-	 * @throws IntrusionException
-	 */
-	function getValidPrintable($context, $input, $maxLength, $allowNull, $errorList = null);
+    
+    /**
+     * Asserts that the canonicalized input is a valid, real number within
+     * the specified range minValue to maxValue.
+     * Invalid input will generate a descriptive ValidationException, and input
+     * that is clearly an attack will generate a descriptive IntrusionException.
+     *
+     * @param  $context A descriptive name of the parameter that you are
+     *         validating (e.g. PurchasePage_Quantity). This value is used by
+     *         any logging or error handling that is done with respect to the
+     *         value passed in.
+     * @param  $input The actual user input data to validate.
+     * @param  $minValue numeric lowest legal value for input.
+     * @param  $maxValue numeric highest legal value for input.
+     * @param  $allowNull If allowNull is true then an input that is NULL or an
+     *         empty string will be legal. If allowNull is false then NULL or an
+     *         empty String will throw a ValidationException.
+     * 
+     * @return null.
+     * 
+     * @throws ValidationException.
+     * @throws IntrusionException.
+     */
+    public function assertValidNumber($context, $input, $minValue, $maxValue, $allowNull);
 
+    
+    /**
+     * Returns true if the canonicalized input is a valid integer within the
+     * specified range minValue to maxValue.
+     * 
+     * @param  $context A descriptive name of the parameter that you are
+     *         validating (e.g. PurchasePage_Quantity). This value is used by
+     *         any logging or error handling that is done with respect to the
+     *         value passed in.
+     * @param  $input The actual user input data to validate.
+     * @param  $minValue numeric lowest legal value for input.
+     * @param  $maxValue numeric highest legal value for input.
+     * @param  $allowNull If allowNull is true then an input that is NULL or an
+     *         empty string will be legal. If allowNull is false then NULL or an
+     *         empty String will throw a ValidationException.
+     * 
+     * @return true if the canonicalized input is a valid integer or false
+     *         otherwise.
+     */
+    public function isValidInteger($context, $input, $minValue, $maxValue, $allowNull);
+    
+    
+    /**
+     * Asserts that the canonicalized input is a valid integer within the
+     * specified range minValue to maxValue.
+     * Invalid input will generate a descriptive ValidationException, and input
+     * that is clearly an attack will generate a descriptive IntrusionException.
+     * 
+     * @param  $context A descriptive name of the parameter that you are
+     *         validating (e.g. PurchasePage_Quantity). This value is used by
+     *         any logging or error handling that is done with respect to the
+     *         value passed in.
+     * @param  $input The actual user input data to validate.
+     * @param  $minValue numeric lowest legal value for input.
+     * @param  $maxValue numeric highest legal value for input.
+     * @param  $allowNull If allowNull is true then an input that is NULL or an
+     *         empty string will be legal. If allowNull is false then NULL or an
+     *         empty String will throw a ValidationException.
+     * 
+     * @return null.
+     * 
+     * @throws ValidationException.
+     * @throws IntrusionException.
+     */
+    public function assertValidInteger($context, $input, $minValue, $maxValue, $allowNull);
+        
+    
+    /**
+     * Returns true if the canonicalized input is a valid double within the
+     * specified range minValue to maxValue.
+     * 
+     * @param  $context A descriptive name of the parameter that you are
+     *         validating (e.g. PurchasePage_Quantity). This value is used by
+     *         any logging or error handling that is done with respect to the
+     *         value passed in.
+     * @param  $input The actual user input data to validate.
+     * @param  $minValue numeric lowest legal value for input.
+     * @param  $maxValue numeric highest legal value for input.
+     * @param  $allowNull If allowNull is true then an input that is NULL or an
+     *         empty string will be legal. If allowNull is false then NULL or an
+     *         empty String will throw a ValidationException.
+     * 
+     * @return true if the canonicalized input is a valid double or false
+     *         otherwise.
+     */
+    public function isValidDouble($context, $input, $minValue, $maxValue);
+
+    
+    /**
+     * Asserts that the canonicalized input is a valid double within the
+     * specified range minValue to maxValue.
+     * Invalid input will generate a descriptive ValidationException, and input
+     * that is clearly an attack will generate a descriptive IntrusionException.
+     * 
+     * @param  $context A descriptive name of the parameter that you are
+     *         validating (e.g. PurchasePage_Quantity). This value is used by
+     *         any logging or error handling that is done with respect to the
+     *         value passed in.
+     * @param  $input The actual user input data to validate.
+     * @param  $minValue numeric lowest legal value for input.
+     * @param  $maxValue numeric highest legal value for input.
+     * @param  $allowNull If allowNull is true then an input that is NULL or an
+     *         empty string will be legal. If allowNull is false then NULL or an
+     *         empty String will throw a ValidationException.
+     * 
+     * @return null.
+     * 
+     * @throws ValidationException.
+     * @throws IntrusionException.
+     */
+    public function assertValidDouble($context, $input, $minValue, $maxValue, $allowNull);
+
+    
+    /**
+     * Returns true if input is valid file content.
+     * This is a good place to check for max file size, allowed character sets
+     * and do virus scans.
+     * 
+     * @param  $context A descriptive name of the parameter that you are
+     *         validating (e.g. UploadPage_Avatar). This value is used by any
+     *         logging or error handling that is done with respect to the value
+     *         passed in.
+     * @param  $input The actual user input data to validate.
+     * @param  $maxBytes The maximum number of bytes allowed in a legal file.
+     * @param  $allowNull If allowNull is true then an input that is NULL or an
+     *         empty string will be legal. If allowNull is false then NULL or an
+     *         empty String will throw a ValidationException.
+     * 
+     * @return true if input contains only valid file content or false
+     *         otherwise.
+     */
+    public function isValidFileContent($context, $input, $maxBytes, $allowNull);
+
+    
+    /**
+     * Asserts that the input is valid file content.
+     * This is a good place to check for max file size, allowed character sets
+     * and do virus scans.
+     * Invalid input will generate a descriptive ValidationException.
+     * 
+     * @param  $context A descriptive name of the parameter that you are
+     *         validating (e.g. UploadPage_Avatar). This value is used by any
+     *         logging or error handling that is done with respect to the value
+     *         passed in.
+     * @param  $input The actual user input data to validate.
+     * @param  $maxBytes The maximum number of bytes allowed in a legal file.
+     * @param  $allowNull If allowNull is true then an input that is NULL or an
+     *         empty string will be legal. If allowNull is false then NULL or an
+     *         empty String will throw a ValidationException.
+     * 
+     * @return null.
+     * 
+     * @throws ValidationException.
+     */
+    public function assertValidFileContent($context, $input, $maxBytes, $allowNull);
+
+    
+    /**
+     * Returns true if a file upload has a valid name, path, and content.
+     * 
+     * @param  $context A descriptive name of the parameter that you are
+     *         validating (e.g. UploadPage_Avatar). This value is used by any
+     *         logging or error handling that is done with respect to the value
+     *         passed in.
+     * @param  $filepath The file path of the uploaded file.
+     * @param  $filename The filename of the uploaded file
+     * @param  $content A string containing the content of the uploaded file.
+     * @param  $maxBytes The max number of bytes allowed for a legal file upload.
+     * @param  $allowNull If allowNull is true then an input that is NULL or an
+     *         empty string will be legal. If allowNull is false then NULL or an
+     *         empty String will throw a ValidationException.
+     * 
+     * @return true, if a file upload has a valid name, path, and content or
+     *         false otherwise.
+     */
+    public function isValidFileUpload($context, $filepath, $filename, $content, $maxBytes, $allowNull);
+
+    
+    /**
+     * Asserts that a file upload has a valid name, path, and content.
+     * Invalid input will generate a descriptive ValidationException, and input
+     * that is clearly an attack will generate a descriptive IntrusionException.
+     * 
+     * @param  $context A descriptive name of the parameter that you are
+     *         validating (e.g. UploadPage_Avatar). This value is used by any
+     *         logging or error handling that is done with respect to the value
+     *         passed in.
+     * @param  $filepath The file path of the uploaded file.
+     * @param  $filename The filename of the uploaded file
+     * @param  $content A string containing the content of the uploaded file.
+     * @param  $maxBytes The max number of bytes allowed for a legal file upload.
+     * @param  $allowNull If allowNull is true then an input that is NULL or an
+     *         empty string will be legal. If allowNull is false then NULL or an
+     *         empty String will throw a ValidationException.
+     * 
+     * @return null.
+     * 
+     * @throws ValidationException.
+     * @throws IntrusionException.
+     */
+    public function assertValidFileUpload($context, $filepath, $filename, $content, $maxBytes, $allowNull);
+    
+    
+    /**
+     * Validate the current HTTP request by comparing parameters, headers and
+     * cookies to a predefined whitelist of allowed characters.
+     * For the methods to retrieve the whitelists {@see SecurityConfiguration}.
+     * 
+     * @return true, if the current request is a valid HTTP request or false
+     *         otherwise.
+     */
+    public function isValidHTTPRequest();
+    
+    /**
+     * Asserts that the current HTTP request is valid by comparing parameters,
+     * headers and cookies to a predefined whitelist of allowed characters.
+     * For the methods to retrieve the whitelists {@see SecurityConfiguration}.
+     * Invalid input will generate a descriptive ValidationException, and input
+     * that is clearly an attack will generate a descriptive IntrusionException.
+     * 
+     * @throws ValidationException.
+     * @throws IntrusionException.
+     */
+    public function assertValidHTTPRequest();
+    
+    
+    /**
+     * Returns true if the canonicalized input exactly matches a list item.
+     * 
+     * @param  $context A descriptive name of the parameter that you are
+     *         validating (e.g. Contact_Recipient). This value is used by any
+     *         logging or error handling that is done with respect to the value
+     *         passed in.
+     * @param  $input The value to search for in the supplied list.
+     * @param  $list The list to search for the supplied input.
+     * 
+     * @return true if the canonicalized input exactly matches a list item,
+     *         false otherwise.
+     */
+    public function isValidListItem($context, $input, $list);
+
+    
+    /**
+     * Asserts that the canonicalized input exactly matches a list item.
+     * Invalid input will generate a descriptive ValidationException, and input
+     * that is clearly an attack will generate a descriptive IntrusionException. 
+     * 
+     * @param  $context A descriptive name of the parameter that you are
+     *         validating (e.g. Contact_Recipient). This value is used by any
+     *         logging or error handling that is done with respect to the value
+     *         passed in.
+     * @param  $input The value to search for in the supplied list.
+     * @param  $list The list to search for the supplied input.
+     * 
+     * @return null.
+     * 
+     * @throws ValidationException.
+     * @throws IntrusionException.
+     */
+    public function assertValidListItem($context, $input, $list);
+    
+    
+    /**
+     * Returns true if the parameters in the current request contain all
+     * required parameters and only the optional parameters specified.
+     * 
+     * @param  $context A descriptive name of the parameter that you are
+     *         validating (e.g. Request_Params). This value is used by any
+     *         logging or error handling that is done with respect to the value
+     *         passed in.
+     * @param  $required parameters that are required to be in HTTP request.
+     * @param  $optional additional parameters that may be in HTTP request.
+     * 
+     * @return true if all required parameters are in HTTP request and only
+     *         optional parameters in addition.
+     *         false if parameters are found in HTTP request that are not in
+     *         either set (required or optional), or if any required parameters
+     *         are missing from request.
+     */
+    public function isValidHTTPRequestParameterSet($context, $required, $optional);
+    
+    
+    /**
+     * Asserts that the parameters in the current request contain all required
+     * parameters and only the optional parameters specified.
+     * Invalid input will generate a descriptive ValidationException, and input
+     * that is clearly an attack will generate a descriptive IntrusionException. 
+     * 
+     * @param  $context A descriptive name of the parameter that you are
+     *         validating (e.g. Request_Params). This value is used by any
+     *         logging or error handling that is done with respect to the value
+     *         passed in.
+     * @param  $required parameters that are required to be in HTTP request.
+     * @param  $optional additional parameters that may be in HTTP request.
+     * 
+     * @return null.
+     * 
+     * @throws ValidationException.
+     * @throws IntrusionException.
+     */
+    public function assertValidHTTPRequestParameterSet($context, $required, $optional);
+    
+    
+    /**
+     * Returns true if the canonicalized input contains no more than the number
+     * of valid printable ASCII characters specified.
+     * 
+     * @param  $context A descriptive name of the parameter that you are
+     *         validating (e.g. ASCIIArt_Submission). This value is used by any
+     *         logging or error handling that is done with respect to the value
+     *         passed in.
+     * @param  $input The actual user input data to validate.
+     * @param  $maxLength The maximum number of canonicalized ascii characters
+     *         allowed in a legal input.
+     * @param  $allowNull If allowNull is true then an input that is NULL or an
+     *         empty string will be legal. If allowNull is false then NULL or an
+     *         empty String will throw a ValidationException.
+     * 
+     * @return true if the canonicalized input contains no more than the number
+     *         of valid printable ASCII characters specified by $maxLength,
+     *         false otherwise.
+     */
+    public function isValidPrintable($context, $input, $maxLength, $allowNull);
+
+    
+    /**
+     * Asserts that the canonicalized input contains no more than the number of
+     * valid printable ASCII characters specified.
+     * Invalid input will generate a descriptive ValidationException, and input
+     * that is clearly an attack will generate a descriptive IntrusionException. 
+     * 
+     * @param  $context A descriptive name of the parameter that you are
+     *         validating (e.g. ASCIIArt_Submission). This value is used by any
+     *         logging or error handling that is done with respect to the value
+     *         passed in.
+     * @param  $input The actual user input data to validate.
+     * @param  $maxLength The maximum number of canonicalized ascii characters
+     *         allowed in a legal input.
+     * @param  $allowNull If allowNull is true then an input that is NULL or an
+     *         empty string will be legal. If allowNull is false then NULL or an
+     *         empty String will throw a ValidationException.
+     * 
+     * @return null.
+     * 
+     * @throws ValidationException.
+     * @throws IntrusionException.
+     */
+    public function assertValidPrintable($context, $input, $maxLength, $allowNull);
+
+    
+    /**
+     * Returns true if the canonicalized input is a valid redirect location as
+     * defined in "ESAPI.xml".
+     * 
+     * @param  $context A descriptive name of the parameter that you are
+     *         validating (e.g. IncludeFile). This value is used by any logging
+     *         or error handling that is done with respect to the value passed
+     *         in.
+     * @param  $input The actual user input data to validate.
+     * @param  $allowNull If allowNull is true then an input that is NULL or an
+     *         empty string will be legal. If allowNull is false then NULL or an
+     *         empty String will throw a ValidationException.
+     * 
+     * @return true if the canonicalized is a valid redirect location as defined
+     *         in "ESAPI.xml", false otherwise.
+     */
+    public function isValidRedirectLocation($context, $input, $allowNull);
+
+
+    /**
+     * Asserts that the canonicalized input is a valid redirect location as
+     * defined in "ESAPI.xml".
+     * Invalid input will generate a descriptive ValidationException, and input
+     * that is clearly an attack will generate a descriptive IntrusionException.
+     * 
+     * @param  $context A descriptive name of the parameter that you are
+     *         validating (e.g. IncludeFile). This value is used by any logging
+     *         or error handling that is done with respect to the value passed
+     *         in.
+     * @param  $input The actual user input data to validate.
+     * @param  $allowNull If allowNull is true then an input that is NULL or an
+     *         empty string will be legal. If allowNull is false then NULL or an
+     *         empty String will throw a ValidationException.
+     * 
+     * @return null.
+     * 
+     * @throws ValidationException.
+     * @throws IntrusionException.
+     */
+    public function assertValidRedirectLocation($context, $input, $allowNull);
 	
-	/**
-	 * Returns true if input is a valid redirect location, as defined by "ESAPI.properties".
-	 * 
-	 * @param context 
-	 * 		A descriptive name of the parameter that you are validating (e.g., LoginPage_UsernameField). This value is used by any logging or error handling that is done with respect to the value passed in.
-	 * @param input 
-	 * 		redirect location to be checked for validity, according to rules set in "ESAPI.properties"
-	 * @param allowNull 
-	 * 		If allowNull is true then an input that is NULL or an empty string will be legal. If allowNull is false then NULL or an empty String will throw a ValidationException.
-	 * 
-	 * @return true, if 'input' is a valid redirect location, as defined by "ESAPI.properties", false otherwise.
-	 * 
-	 * @throws IntrusionException
-	 */
-	function isValidRedirectLocation($context, $input, $allowNull);
-
-
-	/**
-	 * Returns a canonicalized and validated redirect location as a String. Invalid input will generate a descriptive ValidationException, and input that is clearly an attack
-	 * will generate a descriptive IntrusionException. Instead of throwing a ValidationException 
-	 * on error, this variant will store the exception inside of the ValidationErrorList.
-	 * 
-	 * @param context 
-	 * 		A descriptive name of the parameter that you are validating (e.g., LoginPage_UsernameField). This value is used by any logging or error handling that is done with respect to the value passed in.
-	 * @param input 
-	 * 		redirect location to be returned as valid, according to encoding rules set in "ESAPI.properties"
-	 * @param allowNull 
-	 * 		If allowNull is true then an input that is NULL or an empty string will be legal. If allowNull is false then NULL or an empty String will throw a ValidationException.
-	 * @param errorList 
-	 * 		If validation is in error, resulting error will be stored in the errorList by context
-	 * 
-	 * @return A canonicalized and validated redirect location, as defined in "ESAPI.properties"
-	 * 
-	 * @throws IntrusionException
-	 */
-	function getValidRedirectLocation($context, $input, $allowNull, $errorList = null);
 	
 	/**
 	 * Reads from an input stream until end-of-line or a maximum number of
@@ -706,10 +752,9 @@ interface Validator {
 	 * until all memory is exhausted and the platform throws an OutOfMemoryError
 	 * and probably terminates.
 	 * 
-	 * @param inputStream 
-	 * 		The InputStream from which to read data
-	 * @param maxLength 
-	 * 		Maximum characters allowed to be read in per line
+	 * @param  $inputStream The InputStream from which to read data
+	 * @param  $maxLength Maximum number of characters allowed to be read in
+	 *         per line
 	 * 
 	 * @return a String containing the current line of inputStream
 	 * 
@@ -718,4 +763,3 @@ interface Validator {
 	function safeReadLine($inputStream, $maxLength);
 
 }
-

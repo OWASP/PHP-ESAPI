@@ -61,6 +61,7 @@ $test = new GroupTest('Allocated');
 	$test->addTestFile(dirname(__FILE__).'/reference/EncryptedPropertiesTest.php'); 		// AJV
 	$test->addTestFile(dirname(__FILE__).'/reference/IntrusionDetectorTest.php');			// Aung Khant
 	$test->addTestFile(dirname(__FILE__).'/reference/ValidatorTest.php'); 					// AJV & Johannes Ullrich
+	$test->addTestFile(dirname(__FILE__).'/reference/SanitizerTest.php'); 					// jah
 	$test->addTestFile(dirname(__FILE__).'/reference/LoggerTest.php'); 						// Laura
 	$test->addTestFile(dirname(__FILE__).'/reference/HTTPUtilitiesTest.php');				// Laura
 $test->run(new HTMLReporter());

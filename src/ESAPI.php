@@ -54,6 +54,7 @@ class ESAPI
     private static $_randomizer = null;
     private static $_securityConfiguration = null;
     private static $_validator = null;
+    private static $_sanitizer = null;
     
     /**
      * This is the locator class' constructor, which prevents instantiation of this
@@ -397,8 +398,8 @@ class ESAPI
     }
 
     /**
-     * Set the current ESAPI AccessController object being used to validate data
-     * for this application.
+     * Set the current ESAPI Validator object being used to validate data for
+     * this application.
      * 
      * @param Validator $validator the new ESAPI Validator.
      * 
@@ -407,6 +408,36 @@ class ESAPI
     public static function setValidator($validator) 
     {
         self::$_validator = $validator;
+    }
+
+    /**
+     * Get the current ESAPI Sanitizer object being used to sanitize data for
+     * this application.
+     * 
+     * @return the current ESAPI Sanitizer.
+     */
+    public static function getSanitizer() 
+    {
+        if ( is_null(self::$_sanitizer) ) {
+            include_once dirname(__FILE__).
+              '/reference/DefaultSanitizer.php';
+            self::$_sanitizer = new DefaultSanitizer();
+        }
+
+        return self::$_sanitizer;
+    }
+
+    /**
+     * Set the current ESAPI Sanitizer object being used to sanitize data for
+     * this application.
+     * 
+     * @param Sanitizer $sanitizer the new ESAPI Sanitizer.
+     * 
+     * @return does not return a value.
+     */
+    public static function setSanitizer($sanitizer) 
+    {
+        self::$_sanitizer = $sanitizer;
     }
  
 }
