@@ -20,14 +20,14 @@
 
 
 /**
- * DateValidationRule requires the BaseValidationRule and HTMLPurifier.
+ * HTMLValidationRule requires the BaseValidationRule and HTMLPurifier.
  */
 require_once dirname(__FILE__) . '/BaseValidationRule.php';
 require_once dirname(__FILE__) . '/../../../lib/htmlpurifier/HTMLPurifier.includes.php';
 
 
 /**
- * DateValidationRule implementation of the ValidationRule interface.
+ * HTMLValidationRule implementation of the ValidationRule interface.
  *
  * PHP version 5.2.9
  *
