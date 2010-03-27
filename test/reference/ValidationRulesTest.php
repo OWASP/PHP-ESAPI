@@ -245,8 +245,18 @@ class ValidationRulesTest extends UnitTestCase
         $this->assertEqual('0000-0000-0000-0000', $ccvr->getValid('testCCVR_getValid_valid', '0000-0000-0000-0000'));
 
         $this->assertEqual('0000 0000 0000 0000', $ccvr->getValid('testCCVR_getValid_valid', '0000%200000%200000%200000'));
+    }
 
-        // FIXME this reveals a BUG! $this->assertEqual('0000 0000 0000 0018', $ccvr->getValid('testCCVR_getValid_valid', '0000&nbsp;0000&nbsp;0000&nbsp;0018'));
+
+    /**
+     * `&nbsp;` entity does not match a space in preg_match.
+     */
+    function testCCVR_getValid_nbsp()
+    {
+        $ccvr = new CreditCardValidationRule('CreditCardValidatorLuhn');
+
+        $this->expectException('ValidationException');
+        $ccvr->assertValid('testCCVR_getValid_nbsp', '0000&nbsp;0000&nbsp;0000&nbsp;0018');
     }
 
 
