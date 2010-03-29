@@ -211,8 +211,7 @@ class SafeFileTest extends UnitTestCase
 			    if ($f->isReadable()) {
 			        
 			        try {
-			            $sf = new SafeFile($file);
-			            
+			            $sf = new SafeFile($file);			           
 			            $this->fail();
 			            
 			        } catch (Exception $e) {

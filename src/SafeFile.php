@@ -46,6 +46,7 @@ class SafeFile extends SplFileObject {
             
             $this->doDirCheck($this->getPath());
             $this->doFileCheck($this->getFilename());
+            $this->doExtraCheck($path);
         }
 
         /**
@@ -101,5 +102,16 @@ class SafeFile extends SplFileObject {
                 }
             }
             return -1;
+        }
+        
+        /*
+         * Checks if the last character is a slash
+         * @param String $path the string to check
+         */
+        private function doExtraCheck($path) {
+        	$last = substr($path, -1);
+        	if ($last === '/') {
+        		throw new ValidationException("Invalid file", "File path (" + $path + ") contains an extra slash.");
+        	}
         }
 }
