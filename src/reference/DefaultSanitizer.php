@@ -31,6 +31,7 @@ require_once dirname ( __FILE__ ) . '/validation/NumberValidationRule.php';
 require_once dirname ( __FILE__ ) . '/validation/IntegerValidationRule.php';
 require_once dirname ( __FILE__ ) . '/validation/DateValidationRule.php';
 require_once dirname ( __FILE__ ) . '/validation/EmailAddressValidationRule.php';
+require_once dirname ( __FILE__ ) . '/validation/URLValidationRule.php';
 
 /**
  * Reference Implementation of the Sanitizer Interface.
@@ -96,5 +97,24 @@ class DefaultSanitizer implements Sanitizer
         
         return $evr->sanitize($context, $input);
     }
-
+    
+	/**
+     * Returns valid, "safe" URL.
+     * 
+     * This implementation uses a PHP filter {@link http://php.net/manual/en/filter.filters.sanitize.php}. 
+     * 
+     * @param  $context A descriptive name of the parameter that you are
+     *         validating (e.g. ProfilePage_Sig). This value is used by any
+     *         logging or error handling that is done with respect to the value
+     *         passed in.
+     * @param  $input The actual user input data to validate.
+     *
+     * @return valid, "safe" URL.
+     */
+    function getSanitizedURL($context, $input)
+    {
+        $uvr = new URLValidationRule('URL_Validator', $this->encoder);
+        
+        return $uvr->sanitize($context, $input);
+    }
 }
