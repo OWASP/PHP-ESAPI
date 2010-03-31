@@ -49,5 +49,35 @@ interface Sanitizer
      * @return valid, "safe" HTML.
      */
     function getSanitizedHTML($context, $input);
-
+    
+    /**
+     * Returns valid, "safe" email address.
+     * 
+     * This implementation uses a PHP filter {@link http://php.net/manual/en/filter.filters.sanitize.php}. 
+     * 
+     * @param  $context A descriptive name of the parameter that you are
+     *         validating (e.g. ProfilePage_Sig). This value is used by any
+     *         logging or error handling that is done with respect to the value
+     *         passed in.
+     * @param  $input The actual user input data to validate.
+     *
+     * @return valid, "safe" email address.
+     */
+    function getSanitizedEmailAddress($context, $input);
+    
+    /**
+     * Returns valid, "safe" URL.
+     * 
+     * This implementation uses a PHP filter {@link http://php.net/manual/en/filter.filters.sanitize.php}. 
+     * 
+     * @param  $context A descriptive name of the parameter that you are
+     *         validating (e.g. ProfilePage_Sig). This value is used by any
+     *         logging or error handling that is done with respect to the value
+     *         passed in.
+     * @param  $input The actual user input data to validate.
+     *
+     * @return valid, "safe" URL.
+     */
+    function getSanitizedURL($context, $input);
+    
 }
