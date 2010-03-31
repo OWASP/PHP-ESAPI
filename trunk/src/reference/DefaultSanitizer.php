@@ -29,7 +29,7 @@ require_once dirname ( __FILE__ ) . '/validation/HTMLValidationRule.php';
 require_once dirname ( __FILE__ ) . '/validation/NumberValidationRule.php';
 require_once dirname ( __FILE__ ) . '/validation/IntegerValidationRule.php';
 require_once dirname ( __FILE__ ) . '/validation/DateValidationRule.php';
-
+require_once dirname ( __FILE__ ) . '/validation/EmailAddressValidationRule.php';
 
 /**
  * Reference Implementation of the Sanitizer Interface.
@@ -76,5 +76,11 @@ class DefaultSanitizer implements Sanitizer
         return $hvr->sanitize($context, $input);
     }
     
+    function getSanitizedEmailAddress($context, $input)
+    {
+        $evr = new EmailAddressValidationRule('EmailAddress_Validator', $this->encoder);
+        
+        return $evr->sanitize($context, $input);
+    }
 
 }
