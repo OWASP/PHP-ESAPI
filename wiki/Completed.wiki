@@ -13,6 +13,7 @@ Initial versions of the following controls have been completed:
  * IntrusionDetector
  * Logger
  * Randomizer
+ * Sanitizer
  * SecurityConfiguration
  * StringUtilities
  * Test Suite
