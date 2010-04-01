@@ -79,5 +79,18 @@ interface Sanitizer
      * @return valid, "safe" URL.
      */
     function getSanitizedURL($context, $input);
-    
+
+    /**
+     * Generically attempts to sanitize English language words based on the
+     * provided guess by calculating and comparing metaphone values. 
+     * 
+     * @param  $context A descriptive name of the parameter that you are
+     *         validating (e.g. ProfilePage_Sig). This value is used by any
+     *         logging or error handling that is done with respect to the value
+     *         passed in.
+     * @param  $input The actual user input data to validate.
+     *
+     * @return valid, "safe" word.
+     */
+    function getSanitizedWord($context, $input);    
 }
