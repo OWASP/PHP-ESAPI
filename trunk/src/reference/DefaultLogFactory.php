@@ -35,7 +35,7 @@ require_once dirname(__FILE__).'/DefaultLogger.php';
  * @author Laura D. Bell
  * @since  1.6
  */
-class DefaultLogFactory implements LogFactory {
+class DefaultLogFactory implements ESAPILogFactory {
 
     private $loggerMap = array();
 
