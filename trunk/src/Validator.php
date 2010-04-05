@@ -4,6 +4,8 @@
  *
  * This file is part of the Open Web Application Security Project (OWASP)
  * Enterprise Security API (ESAPI) project.
+ * 
+ * PHP version 5.2
  *
  * LICENSE: This source file is subject to the New BSD license.  You should read
  * and accept the LICENSE before you use, modify, and/or redistribute this
@@ -44,11 +46,10 @@ require_once dirname(__FILE__).'/errors/ValidationException.php';
  * attempt to identify the invalid or disallowed characters are much more likely
  * to allow a bypass with encoding or other tricks.
  *
- * PHP version 5.2.9
+ * PHP version 5.2
  *
  * @category  OWASP
  * @package   ESAPI
- * @version   1.0
  * @author    Jeff Williams <jeff.williams@aspectsecurity.com>
  * @author    Andrew van der Stock <vanderaj@owasp.org>
  * @author    Johannes B. Ullrich <jullrich@sans.edu>
@@ -56,6 +57,7 @@ require_once dirname(__FILE__).'/errors/ValidationException.php';
  * @author    jah <jah@jahboite.co.uk>
  * @copyright 2009-2010 The OWASP Foundation
  * @license   http://www.opensource.org/licenses/bsd-license.php New BSD license
+ * @version   Release: @package_version@
  * @link      http://www.owasp.org/index.php/ESAPI
  */
 interface Validator
@@ -65,20 +67,22 @@ interface Validator
      * canonicalization. The type parameter must be the name of a defined type
      * in the ESAPI configuration or a valid regular expression pattern.
      *
-     * @param  $context A descriptive name of the parameter that you are
-     *         validating (e.g. LoginPage_UsernameField). This value is used by
-     *         any logging or error handling that is done with respect to the
-     *         value passed in.
-     * @param  $input The actual user input data to validate.
-     * @param  $type The regular expression name that maps to the actual regular
-     *         expression from "ESAPI.xml" or an actual regular expression.
-     * @param  $maxLength The maximum post-canonicalized String length allowed.
-     * @param  $allowNull If allowNull is true then an input that is NULL or an
-     *         empty string will be legal. If allowNull is false then NULL or an
-     *         empty String will throw a ValidationException.
+     * @param string $context   A descriptive name of the parameter that you are
+     *                          validating (e.g. LoginPage_UsernameField). This 
+     *                          value is used by any logging or error handling 
+     *                          that is done with respect to the value passed in.
+     * @param string $input     The actual user input data to validate.
+     * @param string $type      The regular expression name that maps to the actual 
+     *                          regular expression from "ESAPI.xml" or an actual 
+     *                          regular expression.
+     * @param int    $maxLength The maximum post-canonicalized String length allowed.
+     * @param bool   $allowNull If allowNull is true then an input that is NULL or an
+     *                          empty string will be legal. If allowNull is false 
+     *                          then NULL or an empty String will throw a 
+     *                          ValidationException.
      *
-     * @return true, if the input is valid based on the rules set by 'type' or
-     *         false otherwise.
+     * @return bool TRUE if the input is valid based on the rules set by 'type',
+     *              FALSE otherwise.
      */
     public function isValidInput($context, $input, $type, $maxLength, $allowNull);
 
