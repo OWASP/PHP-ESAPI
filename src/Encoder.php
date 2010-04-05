@@ -4,6 +4,8 @@
  *
  * This file is part of the Open Web Application Security Project (OWASP)
  * Enterprise Security API (ESAPI) project.
+ * 
+ * PHP version 5.2
  *
  * LICENSE: This source file is subject to the New BSD license.  You should read
  * and accept the LICENSE before you use, modify, and/or redistribute this
@@ -17,15 +19,14 @@
  * @author    jah <jah@jahboite.co.uk>
  * @copyright 2009-2010 The OWASP Foundation
  * @license   http://www.opensource.org/licenses/bsd-license.php New BSD license
+ * @version   SVN: $Id$
  * @link      http://www.owasp.org/index.php/ESAPI
  */
-
 
 /**
  * Implementations will require Codec.
  */
 require_once dirname(__FILE__) . '/codecs/Codec.php';
-
 
 /**
  * The Encoder interface contains a number of methods for decoding input and
@@ -45,21 +46,21 @@ require_once dirname(__FILE__) . '/codecs/Codec.php';
  * doubly encoded characters (using the same encoding scheme or two different
  * encoding schemes) should be rejected.
  *
- * PHP version 5.2.9
+ * PHP version 5.2
  *
  * @category  OWASP
  * @package   ESAPI
- * @version   1.0
  * @author    Jeff Williams <jeff.williams@aspectsecurity.com>
  * @author    Andrew van der Stock <vanderaj@owasp.org>
  * @author    Linden Darling <Linden.Darling@jds.net.au>
  * @author    jah <jah@jahboite.co.uk>
  * @copyright 2009-2010 The OWASP Foundation
  * @license   http://www.opensource.org/licenses/bsd-license.php New BSD license
+ * @version   Release: @package_version@
  * @link      http://www.owasp.org/index.php/ESAPI
  */
-interface Encoder {
-
+interface Encoder
+{
     /*
      * Standard character sets.
      */

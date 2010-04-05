@@ -1,18 +1,25 @@
 <?php
 /**
  * OWASP Enterprise Security API (ESAPI)
- * 
- * This file is part of the Open Web Application Security Project (OWASP)
- * Enterprise Security API (ESAPI) project. For details, please see
- * <a href="http://www.owasp.org/index.php/ESAPI">http://www.owasp.org/index.php/ESAPI</a>.
  *
- * Copyright (c) 2007 - 2010 The OWASP Foundation
+ * This file is part of the Open Web Application Security Project (OWASP)
+ * Enterprise Security API (ESAPI) project.
  * 
- * The ESAPI is published by OWASP under the BSD license. You should read and accept the
- * LICENSE before you use, modify,   and/or redistribute this software.
+ * PHP version 5.2
+ *
+ * LICENSE: This source file is subject to the New BSD license.  You should read
+ * and accept the LICENSE before you use, modify, and/or redistribute this
+ * software.
  * 
- * @author Martin Reiche <martin.reiche.ka@googlemail.com>
- * @since 1.4
+ * @category  OWASP
+ * @package   ESAPI
+ * @author    Jeff Williams <jeff.williams@aspectsecurity.com>
+ * @author    Andrew van der Stock <vanderaj@owasp.org>
+ * @author    Martin Reiche <martin.reiche.ka@googlemail.com>
+ * @copyright 2009-2010 The OWASP Foundation
+ * @license   http://www.opensource.org/licenses/bsd-license.php New BSD license
+ * @version   SVN: $Id$
+ * @link      http://www.owasp.org/index.php/ESAPI
  */
 
 require_once dirname(__FILE__).'/errors/ValidationException.php';
@@ -23,9 +30,20 @@ require_once dirname(__FILE__).'/errors/ValidationException.php';
  * causing problems in path lookups. This does _not_ prevent against
  * directory traversal attacks.
  * 
- * @since 1.4
+ * PHP version 5.2
+ *
+ * @category  OWASP
+ * @package   ESAPI
+ * @author    Jeff Williams <jeff.williams@aspectsecurity.com>
+ * @author    Andrew van der Stock <vanderaj@owasp.org>
+ * @author    Martin Reiche <martin.reiche.ka@googlemail.com>
+ * @copyright 2009-2010 The OWASP Foundation
+ * @license   http://www.opensource.org/licenses/bsd-license.php New BSD license
+ * @version   Release: @package_version@
+ * @link      http://www.owasp.org/index.php/ESAPI
  */
-class SafeFile extends SplFileObject {
+class SafeFile extends SplFileObject 
+{
 
         private $PERCENTS_PAT = "/(%)([0-9a-f])([0-9a-f])/i";
         private $FILE_BLACKLIST_PAT = "/([\\/:*?<>|])/";

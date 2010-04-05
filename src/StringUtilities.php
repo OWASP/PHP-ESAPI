@@ -1,29 +1,42 @@
 <?php
 /**
  * OWASP Enterprise Security API (ESAPI)
- * 
- * This file is part of the Open Web Application Security Project (OWASP)
- * Enterprise Security API (ESAPI) project. For details, please see
- * <a href="http://www.owasp.org/index.php/ESAPI">http://www.owasp.org/index.php/ESAPI</a>.
  *
- * Copyright (c) 2007 - 2009 The OWASP Foundation
+ * This file is part of the Open Web Application Security Project (OWASP)
+ * Enterprise Security API (ESAPI) project.
  * 
- * The ESAPI is published by OWASP under the BSD license. You should read and accept the
- * LICENSE before you use, modify, and/or redistribute this software.
- * 
- * @author 
- * @created 2008
- * @since 1.4
- * @package org.owasp.esapi
+ * PHP version 5.2
+ *
+ * LICENSE: This source file is subject to the New BSD license.  You should read
+ * and accept the LICENSE before you use, modify, and/or redistribute this
+ * software.
+ *
+ * @category  OWASP
+ * @package   ESAPI
+ * @author    Jeff Williams <jeff.williams@aspectsecurity.com>
+ * @author    Andrew van der Stock <vanderaj@owasp.org>
+ * @copyright 2009-2010 The OWASP Foundation
+ * @license   http://www.opensource.org/licenses/bsd-license.php New BSD license
+ * @version   SVN: $Id$
+ * @link      http://www.owasp.org/index.php/ESAPI
  */
 
 /**
  * String utilities used in various filters.
  * 
- * @author Andrew van der Stock < vanderaj .(at). owasp.org >
- * @since 1.4
+ * PHP version 5.2
+ *
+ * @category  OWASP
+ * @package   ESAPI
+ * @author    Jeff Williams <jeff.williams@aspectsecurity.com>
+ * @author    Andrew van der Stock <vanderaj@owasp.org>
+ * @copyright 2009-2010 The OWASP Foundation
+ * @license   http://www.opensource.org/licenses/bsd-license.php New BSD license
+ * @version   Release: @package_version@
+ * @link      http://www.owasp.org/index.php/ESAPI
  */
-class StringUtilities {
+class StringUtilities
+{
 
 	/**
 	 * Removes all unprintable characters from a string 

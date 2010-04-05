@@ -4,6 +4,8 @@
  *
  * This file is part of the Open Web Application Security Project (OWASP)
  * Enterprise Security API (ESAPI) project.
+ * 
+ * PHP version 5.2
  *
  * LICENSE: This source file is subject to the New BSD license.  You should read
  * and accept the LICENSE before you use, modify, and/or redistribute this
@@ -15,9 +17,9 @@
  * @author    Andrew van der Stock <vanderaj@owasp.org>
  * @copyright 2009-2010 The OWASP Foundation
  * @license   http://www.opensource.org/licenses/bsd-license.php New BSD license
+ * @version   SVN: $Id$
  * @link      http://www.owasp.org/index.php/ESAPI
  */
-
 
 /**
  * 
@@ -31,7 +33,6 @@ require_once dirname(__FILE__).'/errors/ValidationException.php';
 require_once dirname(__FILE__).'/filters/SafeRequest.php';
 require_once dirname(__FILE__).'/filters/SafeResponse.php';
 
-
 /**
  * The HTTPUtilities interface is a collection of methods that provide
  * additional security related to HTTP requests, responses, sessions, cookies,
@@ -39,19 +40,19 @@ require_once dirname(__FILE__).'/filters/SafeResponse.php';
  *
  * <img src="doc-files/HTTPUtilities.jpg">
  *
- * PHP version 5.2.9
+ * PHP version 5.2
  *
  * @category  OWASP
  * @package   ESAPI
- * @version   1.0
  * @author    Jeff Williams <jeff.williams@aspectsecurity.com>
  * @author    Andrew van der Stock <vanderaj@owasp.org>
  * @copyright 2009-2010 The OWASP Foundation
  * @license   http://www.opensource.org/licenses/bsd-license.php New BSD license
+ * @version   Release: @package_version@
  * @link      http://www.owasp.org/index.php/ESAPI
  */
-interface HTTPUtilities {
-
+interface HTTPUtilities
+{
 	/**
 	 * Ensures that the current request uses SSL and POST to protect any sensitive parameters
 	 * in the querystring from being sniffed or logged. For example, this method should

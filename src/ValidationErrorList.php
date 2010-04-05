@@ -3,18 +3,22 @@
  * OWASP Enterprise Security API (ESAPI)
  * 
  * This file is part of the Open Web Application Security Project (OWASP)
- * Enterprise Security API (ESAPI) project. For details, please see
- * <a href="http://www.owasp.org/index.php/ESAPI">http://www.owasp.org/index.php/ESAPI</a>.
+ * Enterprise Security API (ESAPI) project. 
+ * 
+ * PHP version 5.2
  *
- * Copyright (c) 2007 - 2009 The OWASP Foundation
- * 
- * The ESAPI is published by OWASP under the BSD license. You should read and accept the
- * LICENSE before you use, modify, and/or redistribute this software.
- * 
- * @author 
- * @created 2008
- * @since 1.4
- * @package org.owasp.esapi
+ * LICENSE: This source file is subject to the New BSD license.  You should read
+ * and accept the LICENSE before you use, modify, and/or redistribute this
+ * software.
+ *
+ * @category  OWASP
+ * @package   ESAPI
+ * @author    Jeff Williams <jeff.williams@aspectsecurity.com>
+ * @author    Andrew van der Stock <vanderaj@owasp.org>
+ * @copyright 2009-2010 The OWASP Foundation
+ * @license   http://www.opensource.org/licenses/bsd-license.php New BSD license
+ * @version   SVN: $Id$
+ * @link      http://www.owasp.org/index.php/ESAPI
  */
 
 require_once dirname(__FILE__).'/errors/ValidationException.php';
@@ -31,19 +35,19 @@ require_once dirname(__FILE__).'/errors/ValidationException.php';
  * To use the ValidationErrorList to execute groups of validation 
  * attempts, your controller code would look something like:
  * 
- * <PRE>
+ * <samp>
  * ValidationErrorList() errorList = new ValidationErrorList();.
  * String name  = getValidInput("Name", form.getName(), "SomeESAPIRegExName1", 255, false, errorList);
  * String address = getValidInput("Address", form.getAddress(), "SomeESAPIRegExName2", 255, false, errorList);
  * Integer weight = getValidInteger("Weight", form.getWeight(), 1, 1000000000, false, errorList);
  * Integer sortOrder = getValidInteger("Sort Order", form.getSortOrder(), -100000, +100000, false, errorList);
  * request.setAttribute( "ERROR_LIST", errorList );
- * </PRE>
+ * </samp>
  * 
  * The at your view layer you would be able to retrieve all
  * of your error messages via a helper function like:
  * 
- * <PRE>
+ * <samp>
  * public static ValidationErrorList getErrors() {          
  *     HttpServletRequest request = ESAPI.httpUtilities().getCurrentRequest();
  *     ValidationErrorList errors = new ValidationErrorList();
@@ -52,11 +56,11 @@ require_once dirname(__FILE__).'/errors/ValidationException.php';
  *     }
  * 	   return errors;
  * }
- * </PRE>
+ * </samp>
  * 
  * You can list all errors like:
  * 
- * <PRE>
+ * <samp>
  * <%
  *      for (Object vo : errorList.errors()) {
  *         ValidationException ve = (ValidationException)vo;
@@ -65,18 +69,27 @@ require_once dirname(__FILE__).'/errors/ValidationException.php';
  * <%
  *     }
  * %>
- * </PRE>
+ * </samp>
  * 
  * And even check if a specific UI component is in error via calls like:
  * 
- * <PRE>
+ * <samp>
  * ValidationException e = errorList.getError("Name");
- * </PRE>
+ * </samp>
  * 
- * @author 
- * @since 1.4
+ * PHP version 5.2
+ *
+ * @category  OWASP
+ * @package   ESAPI
+ * @author    Jeff Williams <jeff.williams@aspectsecurity.com>
+ * @author    Andrew van der Stock <vanderaj@owasp.org>
+ * @copyright 2009-2010 The OWASP Foundation
+ * @license   http://www.opensource.org/licenses/bsd-license.php New BSD license
+ * @version   Release: @package_version@
+ * @link      http://www.owasp.org/index.php/ESAPI
  */
-class ValidationErrorList {
+class ValidationErrorList 
+{
 
 	/**
 	 * Error list of ValidationException's
