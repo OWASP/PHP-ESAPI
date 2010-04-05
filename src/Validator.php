@@ -20,16 +20,15 @@
  * @author    jah <jah@jahboite.co.uk>
  * @copyright 2009-2010 The OWASP Foundation
  * @license   http://www.opensource.org/licenses/bsd-license.php New BSD license
+ * @version   SVN: $Id$
  * @link      http://www.owasp.org/index.php/ESAPI
  */
-
 
 /**
  * Implementations require ValidationException and IntrusionException.
  */
 require_once dirname(__FILE__).'/errors/IntrusionException.php';
 require_once dirname(__FILE__).'/errors/ValidationException.php';
-
 
 /**
  * The Validator interface defines a set of methods for canonicalizing and
@@ -85,7 +84,6 @@ interface Validator
      *              FALSE otherwise.
      */
     public function isValidInput($context, $input, $type, $maxLength, $allowNull);
-
 
     /**
      * Asserts that the input is valid according to the supplied type after
