@@ -4,6 +4,8 @@
  *
  * This file is part of the Open Web Application Security Project (OWASP)
  * Enterprise Security API (ESAPI) project.
+ * 
+ * PHP version 5.2
  *
  * LICENSE: This source file is subject to the New BSD license.  You should read
  * and accept the LICENSE before you use, modify, and/or redistribute this
@@ -15,9 +17,9 @@
  * @author    Andrew van der Stock <vanderaj@owasp.org>
  * @copyright 2009-2010 The OWASP Foundation
  * @license   http://www.opensource.org/licenses/bsd-license.php New BSD license
+ * @version   SVN: $Id$
  * @link      http://www.owasp.org/index.php/ESAPI
  */
-
 
 /**
  * Implementations will require EncryptionException.
@@ -33,18 +35,19 @@ require_once  dirname(__FILE__) . '/errors/EncryptionException.php';
  *
  * <img src="doc-files/EncryptedProperties.jpg">
  *
- * PHP version 5.2.9
+ * PHP version 5.2
  *
  * @category  OWASP
  * @package   ESAPI
- * @version   1.0
  * @author    Jeff Williams <jeff.williams@aspectsecurity.com>
  * @author    Andrew van der Stock <vanderaj@owasp.org>
  * @copyright 2009-2010 The OWASP Foundation
  * @license   http://www.opensource.org/licenses/bsd-license.php New BSD license
+ * @version   Release: @package_version@
  * @link      http://www.owasp.org/index.php/ESAPI
  */
-interface EncryptedProperties {
+interface EncryptedProperties
+{
 
 	/**
 	 * Gets the property value from the encrypted store, decrypts it, and returns the plaintext value to the caller.
