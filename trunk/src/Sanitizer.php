@@ -26,8 +26,6 @@
  * input to remove all but a whitelist of characters. Implementors should feel
  * free to extend this interface to accommodate their own data formats.
  *
- * PHP version 5.2
- *
  * @category  OWASP
  * @package   ESAPI
  * @author    jah <jah@jahboite.co.uk>

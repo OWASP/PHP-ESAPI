@@ -45,8 +45,6 @@ require_once dirname(__FILE__).'/errors/IntegrityException.php';
  * <LI>encryptFile</LI>
  * </UL>
  *
- * PHP version 5.2
- *
  * @category  OWASP
  * @package   ESAPI
  * @author    Jeff Williams <jeff.williams@aspectsecurity.com>

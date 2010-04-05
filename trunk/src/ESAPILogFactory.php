@@ -25,8 +25,6 @@
  * The LogFactory interface is intended to allow substitution of various logging
  * packages, while providing a common interface to access them.
  *
- * PHP version 5.2
- *
  * @category  OWASP
  * @package   ESAPI
  * @author    Rogan Dawes <rogan@dawes.za.net>

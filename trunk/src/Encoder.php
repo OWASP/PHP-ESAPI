@@ -46,8 +46,6 @@ require_once dirname(__FILE__) . '/codecs/Codec.php';
  * doubly encoded characters (using the same encoding scheme or two different
  * encoding schemes) should be rejected.
  *
- * PHP version 5.2
- *
  * @category  OWASP
  * @package   ESAPI
  * @author    Jeff Williams <jeff.williams@aspectsecurity.com>

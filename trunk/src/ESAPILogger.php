@@ -88,8 +88,6 @@
  * logging infrastructure. The ESAPI Reference Implementation is intended to
  * provide a simple functional example of an implementation.
  *
- * PHP version 5.2
- *
  * @category  OWASP
  * @package   ESAPI
  * @author    Jeff Williams <jeff.williams@aspectsecurity.com>

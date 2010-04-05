@@ -60,8 +60,6 @@ require_once dirname(__FILE__) . '/errors/AccessControlException.php';
  * String indref = request.getParameter( &quot;file&quot; );
  * File file = (File)map.getDirectReference( indref );
  * </pre>
- * 
- * PHP version 5.2
  *
  * @category  OWASP
  * @package   ESAPI

@@ -38,8 +38,6 @@ require_once dirname(__FILE__) . '/errors/ValidationException.php';
  * reference implementations and/or security control reference implementations
  * that were replaced with your own implementations.
  *
- * PHP version 5.2
- *
  * @category  OWASP
  * @package   ESAPI
  * @author    Mike Boberski <boberski_michael@bah.com>

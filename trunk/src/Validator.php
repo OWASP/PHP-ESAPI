@@ -45,8 +45,6 @@ require_once dirname(__FILE__).'/errors/ValidationException.php';
  * attempt to identify the invalid or disallowed characters are much more likely
  * to allow a bypass with encoding or other tricks.
  *
- * PHP version 5.2
- *
  * @category  OWASP
  * @package   ESAPI
  * @author    Jeff Williams <jeff.williams@aspectsecurity.com>

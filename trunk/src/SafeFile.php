@@ -29,8 +29,6 @@ require_once dirname(__FILE__).'/errors/ValidationException.php';
  * other unforeseen problems resulting from unprintable characters
  * causing problems in path lookups. This does _not_ prevent against
  * directory traversal attacks.
- * 
- * PHP version 5.2
  *
  * @category  OWASP
  * @package   ESAPI

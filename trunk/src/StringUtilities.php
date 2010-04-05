@@ -23,8 +23,6 @@
 
 /**
  * String utilities used in various filters.
- * 
- * PHP version 5.2
  *
  * @category  OWASP
  * @package   ESAPI

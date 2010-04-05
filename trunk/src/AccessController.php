@@ -83,8 +83,6 @@ require_once dirname(__FILE__) . '/errors/AccessControlException.php';
  * &lt;% } %&gt;
  * </pre>
  *
- * PHP version 5.2
- *
  * @category  OWASP
  * @package   ESAPI
  * @author    Jeff Williams <jeff.williams@aspectsecurity.com>
