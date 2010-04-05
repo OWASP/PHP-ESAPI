@@ -21,7 +21,7 @@ Initial versions of the following controls have been completed:
  * Validation rules - BaseValidationRule, CreditCardValidationRule, DateFormat, DateValidationRule, EmailAddressValidationRule, HTMLValidationRule, IntegerValidationRule, NumberValidationRule, StringValidationRule, URLValidationRule
  * Validator
 
-Updates are also under way to conform to the [http://pear.php.net/manual/en/standards.php PEAR coding standard]. All files are now Unix formatted.
+Updates are also under way to conform to the [http://pear.php.net/manual/en/standards.php PEAR coding standard]. All files are now Unix formatted. Indentation and whatnot are currently underway.
 
 *Note:*
 Just as with ESAPI for .NET, there are no User and Authenticator controls. They're designed specifically to assist Java-based username/password authentication mechanism implementations, they don't take into account the existence of e.g. PHP's HTTP authentication hooks, e.g. the predefined variables that are automagically available in the user's session (compared to Java's creating a custom session attribute, and so on). So for example AccessController makes decisions based on PHP_AUTH_USER's value.
