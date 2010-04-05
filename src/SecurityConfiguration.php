@@ -40,8 +40,6 @@
  * The ESAPI reference implementation (DefaultSecurityConfiguration.java) does
  * not encrypt its properties file.
  *
- * PHP version 5.2
- *
  * @category  OWASP
  * @package   ESAPI
  * @author    Jeff Williams <jeff.williams@aspectsecurity.com>

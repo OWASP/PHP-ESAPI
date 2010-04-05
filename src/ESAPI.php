@@ -29,8 +29,6 @@
  * ESAPI classes in use. Use the set methods to override the reference
  * implementations with instances of any custom ESAPI implementations.
  *
- * PHP version 5.2
- *
  * @category  OWASP
  * @package   ESAPI
  * @author    Mike Fauzy <mike.fauzy@aspectsecurity.com>

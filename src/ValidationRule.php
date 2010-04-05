@@ -31,8 +31,6 @@ require_once dirname(__FILE__) . '/errors/ValidationException.php';
 /**
  * ValidationRule Interface.
  *
- * PHP version 5.2
- *
  * @category  OWASP
  * @package   ESAPI
  * @author    Johannes B. Ullrich <jullrich@sans.edu>

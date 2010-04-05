@@ -41,8 +41,6 @@ require_once dirname(__FILE__) . '/errors/ExecutorException.php';
  *
  * <img src="doc-files/Executor.jpg">
  *
- * PHP version 5.2
- *
  * @category  OWASP
  * @package   ESAPI
  * @author    Jeff Williams <jeff.williams@aspectsecurity.com>

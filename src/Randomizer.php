@@ -34,8 +34,6 @@ require_once dirname(__FILE__) . '/errors/EncryptionException.php';
  * Weak sources of randomness can undermine a wide variety of security
  * mechanisms. The specific algorithm used is configurable in ESAPI.properties.
  *
- * PHP version 5.2
- *
  * @category  OWASP
  * @package   ESAPI
  * @author    Jeff Williams <jeff.williams@aspectsecurity.com>

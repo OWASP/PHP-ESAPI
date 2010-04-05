@@ -39,8 +39,6 @@ require_once dirname(__FILE__) . '/errors/IntrusionException.php';
  * events. Implementations can use this stream of information to detect both
  * normal and abnormal behavior.
  *
- * PHP version 5.2
- *
  * @category  OWASP
  * @package   ESAPI
  * @author    Jeff Williams <jeff.williams@aspectsecurity.com>

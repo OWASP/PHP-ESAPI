@@ -76,8 +76,6 @@ require_once dirname(__FILE__).'/errors/ValidationException.php';
  * <samp>
  * ValidationException e = errorList.getError("Name");
  * </samp>
- * 
- * PHP version 5.2
  *
  * @category  OWASP
  * @package   ESAPI
