@@ -623,7 +623,8 @@ class DefaultValidator implements Validator
      * @return true if the canonicalized input is a valid double or false
      *         otherwise.
      */
-    public function isValidDouble($context, $input, $minValue, $maxValue)
+    public function isValidDouble($context, $input, $minValue, $maxValue, 
+        $allowNull)
     {
         try
         {
