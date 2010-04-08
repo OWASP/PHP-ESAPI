@@ -81,7 +81,7 @@ class DefaultExecutor implements Executor {
          * note: this is PHP's equivalent to ESAPI4JAVA's overloaded executeSystemCommand($executable, $params, $workdir, $codec, $logParams)
          * note: the codec argument has been eliminated from this implementation since PHP's escapeshellcmd function does enough to not require explicit OS codecs
          */
-	function executeSystemCommand_effectLonghand($executable, $params, $workdir, $logParams)
+	function executeSystemCommandLonghand($executable, $params, $workdir, $logParams)
 	{
     	try {
     		
