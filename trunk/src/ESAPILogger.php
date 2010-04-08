@@ -192,7 +192,9 @@ interface ESAPILogger
      * higher will be logged from this point forward for all logs. All events
      * below this level will be discarded.
      *
-     * @param $level The level to set the logging level to.
+     * @param int $level The level to set the logging level to.
+     * 
+     * @return does not return a value.
      */
     function setLevel($level);
 
@@ -201,11 +203,14 @@ interface ESAPILogger
      * Log a fatal level security event if 'fatal' level logging is enabled and
      * also record the stack trace associated with the event.
      *
-     * @param $type the type of event - an ESAPILogger Type constant.
-     * @param $success boolean true indicates this was a successful event, false
-     *        indicates this was a failed event (the typical value).
-     * @param $message the message to log.
-     * @param $throwable the exception to be logged.
+     * @param int    $type      the type of event - an ESAPILogger Type constant.
+     * @param bool   $success   boolean true indicates this was a successful event, 
+     *                          false indicates this was a failed event (the typical
+     *                          value).
+     * @param string $message   the message to log.
+     * @param string $throwable the exception to be logged.
+     * 
+     * @return does not return a value.
      */
     function fatal($type, $success, $message, $throwable = null);
 
@@ -214,7 +219,7 @@ interface ESAPILogger
      * Allows the caller to determine if messages logged at this level will be
      * discarded, to avoid performing expensive processing.
      *
-     * @return true if fatal level messages will be output to the log.
+     * @return bool true if fatal level messages will be output to the log.
      */
     function isFatalEnabled();
 
@@ -223,11 +228,14 @@ interface ESAPILogger
      * Log an error level security event if 'error' level logging is enabled and
      * also record the stack trace associated with the event.
      *
-     * @param $type the type of event - an ESAPILogger Type constant.
-     * @param $success boolean true indicates this was a successful event, false
-     *        indicates this was a failed event (the typical value).
-     * @param $message the message to log.
-     * @param $throwable the exception to be logged.
+     * @param int    $type      the type of event - an ESAPILogger Type constant.
+     * @param bool   $success   boolean true indicates this was a successful event, 
+     *                          false indicates this was a failed event (the typical
+     *                          value).
+     * @param string $message   the message to log.
+     * @param string $throwable the exception to be logged.
+     * 
+     * @return does not return a value.
      */
     function error($type, $success, $message, $throwable = null);
 
@@ -236,7 +244,7 @@ interface ESAPILogger
      * Allows the caller to determine if messages logged at this level will be
      * discarded, to avoid performing expensive processing.
      *
-     * @return true if error level messages will be output to the log.
+     * @return bool true if error level messages will be output to the log.
      */
     function isErrorEnabled();
 
@@ -245,11 +253,14 @@ interface ESAPILogger
      * Log a warning level security event if 'warning' level logging is enabled and
      * also record the stack trace associated with the event.
      *
-     * @param $type the type of event - an ESAPILogger Type constant.
-     * @param $success boolean true indicates this was a successful event, false
-     *        indicates this was a failed event (the typical value).
-     * @param $message the message to log.
-     * @param $throwable the exception to be logged.
+     * @param int    $type      the type of event - an ESAPILogger Type constant.
+     * @param bool   $success   boolean true indicates this was a successful event,
+     *                          false indicates this was a failed event (the typical
+     *                          value).
+     * @param string $message   the message to log.
+     * @param string $throwable the exception to be logged.
+     * 
+     * @return does not return a value.
      */
     function warning($type, $success, $message, $throwable = null);
 
@@ -258,7 +269,7 @@ interface ESAPILogger
      * Allows the caller to determine if messages logged at this level will be
      * discarded, to avoid performing expensive processing.
      *
-     * @return true if warning level messages will be output to the log.
+     * @return bool true if warning level messages will be output to the log.
      */
     function isWarningEnabled();
 
@@ -267,11 +278,14 @@ interface ESAPILogger
      * Log an info level security event if 'info' level logging is enabled and
      * also record the stack trace associated with the event.
      *
-     * @param $type the type of event - an ESAPILogger Type constant.
-     * @param $success boolean true indicates this was a successful event, false
-     *        indicates this was a failed event (the typical value).
-     * @param $message the message to log.
-     * @param $throwable the exception to be logged.
+     * @param int    $type      the type of event - an ESAPILogger Type constant.
+     * @param bool   $success   boolean true indicates this was a successful event,
+     *                          false indicates this was a failed event (the 
+     *                          typical value).
+     * @param string $message   the message to log.
+     * @param string $throwable the exception to be logged.
+     * 
+     * @return does not return a value
      */
     function info($type, $success, $message, $throwable = null);
 
@@ -280,7 +294,7 @@ interface ESAPILogger
      * Allows the caller to determine if messages logged at this level will be
      * discarded, to avoid performing expensive processing.
      *
-     * @return true if info level messages will be output to the log.
+     * @return bool true if info level messages will be output to the log.
      */
     function isInfoEnabled();
 
@@ -289,11 +303,14 @@ interface ESAPILogger
      * Log a debug level security event if 'debug' level logging is enabled and
      * also record the stack trace associated with the event.
      *
-     * @param $type the type of event - an ESAPILogger Type constant.
-     * @param $success boolean true indicates this was a successful event, false
-     *        indicates this was a failed event (the typical value).
-     * @param $message the message to log.
-     * @param $throwable the exception to be logged.
+     * @param int    $type      the type of event - an ESAPILogger Type constant.
+     * @param bool   $success   boolean true indicates this was a successful event,
+     *                          false indicates this was a failed event (the 
+     *                          typical value).
+     * @param string $message   the message to log.
+     * @param string $throwable the exception to be logged.
+     * 
+     * @return does not return a value
      */
     function debug($type, $success, $message, $throwable = null);
 
@@ -302,7 +319,7 @@ interface ESAPILogger
      * Allows the caller to determine if messages logged at this level will be
      * discarded, to avoid performing expensive processing.
      *
-     * @return true if debug level messages will be output to the log.
+     * @return bool true if debug level messages will be output to the log.
      */
     function isDebugEnabled();
 
@@ -311,11 +328,14 @@ interface ESAPILogger
      * Log a trace level security event if 'trace' level logging is enabled and
      * also record the stack trace associated with the event.
      *
-     * @param $type the type of event - an ESAPILogger Type constant.
-     * @param $success boolean true indicates this was a successful event, false
-     *        indicates this was a failed event (the typical value).
-     * @param $message the message to log.
-     * @param $throwable the exception to be logged.
+     * @param int    $type      the type of event - an ESAPILogger Type constant.
+     * @param bool   $success   boolean true indicates this was a successful event, 
+     *                          false indicates this was a failed event (the typical
+     *                          value).
+     * @param string $message   the message to log.
+     * @param string $throwable the exception to be logged.
+     * 
+     * @return does not return a value.
      */
     function trace($type, $success, $message, $throwable = null);
 
@@ -324,7 +344,7 @@ interface ESAPILogger
      * Allows the caller to determine if messages logged at this level will be
      * discarded, to avoid performing expensive processing.
      *
-     * @return true if trace level messages will be output to the log.
+     * @return bool true if trace level messages will be output to the log.
      */
     function isTraceEnabled();
 
