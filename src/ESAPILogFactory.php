@@ -44,9 +44,9 @@ interface ESAPILogFactory
      * preexisting Logger associated with this module name, rather than
      * creating a new Logger.
      *
-     * @param $moduleName The name of the module requesting the logger.
+     * @param string $moduleName The name of the module requesting the logger.
      *
-     * @return The DefaultLogger associated with this module.
+     * @return ESAPILogger The DefaultLogger associated with this module.
      */
     function getLogger($moduleName);
 
