@@ -99,7 +99,7 @@ class ExecutorTest extends UnitTestCase
         	$executable = '%SYSTEMROOT%\\System32\\cmd.exe';
         	$params = array("/C", "dir");
         	$workdir = 'C:\\ridiculous';
-        	$result = $instance->executeSystemCommand_effectLonghand($executable, $params, $workdir, $codec, false);
+        	$result = $instance->executeSystemCommandLonghand($executable, $params, $workdir, $codec, false);
 	    	$result = ESAPI::getEncoder()->encodeForHTML($result);
 	    	echo "RESULT: $result<br /><br />\n";
 	    	$this->assertNull($result);
