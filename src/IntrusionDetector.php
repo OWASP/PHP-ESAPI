@@ -15,6 +15,8 @@
  * @package   ESAPI
  * @author    Jeff Williams <jeff.williams@aspectsecurity.com>
  * @author    Andrew van der Stock <vanderaj@owasp.org>
+ * @author    jah <jah@jahboite.co.uk>
+ * @author    Mike Boberski <boberski_michael@bah.com>
  * @copyright 2009-2010 The OWASP Foundation
  * @license   http://www.opensource.org/licenses/bsd-license.php New BSD license
  * @version   SVN: $Id$
@@ -43,6 +45,8 @@ require_once dirname(__FILE__) . '/errors/IntrusionException.php';
  * @package   ESAPI
  * @author    Jeff Williams <jeff.williams@aspectsecurity.com>
  * @author    Andrew van der Stock <vanderaj@owasp.org>
+ * @author    jah <jah@jahboite.co.uk>
+ * @author    Mike Boberski <boberski_michael@bah.com>
  * @copyright 2009-2010 The OWASP Foundation
  * @license   http://www.opensource.org/licenses/bsd-license.php New BSD license
  * @version   Release: @package_version@
@@ -63,7 +67,9 @@ interface IntrusionDetector
      * has reached any security thresholds, the appropriate security action can
      * be taken and logged.
      *
-     * @param $exception string exception thrown.
+     * @param string $exception string exception thrown.
+     * 
+     * @return does not return a value
      */
     function addException($exception);
 
@@ -78,8 +84,10 @@ interface IntrusionDetector
      * user's security event.  If the User has reached any security thresholds,
      * the appropriate security action can be taken and logged.
      *
-     * @param $eventName string event to add.
-     * @param $logMessage string message to log with the event.
+     * @param string $eventName  string event to add.
+     * @param string $logMessage string message to log with the event.
+     * 
+     * @return does not return a value.
      */
     function addEvent($eventName, $logMessage);
 
