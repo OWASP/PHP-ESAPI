@@ -17,6 +17,7 @@
  * @author    Andrew van der Stock <vanderaj@owasp.org>
  * @author    Linden Darling <Linden.Darling@jds.net.au>
  * @author    jah <jah@jahboite.co.uk>
+ * @author    Mike Boberski <boberski_michael@bah.com>
  * @copyright 2009-2010 The OWASP Foundation
  * @license   http://www.opensource.org/licenses/bsd-license.php New BSD license
  * @version   SVN: $Id$
@@ -52,6 +53,7 @@ require_once dirname(__FILE__) . '/codecs/Codec.php';
  * @author    Andrew van der Stock <vanderaj@owasp.org>
  * @author    Linden Darling <Linden.Darling@jds.net.au>
  * @author    jah <jah@jahboite.co.uk>
+ * @author    Mike Boberski <boberski_michael@bah.com>
  * @copyright 2009-2010 The OWASP Foundation
  * @license   http://www.opensource.org/licenses/bsd-license.php New BSD license
  * @version   Release: @package_version@
@@ -66,8 +68,10 @@ interface Encoder
     const CHAR_UPPERS        = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
     const CHAR_DIGITS        = '0123456789';
     const CHAR_SPECIALS      = '.-_!@$^*=~|+?';
-    const CHAR_LETTERS       = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
-    const CHAR_ALPHANUMERICS = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+    const CHAR_LETTERS       
+        = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    const CHAR_ALPHANUMERICS 
+        = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
 
     /*
      * Password character sets.
@@ -142,18 +146,18 @@ interface Encoder
      * the HTTPUtilties.getSafeFileUploads() method.
      *
      * For more information on form encoding, please refer to the
-     * <a href="http://www.w3.org/TR/html4/interact/forms.html#h-17.13.4">W3C specifications</a>.
+     * <a href="http://www.w3.org/TR/html4/interact/forms.html#h-17.13.4">
+     * W3C specifications</a>.
      *
-     * @see <a href="http://www.w3.org/TR/html4/interact/forms.html#h-17.13.4">W3C specifications</a>
-     *
-     * @param  $input string to canonicalize.
-     * @param  $strict true if checking for multiple and/or mixed encoding is
-     *         desired, false otherwise.
+     * @param string $input  string to canonicalize.
+     * @param bool   $strict true if checking for multiple and/or mixed encoding is
+     *                       desired, false otherwise.
      *
      * @return the canonicalized input string.
-     *
      * @throws IntrusionException if, in strict mode, canonicalization detects
      *         multiple or mixed encoding.
+     *         
+     * @see <a href="http://www.w3.org/TR/html4/interact/forms.html#h-17.13.4">W3C specifications</a>
      */
     function canonicalize($input, $strict = true);
 
@@ -161,11 +165,11 @@ interface Encoder
     /**
      * Encode data for use in Cascading Style Sheets (CSS) content.
      *
-     * @see <a href="http://www.w3.org/TR/CSS21/syndata.html#escaped-characters">CSS Syntax [w3.org]</a>
-     *
-     * @param  $input string to encode for CSS.
+     * @param string $input string to encode for CSS.
      *
      * @return the input string encoded for CSS.
+     * 
+     * @see <a href="http://www.w3.org/TR/CSS21/syndata.html#escaped-characters">CSS Syntax [w3.org]</a>
      */
     function encodeForCSS($input);
 
@@ -176,13 +180,13 @@ interface Encoder
      * Note that the following characters: 00-08, 0B-0C, 0E-1F and 7F-9F cannot
      * be used in HTML.
      *
+     * @param string $input string to encode for HTML.
+     *
+     * @return the input string encoded for HTML.
+     * 
      * @see <a href="http://en.wikipedia.org/wiki/Character_encodings_in_HTML">HTML Encodings [wikipedia.org]</a>
      * @see <a href="http://www.w3.org/TR/html4/sgml/sgmldecl.html">SGML Specification [w3.org]</a>
      * @see <a href="http://www.w3.org/TR/REC-xml/#charsets">XML Specification [w3.org]</a>
-     *
-     * @param  $input string to encode for HTML.
-     *
-     * @return the input string encoded for HTML.
      */
     function encodeForHTML($input);
 
@@ -190,7 +194,7 @@ interface Encoder
     /**
      * Encode data for use in HTML attributes.
      *
-     * @param  $input string to encode for an HTML attribute.
+     * @param string $input string to encode for an HTML attribute.
      *
      * @return the input string encoded for use as an HTML attribute.
      */
@@ -203,7 +207,7 @@ interface Encoder
      * taken to prevent putting user data directly into script code itself, as
      * no amount of encoding will prevent attacks there.
      *
-     * @param  $input string to encode for use in JavaScript.
+     * @param string $input string to encode for use in JavaScript.
      *
      * @return the input string encoded for use in JavaScript.
      */
@@ -219,7 +223,7 @@ interface Encoder
      * This method is not recommended as VBScript is only supported by Internet
      * Explorer.
      *
-     * @param  $input string to encode for use in VBScript.
+     * @param string $input string to encode for use in VBScript.
      *
      * @return the input string encoded for use in VBScript.
      */
@@ -234,9 +238,10 @@ interface Encoder
      * interface is the preferred approach. However, if for some reason this is
      * impossible, then this method is provided as a weaker alternative.
      *
-     * @param  $codec an instance of a Codec which will encode the input string
-     *         for the desired SQL database (e.g. MySQL, Oracle, etc.).
-     * @param  $input string to encode for use in a SQL query.
+     * @param Codec  $codec an instance of a Codec which will encode the input 
+     *                      string for the desired SQL database (e.g. MySQL, Oracle,
+     *                      etc.).
+     * @param string $input string to encode for use in a SQL query.
      *
      * @return the input string encoded for use in a SQL query.
      */
@@ -247,9 +252,10 @@ interface Encoder
      * Encode for an operating system command shell according to the selected
      * codec (appropriate codecs include the WindowsCodec and UnixCodec).
      *
-     * @param  $codec an instance of a Codec which will encode the input string
-     *         for the desired operating system (e.g. Windows, Unix, etc.).
-     * @param  $input string to encode for use in a command shell.
+     * @param Codec  $codec an instance of a Codec which will encode the input 
+     *                      string for the desired operating system (e.g. Windows,
+     *                      Unix, etc.).
+     * @param string $input string to encode for use in a command shell.
      *
      * @return the input string encoded for use in a command shell.
      */
@@ -259,7 +265,7 @@ interface Encoder
     /**
      * Encode data for use in LDAP queries.
      *
-     * @param  $input string to be encoded for use in LDAP queries.
+     * @param string $input string to be encoded for use in LDAP queries.
      *
      * @return the input string encoded for use in LDAP queries.
      */
@@ -269,7 +275,7 @@ interface Encoder
     /**
      * Encode data for use in an LDAP distinguished name.
      *
-     * @param  $input string to be encoded for an LDAP distinguished name.
+     * @param string $input string to be encoded for an LDAP distinguished name.
      *
      * @return the input string encoded for use in an LDAP distinguished name.
      */
@@ -290,7 +296,7 @@ interface Encoder
      * "http://www.packetstormsecurity.org/papers/bypass/Blind_XPath_Injection_20040518.pdf">
      * This paper</a> suggests disallowing ' and " in queries.
      *
-     * @param  $input string to be encoded for use in an XPath query.
+     * @param string $input string to be encoded for use in an XPath query.
      *
      * @return the input string encoded for use in an XPath query.
      */
@@ -307,7 +313,7 @@ interface Encoder
      * inclusion in an XML document and cannot use a parse, this method provides
      * a safe mechanism to do so.
      *
-     * @param  $input string to be encoded for use in an XML element.
+     * @param string $input string to be encoded for use in an XML element.
      *
      * @return the input string encoded for use in an XML element.
      */
@@ -324,7 +330,7 @@ interface Encoder
      * inclusion in an XML document and cannot use a parse, this method provides
      * a safe mechanism to do so.
      *
-     * @param  $input string to be encoded for use as an XML attribute.
+     * @param string $input string to be encoded for use as an XML attribute.
      *
      * @return the input string encoded for use in an XML attribute.
      */
@@ -336,7 +342,7 @@ interface Encoder
      * href="http://en.wikipedia.org/wiki/Percent-encoding">URL encoding</a>
      * on the entire string.
      *
-     * @param  $input string to be encoded for use in a URL.
+     * @param string $input string to be encoded for use in a URL.
      *
      * @return the input string encoded for use in a URL.
      */
@@ -348,7 +354,7 @@ interface Encoder
      * double-encoding. If this check passes, then the data is decoded using URL
      * decoding.
      *
-     * @param  $input string to be decoded.
+     * @param string $input string to be decoded.
      *
      * @return the input string decoded from URL.
      */
@@ -358,9 +364,9 @@ interface Encoder
     /**
      * Encode data with Base64 encoding.
      *
-     * @param  $input string to encode for Base64.
-     * @param  $wrap boolean the encoder will wrap lines every 64 characters of
-     *               output if true.
+     * @param string $input string to encode for Base64.
+     * @param bool   $wrap  boolean the encoder will wrap lines every 64 characters 
+     *                      of output if true.
      *
      * @return the input string encoded for Base64.
      */
@@ -370,7 +376,7 @@ interface Encoder
     /**
      * Decode data encoded with Base64 encoding.
      *
-     * @param  $input string to be decoded.
+     * @param string $input string to be decoded.
      *
      * @return the input string decoded from Base64.
      */
