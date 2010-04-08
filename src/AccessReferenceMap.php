@@ -16,6 +16,7 @@
  * @author    Jeff Williams <jeff.williams@aspectsecurity.com>
  * @author    Chris Schmidt <chrisisbeef@gmail.com>
  * @author    Andrew van der Stock <vanderaj@owasp.org>
+ * @author    Mike Boberski <boberski_michael@bah.com>
  * @copyright 2009-2010 The OWASP Foundation
  * @license   http://www.opensource.org/licenses/bsd-license.php New BSD license
  * @version   SVN: $Id$
@@ -66,6 +67,7 @@ require_once dirname(__FILE__) . '/errors/AccessControlException.php';
  * @author    Jeff Williams <jeff.williams@aspectsecurity.com>
  * @author    Chris Schmidt <chrisisbeef@gmail.com>
  * @author    Andrew van der Stock <vanderaj@owasp.org>
+ * @author    Mike Boberski <boberski_michael@bah.com>
  * @copyright 2009-2010 The OWASP Foundation
  * @license   http://www.opensource.org/licenses/bsd-license.php New BSD license
  * @version   Release: @package_version@
@@ -74,82 +76,76 @@ require_once dirname(__FILE__) . '/errors/AccessControlException.php';
 interface AccessReferenceMap
 {
 
-	/**
-	 * Get an iterator through the direct object references. No guarantee is made as 
-	 * to the order of items returned.
-	 * 
-	 * @return the iterator
-	 */
-	function iterator();
+    /**
+     * Get an iterator through the direct object references. No guarantee is made as 
+     * to the order of items returned.
+     * 
+     * @return iterator the iterator
+     */
+    function iterator();
 
-	/**
-	 * Get a safe indirect reference to use in place of a potentially sensitive
-	 * direct object reference. Developers should use this call when building
-	 * URL's, form fields, hidden fields, etc... to help protect their private
-	 * implementation information.
-	 * 
-	 * @param directReference
-	 * 		the direct reference
-	 * 
-	 * @return 
-	 * 		the indirect reference
-	 */
-	function getIndirectReference($directReference);
+    /**
+     * Get a safe indirect reference to use in place of a potentially sensitive
+     * direct object reference. Developers should use this call when building
+     * URL's, form fields, hidden fields, etc... to help protect their private
+     * implementation information.
+     * 
+     * @param string $directReference the direct reference
+     * 
+     * @return string the indirect reference
+     */
+    function getIndirectReference($directReference);
 
-	/**
-	 * Get the original direct object reference from an indirect reference.
-	 * Developers should use this when they get an indirect reference from a
-	 * request to translate it back into the real direct reference. If an
-	 * invalid indirect reference is requested, then an AccessControlException is
-	 * thrown.
-	 * 
-	 * @param indirectReference
-	 * 		the indirect reference
-	 * 
-	 * @return 
-	 * 		the direct reference
-	 * 
-	 * @throws AccessControlException 
-	 * 		if no direct reference exists for the specified indirect reference
-	 */
-	function getDirectReference($indirectReference);
+    /**
+     * Get the original direct object reference from an indirect reference.
+     * Developers should use this when they get an indirect reference from a
+     * request to translate it back into the real direct reference. If an
+     * invalid indirect reference is requested, then an AccessControlException is
+     * thrown.
+     * 
+     * @param string $indirectReference the indirect reference
+     * 
+     * @return string the direct reference
+     * 
+     * @throws AccessControlException if no direct reference exists for the 
+     *                                specified indirect reference
+     */
+    function getDirectReference($indirectReference);
 
-	/**
-	 * Adds a direct reference to the AccessReferenceMap, then generates and returns 
-	 * an associated indirect reference.
-	 *  
-	 * @param direct 
-	 * 		the direct reference
-	 * 
-	 * @return 
-	 * 		the corresponding indirect reference
-	 */
-	function addDirectReference($direct);
-	
-	/**
-	 * Removes a direct reference and its associated indirect reference from the AccessReferenceMap.
-	 * 
-	 * @param direct 
-	 * 		the direct reference to remove
-	 * 
-	 * @return 
-	 * 		the corresponding indirect reference
-	 * 
-	 * @throws AccessControlException
-	 */
-	function removeDirectReference($direct);
+    /**
+     * Adds a direct reference to the AccessReferenceMap, then generates and returns 
+     * an associated indirect reference.
+     *  
+     * @param string $direct the direct reference
+     * 
+     * @return string the corresponding indirect reference
+     */
+    function addDirectReference($direct);
 
-	/**
-	 * Updates the access reference map with a new set of direct references, maintaining
-	 * any existing indirect references associated with items that are in the new list.
-	 * New indirect references could be generated every time, but that
-	 * might mess up anything that previously used an indirect reference, such
-	 * as a URL parameter. 
-	 * 
-	 * @param directReferences
-	 * 		a Set of direct references to add
-	 */
-	function update($directReferences);
+    /**
+     * Removes a direct reference and its associated indirect reference from
+     * the AccessReferenceMap.
+     * 
+     * @param string $direct the direct reference to remove
+     * 
+     * @return does not return a avalue
+     * 
+     * @throws AccessControlException
+     */
+    function removeDirectReference($direct);
+
+    /**
+     * Updates the access reference map with a new set of direct references, 
+     * maintaining any existing indirect references associated with items that 
+     * are in the new list. New indirect references could be generated every time, 
+     * but that might mess up anything that previously used an indirect reference, 
+     * such as a URL parameter. 
+     * 
+     * @param string $directReferences a Set of direct references to add
+     * 
+     * @return does not return a avalue
+     */
+    function update($directReferences);
 
 }
 ?>
