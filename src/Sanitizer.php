@@ -42,43 +42,45 @@ interface Sanitizer
      * 
      * This implementation uses HTMLPurifier {@link http://htmlpurifier.org}. 
      * 
-     * @param  $context A descriptive name of the parameter that you are
-     *         validating (e.g. ProfilePage_Sig). This value is used by any
-     *         logging or error handling that is done with respect to the value
-     *         passed in.
-     * @param  $input The actual user input data to validate.
+     * @param string $context A descriptive name of the parameter that you are
+     *                        validating (e.g. ProfilePage_Sig). This value is 
+     *                        used by any logging or error handling that is done 
+     *                        with respect to the value passed in.
+     * @param string $input   The actual user input data to validate.
      *
-     * @return valid, "safe" HTML.
+     * @return string valid, "safe" HTML.
      */
     function getSanitizedHTML($context, $input);
     
     /**
      * Returns valid, "safe" email address.
      * 
-     * This implementation uses a PHP filter {@link http://php.net/manual/en/filter.filters.sanitize.php}. 
+     * This implementation uses a PHP filter 
+     * {@link http://php.net/manual/en/filter.filters.sanitize.php}. 
      * 
-     * @param  $context A descriptive name of the parameter that you are
-     *         validating (e.g. ProfilePage_Sig). This value is used by any
-     *         logging or error handling that is done with respect to the value
-     *         passed in.
-     * @param  $input The actual user input data to validate.
+     * @param string $context A descriptive name of the parameter that you are
+     *                        validating (e.g. ProfilePage_Sig). This value is 
+     *                        used by any logging or error handling that is done 
+     *                        with respect to the value passed in.
+     * @param string $input   The actual user input data to validate.
      *
-     * @return valid, "safe" email address.
+     * @return string valid, "safe" email address.
      */
     function getSanitizedEmailAddress($context, $input);
     
     /**
      * Returns valid, "safe" URL.
      * 
-     * This implementation uses a PHP filter {@link http://php.net/manual/en/filter.filters.sanitize.php}. 
+     * This implementation uses a PHP filter 
+     * {@link http://php.net/manual/en/filter.filters.sanitize.php}. 
      * 
-     * @param  $context A descriptive name of the parameter that you are
-     *         validating (e.g. ProfilePage_Sig). This value is used by any
-     *         logging or error handling that is done with respect to the value
-     *         passed in.
-     * @param  $input The actual user input data to validate.
+     * @param string $context A descriptive name of the parameter that you are
+     *                        validating (e.g. ProfilePage_Sig). This value is 
+     *                        used by any logging or error handling that is done 
+     *                        with respect to the value passed in.
+     * @param string $input   The actual user input data to validate.
      *
-     * @return valid, "safe" URL.
+     * @return string valid, "safe" URL.
      */
     function getSanitizedURL($context, $input);
 
@@ -86,13 +88,13 @@ interface Sanitizer
      * Generically attempts to sanitize English language words based on the
      * provided guess by calculating and comparing metaphone values. 
      * 
-     * @param  $context A descriptive name of the parameter that you are
-     *         validating (e.g. ProfilePage_Sig). This value is used by any
-     *         logging or error handling that is done with respect to the value
-     *         passed in.
-     * @param  $input The actual user input data to validate.
+     * @param string $context A descriptive name of the parameter that you are
+     *                        validating (e.g. ProfilePage_Sig). This value is 
+     *                        used by any logging or error handling that is done 
+     *                        with respect to the value passed in.
+     * @param string $input   The actual user input data to validate.
      *
-     * @return valid, "safe" word.
+     * @return string valid, "safe" word.
      */
     function getSanitizedWord($context, $input);    
 }
