@@ -52,7 +52,7 @@ class DefaultExecutor implements Executor {
 	{
 		$workdir = $this->config->getWorkingDirectory();
     	$logParams = false;
-    	return $this->executeSystemCommand_effectLonghand($executable, $params, $workdir, $logParams);
+    	return $this->executeSystemCommandLonghand($executable, $params, $workdir, $logParams);
 	}
  	
  	/**
