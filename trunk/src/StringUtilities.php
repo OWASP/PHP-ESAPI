@@ -36,58 +36,67 @@
 class StringUtilities
 {
 
-	/**
-	 * Removes all unprintable characters from a string 
-	 * and replaces with a space for use in an HTTP header
-	 * @param input
-	 * @return the stripped header
-	 */
-	public static function stripControls( $input ) {
-		if (empty($input)) {
-			return '';
-		}
-
-		$i = str_split($input);
-		
-		$sb = '';
-		foreach ( $i as $c )
-		{
-			if ( $c > chr(32) && $c < chr(127) ) {
-				$sb .= $c;
-			} else {
-				$sb .= ' ';
-			}
-		}
-		
-		return $sb;
-	}
-
-	
     /**
-     * Union two character arrays.
+     * Removes all unprintable characters from a string 
+     * and replaces with a space for use in an HTTP header
      * 
-     * @param c1 the c1
-     * @param c2 the c2
-     * @return the char[]
+     * @param string $input a string that may have unprintable characters
+     * 
+     * @return string the stripped header
      */
-    public static function union($c1, $c2) {
-    	if (empty($c1) && empty($c2))
-    	{
-    		return null;
-    	}
-    	
-		return sort(array_unique(array_merge($c1, $c2)));
+    public static function stripControls( $input ) 
+    {
+        if (empty($input)) {
+            return '';
+        }
+
+        $i = str_split($input);
+
+        $sb = '';
+        foreach ( $i as $c ) {
+            if ( $c > chr(32) && $c < chr(127) ) {
+                $sb .= $c;
+            } else {
+                $sb .= ' ';
+            }
+        }
+
+        return $sb;
     }
 
 
-	/**
-     * Returns true if the character is contained in the provided StringBuffer.
+    /**
+     * Union two character arrays.
+     * 
+     * @param string $c1 the first character array
+     * @param string $c2 the second character array
+     * 
+     * @return array the union of the two character arrays
      */
-    public static function contains($haystack, $c) {
-    	if ( empty($haystack) || empty($c) ) {
-    		return false;
-    	}
-    	
-    	return ( strpos($haystack, $c) !== false ) ? true : false;
+    public static function union($c1, $c2) 
+    {
+        if (empty($c1) && empty($c2)) {
+            return null;
+        }
+
+        return sort(array_unique(array_merge($c1, $c2)));
+    }
+
+
+    /**
+     * Returns true if the character is contained in the provided StringBuffer.
+     * 
+     * @param string $haystack the string to search
+     * @param string $c        the character to search for in the string
+     * 
+     * @return bool TRUE, if the character is found, false otherwise
+     */
+    public static function contains($haystack, $c) 
+    {
+        if ( empty($haystack) || empty($c) ) {
+            return false;
+        }
+
+        return ( strpos($haystack, $c) !== false ) ? true : false;
     }
 }
