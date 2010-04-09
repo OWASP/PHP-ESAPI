@@ -48,7 +48,9 @@ interface ValidationRule
      * Sets the boolean allowNull property which, if set true, will allow empty
      * inputs to validate as true.
      *
-     * @param  $flag boolean true if empty inputs should validate as true.
+     * @param bool $flag TRUE, if empty inputs should validate as true.
+     * 
+     * @return does not return a value.
      */
     public function setAllowNull($flag);
 
@@ -56,7 +58,9 @@ interface ValidationRule
     /**
      * Sets a descriptive name for the validator e.g. CreditCardNumber.
      *
-     * @param  $typeName string name describing the validator.
+     * @param string $typeName name describing the validator.
+     * 
+     * @return does not return a value.
      */
     public function setTypeName($typeName);
 
@@ -73,7 +77,9 @@ interface ValidationRule
      * Sets an instance of an encoder class which should provide a
      * canonicalize method.
      *
-     * @param  $encoder object which provides a canonicalize method.
+     * @param Encoder $encoder Encoder which provides a canonicalize method.
+     * 
+     * @return does not return a value.
      */
     public function setEncoder($encoder);
 
@@ -83,11 +89,13 @@ interface ValidationRule
      * Inputs will cause a descriptive ValidationException to be thrown. Inputs
      * that are obviously an attack will cause an IntrusionException.
      *
-     * @param  $context A descriptive name of the parameter that you are
-     *         validating (e.g., LoginPage_UsernameField). This value is used by
-     *         any logging or error handling that is done with respect to the
-     *         value passed in.
-     * @param  $input The actual user input data to validate.
+     * @param string $context A descriptive name of the parameter that you are
+     *                        validating (e.g., LoginPage_UsernameField). This 
+     *                        value is used by any logging or error handling that 
+     *                        is done with respect to the value passed in.
+     * @param string $input   The actual user input data to validate.
+     * 
+     * @return does not return a value.
      */
     public function assertValid($context, $input);
 
@@ -97,11 +105,11 @@ interface ValidationRule
      * Throws ValidationException if the input is not valid or
      * IntrusionException if the input is an obvious attack.
      *
-     * @param  $context A descriptive name of the parameter that you are
-     *         validating (e.g., LoginPage_UsernameField). This value is used by
-     *         any logging or error handling that is done with respect to the
-     *         value passed in.
-     * @param  $input The actual string user input data to validate.
+     * @param string $context A descriptive name of the parameter that you are
+     *                        validating (e.g., LoginPage_UsernameField). This 
+     *                        value is used by any logging or error handling that 
+     *                        is done with respect to the value passed in.
+     * @param string $input   The actual string user input data to validate.
      *
      * @return string canonicalized, valid input.
      */
@@ -113,15 +121,15 @@ interface ValidationRule
      * is thrown, this method will return sanitized input which may or may not
      * have any similarity to the original input.
      *
-     * @param  $context A descriptive name of the parameter that you are
-     *         validating (e.g., LoginPage_UsernameField). This value is used by
-     *         any logging or error handling that is done with respect to the
-     *         value passed in.
-     * @param  $input The actual user input data to validate.
+     * @param string $context A descriptive name of the parameter that you are
+     *                        validating (e.g., LoginPage_UsernameField). This 
+     *                        value is used by any logging or error handling that 
+     *                        is done with respect to the value passed in.
+     * @param string $input   The actual user input data to validate.
      *
-     * @return valid, canonicalized input or sanitized input or a default value.
-     *
-     * @throws IntrusionException.
+     * @return string valid, canonicalized input or sanitized input or a default 
+     *                value.
+     * @throws IntrusionException if intrusion detected
      */
     public function getSafe($context, $input);
 
@@ -129,13 +137,13 @@ interface ValidationRule
     /**
      * Returns boolean true if the input is valid, false otherwise.
      *
-     * @param  $context A descriptive name of the parameter that you are
-     *         validating (e.g., LoginPage_UsernameField). This value is used by
-     *         any logging or error handling that is done with respect to the
-     *         value passed in.
-     * @param  $input The actual user input data to validate.
+     * @param string $context A descriptive name of the parameter that you are
+     *                        validating (e.g., LoginPage_UsernameField). This 
+     *                        value is used by any logging or error handling that 
+     *                        is done with respect to the value passed in.
+     * @param string $input   The actual user input data to validate.
      *
-     * @return boolean true if the input is valid, false otherwise.
+     * @return bool true if the input is valid, false otherwise.
      */
     public function isValid($context, $input);
 
@@ -147,13 +155,13 @@ interface ValidationRule
      * getSafe method only instead of throwing an exception, return some default
      * value.
      *
-     * @param  $context A descriptive name of the parameter that you are
-     *         validating (e.g., LoginPage_UsernameField). This value is used by
-     *         any logging or error handling that is done with respect to the
-     *         value passed in.
-     * @param  $input The actual user input data to validate.
+     * @param string $context A descriptive name of the parameter that you are
+     *                        validating (e.g., LoginPage_UsernameField). This 
+     *                        value is used by any logging or error handling that 
+     *                        is done with respect to the value passed in.
+     * @param string $input   The actual user input data to validate.
      *
-     * @return a parsed version of the input or a default value.
+     * @return string a parsed version of the input or a default value.
      */
     public function sanitize($context, $input);
 
@@ -162,10 +170,10 @@ interface ValidationRule
      * Returns the supplied input string after removing any characters not
      * present in the supplied whitelist.
      *
-     * @param  $input string input to be filtered.
-     * @param  $whitelist array or string of whitelist characters.
+     * @param string $input string input to be filtered.
+     * @param array  $list  array or string of whitelist characters.
      *
-     * @return string of characters from $input that are present in $whitelist.
+     * @return string a string of characters from $input that are present in $list.
      */
     public function whitelist($input, $list);
 
