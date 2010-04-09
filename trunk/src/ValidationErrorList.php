@@ -86,65 +86,73 @@ require_once dirname(__FILE__).'/errors/ValidationException.php';
  * @version   Release: @package_version@
  * @link      http://www.owasp.org/index.php/ESAPI
  */
-class ValidationErrorList 
+class ValidationErrorList
 {
 
-	/**
-	 * Error list of ValidationException's
-	 */
-	// private HashMap errorList = new HashMap();
+    /**
+     * Error list of ValidationException's
+     */
+    // private HashMap errorList = new HashMap();
 
-	/**
-	 * Adds a new error to list with a unique named context.
-	 * No action taken if either element is null. 
-	 * Existing contexts will be overwritten.
-	 * 
-	 * @param context unique named context for this ValidationErrorList
-	 * @param ve
-	 */
-	public function addError($context, $ve) {
-//		if (getError(context) != null) throw new RuntimeException("Context (" + context + ") already exists, programmer error");
-//		
-//		if ((context != null) && (ve != null)) {
-//			errorList.put(context, ve);
-//		}
-	}
+    /**
+     * Adds a new error to list with a unique named context.
+     * No action taken if either element is null. 
+     * Existing contexts will be overwritten.
+     * 
+     * @param string $context unique named context for this ValidationErrorList
+     * @param string $ve      todo
+     * 
+     * @return string todo
+     */
+    public function addError($context, $ve) 
+    {
+        //		if (getError(context) != null) throw new RuntimeException("Context (" + context + ") already exists, programmer error");
+        //		
+        //		if ((context != null) && (ve != null)) {
+        //			errorList.put(context, ve);
+        //		}
+    }
 
-	/**
-	 * Returns list of ValidationException, or empty list of no errors exist.
-	 * 
-	 * @return List
-	 */
-	public function errors() {
-//		return new ArrayList( errorList.values() );
-	}
+    /**
+     * Returns list of ValidationException, or empty list of no errors exist.
+     * 
+     * @return arrray todo
+     */
+    public function errors() 
+    {
+        //		return new ArrayList( errorList.values() );
+    }
 
-	/**
-	 * Retrieves ValidationException for given context if one exists.
-	 * 
-	 * @param context unique name for each error
-	 * @return ValidationException or null for given context
-	 */
-	public function getError($context) {
-//		if (context == null) return null;		
-//		return (ValidationException)errorList.get(context);
-	}
+    /**
+     * Retrieves ValidationException for given context if one exists.
+     * 
+     * @param string $context unique name for each error
+     * 
+     * @return ValidationException or null for given context
+     */
+    public function getError($context) 
+    {
+        //		if (context == null) return null;		
+        //		return (ValidationException)errorList.get(context);
+    }
 
-	/**
-	 * Returns true if no error are present.
-	 * 
-	 * @return boolean
-	 */
-	public function isEmpty() {
-//		return errorList.isEmpty();
-	}
-	
-	/**
-	 * Returns the numbers of errors present.
-	 * 
-	 * @return boolean
-	 */
-	public function size() {
-//		return errorList.size();
-	}
+    /**
+     * Returns true if no error are present.
+     * 
+     * @return bool todo
+     */
+    public function isEmpty() 
+    {
+        //		return errorList.isEmpty();
+    }
+
+    /**
+     * Returns the numbers of errors present.
+     * 
+     * @return bool todo
+     */
+    public function size() 
+    {
+        //		return errorList.size();
+    }
 }
