@@ -99,11 +99,11 @@
  * @version   Release: @package_version@
  * @link      http://www.owasp.org/index.php/ESAPI
  */
-interface ESAPILogger
+interface Logger
 {
 
     /*
-     * The ESAPILogger interface defines 4 event types: SECURITY, USABILITY,
+     * The Logger interface defines 4 event types: SECURITY, USABILITY,
      * PERFORMANCE and FUNCTIONALITY.  The reference implementation of ESAPI
      * submits events for logging of the type SECURITY (exlusively).
      */
@@ -132,7 +132,7 @@ interface ESAPILogger
     const FUNCTIONALITY = 'FUNCTIONALITY';
 
     /*
-     * The ESAPILogger interface defines 6 logging levels: FATAL, ERROR,
+     * The Logger interface defines 6 logging levels: FATAL, ERROR,
      * WARNING, INFO, DEBUG, TRACE. It also supports ALL, an alias of TRACE
      * which logs all events, and OFF, which disables all logging. Your
      * implementation can extend or change this list if desired.
@@ -203,7 +203,7 @@ interface ESAPILogger
      * Log a fatal level security event if 'fatal' level logging is enabled and
      * also record the stack trace associated with the event.
      *
-     * @param int    $type      the type of event - an ESAPILogger Type constant.
+     * @param int    $type      the type of event - an Logger Type constant.
      * @param bool   $success   boolean true indicates this was a successful event, 
      *                          false indicates this was a failed event (the typical
      *                          value).
@@ -228,7 +228,7 @@ interface ESAPILogger
      * Log an error level security event if 'error' level logging is enabled and
      * also record the stack trace associated with the event.
      *
-     * @param int    $type      the type of event - an ESAPILogger Type constant.
+     * @param int    $type      the type of event - an Logger Type constant.
      * @param bool   $success   boolean true indicates this was a successful event, 
      *                          false indicates this was a failed event (the typical
      *                          value).
@@ -253,7 +253,7 @@ interface ESAPILogger
      * Log a warning level security event if 'warning' level logging is enabled and
      * also record the stack trace associated with the event.
      *
-     * @param int    $type      the type of event - an ESAPILogger Type constant.
+     * @param int    $type      the type of event - an Logger Type constant.
      * @param bool   $success   boolean true indicates this was a successful event,
      *                          false indicates this was a failed event (the typical
      *                          value).
@@ -278,7 +278,7 @@ interface ESAPILogger
      * Log an info level security event if 'info' level logging is enabled and
      * also record the stack trace associated with the event.
      *
-     * @param int    $type      the type of event - an ESAPILogger Type constant.
+     * @param int    $type      the type of event - an Logger Type constant.
      * @param bool   $success   boolean true indicates this was a successful event,
      *                          false indicates this was a failed event (the 
      *                          typical value).
@@ -303,7 +303,7 @@ interface ESAPILogger
      * Log a debug level security event if 'debug' level logging is enabled and
      * also record the stack trace associated with the event.
      *
-     * @param int    $type      the type of event - an ESAPILogger Type constant.
+     * @param int    $type      the type of event - an Logger Type constant.
      * @param bool   $success   boolean true indicates this was a successful event,
      *                          false indicates this was a failed event (the 
      *                          typical value).
@@ -328,7 +328,7 @@ interface ESAPILogger
      * Log a trace level security event if 'trace' level logging is enabled and
      * also record the stack trace associated with the event.
      *
-     * @param int    $type      the type of event - an ESAPILogger Type constant.
+     * @param int    $type      the type of event - an Logger Type constant.
      * @param bool   $success   boolean true indicates this was a successful event, 
      *                          false indicates this was a failed event (the typical
      *                          value).

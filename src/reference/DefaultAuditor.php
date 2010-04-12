@@ -23,7 +23,7 @@
  */
 require_once dirname(__FILE__) .
     '/../../lib/apache-log4php/trunk/src/main/php/Logger.php';
-require_once dirname(__FILE__).'/../ESAPILogger.php';
+require_once dirname(__FILE__).'/../Logger.php';
 
 
 /**
@@ -40,7 +40,7 @@ require_once dirname(__FILE__).'/../ESAPILogger.php';
  * @since  1.6
  *
  */
-class DefaultLogger implements ESAPILogger {
+class DefaultLogger implements Logger {
 
     /**
      * An instance of Apache Log4PHP.
@@ -79,7 +79,7 @@ class DefaultLogger implements ESAPILogger {
      * if the application is restarted, the log level will revert to the level
      * defined in the ESAPI SecurityConfiguration properties file.
      *
-     * @param $level the level to set - an ESAPILogger Level constant.
+     * @param $level the level to set - an Logger Level constant.
      */
     public function setLevel($level)
     {
@@ -92,7 +92,7 @@ class DefaultLogger implements ESAPILogger {
         catch (Exception $e)
         {
             $this->error(
-                ESAPILogger::SECURITY,
+                Logger::SECURITY,
                 false,
                 'IllegalArgumentException',
                 $e
@@ -105,7 +105,7 @@ class DefaultLogger implements ESAPILogger {
      * Log a fatal level security event if 'fatal' level logging is enabled and
      * also record the stack trace associated with the event.
      *
-     * @param $type the type of event - an ESAPILogger Type constant.
+     * @param $type the type of event - an Logger Type constant.
      * @param $success boolean true indicates this was a successful event, false
      *        indicates this was a failed event (the typical value).
      * @param $message the message to log.
@@ -113,7 +113,7 @@ class DefaultLogger implements ESAPILogger {
      */
     function fatal($type, $success, $message, $throwable = null)
     {
-        $this->log(ESAPILogger::FATAL, $type, $success, $message, $throwable);
+        $this->log(Logger::FATAL, $type, $success, $message, $throwable);
     }
 
 
@@ -133,7 +133,7 @@ class DefaultLogger implements ESAPILogger {
      * Log an error level security event if 'error' level logging is enabled and
      * also record the stack trace associated with the event.
      *
-     * @param $type the type of event - an ESAPILogger Type constant.
+     * @param $type the type of event - an Logger Type constant.
      * @param $success boolean true indicates this was a successful event, false
      *        indicates this was a failed event (the typical value).
      * @param $message the message to log.
@@ -141,7 +141,7 @@ class DefaultLogger implements ESAPILogger {
      */
     function error($type, $success, $message, $throwable = null)
     {
-        $this->log(ESAPILogger::ERROR, $type, $success, $message, $throwable);
+        $this->log(Logger::ERROR, $type, $success, $message, $throwable);
     }
 
 
@@ -161,7 +161,7 @@ class DefaultLogger implements ESAPILogger {
      * Log a warning level security event if 'warning' level logging is enabled and
      * also record the stack trace associated with the event.
      *
-     * @param $type the type of event - an ESAPILogger Type constant.
+     * @param $type the type of event - an Logger Type constant.
      * @param $success boolean true indicates this was a successful event, false
      *        indicates this was a failed event (the typical value).
      * @param $message the message to log.
@@ -169,7 +169,7 @@ class DefaultLogger implements ESAPILogger {
      */
     function warning($type, $success, $message, $throwable = null)
     {
-        $this->log(ESAPILogger::WARNING, $type, $success, $message, $throwable);
+        $this->log(Logger::WARNING, $type, $success, $message, $throwable);
     }
 
 
@@ -189,7 +189,7 @@ class DefaultLogger implements ESAPILogger {
      * Log an info level security event if 'info' level logging is enabled and
      * also record the stack trace associated with the event.
      *
-     * @param $type the type of event - an ESAPILogger Type constant.
+     * @param $type the type of event - an Logger Type constant.
      * @param $success boolean true indicates this was a successful event, false
      *        indicates this was a failed event (the typical value).
      * @param $message the message to log.
@@ -197,7 +197,7 @@ class DefaultLogger implements ESAPILogger {
      */
     function info($type, $success, $message, $throwable = null)
     {
-        $this->log(ESAPILogger::INFO, $type, $success, $message, $throwable);
+        $this->log(Logger::INFO, $type, $success, $message, $throwable);
     }
 
 
@@ -217,7 +217,7 @@ class DefaultLogger implements ESAPILogger {
      * Log a debug level security event if 'debug' level logging is enabled and
      * also record the stack trace associated with the event.
      *
-     * @param $type the type of event - an ESAPILogger Type constant.
+     * @param $type the type of event - an Logger Type constant.
      * @param $success boolean true indicates this was a successful event, false
      *        indicates this was a failed event (the typical value).
      * @param $message the message to log.
@@ -225,7 +225,7 @@ class DefaultLogger implements ESAPILogger {
      */
     function debug($type, $success, $message, $throwable = null)
     {
-        $this->log(ESAPILogger::DEBUG,$type, $success, $message, $throwable);
+        $this->log(Logger::DEBUG,$type, $success, $message, $throwable);
     }
 
 
@@ -245,7 +245,7 @@ class DefaultLogger implements ESAPILogger {
      * Log a trace level security event if 'trace' level logging is enabled and
      * also record the stack trace associated with the event.
      *
-     * @param $type the type of event - an ESAPILogger Type constant.
+     * @param $type the type of event - an Logger Type constant.
      * @param $success boolean true indicates this was a successful event, false
      *        indicates this was a failed event (the typical value).
      * @param $message the message to log.
@@ -253,7 +253,7 @@ class DefaultLogger implements ESAPILogger {
      */
     function trace($type, $success, $message, $throwable = null)
     {
-        $this->log(ESAPILogger::TRACE, $type, $success, $message, $throwable);
+        $this->log(Logger::TRACE, $type, $success, $message, $throwable);
     }
 
 
@@ -285,9 +285,9 @@ class DefaultLogger implements ESAPILogger {
      * If the supplied logging level is below the current logging threshold then
      * the message will be discarded.
      *
-     * @param $level the priority level of the event - an ESAPILogger Level
+     * @param $level the priority level of the event - an Logger Level
      *        constant.
-     * @param $type the type of the event - an ESAPILogger Event constant.
+     * @param $type the type of the event - an Logger Event constant.
      * @param $success boolean true indicates this was a successful event, false
      *        indicates this was a failed event (the typical value).
      * @param $message the message to be logged.
@@ -520,21 +520,21 @@ class DefaultLogger implements ESAPILogger {
         {
             switch ($level)
             {
-                case ESAPILogger::ALL:
+                case Logger::ALL:
                     /* Same as TRACE */
-                case ESAPILogger::TRACE:
+                case Logger::TRACE:
                     return LoggerLevel::getLevelAll();
-                case ESAPILogger::DEBUG:
+                case Logger::DEBUG:
                     return LoggerLevel::getLevelDebug();
-                case ESAPILogger::INFO:
+                case Logger::INFO:
                     return LoggerLevel::getLevelInfo();
-                case ESAPILogger::WARNING:
+                case Logger::WARNING:
                     return LoggerLevel::getLevelWarn();
-                case ESAPILogger::ERROR:
+                case Logger::ERROR:
                     return LoggerLevel::getLevelError();
-                case ESAPILogger::FATAL:
+                case Logger::FATAL:
                     return LoggerLevel::getLevelFatal();
-                case ESAPILogger::OFF:
+                case Logger::OFF:
                     return LoggerLevel::getLevelOff();
                 default: {
                     throw new Exception(
