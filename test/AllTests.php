@@ -51,13 +51,13 @@ $test = new GroupTest('Core Function Helper Tests');
     $test->addTestFile(dirname(__FILE__).'/codecs/UnixCodecTest.php');
     $test->addTestFile(dirname(__FILE__).'/codecs/VBScriptCodecTest.php');
     $test->addTestFile(dirname(__FILE__).'/codecs/WindowsCodecTest.php');
-    $test->addTestFile(dirname(__FILE__).'/reference/HTTPUtilitiesTest.php');
+//    $test->addTestFile(dirname(__FILE__).'/reference/HTTPUtilitiesTest.php');
     $test->addTestFile(dirname(__FILE__).'/reference/RandomizerTest.php');
     $test->addTestFile(dirname(__FILE__).'/reference/StringUtilitiesTest.php');
 $test->run(new HTMLReporter());
 
 $test = new GroupTest('Reference Implementation Tests');
-    $test->addTestFile(dirname(__FILE__).'/reference/AccessControllerTest.php');
+//    $test->addTestFile(dirname(__FILE__).'/reference/AccessControllerTest.php');
     $test->addTestFile(dirname(__FILE__).'/reference/IntegerAccessReferenceMapTest.php');
     $test->addTestFile(dirname(__FILE__).'/reference/RandomAccessReferenceMapTest.php');
     $test->addTestFile(dirname(__FILE__).'/reference/LoggerTest.php');
