@@ -1,15 +1,6 @@
 #summary Guidance on overloading workaround
 #sidebar TableOfContents
 
-
-Please use the following convention of, rather than parameter types, intended use of the function, in terms of security check(s) and security effect(s). 
-<br><br>
-I.e.,
-<br><br>
-`_checkXXX     //i.e. additional security check performed`
-<br>
-`_effectXXX     //i.e. additional security effect results`
-<br><br> 
 E.g.,
 <br><br> 
 `logHTTPRequest(HttpServletRequest request, Logger logger)`
@@ -19,4 +10,4 @@ E.g.,
 but
 <br><br> 
 `logHTTPRequest(HttpServletRequest request, Logger logger, List parameterNamesToObfuscate)`
-<br><br>... is `logHTTPRequest_effectObfuscate`
+<br><br>... is `logHTTPRequestObfuscate`
