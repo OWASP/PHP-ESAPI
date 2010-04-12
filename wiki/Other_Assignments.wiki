@@ -3,4 +3,4 @@
 The following items have been assigned:
 
 || *Assignment* || *Current status* || *Assignee* || *Notes* ||
-|| PEAR coding standard indentation, other conversion || In progress || Unassigned || Mike's additional thoughts, [https://lists.owasp.org/pipermail/esapi-php/2010-February/000624.html here] ||
+|| PEAR coding standard indentation, other conversion || In progress || Mike||  ||
