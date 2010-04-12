@@ -43,7 +43,7 @@ class ExecutorTest extends UnitTestCase
     {   	
     	if(substr(PHP_OS, 0, 3) != 'WIN')
         {
-        	echo "testExecuteWindowsSystemCommand - on non-Windows platform, exiting<br />\n";
+//        	echo "testExecuteWindowsSystemCommand - on non-Windows platform, exiting<br />\n";
         	return; // Not windows, not going to execute this path
         }
         
@@ -56,7 +56,7 @@ class ExecutorTest extends UnitTestCase
 	    	$params = array("/C", "dir");
 	    	$result = $instance->executeSystemCommand($executable, $params);
 	    	$result = ESAPI::getEncoder()->encodeForHTML($result);
-	    	echo "RESULT: $result<br /><br />\n";
+//	    	echo "RESULT: $result<br /><br />\n";
 	    	$this->assertNotNull($result);
         }
     	catch ( Exception $e ) 
@@ -70,7 +70,7 @@ class ExecutorTest extends UnitTestCase
         	$params = array("/C", "dir");
         	$result= $instance->executeSystemCommand($executable, $params);
 	    	$result = ESAPI::getEncoder()->encodeForHTML($result);
-	    	echo "RESULT: $result<br /><br />\n";
+//	    	echo "RESULT: $result<br /><br />\n";
 	    	$this->assertNull($result);
         }
         catch( Exception $e )
@@ -85,7 +85,7 @@ class ExecutorTest extends UnitTestCase
         	$params = array("/C", "dir");
         	$result= $instance->executeSystemCommand($executable, $params);
 	    	$result = ESAPI::getEncoder()->encodeForHTML($result);
-	    	echo "RESULT: $result<br /><br />\n";
+//	    	echo "RESULT: $result<br /><br />\n";
 	    	$this->assertNull($result);
         }
         catch( Exception $e )
@@ -101,7 +101,7 @@ class ExecutorTest extends UnitTestCase
         	$workdir = 'C:\\ridiculous';
         	$result = $instance->executeSystemCommandLonghand($executable, $params, $workdir, $codec, false);
 	    	$result = ESAPI::getEncoder()->encodeForHTML($result);
-	    	echo "RESULT: $result<br /><br />\n";
+//	    	echo "RESULT: $result<br /><br />\n";
 	    	$this->assertNull($result);
         }
         catch( Exception $e )
@@ -114,7 +114,7 @@ class ExecutorTest extends UnitTestCase
         	$params = array("/C", "dir", "&dir");
         	$result= $instance->executeSystemCommand($executable, $params);
 	    	$result = ESAPI::getEncoder()->encodeForHTML($result);
-	    	echo "RESULT: $result<br /><br />\n";
+//	    	echo "RESULT: $result<br /><br />\n";
 	    	$this->assertNotNull($result);
         }
         catch( Exception $e )
@@ -127,7 +127,7 @@ class ExecutorTest extends UnitTestCase
         	$params = array("/C", "dir", "c:\\autoexec.bat");
         	$result= $instance->executeSystemCommand($executable, $params);
 	    	$result = ESAPI::getEncoder()->encodeForHTML($result);
-	    	echo "RESULT: $result<br /><br />\n";
+//	    	echo "RESULT: $result<br /><br />\n";
 	    	$this->assertNotNull($result);
         }
         catch( Exception $e )
@@ -140,7 +140,7 @@ class ExecutorTest extends UnitTestCase
         	$params = array("/C", "dir", "c:\\autoexec.bat c:\\config.sys");
         	$result= $instance->executeSystemCommand($executable, $params);
 	    	$result = ESAPI::getEncoder()->encodeForHTML($result);
-	    	echo "RESULT: $result<br /><br />\n";
+//	    	echo "RESULT: $result<br /><br />\n";
 	    	$this->assertNotNull($result);
         }
         catch( Exception $e )
@@ -160,7 +160,7 @@ class ExecutorTest extends UnitTestCase
     {
         if(substr(PHP_OS, 0, 3) == 'WIN')
         {
-        	echo "testExecuteUnixSystemCommand - on Windows platform, exiting<br />\n";
+//        	echo "testExecuteUnixSystemCommand - on Windows platform, exiting<br />\n";
         	return;		// Is windows, not going to execute this path
         }
         
@@ -172,7 +172,7 @@ class ExecutorTest extends UnitTestCase
 	    	$params = array("-c", "ls", "/");
 	    	$result = $instance->executeSystemCommand($executable, $params);
 	    	$result = ESAPI::getEncoder()->encodeForHTML($result);
-	    	echo "RESULT: $result<br /><br />\n";
+//	    	echo "RESULT: $result<br /><br />\n";
 	    	$this->assertNotNull($result);
         }
     	catch ( Exception $e ) 
@@ -186,7 +186,7 @@ class ExecutorTest extends UnitTestCase
 	    	$params = array("-c", "ls", "/");
 	    	$result = $instance->executeSystemCommand($executable, $params);
 	    	$result = ESAPI::getEncoder()->encodeForHTML($result);
-	    	echo "RESULT: $result<br /><br />\n";
+//	    	echo "RESULT: $result<br /><br />\n";
 	    	$this->assertNull($result);
         }
     	catch ( Exception $e ) 
@@ -200,7 +200,7 @@ class ExecutorTest extends UnitTestCase
 	    	$params = array("-c", "ls", "/");
 	    	$result = $instance->executeSystemCommand($executable, $params);
 	    	$result = ESAPI::getEncoder()->encodeForHTML($result);
-	    	echo "RESULT: $result<br /><br />\n";
+//	    	echo "RESULT: $result<br /><br />\n";
 	    	$this->assertNull($result);
         }
     	catch ( Exception $e ) 
@@ -214,7 +214,7 @@ class ExecutorTest extends UnitTestCase
 	    	$params = array("-c", "ls", "/", ";ls");
 	    	$result = $instance->executeSystemCommand($executable, $params);
 	    	$result = ESAPI::getEncoder()->encodeForHTML($result);
-	    	echo "RESULT: $result<br /><br />\n";
+//	    	echo "RESULT: $result<br /><br />\n";
 	    	$this->assertNotNull($result);
         }
     	catch ( Exception $e ) 
