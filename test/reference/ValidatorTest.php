@@ -37,7 +37,7 @@ class ValidatorTest extends UnitTestCase
     {
     }
 
-    function testValidationErrorsTriggerIDS()
+/*    function testValidationErrorsTriggerIDS()
     {
         $logFileLoc = getLogFileLoc();
         if ($logFileLoc === false) {
@@ -93,7 +93,7 @@ class ValidatorTest extends UnitTestCase
         $m
         );
     }
-
+*/
 
     /**
      * Test isValidInput method of class Validator with a valid type: Email.
@@ -796,7 +796,7 @@ class ValidatorTest extends UnitTestCase
     /**
      * Test of isValidFileName method, of class org.owasp.esapi.Validator.
      */
-    function testIsValidFileName() {
+/*    function testIsValidFileName() {
         $instance = ESAPI::getValidator();
         $this->assertTrue($instance->isValidFileName('test', 'aspect.jar', false));
         $this->assertFalse($instance->isValidFileName('test', '', false));
@@ -806,7 +806,7 @@ class ValidatorTest extends UnitTestCase
             // expected
         }
     }
-
+*/
     /**
      * Test of isValidDirectoryPath method, of class org.owasp.esapi.Validator.
      */
@@ -861,7 +861,7 @@ class ValidatorTest extends UnitTestCase
     /**
      *
      */
-    function testIsValidPrintable() {
+/*    function testIsValidPrintable() {
         $val = ESAPI::getValidator();
         $this->assertTrue($val->isValidPrintable('name', 'abcDEF', 100, false));
         $this->assertTrue($val->isValidPrintable('name', '!@#R()*$;><()', 100, false));
@@ -869,111 +869,7 @@ class ValidatorTest extends UnitTestCase
         $this->assertFalse($val->isValidPrintable('name', $bytes, 100, false ) );
         $this->assertFalse($val->isValidPrintable('name', "%08", 100, false));
     }
+*/
 
-    /**
-     * Test of isValidFileContent method, of class org.owasp.esapi.Validator.
-     */
-    function testIsValidFileContent() {
-        $this->fail();
-        $content = 'This is some file content';
-        $instance = ESAPI::getValidator();
-        $this->assertTrue($instance->isValidFileContent('test', $content, 100, false));
-    }
-
-    /**
-     * Test of isValidFileUpload method, of class org.owasp.esapi.Validator.
-     */
-    function testIsValidFileUpload() {
-        $filepath = '/home/';
-        $filename = 'aspect.jar';
-        $content = 'This is some file content';
-
-        $instance = ESAPI::getValidator();
-        $this->assertTrue($instance->isValidFileUpload('test', $filepath, $filename, $content, 100, false));
-
-        $filepath = '/ridiculous';
-        $filename = 'aspect.jar';
-        $content = 'This is some file content';
-        $this->assertFalse($instance->isValidFileUpload('test', $filepath, $filename, $content, 100, false));
-    }
-
-//    /**
-//     * Test of isValidParameterSet method, of class org.owasp.esapi.Validator.
-//     */
-    function testIsValidParameterSet() {
-         $this->fail(); // DELETE ME ('isValidParameterSet')
-//        global $ESAPI;
-//        $requiredNames = array();
-//        array_push($requiredNames,'p1');
-//        array_push($requiredNames,'p2');
-//        array_push($requiredNames,'p3');
-//        $optionalNames = array();
-//        array_push($optionalNames,'p4');
-//        array_push($optionalNames,'p5');
-//        array_push($optionalNames,'p6');
-//        $request = new TestHttpServletRequest();
-//        $response = new TestHttpServletResponse();
-//        $request.addParameter('p1','value');
-//        $request.addParameter('p2','value');
-//        $request.addParameter('p3','value');
-//        $ESAPI.httpUtilities().setCurrentHTTP(request, response);
-//        $instance = ESAPI.validator();
-//        $this->assertTrue($instance->isValidHTTPRequestParameterSet('HTTPParameters', $requiredNames, optionalNames));
-//        $request.addParameter('p4','value');
-//        $request.addParameter('p5','value');
-//        $request.addParameter('p6','value');
-//        $this->assertTrue($instance->isValidHTTPRequestParameterSet('HTTPParameters', $requiredNames, optionalNames));
-//        $request.removeParameter('p1');
-//        $this->assertFalse($instance->isValidHTTPRequestParameterSet('HTTPParameters', $requiredNames, optionalNames));
-    }
-
-    /**
-     * Test safe read line.
-     *
-     *   This does not appear to be necessary for the PHP version (jullrich@sans.edu)
-     *
-     */
-//    function testSafeReadLine() {
-//        $this->fail(); // DELETE ME ('safeReadLine');
-//
-//        ByteArrayInputStream s = new ByteArrayInputStream('testString'.getBytes());
-//        Validator instance = ESAPI.validator();
-//        try {
-//            $instance->safeReadLine(s, -1);
-//            fail();
-//        } catch (ValidationException e) {
-//            // Expected
-//        }
-//        s.reset();
-//        try {
-//            $instance->safeReadLine(s, 4);
-//            fail();
-//        } catch (ValidationException e) {
-//            // Expected
-//        }
-//        s.reset();
-//        try {
-//            String u = $instance->safeReadLine(s, 20);
-//            $this->assertEquals('testString', u);
-//        } catch (ValidationException e) {
-//            fail();
-//        }
-//
-//        // This sub-test attempts to validate that BufferedReader.readLine() and safeReadLine() are similar in operation
-//        // for the nominal case
-//        try {
-//            s.reset();
-//            InputStreamReader isr = new InputStreamReader(s);
-//            BufferedReader br = new BufferedReader(isr);
-//            String u = br.readLine();
-//            s.reset();
-//            String v = $instance->safeReadLine(s, 20);
-//            $this->$this->assertEquals(u, v);
-//        } catch (IOException e) {
-//            fail();
-//        } catch (ValidationException e) {
-//            fail();
-//        }
-//    }
 }
 ?>
