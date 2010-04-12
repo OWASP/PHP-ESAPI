@@ -1,2 +1,1 @@
-#summary ESAPI for PHP Roadmap
 #sidebar TableOfContents
