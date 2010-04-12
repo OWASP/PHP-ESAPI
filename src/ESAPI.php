@@ -159,13 +159,10 @@ class ESAPI
      */
     public static function getEncryptor() 
     {
-        if ( is_null(self::$_encryptor) ) {
-            include_once dirname(__FILE__).
-              '/reference/DefaultEncryptor.php';
-            self::$_encryptor = new DefaultEncryptor();
-        }
-
-        return self::$_encryptor;
+       throw new EnterpriseSecurityException(
+            'Method Not implemented',
+            'Encryptor not implemented'
+        );
     }
 
     /**
@@ -178,7 +175,10 @@ class ESAPI
      */
     public static function setEncryptor($encryptor) 
     {
-        self::$_encryptor = $encryptor;
+       throw new EnterpriseSecurityException(
+            'Method Not implemented',
+            'Encryptor not implemented'
+        );
     }
 
     /**
