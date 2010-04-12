@@ -465,101 +465,8 @@ interface Validator
         $allowNull
     );
    
-    /**
-     * Returns true if input is valid file content.
-     * This is a good place to check for max file size, allowed character sets
-     * and do virus scans.
-     * 
-     * @param string $context   A descriptive name of the parameter that you are
-     *                          validating (e.g. UploadPage_Avatar). This value 
-     *                          is used by any logging or error handling that is 
-     *                          done with respect to the value passed in.
-     * @param string $input     The actual user input data to validate.
-     * @param int    $maxBytes  The maximum number of bytes allowed in a legal file.
-     * @param bool   $allowNull If allowNull is true then an input that is NULL or 
-     *                          an empty string will be legal. If allowNull is 
-     *                          false then NULL or an empty String will throw a 
-     *                          ValidationException.
-     * 
-     * @return bool TRUE if the input is valid, FALSE otherwise.
-     */
-    public function isValidFileContent($context, $input, $maxBytes, $allowNull);
-   
-    /**
-     * Asserts that the input is valid file content.
-     * This is a good place to check for max file size, allowed character sets
-     * and do virus scans.
-     * Invalid input will generate a descriptive ValidationException.
-     * 
-     * @param string $context   A descriptive name of the parameter that you are
-     *                          validating (e.g. UploadPage_Avatar). This value 
-     *                          is used by any logging or error handling that is 
-     *                          done with respect to the value passed in.
-     * @param string $input     The actual user input data to validate.
-     * @param int    $maxBytes  The maximum number of bytes allowed in a legal file.
-     * @param bool   $allowNull If allowNull is true then an input that is NULL or 
-     *                          an empty string will be legal. If allowNull is 
-     *                          false then NULL or an empty String will throw a 
-     *                          ValidationException.
-     * 
-     * @return Does not return a value.
-     * @throws ValidationException Thrown if the input is invalid.
-     * @throws IntrusionException  Thrown if an intrusion is detected.
-     */
-    public function assertValidFileContent($context, $input, $maxBytes, 
-        $allowNull
-    );
-    
-    /**
-     * Returns true if a file upload has a valid name, path, and content.
-     * 
-     * @param string $context   A descriptive name of the parameter that you are
-     *                          validating (e.g. UploadPage_Avatar). This value is 
-     *                          used by any logging or error handling that is done 
-     *                          with respect to the value passed in.
-     * @param string $filepath  The file path of the uploaded file.
-     * @param string $filename  The filename of the uploaded file
-     * @param string $content   A string containing the content of the uploaded file.
-     * @param int    $maxBytes  The max number of bytes allowed for a legal file 
-     *                          upload.
-     * @param bool   $allowNull If allowNull is true then an input that is NULL or an
-     *                          empty string will be legal. If allowNull is false 
-     *                          then NULL or an empty String will throw a 
-     *                          ValidationException.
-     * 
-     * @return bool TRUE if the input is valid, FALSE otherwise.
-     */
-    public function isValidFileUpload($context, $filepath, $filename, $content, 
-        $maxBytes, $allowNull
-    );
-   
-    /**
-     * Asserts that a file upload has a valid name, path, and content.
-     * Invalid input will generate a descriptive ValidationException, and input
-     * that is clearly an attack will generate a descriptive IntrusionException.
-     * 
-     * @param string $context   A descriptive name of the parameter that you are
-     *                          validating (e.g. UploadPage_Avatar). This value 
-     *                          is used by any logging or error handling that is 
-     *                          done with respect to the value passed in.
-     * @param string $filepath  The file path of the uploaded file.
-     * @param string $filename  The filename of the uploaded file
-     * @param string $content   A string containing the content of the uploaded file.
-     * @param int    $maxBytes  The max number of bytes allowed for a legal file 
-     *                          upload.
-     * @param bool   $allowNull If allowNull is true then an input that is NULL or 
-     *                          an empty string will be legal. If allowNull is 
-     *                          false then NULL or an empty String will throw a 
-     *                          ValidationException.
-     * 
-     * @return Does not return a value.
-     * @throws ValidationException Thrown if the input is invalid.
-     * @throws IntrusionException  Thrown if an intrusion is detected.
-     */
-    public function assertValidFileUpload($context, $filepath, $filename, $content, 
-        $maxBytes, $allowNull
-    );
-    
+     
+     
     /**
      * Validate the current HTTP request by comparing parameters, headers and
      * cookies to a predefined whitelist of allowed characters.
@@ -738,22 +645,6 @@ interface Validator
      */
     public function assertValidRedirectLocation($context, $input, $allowNull);
 
-    /**
-     * Reads from an input stream until end-of-line or a maximum number of
-     * characters. This method protects against the inherent denial of service
-     * attack in reading until the end of a line. If an attacker doesn't ever
-     * send a newline character, then a normal input stream reader will read
-     * until all memory is exhausted and the platform throws an OutOfMemoryError
-     * and probably terminates.
-     * 
-     * @param string $inputStream The InputStream from which to read data
-     * @param int    $maxLength   Maximum number of characters allowed to be read 
-     *                            in per line
-     * 
-     * @return Does not return a value.
-     * @throws ValidationException Thrown if the input is invalid.
-     * @throws IntrusionException  Thrown if an intrusion is detected.
-     */
-    function safeReadLine($inputStream, $maxLength);
+
 
 }
