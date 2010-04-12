@@ -21,8 +21,8 @@
 /**
  * 
  */
-require_once dirname(__FILE__).'/../LoggerFactory.php';
-require_once dirname(__FILE__).'/DefaultLogger.php';
+require_once dirname(__FILE__).'/../AuditorFactory.php';
+require_once dirname(__FILE__).'/DefaultAuditor.php';
 
 
 /**
@@ -35,7 +35,7 @@ require_once dirname(__FILE__).'/DefaultLogger.php';
  * @author Laura D. Bell
  * @since  1.6
  */
-class DefaultLoggerFactory implements LoggerFactory {
+class DefaultAuditorFactory implements AuditorFactory {
 
     private $loggerMap = array();
 
@@ -58,11 +58,11 @@ class DefaultLoggerFactory implements LoggerFactory {
         // If a logger for this module already exists, we return the same one,
         // otherwise we create a new one.
         if (   array_key_exists($moduleName, $this->loggerMap)
-            && $this->loggerMap[$moduleName] instanceof DefaultLogger
+            && $this->loggerMap[$moduleName] instanceof DefaultAuditor
         ) {
             return $this->loggerMap[$moduleName];
         } else {
-            $moduleLogger = new DefaultLogger($moduleName);
+            $moduleLogger = new DefaultAuditor($moduleName);
             $this->loggerMap[$moduleName] = $moduleLogger;
             return $moduleLogger;
         }

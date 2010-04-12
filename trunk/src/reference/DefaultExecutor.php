@@ -145,7 +145,7 @@ class DefaultExecutor implements Executor {
     	}
     	catch ( Exception $e )
     	{
-        	$this->logger->warning(DefaultLogger::SECURITY, true, $e->getMessage());
+        	$this->logger->warning(Auditor::SECURITY, true, $e->getMessage());
         }
 	
 	}	

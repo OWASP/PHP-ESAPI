@@ -87,14 +87,14 @@ class DefaultIntrusionDetector implements IntrusionDetector {
         if ($exception instanceof EnterpriseSecurityException)
         {
             $this->logger->warning(
-                ESAPILogger::SECURITY, false,
+                Auditor::SECURITY, false,
                 $exception->getLogMessage(), $exception
             );
         }
         else
         {
             $this->logger->warning(
-                ESAPILogger::SECURITY, false,
+                Auditor::SECURITY, false,
                 $exception->getMessage(), $exception
             );
         }
@@ -143,7 +143,7 @@ class DefaultIntrusionDetector implements IntrusionDetector {
         }
 
         $this->logger->warning(
-            ESAPILogger::SECURITY,
+            Auditor::SECURITY,
             false,
             "Security event {$eventName} received : {$logMessage}"
         );
@@ -182,7 +182,7 @@ class DefaultIntrusionDetector implements IntrusionDetector {
         if ($action == 'log' )
         {
             $this->logger->fatal(
-                ESAPILogger::SECURITY,
+                Auditor::SECURITY,
                 false,
                 "INTRUSION - {$message}"
             );
