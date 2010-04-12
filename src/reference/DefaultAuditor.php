@@ -588,8 +588,9 @@ class DefaultAuditor implements Auditor {
         $appenderLogfile->setMaxBackupIndex($maxLogFileBackups);
         $appenderLogfile->addFilter($loggerFilter); // TODO remove temp filter
         $appenderLogfile->setLayout($logfileLayout);
-        $appenderLogfile->activateOptions();
-
+        if($logLevel !== 'OFF') {
+            $appenderLogfile->activateOptions();
+        }
         // Console layout
         $consoleLayout = new LoggerLayoutPattern();
         $consoleLayout->setConversionPattern($consoleLayoutPattern);
