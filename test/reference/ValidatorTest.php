@@ -302,7 +302,7 @@ class ValidatorTest extends UnitTestCase
     /**
      * Test assertValidInput method of class Validator with a valid type: Email.
      */
-    function testAssertValidInput_Email_valid_01()
+/*    function testAssertValidInput_Email_valid_01()
     {
         $instance = ESAPI::getValidator();
         try {
@@ -312,12 +312,12 @@ class ValidatorTest extends UnitTestCase
             $this->fail();
         }
     }
-
+*/
 
     /**
      * Test assertValidInput method of class Validator with a valid type: Email.
      */
-    function testAssertValidInput_Email_valid_02()
+/*    function testAssertValidInput_Email_valid_02()
     {
         $instance = ESAPI::getValidator();
         try {
@@ -327,46 +327,46 @@ class ValidatorTest extends UnitTestCase
             $this->fail();
         }
     }
-
+*/
 
     /**
      * Test assertValidInput method of class Validator with an invalid type: Email.
      */
-    function testAssertValidInput_Email_invalid_01()
+/*    function testAssertValidInput_Email_invalid_01()
     {
         $instance = ESAPI::getValidator();
         $this->expectException('ValidationException');
         $instance->assertValidInput('test', 'jeff.williams@@aspectsecurity.com', 'Email', 100, false);
     }
-
+*/
 
     /**
      * Test assertValidInput method of class Validator with an invalid type: Email.
      */
-    function testAssertValidInput_Email_invalid_02()
+/*    function testAssertValidInput_Email_invalid_02()
     {
         $instance = ESAPI::getValidator();
         $this->expectException('ValidationException');
         $instance->assertValidInput('test', 'jeff.williams@aspectsecurity', 'Email', 100, false);
     }
-
+*/
 
     /**
      * Test assertValidInput method of class Validator with an invalid type: Email.
      */
-    function testAssertValidInput_Email_invalid_03()
+/*    function testAssertValidInput_Email_invalid_03()
     {
         $instance = ESAPI::getValidator();
         $this->expectException('ValidationException');
         $instance->assertValidInput('test', null, 'Email', 100, false);
     }
-
+*/
 
     /**
      * Test assertValidInput method of class Validator with a valid type:
      * IPv4 Address.
      */
-    function testAssertValidInput_IPv4Address_valid_01()
+/*    function testAssertValidInput_IPv4Address_valid_01()
     {
         $instance = ESAPI::getValidator();
         try {
@@ -376,13 +376,13 @@ class ValidatorTest extends UnitTestCase
             $this->fail();
         }
     }
-
+*/
 
     /**
      * Test assertValidInput method of class Validator with a valid type:
      * IPv4 Address.
      */
-    function testAssertValidInput_IPv4Address_valid_02()
+ /*   function testAssertValidInput_IPv4Address_valid_02()
     {
         $instance = ESAPI::getValidator();
         try {
@@ -392,36 +392,36 @@ class ValidatorTest extends UnitTestCase
             $this->fail();
         }
     }
-
+*/
 
     /**
      * Test assertValidInput method of class Validator with an invalid type:
      * IPv4 Address.
      */
-    function testAssertValidInput_IPv4Address_invalid_01()
+/*    function testAssertValidInput_IPv4Address_invalid_01()
     {
         $instance = ESAPI::getValidator();
         $this->expectException('ValidationException');
         $instance->assertValidInput('test', '..168.1.234', 'IPAddress', 100, false);
     }
-
+*/
 
     /**
      * Test assertValidInput method of class Validator with an invalid type:
      * IPv4 Address.
      */
-    function testAssertValidInput_IPv4Address_invalid_02()
+/*    function testAssertValidInput_IPv4Address_invalid_02()
     {
         $instance = ESAPI::getValidator();
         $this->expectException('ValidationException');
         $instance->assertValidInput('test', '10.x.1.234', 'IPAddress', 100, false);
     }
-
+*/
 
     /**
      * Test assertValidInput method of class Validator with a valid type: URL.
      */
-    function testAssertValidInput_URL_valid_01()
+/*    function testAssertValidInput_URL_valid_01()
     {
         $instance = ESAPI::getValidator();
         try {
@@ -431,35 +431,35 @@ class ValidatorTest extends UnitTestCase
             $this->fail();
         }
     }
-
+*/
 
     /**
      * Test assertValidInput method of class Validator with an invalid type: URL.
      */
-    function testAssertValidInput_URL_invalid_01()
+/*    function testAssertValidInput_URL_invalid_01()
     {
         $instance = ESAPI::getValidator();
         $this->expectException('ValidationException');
         $instance->assertValidInput('test', 'http:///www.aspectsecurity.com', 'URL', 100, false);
     }
-
+*/
 
     /**
      * Test assertValidInput method of class Validator with an invalid type: URL.
      */
-    function testAssertValidInput_URL_invalid_02()
+/*    function testAssertValidInput_URL_invalid_02()
     {
         $instance = ESAPI::getValidator();
         $this->expectException('ValidationException');
         $instance->assertValidInput('test', 'http://www.aspect security.com', 'URL', 100, false);
     }
-
+*/
 
     /**
      * Test assertValidInput method of class Validator with a valid type:
      * US Social Security Number.
      */
-    function testAssertValidInput_SSN_valid_01()
+ /*   function testAssertValidInput_SSN_valid_01()
     {
         $instance = ESAPI::getValidator();
         try {
@@ -469,13 +469,13 @@ class ValidatorTest extends UnitTestCase
             $this->fail();
         }
     }
-
+*/
 
     /**
      * Test assertValidInput method of class Validator with a valid type:
      * US Social Security Number.
      */
-    function testAssertValidInput_SSN_valid_02()
+/*    function testAssertValidInput_SSN_valid_02()
     {
         $instance = ESAPI::getValidator();
         try {
@@ -485,13 +485,13 @@ class ValidatorTest extends UnitTestCase
             $this->fail();
         }
     }
-
+*/
 
     /**
      * Test assertValidInput method of class Validator with a valid type:
      * US Social Security Number.
      */
-    function testAssertValidInput_SSN_valid_03()
+/*    function testAssertValidInput_SSN_valid_03()
     {
         $instance = ESAPI::getValidator();
         try {
@@ -501,55 +501,55 @@ class ValidatorTest extends UnitTestCase
             $this->fail();
         }
     }
-
+*/
 
     /**
      * Test assertValidInput method of class Validator with an invalid type:
      * US Social Security Number.
      */
-    function testAssertValidInput_SSN_invalid_01()
+ /*   function testAssertValidInput_SSN_invalid_01()
     {
         $instance = ESAPI::getValidator();
         $this->expectException('ValidationException');
         $instance->assertValidInput('test', '987-65-4320', 'SSN', 100, false);
     }
-
+*/
 
     /**
      * Test assertValidInput method of class Validator with an invalid type:
      * US Social Security Number.
      */
-    function testAssertValidInput_SSN_invalid_02()
+/*    function testAssertValidInput_SSN_invalid_02()
     {
         $instance = ESAPI::getValidator();
         $this->expectException('ValidationException');
         $instance->assertValidInput('test', '000-00-0000', 'SSN', 100, false);
     }
-
+*/
 
     /**
      * Test assertValidInput method of class Validator with an invalid type:
      * US Social Security Number.
      */
-    function testAssertValidInput_SSN_invalid_03()
+/*    function testAssertValidInput_SSN_invalid_03()
     {
         $instance = ESAPI::getValidator();
         $this->expectException('ValidationException');
         $instance->assertValidInput('test', '(555) 555-5555', 'SSN', 100, false);
     }
-
+*/
 
     /**
      * Test assertValidInput method of class Validator with an invalid type:
      * US Social Security Number.
      */
-    function testAssertValidInput_SSN_invalid_04()
+/*    function testAssertValidInput_SSN_invalid_04()
     {
         $instance = ESAPI::getValidator();
         $this->expectException('ValidationException');
         $instance->assertValidInput('test', 'test', 'SSN', 100, false);
     }
-
+*/
 
     /**
      * Test of isValidDate method of class Validator with an valid date.
@@ -574,7 +574,7 @@ class ValidatorTest extends UnitTestCase
     /**
      * Test of assertValidDate method of class Validator with an valid date.
      */
-    function testAssertValidDate_valid_01()
+/*    function testAssertValidDate_valid_01()
     {
         $instance = ESAPI::getValidator();
         try {
@@ -584,18 +584,18 @@ class ValidatorTest extends UnitTestCase
             $this->fail();
         }
     }
-
+*/
 
     /**
      * Test of assertValidDate method of class Validator with an invalid date.
      */
-    function testAssertValidDate_invalid_01()
+/*    function testAssertValidDate_invalid_01()
     {
         $instance = ESAPI::getValidator();
         $this->expectException('ValidationException');
         $instance->assertValidDate('testAssertValidDate_invalid_01', 'freakshow', 'F j, Y', false);
     }
-
+*/
 
 
 
@@ -603,19 +603,19 @@ class ValidatorTest extends UnitTestCase
     /**
      * Test of isValidSafeHTML method, of class org.owasp.esapi.Validator.
      */
-    function testIsValidSafeHTML() {
+ /*   function testIsValidSafeHTML() {
 
         $instance = ESAPI::getValidator();
-/*
+
         $this->assertTrue($instance->isValidSafeHTML('test', '<b>Jeff</b>', 100, false));
         $this->assertTrue($instance->isValidSafeHTML('test', "<a href=\"http://www.aspectsecurity.com\">Aspect Security</a>", 100, false));
         $this->assertFalse($instance->isValidSafeHTML('test', 'Test. <script>alert(document.cookie)</script>', 100, false));
-*/
+
         // TODO: waiting for a way to validate text headed for an attribute for scripts
         // This would be nice to catch, but just looks like text to AntiSamy
         // $this->assertFalse($instance->isValidSafeHTML('test', "\" onload=\"alert(document.cookie)\" "));
     }
-
+*/
     
 
 
