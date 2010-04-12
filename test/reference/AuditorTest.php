@@ -65,7 +65,7 @@ class AuditorTest extends UnitTestCase {
             ESAPI(dirname(__FILE__).'/../testresources/ESAPI.xml');
         }
 
-        $this->testLogger = ESAPI::getLogger(
+        $this->testLogger = ESAPI::getAuditor(
             'LoggerTest #' . $this->testCount++
         );
     }
@@ -294,7 +294,7 @@ class AuditorTest extends UnitTestCase {
 
     function testSetLevelMultipleLogsExpectedTrue() {
         //Now test to see if a change to the logging level in one log affects other logs
-        $newLogger = ESAPI::getLogger( 'test_num2' );
+        $newLogger = ESAPI::getAuditor( 'test_num2' );
         $this->testLogger->setLevel( Auditor::OFF );
         $newLogger->setLevel( Auditor::INFO );
         $log_1_result = $this->testLogger->isInfoEnabled();
@@ -307,7 +307,7 @@ class AuditorTest extends UnitTestCase {
 
     function testSetLevelMultipleLogsExpectedFalse() {
         //Now test to see if a change to the logging level in one log affects other logs
-        $newLogger = ESAPI::getLogger( 'test_num2' );
+        $newLogger = ESAPI::getAuditor( 'test_num2' );
         $this->testLogger->setLevel( Auditor::OFF );
         $newLogger->setLevel( Auditor::INFO );
         $log_1_result = $this->testLogger->isInfoEnabled();
