@@ -94,7 +94,7 @@ class DefaultValidator implements Validator
     {
         try
         {
-            $this->assertValidInput(
+            $this->_assertValidInput(
                 $context, $input, $type, $maxLength, $allowNull
             );
         }
@@ -130,7 +130,7 @@ class DefaultValidator implements Validator
      *
      * @throws ValidationException, IntrusionException.
      */
-    public function assertValidInput($context, $input, $type, $maxLength, $allowNull)
+    private function _assertValidInput($context, $input, $type, $maxLength, $allowNull)
     {
         $validationRule = new StringValidationRule($type, $this->encoder);
         
@@ -175,7 +175,7 @@ class DefaultValidator implements Validator
     {
         try
         {
-            $this->assertValidDate($context, $input, $format, $allowNull);
+            $this->_assertValidDate($context, $input, $format, $allowNull);
         }
         catch ( Exception $e )
         {
@@ -207,7 +207,7 @@ class DefaultValidator implements Validator
      * @throws ValidationException.
      * @throws IntrusionException.
      */
-    public function assertValidDate($context, $input, $format, $allowNull)
+    private function _assertValidDate($context, $input, $format, $allowNull)
     {
         $dvr = new DateValidationRule('DateValidator', $this->encoder, $format);
         $dvr->setAllowNull($allowNull);
@@ -242,7 +242,7 @@ class DefaultValidator implements Validator
     {
         try
         {
-            $this->assertValidHTML($context, $input, $maxLength, $allowNull);
+            $this->_assertValidHTML($context, $input, $maxLength, $allowNull);
         }
         catch (Exception $e)
         {
@@ -278,7 +278,7 @@ class DefaultValidator implements Validator
      * @throws ValidationException.
      * @throws IntrusionException.
      */
-    public function assertValidHTML($context, $input, $maxLength, $allowNull)
+    private function _assertValidHTML($context, $input, $maxLength, $allowNull)
     {
         $hvr = new HTMLValidationRule('HTML_Validator', $this->encoder);
         $hvr->setMaximumLength($maxLength);
@@ -308,7 +308,7 @@ class DefaultValidator implements Validator
     {
         try
         {
-            $this->assertValidCreditCard($context, $input, $allowNull);
+            $this->_assertValidCreditCard($context, $input, $allowNull);
         }
         catch (Exception $e)
         {
@@ -338,7 +338,7 @@ class DefaultValidator implements Validator
      * @throws ValidationException.
      * @throws IntrusionException.
      */
-    public function assertValidCreditCard($context, $input, $allowNull)
+    private function _assertValidCreditCard($context, $input, $allowNull)
     {
         $ccvr = new CreditCardValidationRule('CreditCard', $this->encoder);
         $ccvr->setAllowNull($allowNull);
@@ -369,7 +369,7 @@ class DefaultValidator implements Validator
     {
         try
         {
-            $this->assertValidDirectoryPath($context, $input, $allowNull);
+            $this->_assertValidDirectoryPath($context, $input, $allowNull);
         }
         catch (Exception $e)
         {
@@ -399,7 +399,7 @@ class DefaultValidator implements Validator
      * @throws ValidationException.
      * @throws IntrusionException.
      */
-    public function assertValidDirectoryPath($context, $input, $allowNull)
+    private function _assertValidDirectoryPath($context, $input, $allowNull)
     {
         throw new EnterpriseSecurityException(
             'Method Not implemented',
@@ -427,7 +427,7 @@ class DefaultValidator implements Validator
     {
         try
         {
-            $this->assertValidFileName($context, $input, $allowNull);
+            $this->_assertValidFileName($context, $input, $allowNull);
         }
         catch (Exception $e)
         {
@@ -460,7 +460,7 @@ class DefaultValidator implements Validator
      * @throws ValidationException.
      * @throws IntrusionException.
      */
-    public function assertValidFileName($context, $input, $allowNull)
+    private function _assertValidFileName($context, $input, $allowNull)
     {
         throw new EnterpriseSecurityException(
             'Method Not implemented',
@@ -491,7 +491,7 @@ class DefaultValidator implements Validator
     {
         try
         {
-            $this->assertValidNumber($context, $input, $minValue, $maxValue, $allowNull);
+            $this->_assertValidNumber($context, $input, $minValue, $maxValue, $allowNull);
         }
         catch (Exception $e)
         {
@@ -524,7 +524,7 @@ class DefaultValidator implements Validator
      * @throws ValidationException.
      * @throws IntrusionException.
      */
-    public function assertValidNumber($context, $input, $minValue, $maxValue, $allowNull)
+    private function _assertValidNumber($context, $input, $minValue, $maxValue, $allowNull)
     {
         $nvr = new NumberValidationRule(
             'NumberValidator', $this->encoder, $minValue, $maxValue
@@ -559,7 +559,7 @@ class DefaultValidator implements Validator
     {
         try
         {
-            $this->assertValidInteger($context, $input, $minValue, $maxValue, $allowNull);
+            $this->_assertValidInteger($context, $input, $minValue, $maxValue, $allowNull);
         }
         catch (Exception $e)
         {
@@ -592,7 +592,7 @@ class DefaultValidator implements Validator
      * @throws ValidationException.
      * @throws IntrusionException.
      */
-    public function assertValidInteger($context, $input, $minValue, $maxValue, $allowNull)
+    private function _assertValidInteger($context, $input, $minValue, $maxValue, $allowNull)
     {
         $nvr = new IntegerValidationRule(
             'IntegerValidator', $this->encoder, $minValue, $maxValue
@@ -628,7 +628,7 @@ class DefaultValidator implements Validator
     {
         try
         {
-            $this->assertValidDouble($context, $input, $minValue, $maxValue, $allowNull);
+            $this->_assertValidDouble($context, $input, $minValue, $maxValue, $allowNull);
         }
         catch (Exception $e)
         {
@@ -661,9 +661,9 @@ class DefaultValidator implements Validator
      * @throws ValidationException.
      * @throws IntrusionException.
      */
-    public function assertValidDouble($context, $input, $minValue, $maxValue, $allowNull)
+    private function _assertValidDouble($context, $input, $minValue, $maxValue, $allowNull)
     {
-        $this->assertValidNumber($context, $input, $minValue, $maxValue, $allowNull);
+        $this->_assertValidNumber($context, $input, $minValue, $maxValue, $allowNull);
         
         return null;
     }
@@ -691,7 +691,7 @@ class DefaultValidator implements Validator
     {
         try
         {
-            $this->assertValidFileContent($context, $input, $maxBytes, $allowNull);
+            $this->_assertValidFileContent($context, $input, $maxBytes, $allowNull);
         }
         catch(Exception $e)
         {
@@ -721,7 +721,7 @@ class DefaultValidator implements Validator
      * 
      * @throws ValidationException.
      */
-    public function assertValidFileContent($context, $input, $maxBytes, $allowNull)
+    private function _assertValidFileContent($context, $input, $maxBytes, $allowNull)
     {
         if (! is_string($context)) {
             $context = 'Validate File Content';
@@ -801,7 +801,7 @@ class DefaultValidator implements Validator
     {
         try
         {
-            $this->assertValidFileUpload(
+            $this->_assertValidFileUpload(
                 $context, $filepath, $filename, $content, $maxBytes, $allowNull
             );
         }
@@ -836,7 +836,7 @@ class DefaultValidator implements Validator
      * @throws ValidationException.
      * @throws IntrusionException.
      */
-    public function assertValidFileUpload($context, $filepath, $filename, $content, $maxBytes, $allowNull)
+    private function _assertValidFileUpload($context, $filepath, $filename, $content, $maxBytes, $allowNull)
     {
         throw new EnterpriseSecurityException(
             'Method Not implemented',
@@ -857,7 +857,7 @@ class DefaultValidator implements Validator
     {
         try
         {
-            $this->assertValidHTTPRequest();
+            $this->_assertValidHTTPRequest();
         }
         catch (Exception $e)
         {
@@ -878,7 +878,7 @@ class DefaultValidator implements Validator
      * @throws ValidationException.
      * @throws IntrusionException.
      */
-    public function assertValidHTTPRequest()
+    private function _assertValidHTTPRequest()
     {
         throw new EnterpriseSecurityException(
             'Method Not implemented',
@@ -904,7 +904,7 @@ class DefaultValidator implements Validator
     {
         try
         {
-            $this->assertValidListItem($context, $input, $list);
+            $this->_assertValidListItem($context, $input, $list);
         }
         catch (Exception $e)
         {
@@ -932,7 +932,7 @@ class DefaultValidator implements Validator
      * @throws ValidationException.
      * @throws IntrusionException.
      */
-    public function assertValidListItem($context, $input, $list)
+    private function _assertValidListItem($context, $input, $list)
     {
         // Some sanity checks first
         if (! is_string($context)) {
@@ -999,7 +999,7 @@ class DefaultValidator implements Validator
     {
         try
         {
-            $this->assertValidHTTPRequestParameterSet($context, $required, $optional);
+            $this->_assertValidHTTPRequestParameterSet($context, $required, $optional);
         }
         catch (Exception $e)
         {
@@ -1028,7 +1028,7 @@ class DefaultValidator implements Validator
      * @throws ValidationException.
      * @throws IntrusionException.
      */
-    public function assertValidHTTPRequestParameterSet($context, $required, $optional)
+    private function _assertValidHTTPRequestParameterSet($context, $required, $optional)
     {
         throw new EnterpriseSecurityException(
             'Method Not implemented',
@@ -1060,7 +1060,7 @@ class DefaultValidator implements Validator
     {
         try
         {
-            $this->assertValidPrintable($context, $input, $maxLength, $allowNull);
+            $this->_assertValidPrintable($context, $input, $maxLength, $allowNull);
         }
         catch (Exception $e)
         {
@@ -1093,7 +1093,7 @@ class DefaultValidator implements Validator
      * @throws ValidationException.
      * @throws IntrusionException.
      */
-    public function assertValidPrintable($context, $input, $maxLength, $allowNull)
+    private function _assertValidPrintable($context, $input, $maxLength, $allowNull)
     {
         $c = '\x20\x21\x22\x23\x24\x25\x26\x27' .
              '\x28\x29\x2a\x2b\x2c\x2d\x2e\x2f' .
@@ -1102,7 +1102,7 @@ class DefaultValidator implements Validator
 			 'a-z\x7b\x7c\x7d\x7e';
         $pattern = "^[{$c}]*$";
         
-        $this->assertValidInput($context, $input, $pattern, $maxLength, $allowNull);
+        $this->_assertValidInput($context, $input, $pattern, $maxLength, $allowNull);
         
         return null;
     }
@@ -1128,7 +1128,7 @@ class DefaultValidator implements Validator
     {
         try
         {
-            $this->assertValidRedirectLocation($context, $input, $allowNull);
+            $this->_assertValidRedirectLocation($context, $input, $allowNull);
         }
         catch (Exception $e)
         {
@@ -1159,7 +1159,7 @@ class DefaultValidator implements Validator
      * @throws ValidationException.
      * @throws IntrusionException.
      */
-    public function assertValidRedirectLocation($context, $input, $allowNull)
+    private function _assertValidRedirectLocation($context, $input, $allowNull)
     {
         throw new EnterpriseSecurityException(
             'Method Not implemented',
