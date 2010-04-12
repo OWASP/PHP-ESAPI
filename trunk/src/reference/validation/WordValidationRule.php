@@ -58,7 +58,7 @@ class WordValidationRule extends StringValidationRule
 
         parent::__construct($typeName, $encoder);
 
-        $this->logger = $ESAPI->getLogger("WordValidationRule");
+        $this->logger = $ESAPI->getAuditor("WordValidationRule");
     }
 
     /**

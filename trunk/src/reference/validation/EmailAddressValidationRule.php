@@ -59,7 +59,7 @@ class EmailAddressValidationRule extends StringValidationRule
 
         parent::__construct($typeName, $encoder);
 
-        $this->logger = $ESAPI->getLogger("EmailAddressValidationRule");
+        $this->logger = $ESAPI->getAuditor("EmailAddressValidationRule");
     }
 
     /**

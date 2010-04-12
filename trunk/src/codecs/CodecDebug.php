@@ -38,7 +38,7 @@ class CodecDebug
      */
     public function addEncodedString($stringNormalizedEncoding)
     {
-        if (! ESAPI::getLogger(LOG)->isDebugEnabled() || ! $this->allowRecurse)
+        if (! ESAPI::getAuditor(LOG)->isDebugEnabled() || ! $this->allowRecurse)
         {
             return;
         }
@@ -56,7 +56,7 @@ class CodecDebug
      */
     public function addUnencodedString($stringNormalizedEncoding)
     {
-        if (! ESAPI::getLogger(LOG)->isDebugEnabled() || ! $this->allowRecurse)
+        if (! ESAPI::getAuditor(LOG)->isDebugEnabled() || ! $this->allowRecurse)
         {
             return;
         }
@@ -76,7 +76,7 @@ class CodecDebug
      */
     public function output($codecOutput)
     {
-        if (! ESAPI::getLogger(LOG)->isDebugEnabled() || ! $this->allowRecurse)
+        if (! ESAPI::getAuditor(LOG)->isDebugEnabled() || ! $this->allowRecurse)
         {
             return;
         }
@@ -112,7 +112,7 @@ class CodecDebug
      */
     private function addString($string)
     {
-        if (! ESAPI::getLogger(LOG)->isDebugEnabled() || ! $this->allowRecurse)
+        if (! ESAPI::getAuditor(LOG)->isDebugEnabled() || ! $this->allowRecurse)
         {
             return;
         }

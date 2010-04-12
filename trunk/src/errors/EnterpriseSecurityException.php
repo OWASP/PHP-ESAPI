@@ -59,7 +59,7 @@ class EnterpriseSecurityException extends Exception
 		parent::__construct($userMessage);
         
         $this->logMessage = $logMessage;
-        $this->logger = ESAPI::getLogger("EnterpriseSecurityException");
+        $this->logger = ESAPI::getAuditor("EnterpriseSecurityException");
         if (! ESAPI::getSecurityConfiguration()->getDisableIntrusionDetection())
         {
             ESAPI::getIntrusionDetector()->addException($this);

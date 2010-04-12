@@ -55,7 +55,7 @@ class ESAPI
     private static $_securityConfiguration = null;
     private static $_validator = null;
     private static $_sanitizer = null;
-    
+        
     /**
      * This is the locator class' constructor, which prevents instantiation of this
      * class.
@@ -66,7 +66,7 @@ class ESAPI
     {
         self::getSecurityConfiguration($path);
 
-        self::getLogger("ESAPI Startup");
+        self::getAuditor("ESAPI Startup");
         
         self::getIntrusionDetector();
     }
@@ -275,22 +275,22 @@ class ESAPI
      * Set then get the current ESAPI Logger factory object being used to create
      * the ESAPI Logger for this application.
      * 
-     * @param string $logger the new ESAPI Logger factory name.
+     * @param string $logger the new ESAPI Auditor factory name.
      * 
      * @return the current ESAPI Logger.
      */
-    public static function getLogger($logger) 
+    public static function getAuditor($logger) 
     {
         if (self::$_auditorFactory == null) {
             include_once dirname(__FILE__).
               '/reference/DefaultAuditorFactory.php';
-            self::setLogFactory(new DefaultAuditorFactory());
+            self::setAuditorFactory(new DefaultAuditorFactory());
         }
         return self::$_auditorFactory->getLogger($logger);
     }
 
     /**
-     * Get the current ESAPI Logger object being used to to audit security-relevant
+     * Get the current ESAPI Auditor object being used to to audit security-relevant
      * events for this application.
      * 
      * @return the current ESAPI Logger.
@@ -311,7 +311,7 @@ class ESAPI
      * 
      * @return does not return a value.
      */
-    public static function setLogFactory($factory) 
+    public static function setAuditorFactory($factory) 
     {
         self::$_auditorFactory = $factory;
     }
@@ -439,6 +439,7 @@ class ESAPI
     {
         self::$_sanitizer = $sanitizer;
     }
+        
  
 }
 ?>
