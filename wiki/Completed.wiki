@@ -1,6 +1,6 @@
 #sidebar TableOfContents
 
 || *Component* || *Status* || *Notes* ||
-|| Core Functions || 6/7 test cases complete: 3887 passes, 8 fails and 0 exceptions. || Validator integration with IntrusionDetector needs to be completed. Some SafeFile tests failing. ||
+|| Core Functions || 6/7 test cases complete: 3880 passes, 0 fails and 0 exceptions. || Validator integration with IntrusionDetector needs to be completed. Some SafeFile tests failing. ||
 || Core Function Helpers || 13/13 test cases complete: 208 passes, 11 fails and 0 exceptions. || HTTPUtilities needs to be implemented. ||
 || Reference Implementations || 6/6 test cases complete: 79 passes, 71 fails and 0 exceptions. || AccessController needs to be implemented. Logger and IntrusionDetector need to be locked down further. ||
