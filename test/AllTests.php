@@ -60,7 +60,7 @@ $test = new GroupTest('Reference Implementation Tests');
 //    $test->addTestFile(dirname(__FILE__).'/reference/AccessControllerTest.php');
     $test->addTestFile(dirname(__FILE__).'/reference/IntegerAccessReferenceMapTest.php');
     $test->addTestFile(dirname(__FILE__).'/reference/RandomAccessReferenceMapTest.php');
-    $test->addTestFile(dirname(__FILE__).'/reference/LoggerTest.php');
+    $test->addTestFile(dirname(__FILE__).'/reference/AuditorTest.php');
     $test->addTestFile(dirname(__FILE__).'/reference/IntrusionDetectorTest.php');
     $test->addTestFile(dirname(__FILE__).'/reference/SanitizerTest.php');
 $test->run(new HTMLReporter());
