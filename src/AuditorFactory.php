@@ -34,7 +34,7 @@
  * @version   Release: @package_version@
  * @link      http://www.owasp.org/index.php/ESAPI
  */
-interface LoggerFactory
+interface AuditorFactory
 {
 
     /**

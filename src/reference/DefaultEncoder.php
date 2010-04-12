@@ -226,7 +226,7 @@ class DefaultEncoder implements Encoder {
                     . $mixedCount . 'x) encoding detected in ' . $input
                 );
             } else {
-                $this->logger->warning(ESAPILogger::SECURITY, false,
+                $this->logger->warning(Auditor::SECURITY, false,
                     'Multiple (' . $foundCount . 'x) and mixed ('
                     . $mixedCount . 'x) encoding detected in ' . $input
                 );
@@ -239,7 +239,7 @@ class DefaultEncoder implements Encoder {
                     "Multiple encoding ({$foundCount}x) detected in {$input}"
                 );
             } else {
-                $this->logger->warning(ESAPILogger::SECURITY, false,
+                $this->logger->warning(Auditor::SECURITY, false,
                     "Multiple encoding ({$foundCount}x) detected in {$input}"
                 );
             }
@@ -251,7 +251,7 @@ class DefaultEncoder implements Encoder {
                     "Mixed encoding ({$mixedCount}x) detected in {$input}"
                 );
             } else {
-                $this->logger->warning(ESAPILogger::SECURITY, false,
+                $this->logger->warning(Auditor::SECURITY, false,
                     "Mixed encoding ({$mixedCount}x) detected in {$input}"
                 );
             }

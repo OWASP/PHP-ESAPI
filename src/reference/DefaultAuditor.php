@@ -23,7 +23,7 @@
  */
 require_once dirname(__FILE__) .
     '/../../lib/apache-log4php/trunk/src/main/php/Logger.php';
-require_once dirname(__FILE__).'/../Logger.php';
+require_once dirname(__FILE__).'/../Auditor.php';
 
 
 /**
@@ -40,7 +40,7 @@ require_once dirname(__FILE__).'/../Logger.php';
  * @since  1.6
  *
  */
-class DefaultLogger implements Logger {
+class DefaultAuditor implements Auditor {
 
     /**
      * An instance of Apache Log4PHP.
@@ -113,7 +113,7 @@ class DefaultLogger implements Logger {
      */
     function fatal($type, $success, $message, $throwable = null)
     {
-        $this->log(Logger::FATAL, $type, $success, $message, $throwable);
+        $this->log(Auditor::FATAL, $type, $success, $message, $throwable);
     }
 
 
@@ -141,7 +141,7 @@ class DefaultLogger implements Logger {
      */
     function error($type, $success, $message, $throwable = null)
     {
-        $this->log(Logger::ERROR, $type, $success, $message, $throwable);
+        $this->log(Auditor::ERROR, $type, $success, $message, $throwable);
     }
 
 
@@ -169,7 +169,7 @@ class DefaultLogger implements Logger {
      */
     function warning($type, $success, $message, $throwable = null)
     {
-        $this->log(Logger::WARNING, $type, $success, $message, $throwable);
+        $this->log(Auditor::WARNING, $type, $success, $message, $throwable);
     }
 
 
@@ -197,7 +197,7 @@ class DefaultLogger implements Logger {
      */
     function info($type, $success, $message, $throwable = null)
     {
-        $this->log(Logger::INFO, $type, $success, $message, $throwable);
+        $this->log(Auditor::INFO, $type, $success, $message, $throwable);
     }
 
 
@@ -225,7 +225,7 @@ class DefaultLogger implements Logger {
      */
     function debug($type, $success, $message, $throwable = null)
     {
-        $this->log(Logger::DEBUG,$type, $success, $message, $throwable);
+        $this->log(Auditor::DEBUG,$type, $success, $message, $throwable);
     }
 
 
@@ -253,7 +253,7 @@ class DefaultLogger implements Logger {
      */
     function trace($type, $success, $message, $throwable = null)
     {
-        $this->log(Logger::TRACE, $type, $success, $message, $throwable);
+        $this->log(Auditor::TRACE, $type, $success, $message, $throwable);
     }
 
 
@@ -520,21 +520,21 @@ class DefaultLogger implements Logger {
         {
             switch ($level)
             {
-                case Logger::ALL:
+                case Auditor::ALL:
                     /* Same as TRACE */
-                case Logger::TRACE:
+                case Auditor::TRACE:
                     return LoggerLevel::getLevelAll();
-                case Logger::DEBUG:
+                case Auditor::DEBUG:
                     return LoggerLevel::getLevelDebug();
-                case Logger::INFO:
+                case Auditor::INFO:
                     return LoggerLevel::getLevelInfo();
-                case Logger::WARNING:
+                case Auditor::WARNING:
                     return LoggerLevel::getLevelWarn();
-                case Logger::ERROR:
+                case Auditor::ERROR:
                     return LoggerLevel::getLevelError();
-                case Logger::FATAL:
+                case Auditor::FATAL:
                     return LoggerLevel::getLevelFatal();
-                case Logger::OFF:
+                case Auditor::OFF:
                     return LoggerLevel::getLevelOff();
                 default: {
                     throw new Exception(
