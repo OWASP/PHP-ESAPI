@@ -87,7 +87,7 @@ class DefaultEncoder implements Encoder {
      */
     function __construct($codecs = null)
     {
-        $this->logger = ESAPI::getLogger("Encoder");
+        $this->logger = ESAPI::getAuditor("Encoder");
 
         // initialise codecs
         $this->base64Codec     = new Base64Codec();

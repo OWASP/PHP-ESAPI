@@ -36,7 +36,7 @@ class DefaultExecutor implements Executor {
 	
 	function __construct()
 	{
-		$this->logger = ESAPI::getLogger('Executor');
+		$this->logger = ESAPI::getAuditor('Executor');
 		$this->config = ESAPI::getSecurityConfiguration();
  	}
 

@@ -70,7 +70,7 @@ class HTMLValidationRule extends StringValidationRule
 
         parent::__construct($typeName, $encoder);
 
-        $this->logger = $ESAPI->getLogger("HTMLValidationRule");
+        $this->logger = $ESAPI->getAuditor("HTMLValidationRule");
         try
         {
             $this->purifier = new HTMLPurifier($this->basicConfig());

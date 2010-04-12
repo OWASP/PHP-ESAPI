@@ -59,7 +59,7 @@ class DefaultIntrusionDetector implements IntrusionDetector {
 
     function __construct()
     {
-        $this->logger = ESAPI::getLogger('IntrusionDetector');
+        $this->logger = ESAPI::getAuditor('IntrusionDetector');
         $this->userEvents = array();
     }
 

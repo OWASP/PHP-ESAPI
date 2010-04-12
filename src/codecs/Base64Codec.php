@@ -45,7 +45,7 @@ class Base64Codec
      */
     function __construct()
     {
-        $logger = ESAPI::getLogger("Base64");
+        $logger = ESAPI::getAuditor("Base64");
     }
 
     /**

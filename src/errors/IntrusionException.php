@@ -49,7 +49,7 @@ class IntrusionException extends Exception
 
         parent::__construct($userMessage);
         $this->logMessage = $logMessage;
-        $logger = $ESAPI->getLogger("IntrusionException");
+        $logger = $ESAPI->getAuditor("IntrusionException");
         $logger->error(DefaultAuditor::SECURITY, false, "INTRUSION - " . $logMessage);
     }
 

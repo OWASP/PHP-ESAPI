@@ -65,7 +65,7 @@ class DefaultValidator implements Validator
     public function __construct()
     {
         global $ESAPI;
-        $this->logger = ESAPI::getLogger('DefaultValidator');
+        $this->logger = ESAPI::getAuditor('DefaultValidator');
         $this->encoder = ESAPI::getEncoder();
     }
 

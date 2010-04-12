@@ -59,7 +59,7 @@ class URLValidationRule extends StringValidationRule
 
         parent::__construct($typeName, $encoder);
 
-        $this->logger = $ESAPI->getLogger("URLValidationRule");
+        $this->logger = $ESAPI->getAuditor("URLValidationRule");
     }
 
     /**
