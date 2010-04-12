@@ -50,7 +50,7 @@ class ESAPI
     private static $_httpUtilities = null;
     private static $_intrusionDetector = null;
     private static $_defaultLogger = null;
-    private static $_logFactory= null;
+    private static $_auditorFactory= null;
     private static $_randomizer = null;
     private static $_securityConfiguration = null;
     private static $_validator = null;
@@ -281,12 +281,12 @@ class ESAPI
      */
     public static function getLogger($logger) 
     {
-        if (self::$_logFactory == null) {
+        if (self::$_auditorFactory == null) {
             include_once dirname(__FILE__).
-              '/reference/DefaultLogFactory.php';
-            self::setLogFactory(new DefaultLogFactory());
+              '/reference/DefaultAuditorFactory.php';
+            self::setLogFactory(new DefaultAuditorFactory());
         }
-        return self::$_logFactory->getLogger($logger);
+        return self::$_auditorFactory->getLogger($logger);
     }
 
     /**
@@ -298,7 +298,7 @@ class ESAPI
     public static function log() 
     {
         if (self::$_defaultLogger == null) {
-            self::$_defaultLogger = self::$_logFactory->getLogger("DefaultLogger");
+            self::$_defaultLogger = self::$_auditorFactory->getLogger("DefaultLogger");
         }
         return self::$_defaultLogger;
     }
@@ -313,7 +313,7 @@ class ESAPI
      */
     public static function setLogFactory($factory) 
     {
-        self::$_logFactory = $factory;
+        self::$_auditorFactory = $factory;
     }
 
 
