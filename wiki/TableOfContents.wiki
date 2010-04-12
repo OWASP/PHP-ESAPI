@@ -3,7 +3,6 @@
     * [GettingStarted Getting started]
     * [Howto How to build YOUR Enterprise Security API using OWASP ESAPI]
     * [FAQ Frequently asked questions]
-    * [Phpdoc Appendix -- Online phpdoc]
   * [RoadMap ESAPI for PHP Contributors]
     * [Completed Completed controls]
     * [Assignments Current Assignments]
