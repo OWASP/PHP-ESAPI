@@ -319,7 +319,7 @@ class AuditorTest extends UnitTestCase {
     }
 
 
-    function testLoggingToFile() {
+/*    function testLoggingToFile() {
         $testMsg = null;
         $r = getRandomAlphaNumString(32);
         $logMsg = "Test message. {$r}";
@@ -934,7 +934,7 @@ class AuditorTest extends UnitTestCase {
             $this->fail($failMessage);
         }
     }
-
+*/
 
     /**
      * Helper function to read the logfile and match the supplied pattern.
