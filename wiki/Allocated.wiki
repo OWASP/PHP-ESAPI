@@ -3,6 +3,4 @@
 The following controls have been assigned:
 
 || *Control* || *Current status* || *Assignee* || *Notes* ||
-|| Encryptor || Initial development ||Arnaud || change in approach, target ESAPI for Java 2.0 design ||
-|| EncryptedProperties || Initial development || Arnaud || ||
 || HTTPUtilities || Initial development || jah || ||
