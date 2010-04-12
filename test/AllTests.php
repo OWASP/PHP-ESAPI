@@ -37,7 +37,6 @@ $test = new GroupTest('Core Function Tests');
     $test->addTestFile(dirname(__FILE__).'/reference/EncoderTest.php');
     $test->addTestFile(dirname(__FILE__).'/reference/ExecutorTest.php');
     $test->addTestFile(dirname(__FILE__).'/reference/SafeFileTest.php');
-    $test->addTestFile(dirname(__FILE__).'/reference/RandomizerTest.php');
 $test->run(new HTMLReporter());
 
 $test = new GroupTest('Core Function Helper Tests');
@@ -52,8 +51,9 @@ $test = new GroupTest('Core Function Helper Tests');
     $test->addTestFile(dirname(__FILE__).'/codecs/UnixCodecTest.php');
     $test->addTestFile(dirname(__FILE__).'/codecs/VBScriptCodecTest.php');
     $test->addTestFile(dirname(__FILE__).'/codecs/WindowsCodecTest.php');
-    $test->addTestFile(dirname(__FILE__).'/reference/StringUtilitiesTest.php');
     $test->addTestFile(dirname(__FILE__).'/reference/HTTPUtilitiesTest.php');
+    $test->addTestFile(dirname(__FILE__).'/reference/RandomizerTest.php');
+    $test->addTestFile(dirname(__FILE__).'/reference/StringUtilitiesTest.php');
 $test->run(new HTMLReporter());
 
 $test = new GroupTest('Reference Implementation Tests');
