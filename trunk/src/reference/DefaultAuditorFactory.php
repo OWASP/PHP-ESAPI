@@ -21,7 +21,7 @@
 /**
  * 
  */
-require_once dirname(__FILE__).'/../ESAPILogFactory.php';
+require_once dirname(__FILE__).'/../LoggerFactory.php';
 require_once dirname(__FILE__).'/DefaultLogger.php';
 
 
@@ -35,7 +35,7 @@ require_once dirname(__FILE__).'/DefaultLogger.php';
  * @author Laura D. Bell
  * @since  1.6
  */
-class DefaultLogFactory implements ESAPILogFactory {
+class DefaultLoggerFactory implements LoggerFactory {
 
     private $loggerMap = array();
 
