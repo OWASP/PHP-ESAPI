@@ -91,7 +91,7 @@ class SafeFile extends SplFileObject
             "Directory path (" + $path + ") contains encoded characters. ");
         }
 
-        $ch = $this->containsUnprintableCharacters($path);
+        $ch = $this->_containsUnprintableCharacters($path);
         if ($ch != -1) {
             throw new ValidationException("Invalid directory", 
             "Directory path (" + $path + ") contains unprintable character. ");
@@ -118,7 +118,7 @@ class SafeFile extends SplFileObject
             "File path (" + $path + ") contains encoded characters.");
         }
 
-        $ch = $this->containsUnprintableCharacters($path);
+        $ch = $this->_containsUnprintableCharacters($path);
         if ($ch != -1) {
             throw new ValidationException("Invalid file", 
             "File path (" + $path + ") contains unprintable character.");
