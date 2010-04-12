@@ -39,10 +39,10 @@ class SecurityConfigurationTest extends UnitTestCase
 
     }
 
-//    function testConfigExists()
-//    {
-//        $this->assertTrue(file_exists(dirname(__FILE__).'/../testresources/ESAPI.xml'));
-//    }
+    function testConfigExists()
+    {
+        $this->assertTrue(file_exists(dirname(__FILE__).'/../testresources/ESAPI.xml'));
+    }
 //
 //    /**
 //     * Gets the application name, used for logging
