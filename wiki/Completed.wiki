@@ -1,6 +1,6 @@
 #sidebar TableOfContents
 
 || *Component* || *Status* || *Notes* ||
-|| Core Functions || 6/7 test cases complete: 3859 passes, 0 fails and 0 exceptions. || ||
-|| Core Function Helpers || 13/13 test cases complete: 208 passes, 11 fails and 0 exceptions. || HTTPUtilities needs to be implemented. ||
-|| Reference Implementations || 6/6 test cases complete: 79 passes, 71 fails and 0 exceptions. || AccessController needs to be implemented. Logger and IntrusionDetector need to be locked down further. ||
+|| Core Functions || 6/6 test cases complete: 3752 passes, 0 fails and 0 exceptions. || ||
+|| Core Function Helpers || 13/13 test cases complete: 316 passes, 0 fails and 0 exceptions. || HTTPUtilities needs to be implemented. ||
+|| Reference Implementations || 5/5 test cases complete: 79 passes, 70 fails and 0 exceptions. || AccessController needs to be implemented. Logger and IntrusionDetector need to be locked down further. ||
