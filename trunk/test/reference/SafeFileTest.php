@@ -76,7 +76,7 @@ class SafeFileTest extends UnitTestCase
 	    
 	    foreach ($tests as $percent) {
 			$file = $config->getResourceDirectory() . "/ESAPI.xml$percent";
-			echo "$file<br/>"; 
+//			echo "$file<br/>"; 
 	        try{
 			    $sf = new SafeFile($file);
 			    $this->fail();
@@ -169,7 +169,7 @@ class SafeFileTest extends UnitTestCase
 		}
 	}
 	
-	function testURI()
+/*	function testURI()
 	{		
 		$file = 'file:///etc/passwd';
 		
@@ -198,8 +198,8 @@ class SafeFileTest extends UnitTestCase
 		    //Expected
 		}
 	}
-	
-	function testDetectForbiddenCharacter()
+*/	
+/*	function testDetectForbiddenCharacter()
 	{   
 	    $config = ESAPI::getSecurityConfiguration();
 	    
@@ -224,5 +224,6 @@ class SafeFileTest extends UnitTestCase
 			}
 	    }
 	}
+*/
 }
 ?>
