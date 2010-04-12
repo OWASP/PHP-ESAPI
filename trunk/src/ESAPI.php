@@ -49,7 +49,7 @@ class ESAPI
     private static $_executor = null;
     private static $_httpUtilities = null;
     private static $_intrusionDetector = null;
-    private static $_defaultLogger = null;
+    private static $_defaultAuditor = null;
     private static $_auditorFactory= null;
     private static $_randomizer = null;
     private static $_securityConfiguration = null;
@@ -297,10 +297,10 @@ class ESAPI
      */
     public static function log() 
     {
-        if (self::$_defaultLogger == null) {
-            self::$_defaultLogger = self::$_auditorFactory->getLogger("DefaultLogger");
+        if (self::$_defaultAuditor == null) {
+            self::$_defaultAuditor = self::$_auditorFactory->getLogger("DefaultLogger");
         }
-        return self::$_defaultLogger;
+        return self::$_defaultAuditor;
     }
 
     /**
