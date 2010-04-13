@@ -61,9 +61,9 @@ class DefaultHTTPUtilities implements HTTPUtilities
 
 
     /**
-     * Adds the current user's CSRF token (see User.getCSRFToken()) to the URL
-     * for purposes of preventing CSRF attacks. This method should be used on
-     * all URLs to be put into all links and forms the application generates.
+     * Adds the CSRF token from the current session to the supplied URL for the
+     * purposes of preventing CSRF attacks. This method should be used on all URLs
+     * to be put into all links and forms the application generates.
      *
      * @param string $href the URL to which the CSRF token will be appended.
      *
@@ -71,10 +71,21 @@ class DefaultHTTPUtilities implements HTTPUtilities
      */
     public function addCSRFToken($href)
     {
-        throw new EnterpriseSecurityException(
-            'addCSRFToken method Not implemented',
-            'addCSRFToken method Not implemented'
-        );
+        if (! is_string($href) || empty($href)) {
+            throw new InvalidArgumentException(
+                'addCSRFToken expects string $href.'
+            );
+        }
+        if (! isset($_SESSION)) {
+            return $href;
+        }
+        if (strpos('?', $href) === false) {
+            $href .= '?' . $this->getCSRFToken();
+        } else {
+            $href .= '&' . $this->getCSRFToken();
+        }
+        
+        return $href;
     }
 
 
@@ -84,8 +95,8 @@ class DefaultHTTPUtilities implements HTTPUtilities
      * @param SafeRequest $request Request object.
      * @param string      $name    The name of the cookie to retreive.
      *
-     * @return string value of the requested cookie or
-     *         null if the specified cookie is not present.
+     * @return string|null value of the requested cookie or
+     *                     null if the specified cookie is not present.
      */
     public function getCookie($request, $name)
     {
@@ -99,18 +110,58 @@ class DefaultHTTPUtilities implements HTTPUtilities
 
 
     /**
-     * Returns the current user's CSRF token. If there is no current user then
-     * null is returned.
+     * Returns the CSRF token from the current session. If there is no current
+     * session then null is returned. If the CSRF Token is not present in the
+     * session it will be created.
      *
-     * @return string CSRF token of the current user or
-     *         null.
+     * @return string|null CSRF token for the current session or
+     *                     null.
      */
     public function getCSRFToken()
     {
-        throw new EnterpriseSecurityException(
-            'getCSRFToken method Not implemented',
-            'getCSRFToken method Not implemented'
-        );
+        if (! isset($_SESSION)) {
+            return null;
+        }
+        
+        if (   ! array_key_exists('ESAPI', $_SESSION)
+            || ! array_key_exists('HTTPUtilities', $_SESSION['ESAPI'])
+            || ! array_key_exists('CSRFToken', $_SESSION['ESAPI']['HTTPUtilities'])
+        ) {
+            $this->setCSRFToken();
+        }
+        
+        return $_SESSION['ESAPI']['HTTPUtilities']['CSRFToken'];
+    }
+
+
+    /**
+     * Sets the CSRF Token for the current session.  If the session has not been
+     * started at the time this method is called then the token will not be
+     * generated.
+     *
+     * @return null
+     */
+    public function setCSRFToken()
+    {
+        if (! isset($_SESSION)) {
+            return null;
+        }
+        
+        if (! array_key_exists('ESAPI', $_SESSION)) {
+            $_SESSION['ESAPI'] = array(
+                'HTTPUtilities' => array(
+                    'CSRFToken' => ''
+                )
+            );
+        } else if (! array_key_exists('HTTPUtilities', $_SESSION['ESAPI'])) {
+            $_SESSION['ESAPI']['HTTPUtilities'] = array(
+                'CSRFToken' => ''
+            );
+            
+        }
+        
+        $_SESSION['ESAPI']['HTTPUtilities']['CSRFToken']
+            = ESAPI::getRandomizer()->getRandomGUID();
     }
 
 
@@ -195,10 +246,6 @@ class DefaultHTTPUtilities implements HTTPUtilities
      * the existing session contents. Care should be taken to use this only when
      * the existing session does not contain hazardous contents.
      *
-     * TODO - this sucks. there seems little point wrapping a session since there
-     * is no way to enforce its use - though there may be some benefit to providing
-     * a handy interface - especially for alternative save handlers.
-     *
      * @return bool true if the change of Session Identifier was successful,
      *              false otherwise
      */
@@ -209,8 +256,8 @@ class DefaultHTTPUtilities implements HTTPUtilities
 
 
     /**
-     * Checks the CSRF token in the URL (see User.getCSRFToken()) against the
-     * user's CSRF token and throws an IntrusionException if it is missing.
+     * Searches the GET and POST parameters in a request for the CSRF token stored
+     * in the current session and throws an IntrusionException if it is missing.
      *
      * @param SafeRequest $request A request object.
      *
@@ -220,10 +267,19 @@ class DefaultHTTPUtilities implements HTTPUtilities
      */
     public function verifyCSRFToken($request)
     {
-        throw new EnterpriseSecurityException(
-            'verifyCSRFToken method Not implemented',
-            'verifyCSRFToken method Not implemented'
-        );
+        if ($request instanceof SafeRequest == false) {
+            throw new InvalidArgumentException(
+                'assertSecureRequest expects an instance of SafeRequest.'
+            );
+        }
+
+        if ($request->getParameter($this->getCSRFToken()) === null) {
+            throw new IntrusionException(
+                'Authentication failed.',
+                'Possibly forged HTTP request without proper CSRF token detected.'
+            );
+        }
+        
     }
 
 
@@ -643,15 +699,14 @@ class DefaultHTTPUtilities implements HTTPUtilities
 
 
     /**
-     * Stores the current HttpRequest and HttpResponse so that they may be readily
-     * accessed throughout ESAPI (and elsewhere).
+     * Stores the supplied SafeRequest object so that it may be readily accessed
+     * throughout ESAPI (and elsewhere).
      *
-     * @param SafeRequest  $request  Current Request object.
-     * @param SafeResponse $response Current Response object.
+     * @param SafeRequest $request Current Request object.
      *
      * @return null.
      */
-    public function setCurrentHTTP($request, $response)
+    public function setCurrentHTTP($request)
     {
         if ($request instanceof SafeRequest == false) {
             throw new InvalidArgumentException(
@@ -673,25 +728,24 @@ class DefaultHTTPUtilities implements HTTPUtilities
     }
 
 
-    /**
+    /*
      * Retrieves the current HttpServletResponse.
      *
      * @return SafeResponse the current response.
-     */
+     *
     public function getCurrentResponse()
     {
         throw new EnterpriseSecurityException(
             'getCurrentResponse method Not implemented',
             'getCurrentResponse method Not implemented'
         );
-    }
+    }*/
 
 
     /**
      * Format the Source IP address, URL, URL parameters, and all form parameters
      * into a string suitable for the log file. Be careful not to log sensitive
-     * information, and consider masking with the logHTTPRequest_effectObfuscate
-     * method.
+     * information, and consider masking with the logHTTPRequestObfuscate method.
      *
      * @param SafeRequest $request Current Request object.
      * @param Auditor     $auditor the auditor to write the request to.
