@@ -159,23 +159,6 @@ interface Validator
      * @return bool TRUE if the input is valid, FALSE otherwise.
      */
     public function isValidDirectoryPath($context, $input, $allowNull);
-     
-    /**
-     * Returns true if the canonicalized input is a valid file name.
-     * 
-     * @param string $context   A descriptive name of the parameter that you are
-     *                          validating (e.g. IncludeFile). This value is used 
-     *                          by any logging or error handling that is done with 
-     *                          respect to the value passed in.
-     * @param string $input     The actual user input data to validate.
-     * @param bool   $allowNull If allowNull is true then an input that is NULL or 
-     *                          an empty string will be legal. If allowNull is 
-     *                          false then NULL or an empty String will throw a 
-     *                          ValidationException.
-     * 
-     * @return bool TRUE if the input is valid, FALSE otherwise.
-     */
-    public function isValidFileName($context, $input, $allowNull);
     
     /**
      * Returns true if the canonicalized input is a valid, real number within
@@ -244,18 +227,6 @@ interface Validator
     public function isValidDouble($context, $input, $minValue, $maxValue, 
         $allowNull
     );
-    
-      
-     
-    /**
-     * Validate the current HTTP request by comparing parameters, headers and
-     * cookies to a predefined whitelist of allowed characters.
-     * For the methods to retrieve the whitelists {@see SecurityConfiguration}.
-     * 
-     * @return bool TRUE if the input is valid, FALSE otherwise.
-     */
-    public function isValidHTTPRequest();
-    
  
     /**
      * Returns true if the canonicalized input exactly matches a list item.
@@ -270,25 +241,6 @@ interface Validator
      * @return bool TRUE if the input is valid, FALSE otherwise.
      */
     public function isValidListItem($context, $input, $list);
- 
-    
-    /**
-     * Returns true if the parameters in the current request contain all
-     * required parameters and only the optional parameters specified.
-     * 
-     * @param string $context  A descriptive name of the parameter that you are
-     *                         validating (e.g. Request_Params). This value is 
-     *                         used by any logging or error handling that is 
-     *                         done with respect to the value passed in.
-     * @param array  $required The parameters that are required to be in HTTP 
-     *                         request.
-     * @param array  $optional The additional parameters that may be in HTTP 
-     *                         request.
-     * 
-     * @return bool TRUE if the input is valid, FALSE otherwise.
-     */
-    public function isValidHTTPRequestParameterSet($context, $required, $optional);
- 
     
     /**
      * Returns true if the canonicalized input contains no more than the number
@@ -309,27 +261,5 @@ interface Validator
      * @return bool TRUE if the input is valid, FALSE otherwise.
      */
     public function isValidPrintable($context, $input, $maxLength, $allowNull);
-   
-     
-    /**
-     * Returns true if the canonicalized input is a valid redirect location as
-     * defined in "ESAPI.xml".
-     * 
-     * @param string $context   A descriptive name of the parameter that you are
-     *                          validating (e.g. IncludeFile). This value is used 
-     *                          by any logging or error handling that is done with 
-     *                          respect to the value passed in.
-     * @param string $input     The actual user input data to validate.
-     * @param bool   $allowNull If allowNull is true then an input that is NULL or 
-     *                          an empty string will be legal. If allowNull is 
-     *                          false then NULL or an empty String will throw a 
-     *                          ValidationException.
-     * 
-     * @return bool TRUE if the input is valid, FALSE otherwise.
-     */
-    public function isValidRedirectLocation($context, $input, $allowNull);
-
-
-
-
+ 
 }
