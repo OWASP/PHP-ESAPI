@@ -263,26 +263,6 @@ interface Encoder
 
 
     /**
-     * Encode data for use in LDAP queries.
-     *
-     * @param string $input string to be encoded for use in LDAP queries.
-     *
-     * @return the input string encoded for use in LDAP queries.
-     */
-    function encodeForLDAP($input);
-
-
-    /**
-     * Encode data for use in an LDAP distinguished name.
-     *
-     * @param string $input string to be encoded for an LDAP distinguished name.
-     *
-     * @return the input string encoded for use in an LDAP distinguished name.
-     */
-    function encodeForDN($input);
-
-
-    /**
      * Encode data for use in an XPath query.
      *
      * The difficulty with XPath encoding is that XPath has no built in
