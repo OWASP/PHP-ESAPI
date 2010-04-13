@@ -104,7 +104,7 @@ class DefaultEncoder implements Encoder
             // leaving css and vbs codecs out - they eat / and " chars respectively
             // array_push($this->_codecs,$this->_cssCodec);
             // array_push($this->_codecs,$this->_vbscriptCodec);
-        } else if ($_codecs instanceof Codec == false) {
+        } else if (! is_array($_codecs)) {
             throw new Exception(
                 'Invalid Argument. Codec list must be of type '.
                 'Array.'
@@ -112,7 +112,7 @@ class DefaultEncoder implements Encoder
         } else {
             // check array contains only codec instances
             foreach ($_codecs as $codec) {
-                if (! is_a($codec, 'Codec')) {
+                if ($codec instanceof Codec == false) {
                     throw new Exception(
                         'Invalid Argument. Codec list must '.
                         'contain only Codec instances.'
