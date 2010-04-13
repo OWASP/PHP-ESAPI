@@ -100,7 +100,6 @@ class SafeRequest
     private $_entity             = null;  // TODO $_entity php://input possibly
     private $_characterEncoding  = null;  // TODO $_characterEncoding of $_entity possibly
     private $_parameterNames     = null;  // TODO $_parameterNames for logrequest
-    private $_parameterValues    = null;  // TODO $_parameterValues for logrequest
     private $_parameterMap       = null;  // TODO $_parameterMap for logrequest
 
     private $_validator = null;
@@ -892,39 +891,84 @@ class SafeRequest
     }
 
 
-    public function getParameter()
+    public function getParameter($name)
     {
-        throw new EnterpriseSecurityException(
-            'getParameter method Not implemented.',
-            'getParameter method Not implemented.'
-        );
+        if (! is_string($name) || empty($name)) {
+            return null;
+        }
+        if ($this->_parameterMap === null) {
+            $this->getParameterMap();
+        }
+        if (! array_key_exists($name, $this->_parameterMap)) {
+            return null;
+        }
+        if (! is_array($this->_parameterMap['name'])) {
+            return $this->_parameterMap['name'];
+        }
+        return $this->_parameterMap['name'][0];
     }
 
 
     public function getParameterNames()
     {
-        throw new EnterpriseSecurityException(
-            'getParameterNames method Not implemented.',
-            'getParameterNames method Not implemented.'
-        );
+        if ($this->_parameterNames !== null) {
+            return $this->_parameterNames;
+        }
+        if ($this->_parameterMap === null) {
+            $this->getParameterMap();
+        }
+        $tmp = array();
+        foreach ($this->_parameterMap as $name => $ignore) {
+            $tmp[] = $name;
+        }
+        $this->_parameterNames = $tmp;
+        return $this->_parameterNames;
+        
     }
 
 
-    public function getParameterValues()
+    public function getParameterValues($name)
     {
-        throw new EnterpriseSecurityException(
-            'getParameterValues method Not implemented.',
-            'getParameterValues method Not implemented.'
-        );
+        if (! is_string($name) || empty($name)) {
+            return null;
+        }
+        if ($this->_parameterMap === null) {
+            $this->getParameterMap();
+        }
+        if (! array_key_exists($name, $this->_parameterMap)) {
+            return null;
+        }
+        return $this->_parameterMap[$name];
     }
 
 
     public function getParameterMap()
     {
-        throw new EnterpriseSecurityException(
-            'getParameterMap method Not implemented.',
-            'getParameterMap method Not implemented.'
-        );
+        if ($this->_parameterMap !== null) {
+            return $this->_parameterMap;
+        }
+        
+        $tmp = array();
+        foreach ($_POST as $unsafePname => $unsafePvalue) {
+            try {
+                $canonName  = $this->_encoder->canonicalize($unsafePname);
+                $canonValue = $this->_encoder->canonicalize($unsafePvalue);
+                $tmp[$canonName][] = $canonValue;
+            } catch (Exception $e) {
+                // NoOp
+            }
+        }
+        foreach ($_GET as $unsafePname => $unsafePvalue) {
+            try {
+                $canonName  = $this->_encoder->canonicalize($unsafePname);
+                $canonValue = $this->_encoder->canonicalize($unsafePvalue);
+                $tmp[$canonName][] = $canonValue;
+            } catch (Exception $e) {
+                // NoOp
+            }
+        }
+        $this->_parameterMap = $tmp;
+        return $this->_parameterMap;
     }
 
 
