@@ -22,15 +22,18 @@
 
 
 /**
- * SafeRequest requires ValidationException.
+ * SafeRequest requires the DefaultEncoder, HTMLEntityCodec and PercentCodec.
  */
-require_once dirname(__FILE__) . '/../errors/ValidationException.php';
+require_once dirname(__FILE__) . '/../reference/DefaultEncoder.php';
+require_once dirname(__FILE__) . '/../codecs/HTMLEntityCodec.php';
+require_once dirname(__FILE__) . '/../codecs/PercentCodec.php';
+
 
 /**
- * This request wrapper simply overrides unsafe methods in the
- * HttpServletRequest API with safe versions that return canonicalized data
- * where possible. The wrapper returns a safe value when a validation error is
- * detected, including stripped or empty strings.
+ * This request wrapper simply provides convenient and safe methods for the
+ * retreival of HTTP request parameters, headers and PHP server globals defined in
+ * the CGI 1.1 Specification.  The methods perform canonicalization and validation
+ * of the requested values or return safe defaults such as empty strings.
  *
  * PHP version 5.2
  *
@@ -55,13 +58,11 @@ class SafeRequest
     const CHARS_HTTP_HEADER_NAME  = '-_';
     const CHARS_HTTP_HEADER_VALUE = ' !"#$%&\'()*+,-./;:<=>?@[\]^_`{|}~';
     const CHARS_HTTP_QUERY_STRING = ' &()*+,-./;:=?_';
-    const CHARS_HTTP_HOSTNAME  = '-._';
+    const CHARS_HTTP_HOSTNAME     = '-._';
     const CHARS_HTTP_REMOTE_USER  = '!#$%&\'*+-.^_`|~';
-
     const CHARS_FILESYSTEM_PATH   = ' !#$%&\'()+,-./=@[\]^_`{}~';
-
-    const CHARS_ALPHA   = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
-    const CHARS_NUMERIC = '0123456789';
+    const CHARS_NUMERIC           = '0123456789';
+    const CHARS_ALPHA = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
 
     const ORD_TAB = 0x09;
 
@@ -75,43 +76,28 @@ class SafeRequest
 
     private $_serverGlobals      = null;
 
-    private $_authType           = null;  // AUTH_TYPE
-    private $_contentLength      = null;  // CONTENT_LENGTH
-    private $_contentType        = null;  // CONTENT_TYPE
-    private $_headers            = null;  // HTTP_*
-    private $_pathInfo           = null;  // PATH_INFO
-    private $_pathTranslated     = null;  // PATH_TRANSLATED
-    private $_queryString        = null;  // QUERY_STRING
-    private $_remoteAddr         = null;  // REMOTE_ADDR
-    private $_remoteHost         = null;  // REMOTE_HOST
-    private $_remoteUser         = null;  // REMOTE_USER
-    private $_method             = null;  // REQUEST_METHOD
-    private $_servletPath        = null;  // ? SCRIPT_NAME
-    private $_serverName         = null;  // SERVER_NAME
-    private $_serverPort         = null;  // SERVER_PORT // TODO is default value 0 a wise choice?
-    private $_protocol           = null;  // SERVER_PROTOCOL
-
+    private $_authType           = null;
+    private $_contentLength      = null;
+    private $_contentType        = null;
+    private $_headers            = null;
+    private $_pathInfo           = null;
+    private $_pathTranslated     = null;
+    private $_queryString        = null;
+    private $_remoteAddr         = null;
+    private $_remoteHost         = null;
+    private $_remoteUser         = null;
+    private $_method             = null;
+    private $_servletPath        = null;
+    private $_serverName         = null;
+    private $_serverPort         = null;
+    private $_protocol           = null;
     private $_cookies            = null;
-    private $_dateHeader         = null;  // TODO $_dateHeader
-    private $_headerNames        = null;  // TODO $_headerNames possibly
-    private $_requestedSessionId = null;  // TODO $_requestedSessionId
-    private $_requestURI         = null;  // TODO $_requestURI
-    private $_session            = null;  // TODO $_session
-    private $_entity             = null;  // TODO $_entity php://input possibly
-    private $_characterEncoding  = null;  // TODO $_characterEncoding of $_entity possibly
-    private $_parameterNames     = null;  // TODO $_parameterNames for logrequest
-    private $_parameterMap       = null;  // TODO $_parameterMap for logrequest
+    private $_parameterNames     = null;
+    private $_parameterMap       = null;
 
     private $_validator = null;
     private $_encoder   = null;
     private $_auditor   = null;
-
-    /*
-     *   CGI NOT USED:
-     *   GATEWAY_INTERFACE
-     *   REMOTE_IDENT
-     *   SERVER_SOFTWARE
-     */
 
 
     /**
@@ -122,14 +108,12 @@ class SafeRequest
      * If any of the three options keys are not supplied then those elements will be
      * extracted from the actual request.
      * TODO accept a string like: 'GET / HTTP/1.1\r\nHost:example.com\r\n\r\n'
+     * TODO accept GET and REQUEST parameters.
      *
      * @param null|array $options array (optional) of HTTP Request elements.
      */
     public function __construct($options = null)
     {
-        include_once dirname(__FILE__) . '/../reference/DefaultEncoder.php';
-        include_once dirname(__FILE__) . '/../codecs/HTMLEntityCodec.php';
-        include_once dirname(__FILE__) . '/../codecs/PercentCodec.php';
         $codecs = array(
             new HTMLEntityCodec,
             new PercentCodec
@@ -603,9 +587,9 @@ class SafeRequest
 
 
     /**
-     * Returns an associative array of HTTP Headers.
+     * Returns an associative array of valid, canonical HTTP Headers.
      *
-     * @return array HTTP Headers.
+     * @return array Zero or more HTTP Headers.
      */
     public function getHeaders()
     {
@@ -619,41 +603,6 @@ class SafeRequest
 
         $this->_headers = $this->_validateHeaders($this->_serverGlobals);
         return $this->_headers;
-    }
-
-
-    private function _validateHeaders($ary)
-    {
-        $charset = array(self::CHARS_HTTP_HEADER_NAME);
-        $keyCharset = $this->_hexifyCharsForPattern($charset);
-        $ptnKey = "^[a-zA-Z0-9{$keyCharset}]+$";
-
-        $charset = array(self::CHARS_HTTP_HEADER_VALUE, self::ORD_TAB);
-        $valCharset = $this->_hexifyCharsForPattern($charset);
-        $ptnVal = "^[a-zA-Z0-9{$valCharset}]+$";
-
-        $tmp = array();
-        foreach ($ary as $unvalidatedKey => $unvalidatedVal) {
-            try
-            {
-                $safeKey = $this->_getIfValid(
-                    '$_SERVER Index', $unvalidatedKey, $ptnKey,
-                    'HTTP Header Validator', PHP_INT_MAX, false
-                );
-                if (mb_substr($safeKey, 0, 5, 'ASCII') == 'HTTP_') {
-                    $safeVal = $this->_getIfValid(
-                        '$_SERVER HTTP_* Value', $unvalidatedVal, $ptnVal,
-                        'HTTP Header Validator', PHP_INT_MAX, false
-                    );
-                    $tmp[$safeKey] = $safeVal;
-                }
-            }
-            catch (Exception $e)
-            {
-                // NoOp
-            }
-        }
-        return $tmp;
     }
 
 
@@ -700,6 +649,289 @@ class SafeRequest
     }
 
 
+    /**
+     * Retreives a named http cookie value.
+     *
+     * @param string $name Name of the cookie value to retreive.
+     *
+     * @return null|string valid, canonicalised cookie value or null if it is not
+     *                     present in the header or was present, but invalid.
+     */
+    public function getCookie($name)
+    {
+        if (! is_string($name) || $name == '') {
+            return null;
+        }
+        if ($this->_cookies === null) {
+            $this->getCookies();
+        }
+
+        if (! array_key_exists($name, $this->_cookies)) {
+            return null;
+        }
+
+        return $this->_cookies[$name];
+    }
+
+
+    /**
+     * Returns the value of the PHP Server Global with the supplied name. If the
+     * variable does not exist then null is returned.
+     *
+     * @param string $key Index name for a value in the $_SERVER array.
+     *
+     * @return string|null Value of a $_SERVER variable or null.
+     */
+    public function getServerGlobal($key)
+    {
+        if (! is_string($key) || $key == '') {
+            return null;
+        }
+        if ($this->_serverGlobals === null) {
+            $this->_getServerGlobals();
+        }
+
+        if (array_key_exists($key, $this->_serverGlobals)) {
+            return $this->_serverGlobals[$key];
+        }
+        $key = strtoupper($key);
+        if (array_key_exists($key, $this->_serverGlobals)) {
+            return $this->_serverGlobals[$key];
+        }
+
+        return null;
+    }
+
+
+    /**
+     * Returns the value of a request parameter as a String, or null if the
+     * parameter does not exist. Request parameters are contained in the query
+     * string or posted form data and are retreived from the $_GET and $_POST PHP
+     * globals {@see getParameterMap}.
+     * You should only use this method when you are sure the parameter has only one
+     * value. If the parameter might have more than one value, use
+     * getParameterValues. If you use this method with a multivalued parameter, the
+     * value returned is equal to the first value in the array returned by
+     * getParameterValues.
+     *
+     * @param string $name The name of a parameter to retreive.
+     *
+     * @return string|null The first or only value of a parameter or null if the
+     *                     parameter is not present in the request.
+     */
+    public function getParameter($name)
+    {
+        if (! is_string($name) || empty($name)) {
+            return null;
+        }
+        if ($this->_parameterMap === null) {
+            $this->getParameterMap();
+        }
+        if (! array_key_exists($name, $this->_parameterMap)) {
+            return null;
+        }
+        if (! is_array($this->_parameterMap['name'])) {
+            return $this->_parameterMap['name'];
+        }
+        return $this->_parameterMap['name'][0];
+    }
+
+
+    /**
+     * Returns an array containing the names of all parameters for this request.
+     * If the request has no parameters the returned array will be empty.
+     *
+     * @return array Zero or more request parameter names.
+     */
+    public function getParameterNames()
+    {
+        if ($this->_parameterNames !== null) {
+            return $this->_parameterNames;
+        }
+        if ($this->_parameterMap === null) {
+            $this->getParameterMap();
+        }
+        $tmp = array();
+        foreach ($this->_parameterMap as $name => $ignore) {
+            $tmp[] = $name;
+        }
+        $this->_parameterNames = $tmp;
+        return $this->_parameterNames;
+
+    }
+
+
+    /**
+     * Retrieves all values for the supplied parameter of this request as an array.
+     * Request parameters are contained in the query string or posted form data and
+     * are retreived from the $_GET and $_POST PHP globals {@see getParameterMap}.
+     * Values retreived from $_POST are added to the array before those from $_GET.
+     *
+     * @param string $name The name of the parameter to retreive.
+     *
+     * @return array|null Array of request parameter values asscoiated with the
+     *                    supplied name or null if the parameter name was not found
+     *                    in this request.
+     */
+    public function getParameterValues($name)
+    {
+        if (! is_string($name) || empty($name)) {
+            return null;
+        }
+        if ($this->_parameterMap === null) {
+            $this->getParameterMap();
+        }
+        if (! array_key_exists($name, $this->_parameterMap)) {
+            return null;
+        }
+        return $this->_parameterMap[$name];
+    }
+
+
+    /**
+     * Returns an associative array of the parameters of this request. Request
+     * parameters are contained in the query string or posted form data and are
+     * retreived from the $_GET and $_POST PHP globals.  The keys of the array are
+     * canonicalized strings and the values are arrays of canonicalized strings.
+     * Values retreived from $_POST are added to the array before those from $_GET.
+     *
+     * @return array of canonicalized request parameters.
+     */
+    public function getParameterMap()
+    {
+        if ($this->_parameterMap !== null) {
+            return $this->_parameterMap;
+        }
+
+        $tmp = array();
+        foreach ($_POST as $unsafePname => $unsafePvalue) {
+            try {
+                $canonName  = $this->_encoder->canonicalize($unsafePname);
+                $canonValue = $this->_encoder->canonicalize($unsafePvalue);
+                $tmp[$canonName][] = $canonValue;
+            } catch (Exception $e) {
+                // NoOp
+            }
+        }
+        foreach ($_GET as $unsafePname => $unsafePvalue) {
+            try {
+                $canonName  = $this->_encoder->canonicalize($unsafePname);
+                $canonValue = $this->_encoder->canonicalize($unsafePvalue);
+                $tmp[$canonName][] = $canonValue;
+            } catch (Exception $e) {
+                // NoOp
+            }
+        }
+        $this->_parameterMap = $tmp;
+        return $this->_parameterMap;
+    }
+
+
+    /**
+     * A convenience method to retrieve an array of PHP Server Globals.  Both the
+     * keys and values are canonicalized and those that generate exceptions are
+     * not added to the array.
+     *
+     * @return array Zero or more Canonicalized PHP Server Globals.
+     */
+    private function _getServerGlobals()
+    {
+        if ($this->_serverGlobals !== null) {
+            return $this->_serverGlobals;
+        }
+
+        $this->_serverGlobals = $this->_canonicalizeServerGlobals($_SERVER);
+
+        return $this->_serverGlobals;
+    }
+
+
+    /**
+     * Performs strict canonicalization of the indices and values of the supplied
+     * array which may be the PHP server globals or a custom array of name value
+     * pairs.
+     *
+     * @param array $ary Name value pairs.
+     *
+     * @return array Associative array with canonicalized indices and values.
+     */
+    private function _canonicalizeServerGlobals($ary)
+    {
+        $tmp = array();
+        foreach ($ary as $unsafeKey => $unsafeVal) {
+            if (! is_string($unsafeVal)) {
+                continue;
+            }
+            try {
+                $canonKey = $this->_encoder->canonicalize($unsafeKey);
+                $canonVal = $this->_encoder->canonicalize($unsafeVal);
+                $tmp[$canonKey] = $canonVal;
+            } catch (Exception $e) {
+                // Validation or Intrusion Exceptions perform auto logging.
+            }
+        }
+        return $tmp;
+    }
+
+
+    /**
+     * This helper method accepts either the server globals array $_SERVER or a
+     * similar array containing values with string indices in the form HTTP_*
+     * The indices are canonicalized and validated against a pattern for valid
+     * HTTP header names and those that pass are returned along with their
+     * canonicalised valid HTTP header values.
+     *
+     * @param array $ary Associative array that includes HTTP header name value
+     *                   pairs.
+     *
+     * @return array Zero or more validated HTTP header name value pairs.
+     */
+    private function _validateHeaders($ary)
+    {
+        $charset = array(self::CHARS_HTTP_HEADER_NAME);
+        $keyCharset = $this->_hexifyCharsForPattern($charset);
+        $ptnKey = "^[a-zA-Z0-9{$keyCharset}]+$";
+
+        $charset = array(self::CHARS_HTTP_HEADER_VALUE, self::ORD_TAB);
+        $valCharset = $this->_hexifyCharsForPattern($charset);
+        $ptnVal = "^[a-zA-Z0-9{$valCharset}]+$";
+
+        $tmp = array();
+        foreach ($ary as $unvalidatedKey => $unvalidatedVal) {
+            try
+            {
+                $safeKey = $this->_getIfValid(
+                    '$_SERVER Index', $unvalidatedKey, $ptnKey,
+                    'HTTP Header Validator', PHP_INT_MAX, false
+                );
+                if (mb_substr($safeKey, 0, 5, 'ASCII') == 'HTTP_') {
+                    $safeVal = $this->_getIfValid(
+                        '$_SERVER HTTP_* Value', $unvalidatedVal, $ptnVal,
+                        'HTTP Header Validator', PHP_INT_MAX, false
+                    );
+                    $tmp[$safeKey] = $safeVal;
+                }
+            }
+            catch (Exception $e)
+            {
+                // NoOp
+            }
+        }
+        return $tmp;
+    }
+
+
+    /**
+     * This helper method accepts either the $_COOKIES array or a similar array
+     * containing custom cookie name value pairs.  The names and values are
+     * canonicalized and validated against a pattern for valid HTTP cookies and
+     * those that pass are returned.
+     *
+     * @param array $ary Associative array that includes HTTP cookie name value
+     *                   pairs.
+     *
+     * @return array Zero or more validated HTTP cookie name value pairs.
+     */
     private function _validateCookies($ary)
     {
         if ($this->_cookies !== null) {
@@ -737,259 +969,22 @@ class SafeRequest
 
 
     /**
-     * Retreives a named http cookie value.
+     * Helper method to validate input and return the canonicalized, validated value
+     * if valid.
      *
-     * @param string $name Name of the cookie value to retreive.
+     * @param string $context   A description of the input to be validated.
+     * @param string $input     The input to validate.
+     * @param string $pattern   The regex pattern against which to validate the
+     *                          supplied input.
+     * @param string $type      A descriptive name for the StringValidationRule.
+     * @param int    $maxLength The maximum post-canonicalized length of valid
+     *                          inputs.
+     * @param bool   $allowNull Whether an empty string is considered valid input.
      *
-     * @return null|string valid, canonicalised cookie value or null if it is not
-     *                     present in the header or was present, but invalid.
+     * @return string canonicalized, valid inputs only.
+     *
+     * @throws ValidationException
      */
-    public function getCookie($name)
-    {
-        if (! is_string($name) || $name == '') {
-            return null;
-        }
-        if ($this->_cookies === null) {
-            $this->getCookies();
-        }
-
-        if (! array_key_exists($name, $this->_cookies)) {
-            return null;
-        }
-
-        return $this->_cookies[$name];
-    }
-
-
-    /**
-     * A convenience method to retrieve an array of PHP Server Globals.  Both the
-     * keys and values are canonicalized and those that generate exceptions are
-     * not added to the array.
-     *
-     * @return array Zero or more Canonicalized PHP Server Globals.
-     */
-    private function _getServerGlobals()
-    {
-        if ($this->_serverGlobals !== null) {
-            return $this->_serverGlobals;
-        }
-
-        $this->_serverGlobals = $this->_canonicalizeServerGlobals($_SERVER);
-
-        return $this->_serverGlobals;
-    }
-
-
-    private function _canonicalizeServerGlobals($ary)
-    {
-        $tmp = array();
-        foreach ($ary as $unsafeKey => $unsafeVal) {
-            if (! is_string($unsafeVal)) {
-                continue;
-            }
-            try {
-                $canonKey = $this->_encoder->canonicalize($unsafeKey);
-                $canonVal = $this->_encoder->canonicalize($unsafeVal);
-                $tmp[$canonKey] = $canonVal;
-            } catch (Exception $e) {
-                // Validation or Intrusion Exceptions perform auto logging.
-            }
-        }
-        return $tmp;
-    }
-
-
-    /**
-     * Returns the value of the PHP Server Global with the supplied name. If the
-     * variable does not exist then null is returned.
-     *
-     * @param string $key Index name for a value in the $_SERVER array.
-     *
-     * @return string|null Value of a $_SERVER variable or null.
-     */
-    public function getServerGlobal($key)
-    {
-        if (! is_string($key) || $key == '') {
-            return null;
-        }
-        if ($this->_serverGlobals === null) {
-            $this->_getServerGlobals();
-        }
-
-        if (array_key_exists($key, $this->_serverGlobals)) {
-            return $this->_serverGlobals[$key];
-        }
-        $key = strtoupper($key);
-        if (array_key_exists($key, $this->_serverGlobals)) {
-            return $this->_serverGlobals[$key];
-        }
-
-        return null;
-    }
-
-
-    public function getRequestedSessionId()
-    {
-        throw new EnterpriseSecurityException(
-            'getRequestedSessionId method Not implemented.',
-            'getRequestedSessionId method Not implemented.'
-        );
-    }
-
-
-    public function getSession()
-    {
-        throw new EnterpriseSecurityException(
-            'getSession method Not implemented.',
-            'getSession method Not implemented.'
-        );
-    }
-
-
-    public function getSessionCreate()
-    {
-        throw new EnterpriseSecurityException(
-            'getSessionCreate method Not implemented.',
-            'getSessionCreate method Not implemented.'
-        );
-    }
-
-
-    public function isRequestedSessionIdFromCookie()
-    {
-        throw new EnterpriseSecurityException(
-            'isRequestedSessionIdFromCookie method Not implemented.',
-            'isRequestedSessionIdFromCookie method Not implemented.'
-        );
-    }
-
-
-    public function isRequestedSessionIdFromURL()
-    {
-        throw new EnterpriseSecurityException(
-            'isRequestedSessionIdFromURL method Not implemented.',
-            'isRequestedSessionIdFromURL method Not implemented.'
-        );
-    }
-
-
-    public function isRequestedSessionIdValid()
-    {
-        throw new EnterpriseSecurityException(
-            'isRequestedSessionIdValid method Not implemented.',
-            'isRequestedSessionIdValid method Not implemented.'
-        );
-    }
-
-
-    public function getCharacterEncoding()
-    {
-        throw new EnterpriseSecurityException(
-            'getCharacterEncoding method Not implemented.',
-            'getCharacterEncoding method Not implemented.'
-        );
-    }
-
-
-    public function getParameter($name)
-    {
-        if (! is_string($name) || empty($name)) {
-            return null;
-        }
-        if ($this->_parameterMap === null) {
-            $this->getParameterMap();
-        }
-        if (! array_key_exists($name, $this->_parameterMap)) {
-            return null;
-        }
-        if (! is_array($this->_parameterMap['name'])) {
-            return $this->_parameterMap['name'];
-        }
-        return $this->_parameterMap['name'][0];
-    }
-
-
-    public function getParameterNames()
-    {
-        if ($this->_parameterNames !== null) {
-            return $this->_parameterNames;
-        }
-        if ($this->_parameterMap === null) {
-            $this->getParameterMap();
-        }
-        $tmp = array();
-        foreach ($this->_parameterMap as $name => $ignore) {
-            $tmp[] = $name;
-        }
-        $this->_parameterNames = $tmp;
-        return $this->_parameterNames;
-        
-    }
-
-
-    public function getParameterValues($name)
-    {
-        if (! is_string($name) || empty($name)) {
-            return null;
-        }
-        if ($this->_parameterMap === null) {
-            $this->getParameterMap();
-        }
-        if (! array_key_exists($name, $this->_parameterMap)) {
-            return null;
-        }
-        return $this->_parameterMap[$name];
-    }
-
-
-    public function getParameterMap()
-    {
-        if ($this->_parameterMap !== null) {
-            return $this->_parameterMap;
-        }
-        
-        $tmp = array();
-        foreach ($_POST as $unsafePname => $unsafePvalue) {
-            try {
-                $canonName  = $this->_encoder->canonicalize($unsafePname);
-                $canonValue = $this->_encoder->canonicalize($unsafePvalue);
-                $tmp[$canonName][] = $canonValue;
-            } catch (Exception $e) {
-                // NoOp
-            }
-        }
-        foreach ($_GET as $unsafePname => $unsafePvalue) {
-            try {
-                $canonName  = $this->_encoder->canonicalize($unsafePname);
-                $canonValue = $this->_encoder->canonicalize($unsafePvalue);
-                $tmp[$canonName][] = $canonValue;
-            } catch (Exception $e) {
-                // NoOp
-            }
-        }
-        $this->_parameterMap = $tmp;
-        return $this->_parameterMap;
-    }
-
-
-    public function getHeaderNames()
-    {
-        throw new EnterpriseSecurityException(
-            'getHeaderNames method Not implemented.',
-            'getHeaderNames method Not implemented.'
-        );
-    }
-
-
-    public function getDateHeader()
-    {
-        throw new EnterpriseSecurityException(
-            'getDateHeader method Not implemented.',
-            'getDateHeader method Not implemented.'
-        );
-    }
-
-
     private function _getIfValid($context, $input, $pattern, $type, $maxLength, $allowNull)
     {
         $validationRule = new StringValidationRule($type, $this->_encoder);
@@ -1005,6 +1000,14 @@ class SafeRequest
     }
 
 
+    /**
+     * Helper method which hex encodes characters in the supplied array of strings
+     * and ordinal numbers for use as a pattern supplied to preg_match.
+     *
+     * @param array $charsets Array of strings and or single ordinal numbers.
+     *
+     * @return string hex encoded characters for a preg_match pattern.
+     */
     private function _hexifyCharsForPattern($charsets)
     {
         $s = '';
@@ -1026,6 +1029,5 @@ class SafeRequest
         }
         return $hex;
     }
-
 
 }
