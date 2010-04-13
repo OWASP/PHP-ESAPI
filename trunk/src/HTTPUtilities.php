@@ -390,7 +390,7 @@ interface HTTPUtilities
      *
      * @return null.
      */
-    public function setCurrentHTTP($request, $response);
+    public function setCurrentHTTP($request);
 
 
     /**
