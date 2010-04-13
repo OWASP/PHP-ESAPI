@@ -1,22 +1,58 @@
 <?php
 /**
  * OWASP Enterprise Security API (ESAPI)
- * 
- * This file is part of the Open Web Application Security Project (OWASP)
- * Enterprise Security API (ESAPI) project. For details, please see
- * <a href="http://www.owasp.org/index.php/ESAPI">http://www.owasp.org/index.php/ESAPI</a>.
  *
- * Copyright (c) 2007 - 2009 The OWASP Foundation
- * 
- * The ESAPI is published by OWASP under the BSD license. You should read and accept the
- * LICENSE before you use, modify, and/or redistribute this software.
- * 
- * @author Andrew van der Stock (vanderaj @ owasp.org)
- * @created 2009
+ * This file is part of the Open Web Application Security Project (OWASP)
+ * Enterprise Security API (ESAPI) project.
+ *
+ * PHP version 5.2
+ *
+ * LICENSE: This source file is subject to the New BSD license.  You should read
+ * and accept the LICENSE before you use, modify, and/or redistribute this
+ * software.
+ *
+ * @category  OWASP
+ * @package   ESAPI
+ * @author    Andrew van der Stock <vanderaj@owasp.org>
+ * @author    jah <jah@jahboite.co.uk>
+ * @copyright 2009-2010 The OWASP Foundation
+ * @license   http://www.opensource.org/licenses/bsd-license.php New BSD license
+ * @version   SVN: $Id$
+ * @link      http://www.owasp.org/index.php/ESAPI
+ */
+
+
+/**
+ * HttpUtilitiesTest requires DefaultHTTPUtilities.
+ */
+require_once dirname(__FILE__) . '/../../src/reference/DefaultHTTPUtilities.php';
+require_once dirname(__FILE__) . '/../../src/filters/SafeRequest.php';
+
+
+/**
+ * Tests for the reference implementation of the HTTPUtilities interface.
+ *
+ * PHP version 5.2
+ *
+ * @category  OWASP
+ * @package   ESAPI
+ * @author    jah <jah@jahboite.co.uk>
+ * @copyright 2009-2010 The OWASP Foundation
+ * @license   http://www.opensource.org/licenses/bsd-license.php New BSD license
+ * @version   Release: @package_version@
+ * @link      http://www.owasp.org/index.php/ESAPI
  */
 class HttpUtilitiesTest extends UnitTestCase 
 {
-	function setUp() 
+	private $_httpUtils = null;
+	
+	
+	public function __construct()
+	{
+	    $this->_httpUtils = ESAPI::getHTTPUtilities();
+	}
+    
+    function setUp() 
 	{
 		
 	}
@@ -26,7 +62,24 @@ class HttpUtilitiesTest extends UnitTestCase
 		
 	}
 	
-/**
+	
+	/**
+	 * Not a valid test. Just for debugging.
+	 */
+	function testKillAllCookies_NotATest()
+	{
+	    $req = new SafeRequest(
+            array(
+                'cookies' => array(
+                    'foo' => 'bar',
+                    'boo' => 'far'
+                )
+            )
+        );
+        $foo = $this->_httpUtils->killAllCookies($req, null);
+        $this->fail('This is not a fail because it is not a real test!');
+	}
+    /**
      * Test of addCSRFToken method, of class org.owasp.esapi.HTTPUtilities.
      * @throws AuthenticationException 
      */
