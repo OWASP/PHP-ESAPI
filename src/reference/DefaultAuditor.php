@@ -58,8 +58,8 @@ class DefaultAuditor implements Auditor
      *
      * @var Logger
      */
-    private $_logger;
-    private $_loggerName;
+    private $_log4php;
+    private $_log4phpName;
     private $_appName = null;
     private static $_initialised = false;
 
@@ -75,8 +75,8 @@ class DefaultAuditor implements Auditor
         if (self::$_initialised == false) {
             self::_initialise();
         }
-        $this->_logger = Logger::getLogger($name);
-        $this->_loggerName = $name;
+        $this->_log4php = Logger::getLogger($name);
+        $this->_log4phpName = $name;
 
         // set ApplicationName only if it is to be logged.
         $sc = ESAPI::getSecurityConfiguration();
@@ -92,7 +92,7 @@ class DefaultAuditor implements Auditor
     {
         try
         {
-            $this->_logger->setLevel(
+            $this->_log4php->setLevel(
                 $this->_convertESAPILeveltoLoggerLevel($level)
             );
         }
@@ -122,7 +122,7 @@ class DefaultAuditor implements Auditor
      */
     function isFatalEnabled()
     {
-        return $this->_logger->isEnabledFor(LoggerLevel::getLevelFatal());
+        return $this->_log4php->isEnabledFor(LoggerLevel::getLevelFatal());
     }
 
 
@@ -140,7 +140,7 @@ class DefaultAuditor implements Auditor
      */
     function isErrorEnabled()
     {
-        return $this->_logger->isEnabledFor(LoggerLevel::getLevelError());
+        return $this->_log4php->isEnabledFor(LoggerLevel::getLevelError());
     }
 
 
@@ -158,7 +158,7 @@ class DefaultAuditor implements Auditor
      */
     function isWarningEnabled()
     {
-        return $this->_logger->isEnabledFor(LoggerLevel::getLevelWarn());
+        return $this->_log4php->isEnabledFor(LoggerLevel::getLevelWarn());
     }
 
 
@@ -176,7 +176,7 @@ class DefaultAuditor implements Auditor
      */
     function isInfoEnabled()
     {
-        return $this->_logger->isEnabledFor(LoggerLevel::getLevelInfo());
+        return $this->_log4php->isEnabledFor(LoggerLevel::getLevelInfo());
     }
 
 
@@ -194,7 +194,7 @@ class DefaultAuditor implements Auditor
      */
     function isDebugEnabled()
     {
-        return $this->_logger->isEnabledFor(LoggerLevel::getLevelDebug());
+        return $this->_log4php->isEnabledFor(LoggerLevel::getLevelDebug());
     }
 
 
@@ -212,7 +212,7 @@ class DefaultAuditor implements Auditor
      */
     function isTraceEnabled()
     {
-        return $this->_logger->isEnabledFor(LoggerLevel::getLevelAll());
+        return $this->_log4php->isEnabledFor(LoggerLevel::getLevelAll());
     }
 
 
@@ -247,7 +247,7 @@ class DefaultAuditor implements Auditor
     {
         // If this log level is below the threshold we can quit now.
         $logLevel = self::_convertESAPILeveltoLoggerLevel($level);
-        if (! $this->_logger->isEnabledFor($logLevel)) {
+        if (! $this->_log4php->isEnabledFor($logLevel)) {
             return;
         }
 
@@ -275,7 +275,7 @@ class DefaultAuditor implements Auditor
         }
 
         // Logger name (Category in Log4PHP parlance)
-        $context .= ' ' . $this->_loggerName;
+        $context .= ' ' . $this->_log4phpName;
 
         // Event Type
         if (! is_string($type)) {
@@ -375,7 +375,7 @@ class DefaultAuditor implements Auditor
 
         $messageForLog = $context . ' ' . $encodedMessage . $dumpedException;
 
-        $this->_logger->log($logLevel, $messageForLog, $this);
+        $this->_log4php->log($logLevel, $messageForLog, $this);
     }
 
 
