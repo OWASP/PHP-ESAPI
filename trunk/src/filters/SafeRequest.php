@@ -60,6 +60,7 @@ class SafeRequest
     const CHARS_HTTP_QUERY_STRING = ' &()*+,-./;:=?_';
     const CHARS_HTTP_HOSTNAME     = '-._';
     const CHARS_HTTP_REMOTE_USER  = '!#$%&\'*+-.^_`|~';
+    const CHARS_HTTP_REQUEST_URI  = '!$%&\'()*+-,./:=@_~';
     const CHARS_FILESYSTEM_PATH   = ' !#$%&\'()+,-./=@[\]^_`{}~';
     const CHARS_NUMERIC           = '0123456789';
     const CHARS_ALPHA = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
@@ -87,7 +88,7 @@ class SafeRequest
     private $_remoteHost         = null;
     private $_remoteUser         = null;
     private $_method             = null;
-    private $_servletPath        = null;
+    private $_requestURI         = null;
     private $_serverName         = null;
     private $_serverPort         = null;
     private $_protocol           = null;
@@ -510,6 +511,43 @@ class SafeRequest
 
 
     /**
+     * Returns the URI from the HTTP Request line exlcuding any path info and the
+     * query string.
+     *
+     * @return string Request URI.
+     */
+    public function getRequestURI()
+    {
+        if ($this->_requestURI !== null) {
+            return $this->_requestURI;
+        }
+
+        $key     = 'SCRIPT_NAME';
+        $c       = array(self::CHARS_HTTP_REQUEST_URI);
+        $charset = $this->_hexifyCharsForPattern($c);
+        $pattern = "^[a-zA-Z0-9{$charset}]+$";
+
+        $canon  = $this->getServerGlobal($key);
+        $path = null;
+        try {
+            $path = $this->_getIfValid(
+                'HTTP Request URI Validation',
+                $canon, $pattern, $key, PHP_INT_MAX, false
+            );
+        } catch (Exception $e) {
+            // NoOp - already logged.
+        }
+        if ($path === null) {
+            $this->_requestURI = '';
+            return $this->_requestURI;
+        }
+
+        $this->_requestURI = $path;
+        return $this->_requestURI;
+    }
+
+
+    /**
      * Returns the value of $_SERVER['SERVER_NAME'] if it is present or an
      * empty string if it is not.
      *
@@ -642,7 +680,7 @@ class SafeRequest
             return $this->_cookies;
         }
 
-        $this->_cookies = $this->_validateCookies($_COOKIES);
+        $this->_cookies = $this->_validateCookies($_COOKIE);
 
         return $this->_cookies;
 

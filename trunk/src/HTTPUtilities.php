@@ -426,21 +426,18 @@ interface HTTPUtilities
      * Format the Source IP address, URL, URL parameters, and all form parameters
      * into a string suitable for the log file. The list of parameters to obfuscate
      * should be specified in order to prevent sensitive information from being
-     * logged. If a null list is provided, then all parameters will be logged. If
-     * HTTP request logging is done in a central place, the
-     * parameterNamesToObfuscate could be made a configuration parameter. We include
-     * it here in case different parts of the application need to obfuscate
+     * logged. If a null or empty list of parameters is provided, then all
+     * parameters will be logged in the clear. If HTTP request logging is done in a
+     * central place $paramsToObfuscate could be made a configuration parameter. We
+     * include it here in case different parts of the application need to obfuscate
      * different parameters.
      *
-     * @param SafeRequest $request                   Current Request object.
-     * @param Auditor     $auditor                   the auditor to write the
-     *                                               request to.
-     * @param array       $parameterNamesToObfuscate the sensitive parameters.
+     * @param SafeRequest $request           Current Request object.
+     * @param Auditor     $auditor           The auditor to write the request to.
+     * @param array|null  $paramsToObfuscate The sensitive parameters.
      *
      * @return null
      */
-    public function logHTTPRequestObfuscate(
-        $request, $auditor, $parameterNamesToObfuscate
-    );
+    public function logHTTPRequestObfuscate($request, $auditor, $paramsToObfuscate);
 
 }

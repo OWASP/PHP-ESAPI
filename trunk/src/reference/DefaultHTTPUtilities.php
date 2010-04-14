@@ -49,7 +49,9 @@ class DefaultHTTPUtilities implements HTTPUtilities
 
 
     /**
-     *
+     * The constructor stores an instance of Auditor for the purpose of logging.
+     * 
+     * @return null
      */
     public function __construct()
     {
@@ -269,7 +271,7 @@ class DefaultHTTPUtilities implements HTTPUtilities
     {
         if ($request instanceof SafeRequest == false) {
             throw new InvalidArgumentException(
-                'assertSecureRequest expects an instance of SafeRequest.'
+                'verifyCSRFToken expects an instance of SafeRequest.'
             );
         }
 
@@ -518,7 +520,7 @@ class DefaultHTTPUtilities implements HTTPUtilities
     {
         if ($request instanceof SafeRequest == false) {
             throw new InvalidArgumentException(
-                'isSecureChannel expects an instance of SafeRequest.'
+                'killAllCookies expects an instance of SafeRequest.'
             );
         }
         $cookies = $request->getCookies();
@@ -543,7 +545,7 @@ class DefaultHTTPUtilities implements HTTPUtilities
     {
         if ($request instanceof SafeRequest == false) {
             throw new InvalidArgumentException(
-                'isSecureChannel expects an instance of SafeRequest.'
+                'killCookie expects an instance of SafeRequest.'
             );
         }
         // TODO - we cannot know the path property of a received cookie so how
@@ -710,7 +712,7 @@ class DefaultHTTPUtilities implements HTTPUtilities
     {
         if ($request instanceof SafeRequest == false) {
             throw new InvalidArgumentException(
-                'isSecureChannel expects an instance of SafeRequest.'
+                'setCurrentHTTP expects an instance of SafeRequest.'
             );
         }
         $this->_currentRequest = $request;
@@ -754,10 +756,7 @@ class DefaultHTTPUtilities implements HTTPUtilities
      */
     public function logHTTPRequest($request, $auditor)
     {
-        throw new EnterpriseSecurityException(
-            'logHTTPRequest method Not implemented',
-            'logHTTPRequest method Not implemented'
-        );
+        $this->logHTTPRequestObfuscate($request, $auditor, null);
     }
 
 
@@ -765,26 +764,83 @@ class DefaultHTTPUtilities implements HTTPUtilities
      * Format the Source IP address, URL, URL parameters, and all form parameters
      * into a string suitable for the log file. The list of parameters to obfuscate
      * should be specified in order to prevent sensitive information from being
-     * logged. If a null list is provided, then all parameters will be logged. If
-     * HTTP request logging is done in a central place, the
-     * parameterNamesToObfuscate could be made a configuration parameter. We include
-     * it here in case different parts of the application need to obfuscate
+     * logged. If a null or empty list of parameters is provided, then all
+     * parameters will be logged in the clear. If HTTP request logging is done in a
+     * central place $paramsToObfuscate could be made a configuration parameter. We
+     * include it here in case different parts of the application need to obfuscate
      * different parameters.
      *
-     * @param SafeRequest $request                   Current Request object.
-     * @param Auditor     $auditor                   the auditor to write the
-     *                                               request to.
-     * @param array       $parameterNamesToObfuscate the sensitive parameters.
+     * @param SafeRequest $request           Current Request object.
+     * @param Auditor     $auditor           The auditor to write the request to.
+     * @param array|null  $paramsToObfuscate The sensitive parameters.
      *
      * @return null
      */
-    public function logHTTPRequestObfuscate(
-        $request, $auditor, $parameterNamesToObfuscate
-    ) {
-        throw new EnterpriseSecurityException(
-            'logHTTPRequest_effectObfuscate method Not implemented',
-            'logHTTPRequest_effectObfuscate method Not implemented'
-        );
+    public function logHTTPRequestObfuscate($request, $auditor, $paramsToObfuscate)
+    {
+        if ($request instanceof SafeRequest == false) {
+            throw new InvalidArgumentException(
+                'logHTTPRequestObfuscate expects an instance of SafeRequest.'
+            );
+        }
+        if ($auditor instanceof Auditor == false) {
+            throw new InvalidArgumentException(
+                'logHTTPRequestObfuscate expects an instance of Auditor.'
+            );
+        }
+        if ($paramsToObfuscate === null) {
+            $paramsToObfuscate = array();
+        } else if (! is_array($paramsToObfuscate)) {
+            throw new InvalidArgumentException(
+                'logHTTPRequestObfuscate expects an array $paramsToObfuscate or null.'
+            );            
+        }
+        
+        $msg  = '';
+        $msg .= $request->getRemoteAddr();
+        if ($msg !== '') {
+            $msg .= ' ';
+        }
+        $msg .= $request->getMethod();
+        if ($msg !== '') {
+            $msg .= ' ';
+        }
+        $path  = $request->getRequestURI() . $request->getPathInfo();
+        $msg .= $path;
+        $params = $request->getParameterMap();
+        if ($path !== '' && sizeof($params, false) > 0) {
+            $msg .= '?';
+        } else if ($msg !== '') {
+            $msg .= ' ';
+        }
+        foreach ($params as $pName => $pValues) {
+            foreach ($pValues as $pval) {
+                $msg .= "{$pName}";
+                if ($pval == '') {
+                    continue;
+                }
+                if (in_array($pName, $paramsToObfuscate, true)) {
+                    $msg .= '=********';
+                } else {
+                    $msg .= "={$pval}";
+                }
+                $msg .= '&';
+            }
+        }
+        if ($path !== '' && sizeof($params, false) > 0) { // remove trailing ampersand.
+            $msg = mb_substr($msg, 0, mb_strlen($msg, 'ASCII')-1, 'ASCII');
+        }
+        
+        $cookies = $request->getCookies();
+        $sessName = session_name();
+        foreach ($cookies as $cName => $cValue) {
+            if ($cName !== $sessName) {
+                $msg .= "+{$cName}={$cValue}";
+            }
+        }
+        
+        $auditor->info(Auditor::SECURITY, true, $msg);
+        
     }
 
 
