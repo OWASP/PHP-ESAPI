@@ -62,7 +62,7 @@ class SafeFile extends SplFileObject
         } catch (Exception $e) {
                 throw new EnterpriseSecurityException(
                     "Failed to open stream", 
-                    "Failed to open stream ".$e->getMessage()
+                    "Failed to open stream " . $e->getMessage()
                 );
         }
             
@@ -83,18 +83,18 @@ class SafeFile extends SplFileObject
     {
         if ( preg_match($this->_DIR_BLACKLIST_PAT, $path) ) {
             throw new ValidationException("Invalid directory", 
-            "Directory path (" + $path + ") contains illegal character. ");
+            "Directory path ({$path}) contains illegal character. ");
         }
 
         if ( preg_match($this->_PERCENTS_PAT, $path) ) {
             throw new ValidationException("Invalid directory", 
-            "Directory path (" + $path + ") contains encoded characters. ");
+            "Directory path ({$path}) contains encoded characters. ");
         }
 
         $ch = $this->_containsUnprintableCharacters($path);
         if ($ch != -1) {
             throw new ValidationException("Invalid directory", 
-            "Directory path (" + $path + ") contains unprintable character. ");
+            "Directory path ({$path}) contains unprintable character. ");
         }
     }
 
@@ -110,18 +110,18 @@ class SafeFile extends SplFileObject
     {
         if ( preg_match($this->_FILE_BLACKLIST_PAT, $path) ) {
             throw new ValidationException("Invalid directory", 
-            "Directory path (" + $path + ") contains illegal character.");
+            "Directory path ({$path}) contains illegal character.");
         }
 
         if ( preg_match($this->_PERCENTS_PAT, $path) ) {
             throw new ValidationException("Invalid file", 
-            "File path (" + $path + ") contains encoded characters.");
+            "File path ({$path}) contains encoded characters.");
         }
 
         $ch = $this->_containsUnprintableCharacters($path);
         if ($ch != -1) {
             throw new ValidationException("Invalid file", 
-            "File path (" + $path + ") contains unprintable character.");
+            "File path ({$path}) contains unprintable character.");
         }
     }
 
@@ -157,7 +157,7 @@ class SafeFile extends SplFileObject
         $last = substr($path, -1);
         if ($last === '/') {
             throw new ValidationException("Invalid file", 
-            "File path (" + $path + ") contains an extra slash.");
+            "File path ({$path}) contains an extra slash.");
         }
     }
 }
