@@ -37,7 +37,7 @@ $test = new GroupTest('Core Function Tests');
     $test->addTestFile(dirname(__FILE__).'/reference/EncoderTest.php');
     $test->addTestFile(dirname(__FILE__).'/reference/ExecutorTest.php');
     $test->addTestFile(dirname(__FILE__).'/reference/SafeFileTest.php');
-$test->run(new HTMLReporter());
+$test->run(new HTMLReporter('UTF-8'));
 
 $test = new GroupTest('Core Function Helper Tests');
     $test->addTestFile(dirname(__FILE__).'/reference/ValidationRulesTest.php');
@@ -54,7 +54,7 @@ $test = new GroupTest('Core Function Helper Tests');
 //    $test->addTestFile(dirname(__FILE__).'/reference/HTTPUtilitiesTest.php');
     $test->addTestFile(dirname(__FILE__).'/reference/RandomizerTest.php');
     $test->addTestFile(dirname(__FILE__).'/reference/StringUtilitiesTest.php');
-$test->run(new HTMLReporter());
+$test->run(new HTMLReporter('UTF-8'));
 
 $test = new GroupTest('Reference Implementation Tests');
 //    $test->addTestFile(dirname(__FILE__).'/reference/AccessControllerTest.php');
@@ -63,6 +63,6 @@ $test = new GroupTest('Reference Implementation Tests');
     $test->addTestFile(dirname(__FILE__).'/reference/AuditorTest.php');
 //    $test->addTestFile(dirname(__FILE__).'/reference/IntrusionDetectorTest.php');
     $test->addTestFile(dirname(__FILE__).'/reference/SanitizerTest.php');
-$test->run(new HTMLReporter());
+$test->run(new HTMLReporter('UTF-8'));
 
 ?>
