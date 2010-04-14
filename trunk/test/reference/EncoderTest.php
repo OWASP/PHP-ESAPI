@@ -400,7 +400,7 @@ class EncoderTest extends UnitTestCase
         $this->assertEqual( "".chr(0x0b), $this->encoderInstance->canonicalize("\\v"));
     }
     function testCanonicalize_102() {
-        $this->assertEqual( "\f", $this->encoderInstance->canonicalize("\\f"));
+        $this->assertEqual( "".chr(0x0c), $this->encoderInstance->canonicalize("\\f"));
     }
     function testCanonicalize_103() {
         $this->assertEqual( "\r", $this->encoderInstance->canonicalize("\\r"));
@@ -1268,7 +1268,12 @@ class EncoderTest extends UnitTestCase
             }
             $this->assertEqual($expected, $instance->encode(array(), chr($i)));
             $input = $expected;
-            $expected = mb_convert_encoding(chr($i), 'UTF-8');
+            if ($i <= 127) {
+                $expected = mb_convert_encoding(chr($i), 'UTF-8', 'ASCII');
+            } else {
+                $expected = mb_convert_encoding(chr($i), 'UTF-8', 'ISO-8859-1');
+            }
+            
             $this->assertEqual($expected, $instance->decode($input));
         }
     }
@@ -1286,7 +1291,11 @@ class EncoderTest extends UnitTestCase
             }
             $this->assertEqual($expected, $instance->encode(array(), 'a' . chr($i)));
             $input = $expected;
-            $expected = 'a' . mb_convert_encoding(chr($i), 'UTF-8');
+            if ($i <= 127) {
+                $expected = 'a' . mb_convert_encoding(chr($i), 'UTF-8', 'ASCII');
+            } else {
+                $expected = 'a' . mb_convert_encoding(chr($i), 'UTF-8', 'ISO-8859-1');
+            }
             $this->assertEqual($expected, $instance->decode($input));
         }
     }
@@ -1305,7 +1314,11 @@ class EncoderTest extends UnitTestCase
             }
             $this->assertEqual($expected, $instance->encode(array(), $input));
             $input = $expected;
-            $expected = 'ϑ' . mb_convert_encoding(chr($i), 'UTF-8');
+            if ($i <= 127) {
+                $expected = 'ϑ' . mb_convert_encoding(chr($i), 'UTF-8', 'ASCII');
+            } else {
+                $expected = 'ϑ' . mb_convert_encoding(chr($i), 'UTF-8', 'ISO-8859-1');
+            }
             $this->assertEqual($expected, $instance->decode($input));
         }
     }
