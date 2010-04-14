@@ -273,7 +273,7 @@ class HTMLEntityCodecTest extends UnitTestCase
     {
         $codec = new HTMLEntityCodec();
         // expecting a UTF-8 encoded string
-        $expected = mb_convert_encoding("a b c d e f\x09g h i j\xa0k\xa1l\xa2m", 'UTF-8');
+        $expected = mb_convert_encoding("a b c d e f\x09g h i j\xa0k\xa1l\xa2m", 'UTF-8', 'ISO-8859-1');
         // check that the encoding conversion went well and the expected string is correct
         $expected_unpacked = array(
             1 => 0x61,  2 => 0x20,  3 => 0x62,  4 => 0x20,
