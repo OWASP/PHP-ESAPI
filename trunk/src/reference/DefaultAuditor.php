@@ -3,20 +3,26 @@
  * OWASP Enterprise Security API (ESAPI)
  *
  * This file is part of the Open Web Application Security Project (OWASP)
- * Enterprise Security API (ESAPI) project. For details, please see
- * <a href="http://www.owasp.org/index.php/ESAPI">http://www.owasp.org/index.php/ESAPI</a>.
+ * Enterprise Security API (ESAPI) project.
+ * 
+ * PHP version 5.2
  *
- * Copyright (c) 2007 - 2009 The OWASP Foundation
+ * LICENSE: This source file is subject to the New BSD license.  You should read
+ * and accept the LICENSE before you use, modify, and/or redistribute this
+ * software.
  *
- * The ESAPI is published by OWASP under the BSD license. You should read and
- * accept the LICENSE before you use, modify, and/or redistribute this software.
- *
- * @author  Andrew van der Stock
- * @since   2008
- * @since   1.6
- * @package org-owasp-esapi-reference
+ * @category  OWASP
+ * @package   ESAPI
+ * @author    Jeff Williams <jeff.williams@aspectsecurity.com>
+ * @author    Andrew van der Stock <vanderaj@owasp.org>
+ * @author    Laura Bell <laura.d.bell@gmail.com>
+ * @author    jah <jah@jahboite.co.uk>
+ * @author    Mike Boberski <boberski_michael@bah.com>
+ * @copyright 2009-2010 The OWASP Foundation
+ * @license   http://www.opensource.org/licenses/bsd-license.php New BSD license
+ * @version   SVN: $Id$
+ * @link      http://www.owasp.org/index.php/ESAPI
  */
-
 
 /**
  *
@@ -27,66 +33,67 @@ require_once dirname(__FILE__).'/../Auditor.php';
 
 
 /**
- * Reference Implementation of the ESAPILogger Interface.
+ * Reference Implementation of the Auditor interface.
  *
  * This implementation makes use of Apache's Log4PHP {@link
  * http://incubator.apache.org/log4php/index.html} and implements five of the
  * six requirements for logging {@see ESAPILogger}.
  *
- *
- * @author Andrew van der Stock
- * @author Laura D. Bell
- * @author jah (at jahboite.co.uk)
- * @since  1.6
- *
+ * @category  OWASP
+ * @package   ESAPI
+ * @author    Andrew van der Stock <vanderaj@owasp.org>
+ * @author    Laura Bell <laura.d.bell@gmail.com>
+ * @author    jah <jah@jahboite.co.uk>
+ * @author    Mike Boberski <boberski_michael@bah.com>
+ * @copyright 2009-2010 The OWASP Foundation
+ * @license   http://www.opensource.org/licenses/bsd-license.php New BSD license
+ * @version   Release: @package_version@
+ * @link      http://www.owasp.org/index.php/ESAPI
  */
-class DefaultAuditor implements Auditor {
+class DefaultAuditor implements Auditor
+{
 
     /**
      * An instance of Apache Log4PHP.
      *
      * @var Logger
      */
-    private $logger;
-    private $loggerName;
-    private $appName = null;
-    private static $initialised = false;
-
+    private $_logger;
+    private $_loggerName;
+    private $_appName = null;
+    private static $_initialised = false;
 
     /**
-     *
-     * @param $name the identifying name of an instance of Log4PHP Logger.
+     * Validator constructor.
+     * 
+     * @param string $name logger name.
+     * 
+     * @return does not return a value.
      */
     function __construct($name)
     {
-        if (self::$initialised == false) {
-            self::initialise();
+        if (self::$_initialised == false) {
+            self::_initialise();
         }
-        $this->logger = Logger::getLogger($name);
-        $this->loggerName = $name;
+        $this->_logger = Logger::getLogger($name);
+        $this->_loggerName = $name;
 
         // set ApplicationName only if it is to be logged.
         $sc = ESAPI::getSecurityConfiguration();
         if ($sc->getLogApplicationName()) {
-            $this->appName = $sc->getApplicationName();
+            $this->_appName = $sc->getApplicationName();
         }
     }
 
-
     /**
-     * {@inheritDoc}
-     * Note: In this implementation, this change is not persistent, meaning that
-     * if the application is restarted, the log level will revert to the level
-     * defined in the ESAPI SecurityConfiguration properties file.
-     *
-     * @param $level the level to set - an Logger Level constant.
+     * @inheritdoc
      */
     public function setLevel($level)
     {
         try
         {
-            $this->logger->setLevel(
-                $this->convertESAPILeveltoLoggerLevel($level)
+            $this->_logger->setLevel(
+                $this->_convertESAPILeveltoLoggerLevel($level)
             );
         }
         catch (Exception $e)
@@ -102,175 +109,115 @@ class DefaultAuditor implements Auditor {
 
 
     /**
-     * Log a fatal level security event if 'fatal' level logging is enabled and
-     * also record the stack trace associated with the event.
-     *
-     * @param $type the type of event - an Logger Type constant.
-     * @param $success boolean true indicates this was a successful event, false
-     *        indicates this was a failed event (the typical value).
-     * @param $message the message to log.
-     * @param $throwable the exception to be logged.
+     * @inheritdoc
      */
     function fatal($type, $success, $message, $throwable = null)
     {
-        $this->log(Auditor::FATAL, $type, $success, $message, $throwable);
+        $this->_log(Auditor::FATAL, $type, $success, $message, $throwable);
     }
 
 
     /**
-     * Allows the caller to determine if messages logged at this level will be
-     * discarded, to avoid performing expensive processing.
-     *
-     * @return true if fatal level messages will be output to the log.
+     * @inheritdoc
      */
     function isFatalEnabled()
     {
-        return $this->logger->isEnabledFor(LoggerLevel::getLevelFatal());
+        return $this->_logger->isEnabledFor(LoggerLevel::getLevelFatal());
     }
 
 
     /**
-     * Log an error level security event if 'error' level logging is enabled and
-     * also record the stack trace associated with the event.
-     *
-     * @param $type the type of event - an Logger Type constant.
-     * @param $success boolean true indicates this was a successful event, false
-     *        indicates this was a failed event (the typical value).
-     * @param $message the message to log.
-     * @param $throwable the exception to be logged.
+     * @inheritdoc
      */
     function error($type, $success, $message, $throwable = null)
     {
-        $this->log(Auditor::ERROR, $type, $success, $message, $throwable);
+        $this->_log(Auditor::ERROR, $type, $success, $message, $throwable);
     }
 
 
     /**
-     * Allows the caller to determine if messages logged at this level will be
-     * discarded, to avoid performing expensive processing.
-     *
-     * @return true if error level messages will be output to the log.
+     * @inheritdoc
      */
     function isErrorEnabled()
     {
-        return $this->logger->isEnabledFor(LoggerLevel::getLevelError());
+        return $this->_logger->isEnabledFor(LoggerLevel::getLevelError());
     }
 
 
     /**
-     * Log a warning level security event if 'warning' level logging is enabled and
-     * also record the stack trace associated with the event.
-     *
-     * @param $type the type of event - an Logger Type constant.
-     * @param $success boolean true indicates this was a successful event, false
-     *        indicates this was a failed event (the typical value).
-     * @param $message the message to log.
-     * @param $throwable the exception to be logged.
+     * @inheritdoc
      */
     function warning($type, $success, $message, $throwable = null)
     {
-        $this->log(Auditor::WARNING, $type, $success, $message, $throwable);
+        $this->_log(Auditor::WARNING, $type, $success, $message, $throwable);
     }
 
 
     /**
-     * Allows the caller to determine if messages logged at this level will be
-     * discarded, to avoid performing expensive processing.
-     *
-     * @return true if warning level messages will be output to the log.
+     * @inheritdoc
      */
     function isWarningEnabled()
     {
-        return $this->logger->isEnabledFor(LoggerLevel::getLevelWarn());
+        return $this->_logger->isEnabledFor(LoggerLevel::getLevelWarn());
     }
 
 
     /**
-     * Log an info level security event if 'info' level logging is enabled and
-     * also record the stack trace associated with the event.
-     *
-     * @param $type the type of event - an Logger Type constant.
-     * @param $success boolean true indicates this was a successful event, false
-     *        indicates this was a failed event (the typical value).
-     * @param $message the message to log.
-     * @param $throwable the exception to be logged.
+     * @inheritdoc
      */
     function info($type, $success, $message, $throwable = null)
     {
-        $this->log(Auditor::INFO, $type, $success, $message, $throwable);
+        $this->_log(Auditor::INFO, $type, $success, $message, $throwable);
     }
 
 
     /**
-     * Allows the caller to determine if messages logged at this level will be
-     * discarded, to avoid performing expensive processing.
-     *
-     * @return true if info level messages will be output to the log.
+     * @inheritdoc
      */
     function isInfoEnabled()
     {
-        return $this->logger->isEnabledFor(LoggerLevel::getLevelInfo());
+        return $this->_logger->isEnabledFor(LoggerLevel::getLevelInfo());
     }
 
 
     /**
-     * Log a debug level security event if 'debug' level logging is enabled and
-     * also record the stack trace associated with the event.
-     *
-     * @param $type the type of event - an Logger Type constant.
-     * @param $success boolean true indicates this was a successful event, false
-     *        indicates this was a failed event (the typical value).
-     * @param $message the message to log.
-     * @param $throwable the exception to be logged.
+     * @inheritdoc
      */
     function debug($type, $success, $message, $throwable = null)
     {
-        $this->log(Auditor::DEBUG,$type, $success, $message, $throwable);
+        $this->_log(Auditor::DEBUG, $type, $success, $message, $throwable);
     }
 
 
     /**
-     * Allows the caller to determine if messages logged at this level will be
-     * discarded, to avoid performing expensive processing.
-     *
-     * @return true if debug level messages will be output to the log.
+     * @inheritdoc
      */
     function isDebugEnabled()
     {
-        return $this->logger->isEnabledFor(LoggerLevel::getLevelDebug());
+        return $this->_logger->isEnabledFor(LoggerLevel::getLevelDebug());
     }
 
 
     /**
-     * Log a trace level security event if 'trace' level logging is enabled and
-     * also record the stack trace associated with the event.
-     *
-     * @param $type the type of event - an Logger Type constant.
-     * @param $success boolean true indicates this was a successful event, false
-     *        indicates this was a failed event (the typical value).
-     * @param $message the message to log.
-     * @param $throwable the exception to be logged.
+     * @inheritdoc
      */
     function trace($type, $success, $message, $throwable = null)
     {
-        $this->log(Auditor::TRACE, $type, $success, $message, $throwable);
+        $this->_log(Auditor::TRACE, $type, $success, $message, $throwable);
     }
 
 
     /**
-     * Allows the caller to determine if messages logged at this level will be
-     * discarded, to avoid performing expensive processing.
-     *
-     * @return true if trace level messages will be output to the log.
+     * @inheritdoc
      */
     function isTraceEnabled()
     {
-        return $this->logger->isEnabledFor(LoggerLevel::getLevelAll());
+        return $this->_logger->isEnabledFor(LoggerLevel::getLevelAll());
     }
 
 
     /**
-     * Log the supplied event.
+     * Helper function.
      *
      * If the supplied logging level is at or above the current logging
      * threshold then log the message after optionally encoding any special
@@ -285,19 +232,22 @@ class DefaultAuditor implements Auditor {
      * If the supplied logging level is below the current logging threshold then
      * the message will be discarded.
      *
-     * @param $level the priority level of the event - an Logger Level
-     *        constant.
-     * @param $type the type of the event - an Logger Event constant.
-     * @param $success boolean true indicates this was a successful event, false
-     *        indicates this was a failed event (the typical value).
-     * @param $message the message to be logged.
-     * @param $throwable the throwable Exception.
+     * @param int       $level     the priority level of the event - an Logger Level
+     *                             constant.
+     * @param int       $type      the type of the event - an Logger Event constant.
+     * @param bool      $success   boolean true indicates this was a successful 
+     *                             event, false indicates this was a failed event 
+     *                             (the typical value).
+     * @param string    $message   the message to be logged.
+     * @param Exception $throwable the throwable Exception.
+     * 
+     * @return does not return a value.
      */
-    private function log($level, $type, $success, $message, $throwable)
+    private function _log($level, $type, $success, $message, $throwable)
     {
         // If this log level is below the threshold we can quit now.
-        $logLevel = self::convertESAPILeveltoLoggerLevel($level);
-        if (! $this->logger->isEnabledFor($logLevel)) {
+        $logLevel = self::_convertESAPILeveltoLoggerLevel($level);
+        if (! $this->_logger->isEnabledFor($logLevel)) {
             return;
         }
 
@@ -325,7 +275,7 @@ class DefaultAuditor implements Auditor {
         }
 
         // Logger name (Category in Log4PHP parlance)
-        $context .= ' ' . $this->loggerName;
+        $context .= ' ' . $this->_loggerName;
 
         // Event Type
         if (! is_string($type)) {
@@ -346,8 +296,7 @@ class DefaultAuditor implements Auditor {
         // testing ESAPI via the command line I shall be checking for a null
         // request.
         $request = null; // TODO ESAPI::getHttpUtilities()->getCurrentRequest();
-        if ($request != null)
-        {
+        if ($request != null) {
             $context .=
                 ' ' .
                 $request->getLocalAddr() .
@@ -369,10 +318,15 @@ class DefaultAuditor implements Auditor {
             {
                 $session = $request->getSession(false);
                 $userSessionIDforLogging = $session->getAttribute('ESAPI_SESSION');
-                // if there is no session ID for the user yet, we create one and store it in the user's session
+                // if there is no session ID for the user yet, we create one and 
+                //store it in the user's session
                 if ( $userSessionIDforLogging == null ) {
-                    $userSessionIDforLogging = '' . ESAPI::getRandomizer()->getRandomInteger(0, 1000000);
-                    $session->setAttribute('ESAPI_SESSION', $userSessionIDforLogging);
+                    $userSessionIDforLogging = ''.
+                        ESAPI::getRandomizer()->getRandomInteger(0, 1000000);
+                    $session->setAttribute(
+                        'ESAPI_SESSION', 
+                        $userSessionIDforLogging
+                    );
                 }
             }
             catch( Exception $e )
@@ -388,12 +342,14 @@ class DefaultAuditor implements Auditor {
         }
 
         // Encode CRLF - this bit might have to go in a try block
-        $crlfEncoded = $this->replaceCRLF($message, null /* '_' FIXME when we don't want pretty CodecDebug output */);
+        /* '_' FIXME for the null poarameter, when we don't want pretty CodecDebug 
+         * output 
+         */
+        $crlfEncoded = $this->replaceCRLF($message, null);
 
         // Encode for HTML if ESAPI.xml says so
         $encodedMessage = null;
-        if ($secConfig->getLogEncodingRequired() )
-        {
+        if ($secConfig->getLogEncodingRequired() ) {
             try
             {
                 $encodedMessage = $encoder->encodeForHTML($crlfEncoded);
@@ -404,38 +360,38 @@ class DefaultAuditor implements Auditor {
             catch (Exception $e)
             {
                 $exType = get_type($e);
-                $encodedMessage = "The supplied log message generated an Exception of type {$exType} and was not included";
+                $encodedMessage = "The supplied log message generated an ".
+                    "Exception of type {$exType} and was not included";
             }
-        }
-        else
-        {
+        } else {
             $encodedMessage = $crlfEncoded;
         }
 
         // Now handle the exception
         $dumpedException = '';
-        if ($throwable !== null && $throwable instanceof Exception)
-        {
+        if ($throwable !== null && $throwable instanceof Exception) {
             $dumpedException = ' ' . $this->replaceCRLF($throwable, ' | ');
         }
 
         $messageForLog = $context . ' ' . $encodedMessage . $dumpedException;
 
-        $this->logger->log($logLevel, $messageForLog, $this);
+        $this->_logger->log($logLevel, $messageForLog, $this);
     }
 
 
     /**
+     * Helper function.
+     * 
      * Helper method to replace carriage return and line feed characters in the
      * supplied message with the supplied substitute character(s). The sequence
      * CRLF (\r\n) is treated as one character.
      *
-     * @param $message string message to process.
-     * @param $substitute string replacement for CR, LF or CRLF.
+     * @param string $message    message to process.
+     * @param string $substitute replacement for CR, LF or CRLF.
      *
      * @return string message with characters replaced.
      */
-    private function replaceCRLF($message, $substitute)
+    private function _replaceCRLF($message, $substitute)
     {
         if ($message === null || $substitute === null) {
             return $message;
@@ -473,6 +429,8 @@ class DefaultAuditor implements Auditor {
     }
 
     /**
+     * Helper function.
+     * 
      * Converts a logging level.
      *
      * Converts the ESAPI logging level (a number) or level defined in the ESAPI
@@ -480,80 +438,76 @@ class DefaultAuditor implements Auditor {
      * that log4php does not define a TRACE level and so TRACE is simply an
      * alias of ALL which log4php does define.
      *
-     * @param level The logging level to convert.
+     * @param int $level The logging level to convert.
      *
-     * @return The log4php logging Level equivalent.
-     *
+     * @return int The log4php logging Level equivalent.
      * @throws Exception if the supplied level doesn't match a level currently
-     *         defined.
+     *                   defined.
      */
-    private static function convertESAPILeveltoLoggerLevel($level)
+    private static function _convertESAPILeveltoLoggerLevel($level)
     {
-        if (is_string($level))
-        {
-            switch (strtoupper($level))
-            {
-                case 'ALL':
-                    /* Same as TRACE */
-                case 'TRACE':
-                    return LoggerLevel::getLevelAll();
-                case 'DEBUG':
-                     return LoggerLevel::getLevelDebug();
-                case 'INFO':
-                    return LoggerLevel::getLevelInfo();
-                case 'WARN':
-                    return LoggerLevel::getLevelWarn();
-                case 'ERROR':
-                    return LoggerLevel::getLevelError();
-                case 'FATAL':
-                    return LoggerLevel::getLevelFatal();
-                case 'OFF':
-                     return LoggerLevel::getLevelOff();
-                default: {
-                    throw new Exception(
-                        "Invalid logging level Value was: {$level}"
-                    );
-                }
+        if (is_string($level)) {
+            switch (strtoupper($level)) {
+            case 'ALL':
+                /* Same as TRACE */
+            case 'TRACE':
+                return LoggerLevel::getLevelAll();
+            case 'DEBUG':
+                return LoggerLevel::getLevelDebug();
+            case 'INFO':
+                return LoggerLevel::getLevelInfo();
+            case 'WARN':
+                return LoggerLevel::getLevelWarn();
+            case 'ERROR':
+                return LoggerLevel::getLevelError();
+            case 'FATAL':
+                return LoggerLevel::getLevelFatal();
+            case 'OFF':
+                return LoggerLevel::getLevelOff();
+            default:
+                throw new Exception(
+                    "Invalid logging level Value was: {$level}"
+                );
             }
-        }
-        else
-        {
-            switch ($level)
-            {
-                case Auditor::ALL:
-                    /* Same as TRACE */
-                case Auditor::TRACE:
-                    return LoggerLevel::getLevelAll();
-                case Auditor::DEBUG:
-                    return LoggerLevel::getLevelDebug();
-                case Auditor::INFO:
-                    return LoggerLevel::getLevelInfo();
-                case Auditor::WARNING:
-                    return LoggerLevel::getLevelWarn();
-                case Auditor::ERROR:
-                    return LoggerLevel::getLevelError();
-                case Auditor::FATAL:
-                    return LoggerLevel::getLevelFatal();
-                case Auditor::OFF:
-                    return LoggerLevel::getLevelOff();
-                default: {
-                    throw new Exception(
-                        "Invalid logging level Value was: {$level}"
-                    );
-                }
+        } else {
+            switch ($level) {
+            case Auditor::ALL:
+                /* Same as TRACE */
+            case Auditor::TRACE:
+                return LoggerLevel::getLevelAll();
+            case Auditor::DEBUG:
+                return LoggerLevel::getLevelDebug();
+            case Auditor::INFO:
+                return LoggerLevel::getLevelInfo();
+            case Auditor::WARNING:
+                return LoggerLevel::getLevelWarn();
+            case Auditor::ERROR:
+                return LoggerLevel::getLevelError();
+            case Auditor::FATAL:
+                return LoggerLevel::getLevelFatal();
+            case Auditor::OFF:
+                return LoggerLevel::getLevelOff();
+            default:
+                throw new Exception(
+                    "Invalid logging level Value was: {$level}"
+                );
             }
         }
     }
 
 
     /**
+     *  Helper function.
+     *  
      *  Configures Apache's Log4PHP RootLogger based on values obtained from the
      *  ESAPI properties file.  All instances of Log4PHP Logger will inherit the
      *  configuration.
+     *  
+     *  @return does not return a value.
      */
-    private static function initialise()
+    private static function _initialise()
     {
-        self::$initialised = true;
+        self::$_initialised = true;
 
         $secConfig = ESAPI::getSecurityConfiguration();
         $logLevel = $secConfig->getLogLevel();
@@ -571,7 +525,7 @@ class DefaultAuditor implements Auditor {
 
         // LogFile layout
         $logfileLayout = new LoggerLayoutPattern();
-        $logfileLayout->setConversionPattern($logfileLayoutPattern); // no idea why the constructor doesn't do this!
+        $logfileLayout->setConversionPattern($logfileLayoutPattern); 
 
         // Get a LoggerFilter - Use LevelMatch to deny DEBUG in the logfile.
         // TODO remove LoggerFilter when codec debugging is done and before
@@ -588,7 +542,7 @@ class DefaultAuditor implements Auditor {
         $appenderLogfile->setMaxBackupIndex($maxLogFileBackups);
         $appenderLogfile->addFilter($loggerFilter); // TODO remove temp filter
         $appenderLogfile->setLayout($logfileLayout);
-        if($logLevel !== 'OFF') {
+        if ($logLevel !== 'OFF') {
             $appenderLogfile->activateOptions();
         }
         // Console layout
@@ -607,7 +561,7 @@ class DefaultAuditor implements Auditor {
         $rootLogger->addAppender($appenderEcho);
         $rootLogger->addAppender($appenderLogfile);
         $rootLogger->setLevel(
-            self::convertESAPILeveltoLoggerLevel($logLevel)
+            self::_convertESAPILeveltoLoggerLevel($logLevel)
         );
     }
 }
