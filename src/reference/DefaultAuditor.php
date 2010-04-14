@@ -35,10 +35,6 @@ require_once dirname(__FILE__).'/../Auditor.php';
 /**
  * Reference Implementation of the Auditor interface.
  *
- * This implementation makes use of Apache's Log4PHP {@link
- * http://incubator.apache.org/log4php/index.html} and implements five of the
- * six requirements for logging {@see ESAPILogger}.
- *
  * @category  OWASP
  * @package   ESAPI
  * @author    Andrew van der Stock <vanderaj@owasp.org>
@@ -64,7 +60,7 @@ class DefaultAuditor implements Auditor
     private static $_initialised = false;
 
     /**
-     * Validator constructor.
+     * DefaultAuditor constructor.
      * 
      * @param string $name logger name.
      * 
