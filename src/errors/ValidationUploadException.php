@@ -14,7 +14,7 @@
  * @author Andrew van der Stock <vanderaj .(at). owasp.org>
  * @created 2008
  * @since 1.4
- * @package ESAPI
+ * @package ESAPI_Errors
  */
 
 require_once  dirname(__FILE__).'/ValidationException.php';
