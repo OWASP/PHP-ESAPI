@@ -1,301 +1,215 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
-<!DOCTYPE html 
-     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-   <html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-  <title>Docs For Class HTMLEntityCodec</title>
-  <link rel="stylesheet" href="../media/stylesheet.css" />
-  <script src="../media/lib/classTree.js"></script>
-<link id="webfx-tab-style-sheet" type="text/css" rel="stylesheet" href="../media/lib/tab.webfx.css" />
-<script type="text/javascript" src="../media/lib/tabpane.js"></script>
-  <script language="javascript" type="text/javascript" src="../media/lib/ua.js"></script>
-<script language="javascript" type="text/javascript">
-	var imgPlus = new Image();
-	var imgMinus = new Image();
-	imgPlus.src = "../media/images/plus.gif";
-	imgMinus.src = "../media/images/minus.gif";
-	
-	function showNode(Node){
-        switch(navigator.family){
-        	case 'nn4':
-        		// Nav 4.x code fork...
-				var oTable = document.layers["span" + Node];
-				var oImg = document.layers["img" + Node];
-        		break;
-        	case 'ie4':
-        		// IE 4/5 code fork...
-				var oTable = document.all["span" + Node];
-				var oImg = document.all["img" + Node];
-        		break;
-        	case 'gecko':
-        		// Standards Compliant code fork...
-				var oTable = document.getElementById("span" + Node);
-				var oImg = document.getElementById("img" + Node);
-        		break;
-        }
-		oImg.src = imgMinus.src;
-		oTable.style.display = "block";
-	}
-	
-	function hideNode(Node){
-        switch(navigator.family){
-        	case 'nn4':
-        		// Nav 4.x code fork...
-				var oTable = document.layers["span" + Node];
-				var oImg = document.layers["img" + Node];
-        		break;
-        	case 'ie4':
-        		// IE 4/5 code fork...
-				var oTable = document.all["span" + Node];
-				var oImg = document.all["img" + Node];
-        		break;
-        	case 'gecko':
-        		// Standards Compliant code fork...
-				var oTable = document.getElementById("span" + Node);
-				var oImg = document.getElementById("img" + Node);
-        		break;
-        }
-		oImg.src = imgPlus.src;
-		oTable.style.display = "none";
-	}
-	
-	function nodeIsVisible(Node){
-        switch(navigator.family){
-        	case 'nn4':
-        		// Nav 4.x code fork...
-				var oTable = document.layers["span" + Node];
-        		break;
-        	case 'ie4':
-        		// IE 4/5 code fork...
-				var oTable = document.all["span" + Node];
-        		break;
-        	case 'gecko':
-        		// Standards Compliant code fork...
-				var oTable = document.getElementById("span" + Node);
-        		break;
-        }
-		return (oTable && oTable.style.display == "block");
-	}
-	
-	function toggleNodeVisibility(Node){
-		if (nodeIsVisible(Node)){
-			hideNode(Node);
-		}else{
-			showNode(Node);
-		}
-	}
-</script>
-<!-- template designed by Julien Damon based on PHPEdit's generated templates, and tweaked by Greg Beaver -->
-<body bgcolor="#ffffff" ><!-- Start of Class Data -->
-<h2>
-	Class HTMLEntityCodec
-</h2> (line <span class="linenumber">29</span>)
-<div class="tab-pane" id="tabPane1">
-<script type="text/javascript">
-tp1 = new WebFXTabPane( document.getElementById( "tabPane1" ));
-</script>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+  <html xmlns="http://www.w3.org/1999/xhtml">
+		<head>
+			<!-- template designed by Marco Von Ballmoos -->
+			<title>Docs For Class HTMLEntityCodec</title>
+			<link rel="stylesheet" href="../media/stylesheet.css" />
+			<meta http-equiv='Content-Type' content='text/html; charset=iso-8859-1'/>
+		</head>
+		<body>
+			<div class="page-body">			
+<h2 class="class-name">Class HTMLEntityCodec</h2>
 
-<div class="tab-page" id="Description">
-<h2 class="tab">Description</h2>
-<pre>
-<a href="../ESAPI/Codec.html">Codec</a>
+<a name="sec-description"></a>
+<div class="info-box">
+	<div class="info-box-title">Description</div>
+	<div class="nav-bar">
+					<span class="disabled">Description</span> |
+															<a href="#sec-method-summary">Methods</a> (<a href="#sec-methods">details</a>)
+						
+					</div>
+	<div class="info-box-body">
+        		<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Implementation of the Codec interface for HTML entity encoding.</p>
+	<ul class="tags">
+				<li><span class="field">author:</span> </li>
+				<li><span class="field">version:</span> 1.0</li>
+				<li><span class="field">copyright:</span> 2009-2010 The OWASP Foundation</li>
+				<li><span class="field">see:</span> org.owasp.esapi.Encoder</li>
+				<li><span class="field">since:</span> 1.4</li>
+			</ul>
+		<p class="notes">
+			Located in <a class="field" href="_codecs---HTMLEntityCodec.php.html">/codecs/HTMLEntityCodec.php</a> (line <span class="field">29</span>)
+		</p>
+		
+				
+		<pre><a href="../ESAPI/Codec.html">Codec</a>
    |
    --HTMLEntityCodec</pre>
-<p>
-	<b><i>Located in File: <a href="_codecs---HTMLEntityCodec.php.html">/codecs/HTMLEntityCodec.php</a></i></b><br>
-</p>
-<!-- ========== Info from phpDoc block ========= -->
-<h5>Implementation of the Codec interface for HTML entity encoding.</h5>
-<ul>
-		<li><strong>author:</strong> - </li>
-		<li><strong>version:</strong> - 1.0</li>
-		<li><strong>copyright:</strong> - 2009-2010 The OWASP Foundation</li>
-		<li><strong>see:</strong> - org.owasp.esapi.Encoder</li>
-		<li><strong>since:</strong> - 1.4</li>
-	</ul>
-<br /><hr />
+	
+			</div>
 </div>
-<script type="text/javascript">tp1.addTabPage( document.getElementById( "Description" ) );</script>
-<div class="tab-page" id="tabPage1">
-
-<h2 class="tab">Class Variables</h2>
-<!-- ============ VARIABLE DETAIL =========== -->
-<strong>Summary:</strong><br />
-<hr />
-<script type="text/javascript">tp1.addTabPage( document.getElementById( "tabPage1" ) );</script>
-</div>
-<div class="tab-page" id="constantsTabpage">
-
-<h2 class="tab">Class Constants</h2>
-<!-- ============ VARIABLE DETAIL =========== -->
-<strong>Summary:</strong><br />
-<hr />
-<script type="text/javascript">tp1.addTabPage( document.getElementById( "constantsTabpage" ) );</script>
-</div>
-<div class="tab-page" id="tabPage2">
-<h2 class="tab">Method Detail</h2>
-<!-- ============ METHOD DETAIL =========== -->
-<strong>Summary:</strong><br />
-<div class="method-summary">
-    <div class="method-definition">
-            <span class="method-result">HTMLEntityCodec</span>
-        <a href="#method__construct" title="details" class="method-name">__construct</a>
-        ()
-        </div>
-    <div class="method-definition">
-            <span class="method-result">void</span>
-        <a href="#methoddecodeCharacter" title="details" class="method-name">decodeCharacter</a>
-        (<span class="var-type"></span>&nbsp;<span class="var-name">$input</span>)
-        </div>
-    <div class="method-definition">
-            <span class="method-result">void</span>
-        <a href="#methodencodeCharacter" title="details" class="method-name">encodeCharacter</a>
-        (<span class="var-type"></span>&nbsp;<span class="var-name">$immune</span>, <span class="var-type"></span>&nbsp;<span class="var-name">$c</span>)
-        </div>
-</div>
-<hr />
-<A NAME='method_detail'></A>
 
 
-<a name="method__construct" id="method__construct"><!-- --></a>
-<div style="background='#eeeeee'"><h4>
-<img src="../media/images/Constructor.gif" border="0" /> <strong class="method">Constructor __construct</strong> (line <span class="linenumber">39</span>)
- </h4> 
-<h4><i>HTMLEntityCodec</i> <strong>__construct(
-)</strong></h4>
 
-<p><strong>Overrides :</strong> <a href="../ESAPI/Codec.html#method__construct">Codec::__construct()</a> Populates the $hex map of non-alphanumeric single-byte characters.</p>
+
+	<a name="sec-method-summary"></a>
+	<div class="info-box">
+		<div class="info-box-title">Method Summary</span></div>
+		<div class="nav-bar">
+			<a href="#sec-description">Description</a> |
+												<span class="disabled">Methods</span> (<a href="#sec-methods">details</a>)
+		</div>
+		<div class="info-box-body">			
+			<div class="method-summary">
+																												
+												<div class="method-definition">
+											<span class="method-result">HTMLEntityCodec</span>
+										<a href="#__construct" title="details" class="method-name">__construct</a>
+										()
+									</div>
+																<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#decodeCharacter" title="details" class="method-name">decodeCharacter</a>
+											(<span class="var-type"></span>&nbsp;<span class="var-name">$input</span>)
+									</div>
+																<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#encodeCharacter" title="details" class="method-name">encodeCharacter</a>
+											(<span class="var-type"></span>&nbsp;<span class="var-name">$immune</span>, <span class="var-type"></span>&nbsp;<span class="var-name">$c</span>)
+									</div>
+								</div>
+		</div>
+	</div>		
+
+	
+	<a name="sec-methods"></a>
+	<div class="info-box">
+		<div class="info-box-title">Methods</div>
+		<div class="nav-bar">
+			<a href="#sec-description">Description</a> |
+																<a href="#sec-method-summary">Methods</a> (<span class="disabled">details</span>)
+						
+		</div>
+		<div class="info-box-body">
+			<A NAME='method_detail'></A>
+
+<a name="method__construct" id="__construct"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">Constructor __construct</span> (line <span class="line-number">39</span>)
+	</div> 
+	
 	<!-- ========== Info from phpDoc block ========= -->
-<h5>Public Constructor</h5>
+<p class="short-description">Public Constructor</p>
+	
+	<div class="method-signature">
+		<span class="method-result">HTMLEntityCodec</span>
+		<span class="method-name">
+			__construct
+		</span>
+				()
+			</div>
+	
 		
-	<h4>Info</h4>
-	<ul>
-		</ul>
-</div>
-<a name="methoddecodeCharacter" id="methoddecodeCharacter"><!-- --></a>
-<div style="background='#ffffff'"><h4>
-<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method decodeCharacter</strong> (line <span class="linenumber">106</span>)
- </h4> 
-<h4><i>void</i> <strong>decodeCharacter(
-
-$input)</strong></h4>
-
-<p><strong>Overrides :</strong> <a href="../ESAPI/Codec.html#methoddecodeCharacter">Codec::decodeCharacter()</a> Returns the decoded version of the next character from the input string and advances the  current character in the PushbackString.  If the current character is not encoded, this  method MUST reset the PushbackString.</p>
+			<hr class="separator" />
+		<div class="notes">Redefinition of:</div>
+		<dl>
+			<dt><a href="../ESAPI/Codec.html#method__construct">Codec::__construct()</a></dt>
+						<dd>Populates the $hex map of non-alphanumeric single-byte characters.</dd>
+					</dl>
+			
+	</div>
+<a name="methoddecodeCharacter" id="decodeCharacter"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">decodeCharacter</span> (line <span class="line-number">106</span>)
+	</div> 
+	
 	<!-- ========== Info from phpDoc block ========= -->
-<h5>{@inheritDoc}</h5>
-		<h4>Parameters</h4>
-	<ul>
-			<li><strong> $input</strong>: </li>
-		</ul>
+<p class="short-description">{@inheritDoc}</p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			decodeCharacter
+		</span>
+					(<span class="var-type"></span>&nbsp;<span class="var-name">$input</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type"></span>
+				<span class="var-name">$input</span>			</li>
+				</ul>
 		
-	<h4>Info</h4>
-	<ul>
-			<li><strong>access</strong> - public</li>
-		</ul>
-</div>
-<a name="methodencodeCharacter" id="methodencodeCharacter"><!-- --></a>
-<div style="background='#eeeeee'"><h4>
-<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method encodeCharacter</strong> (line <span class="linenumber">50</span>)
- </h4> 
-<h4><i>void</i> <strong>encodeCharacter(
-
-$immune, 
-$c)</strong></h4>
-
-<p><strong>Overrides :</strong> <a href="../ESAPI/Codec.html#methodencodeCharacter">Codec::encodeCharacter()</a> Encode a Character with a Codec.</p>
+			<hr class="separator" />
+		<div class="notes">Redefinition of:</div>
+		<dl>
+			<dt><a href="../ESAPI/Codec.html#methoddecodeCharacter">Codec::decodeCharacter()</a></dt>
+						<dd>Returns the decoded version of the next character from the input string and advances the  current character in the PushbackString.  If the current character is not encoded, this  method MUST reset the PushbackString.</dd>
+					</dl>
+			
+	</div>
+<a name="methodencodeCharacter" id="encodeCharacter"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">encodeCharacter</span> (line <span class="line-number">50</span>)
+	</div> 
+	
 	<!-- ========== Info from phpDoc block ========= -->
-<h5>{@inheritDoc}</h5>
-		<h4>Parameters</h4>
-	<ul>
-			<li><strong> $immune</strong>: </li>
-			<li><strong> $c</strong>: </li>
-		</ul>
+<p class="short-description">{@inheritDoc}</p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			encodeCharacter
+		</span>
+					(<span class="var-type"></span>&nbsp;<span class="var-name">$immune</span>, <span class="var-type"></span>&nbsp;<span class="var-name">$c</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type"></span>
+				<span class="var-name">$immune</span>			</li>
+					<li>
+				<span class="var-type"></span>
+				<span class="var-name">$c</span>			</li>
+				</ul>
 		
-	<h4>Info</h4>
-	<ul>
-			<li><strong>access</strong> - public</li>
-		</ul>
-</div>
-<script type="text/javascript">tp1.addTabPage( document.getElementById( "tabPage2" ) );</script></div>
-<div class="tab-page" id="iVars">
-<h2 class="tab">Inherited Variables</h2>
-<script type="text/javascript">tp1.addTabPage( document.getElementById( "iVars" ) );</script>
-<!-- =========== VAR INHERITED SUMMARY =========== -->
-<A NAME='var_inherited_summary'><!-- --></A>
-<h3>Inherited Class Variable Summary</h3>
-
+			<hr class="separator" />
+		<div class="notes">Redefinition of:</div>
+		<dl>
+			<dt><a href="../ESAPI/Codec.html#methodencodeCharacter">Codec::encodeCharacter()</a></dt>
+						<dd>Encode a Character with a Codec.</dd>
+					</dl>
+			
 	</div>
-<div class="tab-page" id="iMethods">
-<h2 class="tab">Inherited Methods</h2>
-<script type="text/javascript">tp1.addTabPage( document.getElementById( "iMethods" ) );</script>
-<!-- =========== INHERITED METHOD SUMMARY =========== -->
-<A NAME='functions_inherited'><!-- --></A>
-<h3>Inherited Method Summary</h3>
-
-		<!-- =========== Summary =========== -->
-	<h4>Inherited From Class <a href="../ESAPI/Codec.html">Codec</a></h4>
-				<h4>
-<img src="../media/images/Constructor.gif" border="0" /><strong class="method"> <a href="../ESAPI/Codec.html#method__construct">Codec::__construct()</a></strong> - Populates the $hex map of non-alphanumeric single-byte characters.
-		</h4> 
-
-				<h4>
-<img src="../media/images/PublicMethod.gif" border="0" /><strong class="method"> <a href="../ESAPI/Codec.html#methodcontainsCharacter">Codec::containsCharacter()</a></strong> - Utility to search a char[] for a specific char.
-		</h4> 
-
-				<h4>
-<img src="../media/images/PublicMethod.gif" border="0" /><strong class="method"> <a href="../ESAPI/Codec.html#methoddecode">Codec::decode()</a></strong> - Decode a String that was encoded using the encode method in this Class
-		</h4> 
-
-				<h4>
-<img src="../media/images/PublicMethod.gif" border="0" /><strong class="method"> <a href="../ESAPI/Codec.html#methoddecodeCharacter">Codec::decodeCharacter()</a></strong> - Returns the decoded version of the next character from the input string and advances the  current character in the PushbackString.  If the current character is not encoded, this  method MUST reset the PushbackString.
-		</h4> 
-
-				<h4>
-<img src="../media/images/PublicMethod.gif" border="0" /><strong class="method"> <a href="../ESAPI/Codec.html#methoddetectEncoding">Codec::detectEncoding()</a></strong> - Utility to detect a (potentially multibyte) string's encoding with extra logic to deal with single characters that mb_detect_encoding() fails upon.
-		</h4> 
-
-				<h4>
-<img src="../media/images/PublicMethod.gif" border="0" /><strong class="method"> <a href="../ESAPI/Codec.html#methodencode">Codec::encode()</a></strong> - Encode a String with a Codec.
-		</h4> 
-
-				<h4>
-<img src="../media/images/PublicMethod.gif" border="0" /><strong class="method"> <a href="../ESAPI/Codec.html#methodencodeCharacter">Codec::encodeCharacter()</a></strong> - Encode a Character with a Codec.
-		</h4> 
-
-				<h4>
-<img src="../media/images/PublicMethod.gif" border="0" /><strong class="method"> <a href="../ESAPI/Codec.html#methodforceToSingleCharacter">Codec::forceToSingleCharacter()</a></strong> - Utility to get first (potentially multibyte) character from a (potentially multicharacter) multibyte string.
-		</h4> 
-
-				<h4>
-<img src="../media/images/PublicMethod.gif" border="0" /><strong class="method"> <a href="../ESAPI/Codec.html#methodgetHexForNonAlphanumeric">Codec::getHexForNonAlphanumeric()</a></strong> - Returns the ordinal value as a hex string of any character that is not a  single-byte alphanumeric. The character should be supplied as a string in  the UTF-32 character encoding.
-		</h4> 
-
-				<h4>
-<img src="../media/images/PublicMethod.gif" border="0" /><strong class="method"> <a href="../ESAPI/Codec.html#methodisHexDigit">Codec::isHexDigit()</a></strong> - *  Utility method to determine if a single character string is a hex digit
-		</h4> 
-
-				<h4>
-<img src="../media/images/PublicMethod.gif" border="0" /><strong class="method"> <a href="../ESAPI/Codec.html#methodnormalizeEncoding">Codec::normalizeEncoding()</a></strong> - Utility to normalize a string's encoding to UTF-32.
-		</h4> 
-
-				<h4>
-<img src="../media/images/PublicMethod.gif" border="0" /><strong class="method"> <a href="../ESAPI/Codec.html#methodtoHex">Codec::toHex()</a></strong> - Return the hex value of a character as a string without leading zeroes.
-		</h4> 
-
-				<br />
+							<h4>Inherited Methods</h4>
+				<a name='inherited_methods'><!-- --></a>	
+									<!-- =========== Summary =========== -->
+					<p>Inherited From <span class="classname"><a href="../ESAPI/Codec.html">Codec</a></span></p>
+					<blockquote>
+													<span class="method-name"><a href="../ESAPI/Codec.html#method__construct">Codec::__construct()</a></span><br>
+													<span class="method-name"><a href="../ESAPI/Codec.html#methodcontainsCharacter">Codec::containsCharacter()</a></span><br>
+													<span class="method-name"><a href="../ESAPI/Codec.html#methoddecode">Codec::decode()</a></span><br>
+													<span class="method-name"><a href="../ESAPI/Codec.html#methoddecodeCharacter">Codec::decodeCharacter()</a></span><br>
+													<span class="method-name"><a href="../ESAPI/Codec.html#methoddetectEncoding">Codec::detectEncoding()</a></span><br>
+													<span class="method-name"><a href="../ESAPI/Codec.html#methodencode">Codec::encode()</a></span><br>
+													<span class="method-name"><a href="../ESAPI/Codec.html#methodencodeCharacter">Codec::encodeCharacter()</a></span><br>
+													<span class="method-name"><a href="../ESAPI/Codec.html#methodforceToSingleCharacter">Codec::forceToSingleCharacter()</a></span><br>
+													<span class="method-name"><a href="../ESAPI/Codec.html#methodgetHexForNonAlphanumeric">Codec::getHexForNonAlphanumeric()</a></span><br>
+													<span class="method-name"><a href="../ESAPI/Codec.html#methodisHexDigit">Codec::isHexDigit()</a></span><br>
+													<span class="method-name"><a href="../ESAPI/Codec.html#methodnormalizeEncoding">Codec::normalizeEncoding()</a></span><br>
+													<span class="method-name"><a href="../ESAPI/Codec.html#methodtoHex">Codec::toHex()</a></span><br>
+											</blockquote>
+										
+		</div>
 	</div>
-</div>
-<script type="text/javascript">
-//<![CDATA[
 
-setupAllTabs();
 
-//]]>
-</script>
-	<div id="credit">
-		<hr />
-		Documentation generated on Fri, 16 Apr 2010 11:42:17 -0400 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
-	</div>
-</body>
+	<p class="notes" id="credit">
+		Documentation generated on Fri, 16 Apr 2010 12:00:11 -0400 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
+	</p>
+	</div></body>
 </html>

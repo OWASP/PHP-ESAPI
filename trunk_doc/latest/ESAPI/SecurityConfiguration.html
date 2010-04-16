@@ -1,819 +1,1004 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
-<!DOCTYPE html 
-     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-   <html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-  <title>Docs For Class SecurityConfiguration</title>
-  <link rel="stylesheet" href="../media/stylesheet.css" />
-  <script src="../media/lib/classTree.js"></script>
-<link id="webfx-tab-style-sheet" type="text/css" rel="stylesheet" href="../media/lib/tab.webfx.css" />
-<script type="text/javascript" src="../media/lib/tabpane.js"></script>
-  <script language="javascript" type="text/javascript" src="../media/lib/ua.js"></script>
-<script language="javascript" type="text/javascript">
-	var imgPlus = new Image();
-	var imgMinus = new Image();
-	imgPlus.src = "../media/images/plus.gif";
-	imgMinus.src = "../media/images/minus.gif";
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+  <html xmlns="http://www.w3.org/1999/xhtml">
+		<head>
+			<!-- template designed by Marco Von Ballmoos -->
+			<title>Docs For Class SecurityConfiguration</title>
+			<link rel="stylesheet" href="../media/stylesheet.css" />
+			<meta http-equiv='Content-Type' content='text/html; charset=iso-8859-1'/>
+		</head>
+		<body>
+			<div class="page-body">			
+<h2 class="class-name">Interface SecurityConfiguration</h2>
+
+<a name="sec-description"></a>
+<div class="info-box">
+	<div class="info-box-title">Description</div>
+	<div class="nav-bar">
+					<span class="disabled">Description</span> |
+															<a href="#sec-method-summary">Methods</a> (<a href="#sec-methods">details</a>)
+						
+					</div>
+	<div class="info-box-body">
+        		<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">The SecurityConfiguration interface stores all configuration information that  directs the behavior of the ESAPI implementation.</p>
+<p class="description"><p>Protection of this configuration information is critical to the secure  operation of the application using the ESAPI. You should use operating system  access controls to limit access to wherever the configuration information is  stored.</p><p>Please note that adding another layer of encryption does not make the  attackers job much more difficult. Somewhere there must be a master &quot;secret&quot;  that is stored unencrypted on the application platform. Creating another  layer of indirection doesn't provide any real additional security. Its up to  the reference implementation to decide whether this file should be encrypted  or not.  The ESAPI reference implementation (DefaultSecurityConfiguration.java) does  not encrypt its properties file.</p></p>
+	<ul class="tags">
+				<li><span class="field">author:</span> Mike Boberski &lt;<a href="mailto:boberski_michael@bah.com">boberski_michael@bah.com</a>&gt;</li>
+				<li><span class="field">author:</span> Mike Fauzy &lt;<a href="mailto:mike.fauzy@aspectsecurity.com">mike.fauzy@aspectsecurity.com</a>&gt;</li>
+				<li><span class="field">author:</span> Jeff Williams &lt;<a href="mailto:jeff.williams@aspectsecurity.com">jeff.williams@aspectsecurity.com</a>&gt;</li>
+				<li><span class="field">author:</span> Andrew van der Stock &lt;<a href="mailto:vanderaj@owasp.org">vanderaj@owasp.org</a>&gt;</li>
+				<li><span class="field">version:</span> Release: @package_version@</li>
+				<li><span class="field">copyright:</span> 2009-2010 The OWASP Foundation</li>
+				<li><span class="field">link:</span> <a href="http://www.owasp.org/index.php/ESAPI">http://www.owasp.org/index.php/ESAPI</a></li>
+				<li><span class="field">license:</span> <a href="http://www.opensource.org/licenses/bsd-license.php">New BSD license</a></li>
+			</ul>
+		<p class="notes">
+			Located in <a class="field" href="_SecurityConfiguration.php.html">/SecurityConfiguration.php</a> (line <span class="field">55</span>)
+		</p>
+		
+				
+		<pre></pre>
 	
-	function showNode(Node){
-        switch(navigator.family){
-        	case 'nn4':
-        		// Nav 4.x code fork...
-				var oTable = document.layers["span" + Node];
-				var oImg = document.layers["img" + Node];
-        		break;
-        	case 'ie4':
-        		// IE 4/5 code fork...
-				var oTable = document.all["span" + Node];
-				var oImg = document.all["img" + Node];
-        		break;
-        	case 'gecko':
-        		// Standards Compliant code fork...
-				var oTable = document.getElementById("span" + Node);
-				var oImg = document.getElementById("img" + Node);
-        		break;
-        }
-		oImg.src = imgMinus.src;
-		oTable.style.display = "block";
-	}
+			</div>
+</div>
+
+
+
+
+	<a name="sec-method-summary"></a>
+	<div class="info-box">
+		<div class="info-box-title">Method Summary</span></div>
+		<div class="nav-bar">
+			<a href="#sec-description">Description</a> |
+												<span class="disabled">Methods</span> (<a href="#sec-methods">details</a>)
+		</div>
+		<div class="info-box-body">			
+			<div class="method-summary">
+																																																																																																																																																																																																																																																												
+												<div class="method-definition">
+											<span class="method-result">array</span>
+										<a href="#getAllowedExecutables" title="details" class="method-name">getAllowedExecutables</a>
+										()
+									</div>
+																<div class="method-definition">
+											<span class="method-result">array</span>
+										<a href="#getAllowedFileExtensions" title="details" class="method-name">getAllowedFileExtensions</a>
+										()
+									</div>
+																<div class="method-definition">
+											<span class="method-result">int</span>
+										<a href="#getAllowedFileUploadSize" title="details" class="method-name">getAllowedFileUploadSize</a>
+										()
+									</div>
+																<div class="method-definition">
+											<span class="method-result">array</span>
+										<a href="#getAllowedIncludes" title="details" class="method-name">getAllowedIncludes</a>
+										()
+									</div>
+																<div class="method-definition">
+											<span class="method-result">int</span>
+										<a href="#getAllowedLoginAttempts" title="details" class="method-name">getAllowedLoginAttempts</a>
+										()
+									</div>
+																<div class="method-definition">
+											<span class="method-result">array</span>
+										<a href="#getAllowedResources" title="details" class="method-name">getAllowedResources</a>
+										()
+									</div>
+																<div class="method-definition">
+											<span class="method-result">string</span>
+										<a href="#getApplicationName" title="details" class="method-name">getApplicationName</a>
+										()
+									</div>
+																<div class="method-definition">
+											<span class="method-result">string</span>
+										<a href="#getCharacterEncoding" title="details" class="method-name">getCharacterEncoding</a>
+										()
+									</div>
+																<div class="method-definition">
+											<span class="method-result">string</span>
+										<a href="#getDigitalSignatureAlgorithm" title="details" class="method-name">getDigitalSignatureAlgorithm</a>
+										()
+									</div>
+																<div class="method-definition">
+											<span class="method-result">bool</span>
+										<a href="#getDisableIntrusionDetection" title="details" class="method-name">getDisableIntrusionDetection</a>
+										()
+									</div>
+																<div class="method-definition">
+											<span class="method-result">string</span>
+										<a href="#getEncryptionAlgorithm" title="details" class="method-name">getEncryptionAlgorithm</a>
+										()
+									</div>
+																<div class="method-definition">
+											<span class="method-result">string</span>
+										<a href="#getHashAlgorithm" title="details" class="method-name">getHashAlgorithm</a>
+										()
+									</div>
+																<div class="method-definition">
+											<span class="method-result">bool</span>
+										<a href="#getLogEncodingRequired" title="details" class="method-name">getLogEncodingRequired</a>
+										()
+									</div>
+																<div class="method-definition">
+											<span class="method-result">string</span>
+										<a href="#getLogFileName" title="details" class="method-name">getLogFileName</a>
+										()
+									</div>
+																<div class="method-definition">
+											<span class="method-result">int</span>
+										<a href="#getLogLevel" title="details" class="method-name">getLogLevel</a>
+										()
+									</div>
+																<div class="method-definition">
+											<span class="method-result">string</span>
+										<a href="#getMasterKey" title="details" class="method-name">getMasterKey</a>
+										()
+									</div>
+																<div class="method-definition">
+											<span class="method-result">string</span>
+										<a href="#getMasterSalt" title="details" class="method-name">getMasterSalt</a>
+										()
+									</div>
+																<div class="method-definition">
+											<span class="method-result">int</span>
+										<a href="#getMaxLogFileSize" title="details" class="method-name">getMaxLogFileSize</a>
+										()
+									</div>
+																<div class="method-definition">
+											<span class="method-result">int</span>
+										<a href="#getMaxOldPasswordHashes" title="details" class="method-name">getMaxOldPasswordHashes</a>
+										()
+									</div>
+																<div class="method-definition">
+											<span class="method-result">string</span>
+										<a href="#getPasswordParameterName" title="details" class="method-name">getPasswordParameterName</a>
+										()
+									</div>
+																<div class="method-definition">
+											<span class="method-result">int</span>
+										<a href="#getQuota" title="details" class="method-name">getQuota</a>
+											(<span class="var-type">string</span>&nbsp;<span class="var-name">$eventName</span>)
+									</div>
+																<div class="method-definition">
+											<span class="method-result">string</span>
+										<a href="#getRandomAlgorithm" title="details" class="method-name">getRandomAlgorithm</a>
+										()
+									</div>
+																<div class="method-definition">
+											<span class="method-result">int</span>
+										<a href="#getRememberTokenDuration" title="details" class="method-name">getRememberTokenDuration</a>
+										()
+									</div>
+																<div class="method-definition">
+											<span class="method-result">string</span>
+										<a href="#getResourceDirectory" title="details" class="method-name">getResourceDirectory</a>
+										()
+									</div>
+																<div class="method-definition">
+											<span class="method-result">string</span>
+										<a href="#getResponseContentType" title="details" class="method-name">getResponseContentType</a>
+										()
+									</div>
+																<div class="method-definition">
+											<span class="method-result">int</span>
+										<a href="#getSessionAbsoluteTimeoutLength" title="details" class="method-name">getSessionAbsoluteTimeoutLength</a>
+										()
+									</div>
+																<div class="method-definition">
+											<span class="method-result">int</span>
+										<a href="#getSessionIdleTimeoutLength" title="details" class="method-name">getSessionIdleTimeoutLength</a>
+										()
+									</div>
+																<div class="method-definition">
+											<span class="method-result">string</span>
+										<a href="#getUsernameParameterName" title="details" class="method-name">getUsernameParameterName</a>
+										()
+									</div>
+																<div class="method-definition">
+											<span class="method-result">string</span>
+										<a href="#getValidationPattern" title="details" class="method-name">getValidationPattern</a>
+											(<span class="var-type">string</span>&nbsp;<span class="var-name">$type</span>)
+									</div>
+																<div class="method-definition">
+											<span class="method-result">string</span>
+										<a href="#getWorkingDirectory" title="details" class="method-name">getWorkingDirectory</a>
+										()
+									</div>
+																<div class="method-definition">
+											<span class="method-result">Does</span>
+										<a href="#setResourceDirectory" title="details" class="method-name">setResourceDirectory</a>
+											(<span class="var-type">string</span>&nbsp;<span class="var-name">$dir</span>)
+									</div>
+								</div>
+		</div>
+	</div>		
+
 	
-	function hideNode(Node){
-        switch(navigator.family){
-        	case 'nn4':
-        		// Nav 4.x code fork...
-				var oTable = document.layers["span" + Node];
-				var oImg = document.layers["img" + Node];
-        		break;
-        	case 'ie4':
-        		// IE 4/5 code fork...
-				var oTable = document.all["span" + Node];
-				var oImg = document.all["img" + Node];
-        		break;
-        	case 'gecko':
-        		// Standards Compliant code fork...
-				var oTable = document.getElementById("span" + Node);
-				var oImg = document.getElementById("img" + Node);
-        		break;
-        }
-		oImg.src = imgPlus.src;
-		oTable.style.display = "none";
-	}
+	<a name="sec-methods"></a>
+	<div class="info-box">
+		<div class="info-box-title">Methods</div>
+		<div class="nav-bar">
+			<a href="#sec-description">Description</a> |
+																<a href="#sec-method-summary">Methods</a> (<span class="disabled">details</span>)
+						
+		</div>
+		<div class="info-box-body">
+			<A NAME='method_detail'></A>
+
+<a name="methodgetAllowedExecutables" id="getAllowedExecutables"><!-- --></a>
+<div class="oddrow">
 	
-	function nodeIsVisible(Node){
-        switch(navigator.family){
-        	case 'nn4':
-        		// Nav 4.x code fork...
-				var oTable = document.layers["span" + Node];
-        		break;
-        	case 'ie4':
-        		// IE 4/5 code fork...
-				var oTable = document.all["span" + Node];
-        		break;
-        	case 'gecko':
-        		// Standards Compliant code fork...
-				var oTable = document.getElementById("span" + Node);
-        		break;
-        }
-		return (oTable && oTable.style.display == "block");
-	}
+	<div class="method-header">
+		<span class="method-title">getAllowedExecutables</span> (line <span class="line-number">320</span>)
+	</div> 
 	
-	function toggleNodeVisibility(Node){
-		if (nodeIsVisible(Node)){
-			hideNode(Node);
-		}else{
-			showNode(Node);
-		}
-	}
-</script>
-<!-- template designed by Julien Damon based on PHPEdit's generated templates, and tweaked by Greg Beaver -->
-<body bgcolor="#ffffff" ><!-- Start of Class Data -->
-<h2>
-	Interface SecurityConfiguration
-</h2> (line <span class="linenumber">55</span>)
-<div class="tab-pane" id="tabPane1">
-<script type="text/javascript">
-tp1 = new WebFXTabPane( document.getElementById( "tabPane1" ));
-</script>
-
-<div class="tab-page" id="Description">
-<h2 class="tab">Description</h2>
-<pre>
-</pre>
-<p>
-	<b><i>Located in File: <a href="_SecurityConfiguration.php.html">/SecurityConfiguration.php</a></i></b><br>
-</p>
-<!-- ========== Info from phpDoc block ========= -->
-<h5>The SecurityConfiguration interface stores all configuration information that  directs the behavior of the ESAPI implementation.</h5>
-<div class="desc"><p>Protection of this configuration information is critical to the secure  operation of the application using the ESAPI. You should use operating system  access controls to limit access to wherever the configuration information is  stored.</p><p>Please note that adding another layer of encryption does not make the  attackers job much more difficult. Somewhere there must be a master &quot;secret&quot;  that is stored unencrypted on the application platform. Creating another  layer of indirection doesn't provide any real additional security. Its up to  the reference implementation to decide whether this file should be encrypted  or not.  The ESAPI reference implementation (DefaultSecurityConfiguration.java) does  not encrypt its properties file.</p></div>
-<ul>
-		<li><strong>author:</strong> - Mike Boberski &lt;<a href="mailto:boberski_michael@bah.com">boberski_michael@bah.com</a>&gt;</li>
-		<li><strong>author:</strong> - Mike Fauzy &lt;<a href="mailto:mike.fauzy@aspectsecurity.com">mike.fauzy@aspectsecurity.com</a>&gt;</li>
-		<li><strong>author:</strong> - Jeff Williams &lt;<a href="mailto:jeff.williams@aspectsecurity.com">jeff.williams@aspectsecurity.com</a>&gt;</li>
-		<li><strong>author:</strong> - Andrew van der Stock &lt;<a href="mailto:vanderaj@owasp.org">vanderaj@owasp.org</a>&gt;</li>
-		<li><strong>version:</strong> - Release: @package_version@</li>
-		<li><strong>copyright:</strong> - 2009-2010 The OWASP Foundation</li>
-		<li><strong>link:</strong> - <a href="http://www.owasp.org/index.php/ESAPI">http://www.owasp.org/index.php/ESAPI</a></li>
-		<li><strong>license:</strong> - <a href="http://www.opensource.org/licenses/bsd-license.php">New BSD license</a></li>
-	</ul>
-<br /><hr />
-</div>
-<script type="text/javascript">tp1.addTabPage( document.getElementById( "Description" ) );</script>
-<div class="tab-page" id="tabPage1">
-
-<h2 class="tab">Class Variables</h2>
-<!-- ============ VARIABLE DETAIL =========== -->
-<strong>Summary:</strong><br />
-<hr />
-<script type="text/javascript">tp1.addTabPage( document.getElementById( "tabPage1" ) );</script>
-</div>
-<div class="tab-page" id="constantsTabpage">
-
-<h2 class="tab">Class Constants</h2>
-<!-- ============ VARIABLE DETAIL =========== -->
-<strong>Summary:</strong><br />
-<hr />
-<script type="text/javascript">tp1.addTabPage( document.getElementById( "constantsTabpage" ) );</script>
-</div>
-<div class="tab-page" id="tabPage2">
-<h2 class="tab">Method Detail</h2>
-<!-- ============ METHOD DETAIL =========== -->
-<strong>Summary:</strong><br />
-<div class="method-summary">
-    <div class="method-definition">
-            <span class="method-result">array</span>
-        <a href="#methodgetAllowedExecutables" title="details" class="method-name">getAllowedExecutables</a>
-        ()
-        </div>
-    <div class="method-definition">
-            <span class="method-result">array</span>
-        <a href="#methodgetAllowedFileExtensions" title="details" class="method-name">getAllowedFileExtensions</a>
-        ()
-        </div>
-    <div class="method-definition">
-            <span class="method-result">int</span>
-        <a href="#methodgetAllowedFileUploadSize" title="details" class="method-name">getAllowedFileUploadSize</a>
-        ()
-        </div>
-    <div class="method-definition">
-            <span class="method-result">array</span>
-        <a href="#methodgetAllowedIncludes" title="details" class="method-name">getAllowedIncludes</a>
-        ()
-        </div>
-    <div class="method-definition">
-            <span class="method-result">int</span>
-        <a href="#methodgetAllowedLoginAttempts" title="details" class="method-name">getAllowedLoginAttempts</a>
-        ()
-        </div>
-    <div class="method-definition">
-            <span class="method-result">array</span>
-        <a href="#methodgetAllowedResources" title="details" class="method-name">getAllowedResources</a>
-        ()
-        </div>
-    <div class="method-definition">
-            <span class="method-result">string</span>
-        <a href="#methodgetApplicationName" title="details" class="method-name">getApplicationName</a>
-        ()
-        </div>
-    <div class="method-definition">
-            <span class="method-result">string</span>
-        <a href="#methodgetCharacterEncoding" title="details" class="method-name">getCharacterEncoding</a>
-        ()
-        </div>
-    <div class="method-definition">
-            <span class="method-result">string</span>
-        <a href="#methodgetDigitalSignatureAlgorithm" title="details" class="method-name">getDigitalSignatureAlgorithm</a>
-        ()
-        </div>
-    <div class="method-definition">
-            <span class="method-result">bool</span>
-        <a href="#methodgetDisableIntrusionDetection" title="details" class="method-name">getDisableIntrusionDetection</a>
-        ()
-        </div>
-    <div class="method-definition">
-            <span class="method-result">string</span>
-        <a href="#methodgetEncryptionAlgorithm" title="details" class="method-name">getEncryptionAlgorithm</a>
-        ()
-        </div>
-    <div class="method-definition">
-            <span class="method-result">string</span>
-        <a href="#methodgetHashAlgorithm" title="details" class="method-name">getHashAlgorithm</a>
-        ()
-        </div>
-    <div class="method-definition">
-            <span class="method-result">bool</span>
-        <a href="#methodgetLogEncodingRequired" title="details" class="method-name">getLogEncodingRequired</a>
-        ()
-        </div>
-    <div class="method-definition">
-            <span class="method-result">string</span>
-        <a href="#methodgetLogFileName" title="details" class="method-name">getLogFileName</a>
-        ()
-        </div>
-    <div class="method-definition">
-            <span class="method-result">int</span>
-        <a href="#methodgetLogLevel" title="details" class="method-name">getLogLevel</a>
-        ()
-        </div>
-    <div class="method-definition">
-            <span class="method-result">string</span>
-        <a href="#methodgetMasterKey" title="details" class="method-name">getMasterKey</a>
-        ()
-        </div>
-    <div class="method-definition">
-            <span class="method-result">string</span>
-        <a href="#methodgetMasterSalt" title="details" class="method-name">getMasterSalt</a>
-        ()
-        </div>
-    <div class="method-definition">
-            <span class="method-result">int</span>
-        <a href="#methodgetMaxLogFileSize" title="details" class="method-name">getMaxLogFileSize</a>
-        ()
-        </div>
-    <div class="method-definition">
-            <span class="method-result">int</span>
-        <a href="#methodgetMaxOldPasswordHashes" title="details" class="method-name">getMaxOldPasswordHashes</a>
-        ()
-        </div>
-    <div class="method-definition">
-            <span class="method-result">string</span>
-        <a href="#methodgetPasswordParameterName" title="details" class="method-name">getPasswordParameterName</a>
-        ()
-        </div>
-    <div class="method-definition">
-            <span class="method-result">int</span>
-        <a href="#methodgetQuota" title="details" class="method-name">getQuota</a>
-        (<span class="var-type">string</span>&nbsp;<span class="var-name">$eventName</span>)
-        </div>
-    <div class="method-definition">
-            <span class="method-result">string</span>
-        <a href="#methodgetRandomAlgorithm" title="details" class="method-name">getRandomAlgorithm</a>
-        ()
-        </div>
-    <div class="method-definition">
-            <span class="method-result">int</span>
-        <a href="#methodgetRememberTokenDuration" title="details" class="method-name">getRememberTokenDuration</a>
-        ()
-        </div>
-    <div class="method-definition">
-            <span class="method-result">string</span>
-        <a href="#methodgetResourceDirectory" title="details" class="method-name">getResourceDirectory</a>
-        ()
-        </div>
-    <div class="method-definition">
-            <span class="method-result">string</span>
-        <a href="#methodgetResponseContentType" title="details" class="method-name">getResponseContentType</a>
-        ()
-        </div>
-    <div class="method-definition">
-            <span class="method-result">int</span>
-        <a href="#methodgetSessionAbsoluteTimeoutLength" title="details" class="method-name">getSessionAbsoluteTimeoutLength</a>
-        ()
-        </div>
-    <div class="method-definition">
-            <span class="method-result">int</span>
-        <a href="#methodgetSessionIdleTimeoutLength" title="details" class="method-name">getSessionIdleTimeoutLength</a>
-        ()
-        </div>
-    <div class="method-definition">
-            <span class="method-result">string</span>
-        <a href="#methodgetUsernameParameterName" title="details" class="method-name">getUsernameParameterName</a>
-        ()
-        </div>
-    <div class="method-definition">
-            <span class="method-result">string</span>
-        <a href="#methodgetValidationPattern" title="details" class="method-name">getValidationPattern</a>
-        (<span class="var-type">string</span>&nbsp;<span class="var-name">$type</span>)
-        </div>
-    <div class="method-definition">
-            <span class="method-result">string</span>
-        <a href="#methodgetWorkingDirectory" title="details" class="method-name">getWorkingDirectory</a>
-        ()
-        </div>
-    <div class="method-definition">
-            <span class="method-result">Does</span>
-        <a href="#methodsetResourceDirectory" title="details" class="method-name">setResourceDirectory</a>
-        (<span class="var-type">string</span>&nbsp;<span class="var-name">$dir</span>)
-        </div>
-</div>
-<hr />
-<A NAME='method_detail'></A>
-
-
-<a name="methodgetAllowedExecutables" id="methodgetAllowedExecutables"><!-- --></a>
-<div style="background='#ffffff'"><h4>
-<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method getAllowedExecutables</strong> (line <span class="linenumber">320</span>)
- </h4> 
-<h4><i>array</i> <strong>getAllowedExecutables(
-)</strong></h4>
-
 	<!-- ========== Info from phpDoc block ========= -->
-<h5>getAllowedExecutables returns an array of executables that are allowed to  be run by the Executor.</h5>
+<p class="short-description">getAllowedExecutables returns an array of executables that are allowed to  be run by the Executor.</p>
+	<ul class="tags">
+				<li><span class="field">return:</span> an array of executable names</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">array</span>
+		<span class="method-name">
+			getAllowedExecutables
+		</span>
+				()
+			</div>
+	
 		
-	<h4>Info</h4>
-	<ul>
-			<li><strong>return</strong> - an array of executable names</li>
-		</ul>
-</div>
-<a name="methodgetAllowedFileExtensions" id="methodgetAllowedFileExtensions"><!-- --></a>
-<div style="background='#eeeeee'"><h4>
-<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method getAllowedFileExtensions</strong> (line <span class="linenumber">87</span>)
- </h4> 
-<h4><i>array</i> <strong>getAllowedFileExtensions(
-)</strong></h4>
-
-	<!-- ========== Info from phpDoc block ========= -->
-<h5>Gets the allowed file extensions for files that are uploaded to this  application.</h5>
-		
-	<h4>Info</h4>
-	<ul>
-			<li><strong>return</strong> - a list of the current allowed file extensions</li>
-		</ul>
-</div>
-<a name="methodgetAllowedFileUploadSize" id="methodgetAllowedFileUploadSize"><!-- --></a>
-<div style="background='#ffffff'"><h4>
-<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method getAllowedFileUploadSize</strong> (line <span class="linenumber">94</span>)
- </h4> 
-<h4><i>int</i> <strong>getAllowedFileUploadSize(
-)</strong></h4>
-
-	<!-- ========== Info from phpDoc block ========= -->
-<h5>Gets the maximum allowed file upload size.</h5>
-		
-	<h4>Info</h4>
-	<ul>
-			<li><strong>return</strong> - the current allowed file upload size</li>
-		</ul>
-</div>
-<a name="methodgetAllowedIncludes" id="methodgetAllowedIncludes"><!-- --></a>
-<div style="background='#eeeeee'"><h4>
-<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method getAllowedIncludes</strong> (line <span class="linenumber">170</span>)
- </h4> 
-<h4><i>array</i> <strong>getAllowedIncludes(
-)</strong></h4>
-
-	<!-- ========== Info from phpDoc block ========= -->
-<h5>getAllowedIncludes returns an array of include files that are allowed to be  included by PHP. This is a ESAPI extension for PHP</h5>
-		
-	<h4>Info</h4>
-	<ul>
-			<li><strong>return</strong> - an array of allowed includes</li>
-		</ul>
-</div>
-<a name="methodgetAllowedLoginAttempts" id="methodgetAllowedLoginAttempts"><!-- --></a>
-<div style="background='#ffffff'"><h4>
-<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method getAllowedLoginAttempts</strong> (line <span class="linenumber">162</span>)
- </h4> 
-<h4><i>int</i> <strong>getAllowedLoginAttempts(
-)</strong></h4>
-
-	<!-- ========== Info from phpDoc block ========= -->
-<h5>Gets the number of login attempts allowed before the user's account is  locked. If this many failures are detected within the alloted time period,  the user's account will be locked.</h5>
-		
-	<h4>Info</h4>
-	<ul>
-			<li><strong>return</strong> - the number of failed login attempts that cause an account to be              locked</li>
-		</ul>
-</div>
-<a name="methodgetAllowedResources" id="methodgetAllowedResources"><!-- --></a>
-<div style="background='#eeeeee'"><h4>
-<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method getAllowedResources</strong> (line <span class="linenumber">179</span>)
- </h4> 
-<h4><i>array</i> <strong>getAllowedResources(
-)</strong></h4>
-
-	<!-- ========== Info from phpDoc block ========= -->
-<h5>getAllowedResources returns an array of resources (files) that are permitted.</h5>
-<div class="desc"><p>This is a new addition for the ESAPI for PHP project, but may be relevant  for other ports, too.</p></div>
-		
-	<h4>Info</h4>
-	<ul>
-			<li><strong>return</strong> - an array of allowed resources</li>
-		</ul>
-</div>
-<a name="methodgetApplicationName" id="methodgetApplicationName"><!-- --></a>
-<div style="background='#ffffff'"><h4>
-<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method getApplicationName</strong> (line <span class="linenumber">63</span>)
- </h4> 
-<h4><i>string</i> <strong>getApplicationName(
-)</strong></h4>
-
-	<!-- ========== Info from phpDoc block ========= -->
-<h5>Gets the application name, used for logging</h5>
-		
-	<h4>Info</h4>
-	<ul>
-			<li><strong>return</strong> - the name of the current application</li>
-		</ul>
-</div>
-<a name="methodgetCharacterEncoding" id="methodgetCharacterEncoding"><!-- --></a>
-<div style="background='#eeeeee'"><h4>
-<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method getCharacterEncoding</strong> (line <span class="linenumber">136</span>)
- </h4> 
-<h4><i>string</i> <strong>getCharacterEncoding(
-)</strong></h4>
-
-	<!-- ========== Info from phpDoc block ========= -->
-<h5>Gets the character encoding scheme supported by this application. This is</h5>
-<div class="desc"><p>used to set the character encoding scheme on requests and responses when  setCharacterEncoding() is called on SafeRequests and SafeResponses. This  scheme is also used for encoding/decoding URLs and any other place where  the current encoding scheme needs to be known.  <br /><br />  Note: This does not get the configured response content type. That is  accessed by calling getResponseContentType().</p></div>
-		
-	<h4>Info</h4>
-	<ul>
-			<li><strong>return</strong> - the current character encoding scheme</li>
-		</ul>
-</div>
-<a name="methodgetDigitalSignatureAlgorithm" id="methodgetDigitalSignatureAlgorithm"><!-- --></a>
-<div style="background='#ffffff'"><h4>
-<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method getDigitalSignatureAlgorithm</strong> (line <span class="linenumber">144</span>)
- </h4> 
-<h4><i>string</i> <strong>getDigitalSignatureAlgorithm(
-)</strong></h4>
-
-	<!-- ========== Info from phpDoc block ========= -->
-<h5>Gets the digital signature algorithm used by ESAPI to generate and verify  signatures.</h5>
-		
-	<h4>Info</h4>
-	<ul>
-			<li><strong>return</strong> - the current digital signature algorithm</li>
-		</ul>
-</div>
-<a name="methodgetDisableIntrusionDetection" id="methodgetDisableIntrusionDetection"><!-- --></a>
-<div style="background='#eeeeee'"><h4>
-<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method getDisableIntrusionDetection</strong> (line <span class="linenumber">205</span>)
- </h4> 
-<h4><i>bool</i> <strong>getDisableIntrusionDetection(
-)</strong></h4>
-
-	<!-- ========== Info from phpDoc block ========= -->
-<h5>Allows for complete disabling of all intrusion detection mechanisms.</h5>
-		
-	<h4>Info</h4>
-	<ul>
-			<li><strong>return</strong> - true if intrusion detection should be disabled.</li>
-		</ul>
-</div>
-<a name="methodgetEncryptionAlgorithm" id="methodgetEncryptionAlgorithm"><!-- --></a>
-<div style="background='#ffffff'"><h4>
-<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method getEncryptionAlgorithm</strong> (line <span class="linenumber">115</span>)
- </h4> 
-<h4><i>string</i> <strong>getEncryptionAlgorithm(
-)</strong></h4>
-
-	<!-- ========== Info from phpDoc block ========= -->
-<h5>Gets the encryption algorithm used by ESAPI to protect data.</h5>
-		
-	<h4>Info</h4>
-	<ul>
-			<li><strong>return</strong> - the current encryption algorithm</li>
-		</ul>
-</div>
-<a name="methodgetHashAlgorithm" id="methodgetHashAlgorithm"><!-- --></a>
-<div style="background='#eeeeee'"><h4>
-<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method getHashAlgorithm</strong> (line <span class="linenumber">122</span>)
- </h4> 
-<h4><i>string</i> <strong>getHashAlgorithm(
-)</strong></h4>
-
-	<!-- ========== Info from phpDoc block ========= -->
-<h5>Gets the hashing algorithm used by ESAPI to hash data.</h5>
-		
-	<h4>Info</h4>
-	<ul>
-			<li><strong>return</strong> - the current hashing algorithm</li>
-		</ul>
-</div>
-<a name="methodgetLogEncodingRequired" id="methodgetLogEncodingRequired"><!-- --></a>
-<div style="background='#ffffff'"><h4>
-<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method getLogEncodingRequired</strong> (line <span class="linenumber">268</span>)
- </h4> 
-<h4><i>bool</i> <strong>getLogEncodingRequired(
-)</strong></h4>
-
-	<!-- ========== Info from phpDoc block ========= -->
-<h5>Returns whether HTML entity encoding should be applied to log entries.</h5>
-		
-	<h4>Info</h4>
-	<ul>
-			<li><strong>return</strong> - True if log entries are to be HTML Entity encoded. False               otherwise.</li>
-		</ul>
-</div>
-<a name="methodgetLogFileName" id="methodgetLogFileName"><!-- --></a>
-<div style="background='#eeeeee'"><h4>
-<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method getLogFileName</strong> (line <span class="linenumber">285</span>)
- </h4> 
-<h4><i>string</i> <strong>getLogFileName(
-)</strong></h4>
-
-	<!-- ========== Info from phpDoc block ========= -->
-<h5>Get the name of the log file specified in the ESAPI configuration properties  file. Return a default value if it is not specified.</h5>
-		
-	<h4>Info</h4>
-	<ul>
-			<li><strong>return</strong> - the log file name defined in the properties file.</li>
-		</ul>
-</div>
-<a name="methodgetLogLevel" id="methodgetLogLevel"><!-- --></a>
-<div style="background='#ffffff'"><h4>
-<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method getLogLevel</strong> (line <span class="linenumber">277</span>)
- </h4> 
-<h4><i>int</i> <strong>getLogLevel(
-)</strong></h4>
-
-	<!-- ========== Info from phpDoc block ========= -->
-<h5>Get the log level specified in the ESAPI configuration properties file.</h5>
-<div class="desc"><p>Return a default value if it is not specified in the properties file.</p></div>
-		
-	<h4>Info</h4>
-	<ul>
-			<li><strong>return</strong> - the logging level defined in the properties file. If none is              specified, the default of Logger.WARNING is returned.</li>
-		</ul>
-</div>
-<a name="methodgetMasterKey" id="methodgetMasterKey"><!-- --></a>
-<div style="background='#eeeeee'"><h4>
-<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method getMasterKey</strong> (line <span class="linenumber">71</span>)
- </h4> 
-<h4><i>string</i> <strong>getMasterKey(
-)</strong></h4>
-
-	<!-- ========== Info from phpDoc block ========= -->
-<h5>Gets the master password. This password can be used to encrypt/decrypt other  files or types of data that need to be protected by your application.</h5>
-		
-	<h4>Info</h4>
-	<ul>
-			<li><strong>return</strong> - the current master password</li>
-		</ul>
-</div>
-<a name="methodgetMasterSalt" id="methodgetMasterSalt"><!-- --></a>
-<div style="background='#ffffff'"><h4>
-<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method getMasterSalt</strong> (line <span class="linenumber">79</span>)
- </h4> 
-<h4><i>string</i> <strong>getMasterSalt(
-)</strong></h4>
-
-	<!-- ========== Info from phpDoc block ========= -->
-<h5>Gets the master salt that is used to salt stored password hashes and any  other location where a salt is needed.</h5>
-		
-	<h4>Info</h4>
-	<ul>
-			<li><strong>return</strong> - the current master salt</li>
-		</ul>
-</div>
-<a name="methodgetMaxLogFileSize" id="methodgetMaxLogFileSize"><!-- --></a>
-<div style="background='#eeeeee'"><h4>
-<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method getMaxLogFileSize</strong> (line <span class="linenumber">294</span>)
- </h4> 
-<h4><i>int</i> <strong>getMaxLogFileSize(
-)</strong></h4>
-
-	<!-- ========== Info from phpDoc block ========= -->
-<h5>Get the maximum size of a single log file from the ESAPI configuration  properties file. Return a default value if it is not specified. Once the  log hits this file size, it will roll over into a new log.</h5>
-		
-	<h4>Info</h4>
-	<ul>
-			<li><strong>return</strong> - the maximum size of a single log file (in bytes).</li>
-		</ul>
-</div>
-<a name="methodgetMaxOldPasswordHashes" id="methodgetMaxOldPasswordHashes"><!-- --></a>
-<div style="background='#ffffff'"><h4>
-<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method getMaxOldPasswordHashes</strong> (line <span class="linenumber">188</span>)
- </h4> 
-<h4><i>int</i> <strong>getMaxOldPasswordHashes(
-)</strong></h4>
-
-	<!-- ========== Info from phpDoc block ========= -->
-<h5>Gets the maximum number of old password hashes that should be retained.</h5>
-<div class="desc"><p>These hashes can be used to ensure that the user doesn't reuse the specified  number of previous passwords when they change their password.</p></div>
-		
-	<h4>Info</h4>
-	<ul>
-			<li><strong>return</strong> - the number of old hashed passwords to retain</li>
-		</ul>
-</div>
-<a name="methodgetPasswordParameterName" id="methodgetPasswordParameterName"><!-- --></a>
-<div style="background='#eeeeee'"><h4>
-<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method getPasswordParameterName</strong> (line <span class="linenumber">101</span>)
- </h4> 
-<h4><i>string</i> <strong>getPasswordParameterName(
-)</strong></h4>
-
-	<!-- ========== Info from phpDoc block ========= -->
-<h5>Gets the name of the password parameter used during user authentication.</h5>
-		
-	<h4>Info</h4>
-	<ul>
-			<li><strong>return</strong> - the name of the password parameter</li>
-		</ul>
-</div>
-<a name="methodgetQuota" id="methodgetQuota"><!-- --></a>
-<div style="background='#ffffff'"><h4>
-<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method getQuota</strong> (line <span class="linenumber">198</span>)
- </h4> 
-<h4><i>int</i> <strong>getQuota(
-string
-$eventName)</strong></h4>
-
-	<!-- ========== Info from phpDoc block ========= -->
-<h5>Gets the intrusion detection quota for the specified event.</h5>
-		<h4>Parameters</h4>
-	<ul>
-			<li><strong>string $eventName</strong>: the name of the event whose quota is desired</li>
-		</ul>
-		
-	<h4>Info</h4>
-	<ul>
-			<li><strong>return</strong> - the Quota that has been configured for the specified type of              event</li>
-		</ul>
-</div>
-<a name="methodgetRandomAlgorithm" id="methodgetRandomAlgorithm"><!-- --></a>
-<div style="background='#eeeeee'"><h4>
-<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method getRandomAlgorithm</strong> (line <span class="linenumber">152</span>)
- </h4> 
-<h4><i>string</i> <strong>getRandomAlgorithm(
-)</strong></h4>
-
-	<!-- ========== Info from phpDoc block ========= -->
-<h5>Gets the random number generation algorithm used to generate random numbers  where needed.</h5>
-		
-	<h4>Info</h4>
-	<ul>
-			<li><strong>return</strong> - the current random number generation algorithm</li>
-		</ul>
-</div>
-<a name="methodgetRememberTokenDuration" id="methodgetRememberTokenDuration"><!-- --></a>
-<div style="background='#ffffff'"><h4>
-<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method getRememberTokenDuration</strong> (line <span class="linenumber">239</span>)
- </h4> 
-<h4><i>int</i> <strong>getRememberTokenDuration(
-)</strong></h4>
-
-	<!-- ========== Info from phpDoc block ========= -->
-<h5>Gets the length of the time to live window for remember me tokens (in  milliseconds).</h5>
-		
-	<h4>Info</h4>
-	<ul>
-			<li><strong>return</strong> - The time to live length for generated remember me tokens.</li>
-		</ul>
-</div>
-<a name="methodgetResourceDirectory" id="methodgetResourceDirectory"><!-- --></a>
-<div style="background='#eeeeee'"><h4>
-<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method getResourceDirectory</strong> (line <span class="linenumber">212</span>)
- </h4> 
-<h4><i>string</i> <strong>getResourceDirectory(
-)</strong></h4>
-
-	<!-- ========== Info from phpDoc block ========= -->
-<h5>Gets the name of the ESAPI resource directory as a String.</h5>
-		
-	<h4>Info</h4>
-	<ul>
-			<li><strong>return</strong> - The ESAPI resource directory.</li>
-		</ul>
-</div>
-<a name="methodgetResponseContentType" id="methodgetResponseContentType"><!-- --></a>
-<div style="background='#ffffff'"><h4>
-<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method getResponseContentType</strong> (line <span class="linenumber">231</span>)
- </h4> 
-<h4><i>string</i> <strong>getResponseContentType(
-)</strong></h4>
-
-	<!-- ========== Info from phpDoc block ========= -->
-<h5>Gets the content type for responses used when setSafeContentType() is called.</h5>
-<div class="desc"><p><br /><br />  Note: This does not get the configured character encoding scheme. That is  accessed by calling getCharacterEncoding().</p></div>
-		
-	<h4>Info</h4>
-	<ul>
-			<li><strong>return</strong> - The current content-type set for responses.</li>
-		</ul>
-</div>
-<a name="methodgetSessionAbsoluteTimeoutLength" id="methodgetSessionAbsoluteTimeoutLength"><!-- --></a>
-<div style="background='#eeeeee'"><h4>
-<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method getSessionAbsoluteTimeoutLength</strong> (line <span class="linenumber">260</span>)
- </h4> 
-<h4><i>int</i> <strong>getSessionAbsoluteTimeoutLength(
-)</strong></h4>
-
-	<!-- ========== Info from phpDoc block ========= -->
-<h5>Gets the absolute timeout length for sessions (in milliseconds). This is</h5>
-<div class="desc"><p>the amount of time that a session can live before it expires regardless  of the amount of user activity. Applications or frameworks could provide a  reauthenticate function that enables a session to continue after  reauthentication.</p></div>
-		
-	<h4>Info</h4>
-	<ul>
-			<li><strong>return</strong> - The session absolute timeout length.</li>
-		</ul>
-</div>
-<a name="methodgetSessionIdleTimeoutLength" id="methodgetSessionIdleTimeoutLength"><!-- --></a>
-<div style="background='#ffffff'"><h4>
-<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method getSessionIdleTimeoutLength</strong> (line <span class="linenumber">249</span>)
- </h4> 
-<h4><i>int</i> <strong>getSessionIdleTimeoutLength(
-)</strong></h4>
-
-	<!-- ========== Info from phpDoc block ========= -->
-<h5>Gets the idle timeout length for sessions (in milliseconds). This is the  amount of time that a session can live before it expires due to lack of  activity. Applications or frameworks could provide a reauthenticate  function that enables a session to continue after reauthentication.</h5>
-		
-	<h4>Info</h4>
-	<ul>
-			<li><strong>return</strong> - The session idle timeout length.</li>
-		</ul>
-</div>
-<a name="methodgetUsernameParameterName" id="methodgetUsernameParameterName"><!-- --></a>
-<div style="background='#eeeeee'"><h4>
-<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method getUsernameParameterName</strong> (line <span class="linenumber">108</span>)
- </h4> 
-<h4><i>string</i> <strong>getUsernameParameterName(
-)</strong></h4>
-
-	<!-- ========== Info from phpDoc block ========= -->
-<h5>Gets the name of the username parameter used during user authentication.</h5>
-		
-	<h4>Info</h4>
-	<ul>
-			<li><strong>return</strong> - the name of the username parameter</li>
-		</ul>
-</div>
-<a name="methodgetValidationPattern" id="methodgetValidationPattern"><!-- --></a>
-<div style="background='#ffffff'"><h4>
-<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method getValidationPattern</strong> (line <span class="linenumber">304</span>)
- </h4> 
-<h4><i>string</i> <strong>getValidationPattern(
-string
-$type)</strong></h4>
-
-	<!-- ========== Info from phpDoc block ========= -->
-<h5>Get the specified validation pattern from the ESAPI configuration properties  file.</h5>
-		<h4>Parameters</h4>
-	<ul>
-			<li><strong>string $type</strong>: validation pattern name</li>
-		</ul>
-		
-	<h4>Info</h4>
-	<ul>
-			<li><strong>return</strong> - the regular expression.</li>
-		</ul>
-</div>
-<a name="methodgetWorkingDirectory" id="methodgetWorkingDirectory"><!-- --></a>
-<div style="background='#eeeeee'"><h4>
-<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method getWorkingDirectory</strong> (line <span class="linenumber">312</span>)
- </h4> 
-<h4><i>string</i> <strong>getWorkingDirectory(
-)</strong></h4>
-
-	<!-- ========== Info from phpDoc block ========= -->
-<h5>getWorkingDirectory returns the default directory where processes will be  executed by the Executor.</h5>
-		
-	<h4>Info</h4>
-	<ul>
-			<li><strong>return</strong> - working directory name</li>
-		</ul>
-</div>
-<a name="methodsetResourceDirectory" id="methodsetResourceDirectory"><!-- --></a>
-<div style="background='#ffffff'"><h4>
-<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method setResourceDirectory</strong> (line <span class="linenumber">221</span>)
- </h4> 
-<h4><i>Does</i> <strong>setResourceDirectory(
-string
-$dir)</strong></h4>
-
-	<!-- ========== Info from phpDoc block ========= -->
-<h5>Sets the ESAPI resource directory.</h5>
-		<h4>Parameters</h4>
-	<ul>
-			<li><strong>string $dir</strong>: The location of the resource directory.</li>
-		</ul>
-		
-	<h4>Info</h4>
-	<ul>
-			<li><strong>return</strong> - not return a value.</li>
-		</ul>
-</div>
-<script type="text/javascript">tp1.addTabPage( document.getElementById( "tabPage2" ) );</script></div>
-<div class="tab-page" id="iVars">
-<h2 class="tab">Inherited Variables</h2>
-<script type="text/javascript">tp1.addTabPage( document.getElementById( "iVars" ) );</script>
-<!-- =========== VAR INHERITED SUMMARY =========== -->
-<A NAME='var_inherited_summary'><!-- --></A>
-<h3>Inherited Class Variable Summary</h3>
-
+			
 	</div>
-<div class="tab-page" id="iMethods">
-<h2 class="tab">Inherited Methods</h2>
-<script type="text/javascript">tp1.addTabPage( document.getElementById( "iMethods" ) );</script>
-<!-- =========== INHERITED METHOD SUMMARY =========== -->
-<A NAME='functions_inherited'><!-- --></A>
-<h3>Inherited Method Summary</h3>
-
+<a name="methodgetAllowedFileExtensions" id="getAllowedFileExtensions"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">getAllowedFileExtensions</span> (line <span class="line-number">87</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Gets the allowed file extensions for files that are uploaded to this  application.</p>
+	<ul class="tags">
+				<li><span class="field">return:</span> a list of the current allowed file extensions</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">array</span>
+		<span class="method-name">
+			getAllowedFileExtensions
+		</span>
+				()
+			</div>
+	
+		
+			
 	</div>
-</div>
-<script type="text/javascript">
-//<![CDATA[
-
-setupAllTabs();
-
-//]]>
-</script>
-	<div id="credit">
-		<hr />
-		Documentation generated on Fri, 16 Apr 2010 11:42:20 -0400 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
+<a name="methodgetAllowedFileUploadSize" id="getAllowedFileUploadSize"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">getAllowedFileUploadSize</span> (line <span class="line-number">94</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Gets the maximum allowed file upload size.</p>
+	<ul class="tags">
+				<li><span class="field">return:</span> the current allowed file upload size</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">int</span>
+		<span class="method-name">
+			getAllowedFileUploadSize
+		</span>
+				()
+			</div>
+	
+		
+			
 	</div>
-</body>
+<a name="methodgetAllowedIncludes" id="getAllowedIncludes"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">getAllowedIncludes</span> (line <span class="line-number">170</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">getAllowedIncludes returns an array of include files that are allowed to be  included by PHP. This is a ESAPI extension for PHP</p>
+	<ul class="tags">
+				<li><span class="field">return:</span> an array of allowed includes</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">array</span>
+		<span class="method-name">
+			getAllowedIncludes
+		</span>
+				()
+			</div>
+	
+		
+			
+	</div>
+<a name="methodgetAllowedLoginAttempts" id="getAllowedLoginAttempts"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">getAllowedLoginAttempts</span> (line <span class="line-number">162</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Gets the number of login attempts allowed before the user's account is  locked. If this many failures are detected within the alloted time period,  the user's account will be locked.</p>
+	<ul class="tags">
+				<li><span class="field">return:</span> the number of failed login attempts that cause an account to be              locked</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">int</span>
+		<span class="method-name">
+			getAllowedLoginAttempts
+		</span>
+				()
+			</div>
+	
+		
+			
+	</div>
+<a name="methodgetAllowedResources" id="getAllowedResources"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">getAllowedResources</span> (line <span class="line-number">179</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">getAllowedResources returns an array of resources (files) that are permitted.</p>
+<p class="description"><p>This is a new addition for the ESAPI for PHP project, but may be relevant  for other ports, too.</p></p>
+	<ul class="tags">
+				<li><span class="field">return:</span> an array of allowed resources</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">array</span>
+		<span class="method-name">
+			getAllowedResources
+		</span>
+				()
+			</div>
+	
+		
+			
+	</div>
+<a name="methodgetApplicationName" id="getApplicationName"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">getApplicationName</span> (line <span class="line-number">63</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Gets the application name, used for logging</p>
+	<ul class="tags">
+				<li><span class="field">return:</span> the name of the current application</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">string</span>
+		<span class="method-name">
+			getApplicationName
+		</span>
+				()
+			</div>
+	
+		
+			
+	</div>
+<a name="methodgetCharacterEncoding" id="getCharacterEncoding"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">getCharacterEncoding</span> (line <span class="line-number">136</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Gets the character encoding scheme supported by this application. This is</p>
+<p class="description"><p>used to set the character encoding scheme on requests and responses when  setCharacterEncoding() is called on SafeRequests and SafeResponses. This  scheme is also used for encoding/decoding URLs and any other place where  the current encoding scheme needs to be known.  <br /><br />  Note: This does not get the configured response content type. That is  accessed by calling getResponseContentType().</p></p>
+	<ul class="tags">
+				<li><span class="field">return:</span> the current character encoding scheme</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">string</span>
+		<span class="method-name">
+			getCharacterEncoding
+		</span>
+				()
+			</div>
+	
+		
+			
+	</div>
+<a name="methodgetDigitalSignatureAlgorithm" id="getDigitalSignatureAlgorithm"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">getDigitalSignatureAlgorithm</span> (line <span class="line-number">144</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Gets the digital signature algorithm used by ESAPI to generate and verify  signatures.</p>
+	<ul class="tags">
+				<li><span class="field">return:</span> the current digital signature algorithm</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">string</span>
+		<span class="method-name">
+			getDigitalSignatureAlgorithm
+		</span>
+				()
+			</div>
+	
+		
+			
+	</div>
+<a name="methodgetDisableIntrusionDetection" id="getDisableIntrusionDetection"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">getDisableIntrusionDetection</span> (line <span class="line-number">205</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Allows for complete disabling of all intrusion detection mechanisms.</p>
+	<ul class="tags">
+				<li><span class="field">return:</span> true if intrusion detection should be disabled.</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">bool</span>
+		<span class="method-name">
+			getDisableIntrusionDetection
+		</span>
+				()
+			</div>
+	
+		
+			
+	</div>
+<a name="methodgetEncryptionAlgorithm" id="getEncryptionAlgorithm"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">getEncryptionAlgorithm</span> (line <span class="line-number">115</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Gets the encryption algorithm used by ESAPI to protect data.</p>
+	<ul class="tags">
+				<li><span class="field">return:</span> the current encryption algorithm</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">string</span>
+		<span class="method-name">
+			getEncryptionAlgorithm
+		</span>
+				()
+			</div>
+	
+		
+			
+	</div>
+<a name="methodgetHashAlgorithm" id="getHashAlgorithm"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">getHashAlgorithm</span> (line <span class="line-number">122</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Gets the hashing algorithm used by ESAPI to hash data.</p>
+	<ul class="tags">
+				<li><span class="field">return:</span> the current hashing algorithm</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">string</span>
+		<span class="method-name">
+			getHashAlgorithm
+		</span>
+				()
+			</div>
+	
+		
+			
+	</div>
+<a name="methodgetLogEncodingRequired" id="getLogEncodingRequired"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">getLogEncodingRequired</span> (line <span class="line-number">268</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Returns whether HTML entity encoding should be applied to log entries.</p>
+	<ul class="tags">
+				<li><span class="field">return:</span> True if log entries are to be HTML Entity encoded. False               otherwise.</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">bool</span>
+		<span class="method-name">
+			getLogEncodingRequired
+		</span>
+				()
+			</div>
+	
+		
+			
+	</div>
+<a name="methodgetLogFileName" id="getLogFileName"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">getLogFileName</span> (line <span class="line-number">285</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Get the name of the log file specified in the ESAPI configuration properties  file. Return a default value if it is not specified.</p>
+	<ul class="tags">
+				<li><span class="field">return:</span> the log file name defined in the properties file.</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">string</span>
+		<span class="method-name">
+			getLogFileName
+		</span>
+				()
+			</div>
+	
+		
+			
+	</div>
+<a name="methodgetLogLevel" id="getLogLevel"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">getLogLevel</span> (line <span class="line-number">277</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Get the log level specified in the ESAPI configuration properties file.</p>
+<p class="description"><p>Return a default value if it is not specified in the properties file.</p></p>
+	<ul class="tags">
+				<li><span class="field">return:</span> the logging level defined in the properties file. If none is              specified, the default of Logger.WARNING is returned.</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">int</span>
+		<span class="method-name">
+			getLogLevel
+		</span>
+				()
+			</div>
+	
+		
+			
+	</div>
+<a name="methodgetMasterKey" id="getMasterKey"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">getMasterKey</span> (line <span class="line-number">71</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Gets the master password. This password can be used to encrypt/decrypt other  files or types of data that need to be protected by your application.</p>
+	<ul class="tags">
+				<li><span class="field">return:</span> the current master password</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">string</span>
+		<span class="method-name">
+			getMasterKey
+		</span>
+				()
+			</div>
+	
+		
+			
+	</div>
+<a name="methodgetMasterSalt" id="getMasterSalt"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">getMasterSalt</span> (line <span class="line-number">79</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Gets the master salt that is used to salt stored password hashes and any  other location where a salt is needed.</p>
+	<ul class="tags">
+				<li><span class="field">return:</span> the current master salt</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">string</span>
+		<span class="method-name">
+			getMasterSalt
+		</span>
+				()
+			</div>
+	
+		
+			
+	</div>
+<a name="methodgetMaxLogFileSize" id="getMaxLogFileSize"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">getMaxLogFileSize</span> (line <span class="line-number">294</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Get the maximum size of a single log file from the ESAPI configuration  properties file. Return a default value if it is not specified. Once the  log hits this file size, it will roll over into a new log.</p>
+	<ul class="tags">
+				<li><span class="field">return:</span> the maximum size of a single log file (in bytes).</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">int</span>
+		<span class="method-name">
+			getMaxLogFileSize
+		</span>
+				()
+			</div>
+	
+		
+			
+	</div>
+<a name="methodgetMaxOldPasswordHashes" id="getMaxOldPasswordHashes"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">getMaxOldPasswordHashes</span> (line <span class="line-number">188</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Gets the maximum number of old password hashes that should be retained.</p>
+<p class="description"><p>These hashes can be used to ensure that the user doesn't reuse the specified  number of previous passwords when they change their password.</p></p>
+	<ul class="tags">
+				<li><span class="field">return:</span> the number of old hashed passwords to retain</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">int</span>
+		<span class="method-name">
+			getMaxOldPasswordHashes
+		</span>
+				()
+			</div>
+	
+		
+			
+	</div>
+<a name="methodgetPasswordParameterName" id="getPasswordParameterName"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">getPasswordParameterName</span> (line <span class="line-number">101</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Gets the name of the password parameter used during user authentication.</p>
+	<ul class="tags">
+				<li><span class="field">return:</span> the name of the password parameter</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">string</span>
+		<span class="method-name">
+			getPasswordParameterName
+		</span>
+				()
+			</div>
+	
+		
+			
+	</div>
+<a name="methodgetQuota" id="getQuota"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">getQuota</span> (line <span class="line-number">198</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Gets the intrusion detection quota for the specified event.</p>
+	<ul class="tags">
+				<li><span class="field">return:</span> the Quota that has been configured for the specified type of              event</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">int</span>
+		<span class="method-name">
+			getQuota
+		</span>
+					(<span class="var-type">string</span>&nbsp;<span class="var-name">$eventName</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$eventName</span><span class="var-description">: the name of the event whose quota is desired</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodgetRandomAlgorithm" id="getRandomAlgorithm"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">getRandomAlgorithm</span> (line <span class="line-number">152</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Gets the random number generation algorithm used to generate random numbers  where needed.</p>
+	<ul class="tags">
+				<li><span class="field">return:</span> the current random number generation algorithm</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">string</span>
+		<span class="method-name">
+			getRandomAlgorithm
+		</span>
+				()
+			</div>
+	
+		
+			
+	</div>
+<a name="methodgetRememberTokenDuration" id="getRememberTokenDuration"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">getRememberTokenDuration</span> (line <span class="line-number">239</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Gets the length of the time to live window for remember me tokens (in  milliseconds).</p>
+	<ul class="tags">
+				<li><span class="field">return:</span> The time to live length for generated remember me tokens.</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">int</span>
+		<span class="method-name">
+			getRememberTokenDuration
+		</span>
+				()
+			</div>
+	
+		
+			
+	</div>
+<a name="methodgetResourceDirectory" id="getResourceDirectory"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">getResourceDirectory</span> (line <span class="line-number">212</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Gets the name of the ESAPI resource directory as a String.</p>
+	<ul class="tags">
+				<li><span class="field">return:</span> The ESAPI resource directory.</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">string</span>
+		<span class="method-name">
+			getResourceDirectory
+		</span>
+				()
+			</div>
+	
+		
+			
+	</div>
+<a name="methodgetResponseContentType" id="getResponseContentType"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">getResponseContentType</span> (line <span class="line-number">231</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Gets the content type for responses used when setSafeContentType() is called.</p>
+<p class="description"><p><br /><br />  Note: This does not get the configured character encoding scheme. That is  accessed by calling getCharacterEncoding().</p></p>
+	<ul class="tags">
+				<li><span class="field">return:</span> The current content-type set for responses.</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">string</span>
+		<span class="method-name">
+			getResponseContentType
+		</span>
+				()
+			</div>
+	
+		
+			
+	</div>
+<a name="methodgetSessionAbsoluteTimeoutLength" id="getSessionAbsoluteTimeoutLength"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">getSessionAbsoluteTimeoutLength</span> (line <span class="line-number">260</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Gets the absolute timeout length for sessions (in milliseconds). This is</p>
+<p class="description"><p>the amount of time that a session can live before it expires regardless  of the amount of user activity. Applications or frameworks could provide a  reauthenticate function that enables a session to continue after  reauthentication.</p></p>
+	<ul class="tags">
+				<li><span class="field">return:</span> The session absolute timeout length.</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">int</span>
+		<span class="method-name">
+			getSessionAbsoluteTimeoutLength
+		</span>
+				()
+			</div>
+	
+		
+			
+	</div>
+<a name="methodgetSessionIdleTimeoutLength" id="getSessionIdleTimeoutLength"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">getSessionIdleTimeoutLength</span> (line <span class="line-number">249</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Gets the idle timeout length for sessions (in milliseconds). This is the  amount of time that a session can live before it expires due to lack of  activity. Applications or frameworks could provide a reauthenticate  function that enables a session to continue after reauthentication.</p>
+	<ul class="tags">
+				<li><span class="field">return:</span> The session idle timeout length.</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">int</span>
+		<span class="method-name">
+			getSessionIdleTimeoutLength
+		</span>
+				()
+			</div>
+	
+		
+			
+	</div>
+<a name="methodgetUsernameParameterName" id="getUsernameParameterName"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">getUsernameParameterName</span> (line <span class="line-number">108</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Gets the name of the username parameter used during user authentication.</p>
+	<ul class="tags">
+				<li><span class="field">return:</span> the name of the username parameter</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">string</span>
+		<span class="method-name">
+			getUsernameParameterName
+		</span>
+				()
+			</div>
+	
+		
+			
+	</div>
+<a name="methodgetValidationPattern" id="getValidationPattern"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">getValidationPattern</span> (line <span class="line-number">304</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Get the specified validation pattern from the ESAPI configuration properties  file.</p>
+	<ul class="tags">
+				<li><span class="field">return:</span> the regular expression.</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">string</span>
+		<span class="method-name">
+			getValidationPattern
+		</span>
+					(<span class="var-type">string</span>&nbsp;<span class="var-name">$type</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$type</span><span class="var-description">: validation pattern name</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodgetWorkingDirectory" id="getWorkingDirectory"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">getWorkingDirectory</span> (line <span class="line-number">312</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">getWorkingDirectory returns the default directory where processes will be  executed by the Executor.</p>
+	<ul class="tags">
+				<li><span class="field">return:</span> working directory name</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">string</span>
+		<span class="method-name">
+			getWorkingDirectory
+		</span>
+				()
+			</div>
+	
+		
+			
+	</div>
+<a name="methodsetResourceDirectory" id="setResourceDirectory"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">setResourceDirectory</span> (line <span class="line-number">221</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Sets the ESAPI resource directory.</p>
+	<ul class="tags">
+				<li><span class="field">return:</span> not return a value.</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">Does</span>
+		<span class="method-name">
+			setResourceDirectory
+		</span>
+					(<span class="var-type">string</span>&nbsp;<span class="var-name">$dir</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$dir</span><span class="var-description">: The location of the resource directory.</span>			</li>
+				</ul>
+		
+			
+	</div>
+						
+		</div>
+	</div>
+
+
+	<p class="notes" id="credit">
+		Documentation generated on Fri, 16 Apr 2010 12:02:00 -0400 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
+	</p>
+	</div></body>
 </html>

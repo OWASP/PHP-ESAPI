@@ -1,176 +1,89 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
-<!DOCTYPE html 
-     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-   <html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-  <title>Docs for page CodecDebug.php</title>
-  <link rel="stylesheet" href="../media/stylesheet.css" />
-  <script src="../media/lib/classTree.js"></script>
-<link id="webfx-tab-style-sheet" type="text/css" rel="stylesheet" href="../media/lib/tab.webfx.css" />
-<script type="text/javascript" src="../media/lib/tabpane.js"></script>
-  <script language="javascript" type="text/javascript" src="../media/lib/ua.js"></script>
-<script language="javascript" type="text/javascript">
-	var imgPlus = new Image();
-	var imgMinus = new Image();
-	imgPlus.src = "../media/images/plus.gif";
-	imgMinus.src = "../media/images/minus.gif";
-	
-	function showNode(Node){
-        switch(navigator.family){
-        	case 'nn4':
-        		// Nav 4.x code fork...
-				var oTable = document.layers["span" + Node];
-				var oImg = document.layers["img" + Node];
-        		break;
-        	case 'ie4':
-        		// IE 4/5 code fork...
-				var oTable = document.all["span" + Node];
-				var oImg = document.all["img" + Node];
-        		break;
-        	case 'gecko':
-        		// Standards Compliant code fork...
-				var oTable = document.getElementById("span" + Node);
-				var oImg = document.getElementById("img" + Node);
-        		break;
-        }
-		oImg.src = imgMinus.src;
-		oTable.style.display = "block";
-	}
-	
-	function hideNode(Node){
-        switch(navigator.family){
-        	case 'nn4':
-        		// Nav 4.x code fork...
-				var oTable = document.layers["span" + Node];
-				var oImg = document.layers["img" + Node];
-        		break;
-        	case 'ie4':
-        		// IE 4/5 code fork...
-				var oTable = document.all["span" + Node];
-				var oImg = document.all["img" + Node];
-        		break;
-        	case 'gecko':
-        		// Standards Compliant code fork...
-				var oTable = document.getElementById("span" + Node);
-				var oImg = document.getElementById("img" + Node);
-        		break;
-        }
-		oImg.src = imgPlus.src;
-		oTable.style.display = "none";
-	}
-	
-	function nodeIsVisible(Node){
-        switch(navigator.family){
-        	case 'nn4':
-        		// Nav 4.x code fork...
-				var oTable = document.layers["span" + Node];
-        		break;
-        	case 'ie4':
-        		// IE 4/5 code fork...
-				var oTable = document.all["span" + Node];
-        		break;
-        	case 'gecko':
-        		// Standards Compliant code fork...
-				var oTable = document.getElementById("span" + Node);
-        		break;
-        }
-		return (oTable && oTable.style.display == "block");
-	}
-	
-	function toggleNodeVisibility(Node){
-		if (nodeIsVisible(Node)){
-			hideNode(Node);
-		}else{
-			showNode(Node);
-		}
-	}
-</script>
-<!-- template designed by Julien Damon based on PHPEdit's generated templates, and tweaked by Greg Beaver -->
-<body bgcolor="#ffffff" ><h2>File: /codecs/CodecDebug.php</h2>
-<div class="tab-pane" id="tabPane1">
-<script type="text/javascript">
-tp1 = new WebFXTabPane( document.getElementById( "tabPane1" ) );
-</script>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+  <html xmlns="http://www.w3.org/1999/xhtml">
+		<head>
+			<!-- template designed by Marco Von Ballmoos -->
+			<title>Docs for page CodecDebug.php</title>
+			<link rel="stylesheet" href="../media/stylesheet.css" />
+			<meta http-equiv='Content-Type' content='text/html; charset=iso-8859-1'/>
+		</head>
+		<body>
+			<div class="page-body">			
+<h2 class="file-name">/codecs/CodecDebug.php</h2>
 
-<div class="tab-page" id="Description">
-<h2 class="tab">Description</h2>
-<!-- ========== Info from phpDoc block ========= -->
-<ul>
-	</ul>
-<!-- =========== Used Classes =========== -->
-<A NAME='classes_summary'><!-- --></A>
-<h3>Classes defined in this file</h3>
-
-<TABLE CELLPADDING='3' CELLSPACING='0' WIDTH='100%' CLASS="border">
-	<THEAD>
-		<TR><TD STYLE="width:20%"><h4>CLASS NAME</h4></TD><TD STYLE="width: 80%"><h4>DESCRIPTION</h4></TD></TR>
-	</THEAD>
-	<TBODY>
-				<TR BGCOLOR='white' CLASS='TableRowColor'>
-			<TD><a href="../default/CodecDebug.html">CodecDebug</a></TD>
-			<TD></TD>
-		</TR>
-			</TBODY>
-</TABLE>
+<a name="sec-description"></a>
+<div class="info-box">
+	<div class="info-box-title">Description</div>
+	<div class="nav-bar">
+					<span class="disabled">Description</span> |
+							<a href="#sec-classes">Classes</a>
+			|									<a href="#sec-constants">Constants</a>
+										</div>
+	<div class="info-box-body">	
+		<!-- ========== Info from phpDoc block ========= -->
+		
+			</div>
 </div>
-<script type="text/javascript">tp1.addTabPage( document.getElementById( "Description" ) );</script>
-<div class="tab-page" id="tabPage1">
-<!-- ============ Includes DETAIL =========== -->
-
-<h2 class="tab">Include/Require Statements</h2>
-<script type="text/javascript">tp1.addTabPage( document.getElementById( "tabPage1" ) );</script>
-
-
-</div>
-<div class="tab-page" id="tabPage2">
-<!-- ============ GLOBAL DETAIL =========== -->
-
-<h2 class="tab">Global Variables</h2>
-
-<script type="text/javascript">tp1.addTabPage( document.getElementById( "tabPage2" ) );</script>
-
-</div>
-<div class="tab-page" id="tabPage3">
-<!-- ============ CONSTANT DETAIL =========== -->
-
-<A NAME='constant_detail'></A>
-<h2 class="tab">Constants</h2>
-
-<script type="text/javascript">tp1.addTabPage( document.getElementById( "tabPage3" ) );</script>
-
-<a name="defineLOG"><!-- --></a>
-<div style="background='#ffffff'">
-<h4>
-  <img src="../media/images/Constant.gif" border="0" /> <strong class="property">LOG</strong> (line <span class="linenumber">11</span>)
- </h4> 
-<h4>LOG : 'CodecDebug'</h4>
-<!-- ========== Info from phpDoc block ========= -->
-<h5>CodecDebug is a singleton class to aid Codec debugging.  It buffers debug</h5>
-<div class="desc"><p>info comprising the input to a Codec encode/decode method, as single UTF-32  encoded characters, as well as the final output from the Codec method.  The  debug info is logged immediately before the Codec method returns its value  and the buffer is cleared at that time.</p></div>
-<ul>
-	</ul>
-</div>
-</div>
-<div class="tab-page" id="tabPage4">
-<!-- ============ FUNCTION DETAIL =========== -->
-
-<h2 class="tab">Functions</h2>
-
-<script type="text/javascript">tp1.addTabPage( document.getElementById( "tabPage4" ) );</script>
-
-</div>
-</div>
-<script type="text/javascript">
-//<![CDATA[
-
-setupAllTabs();
-
-//]]>
-</script>
-	<div id="credit">
-		<hr />
-		Documentation generated on Fri, 16 Apr 2010 11:42:10 -0400 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
+		
+	<a name="sec-classes"></a>	
+	<div class="info-box">
+		<div class="info-box-title">Classes</div>
+		<div class="nav-bar">
+			<a href="#sec-description">Description</a> |
+			<span class="disabled">Classes</span>
+			|										<a href="#sec-constants">Constants</a>
+															</div>
+		<div class="info-box-body">	
+			<table cellpadding="2" cellspacing="0" class="class-table">
+				<tr>
+					<th class="class-table-header">Class</th>
+					<th class="class-table-header">Description</th>
+				</tr>
+								<tr>
+					<td style="padding-right: 2em; vertical-align: top">
+						<a href="../default/CodecDebug.html">CodecDebug</a>
+					</td>
+					<td>
+											
+										</td>
+				</tr>
+							</table>
+		</div>
 	</div>
-</body>
+
+	
+	<a name="sec-constants"></a>	
+	<div class="info-box">
+		<div class="info-box-title">Constants</div>
+		<div class="nav-bar">
+			<a href="#sec-description">Description</a> |
+							<a href="#sec-classes">Classes</a>
+				|									<span class="disabled">Constants</span>
+											</div>
+		<div class="info-box-body">	
+			<a name="defineLOG"><!-- --></a>
+<div class="evenrow">
+	
+	<div>
+		<span class="const-title">
+			<span class="const-name">LOG</span> = 'CodecDebug'
+			(line <span class="line-number">11</span>)
+		</span>
+	</div>
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">CodecDebug is a singleton class to aid Codec debugging.  It buffers debug</p>
+<p class="description"><p>info comprising the input to a Codec encode/decode method, as single UTF-32  encoded characters, as well as the final output from the Codec method.  The  debug info is logged immediately before the Codec method returns its value  and the buffer is cleared at that time.</p></p>
+	
+		
+</div>
+		</div>
+	</div>
+	
+	
+	
+	<p class="notes" id="credit">
+		Documentation generated on Fri, 16 Apr 2010 12:00:05 -0400 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
+	</p>
+	</div></body>
 </html>

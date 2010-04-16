@@ -1,463 +1,531 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
-<!DOCTYPE html 
-     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-   <html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-  <title>Docs For Class MySQLCodec</title>
-  <link rel="stylesheet" href="../media/stylesheet.css" />
-  <script src="../media/lib/classTree.js"></script>
-<link id="webfx-tab-style-sheet" type="text/css" rel="stylesheet" href="../media/lib/tab.webfx.css" />
-<script type="text/javascript" src="../media/lib/tabpane.js"></script>
-  <script language="javascript" type="text/javascript" src="../media/lib/ua.js"></script>
-<script language="javascript" type="text/javascript">
-	var imgPlus = new Image();
-	var imgMinus = new Image();
-	imgPlus.src = "../media/images/plus.gif";
-	imgMinus.src = "../media/images/minus.gif";
-	
-	function showNode(Node){
-        switch(navigator.family){
-        	case 'nn4':
-        		// Nav 4.x code fork...
-				var oTable = document.layers["span" + Node];
-				var oImg = document.layers["img" + Node];
-        		break;
-        	case 'ie4':
-        		// IE 4/5 code fork...
-				var oTable = document.all["span" + Node];
-				var oImg = document.all["img" + Node];
-        		break;
-        	case 'gecko':
-        		// Standards Compliant code fork...
-				var oTable = document.getElementById("span" + Node);
-				var oImg = document.getElementById("img" + Node);
-        		break;
-        }
-		oImg.src = imgMinus.src;
-		oTable.style.display = "block";
-	}
-	
-	function hideNode(Node){
-        switch(navigator.family){
-        	case 'nn4':
-        		// Nav 4.x code fork...
-				var oTable = document.layers["span" + Node];
-				var oImg = document.layers["img" + Node];
-        		break;
-        	case 'ie4':
-        		// IE 4/5 code fork...
-				var oTable = document.all["span" + Node];
-				var oImg = document.all["img" + Node];
-        		break;
-        	case 'gecko':
-        		// Standards Compliant code fork...
-				var oTable = document.getElementById("span" + Node);
-				var oImg = document.getElementById("img" + Node);
-        		break;
-        }
-		oImg.src = imgPlus.src;
-		oTable.style.display = "none";
-	}
-	
-	function nodeIsVisible(Node){
-        switch(navigator.family){
-        	case 'nn4':
-        		// Nav 4.x code fork...
-				var oTable = document.layers["span" + Node];
-        		break;
-        	case 'ie4':
-        		// IE 4/5 code fork...
-				var oTable = document.all["span" + Node];
-        		break;
-        	case 'gecko':
-        		// Standards Compliant code fork...
-				var oTable = document.getElementById("span" + Node);
-        		break;
-        }
-		return (oTable && oTable.style.display == "block");
-	}
-	
-	function toggleNodeVisibility(Node){
-		if (nodeIsVisible(Node)){
-			hideNode(Node);
-		}else{
-			showNode(Node);
-		}
-	}
-</script>
-<!-- template designed by Julien Damon based on PHPEdit's generated templates, and tweaked by Greg Beaver -->
-<body bgcolor="#ffffff" ><!-- Start of Class Data -->
-<h2>
-	Class MySQLCodec
-</h2> (line <span class="linenumber">31</span>)
-<div class="tab-pane" id="tabPane1">
-<script type="text/javascript">
-tp1 = new WebFXTabPane( document.getElementById( "tabPane1" ));
-</script>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+  <html xmlns="http://www.w3.org/1999/xhtml">
+		<head>
+			<!-- template designed by Marco Von Ballmoos -->
+			<title>Docs For Class MySQLCodec</title>
+			<link rel="stylesheet" href="../media/stylesheet.css" />
+			<meta http-equiv='Content-Type' content='text/html; charset=iso-8859-1'/>
+		</head>
+		<body>
+			<div class="page-body">			
+<h2 class="class-name">Class MySQLCodec</h2>
 
-<div class="tab-page" id="Description">
-<h2 class="tab">Description</h2>
-<pre>
-<a href="../ESAPI/Codec.html">Codec</a>
+<a name="sec-description"></a>
+<div class="info-box">
+	<div class="info-box-title">Description</div>
+	<div class="nav-bar">
+					<span class="disabled">Description</span> |
+															<a href="#sec-method-summary">Methods</a> (<a href="#sec-methods">details</a>)
+						
+											<a href="#sec-const-summary">Constants</a> (<a href="#sec-consts">details</a>)
+						
+			</div>
+	<div class="info-box-body">
+        		<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Implementation of the Codec interface for MySQL strings. See http://mirror.yandex.ru/mirrors/ftp.mysql.com/doc/refman/5.0/en/string-syntax.html  for more information.</p>
+	<ul class="tags">
+				<li><span class="field">author:</span> Arnaud Labenne - dotsafe.fr</li>
+				<li><span class="field">version:</span> 1.0</li>
+				<li><span class="field">copyright:</span> 2009-2010 The OWASP Foundation</li>
+				<li><span class="field">see:</span> org.owasp.esapi.Encoder</li>
+				<li><span class="field">since:</span> 1.4</li>
+			</ul>
+		<p class="notes">
+			Located in <a class="field" href="_codecs---MySQLCodec.php.html">/codecs/MySQLCodec.php</a> (line <span class="field">31</span>)
+		</p>
+		
+				
+		<pre><a href="../ESAPI/Codec.html">Codec</a>
    |
    --MySQLCodec</pre>
-<p>
-	<b><i>Located in File: <a href="_codecs---MySQLCodec.php.html">/codecs/MySQLCodec.php</a></i></b><br>
-</p>
-<!-- ========== Info from phpDoc block ========= -->
-<h5>Implementation of the Codec interface for MySQL strings. See http://mirror.yandex.ru/mirrors/ftp.mysql.com/doc/refman/5.0/en/string-syntax.html  for more information.</h5>
-<ul>
-		<li><strong>author:</strong> - Arnaud Labenne - dotsafe.fr</li>
-		<li><strong>version:</strong> - 1.0</li>
-		<li><strong>copyright:</strong> - 2009-2010 The OWASP Foundation</li>
-		<li><strong>see:</strong> - org.owasp.esapi.Encoder</li>
-		<li><strong>since:</strong> - 1.4</li>
-	</ul>
-<br /><hr />
+	
+			</div>
 </div>
-<script type="text/javascript">tp1.addTabPage( document.getElementById( "Description" ) );</script>
-<div class="tab-page" id="tabPage1">
-
-<h2 class="tab">Class Variables</h2>
-<!-- ============ VARIABLE DETAIL =========== -->
-<strong>Summary:</strong><br />
-<hr />
-<script type="text/javascript">tp1.addTabPage( document.getElementById( "tabPage1" ) );</script>
-</div>
-<div class="tab-page" id="constantsTabpage">
-
-<h2 class="tab">Class Constants</h2>
-<!-- ============ VARIABLE DETAIL =========== -->
-<strong>Summary:</strong><br />
-<div class="const-title">
-    <a href="#constMYSQL_ANSI" title="details" class="property"><strong>MYSQL_ANSI</strong></a>
-</div>
-<div class="const-title">
-    <a href="#constMYSQL_STD" title="details" class="property"><strong>MYSQL_STD</strong></a>
-</div>
-<div class="const-title">
-    <a href="#constORD_VALUE_0" title="details" class="property"><strong>ORD_VALUE_0</strong></a>
-</div>
-<div class="const-title">
-    <a href="#constORD_VALUE_B" title="details" class="property"><strong>ORD_VALUE_B</strong></a>
-</div>
-<div class="const-title">
-    <a href="#constORD_VALUE_BSLASH" title="details" class="property"><strong>ORD_VALUE_BSLASH</strong></a>
-</div>
-<div class="const-title">
-    <a href="#constORD_VALUE_DQUOTE" title="details" class="property"><strong>ORD_VALUE_DQUOTE</strong></a>
-</div>
-<div class="const-title">
-    <a href="#constORD_VALUE_N" title="details" class="property"><strong>ORD_VALUE_N</strong></a>
-</div>
-<div class="const-title">
-    <a href="#constORD_VALUE_PERCENT" title="details" class="property"><strong>ORD_VALUE_PERCENT</strong></a>
-</div>
-<div class="const-title">
-    <a href="#constORD_VALUE_QUOTE" title="details" class="property"><strong>ORD_VALUE_QUOTE</strong></a>
-</div>
-<div class="const-title">
-    <a href="#constORD_VALUE_R" title="details" class="property"><strong>ORD_VALUE_R</strong></a>
-</div>
-<div class="const-title">
-    <a href="#constORD_VALUE_T" title="details" class="property"><strong>ORD_VALUE_T</strong></a>
-</div>
-<div class="const-title">
-    <a href="#constORD_VALUE_UNDERSCORE" title="details" class="property"><strong>ORD_VALUE_UNDERSCORE</strong></a>
-</div>
-<div class="const-title">
-    <a href="#constORD_VALUE_Z" title="details" class="property"><strong>ORD_VALUE_Z</strong></a>
-</div>
-<hr />
-<a name="constMYSQL_ANSI" id="constMYSQL_ANSI"><!-- --></A>
-<div style="background='#eeeeee'">
-<h4>
-<img src="../media/images/Constant.gif" border="0" /> <strong class="property">MYSQL_ANSI =  0</strong> (line <span class="linenumber">33</span>)
- </h4>
-<!-- ========== Info from phpDoc block ========= -->
-<ul>
-	</ul>
-</div>
-<a name="constMYSQL_STD" id="constMYSQL_STD"><!-- --></A>
-<div style="background='#ffffff'">
-<h4>
-<img src="../media/images/Constant.gif" border="0" /> <strong class="property">MYSQL_STD =  1</strong> (line <span class="linenumber">34</span>)
- </h4>
-<!-- ========== Info from phpDoc block ========= -->
-<ul>
-	</ul>
-</div>
-<a name="constORD_VALUE_0" id="constORD_VALUE_0"><!-- --></A>
-<div style="background='#eeeeee'">
-<h4>
-<img src="../media/images/Constant.gif" border="0" /> <strong class="property">ORD_VALUE_0 =  48</strong> (line <span class="linenumber">37</span>)
- </h4>
-<!-- ========== Info from phpDoc block ========= -->
-<ul>
-	</ul>
-</div>
-<a name="constORD_VALUE_B" id="constORD_VALUE_B"><!-- --></A>
-<div style="background='#ffffff'">
-<h4>
-<img src="../media/images/Constant.gif" border="0" /> <strong class="property">ORD_VALUE_B =  98</strong> (line <span class="linenumber">38</span>)
- </h4>
-<!-- ========== Info from phpDoc block ========= -->
-<ul>
-	</ul>
-</div>
-<a name="constORD_VALUE_BSLASH" id="constORD_VALUE_BSLASH"><!-- --></A>
-<div style="background='#eeeeee'">
-<h4>
-<img src="../media/images/Constant.gif" border="0" /> <strong class="property">ORD_VALUE_BSLASH =  92</strong> (line <span class="linenumber">46</span>)
- </h4>
-<!-- ========== Info from phpDoc block ========= -->
-<ul>
-	</ul>
-</div>
-<a name="constORD_VALUE_DQUOTE" id="constORD_VALUE_DQUOTE"><!-- --></A>
-<div style="background='#ffffff'">
-<h4>
-<img src="../media/images/Constant.gif" border="0" /> <strong class="property">ORD_VALUE_DQUOTE =  34</strong> (line <span class="linenumber">43</span>)
- </h4>
-<!-- ========== Info from phpDoc block ========= -->
-<ul>
-	</ul>
-</div>
-<a name="constORD_VALUE_N" id="constORD_VALUE_N"><!-- --></A>
-<div style="background='#eeeeee'">
-<h4>
-<img src="../media/images/Constant.gif" border="0" /> <strong class="property">ORD_VALUE_N =  110</strong> (line <span class="linenumber">40</span>)
- </h4>
-<!-- ========== Info from phpDoc block ========= -->
-<ul>
-	</ul>
-</div>
-<a name="constORD_VALUE_PERCENT" id="constORD_VALUE_PERCENT"><!-- --></A>
-<div style="background='#ffffff'">
-<h4>
-<img src="../media/images/Constant.gif" border="0" /> <strong class="property">ORD_VALUE_PERCENT =  37</strong> (line <span class="linenumber">44</span>)
- </h4>
-<!-- ========== Info from phpDoc block ========= -->
-<ul>
-	</ul>
-</div>
-<a name="constORD_VALUE_QUOTE" id="constORD_VALUE_QUOTE"><!-- --></A>
-<div style="background='#eeeeee'">
-<h4>
-<img src="../media/images/Constant.gif" border="0" /> <strong class="property">ORD_VALUE_QUOTE =  39</strong> (line <span class="linenumber">45</span>)
- </h4>
-<!-- ========== Info from phpDoc block ========= -->
-<ul>
-	</ul>
-</div>
-<a name="constORD_VALUE_R" id="constORD_VALUE_R"><!-- --></A>
-<div style="background='#ffffff'">
-<h4>
-<img src="../media/images/Constant.gif" border="0" /> <strong class="property">ORD_VALUE_R =  114</strong> (line <span class="linenumber">41</span>)
- </h4>
-<!-- ========== Info from phpDoc block ========= -->
-<ul>
-	</ul>
-</div>
-<a name="constORD_VALUE_T" id="constORD_VALUE_T"><!-- --></A>
-<div style="background='#eeeeee'">
-<h4>
-<img src="../media/images/Constant.gif" border="0" /> <strong class="property">ORD_VALUE_T =  116</strong> (line <span class="linenumber">39</span>)
- </h4>
-<!-- ========== Info from phpDoc block ========= -->
-<ul>
-	</ul>
-</div>
-<a name="constORD_VALUE_UNDERSCORE" id="constORD_VALUE_UNDERSCORE"><!-- --></A>
-<div style="background='#ffffff'">
-<h4>
-<img src="../media/images/Constant.gif" border="0" /> <strong class="property">ORD_VALUE_UNDERSCORE =  95</strong> (line <span class="linenumber">47</span>)
- </h4>
-<!-- ========== Info from phpDoc block ========= -->
-<ul>
-	</ul>
-</div>
-<a name="constORD_VALUE_Z" id="constORD_VALUE_Z"><!-- --></A>
-<div style="background='#eeeeee'">
-<h4>
-<img src="../media/images/Constant.gif" border="0" /> <strong class="property">ORD_VALUE_Z =  90</strong> (line <span class="linenumber">42</span>)
- </h4>
-<!-- ========== Info from phpDoc block ========= -->
-<ul>
-	</ul>
-</div>
-<script type="text/javascript">tp1.addTabPage( document.getElementById( "constantsTabpage" ) );</script>
-</div>
-<div class="tab-page" id="tabPage2">
-<h2 class="tab">Method Detail</h2>
-<!-- ============ METHOD DETAIL =========== -->
-<strong>Summary:</strong><br />
-<div class="method-summary">
-    <div class="method-definition">
-            <span class="method-result">void</span>
-        <a href="#methoddecodeCharacter" title="details" class="method-name">decodeCharacter</a>
-        (<span class="var-type"></span>&nbsp;<span class="var-name">$input</span>)
-        </div>
-    <div class="method-definition">
-            <span class="method-result">void</span>
-        <a href="#methodencodeCharacter" title="details" class="method-name">encodeCharacter</a>
-        (<span class="var-type"></span>&nbsp;<span class="var-name">$immune</span>, <span class="var-type"></span>&nbsp;<span class="var-name">$c</span>)
-        </div>
-    <div class="method-definition">
-            <span class="method-result">MySQLCodec</span>
-        <a href="#method__construct" title="details" class="method-name">__construct</a>
-        ([<span class="var-type">mode</span>&nbsp;<span class="var-name">$mode</span> = <span class="var-default">self::MYSQL_STD</span>])
-        </div>
-</div>
-<hr />
-<A NAME='method_detail'></A>
 
 
-<a name="methoddecodeCharacter" id="methoddecodeCharacter"><!-- --></a>
-<div style="background='#ffffff'"><h4>
-<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method decodeCharacter</strong> (line <span class="linenumber">194</span>)
- </h4> 
-<h4><i>void</i> <strong>decodeCharacter(
+	<a name="sec-const-summary"></a>
+	<div class="info-box">
+		<div class="info-box-title">Class Constant Summary</span></div>
+		<div class="nav-bar">
+			<a href="#sec-description">Description</a> |
+						<span class="disabled">Constants</span> (<a href="#sec-consts">details</a>)
+										| 
+									<a href="#sec-method-summary">Methods</a> (<a href="#sec-methods">details</a>)
+							
+					</div>
+		<div class="info-box-body">
+			<div class="const-summary">
+								<div class="const-title">
+					<img src="../media/images/Constant.png" alt=" " />
+					<a href="#MYSQL_ANSI" title="details" class="const-name">MYSQL_ANSI</a> = 					<span class="var-type"> 0</span>
 
-$input)</strong></h4>
+				</div>
+								<div class="const-title">
+					<img src="../media/images/Constant.png" alt=" " />
+					<a href="#MYSQL_STD" title="details" class="const-name">MYSQL_STD</a> = 					<span class="var-type"> 1</span>
 
-<p><strong>Overrides :</strong> <a href="../ESAPI/Codec.html#methoddecodeCharacter">Codec::decodeCharacter()</a> Returns the decoded version of the next character from the input string and advances the  current character in the PushbackString.  If the current character is not encoded, this  method MUST reset the PushbackString.</p>
-	<!-- ========== Info from phpDoc block ========= -->
-<h5>{@inheritDoc}</h5>
-<div class="desc"><p>Returns the decoded version of the character starting at index, or  null if no decoding is possible.</p><p>In ANSI_MODE '' decodes to '    In MYSQL_MODE \x decodes to x (or a small list of specials)</p></div>
-		<h4>Parameters</h4>
-	<ul>
-			<li><strong> $input</strong>: </li>
-		</ul>
-		
-	<h4>Info</h4>
-	<ul>
-			<li><strong>access</strong> - public</li>
-		</ul>
-</div>
-<a name="methodencodeCharacter" id="methodencodeCharacter"><!-- --></a>
-<div style="background='#eeeeee'"><h4>
-<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method encodeCharacter</strong> (line <span class="linenumber">66</span>)
- </h4> 
-<h4><i>void</i> <strong>encodeCharacter(
+				</div>
+								<div class="const-title">
+					<img src="../media/images/Constant.png" alt=" " />
+					<a href="#ORD_VALUE_0" title="details" class="const-name">ORD_VALUE_0</a> = 					<span class="var-type"> 48</span>
 
-$immune, 
-$c)</strong></h4>
+				</div>
+								<div class="const-title">
+					<img src="../media/images/Constant.png" alt=" " />
+					<a href="#ORD_VALUE_B" title="details" class="const-name">ORD_VALUE_B</a> = 					<span class="var-type"> 98</span>
 
-<p><strong>Overrides :</strong> <a href="../ESAPI/Codec.html#methodencodeCharacter">Codec::encodeCharacter()</a> Encode a Character with a Codec.</p>
-	<!-- ========== Info from phpDoc block ========= -->
-<h5>{@inheritDoc}</h5>
-		<h4>Parameters</h4>
-	<ul>
-			<li><strong> $immune</strong>: </li>
-			<li><strong> $c</strong>: </li>
-		</ul>
-		
-	<h4>Info</h4>
-	<ul>
-			<li><strong>access</strong> - public</li>
-		</ul>
-</div>
-<a name="method__construct" id="method__construct"><!-- --></a>
-<div style="background='#ffffff'"><h4>
-<img src="../media/images/Constructor.gif" border="0" /> <strong class="method">Constructor __construct</strong> (line <span class="linenumber">57</span>)
- </h4> 
-<h4><i>MySQLCodec</i> <strong>__construct(
-[mode
-$mode = self::MYSQL_STD])</strong></h4>
+				</div>
+								<div class="const-title">
+					<img src="../media/images/Constant.png" alt=" " />
+					<a href="#ORD_VALUE_BSLASH" title="details" class="const-name">ORD_VALUE_BSLASH</a> = 					<span class="var-type"> 92</span>
 
-<p><strong>Overrides :</strong> <a href="../ESAPI/Codec.html#method__construct">Codec::__construct()</a> Populates the $hex map of non-alphanumeric single-byte characters.</p>
-	<!-- ========== Info from phpDoc block ========= -->
-<h5>Public Constructor</h5>
-		<h4>Parameters</h4>
-	<ul>
-			<li><strong>mode $mode</strong>: Mode has to be one of {MYSQL_MODE|ANSI_MODE} to allow correct encoding</li>
-		</ul>
-		
-	<h4>Info</h4>
-	<ul>
-		</ul>
-</div>
-<script type="text/javascript">tp1.addTabPage( document.getElementById( "tabPage2" ) );</script></div>
-<div class="tab-page" id="iVars">
-<h2 class="tab">Inherited Variables</h2>
-<script type="text/javascript">tp1.addTabPage( document.getElementById( "iVars" ) );</script>
-<!-- =========== VAR INHERITED SUMMARY =========== -->
-<A NAME='var_inherited_summary'><!-- --></A>
-<h3>Inherited Class Variable Summary</h3>
+				</div>
+								<div class="const-title">
+					<img src="../media/images/Constant.png" alt=" " />
+					<a href="#ORD_VALUE_DQUOTE" title="details" class="const-name">ORD_VALUE_DQUOTE</a> = 					<span class="var-type"> 34</span>
 
+				</div>
+								<div class="const-title">
+					<img src="../media/images/Constant.png" alt=" " />
+					<a href="#ORD_VALUE_N" title="details" class="const-name">ORD_VALUE_N</a> = 					<span class="var-type"> 110</span>
+
+				</div>
+								<div class="const-title">
+					<img src="../media/images/Constant.png" alt=" " />
+					<a href="#ORD_VALUE_PERCENT" title="details" class="const-name">ORD_VALUE_PERCENT</a> = 					<span class="var-type"> 37</span>
+
+				</div>
+								<div class="const-title">
+					<img src="../media/images/Constant.png" alt=" " />
+					<a href="#ORD_VALUE_QUOTE" title="details" class="const-name">ORD_VALUE_QUOTE</a> = 					<span class="var-type"> 39</span>
+
+				</div>
+								<div class="const-title">
+					<img src="../media/images/Constant.png" alt=" " />
+					<a href="#ORD_VALUE_R" title="details" class="const-name">ORD_VALUE_R</a> = 					<span class="var-type"> 114</span>
+
+				</div>
+								<div class="const-title">
+					<img src="../media/images/Constant.png" alt=" " />
+					<a href="#ORD_VALUE_T" title="details" class="const-name">ORD_VALUE_T</a> = 					<span class="var-type"> 116</span>
+
+				</div>
+								<div class="const-title">
+					<img src="../media/images/Constant.png" alt=" " />
+					<a href="#ORD_VALUE_UNDERSCORE" title="details" class="const-name">ORD_VALUE_UNDERSCORE</a> = 					<span class="var-type"> 95</span>
+
+				</div>
+								<div class="const-title">
+					<img src="../media/images/Constant.png" alt=" " />
+					<a href="#ORD_VALUE_Z" title="details" class="const-name">ORD_VALUE_Z</a> = 					<span class="var-type"> 90</span>
+
+				</div>
+							</div>
+		</div>
 	</div>
-<div class="tab-page" id="iMethods">
-<h2 class="tab">Inherited Methods</h2>
-<script type="text/javascript">tp1.addTabPage( document.getElementById( "iMethods" ) );</script>
-<!-- =========== INHERITED METHOD SUMMARY =========== -->
-<A NAME='functions_inherited'><!-- --></A>
-<h3>Inherited Method Summary</h3>
 
-		<!-- =========== Summary =========== -->
-	<h4>Inherited From Class <a href="../ESAPI/Codec.html">Codec</a></h4>
-				<h4>
-<img src="../media/images/Constructor.gif" border="0" /><strong class="method"> <a href="../ESAPI/Codec.html#method__construct">Codec::__construct()</a></strong> - Populates the $hex map of non-alphanumeric single-byte characters.
-		</h4> 
 
-				<h4>
-<img src="../media/images/PublicMethod.gif" border="0" /><strong class="method"> <a href="../ESAPI/Codec.html#methodcontainsCharacter">Codec::containsCharacter()</a></strong> - Utility to search a char[] for a specific char.
-		</h4> 
+	<a name="sec-method-summary"></a>
+	<div class="info-box">
+		<div class="info-box-title">Method Summary</span></div>
+		<div class="nav-bar">
+			<a href="#sec-description">Description</a> |
+															<a href="#sec-const-summary">Constants</a> (<a href="#sec-consts">details</a>)
+							
+									<span class="disabled">Methods</span> (<a href="#sec-methods">details</a>)
+		</div>
+		<div class="info-box-body">			
+			<div class="method-summary">
+																												
+												<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#decodeCharacter" title="details" class="method-name">decodeCharacter</a>
+											(<span class="var-type"></span>&nbsp;<span class="var-name">$input</span>)
+									</div>
+																<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#encodeCharacter" title="details" class="method-name">encodeCharacter</a>
+											(<span class="var-type"></span>&nbsp;<span class="var-name">$immune</span>, <span class="var-type"></span>&nbsp;<span class="var-name">$c</span>)
+									</div>
+																<div class="method-definition">
+											<span class="method-result">MySQLCodec</span>
+										<a href="#__construct" title="details" class="method-name">__construct</a>
+											([<span class="var-type">mode</span>&nbsp;<span class="var-name">$mode</span> = <span class="var-default">self::MYSQL_STD</span>])
+									</div>
+								</div>
+		</div>
+	</div>		
 
-				<h4>
-<img src="../media/images/PublicMethod.gif" border="0" /><strong class="method"> <a href="../ESAPI/Codec.html#methoddecode">Codec::decode()</a></strong> - Decode a String that was encoded using the encode method in this Class
-		</h4> 
+	
+	<a name="sec-methods"></a>
+	<div class="info-box">
+		<div class="info-box-title">Methods</div>
+		<div class="nav-bar">
+			<a href="#sec-description">Description</a> |
+																		<a href="#sec-const-summary">Constants</a> (<a href="#sec-consts">details</a>)
+							
+										<a href="#sec-method-summary">Methods</a> (<span class="disabled">details</span>)
+						
+		</div>
+		<div class="info-box-body">
+			<A NAME='method_detail'></A>
 
-				<h4>
-<img src="../media/images/PublicMethod.gif" border="0" /><strong class="method"> <a href="../ESAPI/Codec.html#methoddecodeCharacter">Codec::decodeCharacter()</a></strong> - Returns the decoded version of the next character from the input string and advances the  current character in the PushbackString.  If the current character is not encoded, this  method MUST reset the PushbackString.
-		</h4> 
-
-				<h4>
-<img src="../media/images/PublicMethod.gif" border="0" /><strong class="method"> <a href="../ESAPI/Codec.html#methoddetectEncoding">Codec::detectEncoding()</a></strong> - Utility to detect a (potentially multibyte) string's encoding with extra logic to deal with single characters that mb_detect_encoding() fails upon.
-		</h4> 
-
-				<h4>
-<img src="../media/images/PublicMethod.gif" border="0" /><strong class="method"> <a href="../ESAPI/Codec.html#methodencode">Codec::encode()</a></strong> - Encode a String with a Codec.
-		</h4> 
-
-				<h4>
-<img src="../media/images/PublicMethod.gif" border="0" /><strong class="method"> <a href="../ESAPI/Codec.html#methodencodeCharacter">Codec::encodeCharacter()</a></strong> - Encode a Character with a Codec.
-		</h4> 
-
-				<h4>
-<img src="../media/images/PublicMethod.gif" border="0" /><strong class="method"> <a href="../ESAPI/Codec.html#methodforceToSingleCharacter">Codec::forceToSingleCharacter()</a></strong> - Utility to get first (potentially multibyte) character from a (potentially multicharacter) multibyte string.
-		</h4> 
-
-				<h4>
-<img src="../media/images/PublicMethod.gif" border="0" /><strong class="method"> <a href="../ESAPI/Codec.html#methodgetHexForNonAlphanumeric">Codec::getHexForNonAlphanumeric()</a></strong> - Returns the ordinal value as a hex string of any character that is not a  single-byte alphanumeric. The character should be supplied as a string in  the UTF-32 character encoding.
-		</h4> 
-
-				<h4>
-<img src="../media/images/PublicMethod.gif" border="0" /><strong class="method"> <a href="../ESAPI/Codec.html#methodisHexDigit">Codec::isHexDigit()</a></strong> - *  Utility method to determine if a single character string is a hex digit
-		</h4> 
-
-				<h4>
-<img src="../media/images/PublicMethod.gif" border="0" /><strong class="method"> <a href="../ESAPI/Codec.html#methodnormalizeEncoding">Codec::normalizeEncoding()</a></strong> - Utility to normalize a string's encoding to UTF-32.
-		</h4> 
-
-				<h4>
-<img src="../media/images/PublicMethod.gif" border="0" /><strong class="method"> <a href="../ESAPI/Codec.html#methodtoHex">Codec::toHex()</a></strong> - Return the hex value of a character as a string without leading zeroes.
-		</h4> 
-
-				<br />
+<a name="methoddecodeCharacter" id="decodeCharacter"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">decodeCharacter</span> (line <span class="line-number">194</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">{@inheritDoc}</p>
+<p class="description"><p>Returns the decoded version of the character starting at index, or  null if no decoding is possible.</p><p>In ANSI_MODE '' decodes to '    In MYSQL_MODE \x decodes to x (or a small list of specials)</p></p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			decodeCharacter
+		</span>
+					(<span class="var-type"></span>&nbsp;<span class="var-name">$input</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type"></span>
+				<span class="var-name">$input</span>			</li>
+				</ul>
+		
+			<hr class="separator" />
+		<div class="notes">Redefinition of:</div>
+		<dl>
+			<dt><a href="../ESAPI/Codec.html#methoddecodeCharacter">Codec::decodeCharacter()</a></dt>
+						<dd>Returns the decoded version of the next character from the input string and advances the  current character in the PushbackString.  If the current character is not encoded, this  method MUST reset the PushbackString.</dd>
+					</dl>
+			
 	</div>
+<a name="methodencodeCharacter" id="encodeCharacter"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">encodeCharacter</span> (line <span class="line-number">66</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">{@inheritDoc}</p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			encodeCharacter
+		</span>
+					(<span class="var-type"></span>&nbsp;<span class="var-name">$immune</span>, <span class="var-type"></span>&nbsp;<span class="var-name">$c</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type"></span>
+				<span class="var-name">$immune</span>			</li>
+					<li>
+				<span class="var-type"></span>
+				<span class="var-name">$c</span>			</li>
+				</ul>
+		
+			<hr class="separator" />
+		<div class="notes">Redefinition of:</div>
+		<dl>
+			<dt><a href="../ESAPI/Codec.html#methodencodeCharacter">Codec::encodeCharacter()</a></dt>
+						<dd>Encode a Character with a Codec.</dd>
+					</dl>
+			
+	</div>
+<a name="method__construct" id="__construct"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">Constructor __construct</span> (line <span class="line-number">57</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Public Constructor</p>
+	
+	<div class="method-signature">
+		<span class="method-result">MySQLCodec</span>
+		<span class="method-name">
+			__construct
+		</span>
+					([<span class="var-type">mode</span>&nbsp;<span class="var-name">$mode</span> = <span class="var-default">self::MYSQL_STD</span>])
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">mode</span>
+				<span class="var-name">$mode</span><span class="var-description">: Mode has to be one of {MYSQL_MODE|ANSI_MODE} to allow correct encoding</span>			</li>
+				</ul>
+		
+			<hr class="separator" />
+		<div class="notes">Redefinition of:</div>
+		<dl>
+			<dt><a href="../ESAPI/Codec.html#method__construct">Codec::__construct()</a></dt>
+						<dd>Populates the $hex map of non-alphanumeric single-byte characters.</dd>
+					</dl>
+			
+	</div>
+							<h4>Inherited Methods</h4>
+				<a name='inherited_methods'><!-- --></a>	
+									<!-- =========== Summary =========== -->
+					<p>Inherited From <span class="classname"><a href="../ESAPI/Codec.html">Codec</a></span></p>
+					<blockquote>
+													<span class="method-name"><a href="../ESAPI/Codec.html#method__construct">Codec::__construct()</a></span><br>
+													<span class="method-name"><a href="../ESAPI/Codec.html#methodcontainsCharacter">Codec::containsCharacter()</a></span><br>
+													<span class="method-name"><a href="../ESAPI/Codec.html#methoddecode">Codec::decode()</a></span><br>
+													<span class="method-name"><a href="../ESAPI/Codec.html#methoddecodeCharacter">Codec::decodeCharacter()</a></span><br>
+													<span class="method-name"><a href="../ESAPI/Codec.html#methoddetectEncoding">Codec::detectEncoding()</a></span><br>
+													<span class="method-name"><a href="../ESAPI/Codec.html#methodencode">Codec::encode()</a></span><br>
+													<span class="method-name"><a href="../ESAPI/Codec.html#methodencodeCharacter">Codec::encodeCharacter()</a></span><br>
+													<span class="method-name"><a href="../ESAPI/Codec.html#methodforceToSingleCharacter">Codec::forceToSingleCharacter()</a></span><br>
+													<span class="method-name"><a href="../ESAPI/Codec.html#methodgetHexForNonAlphanumeric">Codec::getHexForNonAlphanumeric()</a></span><br>
+													<span class="method-name"><a href="../ESAPI/Codec.html#methodisHexDigit">Codec::isHexDigit()</a></span><br>
+													<span class="method-name"><a href="../ESAPI/Codec.html#methodnormalizeEncoding">Codec::normalizeEncoding()</a></span><br>
+													<span class="method-name"><a href="../ESAPI/Codec.html#methodtoHex">Codec::toHex()</a></span><br>
+											</blockquote>
+										
+		</div>
+	</div>
+
+	<a name="sec-consts"></a>
+	<div class="info-box">
+		<div class="info-box-title">Class Constants</div>
+		<div class="nav-bar">
+			<a href="#sec-description">Description</a> |
+										<a href="#sec-var-summary">Constants</a> (<span class="disabled">details</span>)
+						
+			
+										| 
+									<a href="#sec-method-summary">Methods</a> (<a href="#sec-methods">details</a>)
+							
+					</div>
+		<div class="info-box-body">
+			<a name="constMYSQL_ANSI" id="MYSQL_ANSI"><!-- --></A>
+<div class="evenrow">
+
+	<div class="const-header">
+		<img src="../media/images/Variable.png" />
+		<span class="const-title">
+			<span class="const-name">MYSQL_ANSI</span>
+			 = <span class="const-default"> 0</span>
+			(line <span class="line-number">33</span>)
+		</span>
+	</div>
+
+	<!-- ========== Info from phpDoc block ========= -->
+	
+	
 </div>
-<script type="text/javascript">
-//<![CDATA[
+<a name="constMYSQL_STD" id="MYSQL_STD"><!-- --></A>
+<div class="oddrow">
 
-setupAllTabs();
-
-//]]>
-</script>
-	<div id="credit">
-		<hr />
-		Documentation generated on Fri, 16 Apr 2010 11:42:18 -0400 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
+	<div class="const-header">
+		<img src="../media/images/Variable.png" />
+		<span class="const-title">
+			<span class="const-name">MYSQL_STD</span>
+			 = <span class="const-default"> 1</span>
+			(line <span class="line-number">34</span>)
+		</span>
 	</div>
-</body>
+
+	<!-- ========== Info from phpDoc block ========= -->
+	
+	
+</div>
+<a name="constORD_VALUE_0" id="ORD_VALUE_0"><!-- --></A>
+<div class="evenrow">
+
+	<div class="const-header">
+		<img src="../media/images/Variable.png" />
+		<span class="const-title">
+			<span class="const-name">ORD_VALUE_0</span>
+			 = <span class="const-default"> 48</span>
+			(line <span class="line-number">37</span>)
+		</span>
+	</div>
+
+	<!-- ========== Info from phpDoc block ========= -->
+	
+	
+</div>
+<a name="constORD_VALUE_B" id="ORD_VALUE_B"><!-- --></A>
+<div class="oddrow">
+
+	<div class="const-header">
+		<img src="../media/images/Variable.png" />
+		<span class="const-title">
+			<span class="const-name">ORD_VALUE_B</span>
+			 = <span class="const-default"> 98</span>
+			(line <span class="line-number">38</span>)
+		</span>
+	</div>
+
+	<!-- ========== Info from phpDoc block ========= -->
+	
+	
+</div>
+<a name="constORD_VALUE_BSLASH" id="ORD_VALUE_BSLASH"><!-- --></A>
+<div class="evenrow">
+
+	<div class="const-header">
+		<img src="../media/images/Variable.png" />
+		<span class="const-title">
+			<span class="const-name">ORD_VALUE_BSLASH</span>
+			 = <span class="const-default"> 92</span>
+			(line <span class="line-number">46</span>)
+		</span>
+	</div>
+
+	<!-- ========== Info from phpDoc block ========= -->
+	
+	
+</div>
+<a name="constORD_VALUE_DQUOTE" id="ORD_VALUE_DQUOTE"><!-- --></A>
+<div class="oddrow">
+
+	<div class="const-header">
+		<img src="../media/images/Variable.png" />
+		<span class="const-title">
+			<span class="const-name">ORD_VALUE_DQUOTE</span>
+			 = <span class="const-default"> 34</span>
+			(line <span class="line-number">43</span>)
+		</span>
+	</div>
+
+	<!-- ========== Info from phpDoc block ========= -->
+	
+	
+</div>
+<a name="constORD_VALUE_N" id="ORD_VALUE_N"><!-- --></A>
+<div class="evenrow">
+
+	<div class="const-header">
+		<img src="../media/images/Variable.png" />
+		<span class="const-title">
+			<span class="const-name">ORD_VALUE_N</span>
+			 = <span class="const-default"> 110</span>
+			(line <span class="line-number">40</span>)
+		</span>
+	</div>
+
+	<!-- ========== Info from phpDoc block ========= -->
+	
+	
+</div>
+<a name="constORD_VALUE_PERCENT" id="ORD_VALUE_PERCENT"><!-- --></A>
+<div class="oddrow">
+
+	<div class="const-header">
+		<img src="../media/images/Variable.png" />
+		<span class="const-title">
+			<span class="const-name">ORD_VALUE_PERCENT</span>
+			 = <span class="const-default"> 37</span>
+			(line <span class="line-number">44</span>)
+		</span>
+	</div>
+
+	<!-- ========== Info from phpDoc block ========= -->
+	
+	
+</div>
+<a name="constORD_VALUE_QUOTE" id="ORD_VALUE_QUOTE"><!-- --></A>
+<div class="evenrow">
+
+	<div class="const-header">
+		<img src="../media/images/Variable.png" />
+		<span class="const-title">
+			<span class="const-name">ORD_VALUE_QUOTE</span>
+			 = <span class="const-default"> 39</span>
+			(line <span class="line-number">45</span>)
+		</span>
+	</div>
+
+	<!-- ========== Info from phpDoc block ========= -->
+	
+	
+</div>
+<a name="constORD_VALUE_R" id="ORD_VALUE_R"><!-- --></A>
+<div class="oddrow">
+
+	<div class="const-header">
+		<img src="../media/images/Variable.png" />
+		<span class="const-title">
+			<span class="const-name">ORD_VALUE_R</span>
+			 = <span class="const-default"> 114</span>
+			(line <span class="line-number">41</span>)
+		</span>
+	</div>
+
+	<!-- ========== Info from phpDoc block ========= -->
+	
+	
+</div>
+<a name="constORD_VALUE_T" id="ORD_VALUE_T"><!-- --></A>
+<div class="evenrow">
+
+	<div class="const-header">
+		<img src="../media/images/Variable.png" />
+		<span class="const-title">
+			<span class="const-name">ORD_VALUE_T</span>
+			 = <span class="const-default"> 116</span>
+			(line <span class="line-number">39</span>)
+		</span>
+	</div>
+
+	<!-- ========== Info from phpDoc block ========= -->
+	
+	
+</div>
+<a name="constORD_VALUE_UNDERSCORE" id="ORD_VALUE_UNDERSCORE"><!-- --></A>
+<div class="oddrow">
+
+	<div class="const-header">
+		<img src="../media/images/Variable.png" />
+		<span class="const-title">
+			<span class="const-name">ORD_VALUE_UNDERSCORE</span>
+			 = <span class="const-default"> 95</span>
+			(line <span class="line-number">47</span>)
+		</span>
+	</div>
+
+	<!-- ========== Info from phpDoc block ========= -->
+	
+	
+</div>
+<a name="constORD_VALUE_Z" id="ORD_VALUE_Z"><!-- --></A>
+<div class="evenrow">
+
+	<div class="const-header">
+		<img src="../media/images/Variable.png" />
+		<span class="const-title">
+			<span class="const-name">ORD_VALUE_Z</span>
+			 = <span class="const-default"> 90</span>
+			(line <span class="line-number">42</span>)
+		</span>
+	</div>
+
+	<!-- ========== Info from phpDoc block ========= -->
+	
+	
+</div>
+						
+		</div>
+	</div>
+
+	<p class="notes" id="credit">
+		Documentation generated on Fri, 16 Apr 2010 12:00:13 -0400 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
+	</p>
+	</div></body>
 </html>

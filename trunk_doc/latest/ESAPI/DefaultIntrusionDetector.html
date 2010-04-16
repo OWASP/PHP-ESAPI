@@ -1,261 +1,198 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
-<!DOCTYPE html 
-     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-   <html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-  <title>Docs For Class DefaultIntrusionDetector</title>
-  <link rel="stylesheet" href="../media/stylesheet.css" />
-  <script src="../media/lib/classTree.js"></script>
-<link id="webfx-tab-style-sheet" type="text/css" rel="stylesheet" href="../media/lib/tab.webfx.css" />
-<script type="text/javascript" src="../media/lib/tabpane.js"></script>
-  <script language="javascript" type="text/javascript" src="../media/lib/ua.js"></script>
-<script language="javascript" type="text/javascript">
-	var imgPlus = new Image();
-	var imgMinus = new Image();
-	imgPlus.src = "../media/images/plus.gif";
-	imgMinus.src = "../media/images/minus.gif";
-	
-	function showNode(Node){
-        switch(navigator.family){
-        	case 'nn4':
-        		// Nav 4.x code fork...
-				var oTable = document.layers["span" + Node];
-				var oImg = document.layers["img" + Node];
-        		break;
-        	case 'ie4':
-        		// IE 4/5 code fork...
-				var oTable = document.all["span" + Node];
-				var oImg = document.all["img" + Node];
-        		break;
-        	case 'gecko':
-        		// Standards Compliant code fork...
-				var oTable = document.getElementById("span" + Node);
-				var oImg = document.getElementById("img" + Node);
-        		break;
-        }
-		oImg.src = imgMinus.src;
-		oTable.style.display = "block";
-	}
-	
-	function hideNode(Node){
-        switch(navigator.family){
-        	case 'nn4':
-        		// Nav 4.x code fork...
-				var oTable = document.layers["span" + Node];
-				var oImg = document.layers["img" + Node];
-        		break;
-        	case 'ie4':
-        		// IE 4/5 code fork...
-				var oTable = document.all["span" + Node];
-				var oImg = document.all["img" + Node];
-        		break;
-        	case 'gecko':
-        		// Standards Compliant code fork...
-				var oTable = document.getElementById("span" + Node);
-				var oImg = document.getElementById("img" + Node);
-        		break;
-        }
-		oImg.src = imgPlus.src;
-		oTable.style.display = "none";
-	}
-	
-	function nodeIsVisible(Node){
-        switch(navigator.family){
-        	case 'nn4':
-        		// Nav 4.x code fork...
-				var oTable = document.layers["span" + Node];
-        		break;
-        	case 'ie4':
-        		// IE 4/5 code fork...
-				var oTable = document.all["span" + Node];
-        		break;
-        	case 'gecko':
-        		// Standards Compliant code fork...
-				var oTable = document.getElementById("span" + Node);
-        		break;
-        }
-		return (oTable && oTable.style.display == "block");
-	}
-	
-	function toggleNodeVisibility(Node){
-		if (nodeIsVisible(Node)){
-			hideNode(Node);
-		}else{
-			showNode(Node);
-		}
-	}
-</script>
-<!-- template designed by Julien Damon based on PHPEdit's generated templates, and tweaked by Greg Beaver -->
-<body bgcolor="#ffffff" ><!-- Start of Class Data -->
-<h2>
-	Class DefaultIntrusionDetector
-</h2> (line <span class="linenumber">55</span>)
-<div class="tab-pane" id="tabPane1">
-<script type="text/javascript">
-tp1 = new WebFXTabPane( document.getElementById( "tabPane1" ));
-</script>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+  <html xmlns="http://www.w3.org/1999/xhtml">
+		<head>
+			<!-- template designed by Marco Von Ballmoos -->
+			<title>Docs For Class DefaultIntrusionDetector</title>
+			<link rel="stylesheet" href="../media/stylesheet.css" />
+			<meta http-equiv='Content-Type' content='text/html; charset=iso-8859-1'/>
+		</head>
+		<body>
+			<div class="page-body">			
+<h2 class="class-name">Class DefaultIntrusionDetector</h2>
 
-<div class="tab-page" id="Description">
-<h2 class="tab">Description</h2>
-<pre>
-</pre>
-<p>
-	<b><i>Located in File: <a href="_reference---DefaultIntrusionDetector.php.html">/reference/DefaultIntrusionDetector.php</a></i></b><br>
-</p>
-<!-- ========== Info from phpDoc block ========= -->
-<h5>Reference implementation of the IntrusionDetector interface.</h5>
-<div class="desc"><p>This implementation monitors EnterpriseSecurityExceptions, custom Exceptions  and other custom events to see if any user exceeds a configurable threshold  in a configurable time period.  For example, it can monitor to see if a user exceeds 10 input validation  issues in a 1 minute period. Or if there are more than 3 authentication  problems in a 10 second period. More complex implementations are certainly  possible, such as one that establishes a baseline of expected behaviour, and  then detects deviations from that baseline.  Events are persisted in the PHP Session, if one is available at the time they  are generated, to allow tracking of events across requests.  If a PHP Session  is not available then the events are persisted only as long as the current  DefaultIntrusionDetector instance.</p><p>PHP version 5.2.9</p></div>
-<ul>
-		<li><strong>author:</strong> - Jeff Williams &lt;<a href="mailto:jeff.williams@owasp.org">jeff.williams@owasp.org</a>&gt;</li>
-		<li><strong>author:</strong> - jah &lt;<a href="mailto:jah@jahboite.co.uk">jah@jahboite.co.uk</a>&gt;</li>
-		<li><strong>version:</strong> - 1.0</li>
-		<li><strong>copyright:</strong> - 2009-2010 The OWASP Foundation</li>
-		<li><strong>see:</strong> - <a href="../ESAPI/IntrusionDetector.html">IntrusionDetector</a></li>
-		<li><strong>link:</strong> - <a href="http://www.owasp.org/index.php/ESAPI">http://www.owasp.org/index.php/ESAPI</a></li>
-		<li><strong>license:</strong> - <a href="http://www.opensource.org/licenses/bsd-license.php">New BSD license</a></li>
-	</ul>
-<br /><hr />
-</div>
-<script type="text/javascript">tp1.addTabPage( document.getElementById( "Description" ) );</script>
-<div class="tab-page" id="tabPage1">
-
-<h2 class="tab">Class Variables</h2>
-<!-- ============ VARIABLE DETAIL =========== -->
-<strong>Summary:</strong><br />
-<hr />
-<script type="text/javascript">tp1.addTabPage( document.getElementById( "tabPage1" ) );</script>
-</div>
-<div class="tab-page" id="constantsTabpage">
-
-<h2 class="tab">Class Constants</h2>
-<!-- ============ VARIABLE DETAIL =========== -->
-<strong>Summary:</strong><br />
-<hr />
-<script type="text/javascript">tp1.addTabPage( document.getElementById( "constantsTabpage" ) );</script>
-</div>
-<div class="tab-page" id="tabPage2">
-<h2 class="tab">Method Detail</h2>
-<!-- ============ METHOD DETAIL =========== -->
-<strong>Summary:</strong><br />
-<div class="method-summary">
-    <div class="method-definition">
-            <span class="method-result">DefaultIntrusionDetector</span>
-        <a href="#method__construct" title="details" class="method-name">__construct</a>
-        ()
-        </div>
-    <div class="method-definition">
-            <span class="method-result">void</span>
-        <a href="#methodaddEvent" title="details" class="method-name">addEvent</a>
-        (<span class="var-type">$eventName</span>&nbsp;<span class="var-name">$eventName</span>, <span class="var-type">$logMessage</span>&nbsp;<span class="var-name">$logMessage</span>)
-        </div>
-    <div class="method-definition">
-            <span class="method-result">void</span>
-        <a href="#methodaddException" title="details" class="method-name">addException</a>
-        (<span class="var-type">$exception</span>&nbsp;<span class="var-name">$exception</span>)
-        </div>
-</div>
-<hr />
-<A NAME='method_detail'></A>
-
-
-<a name="method__construct" id="method__construct"><!-- --></a>
-<div style="background='#eeeeee'"><h4>
-<img src="../media/images/Constructor.gif" border="0" /> <strong class="method">Constructor __construct</strong> (line <span class="linenumber">60</span>)
- </h4> 
-<h4><i>DefaultIntrusionDetector</i> <strong>__construct(
-)</strong></h4>
-
-	<!-- ========== Info from phpDoc block ========= -->
+<a name="sec-description"></a>
+<div class="info-box">
+	<div class="info-box-title">Description</div>
+	<div class="nav-bar">
+					<span class="disabled">Description</span> |
+															<a href="#sec-method-summary">Methods</a> (<a href="#sec-methods">details</a>)
+						
+					</div>
+	<div class="info-box-body">
+                <p class="implements">
+            Implements interfaces:
+            <ul>
+                <li><a href="../ESAPI/IntrusionDetector.html">IntrusionDetector</a></li>            </ul>
+        </p>
+        		<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Reference implementation of the IntrusionDetector interface.</p>
+<p class="description"><p>This implementation monitors EnterpriseSecurityExceptions, custom Exceptions  and other custom events to see if any user exceeds a configurable threshold  in a configurable time period.  For example, it can monitor to see if a user exceeds 10 input validation  issues in a 1 minute period. Or if there are more than 3 authentication  problems in a 10 second period. More complex implementations are certainly  possible, such as one that establishes a baseline of expected behaviour, and  then detects deviations from that baseline.  Events are persisted in the PHP Session, if one is available at the time they  are generated, to allow tracking of events across requests.  If a PHP Session  is not available then the events are persisted only as long as the current  DefaultIntrusionDetector instance.</p><p>PHP version 5.2.9</p></p>
+	<ul class="tags">
+				<li><span class="field">author:</span> Jeff Williams &lt;<a href="mailto:jeff.williams@owasp.org">jeff.williams@owasp.org</a>&gt;</li>
+				<li><span class="field">author:</span> jah &lt;<a href="mailto:jah@jahboite.co.uk">jah@jahboite.co.uk</a>&gt;</li>
+				<li><span class="field">version:</span> 1.0</li>
+				<li><span class="field">copyright:</span> 2009-2010 The OWASP Foundation</li>
+				<li><span class="field">see:</span> <a href="../ESAPI/IntrusionDetector.html">IntrusionDetector</a></li>
+				<li><span class="field">link:</span> <a href="http://www.owasp.org/index.php/ESAPI">http://www.owasp.org/index.php/ESAPI</a></li>
+				<li><span class="field">license:</span> <a href="http://www.opensource.org/licenses/bsd-license.php">New BSD license</a></li>
+			</ul>
+		<p class="notes">
+			Located in <a class="field" href="_reference---DefaultIntrusionDetector.php.html">/reference/DefaultIntrusionDetector.php</a> (line <span class="field">55</span>)
+		</p>
 		
-	<h4>Info</h4>
-	<ul>
-		</ul>
+				
+		<pre></pre>
+	
+			</div>
 </div>
-<a name="methodaddEvent" id="methodaddEvent"><!-- --></a>
-<div style="background='#ffffff'"><h4>
-<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method addEvent</strong> (line <span class="linenumber">137</span>)
- </h4> 
-<h4><i>void</i> <strong>addEvent(
-$eventName
-$eventName, $logMessage
-$logMessage)</strong></h4>
 
-			<hr class="separator" />
+
+
+
+	<a name="sec-method-summary"></a>
+	<div class="info-box">
+		<div class="info-box-title">Method Summary</span></div>
+		<div class="nav-bar">
+			<a href="#sec-description">Description</a> |
+												<span class="disabled">Methods</span> (<a href="#sec-methods">details</a>)
+		</div>
+		<div class="info-box-body">			
+			<div class="method-summary">
+																												
+												<div class="method-definition">
+											<span class="method-result">DefaultIntrusionDetector</span>
+										<a href="#__construct" title="details" class="method-name">__construct</a>
+										()
+									</div>
+																<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#addEvent" title="details" class="method-name">addEvent</a>
+											(<span class="var-type">$eventName</span>&nbsp;<span class="var-name">$eventName</span>, <span class="var-type">$logMessage</span>&nbsp;<span class="var-name">$logMessage</span>)
+									</div>
+																<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#addException" title="details" class="method-name">addException</a>
+											(<span class="var-type">$exception</span>&nbsp;<span class="var-name">$exception</span>)
+									</div>
+								</div>
+		</div>
+	</div>		
+
+	
+	<a name="sec-methods"></a>
+	<div class="info-box">
+		<div class="info-box-title">Methods</div>
+		<div class="nav-bar">
+			<a href="#sec-description">Description</a> |
+																<a href="#sec-method-summary">Methods</a> (<span class="disabled">details</span>)
+						
+		</div>
+		<div class="info-box-body">
+			<A NAME='method_detail'></A>
+
+<a name="method__construct" id="__construct"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">Constructor __construct</span> (line <span class="line-number">60</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+	
+	<div class="method-signature">
+		<span class="method-result">DefaultIntrusionDetector</span>
+		<span class="method-name">
+			__construct
+		</span>
+				()
+			</div>
+	
+		
+			
+	</div>
+<a name="methodaddEvent" id="addEvent"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">addEvent</span> (line <span class="line-number">137</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Adds an event to the IntrusionDetector.</p>
+<p class="description"><p>This method immediately logs the event and stores it in order to check if  the request causes a threshold to be reached for any Enterprise Security  Exceptions. If any security thresholds are reached then the resultant  IntrusionException is handled and the appropriate security action taken  and logged.</p></p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			addEvent
+		</span>
+					(<span class="var-type">$eventName</span>&nbsp;<span class="var-name">$eventName</span>, <span class="var-type">$logMessage</span>&nbsp;<span class="var-name">$logMessage</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">$eventName</span>
+				<span class="var-name">$eventName</span><span class="var-description">: string event to add.</span>			</li>
+					<li>
+				<span class="var-type">$logMessage</span>
+				<span class="var-name">$logMessage</span><span class="var-description">: string message to log with the event.</span>			</li>
+				</ul>
+		
+				<hr class="separator" />
 		<div class="notes">Implementation of:</div>
 			<dl>
 			<dt><a href="../ESAPI/IntrusionDetector.html#methodaddEvent">IntrusionDetector::addEvent()</a></dt>
 						<dd>Adds an event to the IntrusionDetector.</dd>
 					</dl>
-		<!-- ========== Info from phpDoc block ========= -->
-<h5>Adds an event to the IntrusionDetector.</h5>
-<div class="desc"><p>This method immediately logs the event and stores it in order to check if  the request causes a threshold to be reached for any Enterprise Security  Exceptions. If any security thresholds are reached then the resultant  IntrusionException is handled and the appropriate security action taken  and logged.</p></div>
-		<h4>Parameters</h4>
-	<ul>
-			<li><strong>$eventName $eventName</strong>: string event to add.</li>
-			<li><strong>$logMessage $logMessage</strong>: string message to log with the event.</li>
-		</ul>
+			
+	</div>
+<a name="methodaddException" id="addException"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">addException</span> (line <span class="line-number">79</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Adds an exception to the IntrusionDetector.</p>
+<p class="description"><p>This method immediately logs the supplied exception and stores it in  order to check if the request causes a threshold to be reached for any  EnterpriseSecurity Exceptions. If any security thresholds are reached  then the resultant IntrusionException is handled and the appropriate  security action taken and logged.</p></p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			addException
+		</span>
+					(<span class="var-type">$exception</span>&nbsp;<span class="var-name">$exception</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">$exception</span>
+				<span class="var-name">$exception</span><span class="var-description">: the exception thrown.</span>			</li>
+				</ul>
 		
-	<h4>Info</h4>
-	<ul>
-			<li><strong>access</strong> - public</li>
-		</ul>
-</div>
-<a name="methodaddException" id="methodaddException"><!-- --></a>
-<div style="background='#eeeeee'"><h4>
-<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method addException</strong> (line <span class="linenumber">79</span>)
- </h4> 
-<h4><i>void</i> <strong>addException(
-$exception
-$exception)</strong></h4>
-
-			<hr class="separator" />
+				<hr class="separator" />
 		<div class="notes">Implementation of:</div>
 			<dl>
 			<dt><a href="../ESAPI/IntrusionDetector.html#methodaddException">IntrusionDetector::addException()</a></dt>
 						<dd>Adds an exception to the IntrusionDetector.</dd>
 					</dl>
-		<!-- ========== Info from phpDoc block ========= -->
-<h5>Adds an exception to the IntrusionDetector.</h5>
-<div class="desc"><p>This method immediately logs the supplied exception and stores it in  order to check if the request causes a threshold to be reached for any  EnterpriseSecurity Exceptions. If any security thresholds are reached  then the resultant IntrusionException is handled and the appropriate  security action taken and logged.</p></div>
-		<h4>Parameters</h4>
-	<ul>
-			<li><strong>$exception $exception</strong>: the exception thrown.</li>
-		</ul>
-		
-	<h4>Info</h4>
-	<ul>
-			<li><strong>access</strong> - public</li>
-		</ul>
-</div>
-<script type="text/javascript">tp1.addTabPage( document.getElementById( "tabPage2" ) );</script></div>
-<div class="tab-page" id="iVars">
-<h2 class="tab">Inherited Variables</h2>
-<script type="text/javascript">tp1.addTabPage( document.getElementById( "iVars" ) );</script>
-<!-- =========== VAR INHERITED SUMMARY =========== -->
-<A NAME='var_inherited_summary'><!-- --></A>
-<h3>Inherited Class Variable Summary</h3>
-
+			
 	</div>
-<div class="tab-page" id="iMethods">
-<h2 class="tab">Inherited Methods</h2>
-<script type="text/javascript">tp1.addTabPage( document.getElementById( "iMethods" ) );</script>
-<!-- =========== INHERITED METHOD SUMMARY =========== -->
-<A NAME='functions_inherited'><!-- --></A>
-<h3>Inherited Method Summary</h3>
-
+						
+		</div>
 	</div>
-</div>
-<script type="text/javascript">
-//<![CDATA[
 
-setupAllTabs();
 
-//]]>
-</script>
-	<div id="credit">
-		<hr />
-		Documentation generated on Fri, 16 Apr 2010 11:42:13 -0400 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
-	</div>
-</body>
+	<p class="notes" id="credit">
+		Documentation generated on Fri, 16 Apr 2010 12:01:58 -0400 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
+	</p>
+	</div></body>
 </html>

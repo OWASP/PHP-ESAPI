@@ -1,286 +1,232 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
-<!DOCTYPE html 
-     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-   <html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-  <title>Docs For Class Sanitizer</title>
-  <link rel="stylesheet" href="../media/stylesheet.css" />
-  <script src="../media/lib/classTree.js"></script>
-<link id="webfx-tab-style-sheet" type="text/css" rel="stylesheet" href="../media/lib/tab.webfx.css" />
-<script type="text/javascript" src="../media/lib/tabpane.js"></script>
-  <script language="javascript" type="text/javascript" src="../media/lib/ua.js"></script>
-<script language="javascript" type="text/javascript">
-	var imgPlus = new Image();
-	var imgMinus = new Image();
-	imgPlus.src = "../media/images/plus.gif";
-	imgMinus.src = "../media/images/minus.gif";
-	
-	function showNode(Node){
-        switch(navigator.family){
-        	case 'nn4':
-        		// Nav 4.x code fork...
-				var oTable = document.layers["span" + Node];
-				var oImg = document.layers["img" + Node];
-        		break;
-        	case 'ie4':
-        		// IE 4/5 code fork...
-				var oTable = document.all["span" + Node];
-				var oImg = document.all["img" + Node];
-        		break;
-        	case 'gecko':
-        		// Standards Compliant code fork...
-				var oTable = document.getElementById("span" + Node);
-				var oImg = document.getElementById("img" + Node);
-        		break;
-        }
-		oImg.src = imgMinus.src;
-		oTable.style.display = "block";
-	}
-	
-	function hideNode(Node){
-        switch(navigator.family){
-        	case 'nn4':
-        		// Nav 4.x code fork...
-				var oTable = document.layers["span" + Node];
-				var oImg = document.layers["img" + Node];
-        		break;
-        	case 'ie4':
-        		// IE 4/5 code fork...
-				var oTable = document.all["span" + Node];
-				var oImg = document.all["img" + Node];
-        		break;
-        	case 'gecko':
-        		// Standards Compliant code fork...
-				var oTable = document.getElementById("span" + Node);
-				var oImg = document.getElementById("img" + Node);
-        		break;
-        }
-		oImg.src = imgPlus.src;
-		oTable.style.display = "none";
-	}
-	
-	function nodeIsVisible(Node){
-        switch(navigator.family){
-        	case 'nn4':
-        		// Nav 4.x code fork...
-				var oTable = document.layers["span" + Node];
-        		break;
-        	case 'ie4':
-        		// IE 4/5 code fork...
-				var oTable = document.all["span" + Node];
-        		break;
-        	case 'gecko':
-        		// Standards Compliant code fork...
-				var oTable = document.getElementById("span" + Node);
-        		break;
-        }
-		return (oTable && oTable.style.display == "block");
-	}
-	
-	function toggleNodeVisibility(Node){
-		if (nodeIsVisible(Node)){
-			hideNode(Node);
-		}else{
-			showNode(Node);
-		}
-	}
-</script>
-<!-- template designed by Julien Damon based on PHPEdit's generated templates, and tweaked by Greg Beaver -->
-<body bgcolor="#ffffff" ><!-- Start of Class Data -->
-<h2>
-	Interface Sanitizer
-</h2> (line <span class="linenumber">38</span>)
-<div class="tab-pane" id="tabPane1">
-<script type="text/javascript">
-tp1 = new WebFXTabPane( document.getElementById( "tabPane1" ));
-</script>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+  <html xmlns="http://www.w3.org/1999/xhtml">
+		<head>
+			<!-- template designed by Marco Von Ballmoos -->
+			<title>Docs For Class Sanitizer</title>
+			<link rel="stylesheet" href="../media/stylesheet.css" />
+			<meta http-equiv='Content-Type' content='text/html; charset=iso-8859-1'/>
+		</head>
+		<body>
+			<div class="page-body">			
+<h2 class="class-name">Interface Sanitizer</h2>
 
-<div class="tab-page" id="Description">
-<h2 class="tab">Description</h2>
-<pre>
-</pre>
-<p>
-	<b><i>Located in File: <a href="_Sanitizer.php.html">/Sanitizer.php</a></i></b><br>
-</p>
-<!-- ========== Info from phpDoc block ========= -->
-<h5>The Sanitizer interface defines a set of methods for sanitizing untrusted  input to remove all but a whitelist of characters. Implementors should feel  free to extend this interface to accommodate their own data formats.</h5>
-<ul>
-		<li><strong>author:</strong> - Mike Boberski &lt;<a href="mailto:boberski_michael@bah.com">boberski_michael@bah.com</a>&gt;</li>
-		<li><strong>author:</strong> - jah &lt;<a href="mailto:jah@jahboite.co.uk">jah@jahboite.co.uk</a>&gt;</li>
-		<li><strong>version:</strong> - Release: @package_version@</li>
-		<li><strong>copyright:</strong> - 2009-2010 The OWASP Foundation</li>
-		<li><strong>link:</strong> - <a href="http://www.owasp.org/index.php/ESAPI">http://www.owasp.org/index.php/ESAPI</a></li>
-		<li><strong>license:</strong> - <a href="http://www.opensource.org/licenses/bsd-license.php">New BSD license</a></li>
-	</ul>
-<br /><hr />
-</div>
-<script type="text/javascript">tp1.addTabPage( document.getElementById( "Description" ) );</script>
-<div class="tab-page" id="tabPage1">
-
-<h2 class="tab">Class Variables</h2>
-<!-- ============ VARIABLE DETAIL =========== -->
-<strong>Summary:</strong><br />
-<hr />
-<script type="text/javascript">tp1.addTabPage( document.getElementById( "tabPage1" ) );</script>
-</div>
-<div class="tab-page" id="constantsTabpage">
-
-<h2 class="tab">Class Constants</h2>
-<!-- ============ VARIABLE DETAIL =========== -->
-<strong>Summary:</strong><br />
-<hr />
-<script type="text/javascript">tp1.addTabPage( document.getElementById( "constantsTabpage" ) );</script>
-</div>
-<div class="tab-page" id="tabPage2">
-<h2 class="tab">Method Detail</h2>
-<!-- ============ METHOD DETAIL =========== -->
-<strong>Summary:</strong><br />
-<div class="method-summary">
-    <div class="method-definition">
-            <span class="method-result">string</span>
-        <a href="#methodgetSanitizedEmailAddress" title="details" class="method-name">getSanitizedEmailAddress</a>
-        (<span class="var-type">string</span>&nbsp;<span class="var-name">$context</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$input</span>)
-        </div>
-    <div class="method-definition">
-            <span class="method-result">string</span>
-        <a href="#methodgetSanitizedHTML" title="details" class="method-name">getSanitizedHTML</a>
-        (<span class="var-type">string</span>&nbsp;<span class="var-name">$context</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$input</span>)
-        </div>
-    <div class="method-definition">
-            <span class="method-result">string</span>
-        <a href="#methodgetSanitizedURL" title="details" class="method-name">getSanitizedURL</a>
-        (<span class="var-type">string</span>&nbsp;<span class="var-name">$context</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$input</span>)
-        </div>
-    <div class="method-definition">
-            <span class="method-result">string</span>
-        <a href="#methodgetSanitizedWord" title="details" class="method-name">getSanitizedWord</a>
-        (<span class="var-type">string</span>&nbsp;<span class="var-name">$context</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$input</span>)
-        </div>
-</div>
-<hr />
-<A NAME='method_detail'></A>
-
-
-<a name="methodgetSanitizedEmailAddress" id="methodgetSanitizedEmailAddress"><!-- --></a>
-<div style="background='#ffffff'"><h4>
-<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method getSanitizedEmailAddress</strong> (line <span class="linenumber">69</span>)
- </h4> 
-<h4><i>string</i> <strong>getSanitizedEmailAddress(
-string
-$context, string
-$input)</strong></h4>
-
-	<!-- ========== Info from phpDoc block ========= -->
-<h5>Returns valid, &quot;safe&quot; email address.</h5>
-<div class="desc"><p>This implementation uses a PHP filter  <a href="http://php.net/manual/en/filter.filters.sanitize.php">http://php.net/manual/en/filter.filters.sanitize.php</a>.</p></div>
-		<h4>Parameters</h4>
-	<ul>
-			<li><strong>string $context</strong>: A descriptive name of the parameter that you are                         validating (e.g. ProfilePage_Sig). This value is                         used by any logging or error handling that is done                         with respect to the value passed in.</li>
-			<li><strong>string $input</strong>: The actual user input data to validate.</li>
-		</ul>
+<a name="sec-description"></a>
+<div class="info-box">
+	<div class="info-box-title">Description</div>
+	<div class="nav-bar">
+					<span class="disabled">Description</span> |
+															<a href="#sec-method-summary">Methods</a> (<a href="#sec-methods">details</a>)
+						
+					</div>
+	<div class="info-box-body">
+        		<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">The Sanitizer interface defines a set of methods for sanitizing untrusted  input to remove all but a whitelist of characters. Implementors should feel  free to extend this interface to accommodate their own data formats.</p>
+	<ul class="tags">
+				<li><span class="field">author:</span> Mike Boberski &lt;<a href="mailto:boberski_michael@bah.com">boberski_michael@bah.com</a>&gt;</li>
+				<li><span class="field">author:</span> jah &lt;<a href="mailto:jah@jahboite.co.uk">jah@jahboite.co.uk</a>&gt;</li>
+				<li><span class="field">version:</span> Release: @package_version@</li>
+				<li><span class="field">copyright:</span> 2009-2010 The OWASP Foundation</li>
+				<li><span class="field">link:</span> <a href="http://www.owasp.org/index.php/ESAPI">http://www.owasp.org/index.php/ESAPI</a></li>
+				<li><span class="field">license:</span> <a href="http://www.opensource.org/licenses/bsd-license.php">New BSD license</a></li>
+			</ul>
+		<p class="notes">
+			Located in <a class="field" href="_Sanitizer.php.html">/Sanitizer.php</a> (line <span class="field">38</span>)
+		</p>
 		
-	<h4>Info</h4>
-	<ul>
-			<li><strong>return</strong> - valid, &quot;safe&quot; email address.</li>
-		</ul>
+				
+		<pre></pre>
+	
+			</div>
 </div>
-<a name="methodgetSanitizedHTML" id="methodgetSanitizedHTML"><!-- --></a>
-<div style="background='#eeeeee'"><h4>
-<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method getSanitizedHTML</strong> (line <span class="linenumber">53</span>)
- </h4> 
-<h4><i>string</i> <strong>getSanitizedHTML(
-string
-$context, string
-$input)</strong></h4>
 
+
+
+
+	<a name="sec-method-summary"></a>
+	<div class="info-box">
+		<div class="info-box-title">Method Summary</span></div>
+		<div class="nav-bar">
+			<a href="#sec-description">Description</a> |
+												<span class="disabled">Methods</span> (<a href="#sec-methods">details</a>)
+		</div>
+		<div class="info-box-body">			
+			<div class="method-summary">
+																																				
+												<div class="method-definition">
+											<span class="method-result">string</span>
+										<a href="#getSanitizedEmailAddress" title="details" class="method-name">getSanitizedEmailAddress</a>
+											(<span class="var-type">string</span>&nbsp;<span class="var-name">$context</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$input</span>)
+									</div>
+																<div class="method-definition">
+											<span class="method-result">string</span>
+										<a href="#getSanitizedHTML" title="details" class="method-name">getSanitizedHTML</a>
+											(<span class="var-type">string</span>&nbsp;<span class="var-name">$context</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$input</span>)
+									</div>
+																<div class="method-definition">
+											<span class="method-result">string</span>
+										<a href="#getSanitizedURL" title="details" class="method-name">getSanitizedURL</a>
+											(<span class="var-type">string</span>&nbsp;<span class="var-name">$context</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$input</span>)
+									</div>
+																<div class="method-definition">
+											<span class="method-result">string</span>
+										<a href="#getSanitizedWord" title="details" class="method-name">getSanitizedWord</a>
+											(<span class="var-type">string</span>&nbsp;<span class="var-name">$context</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$input</span>)
+									</div>
+								</div>
+		</div>
+	</div>		
+
+	
+	<a name="sec-methods"></a>
+	<div class="info-box">
+		<div class="info-box-title">Methods</div>
+		<div class="nav-bar">
+			<a href="#sec-description">Description</a> |
+																<a href="#sec-method-summary">Methods</a> (<span class="disabled">details</span>)
+						
+		</div>
+		<div class="info-box-body">
+			<A NAME='method_detail'></A>
+
+<a name="methodgetSanitizedEmailAddress" id="getSanitizedEmailAddress"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">getSanitizedEmailAddress</span> (line <span class="line-number">69</span>)
+	</div> 
+	
 	<!-- ========== Info from phpDoc block ========= -->
-<h5>Returns valid, &quot;safe&quot; HTML.</h5>
-<div class="desc"><p>This implementation uses HTMLPurifier <a href="http://htmlpurifier.org">http://htmlpurifier.org</a>.</p></div>
-		<h4>Parameters</h4>
-	<ul>
-			<li><strong>string $context</strong>: A descriptive name of the parameter that you are                         validating (e.g. ProfilePage_Sig). This value is                         used by any logging or error handling that is done                         with respect to the value passed in.</li>
-			<li><strong>string $input</strong>: The actual user input data to validate.</li>
-		</ul>
+<p class="short-description">Returns valid, &quot;safe&quot; email address.</p>
+<p class="description"><p>This implementation uses a PHP filter  <a href="http://php.net/manual/en/filter.filters.sanitize.php">http://php.net/manual/en/filter.filters.sanitize.php</a>.</p></p>
+	<ul class="tags">
+				<li><span class="field">return:</span> valid, &quot;safe&quot; email address.</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">string</span>
+		<span class="method-name">
+			getSanitizedEmailAddress
+		</span>
+					(<span class="var-type">string</span>&nbsp;<span class="var-name">$context</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$input</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$context</span><span class="var-description">: A descriptive name of the parameter that you are                         validating (e.g. ProfilePage_Sig). This value is                         used by any logging or error handling that is done                         with respect to the value passed in.</span>			</li>
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$input</span><span class="var-description">: The actual user input data to validate.</span>			</li>
+				</ul>
 		
-	<h4>Info</h4>
-	<ul>
-			<li><strong>return</strong> - valid, &quot;safe&quot; HTML.</li>
-		</ul>
-</div>
-<a name="methodgetSanitizedURL" id="methodgetSanitizedURL"><!-- --></a>
-<div style="background='#ffffff'"><h4>
-<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method getSanitizedURL</strong> (line <span class="linenumber">85</span>)
- </h4> 
-<h4><i>string</i> <strong>getSanitizedURL(
-string
-$context, string
-$input)</strong></h4>
-
-	<!-- ========== Info from phpDoc block ========= -->
-<h5>Returns valid, &quot;safe&quot; URL.</h5>
-<div class="desc"><p>This implementation uses a PHP filter  <a href="http://php.net/manual/en/filter.filters.sanitize.php">http://php.net/manual/en/filter.filters.sanitize.php</a>.</p></div>
-		<h4>Parameters</h4>
-	<ul>
-			<li><strong>string $context</strong>: A descriptive name of the parameter that you are                         validating (e.g. ProfilePage_Sig). This value is                         used by any logging or error handling that is done                         with respect to the value passed in.</li>
-			<li><strong>string $input</strong>: The actual user input data to validate.</li>
-		</ul>
-		
-	<h4>Info</h4>
-	<ul>
-			<li><strong>return</strong> - valid, &quot;safe&quot; URL.</li>
-		</ul>
-</div>
-<a name="methodgetSanitizedWord" id="methodgetSanitizedWord"><!-- --></a>
-<div style="background='#eeeeee'"><h4>
-<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method getSanitizedWord</strong> (line <span class="linenumber">99</span>)
- </h4> 
-<h4><i>string</i> <strong>getSanitizedWord(
-string
-$context, string
-$input)</strong></h4>
-
-	<!-- ========== Info from phpDoc block ========= -->
-<h5>Generically attempts to sanitize English language words based on the  provided guess by calculating and comparing metaphone values.</h5>
-		<h4>Parameters</h4>
-	<ul>
-			<li><strong>string $context</strong>: A descriptive name of the parameter that you are                         validating (e.g. ProfilePage_Sig). This value is                         used by any logging or error handling that is done                         with respect to the value passed in.</li>
-			<li><strong>string $input</strong>: The actual user input data to validate.</li>
-		</ul>
-		
-	<h4>Info</h4>
-	<ul>
-			<li><strong>return</strong> - valid, &quot;safe&quot; word.</li>
-		</ul>
-</div>
-<script type="text/javascript">tp1.addTabPage( document.getElementById( "tabPage2" ) );</script></div>
-<div class="tab-page" id="iVars">
-<h2 class="tab">Inherited Variables</h2>
-<script type="text/javascript">tp1.addTabPage( document.getElementById( "iVars" ) );</script>
-<!-- =========== VAR INHERITED SUMMARY =========== -->
-<A NAME='var_inherited_summary'><!-- --></A>
-<h3>Inherited Class Variable Summary</h3>
-
+			
 	</div>
-<div class="tab-page" id="iMethods">
-<h2 class="tab">Inherited Methods</h2>
-<script type="text/javascript">tp1.addTabPage( document.getElementById( "iMethods" ) );</script>
-<!-- =========== INHERITED METHOD SUMMARY =========== -->
-<A NAME='functions_inherited'><!-- --></A>
-<h3>Inherited Method Summary</h3>
-
+<a name="methodgetSanitizedHTML" id="getSanitizedHTML"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">getSanitizedHTML</span> (line <span class="line-number">53</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Returns valid, &quot;safe&quot; HTML.</p>
+<p class="description"><p>This implementation uses HTMLPurifier <a href="http://htmlpurifier.org">http://htmlpurifier.org</a>.</p></p>
+	<ul class="tags">
+				<li><span class="field">return:</span> valid, &quot;safe&quot; HTML.</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">string</span>
+		<span class="method-name">
+			getSanitizedHTML
+		</span>
+					(<span class="var-type">string</span>&nbsp;<span class="var-name">$context</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$input</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$context</span><span class="var-description">: A descriptive name of the parameter that you are                         validating (e.g. ProfilePage_Sig). This value is                         used by any logging or error handling that is done                         with respect to the value passed in.</span>			</li>
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$input</span><span class="var-description">: The actual user input data to validate.</span>			</li>
+				</ul>
+		
+			
 	</div>
-</div>
-<script type="text/javascript">
-//<![CDATA[
-
-setupAllTabs();
-
-//]]>
-</script>
-	<div id="credit">
-		<hr />
-		Documentation generated on Fri, 16 Apr 2010 11:42:19 -0400 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
+<a name="methodgetSanitizedURL" id="getSanitizedURL"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">getSanitizedURL</span> (line <span class="line-number">85</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Returns valid, &quot;safe&quot; URL.</p>
+<p class="description"><p>This implementation uses a PHP filter  <a href="http://php.net/manual/en/filter.filters.sanitize.php">http://php.net/manual/en/filter.filters.sanitize.php</a>.</p></p>
+	<ul class="tags">
+				<li><span class="field">return:</span> valid, &quot;safe&quot; URL.</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">string</span>
+		<span class="method-name">
+			getSanitizedURL
+		</span>
+					(<span class="var-type">string</span>&nbsp;<span class="var-name">$context</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$input</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$context</span><span class="var-description">: A descriptive name of the parameter that you are                         validating (e.g. ProfilePage_Sig). This value is                         used by any logging or error handling that is done                         with respect to the value passed in.</span>			</li>
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$input</span><span class="var-description">: The actual user input data to validate.</span>			</li>
+				</ul>
+		
+			
 	</div>
-</body>
+<a name="methodgetSanitizedWord" id="getSanitizedWord"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">getSanitizedWord</span> (line <span class="line-number">99</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Generically attempts to sanitize English language words based on the  provided guess by calculating and comparing metaphone values.</p>
+	<ul class="tags">
+				<li><span class="field">return:</span> valid, &quot;safe&quot; word.</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">string</span>
+		<span class="method-name">
+			getSanitizedWord
+		</span>
+					(<span class="var-type">string</span>&nbsp;<span class="var-name">$context</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$input</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$context</span><span class="var-description">: A descriptive name of the parameter that you are                         validating (e.g. ProfilePage_Sig). This value is                         used by any logging or error handling that is done                         with respect to the value passed in.</span>			</li>
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$input</span><span class="var-description">: The actual user input data to validate.</span>			</li>
+				</ul>
+		
+			
+	</div>
+						
+		</div>
+	</div>
+
+
+	<p class="notes" id="credit">
+		Documentation generated on Fri, 16 Apr 2010 12:01:59 -0400 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
+	</p>
+	</div></body>
 </html>
