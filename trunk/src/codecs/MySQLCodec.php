@@ -14,7 +14,7 @@
  * @author Arnaud Labenne - dotsafe.fr
  * @created 2009
  * @since 1.4
- * @package ESAPI
+ * @package ESAPI_Codecs
  */
 
 

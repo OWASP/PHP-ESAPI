@@ -7,7 +7,7 @@
  * debug info is logged immediately before the Codec method returns its value
  * and the buffer is cleared at that time.
  * 
- * @package ESAPI
+ * @package ESAPI_Codecs
  */
 
 define('LOG', 'CodecDebug');
