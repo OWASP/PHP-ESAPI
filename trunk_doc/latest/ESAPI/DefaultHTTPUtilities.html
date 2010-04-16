@@ -1,0 +1,1013 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+   <html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <title>Docs For Class DefaultHTTPUtilities</title>
+  <link rel="stylesheet" href="../media/stylesheet.css" />
+  <script src="../media/lib/classTree.js"></script>
+<link id="webfx-tab-style-sheet" type="text/css" rel="stylesheet" href="../media/lib/tab.webfx.css" />
+<script type="text/javascript" src="../media/lib/tabpane.js"></script>
+  <script language="javascript" type="text/javascript" src="../media/lib/ua.js"></script>
+<script language="javascript" type="text/javascript">
+	var imgPlus = new Image();
+	var imgMinus = new Image();
+	imgPlus.src = "../media/images/plus.gif";
+	imgMinus.src = "../media/images/minus.gif";
+	
+	function showNode(Node){
+        switch(navigator.family){
+        	case 'nn4':
+        		// Nav 4.x code fork...
+				var oTable = document.layers["span" + Node];
+				var oImg = document.layers["img" + Node];
+        		break;
+        	case 'ie4':
+        		// IE 4/5 code fork...
+				var oTable = document.all["span" + Node];
+				var oImg = document.all["img" + Node];
+        		break;
+        	case 'gecko':
+        		// Standards Compliant code fork...
+				var oTable = document.getElementById("span" + Node);
+				var oImg = document.getElementById("img" + Node);
+        		break;
+        }
+		oImg.src = imgMinus.src;
+		oTable.style.display = "block";
+	}
+	
+	function hideNode(Node){
+        switch(navigator.family){
+        	case 'nn4':
+        		// Nav 4.x code fork...
+				var oTable = document.layers["span" + Node];
+				var oImg = document.layers["img" + Node];
+        		break;
+        	case 'ie4':
+        		// IE 4/5 code fork...
+				var oTable = document.all["span" + Node];
+				var oImg = document.all["img" + Node];
+        		break;
+        	case 'gecko':
+        		// Standards Compliant code fork...
+				var oTable = document.getElementById("span" + Node);
+				var oImg = document.getElementById("img" + Node);
+        		break;
+        }
+		oImg.src = imgPlus.src;
+		oTable.style.display = "none";
+	}
+	
+	function nodeIsVisible(Node){
+        switch(navigator.family){
+        	case 'nn4':
+        		// Nav 4.x code fork...
+				var oTable = document.layers["span" + Node];
+        		break;
+        	case 'ie4':
+        		// IE 4/5 code fork...
+				var oTable = document.all["span" + Node];
+        		break;
+        	case 'gecko':
+        		// Standards Compliant code fork...
+				var oTable = document.getElementById("span" + Node);
+        		break;
+        }
+		return (oTable && oTable.style.display == "block");
+	}
+	
+	function toggleNodeVisibility(Node){
+		if (nodeIsVisible(Node)){
+			hideNode(Node);
+		}else{
+			showNode(Node);
+		}
+	}
+</script>
+<!-- template designed by Julien Damon based on PHPEdit's generated templates, and tweaked by Greg Beaver -->
+<body bgcolor="#ffffff" ><!-- Start of Class Data -->
+<h2>
+	Class DefaultHTTPUtilities
+</h2> (line <span class="linenumber">43</span>)
+<div class="tab-pane" id="tabPane1">
+<script type="text/javascript">
+tp1 = new WebFXTabPane( document.getElementById( "tabPane1" ));
+</script>
+
+<div class="tab-page" id="Description">
+<h2 class="tab">Description</h2>
+<pre>
+</pre>
+<p>
+	<b><i>Located in File: <a href="_reference---DefaultHTTPUtilities.php.html">/reference/DefaultHTTPUtilities.php</a></i></b><br>
+</p>
+<!-- ========== Info from phpDoc block ========= -->
+<h5>Reference implementation of the HTTPUtilities interface.</h5>
+<div class="desc"><p>PHP version 5.2</p></div>
+<ul>
+		<li><strong>author:</strong> - jah &lt;<a href="mailto:jah@jahboite.co.uk">jah@jahboite.co.uk</a>&gt;</li>
+		<li><strong>version:</strong> - Release: @package_version@</li>
+		<li><strong>copyright:</strong> - 2009-2010 The OWASP Foundation</li>
+		<li><strong>link:</strong> - <a href="http://www.owasp.org/index.php/ESAPI">http://www.owasp.org/index.php/ESAPI</a></li>
+		<li><strong>license:</strong> - <a href="http://www.opensource.org/licenses/bsd-license.php">New BSD license</a></li>
+	</ul>
+<br /><hr />
+</div>
+<script type="text/javascript">tp1.addTabPage( document.getElementById( "Description" ) );</script>
+<div class="tab-page" id="tabPage1">
+
+<h2 class="tab">Class Variables</h2>
+<!-- ============ VARIABLE DETAIL =========== -->
+<strong>Summary:</strong><br />
+<hr />
+<script type="text/javascript">tp1.addTabPage( document.getElementById( "tabPage1" ) );</script>
+</div>
+<div class="tab-page" id="constantsTabpage">
+
+<h2 class="tab">Class Constants</h2>
+<!-- ============ VARIABLE DETAIL =========== -->
+<strong>Summary:</strong><br />
+<hr />
+<script type="text/javascript">tp1.addTabPage( document.getElementById( "constantsTabpage" ) );</script>
+</div>
+<div class="tab-page" id="tabPage2">
+<h2 class="tab">Method Detail</h2>
+<!-- ============ METHOD DETAIL =========== -->
+<strong>Summary:</strong><br />
+<div class="method-summary">
+    <div class="method-definition">
+            <span class="method-result">null</span>
+        <a href="#method__construct" title="details" class="method-name">__construct</a>
+        ()
+        </div>
+    <div class="method-definition">
+            <span class="method-result">string</span>
+        <a href="#methodaddCSRFToken" title="details" class="method-name">addCSRFToken</a>
+        (<span class="var-type">string</span>&nbsp;<span class="var-name">$href</span>)
+        </div>
+    <div class="method-definition">
+            <span class="method-result">null</span>
+        <a href="#methodassertSecureRequest" title="details" class="method-name">assertSecureRequest</a>
+        (<span class="var-type"><a href="../ESAPI/SafeRequest.html">SafeRequest</a></span>&nbsp;<span class="var-name">$request</span>)
+        </div>
+    <div class="method-definition">
+            <span class="method-result">bool</span>
+        <a href="#methodchangeSessionIdentifier" title="details" class="method-name">changeSessionIdentifier</a>
+        ()
+        </div>
+    <div class="method-definition">
+            <span class="method-result">string</span>
+        <a href="#methoddecryptHiddenField" title="details" class="method-name">decryptHiddenField</a>
+        (<span class="var-type">string</span>&nbsp;<span class="var-name">$encrypted</span>)
+        </div>
+    <div class="method-definition">
+            <span class="method-result">array</span>
+        <a href="#methoddecryptQueryString" title="details" class="method-name">decryptQueryString</a>
+        (<span class="var-type">string</span>&nbsp;<span class="var-name">$encrypted</span>)
+        </div>
+    <div class="method-definition">
+            <span class="method-result">array</span>
+        <a href="#methoddecryptStateFromCookie" title="details" class="method-name">decryptStateFromCookie</a>
+        (<span class="var-type"><a href="../ESAPI/SafeRequest.html">SafeRequest</a></span>&nbsp;<span class="var-name">$request</span>)
+        </div>
+    <div class="method-definition">
+            <span class="method-result">string</span>
+        <a href="#methodencryptHiddenField" title="details" class="method-name">encryptHiddenField</a>
+        (<span class="var-type">string</span>&nbsp;<span class="var-name">$value</span>)
+        </div>
+    <div class="method-definition">
+            <span class="method-result">string</span>
+        <a href="#methodencryptQueryString" title="details" class="method-name">encryptQueryString</a>
+        (<span class="var-type">string</span>&nbsp;<span class="var-name">$query</span>)
+        </div>
+    <div class="method-definition">
+            <span class="method-result">null.</span>
+        <a href="#methodencryptStateInCookie" title="details" class="method-name">encryptStateInCookie</a>
+        (<span class="var-type">SafeResponse</span>&nbsp;<span class="var-name">$response</span>, <span class="var-type">array</span>&nbsp;<span class="var-name">$cleartext</span>)
+        </div>
+    <div class="method-definition">
+            <span class="method-result">string|null</span>
+        <a href="#methodgetCookie" title="details" class="method-name">getCookie</a>
+        (<span class="var-type"><a href="../ESAPI/SafeRequest.html">SafeRequest</a></span>&nbsp;<span class="var-name">$request</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$name</span>)
+        </div>
+    <div class="method-definition">
+            <span class="method-result">string|null</span>
+        <a href="#methodgetCSRFToken" title="details" class="method-name">getCSRFToken</a>
+        ()
+        </div>
+    <div class="method-definition">
+            <span class="method-result"><a href="../ESAPI/SafeRequest.html">SafeRequest</a></span>
+        <a href="#methodgetCurrentRequest" title="details" class="method-name">getCurrentRequest</a>
+        ()
+        </div>
+    <div class="method-definition">
+            <span class="method-result">array</span>
+        <a href="#methodgetSafeFileUploads" title="details" class="method-name">getSafeFileUploads</a>
+        (<span class="var-type"><a href="../ESAPI/SafeRequest.html">SafeRequest</a></span>&nbsp;<span class="var-name">$request</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$tempDir</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$finalDir</span>)
+        </div>
+    <div class="method-definition">
+            <span class="method-result">bool</span>
+        <a href="#methodisSecureChannel" title="details" class="method-name">isSecureChannel</a>
+        (<span class="var-type"><a href="../ESAPI/SafeRequest.html">SafeRequest</a></span>&nbsp;<span class="var-name">$request</span>)
+        </div>
+    <div class="method-definition">
+            <span class="method-result">null.</span>
+        <a href="#methodkillAllCookies" title="details" class="method-name">killAllCookies</a>
+        (<span class="var-type"><a href="../ESAPI/SafeRequest.html">SafeRequest</a></span>&nbsp;<span class="var-name">$request</span>)
+        </div>
+    <div class="method-definition">
+            <span class="method-result">null.</span>
+        <a href="#methodkillCookie" title="details" class="method-name">killCookie</a>
+        (<span class="var-type"><a href="../ESAPI/SafeRequest.html">SafeRequest</a></span>&nbsp;<span class="var-name">$request</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$name</span>)
+        </div>
+    <div class="method-definition">
+            <span class="method-result">null</span>
+        <a href="#methodlogHTTPRequest" title="details" class="method-name">logHTTPRequest</a>
+        (<span class="var-type"><a href="../ESAPI/SafeRequest.html">SafeRequest</a></span>&nbsp;<span class="var-name">$request</span>, <span class="var-type"><a href="../ESAPI/Auditor.html">Auditor</a></span>&nbsp;<span class="var-name">$auditor</span>)
+        </div>
+    <div class="method-definition">
+            <span class="method-result">null</span>
+        <a href="#methodlogHTTPRequestObfuscate" title="details" class="method-name">logHTTPRequestObfuscate</a>
+        (<span class="var-type"><a href="../ESAPI/SafeRequest.html">SafeRequest</a></span>&nbsp;<span class="var-name">$request</span>, <span class="var-type"><a href="../ESAPI/Auditor.html">Auditor</a></span>&nbsp;<span class="var-name">$auditor</span>, <span class="var-type">array|null</span>&nbsp;<span class="var-name">$paramsToObfuscate</span>)
+        </div>
+    <div class="method-definition">
+            <span class="method-result">null.</span>
+        <a href="#methodsafeSendForward" title="details" class="method-name">safeSendForward</a>
+        (<span class="var-type"><a href="../ESAPI/SafeRequest.html">SafeRequest</a></span>&nbsp;<span class="var-name">$request</span>, <span class="var-type">SafeResponse</span>&nbsp;<span class="var-name">$response</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$context</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$location</span>)
+        </div>
+    <div class="method-definition">
+            <span class="method-result">null</span>
+        <a href="#methodsetCSRFToken" title="details" class="method-name">setCSRFToken</a>
+        ()
+        </div>
+    <div class="method-definition">
+            <span class="method-result">null.</span>
+        <a href="#methodsetCurrentHTTP" title="details" class="method-name">setCurrentHTTP</a>
+        (<span class="var-type"><a href="../ESAPI/SafeRequest.html">SafeRequest</a></span>&nbsp;<span class="var-name">$request</span>)
+        </div>
+    <div class="method-definition">
+            <span class="method-result">null.</span>
+        <a href="#methodsetNoCacheHeaders" title="details" class="method-name">setNoCacheHeaders</a>
+        (<span class="var-type">SafeResponse</span>&nbsp;<span class="var-name">$response</span>)
+        </div>
+    <div class="method-definition">
+            <span class="method-result">string</span>
+        <a href="#methodsetRememberToken" title="details" class="method-name">setRememberToken</a>
+        (<span class="var-type"><a href="../ESAPI/SafeRequest.html">SafeRequest</a></span>&nbsp;<span class="var-name">$request</span>, <span class="var-type">SafeResponse</span>&nbsp;<span class="var-name">$response</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$password</span>, <span class="var-type">int</span>&nbsp;<span class="var-name">$maxAge</span>, <span class="var-type">string|null</span>&nbsp;<span class="var-name">$domain</span>, <span class="var-type">string|null</span>&nbsp;<span class="var-name">$path</span>)
+        </div>
+    <div class="method-definition">
+            <span class="method-result">null.</span>
+        <a href="#methodsetSafeContentType" title="details" class="method-name">setSafeContentType</a>
+        (<span class="var-type">SafeResponse</span>&nbsp;<span class="var-name">$response</span>)
+        </div>
+    <div class="method-definition">
+            <span class="method-result">null</span>
+        <a href="#methodverifyCSRFToken" title="details" class="method-name">verifyCSRFToken</a>
+        (<span class="var-type"><a href="../ESAPI/SafeRequest.html">SafeRequest</a></span>&nbsp;<span class="var-name">$request</span>)
+        </div>
+</div>
+<hr />
+<A NAME='method_detail'></A>
+
+
+<a name="method__construct" id="method__construct"><!-- --></a>
+<div style="background='#ffffff'"><h4>
+<img src="../media/images/Constructor.gif" border="0" /> <strong class="method">Constructor __construct</strong> (line <span class="linenumber">56</span>)
+ </h4> 
+<h4><i>null</i> <strong>__construct(
+)</strong></h4>
+
+	<!-- ========== Info from phpDoc block ========= -->
+<h5>The constructor stores an instance of Auditor for the purpose of logging.</h5>
+		
+	<h4>Info</h4>
+	<ul>
+			<li><strong>access</strong> - public</li>
+		</ul>
+</div>
+<a name="methodaddCSRFToken" id="methodaddCSRFToken"><!-- --></a>
+<div style="background='#eeeeee'"><h4>
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method addCSRFToken</strong> (line <span class="linenumber">74</span>)
+ </h4> 
+<h4><i>string</i> <strong>addCSRFToken(
+string
+$href)</strong></h4>
+
+			<hr class="separator" />
+		<div class="notes">Implementation of:</div>
+			<dl>
+			<dt><a href="../ESAPI/HTTPUtilities.html#methodaddCSRFToken">HTTPUtilities::addCSRFToken()</a></dt>
+						<dd>Adds the CSRF token from the current session to the supplied URL for the  purposes of preventing CSRF attacks. This method should be used on all URLs  to be put into all links and forms the application generates.</dd>
+					</dl>
+		<!-- ========== Info from phpDoc block ========= -->
+<h5>Adds the CSRF token from the current session to the supplied URL for the  purposes of preventing CSRF attacks. This method should be used on all URLs  to be put into all links and forms the application generates.</h5>
+		<h4>Parameters</h4>
+	<ul>
+			<li><strong>string $href</strong>: the URL to which the CSRF token will be appended.</li>
+		</ul>
+		
+	<h4>Info</h4>
+	<ul>
+			<li><strong>return</strong> - URL with the CSRF token parameter appended to it.</li>
+			<li><strong>access</strong> - public</li>
+		</ul>
+</div>
+<a name="methodassertSecureRequest" id="methodassertSecureRequest"><!-- --></a>
+<div style="background='#ffffff'"><h4>
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method assertSecureRequest</strong> (line <span class="linenumber">218</span>)
+ </h4> 
+<h4><i>null</i> <strong>assertSecureRequest(
+<a href="../ESAPI/SafeRequest.html">SafeRequest</a>
+$request)</strong></h4>
+
+			<hr class="separator" />
+		<div class="notes">Implementation of:</div>
+			<dl>
+			<dt><a href="../ESAPI/HTTPUtilities.html#methodassertSecureRequest">HTTPUtilities::assertSecureRequest()</a></dt>
+						<dd>Ensures that the supplied request was received with Transport Layer  Security and uses the HTTP POST to protect any sensitive parameters in  the request from being sniffed or logged. For example, this method should  be called from any method that uses sensitive data from a web form.</dd>
+					</dl>
+		<!-- ========== Info from phpDoc block ========= -->
+<h5>Ensures that the supplied request was received with Transport Layer  Security and uses the HTTP POST to protect any sensitive parameters in  the request from being sniffed or logged. For example, this method should  be called from any method that uses sensitive data from a web form.</h5>
+		<h4>Parameters</h4>
+	<ul>
+			<li><strong><a href="../ESAPI/SafeRequest.html">SafeRequest</a> $request</strong>: The request object to test.</li>
+		</ul>
+		
+	<h4>Info</h4>
+	<ul>
+			<li><strong>throws</strong> - AccessControlException if security constraints are not met.</li>
+			<li><strong>access</strong> - public</li>
+		</ul>
+</div>
+<a name="methodchangeSessionIdentifier" id="methodchangeSessionIdentifier"><!-- --></a>
+<div style="background='#eeeeee'"><h4>
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method changeSessionIdentifier</strong> (line <span class="linenumber">254</span>)
+ </h4> 
+<h4><i>bool</i> <strong>changeSessionIdentifier(
+)</strong></h4>
+
+			<hr class="separator" />
+		<div class="notes">Implementation of:</div>
+			<dl>
+			<dt><a href="../ESAPI/HTTPUtilities.html#methodchangeSessionIdentifier">HTTPUtilities::changeSessionIdentifier()</a></dt>
+						<dd>Invalidate the old session after copying all of its contents to a newly</dd>
+					</dl>
+		<!-- ========== Info from phpDoc block ========= -->
+<h5>Invalidate the old session after copying all of its contents to a newly</h5>
+<div class="desc"><p>created session with a new session id. Note that this is different from  logging out and creating a new session identifier that does not contain  the existing session contents. Care should be taken to use this only when  the existing session does not contain hazardous contents.</p></div>
+		
+	<h4>Info</h4>
+	<ul>
+			<li><strong>return</strong> - true if the change of Session Identifier was successful,               false otherwise</li>
+			<li><strong>access</strong> - public</li>
+		</ul>
+</div>
+<a name="methoddecryptHiddenField" id="methoddecryptHiddenField"><!-- --></a>
+<div style="background='#ffffff'"><h4>
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method decryptHiddenField</strong> (line <span class="linenumber">299</span>)
+ </h4> 
+<h4><i>string</i> <strong>decryptHiddenField(
+string
+$encrypted)</strong></h4>
+
+			<hr class="separator" />
+		<div class="notes">Implementation of:</div>
+			<dl>
+			<dt><a href="../ESAPI/HTTPUtilities.html#methoddecryptHiddenField">HTTPUtilities::decryptHiddenField()</a></dt>
+						<dd>Decrypts an encrypted hidden field value and returns the plain text. If  the field does not decrypt properly, an IntrusionException is thrown to  indicate tampering.</dd>
+					</dl>
+		<!-- ========== Info from phpDoc block ========= -->
+<h5>Decrypts an encrypted hidden field value and returns the plain text. If  the field does not decrypt properly, an IntrusionException is thrown to  indicate tampering.</h5>
+		<h4>Parameters</h4>
+	<ul>
+			<li><strong>string $encrypted</strong>: hidden field value to decrypt.</li>
+		</ul>
+		
+	<h4>Info</h4>
+	<ul>
+			<li><strong>return</strong> - decrypted hidden field value.</li>
+			<li><strong>throws</strong> - IntrusionException.</li>
+			<li><strong>access</strong> - public</li>
+		</ul>
+</div>
+<a name="methoddecryptQueryString" id="methoddecryptQueryString"><!-- --></a>
+<div style="background='#eeeeee'"><h4>
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method decryptQueryString</strong> (line <span class="linenumber">330</span>)
+ </h4> 
+<h4><i>array</i> <strong>decryptQueryString(
+string
+$encrypted)</strong></h4>
+
+			<hr class="separator" />
+		<div class="notes">Implementation of:</div>
+			<dl>
+			<dt><a href="../ESAPI/HTTPUtilities.html#methoddecryptQueryString">HTTPUtilities::decryptQueryString()</a></dt>
+						<dd>Takes an encrypted query string and returns an asscoiative array  containing the original, unencrypted parameters.</dd>
+					</dl>
+		<!-- ========== Info from phpDoc block ========= -->
+<h5>Takes an encrypted query string and returns an asscoiative array  containing the original, unencrypted parameters.</h5>
+		<h4>Parameters</h4>
+	<ul>
+			<li><strong>string $encrypted</strong>: The encrypted query string to be decrypted.</li>
+		</ul>
+		
+	<h4>Info</h4>
+	<ul>
+			<li><strong>return</strong> - of name-value pairs from the decrypted query string.</li>
+			<li><strong>throws</strong> - EncryptionException</li>
+			<li><strong>access</strong> - public</li>
+		</ul>
+</div>
+<a name="methoddecryptStateFromCookie" id="methoddecryptStateFromCookie"><!-- --></a>
+<div style="background='#ffffff'"><h4>
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method decryptStateFromCookie</strong> (line <span class="linenumber">350</span>)
+ </h4> 
+<h4><i>array</i> <strong>decryptStateFromCookie(
+<a href="../ESAPI/SafeRequest.html">SafeRequest</a>
+$request)</strong></h4>
+
+			<hr class="separator" />
+		<div class="notes">Implementation of:</div>
+			<dl>
+			<dt><a href="../ESAPI/HTTPUtilities.html#methoddecryptStateFromCookie">HTTPUtilities::decryptStateFromCookie()</a></dt>
+						<dd>Retrieves a map of data from a cookie encrypted with encryptStateInCookie().</dd>
+					</dl>
+		<!-- ========== Info from phpDoc block ========= -->
+<h5>Retrieves a map of data from a cookie encrypted with encryptStateInCookie().</h5>
+		<h4>Parameters</h4>
+	<ul>
+			<li><strong><a href="../ESAPI/SafeRequest.html">SafeRequest</a> $request</strong>: object.</li>
+		</ul>
+		
+	<h4>Info</h4>
+	<ul>
+			<li><strong>return</strong> - a map containing the decrypted cookie state value.</li>
+			<li><strong>throws</strong> - EncryptionException.</li>
+			<li><strong>access</strong> - public</li>
+		</ul>
+</div>
+<a name="methodencryptHiddenField" id="methodencryptHiddenField"><!-- --></a>
+<div style="background='#eeeeee'"><h4>
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method encryptHiddenField</strong> (line <span class="linenumber">378</span>)
+ </h4> 
+<h4><i>string</i> <strong>encryptHiddenField(
+string
+$value)</strong></h4>
+
+			<hr class="separator" />
+		<div class="notes">Implementation of:</div>
+			<dl>
+			<dt><a href="../ESAPI/HTTPUtilities.html#methodencryptHiddenField">HTTPUtilities::encryptHiddenField()</a></dt>
+						<dd>Encrypts a hidden field value for use in HTML.</dd>
+					</dl>
+		<!-- ========== Info from phpDoc block ========= -->
+<h5>Encrypts a hidden field value for use in HTML.</h5>
+		<h4>Parameters</h4>
+	<ul>
+			<li><strong>string $value</strong>: Plain text value of the hidden field.</li>
+		</ul>
+		
+	<h4>Info</h4>
+	<ul>
+			<li><strong>return</strong> - encrypted value of the hidden field.</li>
+			<li><strong>throws</strong> - EncryptionException</li>
+			<li><strong>access</strong> - public</li>
+		</ul>
+</div>
+<a name="methodencryptQueryString" id="methodencryptQueryString"><!-- --></a>
+<div style="background='#ffffff'"><h4>
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method encryptQueryString</strong> (line <span class="linenumber">398</span>)
+ </h4> 
+<h4><i>string</i> <strong>encryptQueryString(
+string
+$query)</strong></h4>
+
+			<hr class="separator" />
+		<div class="notes">Implementation of:</div>
+			<dl>
+			<dt><a href="../ESAPI/HTTPUtilities.html#methodencryptQueryString">HTTPUtilities::encryptQueryString()</a></dt>
+						<dd>Takes an HTTP query string (everything after the question mark in the  URL) and returns an encrypted string containing the parameters.</dd>
+					</dl>
+		<!-- ========== Info from phpDoc block ========= -->
+<h5>Takes an HTTP query string (everything after the question mark in the  URL) and returns an encrypted string containing the parameters.</h5>
+		<h4>Parameters</h4>
+	<ul>
+			<li><strong>string $query</strong>: Query string to be encrypted.</li>
+		</ul>
+		
+	<h4>Info</h4>
+	<ul>
+			<li><strong>return</strong> - encrypted query string.</li>
+			<li><strong>throws</strong> - EncryptionException</li>
+			<li><strong>access</strong> - public</li>
+		</ul>
+</div>
+<a name="methodencryptStateInCookie" id="methodencryptStateInCookie"><!-- --></a>
+<div style="background='#eeeeee'"><h4>
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method encryptStateInCookie</strong> (line <span class="linenumber">420</span>)
+ </h4> 
+<h4><i>null.</i> <strong>encryptStateInCookie(
+SafeResponse
+$response, array
+$cleartext)</strong></h4>
+
+			<hr class="separator" />
+		<div class="notes">Implementation of:</div>
+			<dl>
+			<dt><a href="../ESAPI/HTTPUtilities.html#methodencryptStateInCookie">HTTPUtilities::encryptStateInCookie()</a></dt>
+						<dd>Stores a Map of data in an encrypted cookie. Generally the session is a</dd>
+					</dl>
+		<!-- ========== Info from phpDoc block ========= -->
+<h5>Stores a Map of data in an encrypted cookie. Generally the session is a</h5>
+<div class="desc"><p>better place to store state information, as it does not expose it to the  user at all. If there is a requirement not to use sessions, or the data  should be stored across sessions (for a long time), the use of encrypted  cookies is an effective way to prevent the exposure.</p></div>
+		<h4>Parameters</h4>
+	<ul>
+			<li><strong>SafeResponse $response</strong>: response object.</li>
+			<li><strong>array $cleartext</strong>: state information.</li>
+		</ul>
+		
+	<h4>Info</h4>
+	<ul>
+			<li><strong>access</strong> - public</li>
+		</ul>
+</div>
+<a name="methodgetCookie" id="methodgetCookie"><!-- --></a>
+<div style="background='#ffffff'"><h4>
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method getCookie</strong> (line <span class="linenumber">103</span>)
+ </h4> 
+<h4><i>string|null</i> <strong>getCookie(
+<a href="../ESAPI/SafeRequest.html">SafeRequest</a>
+$request, string
+$name)</strong></h4>
+
+			<hr class="separator" />
+		<div class="notes">Implementation of:</div>
+			<dl>
+			<dt><a href="../ESAPI/HTTPUtilities.html#methodgetCookie">HTTPUtilities::getCookie()</a></dt>
+						<dd>Get the first cookie with the matching name.</dd>
+					</dl>
+		<!-- ========== Info from phpDoc block ========= -->
+<h5>Get the first cookie with the matching name.</h5>
+		<h4>Parameters</h4>
+	<ul>
+			<li><strong><a href="../ESAPI/SafeRequest.html">SafeRequest</a> $request</strong>: Request object.</li>
+			<li><strong>string $name</strong>: The name of the cookie to retreive.</li>
+		</ul>
+		
+	<h4>Info</h4>
+	<ul>
+			<li><strong>return</strong> - value of the requested cookie or                      null if the specified cookie is not present.</li>
+			<li><strong>access</strong> - public</li>
+		</ul>
+</div>
+<a name="methodgetCSRFToken" id="methodgetCSRFToken"><!-- --></a>
+<div style="background='#eeeeee'"><h4>
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method getCSRFToken</strong> (line <span class="linenumber">122</span>)
+ </h4> 
+<h4><i>string|null</i> <strong>getCSRFToken(
+)</strong></h4>
+
+			<hr class="separator" />
+		<div class="notes">Implementation of:</div>
+			<dl>
+			<dt><a href="../ESAPI/HTTPUtilities.html#methodgetCSRFToken">HTTPUtilities::getCSRFToken()</a></dt>
+						<dd>Returns the CSRF token from the current session. If there is no current  session then null is returned. If the CSRF Token is not present in the  session it will be created.</dd>
+					</dl>
+		<!-- ========== Info from phpDoc block ========= -->
+<h5>Returns the CSRF token from the current session. If there is no current  session then null is returned. If the CSRF Token is not present in the  session it will be created.</h5>
+		
+	<h4>Info</h4>
+	<ul>
+			<li><strong>return</strong> - CSRF token for the current session or                      null.</li>
+			<li><strong>access</strong> - public</li>
+		</ul>
+</div>
+<a name="methodgetCurrentRequest" id="methodgetCurrentRequest"><!-- --></a>
+<div style="background='#ffffff'"><h4>
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method getCurrentRequest</strong> (line <span class="linenumber">727</span>)
+ </h4> 
+<h4><i><a href="../ESAPI/SafeRequest.html">SafeRequest</a></i> <strong>getCurrentRequest(
+)</strong></h4>
+
+			<hr class="separator" />
+		<div class="notes">Implementation of:</div>
+			<dl>
+			<dt><a href="../ESAPI/HTTPUtilities.html#methodgetCurrentRequest">HTTPUtilities::getCurrentRequest()</a></dt>
+						<dd>Retrieves the current HttpServletRequest.</dd>
+					</dl>
+		<!-- ========== Info from phpDoc block ========= -->
+<h5>Retrieves the current SafeRequest.</h5>
+		
+	<h4>Info</h4>
+	<ul>
+			<li><strong>return</strong> - the current request.</li>
+			<li><strong>access</strong> - public</li>
+		</ul>
+</div>
+<a name="methodgetSafeFileUploads" id="methodgetSafeFileUploads"><!-- --></a>
+<div style="background='#eeeeee'"><h4>
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method getSafeFileUploads</strong> (line <span class="linenumber">460</span>)
+ </h4> 
+<h4><i>array</i> <strong>getSafeFileUploads(
+<a href="../ESAPI/SafeRequest.html">SafeRequest</a>
+$request, string
+$tempDir, string
+$finalDir)</strong></h4>
+
+			<hr class="separator" />
+		<div class="notes">Implementation of:</div>
+			<dl>
+			<dt><a href="../ESAPI/HTTPUtilities.html#methodgetSafeFileUploads">HTTPUtilities::getSafeFileUploads()</a></dt>
+						<dd>Extract uploaded files from a multipart HTTP requests. Implementations</dd>
+					</dl>
+		<!-- ========== Info from phpDoc block ========= -->
+<h5>Extract uploaded files from a multipart HTTP requests. Implementations</h5>
+<div class="desc"><p>must check the content to ensure that it is safe before making a permanent  copy on the local filesystem. Checks should include length and content  checks, possibly virus checking, and path and name checks. Refer to the  file checking methods in Validator for more information.</p></div>
+		<h4>Parameters</h4>
+	<ul>
+			<li><strong><a href="../ESAPI/SafeRequest.html">SafeRequest</a> $request</strong>: Request object.</li>
+			<li><strong>string $tempDir</strong>: the temporary directory.</li>
+			<li><strong>string $finalDir</strong>: the final directory.</li>
+		</ul>
+		
+	<h4>Info</h4>
+	<ul>
+			<li><strong>return</strong> - List of new File objects from upload.</li>
+			<li><strong>throws</strong> - ValidationException if the file fails validation.</li>
+			<li><strong>access</strong> - public</li>
+		</ul>
+</div>
+<a name="methodisSecureChannel" id="methodisSecureChannel"><!-- --></a>
+<div style="background='#ffffff'"><h4>
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method isSecureChannel</strong> (line <span class="linenumber">485</span>)
+ </h4> 
+<h4><i>bool</i> <strong>isSecureChannel(
+<a href="../ESAPI/SafeRequest.html">SafeRequest</a>
+$request)</strong></h4>
+
+	<!-- ========== Info from phpDoc block ========= -->
+<h5>Returns true if the supplied request object was received over a secured  channel i.e. Transport Layer Security (e.g. SSL or TLS).</h5>
+<div class="desc"><p>This method tests for the $_SERVER global with key 'HTTPS' which should  be a non-empty value if TLS was used.  Since this key is not part of the  CGI 1.1 specification there is no guarantee that it is provided by all  web servers and in cases where it is not present, isSecureChannel will  fail and throw an EnterpiseSecurityException.</p></div>
+		<h4>Parameters</h4>
+	<ul>
+			<li><strong><a href="../ESAPI/SafeRequest.html">SafeRequest</a> $request</strong>: The request object to test.</li>
+		</ul>
+		
+	<h4>Info</h4>
+	<ul>
+			<li><strong>return</strong> - TRUE if the request was made over Transport Layer Security               FALSE otherwise.</li>
+			<li><strong>throws</strong> - EnterpiseSecurityException</li>
+			<li><strong>access</strong> - public</li>
+		</ul>
+</div>
+<a name="methodkillAllCookies" id="methodkillAllCookies"><!-- --></a>
+<div style="background='#eeeeee'"><h4>
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method killAllCookies</strong> (line <span class="linenumber">519</span>)
+ </h4> 
+<h4><i>null.</i> <strong>killAllCookies(
+<a href="../ESAPI/SafeRequest.html">SafeRequest</a>
+$request)</strong></h4>
+
+			<hr class="separator" />
+		<div class="notes">Implementation of:</div>
+			<dl>
+			<dt><a href="../ESAPI/HTTPUtilities.html#methodkillAllCookies">HTTPUtilities::killAllCookies()</a></dt>
+						<dd>Kill all cookies received in the last request from the browser. Note that  new cookies set by the application in this response may not be killed by  this method.</dd>
+					</dl>
+		<!-- ========== Info from phpDoc block ========= -->
+<h5>Kill all cookies received in the last request from the browser. Note that  new cookies set by the application in this response may not be killed by  this method.</h5>
+		<h4>Parameters</h4>
+	<ul>
+			<li><strong><a href="../ESAPI/SafeRequest.html">SafeRequest</a> $request</strong>: Request object.</li>
+		</ul>
+		
+	<h4>Info</h4>
+	<ul>
+			<li><strong>access</strong> - public</li>
+		</ul>
+</div>
+<a name="methodkillCookie" id="methodkillCookie"><!-- --></a>
+<div style="background='#ffffff'"><h4>
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method killCookie</strong> (line <span class="linenumber">544</span>)
+ </h4> 
+<h4><i>null.</i> <strong>killCookie(
+<a href="../ESAPI/SafeRequest.html">SafeRequest</a>
+$request, string
+$name)</strong></h4>
+
+			<hr class="separator" />
+		<div class="notes">Implementation of:</div>
+			<dl>
+			<dt><a href="../ESAPI/HTTPUtilities.html#methodkillCookie">HTTPUtilities::killCookie()</a></dt>
+						<dd>Kills the specified cookie by setting a new cookie that expires  immediately. Note that this method does not delete new cookies that are  being set by the application for this response.</dd>
+					</dl>
+		<!-- ========== Info from phpDoc block ========= -->
+<h5>Kills the specified cookie by setting a new cookie that expires  immediately. Note that this method does not delete new cookies that are  being set by the application for this response.</h5>
+		<h4>Parameters</h4>
+	<ul>
+			<li><strong><a href="../ESAPI/SafeRequest.html">SafeRequest</a> $request</strong>: Request object.</li>
+			<li><strong>string $name</strong>: Name of the cookie to be killed.</li>
+		</ul>
+		
+	<h4>Info</h4>
+	<ul>
+			<li><strong>access</strong> - public</li>
+		</ul>
+</div>
+<a name="methodlogHTTPRequest" id="methodlogHTTPRequest"><!-- --></a>
+<div style="background='#eeeeee'"><h4>
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method logHTTPRequest</strong> (line <span class="linenumber">757</span>)
+ </h4> 
+<h4><i>null</i> <strong>logHTTPRequest(
+<a href="../ESAPI/SafeRequest.html">SafeRequest</a>
+$request, <a href="../ESAPI/Auditor.html">Auditor</a>
+$auditor)</strong></h4>
+
+			<hr class="separator" />
+		<div class="notes">Implementation of:</div>
+			<dl>
+			<dt><a href="../ESAPI/HTTPUtilities.html#methodlogHTTPRequest">HTTPUtilities::logHTTPRequest()</a></dt>
+						<dd>Format the Source IP address, URL, URL parameters, and all form parameters  into a string suitable for the log file. Be careful not to log sensitive  information, and consider masking with the logHTTPRequestObfuscate method.</dd>
+					</dl>
+		<!-- ========== Info from phpDoc block ========= -->
+<h5>Format the Source IP address, URL, URL parameters, and all form parameters  into a string suitable for the log file. Be careful not to log sensitive  information, and consider masking with the logHTTPRequestObfuscate method.</h5>
+		<h4>Parameters</h4>
+	<ul>
+			<li><strong><a href="../ESAPI/SafeRequest.html">SafeRequest</a> $request</strong>: Current Request object.</li>
+			<li><strong><a href="../ESAPI/Auditor.html">Auditor</a> $auditor</strong>: the auditor to write the request to.</li>
+		</ul>
+		
+	<h4>Info</h4>
+	<ul>
+			<li><strong>access</strong> - public</li>
+		</ul>
+</div>
+<a name="methodlogHTTPRequestObfuscate" id="methodlogHTTPRequestObfuscate"><!-- --></a>
+<div style="background='#ffffff'"><h4>
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method logHTTPRequestObfuscate</strong> (line <span class="linenumber">779</span>)
+ </h4> 
+<h4><i>null</i> <strong>logHTTPRequestObfuscate(
+<a href="../ESAPI/SafeRequest.html">SafeRequest</a>
+$request, <a href="../ESAPI/Auditor.html">Auditor</a>
+$auditor, array|null
+$paramsToObfuscate)</strong></h4>
+
+			<hr class="separator" />
+		<div class="notes">Implementation of:</div>
+			<dl>
+			<dt><a href="../ESAPI/HTTPUtilities.html#methodlogHTTPRequestObfuscate">HTTPUtilities::logHTTPRequestObfuscate()</a></dt>
+						<dd>Format the Source IP address, URL, URL parameters, and all form parameters</dd>
+					</dl>
+		<!-- ========== Info from phpDoc block ========= -->
+<h5>Format the Source IP address, URL, URL parameters, and all form parameters</h5>
+<div class="desc"><p>into a string suitable for the log file. The list of parameters to obfuscate  should be specified in order to prevent sensitive information from being  logged. If a null or empty list of parameters is provided, then all  parameters will be logged in the clear. If HTTP request logging is done in a  central place $paramsToObfuscate could be made a configuration parameter. We  include it here in case different parts of the application need to obfuscate  different parameters.</p></div>
+		<h4>Parameters</h4>
+	<ul>
+			<li><strong><a href="../ESAPI/SafeRequest.html">SafeRequest</a> $request</strong>: Current Request object.</li>
+			<li><strong><a href="../ESAPI/Auditor.html">Auditor</a> $auditor</strong>: The auditor to write the request to.</li>
+			<li><strong>array|null $paramsToObfuscate</strong>: The sensitive parameters.</li>
+		</ul>
+		
+	<h4>Info</h4>
+	<ul>
+			<li><strong>access</strong> - public</li>
+		</ul>
+</div>
+<a name="methodsafeSendForward" id="methodsafeSendForward"><!-- --></a>
+<div style="background='#eeeeee'"><h4>
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method safeSendForward</strong> (line <span class="linenumber">616</span>)
+ </h4> 
+<h4><i>null.</i> <strong>safeSendForward(
+<a href="../ESAPI/SafeRequest.html">SafeRequest</a>
+$request, SafeResponse
+$response, string
+$context, string
+$location)</strong></h4>
+
+			<hr class="separator" />
+		<div class="notes">Implementation of:</div>
+			<dl>
+			<dt><a href="../ESAPI/HTTPUtilities.html#methodsafeSendForward">HTTPUtilities::safeSendForward()</a></dt>
+						<dd>This method performs a forward to any resource located inside the WEB-INF</dd>
+					</dl>
+		<!-- ========== Info from phpDoc block ========= -->
+<h5>This method performs a forward to any resource located inside the WEB-INF</h5>
+<div class="desc"><p>directory. Forwarding to publicly accessible resources can be dangerous,  as the request will have already passed the URL based access control  check. This method ensures that you can only forward to non-publicly  accessible resources.</p></div>
+		<h4>Parameters</h4>
+	<ul>
+			<li><strong><a href="../ESAPI/SafeRequest.html">SafeRequest</a> $request</strong>: Request object.</li>
+			<li><strong>SafeResponse $response</strong>: Response object.</li>
+			<li><strong>string $context</strong>: This value is used by any logging or error                                 handling that is done with respect to the                                 value passed in.</li>
+			<li><strong>string $location</strong>: The URL to forward to.</li>
+		</ul>
+		
+	<h4>Info</h4>
+	<ul>
+			<li><strong>throws</strong> - AccessControlException</li>
+			<li><strong>throws</strong> - ServletException</li>
+			<li><strong>throws</strong> - IOException</li>
+			<li><strong>access</strong> - public</li>
+		</ul>
+</div>
+<a name="methodsetCSRFToken" id="methodsetCSRFToken"><!-- --></a>
+<div style="background='#ffffff'"><h4>
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method setCSRFToken</strong> (line <span class="linenumber">146</span>)
+ </h4> 
+<h4><i>null</i> <strong>setCSRFToken(
+)</strong></h4>
+
+			<hr class="separator" />
+		<div class="notes">Implementation of:</div>
+			<dl>
+			<dt><a href="../ESAPI/HTTPUtilities.html#methodsetCSRFToken">HTTPUtilities::setCSRFToken()</a></dt>
+						<dd>Sets the CSRF Token for the current session.  If the session has not been  started at the time this method is called then the token will not be  generated.</dd>
+					</dl>
+		<!-- ========== Info from phpDoc block ========= -->
+<h5>Sets the CSRF Token for the current session.  If the session has not been  started at the time this method is called then the token will not be  generated.</h5>
+		
+	<h4>Info</h4>
+	<ul>
+			<li><strong>access</strong> - public</li>
+		</ul>
+</div>
+<a name="methodsetCurrentHTTP" id="methodsetCurrentHTTP"><!-- --></a>
+<div style="background='#eeeeee'"><h4>
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method setCurrentHTTP</strong> (line <span class="linenumber">711</span>)
+ </h4> 
+<h4><i>null.</i> <strong>setCurrentHTTP(
+<a href="../ESAPI/SafeRequest.html">SafeRequest</a>
+$request)</strong></h4>
+
+			<hr class="separator" />
+		<div class="notes">Implementation of:</div>
+			<dl>
+			<dt><a href="../ESAPI/HTTPUtilities.html#methodsetCurrentHTTP">HTTPUtilities::setCurrentHTTP()</a></dt>
+						<dd>Stores the supplied SafeRequest object so that it may be readily accessed  throughout ESAPI (and elsewhere).</dd>
+					</dl>
+		<!-- ========== Info from phpDoc block ========= -->
+<h5>Stores the supplied SafeRequest object so that it may be readily accessed  throughout ESAPI (and elsewhere).</h5>
+		<h4>Parameters</h4>
+	<ul>
+			<li><strong><a href="../ESAPI/SafeRequest.html">SafeRequest</a> $request</strong>: Current Request object.</li>
+		</ul>
+		
+	<h4>Info</h4>
+	<ul>
+			<li><strong>access</strong> - public</li>
+		</ul>
+</div>
+<a name="methodsetNoCacheHeaders" id="methodsetNoCacheHeaders"><!-- --></a>
+<div style="background='#ffffff'"><h4>
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method setNoCacheHeaders</strong> (line <span class="linenumber">694</span>)
+ </h4> 
+<h4><i>null.</i> <strong>setNoCacheHeaders(
+SafeResponse
+$response)</strong></h4>
+
+			<hr class="separator" />
+		<div class="notes">Implementation of:</div>
+			<dl>
+			<dt><a href="../ESAPI/HTTPUtilities.html#methodsetNoCacheHeaders">HTTPUtilities::setNoCacheHeaders()</a></dt>
+						<dd>Set headers to protect sensitive information against being cached in the</dd>
+					</dl>
+		<!-- ========== Info from phpDoc block ========= -->
+<h5>Set headers to protect sensitive information against being cached in the</h5>
+<div class="desc"><p>browser. Developers should make this call for any HTTP responses that contain  any sensitive data that should not be cached within the browser or any  intermediate proxies or caches. Implementations should set headers for the  expected browsers. The safest approach is to set all relevant headers to  their most restrictive setting. These include:</p><p><pre> Cache-Control: no-store<BR>
+ Cache-Control: no-cache<BR>
+ Cache-Control: must-revalidate<BR>
+ Expires: -1<BR></pre></p><p>Note that the header &quot;pragma: no-cache&quot; is only useful in HTTP requests,  not HTTP responses. So even though there are many articles recommending the  use of this header, it is not helpful for preventing browser caching. For  more information, please refer to the relevant standards:</p><p>HTTP/1.1 Cache-Control &quot;no-cache&quot; <a href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html">http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html</a>  HTTP/1.1 Cache-Control &quot;no-store&quot; <a href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.9.1">http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.9.1</a>  HTTP/1.0 Pragma &quot;no-cache&quot; <a href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.9.2">http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.9.2</a>  HTTP/1.0 Expires <a href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.32">http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.32</a>  IE6 Caching Issues <a href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.21">http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.21</a>  Firefox browser.cache.disk_cache_ssl <a href="http://support.microsoft.com/kb/937479">http://support.microsoft.com/kb/937479</a>  Mozilla Networking Preferences <a href="https://developer.mozilla.org/en/Mozilla_Networking_Preferences#Cache">https://developer.mozilla.org/en/Mozilla_Networking_Preferences#Cache</a></p></div>
+		<h4>Parameters</h4>
+	<ul>
+			<li><strong>SafeResponse $response</strong>: Response object.</li>
+		</ul>
+		
+	<h4>Info</h4>
+	<ul>
+			<li><strong>access</strong> - public</li>
+		</ul>
+</div>
+<a name="methodsetRememberToken" id="methodsetRememberToken"><!-- --></a>
+<div style="background='#eeeeee'"><h4>
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method setRememberToken</strong> (line <span class="linenumber">196</span>)
+ </h4> 
+<h4><i>string</i> <strong>setRememberToken(
+<a href="../ESAPI/SafeRequest.html">SafeRequest</a>
+$request, SafeResponse
+$response, string
+$password, int
+$maxAge, string|null
+$domain, string|null
+$path)</strong></h4>
+
+			<hr class="separator" />
+		<div class="notes">Implementation of:</div>
+			<dl>
+			<dt><a href="../ESAPI/HTTPUtilities.html#methodsetRememberToken">HTTPUtilities::setRememberToken()</a></dt>
+						<dd>Set a cookie containing the current User's remember me token for</dd>
+					</dl>
+		<!-- ========== Info from phpDoc block ========= -->
+<h5>Set a cookie containing the current User's remember me token for</h5>
+<div class="desc"><p>automatic authentication. The use of remember me tokens is generally not  recommended, but this method will help do it as safely as possible. The  user interface should strongly warn the user that this should only be  enabled on computers where no other users will have access.</p><p>Implementations should save the user's remember me data in an encrypted  cookie and send it to the user. Any old remember me cookie should be  destroyed first. Setting this cookie should keep the user logged in until  the maxAge passes, the password is changed, or the cookie is deleted. If  the cookie exists for the current user, it should automatically be used  by ESAPI to log the user in, if the data is valid and not expired.</p><p>This implementation implements all these suggestions.</p></div>
+		<h4>Parameters</h4>
+	<ul>
+			<li><strong><a href="../ESAPI/SafeRequest.html">SafeRequest</a> $request</strong>: Request object.</li>
+			<li><strong>SafeResponse $response</strong>: Response object.</li>
+			<li><strong>string $password</strong>: the user's password.</li>
+			<li><strong>int $maxAge</strong>: the length of time that the token should be                                valid for in relative seconds.</li>
+			<li><strong>string|null $domain</strong>: the domain to restrict the token to.</li>
+			<li><strong>string|null $path</strong>: the path to restrict the token to.</li>
+		</ul>
+		
+	<h4>Info</h4>
+	<ul>
+			<li><strong>return</strong> - encrypted &quot;Remember Me&quot; token.</li>
+			<li><strong>access</strong> - public</li>
+		</ul>
+</div>
+<a name="methodsetSafeContentType" id="methodsetSafeContentType"><!-- --></a>
+<div style="background='#ffffff'"><h4>
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method setSafeContentType</strong> (line <span class="linenumber">644</span>)
+ </h4> 
+<h4><i>null.</i> <strong>setSafeContentType(
+SafeResponse
+$response)</strong></h4>
+
+			<hr class="separator" />
+		<div class="notes">Implementation of:</div>
+			<dl>
+			<dt><a href="../ESAPI/HTTPUtilities.html#methodsetSafeContentType">HTTPUtilities::setSafeContentType()</a></dt>
+						<dd>Set the content type character encoding header on every HttpServletResponse  in order to limit the ways in which the input data can be represented. This  prevents malicious users from using encoding and multi-byte escape sequences  to bypass input validation routines.</dd>
+					</dl>
+		<!-- ========== Info from phpDoc block ========= -->
+<h5>Set the content type character encoding header on every HttpServletResponse  in order to limit the ways in which the input data can be represented. This  prevents malicious users from using encoding and multi-byte escape sequences  to bypass input validation routines.</h5>
+<div class="desc"><p>Implementations of this method should set the content type header to a safe  value for your environment. The default is text/html; charset=UTF-8 character  encoding, which is the default in early versions of HTML and HTTP.  See RFC 2045 (http://ds.internic.net/rfc/rfc2045.txt) for more information  about character encoding and MIME.</p><p>This implementation sets the content type as specified.</p></div>
+		<h4>Parameters</h4>
+	<ul>
+			<li><strong>SafeResponse $response</strong>: The response object to set the content type                                for.</li>
+		</ul>
+		
+	<h4>Info</h4>
+	<ul>
+			<li><strong>access</strong> - public</li>
+		</ul>
+</div>
+<a name="methodverifyCSRFToken" id="methodverifyCSRFToken"><!-- --></a>
+<div style="background='#eeeeee'"><h4>
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method verifyCSRFToken</strong> (line <span class="linenumber">270</span>)
+ </h4> 
+<h4><i>null</i> <strong>verifyCSRFToken(
+<a href="../ESAPI/SafeRequest.html">SafeRequest</a>
+$request)</strong></h4>
+
+			<hr class="separator" />
+		<div class="notes">Implementation of:</div>
+			<dl>
+			<dt><a href="../ESAPI/HTTPUtilities.html#methodverifyCSRFToken">HTTPUtilities::verifyCSRFToken()</a></dt>
+						<dd>Searches the GET and POST parameters in a request for the CSRF token stored  in the current session and throws an IntrusionException if it is missing.</dd>
+					</dl>
+		<!-- ========== Info from phpDoc block ========= -->
+<h5>Searches the GET and POST parameters in a request for the CSRF token stored  in the current session and throws an IntrusionException if it is missing.</h5>
+		<h4>Parameters</h4>
+	<ul>
+			<li><strong><a href="../ESAPI/SafeRequest.html">SafeRequest</a> $request</strong>: A request object.</li>
+		</ul>
+		
+	<h4>Info</h4>
+	<ul>
+			<li><strong>throws</strong> - IntrusionException if the CSRF token is missing or incorrect.</li>
+			<li><strong>access</strong> - public</li>
+		</ul>
+</div>
+<script type="text/javascript">tp1.addTabPage( document.getElementById( "tabPage2" ) );</script></div>
+<div class="tab-page" id="iVars">
+<h2 class="tab">Inherited Variables</h2>
+<script type="text/javascript">tp1.addTabPage( document.getElementById( "iVars" ) );</script>
+<!-- =========== VAR INHERITED SUMMARY =========== -->
+<A NAME='var_inherited_summary'><!-- --></A>
+<h3>Inherited Class Variable Summary</h3>
+
+	</div>
+<div class="tab-page" id="iMethods">
+<h2 class="tab">Inherited Methods</h2>
+<script type="text/javascript">tp1.addTabPage( document.getElementById( "iMethods" ) );</script>
+<!-- =========== INHERITED METHOD SUMMARY =========== -->
+<A NAME='functions_inherited'><!-- --></A>
+<h3>Inherited Method Summary</h3>
+
+	</div>
+</div>
+<script type="text/javascript">
+//<![CDATA[
+
+setupAllTabs();
+
+//]]>
+</script>
+	<div id="credit">
+		<hr />
+		Documentation generated on Fri, 16 Apr 2010 11:42:13 -0400 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
+	</div>
+</body>
+</html>

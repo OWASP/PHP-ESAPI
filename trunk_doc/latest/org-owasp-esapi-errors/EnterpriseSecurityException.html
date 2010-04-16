@@ -1,0 +1,434 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+   <html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <title>Docs For Class EnterpriseSecurityException</title>
+  <link rel="stylesheet" href="../media/stylesheet.css" />
+  <script src="../media/lib/classTree.js"></script>
+<link id="webfx-tab-style-sheet" type="text/css" rel="stylesheet" href="../media/lib/tab.webfx.css" />
+<script type="text/javascript" src="../media/lib/tabpane.js"></script>
+  <script language="javascript" type="text/javascript" src="../media/lib/ua.js"></script>
+<script language="javascript" type="text/javascript">
+	var imgPlus = new Image();
+	var imgMinus = new Image();
+	imgPlus.src = "../media/images/plus.gif";
+	imgMinus.src = "../media/images/minus.gif";
+	
+	function showNode(Node){
+        switch(navigator.family){
+        	case 'nn4':
+        		// Nav 4.x code fork...
+				var oTable = document.layers["span" + Node];
+				var oImg = document.layers["img" + Node];
+        		break;
+        	case 'ie4':
+        		// IE 4/5 code fork...
+				var oTable = document.all["span" + Node];
+				var oImg = document.all["img" + Node];
+        		break;
+        	case 'gecko':
+        		// Standards Compliant code fork...
+				var oTable = document.getElementById("span" + Node);
+				var oImg = document.getElementById("img" + Node);
+        		break;
+        }
+		oImg.src = imgMinus.src;
+		oTable.style.display = "block";
+	}
+	
+	function hideNode(Node){
+        switch(navigator.family){
+        	case 'nn4':
+        		// Nav 4.x code fork...
+				var oTable = document.layers["span" + Node];
+				var oImg = document.layers["img" + Node];
+        		break;
+        	case 'ie4':
+        		// IE 4/5 code fork...
+				var oTable = document.all["span" + Node];
+				var oImg = document.all["img" + Node];
+        		break;
+        	case 'gecko':
+        		// Standards Compliant code fork...
+				var oTable = document.getElementById("span" + Node);
+				var oImg = document.getElementById("img" + Node);
+        		break;
+        }
+		oImg.src = imgPlus.src;
+		oTable.style.display = "none";
+	}
+	
+	function nodeIsVisible(Node){
+        switch(navigator.family){
+        	case 'nn4':
+        		// Nav 4.x code fork...
+				var oTable = document.layers["span" + Node];
+        		break;
+        	case 'ie4':
+        		// IE 4/5 code fork...
+				var oTable = document.all["span" + Node];
+        		break;
+        	case 'gecko':
+        		// Standards Compliant code fork...
+				var oTable = document.getElementById("span" + Node);
+        		break;
+        }
+		return (oTable && oTable.style.display == "block");
+	}
+	
+	function toggleNodeVisibility(Node){
+		if (nodeIsVisible(Node)){
+			hideNode(Node);
+		}else{
+			showNode(Node);
+		}
+	}
+</script>
+<!-- template designed by Julien Damon based on PHPEdit's generated templates, and tweaked by Greg Beaver -->
+<body bgcolor="#ffffff" ><!-- Start of Class Data -->
+<h2>
+	Class EnterpriseSecurityException
+</h2> (line <span class="linenumber">35</span>)
+<div class="tab-pane" id="tabPane1">
+<script type="text/javascript">
+tp1 = new WebFXTabPane( document.getElementById( "tabPane1" ));
+</script>
+
+<div class="tab-page" id="Description">
+<h2 class="tab">Description</h2>
+<pre>
+Exception
+   |
+   --EnterpriseSecurityException</pre>
+<p>
+	<b><i>Located in File: <a href="_errors---EnterpriseSecurityException.php.html">/errors/EnterpriseSecurityException.php</a></i></b><br>
+</p>
+<!-- ========== Info from phpDoc block ========= -->
+<h5>EnterpriseSecurityException is the base class for all security related exceptions. You should pass in the root cause exception where possible. Constructors for classes extending EnterpriseSecurityException should be sure to call the appropriate super() method in order to ensure that logging and intrusion detection occur properly.</h5>
+<div class="desc"><p>All EnterpriseSecurityExceptions have two messages, one for the user and one for the log file. This way, a message  can be shown to the user that doesn't contain sensitive information or unnecessary implementation details. Meanwhile,  all the critical information can be included in the exception so that it gets logged.</p><p>Note that the &quot;logMessage&quot; for ALL EnterpriseSecurityExceptions is logged in the log file. This feature should be  used extensively throughout ESAPI implementations and the result is a fairly complete set of security log records.  ALL EnterpriseSecurityExceptions are also sent to the IntrusionDetector for use in detecting anomolous patterns of  application usage.</p><p></p></div>
+<ul>
+	</ul>
+<br /><hr />
+<span class="type">Classes extended from EnterpriseSecurityException:</span>
+ 		<dl>
+	<dt><a href="../org-owasp-esapi-errors/AccessControlException.html">AccessControlException</a></dt>
+		<dd>An AccessControlException should be thrown when a user attempts to access a  resource that they are not authorized for.</dd>
+	</dl>
+		<dl>
+	<dt><a href="../org-owasp-esapi-errors/AuthenticationException.html">AuthenticationException</a></dt>
+		<dd>An AuthenticationException should be thrown when anything goes wrong during  login or logout. They are also appropriate for any problems related to  identity management.</dd>
+	</dl>
+		<dl>
+	<dt><a href="../org-owasp-esapi-errors/AvailabilityException.html">AvailabilityException</a></dt>
+		<dd>An AvailabilityException should be thrown when the availability of a limited  resource is in jeopardy. For example, if a database connection pool runs out  of connections, an availability exception should be thrown.</dd>
+	</dl>
+		<dl>
+	<dt><a href="../org-owasp-esapi-errors/CertificateException.html">CertificateException</a></dt>
+		<dd>A CertificateException should be thrown for any problems that arise during  processing of digital certificates.</dd>
+	</dl>
+		<dl>
+	<dt><a href="../org-owasp-esapi-errors/EncodingException.html">EncodingException</a></dt>
+		<dd>An EncodingException should be thrown for any problems that occur when  encoding or decoding data.</dd>
+	</dl>
+		<dl>
+	<dt><a href="../org-owasp-esapi-errors/EncryptionException.html">EncryptionException</a></dt>
+		<dd>An EncryptionException should be thrown for any problems related to  encryption, hashing, or digital signatures.</dd>
+	</dl>
+		<dl>
+	<dt><a href="../org-owasp-esapi-errors/ExecutorException.html">ExecutorException</a></dt>
+		<dd>An ExecutorException should be thrown for any problems that arise during the  execution of a system executable.</dd>
+	</dl>
+		<dl>
+	<dt><a href="../org-owasp-esapi-errors/IntegrityException.html">IntegrityException</a></dt>
+		<dd>An AvailabilityException should be thrown when the availability of a limited  resource is in jeopardy. For example, if a database connection pool runs out  of connections, an availability exception should be thrown.</dd>
+	</dl>
+		<dl>
+	<dt><a href="../org-owasp-esapi-errors/ValidationException.html">ValidationException</a></dt>
+		<dd>A ValidationException should be thrown to indicate that the data provided by  the user or from some other external source does not match the validation  rules that have been specified for that data.</dd>
+	</dl>
+	</p>
+</div>
+<script type="text/javascript">tp1.addTabPage( document.getElementById( "Description" ) );</script>
+<div class="tab-page" id="tabPage1">
+
+<h2 class="tab">Class Variables</h2>
+<!-- ============ VARIABLE DETAIL =========== -->
+<strong>Summary:</strong><br />
+<div class="var-title">
+    <span class="var-type">mixed</span>
+    <a href="#var$logger" title="details" class="property"><strong>$logger</strong></a>
+</div>
+<div class="var-title">
+    <span class="var-type">mixed</span>
+    <a href="#var$logMessage" title="details" class="property"><strong>$logMessage</strong></a>
+</div>
+<hr />
+<a name="var$logger" id="var$logger"><!-- --></A>
+<div style="background='#eeeeee'">
+<h4>
+<img src="../media/images/PublicProperty.gif" border="0" /> <strong class="property">$logger</strong> (line <span class="linenumber">38</span>)
+ </h4>
+<h4>Data type : mixed</h4>
+<!-- ========== Info from phpDoc block ========= -->
+<h5>The logger.</h5>
+<ul>
+		<li><strong>access:</strong> - protected</li>
+	</ul>
+</div>
+<a name="var$logMessage" id="var$logMessage"><!-- --></A>
+<div style="background='#ffffff'">
+<h4>
+<img src="../media/images/PublicProperty.gif" border="0" /> <strong class="property">$logMessage =  null</strong> (line <span class="linenumber">39</span>)
+ </h4>
+<h4>Data type : mixed</h4>
+<!-- ========== Info from phpDoc block ========= -->
+<ul>
+		<li><strong>access:</strong> - protected</li>
+	</ul>
+</div>
+<script type="text/javascript">tp1.addTabPage( document.getElementById( "tabPage1" ) );</script>
+</div>
+<div class="tab-page" id="constantsTabpage">
+
+<h2 class="tab">Class Constants</h2>
+<!-- ============ VARIABLE DETAIL =========== -->
+<strong>Summary:</strong><br />
+<hr />
+<script type="text/javascript">tp1.addTabPage( document.getElementById( "constantsTabpage" ) );</script>
+</div>
+<div class="tab-page" id="tabPage2">
+<h2 class="tab">Method Detail</h2>
+<!-- ============ METHOD DETAIL =========== -->
+<strong>Summary:</strong><br />
+<div class="method-summary">
+    <div class="method-definition">
+            <span class="method-result">EnterpriseSecurityException</span>
+        <a href="#method__construct" title="details" class="method-name">__construct</a>
+        ([<span class="var-type">userMessage</span>&nbsp;<span class="var-name">$userMessage</span> = <span class="var-default">''</span>], [<span class="var-type">logMessage</span>&nbsp;<span class="var-name">$logMessage</span> = <span class="var-default">''</span>], <span class="var-type">cause</span>&nbsp;<span class="var-name">2</span>)
+        </div>
+    <div class="method-definition">
+            <span class="method-result">a</span>
+        <a href="#methodgetLogMessage" title="details" class="method-name">getLogMessage</a>
+        ()
+        </div>
+    <div class="method-definition">
+            <span class="method-result">a</span>
+        <a href="#methodgetUserMessage" title="details" class="method-name">getUserMessage</a>
+        ()
+        </div>
+</div>
+<hr />
+<A NAME='method_detail'></A>
+
+
+<a name="method__construct" id="method__construct"><!-- --></a>
+<div style="background='#eeeeee'"><h4>
+<img src="../media/images/Constructor.gif" border="0" /> <strong class="method">Constructor __construct</strong> (line <span class="linenumber">50</span>)
+ </h4> 
+<h4><i>EnterpriseSecurityException</i> <strong>__construct(
+[userMessage
+$userMessage = ''], [logMessage
+$logMessage = ''], cause
+2)</strong></h4>
+	<p>Overridden in child classes as:<br />
+		<dl>
+	<dt><a href="../org-owasp-esapi-errors/AccessControlException.html#method__construct">AccessControlException::__construct()</a></dt>
+		<dd>Instantiates a new access control exception.</dd>
+	</dl>
+		<dl>
+	<dt><a href="../org-owasp-esapi-errors/AuthenticationException.html#method__construct">AuthenticationException::__construct()</a></dt>
+		<dd>Instantiates a new authentication exception.</dd>
+	</dl>
+		<dl>
+	<dt><a href="../org-owasp-esapi-errors/AuthenticationAccountsException.html#method__construct">AuthenticationAccountsException::__construct()</a></dt>
+		<dd>Instantiates a new authentication exception.</dd>
+	</dl>
+		<dl>
+	<dt><a href="../org-owasp-esapi-errors/AuthenticationCredentialsException.html#method__construct">AuthenticationCredentialsException::__construct()</a></dt>
+		<dd>Instantiates a new authentication exception.</dd>
+	</dl>
+		<dl>
+	<dt><a href="../org-owasp-esapi-errors/AuthenticationHostException.html#method__construct">AuthenticationHostException::__construct()</a></dt>
+		<dd>Instantiates a new authentication exception.</dd>
+	</dl>
+		<dl>
+	<dt><a href="../org-owasp-esapi-errors/AuthenticationLoginException.html#method__construct">AuthenticationLoginException::__construct()</a></dt>
+		<dd>Instantiates a new authentication exception.</dd>
+	</dl>
+		<dl>
+	<dt><a href="../org-owasp-esapi-errors/AvailabilityException.html#method__construct">AvailabilityException::__construct()</a></dt>
+		<dd>Instantiates a new AvailabilityException.</dd>
+	</dl>
+		<dl>
+	<dt><a href="../org-owasp-esapi-errors/CertificateException.html#method__construct">CertificateException::__construct()</a></dt>
+		<dd>Instantiates a new CertificateException.</dd>
+	</dl>
+		<dl>
+	<dt><a href="../org-owasp-esapi-errors/EncodingException.html#method__construct">EncodingException::__construct()</a></dt>
+		<dd>Instantiates a new EncodingException.</dd>
+	</dl>
+		<dl>
+	<dt><a href="../org-owasp-esapi-errors/EncryptionException.html#method__construct">EncryptionException::__construct()</a></dt>
+		<dd>Instantiates a new EncryptionException.</dd>
+	</dl>
+		<dl>
+	<dt><a href="../org-owasp-esapi-errors/ExecutorException.html#method__construct">ExecutorException::__construct()</a></dt>
+		<dd>Create a new ExecutorException</dd>
+	</dl>
+		<dl>
+	<dt><a href="../org-owasp-esapi-errors/IntegrityException.html#method__construct">IntegrityException::__construct()</a></dt>
+		<dd>Create a new IntegrityException</dd>
+	</dl>
+		<dl>
+	<dt><a href="../org-owasp-esapi-errors/ValidationException.html#method__construct">ValidationException::__construct()</a></dt>
+		<dd>Instantiates a new ValidationException.</dd>
+	</dl>
+		<dl>
+	<dt><a href="../org-owasp-esapi-errors/ValidationAvailabilityException.html#method__construct">ValidationAvailabilityException::__construct()</a></dt>
+		<dd>Create a new ValidationAvailabilityException</dd>
+	</dl>
+		<dl>
+	<dt><a href="../org-owasp-esapi-errors/ValidationUploadException.html#method__construct">ValidationUploadException::__construct()</a></dt>
+		<dd>Create a new ValidationException</dd>
+	</dl>
+	</p>
+
+<p><strong>Overrides :</strong> Exception::constructor __construct ( [$message = ], [$code = ] ) parent method not documented</p>
+	<!-- ========== Info from phpDoc block ========= -->
+<h5>Creates a new instance of EnterpriseSecurityException that includes a root cause</h5>
+		<h4>Parameters</h4>
+	<ul>
+			<li><strong>cause 2</strong>: the cause</li>
+			<li><strong>userMessage $userMessage</strong>: the message displayed to the user</li>
+			<li><strong>logMessage $logMessage</strong>: the message logged</li>
+		</ul>
+		
+	<h4>Info</h4>
+	<ul>
+			<li><strong>access</strong> - public</li>
+		</ul>
+</div>
+<a name="methodgetLogMessage" id="methodgetLogMessage"><!-- --></a>
+<div style="background='#ffffff'"><h4>
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method getLogMessage</strong> (line <span class="linenumber">84</span>)
+ </h4> 
+<h4><i>a</i> <strong>getLogMessage(
+)</strong></h4>
+
+	<!-- ========== Info from phpDoc block ========= -->
+<h5>Returns a message that is safe to display in logs, but probably not to users</h5>
+		
+	<h4>Info</h4>
+	<ul>
+			<li><strong>return</strong> - String containing a message that is safe to display in logs, but probably not to users</li>
+			<li><strong>access</strong> - public</li>
+		</ul>
+</div>
+<a name="methodgetUserMessage" id="methodgetUserMessage"><!-- --></a>
+<div style="background='#eeeeee'"><h4>
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method getUserMessage</strong> (line <span class="linenumber">74</span>)
+ </h4> 
+<h4><i>a</i> <strong>getUserMessage(
+)</strong></h4>
+
+	<!-- ========== Info from phpDoc block ========= -->
+<h5>Returns message that is safe to display to users</h5>
+		
+	<h4>Info</h4>
+	<ul>
+			<li><strong>return</strong> - String containing a message that is safe to display to users</li>
+			<li><strong>access</strong> - public</li>
+		</ul>
+</div>
+<script type="text/javascript">tp1.addTabPage( document.getElementById( "tabPage2" ) );</script></div>
+<div class="tab-page" id="iVars">
+<h2 class="tab">Inherited Variables</h2>
+<script type="text/javascript">tp1.addTabPage( document.getElementById( "iVars" ) );</script>
+<!-- =========== VAR INHERITED SUMMARY =========== -->
+<A NAME='var_inherited_summary'><!-- --></A>
+<h3>Inherited Class Variable Summary</h3>
+
+		<!-- =========== Summary =========== -->
+	<h4>Inherited From Class Exception (Internal Class)</h4>
+		<h4>
+<img src="../media/images/PublicProperty.gif" border="0" /><strong class="property"> $code</strong> - 
+	</h4> 
+		<h4>
+<img src="../media/images/PublicProperty.gif" border="0" /><strong class="property"> $file</strong> - 
+	</h4> 
+		<h4>
+<img src="../media/images/PublicProperty.gif" border="0" /><strong class="property"> $line</strong> - 
+	</h4> 
+		<h4>
+<img src="../media/images/PublicProperty.gif" border="0" /><strong class="property"> $message</strong> - 
+	</h4> 
+		<h4>
+<img src="../media/images/PublicProperty.gif" border="0" /><strong class="property"> $string</strong> - 
+	</h4> 
+		<h4>
+<img src="../media/images/PublicProperty.gif" border="0" /><strong class="property"> $trace</strong> - 
+	</h4> 
+		</div>
+<div class="tab-page" id="iMethods">
+<h2 class="tab">Inherited Methods</h2>
+<script type="text/javascript">tp1.addTabPage( document.getElementById( "iMethods" ) );</script>
+<!-- =========== INHERITED METHOD SUMMARY =========== -->
+<A NAME='functions_inherited'><!-- --></A>
+<h3>Inherited Method Summary</h3>
+
+		<!-- =========== Summary =========== -->
+	<h4>Inherited From Class Exception (Internal Class)</h4>
+				<h4>
+<img src="../media/images/Constructor.gif" border="0" /><strong class="method"> constructor __construct ( [$message = ], [$code = ] )</strong> - 
+		</h4> 
+
+				<h4>
+<img src="../media/images/PublicMethod.gif" border="0" /><strong class="method"> getCode (  )</strong> - 
+		</h4> 
+
+				<h4>
+<img src="../media/images/PublicMethod.gif" border="0" /><strong class="method"> getFile (  )</strong> - 
+		</h4> 
+
+				<h4>
+<img src="../media/images/PublicMethod.gif" border="0" /><strong class="method"> getLine (  )</strong> - 
+		</h4> 
+
+				<h4>
+<img src="../media/images/PublicMethod.gif" border="0" /><strong class="method"> getMessage (  )</strong> - 
+		</h4> 
+
+				<h4>
+<img src="../media/images/PublicMethod.gif" border="0" /><strong class="method"> getTrace (  )</strong> - 
+		</h4> 
+
+				<h4>
+<img src="../media/images/PublicMethod.gif" border="0" /><strong class="method"> getTraceAsString (  )</strong> - 
+		</h4> 
+
+				<h4>
+<img src="../media/images/PublicMethod.gif" border="0" /><strong class="method"> __clone (  )</strong> - 
+		</h4> 
+
+				<h4>
+<img src="../media/images/PublicMethod.gif" border="0" /><strong class="method"> __toString (  )</strong> - 
+		</h4> 
+
+				<br />
+	</div>
+</div>
+<script type="text/javascript">
+//<![CDATA[
+
+setupAllTabs();
+
+//]]>
+</script>
+	<div id="credit">
+		<hr />
+		Documentation generated on Fri, 16 Apr 2010 11:42:16 -0400 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
+	</div>
+</body>
+</html>

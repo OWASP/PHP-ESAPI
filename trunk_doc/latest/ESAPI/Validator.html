@@ -1,0 +1,502 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+   <html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <title>Docs For Class Validator</title>
+  <link rel="stylesheet" href="../media/stylesheet.css" />
+  <script src="../media/lib/classTree.js"></script>
+<link id="webfx-tab-style-sheet" type="text/css" rel="stylesheet" href="../media/lib/tab.webfx.css" />
+<script type="text/javascript" src="../media/lib/tabpane.js"></script>
+  <script language="javascript" type="text/javascript" src="../media/lib/ua.js"></script>
+<script language="javascript" type="text/javascript">
+	var imgPlus = new Image();
+	var imgMinus = new Image();
+	imgPlus.src = "../media/images/plus.gif";
+	imgMinus.src = "../media/images/minus.gif";
+	
+	function showNode(Node){
+        switch(navigator.family){
+        	case 'nn4':
+        		// Nav 4.x code fork...
+				var oTable = document.layers["span" + Node];
+				var oImg = document.layers["img" + Node];
+        		break;
+        	case 'ie4':
+        		// IE 4/5 code fork...
+				var oTable = document.all["span" + Node];
+				var oImg = document.all["img" + Node];
+        		break;
+        	case 'gecko':
+        		// Standards Compliant code fork...
+				var oTable = document.getElementById("span" + Node);
+				var oImg = document.getElementById("img" + Node);
+        		break;
+        }
+		oImg.src = imgMinus.src;
+		oTable.style.display = "block";
+	}
+	
+	function hideNode(Node){
+        switch(navigator.family){
+        	case 'nn4':
+        		// Nav 4.x code fork...
+				var oTable = document.layers["span" + Node];
+				var oImg = document.layers["img" + Node];
+        		break;
+        	case 'ie4':
+        		// IE 4/5 code fork...
+				var oTable = document.all["span" + Node];
+				var oImg = document.all["img" + Node];
+        		break;
+        	case 'gecko':
+        		// Standards Compliant code fork...
+				var oTable = document.getElementById("span" + Node);
+				var oImg = document.getElementById("img" + Node);
+        		break;
+        }
+		oImg.src = imgPlus.src;
+		oTable.style.display = "none";
+	}
+	
+	function nodeIsVisible(Node){
+        switch(navigator.family){
+        	case 'nn4':
+        		// Nav 4.x code fork...
+				var oTable = document.layers["span" + Node];
+        		break;
+        	case 'ie4':
+        		// IE 4/5 code fork...
+				var oTable = document.all["span" + Node];
+        		break;
+        	case 'gecko':
+        		// Standards Compliant code fork...
+				var oTable = document.getElementById("span" + Node);
+        		break;
+        }
+		return (oTable && oTable.style.display == "block");
+	}
+	
+	function toggleNodeVisibility(Node){
+		if (nodeIsVisible(Node)){
+			hideNode(Node);
+		}else{
+			showNode(Node);
+		}
+	}
+</script>
+<!-- template designed by Julien Damon based on PHPEdit's generated templates, and tweaked by Greg Beaver -->
+<body bgcolor="#ffffff" ><!-- Start of Class Data -->
+<h2>
+	Interface Validator
+</h2> (line <span class="linenumber">60</span>)
+<div class="tab-pane" id="tabPane1">
+<script type="text/javascript">
+tp1 = new WebFXTabPane( document.getElementById( "tabPane1" ));
+</script>
+
+<div class="tab-page" id="Description">
+<h2 class="tab">Description</h2>
+<pre>
+</pre>
+<p>
+	<b><i>Located in File: <a href="_Validator.php.html">/Validator.php</a></i></b><br>
+</p>
+<!-- ========== Info from phpDoc block ========= -->
+<h5>The Validator interface defines a set of methods for canonicalizing and</h5>
+<div class="desc"><p>validating untrusted input. Implementors should feel free to extend this  interface to accommodate their own data formats. Rather than throw  exceptions, this interface returns boolean results because not all  validation problems are security issues. Boolean returns allow developers to  handle both valid and invalid results more cleanly than exceptions.</p><p>&lt;img src=&quot;doc-files/Validator.jpg&quot;&gt;</p><p>Implementations must adopt a &quot;whitelist&quot; approach to validation where a  specific pattern or character set is matched. &quot;Blacklist&quot; approaches that  attempt to identify the invalid or disallowed characters are much more likely  to allow a bypass with encoding or other tricks.</p></div>
+<ul>
+		<li><strong>author:</strong> - jah &lt;<a href="mailto:jah@jahboite.co.uk">jah@jahboite.co.uk</a>&gt;</li>
+		<li><strong>author:</strong> - Andrew van der Stock &lt;<a href="mailto:vanderaj@owasp.org">vanderaj@owasp.org</a>&gt;</li>
+		<li><strong>author:</strong> - Jeff Williams &lt;<a href="mailto:jeff.williams@aspectsecurity.com">jeff.williams@aspectsecurity.com</a>&gt;</li>
+		<li><strong>author:</strong> - Johannes B. Ullrich &lt;<a href="mailto:jullrich@sans.edu">jullrich@sans.edu</a>&gt;</li>
+		<li><strong>author:</strong> - Mike Boberski &lt;<a href="mailto:boberski_michael@bah.com">boberski_michael@bah.com</a>&gt;</li>
+		<li><strong>version:</strong> - Release: @package_version@</li>
+		<li><strong>copyright:</strong> - 2009-2010 The OWASP Foundation</li>
+		<li><strong>link:</strong> - <a href="http://www.owasp.org/index.php/ESAPI">http://www.owasp.org/index.php/ESAPI</a></li>
+		<li><strong>license:</strong> - <a href="http://www.opensource.org/licenses/bsd-license.php">New BSD license</a></li>
+	</ul>
+<br /><hr />
+</div>
+<script type="text/javascript">tp1.addTabPage( document.getElementById( "Description" ) );</script>
+<div class="tab-page" id="tabPage1">
+
+<h2 class="tab">Class Variables</h2>
+<!-- ============ VARIABLE DETAIL =========== -->
+<strong>Summary:</strong><br />
+<hr />
+<script type="text/javascript">tp1.addTabPage( document.getElementById( "tabPage1" ) );</script>
+</div>
+<div class="tab-page" id="constantsTabpage">
+
+<h2 class="tab">Class Constants</h2>
+<!-- ============ VARIABLE DETAIL =========== -->
+<strong>Summary:</strong><br />
+<hr />
+<script type="text/javascript">tp1.addTabPage( document.getElementById( "constantsTabpage" ) );</script>
+</div>
+<div class="tab-page" id="tabPage2">
+<h2 class="tab">Method Detail</h2>
+<!-- ============ METHOD DETAIL =========== -->
+<strong>Summary:</strong><br />
+<div class="method-summary">
+    <div class="method-definition">
+            <span class="method-result">bool</span>
+        <a href="#methodisValidCreditCard" title="details" class="method-name">isValidCreditCard</a>
+        (<span class="var-type">string</span>&nbsp;<span class="var-name">$context</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$input</span>, <span class="var-type">bool</span>&nbsp;<span class="var-name">$allowNull</span>)
+        </div>
+    <div class="method-definition">
+            <span class="method-result">bool</span>
+        <a href="#methodisValidDate" title="details" class="method-name">isValidDate</a>
+        (<span class="var-type">string</span>&nbsp;<span class="var-name">$context</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$input</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$format</span>, <span class="var-type">bool</span>&nbsp;<span class="var-name">$allowNull</span>)
+        </div>
+    <div class="method-definition">
+            <span class="method-result">bool</span>
+        <a href="#methodisValidDirectoryPath" title="details" class="method-name">isValidDirectoryPath</a>
+        (<span class="var-type">string</span>&nbsp;<span class="var-name">$context</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$input</span>, <span class="var-type">bool</span>&nbsp;<span class="var-name">$allowNull</span>)
+        </div>
+    <div class="method-definition">
+            <span class="method-result">bool</span>
+        <a href="#methodisValidDouble" title="details" class="method-name">isValidDouble</a>
+        (<span class="var-type">string</span>&nbsp;<span class="var-name">$context</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$input</span>, <span class="var-type">int</span>&nbsp;<span class="var-name">$minValue</span>, <span class="var-type">int</span>&nbsp;<span class="var-name">$maxValue</span>, <span class="var-type">bool</span>&nbsp;<span class="var-name">$allowNull</span>)
+        </div>
+    <div class="method-definition">
+            <span class="method-result">bool</span>
+        <a href="#methodisValidHTML" title="details" class="method-name">isValidHTML</a>
+        (<span class="var-type">string</span>&nbsp;<span class="var-name">$context</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$input</span>, <span class="var-type">int</span>&nbsp;<span class="var-name">$maxLength</span>, <span class="var-type">bool</span>&nbsp;<span class="var-name">$allowNull</span>)
+        </div>
+    <div class="method-definition">
+            <span class="method-result">bool</span>
+        <a href="#methodisValidInput" title="details" class="method-name">isValidInput</a>
+        (<span class="var-type">string</span>&nbsp;<span class="var-name">$context</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$input</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$type</span>, <span class="var-type">int</span>&nbsp;<span class="var-name">$maxLength</span>, <span class="var-type">bool</span>&nbsp;<span class="var-name">$allowNull</span>)
+        </div>
+    <div class="method-definition">
+            <span class="method-result">bool</span>
+        <a href="#methodisValidInteger" title="details" class="method-name">isValidInteger</a>
+        (<span class="var-type">string</span>&nbsp;<span class="var-name">$context</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$input</span>, <span class="var-type">int</span>&nbsp;<span class="var-name">$minValue</span>, <span class="var-type">int</span>&nbsp;<span class="var-name">$maxValue</span>, <span class="var-type">bool</span>&nbsp;<span class="var-name">$allowNull</span>)
+        </div>
+    <div class="method-definition">
+            <span class="method-result">bool</span>
+        <a href="#methodisValidListItem" title="details" class="method-name">isValidListItem</a>
+        (<span class="var-type">string</span>&nbsp;<span class="var-name">$context</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$input</span>, <span class="var-type">array</span>&nbsp;<span class="var-name">$list</span>)
+        </div>
+    <div class="method-definition">
+            <span class="method-result">bool</span>
+        <a href="#methodisValidNumber" title="details" class="method-name">isValidNumber</a>
+        (<span class="var-type">string</span>&nbsp;<span class="var-name">$context</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$input</span>, <span class="var-type">int</span>&nbsp;<span class="var-name">$minValue</span>, <span class="var-type">int</span>&nbsp;<span class="var-name">$maxValue</span>, <span class="var-type">bool</span>&nbsp;<span class="var-name">$allowNull</span>)
+        </div>
+    <div class="method-definition">
+            <span class="method-result">bool</span>
+        <a href="#methodisValidPrintable" title="details" class="method-name">isValidPrintable</a>
+        (<span class="var-type">string</span>&nbsp;<span class="var-name">$context</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$input</span>, <span class="var-type">int</span>&nbsp;<span class="var-name">$maxLength</span>, <span class="var-type">bool</span>&nbsp;<span class="var-name">$allowNull</span>)
+        </div>
+</div>
+<hr />
+<A NAME='method_detail'></A>
+
+
+<a name="methodisValidCreditCard" id="methodisValidCreditCard"><!-- --></a>
+<div style="background='#eeeeee'"><h4>
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method isValidCreditCard</strong> (line <span class="linenumber">144</span>)
+ </h4> 
+<h4><i>bool</i> <strong>isValidCreditCard(
+string
+$context, string
+$input, bool
+$allowNull)</strong></h4>
+
+	<!-- ========== Info from phpDoc block ========= -->
+<h5>Returns true if the canonicalized input is a valid Credit Card Number.</h5>
+		<h4>Parameters</h4>
+	<ul>
+			<li><strong>string $context</strong>: A descriptive name of the parameter that you are                           validating (e.g. PurchasePage_CCNum). This value                           is used by any logging or error handling that is                           done with respect to the value passed in.</li>
+			<li><strong>string $input</strong>: The actual user input data to validate.</li>
+			<li><strong>bool $allowNull</strong>: If allowNull is true then an input that is NULL or                           an empty string will be legal. If allowNull is                           false then NULL or an empty String will throw a                           ValidationException.</li>
+		</ul>
+		
+	<h4>Info</h4>
+	<ul>
+			<li><strong>return</strong> - TRUE if the input is valid, FALSE otherwise.</li>
+			<li><strong>access</strong> - public</li>
+		</ul>
+</div>
+<a name="methodisValidDate" id="methodisValidDate"><!-- --></a>
+<div style="background='#ffffff'"><h4>
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method isValidDate</strong> (line <span class="linenumber">102</span>)
+ </h4> 
+<h4><i>bool</i> <strong>isValidDate(
+string
+$context, string
+$input, string
+$format, bool
+$allowNull)</strong></h4>
+
+	<!-- ========== Info from phpDoc block ========= -->
+<h5>Returns true if the canonicalized input is a valid date according to the  specified date format string, or false otherwise.</h5>
+		<h4>Parameters</h4>
+	<ul>
+			<li><strong>string $context</strong>: A descriptive name of the parameter that you are                           validating (e.g. ProfilePage_DoB). This value is used                           by any logging or error handling that is done with                           respect to the value passed in.</li>
+			<li><strong>string $input</strong>: The actual user input data to validate.</li>
+			<li><strong>string $format</strong>: Required formatting of date inputted {@see date}.</li>
+			<li><strong>bool $allowNull</strong>: If allowNull is true then an input that is NULL or                           an empty string will be legal. If allowNull is                           false then NULL or an empty String will throw a                           ValidationException.</li>
+		</ul>
+		
+	<h4>Info</h4>
+	<ul>
+			<li><strong>return</strong> - TRUE if the input is valid, FALSE otherwise.</li>
+			<li><strong>access</strong> - public</li>
+		</ul>
+</div>
+<a name="methodisValidDirectoryPath" id="methodisValidDirectoryPath"><!-- --></a>
+<div style="background='#eeeeee'"><h4>
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method isValidDirectoryPath</strong> (line <span class="linenumber">161</span>)
+ </h4> 
+<h4><i>bool</i> <strong>isValidDirectoryPath(
+string
+$context, string
+$input, bool
+$allowNull)</strong></h4>
+
+	<!-- ========== Info from phpDoc block ========= -->
+<h5>Returns true if the canonicalized input is a valid directory path.</h5>
+		<h4>Parameters</h4>
+	<ul>
+			<li><strong>string $context</strong>: A descriptive name of the parameter that you are                           validating (e.g. IncludeFile). This value is used                           by any logging or error handling that is done with                           respect to the value passed in.</li>
+			<li><strong>string $input</strong>: The actual user input data to validate.</li>
+			<li><strong>bool $allowNull</strong>: If allowNull is true then an input that is NULL or                           an empty string will be legal. If allowNull is                           false then NULL or an empty String will throw a                           ValidationException.</li>
+		</ul>
+		
+	<h4>Info</h4>
+	<ul>
+			<li><strong>return</strong> - TRUE if the input is valid, FALSE otherwise.</li>
+			<li><strong>access</strong> - public</li>
+		</ul>
+</div>
+<a name="methodisValidDouble" id="methodisValidDouble"><!-- --></a>
+<div style="background='#ffffff'"><h4>
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method isValidDouble</strong> (line <span class="linenumber">227</span>)
+ </h4> 
+<h4><i>bool</i> <strong>isValidDouble(
+string
+$context, string
+$input, int
+$minValue, int
+$maxValue, bool
+$allowNull)</strong></h4>
+
+	<!-- ========== Info from phpDoc block ========= -->
+<h5>Returns true if the canonicalized input is a valid double within the  specified range minValue to maxValue.</h5>
+		<h4>Parameters</h4>
+	<ul>
+			<li><strong>string $context</strong>: A descriptive name of the parameter that you are                           validating (e.g. PurchasePage_Quantity). This value                           is used by any logging or error handling that is                           done with respect to the value passed in.</li>
+			<li><strong>string $input</strong>: The actual user input data to validate.</li>
+			<li><strong>int $minValue</strong>: The numeric lowest legal value for input.</li>
+			<li><strong>int $maxValue</strong>: The numeric highest legal value for input.</li>
+			<li><strong>bool $allowNull</strong>: If allowNull is true then an input that is NULL or                           an empty string will be legal. If allowNull is false                           then NULL or an empty String will throw a                           ValidationException.</li>
+		</ul>
+		
+	<h4>Info</h4>
+	<ul>
+			<li><strong>return</strong> - TRUE if the input is valid, FALSE otherwise.</li>
+			<li><strong>access</strong> - public</li>
+		</ul>
+</div>
+<a name="methodisValidHTML" id="methodisValidHTML"><!-- --></a>
+<div style="background='#eeeeee'"><h4>
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method isValidHTML</strong> (line <span class="linenumber">126</span>)
+ </h4> 
+<h4><i>bool</i> <strong>isValidHTML(
+string
+$context, string
+$input, int
+$maxLength, bool
+$allowNull)</strong></h4>
+
+	<!-- ========== Info from phpDoc block ========= -->
+<h5>Returns true if the canonicalized input is valid, &quot;safe&quot; HTML.</h5>
+<div class="desc"><p>Implementors should reference the OWASP AntiSamy project for ideas on how  to do HTML validation in a whitelist way, as this is an extremely  difficult problem. It is recommended that PHP implementations make use of  HTMLPurifier <a href="http://htmlpurifier.org">http://htmlpurifier.org</a>.</p></div>
+		<h4>Parameters</h4>
+	<ul>
+			<li><strong>string $context</strong>: A descriptive name of the parameter that you are                           validating (e.g. ProfilePage_Sig). This value is                           used by any logging or error handling that is done                           with respect to the value passed in.</li>
+			<li><strong>string $input</strong>: The actual user input data to validate.</li>
+			<li><strong>int $maxLength</strong>: The maximum post-canonicalized String length                           allowed.</li>
+			<li><strong>bool $allowNull</strong>: If allowNull is true then an input that is NULL or                           an empty string will be legal. If allowNull is false                           then NULL or an empty String will throw a                           ValidationException.</li>
+		</ul>
+		
+	<h4>Info</h4>
+	<ul>
+			<li><strong>return</strong> - TRUE if the input is valid, FALSE otherwise.</li>
+			<li><strong>access</strong> - public</li>
+		</ul>
+</div>
+<a name="methodisValidInput" id="methodisValidInput"><!-- --></a>
+<div style="background='#ffffff'"><h4>
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method isValidInput</strong> (line <span class="linenumber">83</span>)
+ </h4> 
+<h4><i>bool</i> <strong>isValidInput(
+string
+$context, string
+$input, string
+$type, int
+$maxLength, bool
+$allowNull)</strong></h4>
+
+	<!-- ========== Info from phpDoc block ========= -->
+<h5>Returns true if input is valid according to the specified type after  canonicalization. The type parameter must be the name of a defined type  in the ESAPI configuration or a valid regular expression pattern.</h5>
+		<h4>Parameters</h4>
+	<ul>
+			<li><strong>string $context</strong>: A descriptive name of the parameter that you are                           validating (e.g. LoginPage_UsernameField). This                           value is used by any logging or error handling                           that is done with respect to the value passed in.</li>
+			<li><strong>string $input</strong>: The actual user input data to validate.</li>
+			<li><strong>string $type</strong>: The regular expression name that maps to the actual                           regular expression from &quot;ESAPI.xml&quot; or an actual                           regular expression.</li>
+			<li><strong>int $maxLength</strong>: The maximum post-canonicalized String length allowed.</li>
+			<li><strong>bool $allowNull</strong>: If allowNull is true then an input that is NULL or an                           empty string will be legal. If allowNull is false                           then NULL or an empty String will throw a                           ValidationException.</li>
+		</ul>
+		
+	<h4>Info</h4>
+	<ul>
+			<li><strong>return</strong> - TRUE if the input is valid, FALSE otherwise.</li>
+			<li><strong>access</strong> - public</li>
+		</ul>
+</div>
+<a name="methodisValidInteger" id="methodisValidInteger"><!-- --></a>
+<div style="background='#eeeeee'"><h4>
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method isValidInteger</strong> (line <span class="linenumber">204</span>)
+ </h4> 
+<h4><i>bool</i> <strong>isValidInteger(
+string
+$context, string
+$input, int
+$minValue, int
+$maxValue, bool
+$allowNull)</strong></h4>
+
+	<!-- ========== Info from phpDoc block ========= -->
+<h5>Returns true if the canonicalized input is a valid integer within the  specified range minValue to maxValue.</h5>
+		<h4>Parameters</h4>
+	<ul>
+			<li><strong>string $context</strong>: A descriptive name of the parameter that you are                           validating (e.g. PurchasePage_Quantity). This value                           is used by any logging or error handling that is                           done with respect to the value passed in.</li>
+			<li><strong>string $input</strong>: The actual user input data to validate.</li>
+			<li><strong>int $minValue</strong>: The numeric lowest legal value for input.</li>
+			<li><strong>int $maxValue</strong>: The numeric highest legal value for input.</li>
+			<li><strong>bool $allowNull</strong>: If allowNull is true then an input that is NULL or                           an empty string will be legal. If allowNull is                           false then NULL or an empty String will throw a                           ValidationException.</li>
+		</ul>
+		
+	<h4>Info</h4>
+	<ul>
+			<li><strong>return</strong> - TRUE if the input is valid, FALSE otherwise.</li>
+			<li><strong>access</strong> - public</li>
+		</ul>
+</div>
+<a name="methodisValidListItem" id="methodisValidListItem"><!-- --></a>
+<div style="background='#ffffff'"><h4>
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method isValidListItem</strong> (line <span class="linenumber">243</span>)
+ </h4> 
+<h4><i>bool</i> <strong>isValidListItem(
+string
+$context, string
+$input, array
+$list)</strong></h4>
+
+	<!-- ========== Info from phpDoc block ========= -->
+<h5>Returns true if the canonicalized input exactly matches a list item.</h5>
+		<h4>Parameters</h4>
+	<ul>
+			<li><strong>string $context</strong>: A descriptive name of the parameter that you are                         validating (e.g. Contact_Recipient). This value                         is used by any logging or error handling that                         is done with respect to the value passed in.</li>
+			<li><strong>string $input</strong>: The value to search for in the supplied list.</li>
+			<li><strong>array $list</strong>: The list to search for the supplied input.</li>
+		</ul>
+		
+	<h4>Info</h4>
+	<ul>
+			<li><strong>return</strong> - TRUE if the input is valid, FALSE otherwise.</li>
+			<li><strong>access</strong> - public</li>
+		</ul>
+</div>
+<a name="methodisValidNumber" id="methodisValidNumber"><!-- --></a>
+<div style="background='#eeeeee'"><h4>
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method isValidNumber</strong> (line <span class="linenumber">181</span>)
+ </h4> 
+<h4><i>bool</i> <strong>isValidNumber(
+string
+$context, string
+$input, int
+$minValue, int
+$maxValue, bool
+$allowNull)</strong></h4>
+
+	<!-- ========== Info from phpDoc block ========= -->
+<h5>Returns true if the canonicalized input is a valid, real number within  the specified range minValue to maxValue.</h5>
+		<h4>Parameters</h4>
+	<ul>
+			<li><strong>string $context</strong>: A descriptive name of the parameter that you are                           validating (e.g. PurchasePage_Quantity). This value                           is used by any logging or error handling that is done                           with respect to the value passed in.</li>
+			<li><strong>string $input</strong>: The actual user input data to validate.</li>
+			<li><strong>int $minValue</strong>: The numeric lowest legal value for input.</li>
+			<li><strong>int $maxValue</strong>: The numeric highest legal value for input.</li>
+			<li><strong>bool $allowNull</strong>: If allowNull is true then an input that is NULL or                           an empty string will be legal. If allowNull is                           false then NULL or an empty String will throw a                           ValidationException.</li>
+		</ul>
+		
+	<h4>Info</h4>
+	<ul>
+			<li><strong>return</strong> - TRUE if the input is valid, FALSE otherwise.</li>
+			<li><strong>access</strong> - public</li>
+		</ul>
+</div>
+<a name="methodisValidPrintable" id="methodisValidPrintable"><!-- --></a>
+<div style="background='#ffffff'"><h4>
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method isValidPrintable</strong> (line <span class="linenumber">263</span>)
+ </h4> 
+<h4><i>bool</i> <strong>isValidPrintable(
+string
+$context, string
+$input, int
+$maxLength, bool
+$allowNull)</strong></h4>
+
+	<!-- ========== Info from phpDoc block ========= -->
+<h5>Returns true if the canonicalized input contains no more than the number  of valid printable ASCII characters specified.</h5>
+		<h4>Parameters</h4>
+	<ul>
+			<li><strong>string $context</strong>: A descriptive name of the parameter that you are                           validating (e.g. ASCIIArt_Submission). This value                           is used by any logging or error handling that is                           done with respect to the value passed in.</li>
+			<li><strong>string $input</strong>: The actual user input data to validate.</li>
+			<li><strong>int $maxLength</strong>: The maximum number of canonicalized ascii characters                           allowed in a legal input.</li>
+			<li><strong>bool $allowNull</strong>: If allowNull is true then an input that is NULL or an                           empty string will be legal. If allowNull is false                           then NULL or an empty String will throw a                           ValidationException.</li>
+		</ul>
+		
+	<h4>Info</h4>
+	<ul>
+			<li><strong>return</strong> - TRUE if the input is valid, FALSE otherwise.</li>
+			<li><strong>access</strong> - public</li>
+		</ul>
+</div>
+<script type="text/javascript">tp1.addTabPage( document.getElementById( "tabPage2" ) );</script></div>
+<div class="tab-page" id="iVars">
+<h2 class="tab">Inherited Variables</h2>
+<script type="text/javascript">tp1.addTabPage( document.getElementById( "iVars" ) );</script>
+<!-- =========== VAR INHERITED SUMMARY =========== -->
+<A NAME='var_inherited_summary'><!-- --></A>
+<h3>Inherited Class Variable Summary</h3>
+
+	</div>
+<div class="tab-page" id="iMethods">
+<h2 class="tab">Inherited Methods</h2>
+<script type="text/javascript">tp1.addTabPage( document.getElementById( "iMethods" ) );</script>
+<!-- =========== INHERITED METHOD SUMMARY =========== -->
+<A NAME='functions_inherited'><!-- --></A>
+<h3>Inherited Method Summary</h3>
+
+	</div>
+</div>
+<script type="text/javascript">
+//<![CDATA[
+
+setupAllTabs();
+
+//]]>
+</script>
+	<div id="credit">
+		<hr />
+		Documentation generated on Fri, 16 Apr 2010 11:42:21 -0400 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
+	</div>
+</body>
+</html>

@@ -1,0 +1,505 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+   <html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <title>Docs For Class AccessController</title>
+  <link rel="stylesheet" href="../media/stylesheet.css" />
+  <script src="../media/lib/classTree.js"></script>
+<link id="webfx-tab-style-sheet" type="text/css" rel="stylesheet" href="../media/lib/tab.webfx.css" />
+<script type="text/javascript" src="../media/lib/tabpane.js"></script>
+  <script language="javascript" type="text/javascript" src="../media/lib/ua.js"></script>
+<script language="javascript" type="text/javascript">
+	var imgPlus = new Image();
+	var imgMinus = new Image();
+	imgPlus.src = "../media/images/plus.gif";
+	imgMinus.src = "../media/images/minus.gif";
+	
+	function showNode(Node){
+        switch(navigator.family){
+        	case 'nn4':
+        		// Nav 4.x code fork...
+				var oTable = document.layers["span" + Node];
+				var oImg = document.layers["img" + Node];
+        		break;
+        	case 'ie4':
+        		// IE 4/5 code fork...
+				var oTable = document.all["span" + Node];
+				var oImg = document.all["img" + Node];
+        		break;
+        	case 'gecko':
+        		// Standards Compliant code fork...
+				var oTable = document.getElementById("span" + Node);
+				var oImg = document.getElementById("img" + Node);
+        		break;
+        }
+		oImg.src = imgMinus.src;
+		oTable.style.display = "block";
+	}
+	
+	function hideNode(Node){
+        switch(navigator.family){
+        	case 'nn4':
+        		// Nav 4.x code fork...
+				var oTable = document.layers["span" + Node];
+				var oImg = document.layers["img" + Node];
+        		break;
+        	case 'ie4':
+        		// IE 4/5 code fork...
+				var oTable = document.all["span" + Node];
+				var oImg = document.all["img" + Node];
+        		break;
+        	case 'gecko':
+        		// Standards Compliant code fork...
+				var oTable = document.getElementById("span" + Node);
+				var oImg = document.getElementById("img" + Node);
+        		break;
+        }
+		oImg.src = imgPlus.src;
+		oTable.style.display = "none";
+	}
+	
+	function nodeIsVisible(Node){
+        switch(navigator.family){
+        	case 'nn4':
+        		// Nav 4.x code fork...
+				var oTable = document.layers["span" + Node];
+        		break;
+        	case 'ie4':
+        		// IE 4/5 code fork...
+				var oTable = document.all["span" + Node];
+        		break;
+        	case 'gecko':
+        		// Standards Compliant code fork...
+				var oTable = document.getElementById("span" + Node);
+        		break;
+        }
+		return (oTable && oTable.style.display == "block");
+	}
+	
+	function toggleNodeVisibility(Node){
+		if (nodeIsVisible(Node)){
+			hideNode(Node);
+		}else{
+			showNode(Node);
+		}
+	}
+</script>
+<!-- template designed by Julien Damon based on PHPEdit's generated templates, and tweaked by Greg Beaver -->
+<body bgcolor="#ffffff" ><!-- Start of Class Data -->
+<h2>
+	Interface AccessController
+</h2> (line <span class="linenumber">96</span>)
+<div class="tab-pane" id="tabPane1">
+<script type="text/javascript">
+tp1 = new WebFXTabPane( document.getElementById( "tabPane1" ));
+</script>
+
+<div class="tab-page" id="Description">
+<h2 class="tab">Description</h2>
+<pre>
+</pre>
+<p>
+	<b><i>Located in File: <a href="_AccessController.php.html">/AccessController.php</a></i></b><br>
+</p>
+<!-- ========== Info from phpDoc block ========= -->
+<h5>The AccessController interface defines a set of methods that can be used in a</h5>
+<div class="desc"><p>wide variety of applications to enforce access control. In most applications,  access control must be performed in multiple different locations across the  various application layers. This class provides access control for URLs,  business functions, data, services, and files.</p><p>&lt;img src=&quot;doc-files/AccessController.jpg&quot;&gt;</p><p>The implementation of this interface will need to access the current User  object (from Authenticator.getCurrentUser()) to determine roles or  permissions. In addition, the implementation will also need information about  the resources that are being accessed. Using the user information and the  resource information, the implementation should return an access control  decision.</p><p>Implementers are encouraged to implement the ESAPI access control methods,  like assertAuthorizedForFunction() using existing access control mechanisms,  such as methods like isUserInRole() or hasPrivilege(). While powerful,  methods like isUserInRole() can be confusing for developers, as users may be  in multiple roles or possess multiple overlapping privileges. Direct use of  these finer grained access control methods encourages the use of complex  boolean tests throughout the code, which can easily lead to developer  mistakes.</p><p>The point of the ESAPI access control interface is to centralize access  control logic behind easy to use calls like assertAuthorizedForData() so that  access control is easy to use and easy to verify. Here is an example of a  very straightforward to implement, understand, and verify ESAPI access  control check:</p><p><pre> try {
+     ESAPI.accessController().assertAuthorizedForFunction( BUSINESS_FUNCTION );
+     // execute BUSINESS_FUNCTION
+ } catch (AccessControlException ace) {
+ ... attack in progress
+ }</pre></p><p>Note that in the user interface layer, access control checks can be used to  control whether particular controls are rendered or not. These checks are  supposed to fail when an unauthorized user is logged in, and do not represent  attacks. Remember that regardless of how the user interface appears, an  attacker can attempt to invoke any business function or access any data in  your application. Therefore, access control checks in the user interface  should be repeated in both the business logic and data layers.</p><p><pre> &lt;% if ( ESAPI.accessController().isAuthorizedForFunction( ADMIN_FUNCTION ) ) { %&gt;
+ &lt;a href=&quot;/doAdminFunction&quot;&gt;ADMIN&lt;/a&gt;
+ &lt;% } else { %&gt;
+ &lt;a href=&quot;/doNormalFunction&quot;&gt;NORMAL&lt;/a&gt;
+ &lt;% } %&gt;</pre></p></div>
+<ul>
+		<li><strong>author:</strong> - Andrew van der Stock &lt;<a href="mailto:vanderaj@owasp.org">vanderaj@owasp.org</a>&gt;</li>
+		<li><strong>author:</strong> - Jeff Williams &lt;<a href="mailto:jeff.williams@aspectsecurity.com">jeff.williams@aspectsecurity.com</a>&gt;</li>
+		<li><strong>author:</strong> - Mike Fauzy &lt;<a href="mailto:mike.fauzy@aspectsecurity.com">mike.fauzy@aspectsecurity.com</a>&gt;</li>
+		<li><strong>version:</strong> - Release: @package_version@</li>
+		<li><strong>copyright:</strong> - 2009-2010 The OWASP Foundation</li>
+		<li><strong>link:</strong> - <a href="http://www.owasp.org/index.php/ESAPI">http://www.owasp.org/index.php/ESAPI</a></li>
+		<li><strong>license:</strong> - <a href="http://www.opensource.org/licenses/bsd-license.php">New BSD license</a></li>
+	</ul>
+<br /><hr />
+</div>
+<script type="text/javascript">tp1.addTabPage( document.getElementById( "Description" ) );</script>
+<div class="tab-page" id="tabPage1">
+
+<h2 class="tab">Class Variables</h2>
+<!-- ============ VARIABLE DETAIL =========== -->
+<strong>Summary:</strong><br />
+<hr />
+<script type="text/javascript">tp1.addTabPage( document.getElementById( "tabPage1" ) );</script>
+</div>
+<div class="tab-page" id="constantsTabpage">
+
+<h2 class="tab">Class Constants</h2>
+<!-- ============ VARIABLE DETAIL =========== -->
+<strong>Summary:</strong><br />
+<hr />
+<script type="text/javascript">tp1.addTabPage( document.getElementById( "constantsTabpage" ) );</script>
+</div>
+<div class="tab-page" id="tabPage2">
+<h2 class="tab">Method Detail</h2>
+<!-- ============ METHOD DETAIL =========== -->
+<strong>Summary:</strong><br />
+<div class="method-summary">
+    <div class="method-definition">
+            <span class="method-result">void</span>
+        <a href="#methodassertAuthorizedForData" title="details" class="method-name">assertAuthorizedForData</a>
+        (<span class="var-type">action</span>&nbsp;<span class="var-name">$action</span>, <span class="var-type">data</span>&nbsp;<span class="var-name">$data</span>)
+        </div>
+    <div class="method-definition">
+            <span class="method-result">void</span>
+        <a href="#methodassertAuthorizedForDataByKey" title="details" class="method-name">assertAuthorizedForDataByKey</a>
+        (<span class="var-type">key</span>&nbsp;<span class="var-name">$key</span>)
+        </div>
+    <div class="method-definition">
+            <span class="method-result">void</span>
+        <a href="#methodassertAuthorizedForFile" title="details" class="method-name">assertAuthorizedForFile</a>
+        (<span class="var-type">filepath</span>&nbsp;<span class="var-name">$filepath</span>)
+        </div>
+    <div class="method-definition">
+            <span class="method-result">void</span>
+        <a href="#methodassertAuthorizedForFunction" title="details" class="method-name">assertAuthorizedForFunction</a>
+        (<span class="var-type">functionName</span>&nbsp;<span class="var-name">$functionName</span>)
+        </div>
+    <div class="method-definition">
+            <span class="method-result">void</span>
+        <a href="#methodassertAuthorizedForService" title="details" class="method-name">assertAuthorizedForService</a>
+        (<span class="var-type">serviceName</span>&nbsp;<span class="var-name">$serviceName</span>)
+        </div>
+    <div class="method-definition">
+            <span class="method-result">void</span>
+        <a href="#methodassertAuthorizedForURL" title="details" class="method-name">assertAuthorizedForURL</a>
+        (<span class="var-type">url</span>&nbsp;<span class="var-name">$url</span>)
+        </div>
+    <div class="method-definition">
+            <span class="method-result">true,</span>
+        <a href="#methodisAuthorizedForData" title="details" class="method-name">isAuthorizedForData</a>
+        (<span class="var-type">action</span>&nbsp;<span class="var-name">$action</span>, <span class="var-type">data</span>&nbsp;<span class="var-name">$data</span>)
+        </div>
+    <div class="method-definition">
+            <span class="method-result">true,</span>
+        <a href="#methodisAuthorizedForDataByKey" title="details" class="method-name">isAuthorizedForDataByKey</a>
+        (<span class="var-type">key</span>&nbsp;<span class="var-name">$key</span>)
+        </div>
+    <div class="method-definition">
+            <span class="method-result">true,</span>
+        <a href="#methodisAuthorizedForFile" title="details" class="method-name">isAuthorizedForFile</a>
+        (<span class="var-type">filepath</span>&nbsp;<span class="var-name">$filepath</span>)
+        </div>
+    <div class="method-definition">
+            <span class="method-result">true,</span>
+        <a href="#methodisAuthorizedForFunction" title="details" class="method-name">isAuthorizedForFunction</a>
+        (<span class="var-type">functionName</span>&nbsp;<span class="var-name">$functionName</span>)
+        </div>
+    <div class="method-definition">
+            <span class="method-result">true,</span>
+        <a href="#methodisAuthorizedForService" title="details" class="method-name">isAuthorizedForService</a>
+        (<span class="var-type">serviceName</span>&nbsp;<span class="var-name">$serviceName</span>)
+        </div>
+    <div class="method-definition">
+            <span class="method-result">true,</span>
+        <a href="#methodisAuthorizedForURL" title="details" class="method-name">isAuthorizedForURL</a>
+        (<span class="var-type">url</span>&nbsp;<span class="var-name">$url</span>)
+        </div>
+</div>
+<hr />
+<A NAME='method_detail'></A>
+
+
+<a name="methodassertAuthorizedForData" id="methodassertAuthorizedForData"><!-- --></a>
+<div style="background='#ffffff'"><h4>
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method assertAuthorizedForData</strong> (line <span class="linenumber">293</span>)
+ </h4> 
+<h4><i>void</i> <strong>assertAuthorizedForData(
+action
+$action, data
+$data)</strong></h4>
+
+	<!-- ========== Info from phpDoc block ========= -->
+<h5>Checks if the current user is authorized to access the referenced data.  This method simply returns if access is authorized.</h5>
+<div class="desc"><p>It throws an AccessControlException if access is not authorized, or if the referenced data does not exist.  &lt;p&gt;
+ Specification:  The implementation should do the following:  <ol><li>Check to see if the resource exists and if not, throw an AccessControlException</li><li>Use available information to make an access control decision</li><li>Ideally, this policy would be data driven</li><li>You can use the current User, roles, data type, data name, time of day, etc.</li><li>Access control decisions must deny by default</li></ol>  &lt;li&gt;If access is not permitted, throw an AccessControlException with details&lt;/li&gt;  &lt;/ol&gt;</p></div>
+		<h4>Parameters</h4>
+	<ul>
+			<li><strong>action $action</strong>: the action to check for in the configuration file in the resource directory</li>
+			<li><strong>data $data</strong>: the data to check for in the configuration file in the resource directory</li>
+		</ul>
+		
+	<h4>Info</h4>
+	<ul>
+			<li><strong>throws</strong> - AccessControlException          if access is not permitted</li>
+		</ul>
+</div>
+<a name="methodassertAuthorizedForDataByKey" id="methodassertAuthorizedForDataByKey"><!-- --></a>
+<div style="background='#eeeeee'"><h4>
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method assertAuthorizedForDataByKey</strong> (line <span class="linenumber">266</span>)
+ </h4> 
+<h4><i>void</i> <strong>assertAuthorizedForDataByKey(
+key
+$key)</strong></h4>
+
+	<!-- ========== Info from phpDoc block ========= -->
+<h5>Checks if the current user is authorized to access the referenced data.  This method simply returns if access is authorized.</h5>
+<div class="desc"><p>It throws an AccessControlException if access is not authorized, or if the referenced data does not exist.  &lt;p&gt;
+ Specification:  The implementation should do the following:  <ol><li>Check to see if the resource exists and if not, throw an AccessControlException</li><li>Use available information to make an access control decision</li><li>Ideally, this policy would be data driven</li><li>You can use the current User, roles, data type, data name, time of day, etc.</li><li>Access control decisions must deny by default</li></ol>  &lt;li&gt;If access is not permitted, throw an AccessControlException with details&lt;/li&gt;  &lt;/ol&gt;</p></div>
+		<h4>Parameters</h4>
+	<ul>
+			<li><strong>key $key</strong>: the name of the target data object</li>
+		</ul>
+		
+	<h4>Info</h4>
+	<ul>
+			<li><strong>throws</strong> - AccessControlException          if access is not permitted</li>
+		</ul>
+</div>
+<a name="methodassertAuthorizedForFile" id="methodassertAuthorizedForFile"><!-- --></a>
+<div style="background='#ffffff'"><h4>
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method assertAuthorizedForFile</strong> (line <span class="linenumber">318</span>)
+ </h4> 
+<h4><i>void</i> <strong>assertAuthorizedForFile(
+filepath
+$filepath)</strong></h4>
+
+	<!-- ========== Info from phpDoc block ========= -->
+<h5>Checks if an account is authorized to access the referenced file. The implementation should validate and canonicalize the input to be sure the filepath is not malicious.</h5>
+<div class="desc"><p>This method throws an AccessControlException if access is not authorized, or if the referenced File does not exist.  If the User is authorized, this method simply returns.</p><p>Specification:  The implementation should do the following:  <ol><li>Check to see if the File exists and if not, throw an AccessControlException</li><li>Use available information to make an access control decision</li><li>Ideally, this policy would be data driven</li><li>You can use the current User, roles, data type, data name, time of day, etc.</li><li>Access control decisions must deny by default</li></ol>  &lt;li&gt;If access is not permitted, throw an AccessControlException with details&lt;/li&gt;  &lt;/ol&gt;</p></div>
+		<h4>Parameters</h4>
+	<ul>
+			<li><strong>filepath $filepath</strong>: Path to the file to be checked</li>
+		</ul>
+		
+	<h4>Info</h4>
+	<ul>
+			<li><strong>throws</strong> - AccessControlException if access is denied</li>
+		</ul>
+</div>
+<a name="methodassertAuthorizedForFunction" id="methodassertAuthorizedForFunction"><!-- --></a>
+<div style="background='#eeeeee'"><h4>
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method assertAuthorizedForFunction</strong> (line <span class="linenumber">243</span>)
+ </h4> 
+<h4><i>void</i> <strong>assertAuthorizedForFunction(
+functionName
+$functionName)</strong></h4>
+
+	<!-- ========== Info from phpDoc block ========= -->
+<h5>Checks if an account is authorized to access the referenced function. The implementation should define the function &quot;namespace&quot; to be enforced. Choosing something simple like the class name of action classes or menu item names will make this implementation easier to use.</h5>
+<div class="desc"><p>This method throws an AccessControlException if access is not authorized, or if the referenced function does not exist.  If the User is authorized, this method simply returns.</p><p>Specification:  The implementation should do the following:  <ol><li>Check to see if the function exists and if not, throw an AccessControlException</li><li>Use available information to make an access control decision</li><li>Ideally, this policy would be data driven</li><li>You can use the current User, roles, data type, data name, time of day, etc.</li><li>Access control decisions must deny by default</li></ol>  &lt;li&gt;If access is not permitted, throw an AccessControlException with details&lt;/li&gt;  &lt;/ol&gt;</p></div>
+		<h4>Parameters</h4>
+	<ul>
+			<li><strong>functionName $functionName</strong>: the function name</li>
+		</ul>
+		
+	<h4>Info</h4>
+	<ul>
+			<li><strong>throws</strong> - AccessControlException          if access is not permitted</li>
+		</ul>
+</div>
+<a name="methodassertAuthorizedForService" id="methodassertAuthorizedForService"><!-- --></a>
+<div style="background='#ffffff'"><h4>
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method assertAuthorizedForService</strong> (line <span class="linenumber">345</span>)
+ </h4> 
+<h4><i>void</i> <strong>assertAuthorizedForService(
+serviceName
+$serviceName)</strong></h4>
+
+	<!-- ========== Info from phpDoc block ========= -->
+<h5>Checks if an account is authorized to access the referenced service. This can be used in applications that provide access to a variety of backend services.</h5>
+<div class="desc"><p>This method throws an AccessControlException if access is not authorized, or if the referenced service does not exist.  If the User is authorized, this method simply returns.</p><p>Specification:  The implementation should do the following:  <ol><li>Check to see if the service exists and if not, throw an AccessControlException</li><li>Use available information to make an access control decision</li><li>Ideally, this policy would be data driven</li><li>You can use the current User, roles, data type, data name, time of day, etc.</li><li>Access control decisions must deny by default</li></ol>  &lt;li&gt;If access is not permitted, throw an AccessControlException with details&lt;/li&gt;  &lt;/ol&gt;</p></div>
+		<h4>Parameters</h4>
+	<ul>
+			<li><strong>serviceName $serviceName</strong>: the service name</li>
+		</ul>
+		
+	<h4>Info</h4>
+	<ul>
+			<li><strong>throws</strong> - AccessControlException          if access is not permitted</li>
+		</ul>
+</div>
+<a name="methodassertAuthorizedForURL" id="methodassertAuthorizedForURL"><!-- --></a>
+<div style="background='#eeeeee'"><h4>
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method assertAuthorizedForURL</strong> (line <span class="linenumber">215</span>)
+ </h4> 
+<h4><i>void</i> <strong>assertAuthorizedForURL(
+url
+$url)</strong></h4>
+
+	<!-- ========== Info from phpDoc block ========= -->
+<h5>Checks if an account is authorized to access the referenced URL. The implementation should allow</h5>
+<div class="desc"><p>access to be granted to any part of the URL. Generally, this method should be invoked in the  application's controller or a filter as follows:  <pre>ESAPI.accessController().assertAuthorizedForURL(request.getRequestURI().toString());</pre></p><p>This method throws an AccessControlException if access is not authorized, or if the referenced URL does not exist.  If the User is authorized, this method simply returns.  &lt;p&gt;
+ Specification:  The implementation should do the following:  <ol><li>Check to see if the resource exists and if not, throw an AccessControlException</li><li>Use available information to make an access control decision</li><li>Ideally, this policy would be data driven</li><li>You can use the current User, roles, data type, data name, time of day, etc.</li><li>Access control decisions must deny by default</li></ol>  &lt;li&gt;If access is not permitted, throw an AccessControlException with details&lt;/li&gt;  &lt;/ol&gt;</p></div>
+		<h4>Parameters</h4>
+	<ul>
+			<li><strong>url $url</strong>: the URL as returned by request.getRequestURI().toString()</li>
+		</ul>
+		
+	<h4>Info</h4>
+	<ul>
+			<li><strong>throws</strong> - AccessControlException          if access is not permitted</li>
+		</ul>
+</div>
+<a name="methodisAuthorizedForData" id="methodisAuthorizedForData"><!-- --></a>
+<div style="background='#ffffff'"><h4>
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method isAuthorizedForData</strong> (line <span class="linenumber">158</span>)
+ </h4> 
+<h4><i>true,</i> <strong>isAuthorizedForData(
+action
+$action, data
+$data)</strong></h4>
+
+	<!-- ========== Info from phpDoc block ========= -->
+<h5>Checks if an account is authorized to access the referenced data, represented as an Object.</h5>
+<div class="desc"><p>The implementation of this method should call assertAuthorizedForData($action, Object data), and if an  AccessControlException is not thrown, this method should return true.</p></div>
+		<h4>Parameters</h4>
+	<ul>
+			<li><strong>action $action</strong>: the action to check for in the configuration file in the resource directory</li>
+			<li><strong>data $data</strong>: the data to check for in the configuration file in the resource directory</li>
+		</ul>
+		
+	<h4>Info</h4>
+	<ul>
+			<li><strong>return</strong> - if is authorized for the data</li>
+		</ul>
+</div>
+<a name="methodisAuthorizedForDataByKey" id="methodisAuthorizedForDataByKey"><!-- --></a>
+<div style="background='#eeeeee'"><h4>
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method isAuthorizedForDataByKey</strong> (line <span class="linenumber">141</span>)
+ </h4> 
+<h4><i>true,</i> <strong>isAuthorizedForDataByKey(
+key
+$key)</strong></h4>
+
+	<!-- ========== Info from phpDoc block ========= -->
+<h5>Checks if an account is authorized to access the referenced data, represented as a String.</h5>
+<div class="desc"><p>The implementation of this method should call assertAuthorizedForData($key), and if an AccessControlException  is not thrown, this method should return true.</p></div>
+		<h4>Parameters</h4>
+	<ul>
+			<li><strong>key $key</strong>: the name of the referenced data object</li>
+		</ul>
+		
+	<h4>Info</h4>
+	<ul>
+			<li><strong>return</strong> - if is authorized for the data</li>
+		</ul>
+</div>
+<a name="methodisAuthorizedForFile" id="methodisAuthorizedForFile"><!-- --></a>
+<div style="background='#ffffff'"><h4>
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method isAuthorizedForFile</strong> (line <span class="linenumber">172</span>)
+ </h4> 
+<h4><i>true,</i> <strong>isAuthorizedForFile(
+filepath
+$filepath)</strong></h4>
+
+	<!-- ========== Info from phpDoc block ========= -->
+<h5>Checks if an account is authorized to access the referenced file.</h5>
+<div class="desc"><p>The implementation of this method should call assertAuthorizedForFile($filepath), and if an AccessControlException  is not thrown, this method should return true.</p></div>
+		<h4>Parameters</h4>
+	<ul>
+			<li><strong>filepath $filepath</strong>: the path of the file to be checked, including filename</li>
+		</ul>
+		
+	<h4>Info</h4>
+	<ul>
+			<li><strong>return</strong> - if is authorized for the file</li>
+		</ul>
+</div>
+<a name="methodisAuthorizedForFunction" id="methodisAuthorizedForFunction"><!-- --></a>
+<div style="background='#eeeeee'"><h4>
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method isAuthorizedForFunction</strong> (line <span class="linenumber">127</span>)
+ </h4> 
+<h4><i>true,</i> <strong>isAuthorizedForFunction(
+functionName
+$functionName)</strong></h4>
+
+	<!-- ========== Info from phpDoc block ========= -->
+<h5>Checks if an account is authorized to access the referenced function.</h5>
+<div class="desc"><p>The implementation of this method should call assertAuthorizedForFunction($functionName), and if an  AccessControlException is not thrown, this method should return true.</p></div>
+		<h4>Parameters</h4>
+	<ul>
+			<li><strong>functionName $functionName</strong>: the name of the function</li>
+		</ul>
+		
+	<h4>Info</h4>
+	<ul>
+			<li><strong>return</strong> - if is authorized for function</li>
+		</ul>
+</div>
+<a name="methodisAuthorizedForService" id="methodisAuthorizedForService"><!-- --></a>
+<div style="background='#ffffff'"><h4>
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method isAuthorizedForService</strong> (line <span class="linenumber">187</span>)
+ </h4> 
+<h4><i>true,</i> <strong>isAuthorizedForService(
+serviceName
+$serviceName)</strong></h4>
+
+	<!-- ========== Info from phpDoc block ========= -->
+<h5>Checks if an account is authorized to access the referenced service. This can be used in applications that  provide access to a variety of back end services.</h5>
+<div class="desc"><p>The implementation of this method should call assertAuthorizedForService($serviceName), and if an  AccessControlException is not thrown, this method should return true.</p></div>
+		<h4>Parameters</h4>
+	<ul>
+			<li><strong>serviceName $serviceName</strong>: the service name</li>
+		</ul>
+		
+	<h4>Info</h4>
+	<ul>
+			<li><strong>return</strong> - if is authorized for the service</li>
+		</ul>
+</div>
+<a name="methodisAuthorizedForURL" id="methodisAuthorizedForURL"><!-- --></a>
+<div style="background='#eeeeee'"><h4>
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method isAuthorizedForURL</strong> (line <span class="linenumber">113</span>)
+ </h4> 
+<h4><i>true,</i> <strong>isAuthorizedForURL(
+url
+$url)</strong></h4>
+
+	<!-- ========== Info from phpDoc block ========= -->
+<h5>Checks if an account is authorized to access the referenced URL. Generally, this method should be invoked in the  application's controller or a filter as follows:  <pre>ESAPI.accessController().isAuthorizedForURL(request.getRequestURI().toString());</pre></h5>
+<div class="desc"><p>The implementation of this method should call assertAuthorizedForURL($url), and if an AccessControlException is  not thrown, this method should return true. This way, if the user is not authorized, false would be returned, and the  exception would be logged.</p></div>
+		<h4>Parameters</h4>
+	<ul>
+			<li><strong>url $url</strong>: the URL as returned by request.getRequestURI().toString()</li>
+		</ul>
+		
+	<h4>Info</h4>
+	<ul>
+			<li><strong>return</strong> - if is authorized for URL</li>
+		</ul>
+</div>
+<script type="text/javascript">tp1.addTabPage( document.getElementById( "tabPage2" ) );</script></div>
+<div class="tab-page" id="iVars">
+<h2 class="tab">Inherited Variables</h2>
+<script type="text/javascript">tp1.addTabPage( document.getElementById( "iVars" ) );</script>
+<!-- =========== VAR INHERITED SUMMARY =========== -->
+<A NAME='var_inherited_summary'><!-- --></A>
+<h3>Inherited Class Variable Summary</h3>
+
+	</div>
+<div class="tab-page" id="iMethods">
+<h2 class="tab">Inherited Methods</h2>
+<script type="text/javascript">tp1.addTabPage( document.getElementById( "iMethods" ) );</script>
+<!-- =========== INHERITED METHOD SUMMARY =========== -->
+<A NAME='functions_inherited'><!-- --></A>
+<h3>Inherited Method Summary</h3>
+
+	</div>
+</div>
+<script type="text/javascript">
+//<![CDATA[
+
+setupAllTabs();
+
+//]]>
+</script>
+	<div id="credit">
+		<hr />
+		Documentation generated on Fri, 16 Apr 2010 11:42:06 -0400 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
+	</div>
+</body>
+</html>

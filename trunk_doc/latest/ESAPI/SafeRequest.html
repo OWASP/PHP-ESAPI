@@ -1,0 +1,909 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+   <html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <title>Docs For Class SafeRequest</title>
+  <link rel="stylesheet" href="../media/stylesheet.css" />
+  <script src="../media/lib/classTree.js"></script>
+<link id="webfx-tab-style-sheet" type="text/css" rel="stylesheet" href="../media/lib/tab.webfx.css" />
+<script type="text/javascript" src="../media/lib/tabpane.js"></script>
+  <script language="javascript" type="text/javascript" src="../media/lib/ua.js"></script>
+<script language="javascript" type="text/javascript">
+	var imgPlus = new Image();
+	var imgMinus = new Image();
+	imgPlus.src = "../media/images/plus.gif";
+	imgMinus.src = "../media/images/minus.gif";
+	
+	function showNode(Node){
+        switch(navigator.family){
+        	case 'nn4':
+        		// Nav 4.x code fork...
+				var oTable = document.layers["span" + Node];
+				var oImg = document.layers["img" + Node];
+        		break;
+        	case 'ie4':
+        		// IE 4/5 code fork...
+				var oTable = document.all["span" + Node];
+				var oImg = document.all["img" + Node];
+        		break;
+        	case 'gecko':
+        		// Standards Compliant code fork...
+				var oTable = document.getElementById("span" + Node);
+				var oImg = document.getElementById("img" + Node);
+        		break;
+        }
+		oImg.src = imgMinus.src;
+		oTable.style.display = "block";
+	}
+	
+	function hideNode(Node){
+        switch(navigator.family){
+        	case 'nn4':
+        		// Nav 4.x code fork...
+				var oTable = document.layers["span" + Node];
+				var oImg = document.layers["img" + Node];
+        		break;
+        	case 'ie4':
+        		// IE 4/5 code fork...
+				var oTable = document.all["span" + Node];
+				var oImg = document.all["img" + Node];
+        		break;
+        	case 'gecko':
+        		// Standards Compliant code fork...
+				var oTable = document.getElementById("span" + Node);
+				var oImg = document.getElementById("img" + Node);
+        		break;
+        }
+		oImg.src = imgPlus.src;
+		oTable.style.display = "none";
+	}
+	
+	function nodeIsVisible(Node){
+        switch(navigator.family){
+        	case 'nn4':
+        		// Nav 4.x code fork...
+				var oTable = document.layers["span" + Node];
+        		break;
+        	case 'ie4':
+        		// IE 4/5 code fork...
+				var oTable = document.all["span" + Node];
+        		break;
+        	case 'gecko':
+        		// Standards Compliant code fork...
+				var oTable = document.getElementById("span" + Node);
+        		break;
+        }
+		return (oTable && oTable.style.display == "block");
+	}
+	
+	function toggleNodeVisibility(Node){
+		if (nodeIsVisible(Node)){
+			hideNode(Node);
+		}else{
+			showNode(Node);
+		}
+	}
+</script>
+<!-- template designed by Julien Damon based on PHPEdit's generated templates, and tweaked by Greg Beaver -->
+<body bgcolor="#ffffff" ><!-- Start of Class Data -->
+<h2>
+	Class SafeRequest
+</h2> (line <span class="linenumber">48</span>)
+<div class="tab-pane" id="tabPane1">
+<script type="text/javascript">
+tp1 = new WebFXTabPane( document.getElementById( "tabPane1" ));
+</script>
+
+<div class="tab-page" id="Description">
+<h2 class="tab">Description</h2>
+<pre>
+</pre>
+<p>
+	<b><i>Located in File: <a href="_filters---SafeRequest.php.html">/filters/SafeRequest.php</a></i></b><br>
+</p>
+<!-- ========== Info from phpDoc block ========= -->
+<h5>This request wrapper simply provides convenient and safe methods for the  retreival of HTTP request parameters, headers and PHP server globals defined in  the CGI 1.1 Specification.  The methods perform canonicalization and validation  of the requested values or return safe defaults such as empty strings.</h5>
+<div class="desc"><p>PHP version 5.2</p></div>
+<ul>
+		<li><strong>author:</strong> - jah &lt;<a href="mailto:jah@jahboite.co.uk">jah@jahboite.co.uk</a>&gt;</li>
+		<li><strong>version:</strong> - Release: @package_version@</li>
+		<li><strong>copyright:</strong> - 2009-2010 The OWASP Foundation</li>
+		<li><strong>link:</strong> - <a href="http://www.owasp.org/index.php/ESAPI">http://www.owasp.org/index.php/ESAPI</a></li>
+		<li><strong>license:</strong> - <a href="http://www.opensource.org/licenses/bsd-license.php">New BSD license</a></li>
+	</ul>
+<br /><hr />
+</div>
+<script type="text/javascript">tp1.addTabPage( document.getElementById( "Description" ) );</script>
+<div class="tab-page" id="tabPage1">
+
+<h2 class="tab">Class Variables</h2>
+<!-- ============ VARIABLE DETAIL =========== -->
+<strong>Summary:</strong><br />
+<hr />
+<script type="text/javascript">tp1.addTabPage( document.getElementById( "tabPage1" ) );</script>
+</div>
+<div class="tab-page" id="constantsTabpage">
+
+<h2 class="tab">Class Constants</h2>
+<!-- ============ VARIABLE DETAIL =========== -->
+<strong>Summary:</strong><br />
+<div class="const-title">
+    <a href="#constCHARS_ALPHA" title="details" class="property"><strong>CHARS_ALPHA</strong></a>
+</div>
+<div class="const-title">
+    <a href="#constCHARS_FILESYSTEM_PATH" title="details" class="property"><strong>CHARS_FILESYSTEM_PATH</strong></a>
+</div>
+<div class="const-title">
+    <a href="#constCHARS_HTTP_COOKIE_NAME" title="details" class="property"><strong>CHARS_HTTP_COOKIE_NAME</strong></a>
+</div>
+<div class="const-title">
+    <a href="#constCHARS_HTTP_COOKIE_VALUE" title="details" class="property"><strong>CHARS_HTTP_COOKIE_VALUE</strong></a>
+</div>
+<div class="const-title">
+    <a href="#constCHARS_HTTP_HEADER_NAME" title="details" class="property"><strong>CHARS_HTTP_HEADER_NAME</strong></a>
+</div>
+<div class="const-title">
+    <a href="#constCHARS_HTTP_HEADER_VALUE" title="details" class="property"><strong>CHARS_HTTP_HEADER_VALUE</strong></a>
+</div>
+<div class="const-title">
+    <a href="#constCHARS_HTTP_HOSTNAME" title="details" class="property"><strong>CHARS_HTTP_HOSTNAME</strong></a>
+</div>
+<div class="const-title">
+    <a href="#constCHARS_HTTP_QUERY_STRING" title="details" class="property"><strong>CHARS_HTTP_QUERY_STRING</strong></a>
+</div>
+<div class="const-title">
+    <a href="#constCHARS_HTTP_REMOTE_USER" title="details" class="property"><strong>CHARS_HTTP_REMOTE_USER</strong></a>
+</div>
+<div class="const-title">
+    <a href="#constCHARS_HTTP_REQUEST_URI" title="details" class="property"><strong>CHARS_HTTP_REQUEST_URI</strong></a>
+</div>
+<div class="const-title">
+    <a href="#constCHARS_NUMERIC" title="details" class="property"><strong>CHARS_NUMERIC</strong></a>
+</div>
+<div class="const-title">
+    <a href="#constORD_TAB" title="details" class="property"><strong>ORD_TAB</strong></a>
+</div>
+<div class="const-title">
+    <a href="#constPATTERN_HOST_NAME" title="details" class="property"><strong>PATTERN_HOST_NAME</strong></a>
+</div>
+<div class="const-title">
+    <a href="#constPATTERN_IPV4_ADDRESS" title="details" class="property"><strong>PATTERN_IPV4_ADDRESS</strong></a>
+</div>
+<div class="const-title">
+    <a href="#constPATTERN_REQUEST_AUTHTYPE" title="details" class="property"><strong>PATTERN_REQUEST_AUTHTYPE</strong></a>
+</div>
+<div class="const-title">
+    <a href="#constPATTERN_REQUEST_METHOD" title="details" class="property"><strong>PATTERN_REQUEST_METHOD</strong></a>
+</div>
+<hr />
+<a name="constCHARS_ALPHA" id="constCHARS_ALPHA"><!-- --></A>
+<div style="background='#eeeeee'">
+<h4>
+<img src="../media/images/Constant.gif" border="0" /> <strong class="property">CHARS_ALPHA =  'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'</strong> (line <span class="linenumber">66</span>)
+ </h4>
+<!-- ========== Info from phpDoc block ========= -->
+<ul>
+	</ul>
+</div>
+<a name="constCHARS_FILESYSTEM_PATH" id="constCHARS_FILESYSTEM_PATH"><!-- --></A>
+<div style="background='#ffffff'">
+<h4>
+<img src="../media/images/Constant.gif" border="0" /> <strong class="property">CHARS_FILESYSTEM_PATH =  ' !#$%&amp;\'()+,-./=@[\]^_`{}~'</strong> (line <span class="linenumber">64</span>)
+ </h4>
+<!-- ========== Info from phpDoc block ========= -->
+<ul>
+	</ul>
+</div>
+<a name="constCHARS_HTTP_COOKIE_NAME" id="constCHARS_HTTP_COOKIE_NAME"><!-- --></A>
+<div style="background='#eeeeee'">
+<h4>
+<img src="../media/images/Constant.gif" border="0" /> <strong class="property">CHARS_HTTP_COOKIE_NAME =  '_'</strong> (line <span class="linenumber">56</span>)
+ </h4>
+<!-- ========== Info from phpDoc block ========= -->
+<ul>
+	</ul>
+</div>
+<a name="constCHARS_HTTP_COOKIE_VALUE" id="constCHARS_HTTP_COOKIE_VALUE"><!-- --></A>
+<div style="background='#ffffff'">
+<h4>
+<img src="../media/images/Constant.gif" border="0" /> <strong class="property">CHARS_HTTP_COOKIE_VALUE =  '!&quot;#$%&amp;\'()*+-./:&lt;=&gt;?@[\]^_`{|}~'</strong> (line <span class="linenumber">57</span>)
+ </h4>
+<!-- ========== Info from phpDoc block ========= -->
+<ul>
+	</ul>
+</div>
+<a name="constCHARS_HTTP_HEADER_NAME" id="constCHARS_HTTP_HEADER_NAME"><!-- --></A>
+<div style="background='#eeeeee'">
+<h4>
+<img src="../media/images/Constant.gif" border="0" /> <strong class="property">CHARS_HTTP_HEADER_NAME =  '-_'</strong> (line <span class="linenumber">58</span>)
+ </h4>
+<!-- ========== Info from phpDoc block ========= -->
+<ul>
+	</ul>
+</div>
+<a name="constCHARS_HTTP_HEADER_VALUE" id="constCHARS_HTTP_HEADER_VALUE"><!-- --></A>
+<div style="background='#ffffff'">
+<h4>
+<img src="../media/images/Constant.gif" border="0" /> <strong class="property">CHARS_HTTP_HEADER_VALUE =  ' !&quot;#$%&amp;\'()*+,-./;:&lt;=&gt;?@[\]^_`{|}~'</strong> (line <span class="linenumber">59</span>)
+ </h4>
+<!-- ========== Info from phpDoc block ========= -->
+<ul>
+	</ul>
+</div>
+<a name="constCHARS_HTTP_HOSTNAME" id="constCHARS_HTTP_HOSTNAME"><!-- --></A>
+<div style="background='#eeeeee'">
+<h4>
+<img src="../media/images/Constant.gif" border="0" /> <strong class="property">CHARS_HTTP_HOSTNAME =  '-._'</strong> (line <span class="linenumber">61</span>)
+ </h4>
+<!-- ========== Info from phpDoc block ========= -->
+<ul>
+	</ul>
+</div>
+<a name="constCHARS_HTTP_QUERY_STRING" id="constCHARS_HTTP_QUERY_STRING"><!-- --></A>
+<div style="background='#ffffff'">
+<h4>
+<img src="../media/images/Constant.gif" border="0" /> <strong class="property">CHARS_HTTP_QUERY_STRING =  ' &amp;()*+,-./;:=?_'</strong> (line <span class="linenumber">60</span>)
+ </h4>
+<!-- ========== Info from phpDoc block ========= -->
+<ul>
+	</ul>
+</div>
+<a name="constCHARS_HTTP_REMOTE_USER" id="constCHARS_HTTP_REMOTE_USER"><!-- --></A>
+<div style="background='#eeeeee'">
+<h4>
+<img src="../media/images/Constant.gif" border="0" /> <strong class="property">CHARS_HTTP_REMOTE_USER =  '!#$%&amp;\'*+-.^_`|~'</strong> (line <span class="linenumber">62</span>)
+ </h4>
+<!-- ========== Info from phpDoc block ========= -->
+<ul>
+	</ul>
+</div>
+<a name="constCHARS_HTTP_REQUEST_URI" id="constCHARS_HTTP_REQUEST_URI"><!-- --></A>
+<div style="background='#ffffff'">
+<h4>
+<img src="../media/images/Constant.gif" border="0" /> <strong class="property">CHARS_HTTP_REQUEST_URI =  '!$%&amp;\'()*+-,./:=@_~'</strong> (line <span class="linenumber">63</span>)
+ </h4>
+<!-- ========== Info from phpDoc block ========= -->
+<ul>
+	</ul>
+</div>
+<a name="constCHARS_NUMERIC" id="constCHARS_NUMERIC"><!-- --></A>
+<div style="background='#eeeeee'">
+<h4>
+<img src="../media/images/Constant.gif" border="0" /> <strong class="property">CHARS_NUMERIC =  '0123456789'</strong> (line <span class="linenumber">65</span>)
+ </h4>
+<!-- ========== Info from phpDoc block ========= -->
+<ul>
+	</ul>
+</div>
+<a name="constORD_TAB" id="constORD_TAB"><!-- --></A>
+<div style="background='#ffffff'">
+<h4>
+<img src="../media/images/Constant.gif" border="0" /> <strong class="property">ORD_TAB =  0x09</strong> (line <span class="linenumber">68</span>)
+ </h4>
+<!-- ========== Info from phpDoc block ========= -->
+<ul>
+	</ul>
+</div>
+<a name="constPATTERN_HOST_NAME" id="constPATTERN_HOST_NAME"><!-- --></A>
+<div style="background='#eeeeee'">
+<h4>
+<img src="../media/images/Constant.gif" border="0" /> <strong class="property">PATTERN_HOST_NAME =  '^(?:(?:[0-9a-zA-Z][0-9a-zA-Z\-]{0,61}[0-9a-zA-Z])\.)*[a-zA-Z]{2,4}$'</strong> (line <span class="linenumber">73</span>)
+ </h4>
+<!-- ========== Info from phpDoc block ========= -->
+<ul>
+	</ul>
+</div>
+<a name="constPATTERN_IPV4_ADDRESS" id="constPATTERN_IPV4_ADDRESS"><!-- --></A>
+<div style="background='#ffffff'">
+<h4>
+<img src="../media/images/Constant.gif" border="0" /> <strong class="property">PATTERN_IPV4_ADDRESS =  '^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$'</strong> (line <span class="linenumber">75</span>)
+ </h4>
+<!-- ========== Info from phpDoc block ========= -->
+<ul>
+	</ul>
+</div>
+<a name="constPATTERN_REQUEST_AUTHTYPE" id="constPATTERN_REQUEST_AUTHTYPE"><!-- --></A>
+<div style="background='#eeeeee'">
+<h4>
+<img src="../media/images/Constant.gif" border="0" /> <strong class="property">PATTERN_REQUEST_AUTHTYPE =  '^([dD][iI][gG][eE][sS][tT]|[bB][aA][sS][iI][cC])$'</strong> (line <span class="linenumber">71</span>)
+ </h4>
+<!-- ========== Info from phpDoc block ========= -->
+<ul>
+	</ul>
+</div>
+<a name="constPATTERN_REQUEST_METHOD" id="constPATTERN_REQUEST_METHOD"><!-- --></A>
+<div style="background='#ffffff'">
+<h4>
+<img src="../media/images/Constant.gif" border="0" /> <strong class="property">PATTERN_REQUEST_METHOD =  '^(GET|HEAD|POST|TRACE|OPTIONS)$'</strong> (line <span class="linenumber">70</span>)
+ </h4>
+<!-- ========== Info from phpDoc block ========= -->
+<ul>
+	</ul>
+</div>
+<script type="text/javascript">tp1.addTabPage( document.getElementById( "constantsTabpage" ) );</script>
+</div>
+<div class="tab-page" id="tabPage2">
+<h2 class="tab">Method Detail</h2>
+<!-- ============ METHOD DETAIL =========== -->
+<strong>Summary:</strong><br />
+<div class="method-summary">
+    <div class="method-definition">
+            <span class="method-result">SafeRequest</span>
+        <a href="#method__construct" title="details" class="method-name">__construct</a>
+        ([<span class="var-type">null|array</span>&nbsp;<span class="var-name">$options</span> = <span class="var-default">null</span>])
+        </div>
+    <div class="method-definition">
+            <span class="method-result">string</span>
+        <a href="#methodgetAuthType" title="details" class="method-name">getAuthType</a>
+        ()
+        </div>
+    <div class="method-definition">
+            <span class="method-result">int</span>
+        <a href="#methodgetContentLength" title="details" class="method-name">getContentLength</a>
+        ()
+        </div>
+    <div class="method-definition">
+            <span class="method-result">string</span>
+        <a href="#methodgetContentType" title="details" class="method-name">getContentType</a>
+        ()
+        </div>
+    <div class="method-definition">
+            <span class="method-result">null|string</span>
+        <a href="#methodgetCookie" title="details" class="method-name">getCookie</a>
+        (<span class="var-type">string</span>&nbsp;<span class="var-name">$name</span>)
+        </div>
+    <div class="method-definition">
+            <span class="method-result">array</span>
+        <a href="#methodgetCookies" title="details" class="method-name">getCookies</a>
+        ()
+        </div>
+    <div class="method-definition">
+            <span class="method-result">null|string</span>
+        <a href="#methodgetHeader" title="details" class="method-name">getHeader</a>
+        (<span class="var-type">string</span>&nbsp;<span class="var-name">$key</span>)
+        </div>
+    <div class="method-definition">
+            <span class="method-result">array</span>
+        <a href="#methodgetHeaders" title="details" class="method-name">getHeaders</a>
+        ()
+        </div>
+    <div class="method-definition">
+            <span class="method-result">string</span>
+        <a href="#methodgetMethod" title="details" class="method-name">getMethod</a>
+        ()
+        </div>
+    <div class="method-definition">
+            <span class="method-result">string|null</span>
+        <a href="#methodgetParameter" title="details" class="method-name">getParameter</a>
+        (<span class="var-type">string</span>&nbsp;<span class="var-name">$name</span>)
+        </div>
+    <div class="method-definition">
+            <span class="method-result">array</span>
+        <a href="#methodgetParameterMap" title="details" class="method-name">getParameterMap</a>
+        ()
+        </div>
+    <div class="method-definition">
+            <span class="method-result">array</span>
+        <a href="#methodgetParameterNames" title="details" class="method-name">getParameterNames</a>
+        ()
+        </div>
+    <div class="method-definition">
+            <span class="method-result">array|null</span>
+        <a href="#methodgetParameterValues" title="details" class="method-name">getParameterValues</a>
+        (<span class="var-type">string</span>&nbsp;<span class="var-name">$name</span>)
+        </div>
+    <div class="method-definition">
+            <span class="method-result">string</span>
+        <a href="#methodgetPathInfo" title="details" class="method-name">getPathInfo</a>
+        ()
+        </div>
+    <div class="method-definition">
+            <span class="method-result">string</span>
+        <a href="#methodgetPathTranslated" title="details" class="method-name">getPathTranslated</a>
+        ()
+        </div>
+    <div class="method-definition">
+            <span class="method-result">string</span>
+        <a href="#methodgetQueryString" title="details" class="method-name">getQueryString</a>
+        ()
+        </div>
+    <div class="method-definition">
+            <span class="method-result">string</span>
+        <a href="#methodgetRemoteAddr" title="details" class="method-name">getRemoteAddr</a>
+        ()
+        </div>
+    <div class="method-definition">
+            <span class="method-result">string</span>
+        <a href="#methodgetRemoteHost" title="details" class="method-name">getRemoteHost</a>
+        ()
+        </div>
+    <div class="method-definition">
+            <span class="method-result">string</span>
+        <a href="#methodgetRemoteUser" title="details" class="method-name">getRemoteUser</a>
+        ()
+        </div>
+    <div class="method-definition">
+            <span class="method-result">string</span>
+        <a href="#methodgetRequestURI" title="details" class="method-name">getRequestURI</a>
+        ()
+        </div>
+    <div class="method-definition">
+            <span class="method-result">string|null</span>
+        <a href="#methodgetServerGlobal" title="details" class="method-name">getServerGlobal</a>
+        (<span class="var-type">string</span>&nbsp;<span class="var-name">$key</span>)
+        </div>
+    <div class="method-definition">
+            <span class="method-result">string</span>
+        <a href="#methodgetServerName" title="details" class="method-name">getServerName</a>
+        ()
+        </div>
+    <div class="method-definition">
+            <span class="method-result">int</span>
+        <a href="#methodgetServerPort" title="details" class="method-name">getServerPort</a>
+        ()
+        </div>
+    <div class="method-definition">
+            <span class="method-result">null</span>
+        <a href="#methodsetEncoder" title="details" class="method-name">setEncoder</a>
+        (<span class="var-type"><a href="../ESAPI/Encoder.html">Encoder</a></span>&nbsp;<span class="var-name">$encoder</span>)
+        </div>
+</div>
+<hr />
+<A NAME='method_detail'></A>
+
+
+<a name="method__construct" id="method__construct"><!-- --></a>
+<div style="background='#eeeeee'"><h4>
+<img src="../media/images/Constructor.gif" border="0" /> <strong class="method">Constructor __construct</strong> (line <span class="linenumber">116</span>)
+ </h4> 
+<h4><i>SafeRequest</i> <strong>__construct(
+[null|array
+$options = null])</strong></h4>
+
+	<!-- ========== Info from phpDoc block ========= -->
+<h5>SafeRequest can be forced to use the supplied cookies, headers and server  globals by passing an array containing the following keys: 'cookies',  'headers', 'env'.  The values for each of the keys should be an associative  array e.g. 'headers' =&gt; array('REQUEST_METHOD' =&gt; 'GET').</h5>
+<div class="desc"><p>If any of the three options keys are not supplied then those elements will be  extracted from the actual request.  TODO accept a string like: 'GET / HTTP/1.1\r\nHost:example.com\r\n\r\n'  TODO accept GET and REQUEST parameters.</p></div>
+		<h4>Parameters</h4>
+	<ul>
+			<li><strong>null|array $options</strong>: array (optional) of HTTP Request elements.</li>
+		</ul>
+		
+	<h4>Info</h4>
+	<ul>
+			<li><strong>access</strong> - public</li>
+		</ul>
+</div>
+<a name="methodgetAuthType" id="methodgetAuthType"><!-- --></a>
+<div style="background='#ffffff'"><h4>
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method getAuthType</strong> (line <span class="linenumber">166</span>)
+ </h4> 
+<h4><i>string</i> <strong>getAuthType(
+)</strong></h4>
+
+	<!-- ========== Info from phpDoc block ========= -->
+<h5>Returns the value of $_SERVER['AUTH_TYPE'] if it is present or an  empty string if it is not.</h5>
+		
+	<h4>Info</h4>
+	<ul>
+			<li><strong>return</strong> - Authentication Scheme.</li>
+			<li><strong>access</strong> - public</li>
+		</ul>
+</div>
+<a name="methodgetContentLength" id="methodgetContentLength"><!-- --></a>
+<div style="background='#eeeeee'"><h4>
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method getContentLength</strong> (line <span class="linenumber">200</span>)
+ </h4> 
+<h4><i>int</i> <strong>getContentLength(
+)</strong></h4>
+
+	<!-- ========== Info from phpDoc block ========= -->
+<h5>Returns the value of $_SERVER['CONTENT_LENGTH'] if it is present or zero  otherwise.</h5>
+		
+	<h4>Info</h4>
+	<ul>
+			<li><strong>return</strong> - Length of the Request Entity.</li>
+			<li><strong>access</strong> - public</li>
+		</ul>
+</div>
+<a name="methodgetContentType" id="methodgetContentType"><!-- --></a>
+<div style="background='#ffffff'"><h4>
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method getContentType</strong> (line <span class="linenumber">230</span>)
+ </h4> 
+<h4><i>string</i> <strong>getContentType(
+)</strong></h4>
+
+	<!-- ========== Info from phpDoc block ========= -->
+<h5>Returns the value of $_SERVER['CONTENT_TYPE'] if it is present or an  empty string if it is not.</h5>
+		
+	<h4>Info</h4>
+	<ul>
+			<li><strong>return</strong> - Content type of the Request Entity.</li>
+			<li><strong>access</strong> - public</li>
+		</ul>
+</div>
+<a name="methodgetCookie" id="methodgetCookie"><!-- --></a>
+<div style="background='#eeeeee'"><h4>
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method getCookie</strong> (line <span class="linenumber">698</span>)
+ </h4> 
+<h4><i>null|string</i> <strong>getCookie(
+string
+$name)</strong></h4>
+
+	<!-- ========== Info from phpDoc block ========= -->
+<h5>Retreives a named http cookie value.</h5>
+		<h4>Parameters</h4>
+	<ul>
+			<li><strong>string $name</strong>: Name of the cookie value to retreive.</li>
+		</ul>
+		
+	<h4>Info</h4>
+	<ul>
+			<li><strong>return</strong> - valid, canonicalised cookie value or null if it is not                      present in the header or was present, but invalid.</li>
+			<li><strong>access</strong> - public</li>
+		</ul>
+</div>
+<a name="methodgetCookies" id="methodgetCookies"><!-- --></a>
+<div style="background='#ffffff'"><h4>
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method getCookies</strong> (line <span class="linenumber">677</span>)
+ </h4> 
+<h4><i>array</i> <strong>getCookies(
+)</strong></h4>
+
+	<!-- ========== Info from phpDoc block ========= -->
+<h5>Returns an associative array of HTTP Cookies.</h5>
+		
+	<h4>Info</h4>
+	<ul>
+			<li><strong>return</strong> - HTTP Cookies.</li>
+			<li><strong>access</strong> - public</li>
+		</ul>
+</div>
+<a name="methodgetHeader" id="methodgetHeader"><!-- --></a>
+<div style="background='#eeeeee'"><h4>
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method getHeader</strong> (line <span class="linenumber">655</span>)
+ </h4> 
+<h4><i>null|string</i> <strong>getHeader(
+string
+$key)</strong></h4>
+
+	<!-- ========== Info from phpDoc block ========= -->
+<h5>Retreives a named HTTP header value.</h5>
+		<h4>Parameters</h4>
+	<ul>
+			<li><strong>string $key</strong>: Name of the http header value to retreive.</li>
+		</ul>
+		
+	<h4>Info</h4>
+	<ul>
+			<li><strong>return</strong> - valid, canonicalised header value or null if it is not                      present in the header or was present, but invalid.</li>
+			<li><strong>access</strong> - public</li>
+		</ul>
+</div>
+<a name="methodgetHeaders" id="methodgetHeaders"><!-- --></a>
+<div style="background='#ffffff'"><h4>
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method getHeaders</strong> (line <span class="linenumber">632</span>)
+ </h4> 
+<h4><i>array</i> <strong>getHeaders(
+)</strong></h4>
+
+	<!-- ========== Info from phpDoc block ========= -->
+<h5>Returns an associative array of valid, canonical HTTP Headers.</h5>
+		
+	<h4>Info</h4>
+	<ul>
+			<li><strong>return</strong> - Zero or more HTTP Headers.</li>
+			<li><strong>access</strong> - public</li>
+		</ul>
+</div>
+<a name="methodgetMethod" id="methodgetMethod"><!-- --></a>
+<div style="background='#eeeeee'"><h4>
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method getMethod</strong> (line <span class="linenumber">485</span>)
+ </h4> 
+<h4><i>string</i> <strong>getMethod(
+)</strong></h4>
+
+	<!-- ========== Info from phpDoc block ========= -->
+<h5>Returns the value of $_SERVER['REQUEST_METHOD'] if it is present or an  empty string if it is not.</h5>
+		
+	<h4>Info</h4>
+	<ul>
+			<li><strong>return</strong> - Request Method.</li>
+			<li><strong>access</strong> - public</li>
+		</ul>
+</div>
+<a name="methodgetParameter" id="methodgetParameter"><!-- --></a>
+<div style="background='#ffffff'"><h4>
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method getParameter</strong> (line <span class="linenumber">760</span>)
+ </h4> 
+<h4><i>string|null</i> <strong>getParameter(
+string
+$name)</strong></h4>
+
+	<!-- ========== Info from phpDoc block ========= -->
+<h5>Returns the value of a request parameter as a String, or null if the  parameter does not exist. Request parameters are contained in the query  string or posted form data and are retreived from the $_GET and $_POST PHP  globals {@see getParameterMap}.</h5>
+<div class="desc"><p>You should only use this method when you are sure the parameter has only one  value. If the parameter might have more than one value, use  getParameterValues. If you use this method with a multivalued parameter, the  value returned is equal to the first value in the array returned by  getParameterValues.</p></div>
+		<h4>Parameters</h4>
+	<ul>
+			<li><strong>string $name</strong>: The name of a parameter to retreive.</li>
+		</ul>
+		
+	<h4>Info</h4>
+	<ul>
+			<li><strong>return</strong> - The first or only value of a parameter or null if the                      parameter is not present in the request.</li>
+			<li><strong>access</strong> - public</li>
+		</ul>
+</div>
+<a name="methodgetParameterMap" id="methodgetParameterMap"><!-- --></a>
+<div style="background='#eeeeee'"><h4>
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method getParameterMap</strong> (line <span class="linenumber">838</span>)
+ </h4> 
+<h4><i>array</i> <strong>getParameterMap(
+)</strong></h4>
+
+	<!-- ========== Info from phpDoc block ========= -->
+<h5>Returns an associative array of the parameters of this request. Request  parameters are contained in the query string or posted form data and are  retreived from the $_GET and $_POST PHP globals.  The keys of the array are  canonicalized strings and the values are arrays of canonicalized strings.</h5>
+<div class="desc"><p>Values retreived from $_POST are added to the array before those from $_GET.</p></div>
+		
+	<h4>Info</h4>
+	<ul>
+			<li><strong>return</strong> - of canonicalized request parameters.</li>
+			<li><strong>access</strong> - public</li>
+		</ul>
+</div>
+<a name="methodgetParameterNames" id="methodgetParameterNames"><!-- --></a>
+<div style="background='#ffffff'"><h4>
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method getParameterNames</strong> (line <span class="linenumber">784</span>)
+ </h4> 
+<h4><i>array</i> <strong>getParameterNames(
+)</strong></h4>
+
+	<!-- ========== Info from phpDoc block ========= -->
+<h5>Returns an array containing the names of all parameters for this request.</h5>
+<div class="desc"><p>If the request has no parameters the returned array will be empty.</p></div>
+		
+	<h4>Info</h4>
+	<ul>
+			<li><strong>return</strong> - Zero or more request parameter names.</li>
+			<li><strong>access</strong> - public</li>
+		</ul>
+</div>
+<a name="methodgetParameterValues" id="methodgetParameterValues"><!-- --></a>
+<div style="background='#eeeeee'"><h4>
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method getParameterValues</strong> (line <span class="linenumber">814</span>)
+ </h4> 
+<h4><i>array|null</i> <strong>getParameterValues(
+string
+$name)</strong></h4>
+
+	<!-- ========== Info from phpDoc block ========= -->
+<h5>Retrieves all values for the supplied parameter of this request as an array.</h5>
+<div class="desc"><p>Request parameters are contained in the query string or posted form data and  are retreived from the $_GET and $_POST PHP globals {@see getParameterMap}.  Values retreived from $_POST are added to the array before those from $_GET.</p></div>
+		<h4>Parameters</h4>
+	<ul>
+			<li><strong>string $name</strong>: The name of the parameter to retreive.</li>
+		</ul>
+		
+	<h4>Info</h4>
+	<ul>
+			<li><strong>return</strong> - Array of request parameter values asscoiated with the                     supplied name or null if the parameter name was not found                     in this request.</li>
+			<li><strong>access</strong> - public</li>
+		</ul>
+</div>
+<a name="methodgetPathInfo" id="methodgetPathInfo"><!-- --></a>
+<div style="background='#ffffff'"><h4>
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method getPathInfo</strong> (line <span class="linenumber">267</span>)
+ </h4> 
+<h4><i>string</i> <strong>getPathInfo(
+)</strong></h4>
+
+	<!-- ========== Info from phpDoc block ========= -->
+<h5>Returns the value of $_SERVER['PATH_INFO'] if it is present or an  empty string if it is not.</h5>
+		
+	<h4>Info</h4>
+	<ul>
+			<li><strong>return</strong> - Path Info.</li>
+			<li><strong>access</strong> - public</li>
+		</ul>
+</div>
+<a name="methodgetPathTranslated" id="methodgetPathTranslated"><!-- --></a>
+<div style="background='#eeeeee'"><h4>
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method getPathTranslated</strong> (line <span class="linenumber">304</span>)
+ </h4> 
+<h4><i>string</i> <strong>getPathTranslated(
+)</strong></h4>
+
+	<!-- ========== Info from phpDoc block ========= -->
+<h5>Returns the value of $_SERVER['PATH_TRANSLATED'] if it is present or an  empty string if it is not.</h5>
+		
+	<h4>Info</h4>
+	<ul>
+			<li><strong>return</strong> - OS filesystem equivalent of Path Info.</li>
+			<li><strong>access</strong> - public</li>
+		</ul>
+</div>
+<a name="methodgetQueryString" id="methodgetQueryString"><!-- --></a>
+<div style="background='#ffffff'"><h4>
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method getQueryString</strong> (line <span class="linenumber">341</span>)
+ </h4> 
+<h4><i>string</i> <strong>getQueryString(
+)</strong></h4>
+
+	<!-- ========== Info from phpDoc block ========= -->
+<h5>Returns the value of $_SERVER['QUERY_STRING'] if it is present or an  empty string if it is not.</h5>
+		
+	<h4>Info</h4>
+	<ul>
+			<li><strong>return</strong> - Query String.</li>
+			<li><strong>access</strong> - public</li>
+		</ul>
+</div>
+<a name="methodgetRemoteAddr" id="methodgetRemoteAddr"><!-- --></a>
+<div style="background='#eeeeee'"><h4>
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method getRemoteAddr</strong> (line <span class="linenumber">378</span>)
+ </h4> 
+<h4><i>string</i> <strong>getRemoteAddr(
+)</strong></h4>
+
+	<!-- ========== Info from phpDoc block ========= -->
+<h5>Returns the value of $_SERVER['REMOTE_ADDR'] if it is present or an  empty string if it is not.</h5>
+		
+	<h4>Info</h4>
+	<ul>
+			<li><strong>return</strong> - Requesting Agent IP Address.</li>
+			<li><strong>access</strong> - public</li>
+		</ul>
+</div>
+<a name="methodgetRemoteHost" id="methodgetRemoteHost"><!-- --></a>
+<div style="background='#ffffff'"><h4>
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method getRemoteHost</strong> (line <span class="linenumber">413</span>)
+ </h4> 
+<h4><i>string</i> <strong>getRemoteHost(
+)</strong></h4>
+
+	<!-- ========== Info from phpDoc block ========= -->
+<h5>Returns the value of $_SERVER['REMOTE_HOST'] if it is present or an  empty string if it is not.</h5>
+		
+	<h4>Info</h4>
+	<ul>
+			<li><strong>return</strong> - Requesting Agent FQDN.</li>
+			<li><strong>access</strong> - public</li>
+		</ul>
+</div>
+<a name="methodgetRemoteUser" id="methodgetRemoteUser"><!-- --></a>
+<div style="background='#eeeeee'"><h4>
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method getRemoteUser</strong> (line <span class="linenumber">448</span>)
+ </h4> 
+<h4><i>string</i> <strong>getRemoteUser(
+)</strong></h4>
+
+	<!-- ========== Info from phpDoc block ========= -->
+<h5>Returns the value of $_SERVER['REMOTE_USER'] if it is present or an  empty string if it is not.</h5>
+		
+	<h4>Info</h4>
+	<ul>
+			<li><strong>return</strong> - Remote User ID for Basic Authentication.</li>
+			<li><strong>access</strong> - public</li>
+		</ul>
+</div>
+<a name="methodgetRequestURI" id="methodgetRequestURI"><!-- --></a>
+<div style="background='#ffffff'"><h4>
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method getRequestURI</strong> (line <span class="linenumber">519</span>)
+ </h4> 
+<h4><i>string</i> <strong>getRequestURI(
+)</strong></h4>
+
+	<!-- ========== Info from phpDoc block ========= -->
+<h5>Returns the URI from the HTTP Request line exlcuding any path info and the  query string.</h5>
+		
+	<h4>Info</h4>
+	<ul>
+			<li><strong>return</strong> - Request URI.</li>
+			<li><strong>access</strong> - public</li>
+		</ul>
+</div>
+<a name="methodgetServerGlobal" id="methodgetServerGlobal"><!-- --></a>
+<div style="background='#eeeeee'"><h4>
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method getServerGlobal</strong> (line <span class="linenumber">723</span>)
+ </h4> 
+<h4><i>string|null</i> <strong>getServerGlobal(
+string
+$key)</strong></h4>
+
+	<!-- ========== Info from phpDoc block ========= -->
+<h5>Returns the value of the PHP Server Global with the supplied name. If the  variable does not exist then null is returned.</h5>
+		<h4>Parameters</h4>
+	<ul>
+			<li><strong>string $key</strong>: Index name for a value in the $_SERVER array.</li>
+		</ul>
+		
+	<h4>Info</h4>
+	<ul>
+			<li><strong>return</strong> - Value of a $_SERVER variable or null.</li>
+			<li><strong>access</strong> - public</li>
+		</ul>
+</div>
+<a name="methodgetServerName" id="methodgetServerName"><!-- --></a>
+<div style="background='#ffffff'"><h4>
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method getServerName</strong> (line <span class="linenumber">556</span>)
+ </h4> 
+<h4><i>string</i> <strong>getServerName(
+)</strong></h4>
+
+	<!-- ========== Info from phpDoc block ========= -->
+<h5>Returns the value of $_SERVER['SERVER_NAME'] if it is present or an  empty string if it is not.</h5>
+		
+	<h4>Info</h4>
+	<ul>
+			<li><strong>return</strong> - Server Name or IP Address.</li>
+			<li><strong>access</strong> - public</li>
+		</ul>
+</div>
+<a name="methodgetServerPort" id="methodgetServerPort"><!-- --></a>
+<div style="background='#eeeeee'"><h4>
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method getServerPort</strong> (line <span class="linenumber">603</span>)
+ </h4> 
+<h4><i>int</i> <strong>getServerPort(
+)</strong></h4>
+
+	<!-- ========== Info from phpDoc block ========= -->
+<h5>Returns the value of $_SERVER['SERVER_PORT'] if it is present or zero if it  is not.</h5>
+		
+	<h4>Info</h4>
+	<ul>
+			<li><strong>return</strong> - Server Port Number.</li>
+			<li><strong>access</strong> - public</li>
+		</ul>
+</div>
+<a name="methodsetEncoder" id="methodsetEncoder"><!-- --></a>
+<div style="background='#ffffff'"><h4>
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method setEncoder</strong> (line <span class="linenumber">149</span>)
+ </h4> 
+<h4><i>null</i> <strong>setEncoder(
+<a href="../ESAPI/Encoder.html">Encoder</a>
+$encoder)</strong></h4>
+
+	<!-- ========== Info from phpDoc block ========= -->
+<h5>Sets the encoder instance to be used for encoding/decoding, canonicalization  and validation.</h5>
+		<h4>Parameters</h4>
+	<ul>
+			<li><strong><a href="../ESAPI/Encoder.html">Encoder</a> $encoder</strong>: An instance of the Encoder interface.</li>
+		</ul>
+		
+	<h4>Info</h4>
+	<ul>
+			<li><strong>access</strong> - public</li>
+		</ul>
+</div>
+<script type="text/javascript">tp1.addTabPage( document.getElementById( "tabPage2" ) );</script></div>
+<div class="tab-page" id="iVars">
+<h2 class="tab">Inherited Variables</h2>
+<script type="text/javascript">tp1.addTabPage( document.getElementById( "iVars" ) );</script>
+<!-- =========== VAR INHERITED SUMMARY =========== -->
+<A NAME='var_inherited_summary'><!-- --></A>
+<h3>Inherited Class Variable Summary</h3>
+
+	</div>
+<div class="tab-page" id="iMethods">
+<h2 class="tab">Inherited Methods</h2>
+<script type="text/javascript">tp1.addTabPage( document.getElementById( "iMethods" ) );</script>
+<!-- =========== INHERITED METHOD SUMMARY =========== -->
+<A NAME='functions_inherited'><!-- --></A>
+<h3>Inherited Method Summary</h3>
+
+	</div>
+</div>
+<script type="text/javascript">
+//<![CDATA[
+
+setupAllTabs();
+
+//]]>
+</script>
+	<div id="credit">
+		<hr />
+		Documentation generated on Fri, 16 Apr 2010 11:42:19 -0400 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
+	</div>
+</body>
+</html>
