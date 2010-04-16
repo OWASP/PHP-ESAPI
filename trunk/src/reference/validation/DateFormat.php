@@ -1,5 +1,9 @@
 <?php
-
+/**
+ * 
+ * @package ESAPI_Reference_Validation
+ *
+ */
 class DateFormat {
 	private $format = array();
 	const types = array('SMALL','MEDIUM','LONG','FULL');

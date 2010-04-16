@@ -14,7 +14,7 @@
  * @author Andrew van der Stock
  * @created 2009
  * @since 1.6
- * @package org.owasp.esapi.reference
+ * @package ESAPI_Reference
  */
 
 require_once dirname(__FILE__).'/../AccessReferenceMap.php';

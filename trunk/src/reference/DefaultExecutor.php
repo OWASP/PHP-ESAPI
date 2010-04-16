@@ -12,7 +12,7 @@
  * software.
  *
  * @category  OWASP
- * @package   ESAPI
+ * @package   ESAPI_Reference
  * @author    Mike Boberski <boberski_michael@bah.com> 
  * @author    Linden Darling <linden.darling@jds.net.au>
  * @copyright 2009-2010 The OWASP Foundation

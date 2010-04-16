@@ -15,6 +15,7 @@
  * @created 2009
  * @since 1.4
  * @version 1.07
+ * @package ESAPI_Reference
  */
 
 //FIXME: Cleanup to be done, as suggested by Mike
