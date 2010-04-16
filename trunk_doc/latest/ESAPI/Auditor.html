@@ -1,30 +1,111 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-  <html xmlns="http://www.w3.org/1999/xhtml">
-		<head>
-			<!-- template designed by Marco Von Ballmoos -->
-			<title>Docs For Class Auditor</title>
-			<link rel="stylesheet" href="../media/stylesheet.css" />
-			<meta http-equiv='Content-Type' content='text/html; charset=iso-8859-1'/>
-		</head>
-		<body>
-			<div class="page-body">			
-<h2 class="class-name">Interface Auditor</h2>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+   <html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <title>Docs For Class Auditor</title>
+  <link rel="stylesheet" href="../media/stylesheet.css" />
+  <script src="../media/lib/classTree.js"></script>
+<link id="webfx-tab-style-sheet" type="text/css" rel="stylesheet" href="../media/lib/tab.webfx.css" />
+<script type="text/javascript" src="../media/lib/tabpane.js"></script>
+  <script language="javascript" type="text/javascript" src="../media/lib/ua.js"></script>
+<script language="javascript" type="text/javascript">
+	var imgPlus = new Image();
+	var imgMinus = new Image();
+	imgPlus.src = "../media/images/plus.gif";
+	imgMinus.src = "../media/images/minus.gif";
+	
+	function showNode(Node){
+        switch(navigator.family){
+        	case 'nn4':
+        		// Nav 4.x code fork...
+				var oTable = document.layers["span" + Node];
+				var oImg = document.layers["img" + Node];
+        		break;
+        	case 'ie4':
+        		// IE 4/5 code fork...
+				var oTable = document.all["span" + Node];
+				var oImg = document.all["img" + Node];
+        		break;
+        	case 'gecko':
+        		// Standards Compliant code fork...
+				var oTable = document.getElementById("span" + Node);
+				var oImg = document.getElementById("img" + Node);
+        		break;
+        }
+		oImg.src = imgMinus.src;
+		oTable.style.display = "block";
+	}
+	
+	function hideNode(Node){
+        switch(navigator.family){
+        	case 'nn4':
+        		// Nav 4.x code fork...
+				var oTable = document.layers["span" + Node];
+				var oImg = document.layers["img" + Node];
+        		break;
+        	case 'ie4':
+        		// IE 4/5 code fork...
+				var oTable = document.all["span" + Node];
+				var oImg = document.all["img" + Node];
+        		break;
+        	case 'gecko':
+        		// Standards Compliant code fork...
+				var oTable = document.getElementById("span" + Node);
+				var oImg = document.getElementById("img" + Node);
+        		break;
+        }
+		oImg.src = imgPlus.src;
+		oTable.style.display = "none";
+	}
+	
+	function nodeIsVisible(Node){
+        switch(navigator.family){
+        	case 'nn4':
+        		// Nav 4.x code fork...
+				var oTable = document.layers["span" + Node];
+        		break;
+        	case 'ie4':
+        		// IE 4/5 code fork...
+				var oTable = document.all["span" + Node];
+        		break;
+        	case 'gecko':
+        		// Standards Compliant code fork...
+				var oTable = document.getElementById("span" + Node);
+        		break;
+        }
+		return (oTable && oTable.style.display == "block");
+	}
+	
+	function toggleNodeVisibility(Node){
+		if (nodeIsVisible(Node)){
+			hideNode(Node);
+		}else{
+			showNode(Node);
+		}
+	}
+</script>
+<!-- template designed by Julien Damon based on PHPEdit's generated templates, and tweaked by Greg Beaver -->
+<body bgcolor="#ffffff" ><!-- Start of Class Data -->
+<h2>
+	Interface Auditor
+</h2> (line <span class="linenumber">102</span>)
+<div class="tab-pane" id="tabPane1">
+<script type="text/javascript">
+tp1 = new WebFXTabPane( document.getElementById( "tabPane1" ));
+</script>
 
-<a name="sec-description"></a>
-<div class="info-box">
-	<div class="info-box-title">Description</div>
-	<div class="nav-bar">
-					<span class="disabled">Description</span> |
-															<a href="#sec-method-summary">Methods</a> (<a href="#sec-methods">details</a>)
-						
-											<a href="#sec-const-summary">Constants</a> (<a href="#sec-consts">details</a>)
-						
-			</div>
-	<div class="info-box-body">
-        		<!-- ========== Info from phpDoc block ========= -->
-<p class="short-description">The Logger interface defines a set of methods that can be used to log</p>
-<p class="description"><p>security events. It supports a hierarchy of logging levels which can be  configured at runtime to determine the severity of events that are logged,  and those below the current threshold that are discarded. Implementors should  use a well established logging library as it is quite difficult to create a  high-performance logger.</p><p>&lt;img src=&quot;doc-files/Logger.jpg&quot;&gt;</p><p>The logging levels defined by this interface (in descending order) are:  <ul><li>fatal (highest value)</li><li>error</li><li>warning</li><li>info</li><li>debug</li><li>trace (lowest value)</li></ul></p><p>This Logger allows callers to determine which logging levels are enabled, and  to submit events at different severity levels.</p><p>Implementors of this interface should:</p><p><ol><li>provide a mechanism for setting the logging level threshold that is
+<div class="tab-page" id="Description">
+<h2 class="tab">Description</h2>
+<pre>
+</pre>
+<p>
+	<b><i>Located in File: <a href="_Auditor.php.html">/Auditor.php</a></i></b><br>
+</p>
+<!-- ========== Info from phpDoc block ========= -->
+<h5>The Logger interface defines a set of methods that can be used to log</h5>
+<div class="desc"><p>security events. It supports a hierarchy of logging levels which can be  configured at runtime to determine the severity of events that are logged,  and those below the current threshold that are discarded. Implementors should  use a well established logging library as it is quite difficult to create a  high-performance logger.</p><p>&lt;img src=&quot;doc-files/Logger.jpg&quot;&gt;</p><p>The logging levels defined by this interface (in descending order) are:  <ul><li>fatal (highest value)</li><li>error</li><li>warning</li><li>info</li><li>debug</li><li>trace (lowest value)</li></ul></p><p>This Logger allows callers to determine which logging levels are enabled, and  to submit events at different severity levels.</p><p>Implementors of this interface should:</p><p><ol><li>provide a mechanism for setting the logging level threshold that is
  currently enabled. This usually works by logging all events at and above that
  severity level, and discarding all events below that level. This is usually
  done via configuration, but can also be made accessible programmatically.</li><li>ensure that dangerous HTML characters are encoded before they are logged
@@ -34,836 +115,569 @@
  equivalent like a generated logging session ID, or a hashed value of the
  session ID so they can track session specific events without risking the
  exposure of a live session's ID.</li><li>record the following information with each event:</li><li>identity of the user that caused the event,</li><li>a description of the event (supplied by the caller),</li><li>whether the event succeeded or failed (indicated by the caller),</li><li>severity level of the event (indicated by the caller),</li><li>that this is a security relevant event (indicated by the caller),</li><li>hostname or IP where the event occurred (and ideally the user's source
-   IP as well),</li><li>a time stamp</li></ol>  &lt;/ol&gt;</p><p>Custom logger implementations might also:  &lt;ol start=&quot;6&quot;&gt;  &lt;li&gt;filter out any sensitive data specific to the current application or  organization, such as credit cards, social security numbers, etc.&lt;/li&gt;  &lt;/ol&gt;</p><p>Customization: It is expected that most organizations will implement their  own custom Logger class in order to integrate ESAPI logging with their  logging infrastructure. The ESAPI Reference Implementation is intended to  provide a simple functional example of an implementation.</p></p>
-	<ul class="tags">
-				<li><span class="field">author:</span> jah &lt;<a href="mailto:jah@jahboite.co.uk">jah@jahboite.co.uk</a>&gt;</li>
-				<li><span class="field">author:</span> Andrew van der Stock &lt;<a href="mailto:vanderaj@owasp.org">vanderaj@owasp.org</a>&gt;</li>
-				<li><span class="field">author:</span> Jeff Williams &lt;<a href="mailto:jeff.williams@aspectsecurity.com">jeff.williams@aspectsecurity.com</a>&gt;</li>
-				<li><span class="field">author:</span> Laura Bell &lt;<a href="mailto:laura.d.bell@gmail.com">laura.d.bell@gmail.com</a>&gt;</li>
-				<li><span class="field">version:</span> Release: @package_version@</li>
-				<li><span class="field">copyright:</span> 2009-2010 The OWASP Foundation</li>
-				<li><span class="field">link:</span> <a href="http://www.owasp.org/index.php/ESAPI">http://www.owasp.org/index.php/ESAPI</a></li>
-				<li><span class="field">license:</span> <a href="http://www.opensource.org/licenses/bsd-license.php">New BSD license</a></li>
-			</ul>
-		<p class="notes">
-			Located in <a class="field" href="_Auditor.php.html">/Auditor.php</a> (line <span class="field">102</span>)
-		</p>
-		
-				
-		<pre></pre>
-	
-			</div>
+   IP as well),</li><li>a time stamp</li></ol>  &lt;/ol&gt;</p><p>Custom logger implementations might also:  &lt;ol start=&quot;6&quot;&gt;  &lt;li&gt;filter out any sensitive data specific to the current application or  organization, such as credit cards, social security numbers, etc.&lt;/li&gt;  &lt;/ol&gt;</p><p>Customization: It is expected that most organizations will implement their  own custom Logger class in order to integrate ESAPI logging with their  logging infrastructure. The ESAPI Reference Implementation is intended to  provide a simple functional example of an implementation.</p></div>
+<ul>
+		<li><strong>author:</strong> - jah &lt;<a href="mailto:jah@jahboite.co.uk">jah@jahboite.co.uk</a>&gt;</li>
+		<li><strong>author:</strong> - Andrew van der Stock &lt;<a href="mailto:vanderaj@owasp.org">vanderaj@owasp.org</a>&gt;</li>
+		<li><strong>author:</strong> - Jeff Williams &lt;<a href="mailto:jeff.williams@aspectsecurity.com">jeff.williams@aspectsecurity.com</a>&gt;</li>
+		<li><strong>author:</strong> - Laura Bell &lt;<a href="mailto:laura.d.bell@gmail.com">laura.d.bell@gmail.com</a>&gt;</li>
+		<li><strong>version:</strong> - Release: @package_version@</li>
+		<li><strong>copyright:</strong> - 2009-2010 The OWASP Foundation</li>
+		<li><strong>link:</strong> - <a href="http://www.owasp.org/index.php/ESAPI">http://www.owasp.org/index.php/ESAPI</a></li>
+		<li><strong>license:</strong> - <a href="http://www.opensource.org/licenses/bsd-license.php">New BSD license</a></li>
+	</ul>
+<br /><hr />
 </div>
+<script type="text/javascript">tp1.addTabPage( document.getElementById( "Description" ) );</script>
+<div class="tab-page" id="tabPage1">
 
-
-	<a name="sec-const-summary"></a>
-	<div class="info-box">
-		<div class="info-box-title">Class Constant Summary</span></div>
-		<div class="nav-bar">
-			<a href="#sec-description">Description</a> |
-						<span class="disabled">Constants</span> (<a href="#sec-consts">details</a>)
-										| 
-									<a href="#sec-method-summary">Methods</a> (<a href="#sec-methods">details</a>)
-							
-					</div>
-		<div class="info-box-body">
-			<div class="const-summary">
-								<div class="const-title">
-					<img src="../media/images/Constant.png" alt=" " />
-					<a href="#ALL" title="details" class="const-name">ALL</a> = 					<span class="var-type"> 0</span>
-
-				</div>
-								<div class="const-title">
-					<img src="../media/images/Constant.png" alt=" " />
-					<a href="#DEBUG" title="details" class="const-name">DEBUG</a> = 					<span class="var-type"> 200</span>
-
-				</div>
-								<div class="const-title">
-					<img src="../media/images/Constant.png" alt=" " />
-					<a href="#ERROR" title="details" class="const-name">ERROR</a> = 					<span class="var-type"> 800</span>
-
-				</div>
-								<div class="const-title">
-					<img src="../media/images/Constant.png" alt=" " />
-					<a href="#FATAL" title="details" class="const-name">FATAL</a> = 					<span class="var-type"> 1000</span>
-
-				</div>
-								<div class="const-title">
-					<img src="../media/images/Constant.png" alt=" " />
-					<a href="#FUNCTIONALITY" title="details" class="const-name">FUNCTIONALITY</a> = 					<span class="var-type"> 'FUNCTIONALITY'</span>
-
-				</div>
-								<div class="const-title">
-					<img src="../media/images/Constant.png" alt=" " />
-					<a href="#INFO" title="details" class="const-name">INFO</a> = 					<span class="var-type"> 400</span>
-
-				</div>
-								<div class="const-title">
-					<img src="../media/images/Constant.png" alt=" " />
-					<a href="#OFF" title="details" class="const-name">OFF</a> = 					<span class="var-type"> PHP_INT_MAX</span>
-
-				</div>
-								<div class="const-title">
-					<img src="../media/images/Constant.png" alt=" " />
-					<a href="#PERFORMANCE" title="details" class="const-name">PERFORMANCE</a> = 					<span class="var-type"> 'PERFORMANCE'</span>
-
-				</div>
-								<div class="const-title">
-					<img src="../media/images/Constant.png" alt=" " />
-					<a href="#SECURITY" title="details" class="const-name">SECURITY</a> = 					<span class="var-type"> 'SECURITY'</span>
-
-				</div>
-								<div class="const-title">
-					<img src="../media/images/Constant.png" alt=" " />
-					<a href="#TRACE" title="details" class="const-name">TRACE</a> = 					<span class="var-type"> 100</span>
-
-				</div>
-								<div class="const-title">
-					<img src="../media/images/Constant.png" alt=" " />
-					<a href="#USABILITY" title="details" class="const-name">USABILITY</a> = 					<span class="var-type"> 'USABILITY'</span>
-
-				</div>
-								<div class="const-title">
-					<img src="../media/images/Constant.png" alt=" " />
-					<a href="#WARNING" title="details" class="const-name">WARNING</a> = 					<span class="var-type"> 600</span>
-
-				</div>
-							</div>
-		</div>
-	</div>
-
-
-	<a name="sec-method-summary"></a>
-	<div class="info-box">
-		<div class="info-box-title">Method Summary</span></div>
-		<div class="nav-bar">
-			<a href="#sec-description">Description</a> |
-															<a href="#sec-const-summary">Constants</a> (<a href="#sec-consts">details</a>)
-							
-									<span class="disabled">Methods</span> (<a href="#sec-methods">details</a>)
-		</div>
-		<div class="info-box-body">			
-			<div class="method-summary">
-																																																																																																												
-												<div class="method-definition">
-											<span class="method-result">does</span>
-										<a href="#debug" title="details" class="method-name">debug</a>
-											(<span class="var-type">int</span>&nbsp;<span class="var-name">$type</span>, <span class="var-type">bool</span>&nbsp;<span class="var-name">$success</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$message</span>, [<span class="var-type">string</span>&nbsp;<span class="var-name">$throwable</span> = <span class="var-default">null</span>])
-									</div>
-																<div class="method-definition">
-											<span class="method-result">does</span>
-										<a href="#error" title="details" class="method-name">error</a>
-											(<span class="var-type">int</span>&nbsp;<span class="var-name">$type</span>, <span class="var-type">bool</span>&nbsp;<span class="var-name">$success</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$message</span>, [<span class="var-type">string</span>&nbsp;<span class="var-name">$throwable</span> = <span class="var-default">null</span>])
-									</div>
-																<div class="method-definition">
-											<span class="method-result">does</span>
-										<a href="#fatal" title="details" class="method-name">fatal</a>
-											(<span class="var-type">int</span>&nbsp;<span class="var-name">$type</span>, <span class="var-type">bool</span>&nbsp;<span class="var-name">$success</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$message</span>, [<span class="var-type">string</span>&nbsp;<span class="var-name">$throwable</span> = <span class="var-default">null</span>])
-									</div>
-																<div class="method-definition">
-											<span class="method-result">does</span>
-										<a href="#info" title="details" class="method-name">info</a>
-											(<span class="var-type">int</span>&nbsp;<span class="var-name">$type</span>, <span class="var-type">bool</span>&nbsp;<span class="var-name">$success</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$message</span>, [<span class="var-type">string</span>&nbsp;<span class="var-name">$throwable</span> = <span class="var-default">null</span>])
-									</div>
-																<div class="method-definition">
-											<span class="method-result">bool</span>
-										<a href="#isDebugEnabled" title="details" class="method-name">isDebugEnabled</a>
-										()
-									</div>
-																<div class="method-definition">
-											<span class="method-result">bool</span>
-										<a href="#isErrorEnabled" title="details" class="method-name">isErrorEnabled</a>
-										()
-									</div>
-																<div class="method-definition">
-											<span class="method-result">bool</span>
-										<a href="#isFatalEnabled" title="details" class="method-name">isFatalEnabled</a>
-										()
-									</div>
-																<div class="method-definition">
-											<span class="method-result">bool</span>
-										<a href="#isInfoEnabled" title="details" class="method-name">isInfoEnabled</a>
-										()
-									</div>
-																<div class="method-definition">
-											<span class="method-result">bool</span>
-										<a href="#isTraceEnabled" title="details" class="method-name">isTraceEnabled</a>
-										()
-									</div>
-																<div class="method-definition">
-											<span class="method-result">bool</span>
-										<a href="#isWarningEnabled" title="details" class="method-name">isWarningEnabled</a>
-										()
-									</div>
-																<div class="method-definition">
-											<span class="method-result">does</span>
-										<a href="#setLevel" title="details" class="method-name">setLevel</a>
-											(<span class="var-type">int</span>&nbsp;<span class="var-name">$level</span>)
-									</div>
-																<div class="method-definition">
-											<span class="method-result">does</span>
-										<a href="#trace" title="details" class="method-name">trace</a>
-											(<span class="var-type">int</span>&nbsp;<span class="var-name">$type</span>, <span class="var-type">bool</span>&nbsp;<span class="var-name">$success</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$message</span>, [<span class="var-type">string</span>&nbsp;<span class="var-name">$throwable</span> = <span class="var-default">null</span>])
-									</div>
-																<div class="method-definition">
-											<span class="method-result">does</span>
-										<a href="#warning" title="details" class="method-name">warning</a>
-											(<span class="var-type">int</span>&nbsp;<span class="var-name">$type</span>, <span class="var-type">bool</span>&nbsp;<span class="var-name">$success</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$message</span>, [<span class="var-type">string</span>&nbsp;<span class="var-name">$throwable</span> = <span class="var-default">null</span>])
-									</div>
-								</div>
-		</div>
-	</div>		
-
-	
-	<a name="sec-methods"></a>
-	<div class="info-box">
-		<div class="info-box-title">Methods</div>
-		<div class="nav-bar">
-			<a href="#sec-description">Description</a> |
-																		<a href="#sec-const-summary">Constants</a> (<a href="#sec-consts">details</a>)
-							
-										<a href="#sec-method-summary">Methods</a> (<span class="disabled">details</span>)
-						
-		</div>
-		<div class="info-box-body">
-			<A NAME='method_detail'></A>
-
-<a name="methoddebug" id="debug"><!-- --></a>
-<div class="evenrow">
-	
-	<div class="method-header">
-		<span class="method-title">debug</span> (line <span class="line-number">315</span>)
-	</div> 
-	
-	<!-- ========== Info from phpDoc block ========= -->
-<p class="short-description">Log a debug level security event if 'debug' level logging is enabled and  also record the stack trace associated with the event.</p>
-	<ul class="tags">
-				<li><span class="field">return:</span> not return a value</li>
-			</ul>
-	
-	<div class="method-signature">
-		<span class="method-result">does</span>
-		<span class="method-name">
-			debug
-		</span>
-					(<span class="var-type">int</span>&nbsp;<span class="var-name">$type</span>, <span class="var-type">bool</span>&nbsp;<span class="var-name">$success</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$message</span>, [<span class="var-type">string</span>&nbsp;<span class="var-name">$throwable</span> = <span class="var-default">null</span>])
-			</div>
-	
-			<ul class="parameters">
-					<li>
-				<span class="var-type">int</span>
-				<span class="var-name">$type</span><span class="var-description">: the type of event - an Logger Type constant.</span>			</li>
-					<li>
-				<span class="var-type">bool</span>
-				<span class="var-name">$success</span><span class="var-description">: boolean true indicates this was a successful event,                           false indicates this was a failed event (the                           typical value).</span>			</li>
-					<li>
-				<span class="var-type">string</span>
-				<span class="var-name">$message</span><span class="var-description">: the message to log.</span>			</li>
-					<li>
-				<span class="var-type">string</span>
-				<span class="var-name">$throwable</span><span class="var-description">: the exception to be logged.</span>			</li>
-				</ul>
-		
-			
-	</div>
-<a name="methoderror" id="error"><!-- --></a>
-<div class="oddrow">
-	
-	<div class="method-header">
-		<span class="method-title">error</span> (line <span class="line-number">240</span>)
-	</div> 
-	
-	<!-- ========== Info from phpDoc block ========= -->
-<p class="short-description">Log an error level security event if 'error' level logging is enabled and  also record the stack trace associated with the event.</p>
-	<ul class="tags">
-				<li><span class="field">return:</span> not return a value.</li>
-			</ul>
-	
-	<div class="method-signature">
-		<span class="method-result">does</span>
-		<span class="method-name">
-			error
-		</span>
-					(<span class="var-type">int</span>&nbsp;<span class="var-name">$type</span>, <span class="var-type">bool</span>&nbsp;<span class="var-name">$success</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$message</span>, [<span class="var-type">string</span>&nbsp;<span class="var-name">$throwable</span> = <span class="var-default">null</span>])
-			</div>
-	
-			<ul class="parameters">
-					<li>
-				<span class="var-type">int</span>
-				<span class="var-name">$type</span><span class="var-description">: the type of event - an Logger Type constant.</span>			</li>
-					<li>
-				<span class="var-type">bool</span>
-				<span class="var-name">$success</span><span class="var-description">: boolean true indicates this was a successful event,                           false indicates this was a failed event (the typical                           value).</span>			</li>
-					<li>
-				<span class="var-type">string</span>
-				<span class="var-name">$message</span><span class="var-description">: the message to log.</span>			</li>
-					<li>
-				<span class="var-type">string</span>
-				<span class="var-name">$throwable</span><span class="var-description">: the exception to be logged.</span>			</li>
-				</ul>
-		
-			
-	</div>
-<a name="methodfatal" id="fatal"><!-- --></a>
-<div class="evenrow">
-	
-	<div class="method-header">
-		<span class="method-title">fatal</span> (line <span class="line-number">215</span>)
-	</div> 
-	
-	<!-- ========== Info from phpDoc block ========= -->
-<p class="short-description">Log a fatal level security event if 'fatal' level logging is enabled and  also record the stack trace associated with the event.</p>
-	<ul class="tags">
-				<li><span class="field">return:</span> not return a value.</li>
-			</ul>
-	
-	<div class="method-signature">
-		<span class="method-result">does</span>
-		<span class="method-name">
-			fatal
-		</span>
-					(<span class="var-type">int</span>&nbsp;<span class="var-name">$type</span>, <span class="var-type">bool</span>&nbsp;<span class="var-name">$success</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$message</span>, [<span class="var-type">string</span>&nbsp;<span class="var-name">$throwable</span> = <span class="var-default">null</span>])
-			</div>
-	
-			<ul class="parameters">
-					<li>
-				<span class="var-type">int</span>
-				<span class="var-name">$type</span><span class="var-description">: the type of event - an Logger Type constant.</span>			</li>
-					<li>
-				<span class="var-type">bool</span>
-				<span class="var-name">$success</span><span class="var-description">: boolean true indicates this was a successful event,                           false indicates this was a failed event (the typical                           value).</span>			</li>
-					<li>
-				<span class="var-type">string</span>
-				<span class="var-name">$message</span><span class="var-description">: the message to log.</span>			</li>
-					<li>
-				<span class="var-type">string</span>
-				<span class="var-name">$throwable</span><span class="var-description">: the exception to be logged.</span>			</li>
-				</ul>
-		
-			
-	</div>
-<a name="methodinfo" id="info"><!-- --></a>
-<div class="oddrow">
-	
-	<div class="method-header">
-		<span class="method-title">info</span> (line <span class="line-number">290</span>)
-	</div> 
-	
-	<!-- ========== Info from phpDoc block ========= -->
-<p class="short-description">Log an info level security event if 'info' level logging is enabled and  also record the stack trace associated with the event.</p>
-	<ul class="tags">
-				<li><span class="field">return:</span> not return a value</li>
-			</ul>
-	
-	<div class="method-signature">
-		<span class="method-result">does</span>
-		<span class="method-name">
-			info
-		</span>
-					(<span class="var-type">int</span>&nbsp;<span class="var-name">$type</span>, <span class="var-type">bool</span>&nbsp;<span class="var-name">$success</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$message</span>, [<span class="var-type">string</span>&nbsp;<span class="var-name">$throwable</span> = <span class="var-default">null</span>])
-			</div>
-	
-			<ul class="parameters">
-					<li>
-				<span class="var-type">int</span>
-				<span class="var-name">$type</span><span class="var-description">: the type of event - an Logger Type constant.</span>			</li>
-					<li>
-				<span class="var-type">bool</span>
-				<span class="var-name">$success</span><span class="var-description">: boolean true indicates this was a successful event,                           false indicates this was a failed event (the                           typical value).</span>			</li>
-					<li>
-				<span class="var-type">string</span>
-				<span class="var-name">$message</span><span class="var-description">: the message to log.</span>			</li>
-					<li>
-				<span class="var-type">string</span>
-				<span class="var-name">$throwable</span><span class="var-description">: the exception to be logged.</span>			</li>
-				</ul>
-		
-			
-	</div>
-<a name="methodisDebugEnabled" id="isDebugEnabled"><!-- --></a>
-<div class="evenrow">
-	
-	<div class="method-header">
-		<span class="method-title">isDebugEnabled</span> (line <span class="line-number">324</span>)
-	</div> 
-	
-	<!-- ========== Info from phpDoc block ========= -->
-<p class="short-description">Allows the caller to determine if messages logged at this level will be  discarded, to avoid performing expensive processing.</p>
-	<ul class="tags">
-				<li><span class="field">return:</span> true if debug level messages will be output to the log.</li>
-			</ul>
-	
-	<div class="method-signature">
-		<span class="method-result">bool</span>
-		<span class="method-name">
-			isDebugEnabled
-		</span>
-				()
-			</div>
-	
-		
-			
-	</div>
-<a name="methodisErrorEnabled" id="isErrorEnabled"><!-- --></a>
-<div class="oddrow">
-	
-	<div class="method-header">
-		<span class="method-title">isErrorEnabled</span> (line <span class="line-number">249</span>)
-	</div> 
-	
-	<!-- ========== Info from phpDoc block ========= -->
-<p class="short-description">Allows the caller to determine if messages logged at this level will be  discarded, to avoid performing expensive processing.</p>
-	<ul class="tags">
-				<li><span class="field">return:</span> true if error level messages will be output to the log.</li>
-			</ul>
-	
-	<div class="method-signature">
-		<span class="method-result">bool</span>
-		<span class="method-name">
-			isErrorEnabled
-		</span>
-				()
-			</div>
-	
-		
-			
-	</div>
-<a name="methodisFatalEnabled" id="isFatalEnabled"><!-- --></a>
-<div class="evenrow">
-	
-	<div class="method-header">
-		<span class="method-title">isFatalEnabled</span> (line <span class="line-number">224</span>)
-	</div> 
-	
-	<!-- ========== Info from phpDoc block ========= -->
-<p class="short-description">Allows the caller to determine if messages logged at this level will be  discarded, to avoid performing expensive processing.</p>
-	<ul class="tags">
-				<li><span class="field">return:</span> true if fatal level messages will be output to the log.</li>
-			</ul>
-	
-	<div class="method-signature">
-		<span class="method-result">bool</span>
-		<span class="method-name">
-			isFatalEnabled
-		</span>
-				()
-			</div>
-	
-		
-			
-	</div>
-<a name="methodisInfoEnabled" id="isInfoEnabled"><!-- --></a>
-<div class="oddrow">
-	
-	<div class="method-header">
-		<span class="method-title">isInfoEnabled</span> (line <span class="line-number">299</span>)
-	</div> 
-	
-	<!-- ========== Info from phpDoc block ========= -->
-<p class="short-description">Allows the caller to determine if messages logged at this level will be  discarded, to avoid performing expensive processing.</p>
-	<ul class="tags">
-				<li><span class="field">return:</span> true if info level messages will be output to the log.</li>
-			</ul>
-	
-	<div class="method-signature">
-		<span class="method-result">bool</span>
-		<span class="method-name">
-			isInfoEnabled
-		</span>
-				()
-			</div>
-	
-		
-			
-	</div>
-<a name="methodisTraceEnabled" id="isTraceEnabled"><!-- --></a>
-<div class="evenrow">
-	
-	<div class="method-header">
-		<span class="method-title">isTraceEnabled</span> (line <span class="line-number">349</span>)
-	</div> 
-	
-	<!-- ========== Info from phpDoc block ========= -->
-<p class="short-description">Allows the caller to determine if messages logged at this level will be  discarded, to avoid performing expensive processing.</p>
-	<ul class="tags">
-				<li><span class="field">return:</span> true if trace level messages will be output to the log.</li>
-			</ul>
-	
-	<div class="method-signature">
-		<span class="method-result">bool</span>
-		<span class="method-name">
-			isTraceEnabled
-		</span>
-				()
-			</div>
-	
-		
-			
-	</div>
-<a name="methodisWarningEnabled" id="isWarningEnabled"><!-- --></a>
-<div class="oddrow">
-	
-	<div class="method-header">
-		<span class="method-title">isWarningEnabled</span> (line <span class="line-number">274</span>)
-	</div> 
-	
-	<!-- ========== Info from phpDoc block ========= -->
-<p class="short-description">Allows the caller to determine if messages logged at this level will be  discarded, to avoid performing expensive processing.</p>
-	<ul class="tags">
-				<li><span class="field">return:</span> true if warning level messages will be output to the log.</li>
-			</ul>
-	
-	<div class="method-signature">
-		<span class="method-result">bool</span>
-		<span class="method-name">
-			isWarningEnabled
-		</span>
-				()
-			</div>
-	
-		
-			
-	</div>
-<a name="methodsetLevel" id="setLevel"><!-- --></a>
-<div class="evenrow">
-	
-	<div class="method-header">
-		<span class="method-title">setLevel</span> (line <span class="line-number">199</span>)
-	</div> 
-	
-	<!-- ========== Info from phpDoc block ========= -->
-<p class="short-description">Dynamically set the logging severity level. All events of this level and  higher will be logged from this point forward for all logs. All events  below this level will be discarded.</p>
-	<ul class="tags">
-				<li><span class="field">return:</span> not return a value.</li>
-			</ul>
-	
-	<div class="method-signature">
-		<span class="method-result">does</span>
-		<span class="method-name">
-			setLevel
-		</span>
-					(<span class="var-type">int</span>&nbsp;<span class="var-name">$level</span>)
-			</div>
-	
-			<ul class="parameters">
-					<li>
-				<span class="var-type">int</span>
-				<span class="var-name">$level</span><span class="var-description">: The level to set the logging level to.</span>			</li>
-				</ul>
-		
-			
-	</div>
-<a name="methodtrace" id="trace"><!-- --></a>
-<div class="oddrow">
-	
-	<div class="method-header">
-		<span class="method-title">trace</span> (line <span class="line-number">340</span>)
-	</div> 
-	
-	<!-- ========== Info from phpDoc block ========= -->
-<p class="short-description">Log a trace level security event if 'trace' level logging is enabled and  also record the stack trace associated with the event.</p>
-	<ul class="tags">
-				<li><span class="field">return:</span> not return a value.</li>
-			</ul>
-	
-	<div class="method-signature">
-		<span class="method-result">does</span>
-		<span class="method-name">
-			trace
-		</span>
-					(<span class="var-type">int</span>&nbsp;<span class="var-name">$type</span>, <span class="var-type">bool</span>&nbsp;<span class="var-name">$success</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$message</span>, [<span class="var-type">string</span>&nbsp;<span class="var-name">$throwable</span> = <span class="var-default">null</span>])
-			</div>
-	
-			<ul class="parameters">
-					<li>
-				<span class="var-type">int</span>
-				<span class="var-name">$type</span><span class="var-description">: the type of event - an Logger Type constant.</span>			</li>
-					<li>
-				<span class="var-type">bool</span>
-				<span class="var-name">$success</span><span class="var-description">: boolean true indicates this was a successful event,                           false indicates this was a failed event (the typical                           value).</span>			</li>
-					<li>
-				<span class="var-type">string</span>
-				<span class="var-name">$message</span><span class="var-description">: the message to log.</span>			</li>
-					<li>
-				<span class="var-type">string</span>
-				<span class="var-name">$throwable</span><span class="var-description">: the exception to be logged.</span>			</li>
-				</ul>
-		
-			
-	</div>
-<a name="methodwarning" id="warning"><!-- --></a>
-<div class="evenrow">
-	
-	<div class="method-header">
-		<span class="method-title">warning</span> (line <span class="line-number">265</span>)
-	</div> 
-	
-	<!-- ========== Info from phpDoc block ========= -->
-<p class="short-description">Log a warning level security event if 'warning' level logging is enabled and  also record the stack trace associated with the event.</p>
-	<ul class="tags">
-				<li><span class="field">return:</span> not return a value.</li>
-			</ul>
-	
-	<div class="method-signature">
-		<span class="method-result">does</span>
-		<span class="method-name">
-			warning
-		</span>
-					(<span class="var-type">int</span>&nbsp;<span class="var-name">$type</span>, <span class="var-type">bool</span>&nbsp;<span class="var-name">$success</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$message</span>, [<span class="var-type">string</span>&nbsp;<span class="var-name">$throwable</span> = <span class="var-default">null</span>])
-			</div>
-	
-			<ul class="parameters">
-					<li>
-				<span class="var-type">int</span>
-				<span class="var-name">$type</span><span class="var-description">: the type of event - an Logger Type constant.</span>			</li>
-					<li>
-				<span class="var-type">bool</span>
-				<span class="var-name">$success</span><span class="var-description">: boolean true indicates this was a successful event,                           false indicates this was a failed event (the typical                           value).</span>			</li>
-					<li>
-				<span class="var-type">string</span>
-				<span class="var-name">$message</span><span class="var-description">: the message to log.</span>			</li>
-					<li>
-				<span class="var-type">string</span>
-				<span class="var-name">$throwable</span><span class="var-description">: the exception to be logged.</span>			</li>
-				</ul>
-		
-			
-	</div>
-						
-		</div>
-	</div>
-
-	<a name="sec-consts"></a>
-	<div class="info-box">
-		<div class="info-box-title">Class Constants</div>
-		<div class="nav-bar">
-			<a href="#sec-description">Description</a> |
-										<a href="#sec-var-summary">Constants</a> (<span class="disabled">details</span>)
-						
-			
-										| 
-									<a href="#sec-method-summary">Methods</a> (<a href="#sec-methods">details</a>)
-							
-					</div>
-		<div class="info-box-body">
-			<a name="constALL" id="ALL"><!-- --></A>
-<div class="oddrow">
-
-	<div class="const-header">
-		<img src="../media/images/Variable.png" />
-		<span class="const-title">
-			<span class="const-name">ALL</span>
-			 = <span class="const-default"> 0</span>
-			(line <span class="line-number">187</span>)
-		</span>
-	</div>
-
-	<!-- ========== Info from phpDoc block ========= -->
-<p class="short-description">ALL indicates that all messages should be logged.</p>
-<p class="description"><p>This level is initialized to 0.</p></p>
-	
-	
+<h2 class="tab">Class Variables</h2>
+<!-- ============ VARIABLE DETAIL =========== -->
+<strong>Summary:</strong><br />
+<hr />
+<script type="text/javascript">tp1.addTabPage( document.getElementById( "tabPage1" ) );</script>
 </div>
-<a name="constDEBUG" id="DEBUG"><!-- --></A>
-<div class="evenrow">
+<div class="tab-page" id="constantsTabpage">
 
-	<div class="const-header">
-		<img src="../media/images/Variable.png" />
-		<span class="const-title">
-			<span class="const-name">DEBUG</span>
-			 = <span class="const-default"> 200</span>
-			(line <span class="line-number">175</span>)
-		</span>
-	</div>
+<h2 class="tab">Class Constants</h2>
+<!-- ============ VARIABLE DETAIL =========== -->
+<strong>Summary:</strong><br />
+<div class="const-title">
+    <a href="#constALL" title="details" class="property"><strong>ALL</strong></a>
+</div>
+<div class="const-title">
+    <a href="#constDEBUG" title="details" class="property"><strong>DEBUG</strong></a>
+</div>
+<div class="const-title">
+    <a href="#constERROR" title="details" class="property"><strong>ERROR</strong></a>
+</div>
+<div class="const-title">
+    <a href="#constFATAL" title="details" class="property"><strong>FATAL</strong></a>
+</div>
+<div class="const-title">
+    <a href="#constFUNCTIONALITY" title="details" class="property"><strong>FUNCTIONALITY</strong></a>
+</div>
+<div class="const-title">
+    <a href="#constINFO" title="details" class="property"><strong>INFO</strong></a>
+</div>
+<div class="const-title">
+    <a href="#constOFF" title="details" class="property"><strong>OFF</strong></a>
+</div>
+<div class="const-title">
+    <a href="#constPERFORMANCE" title="details" class="property"><strong>PERFORMANCE</strong></a>
+</div>
+<div class="const-title">
+    <a href="#constSECURITY" title="details" class="property"><strong>SECURITY</strong></a>
+</div>
+<div class="const-title">
+    <a href="#constTRACE" title="details" class="property"><strong>TRACE</strong></a>
+</div>
+<div class="const-title">
+    <a href="#constUSABILITY" title="details" class="property"><strong>USABILITY</strong></a>
+</div>
+<div class="const-title">
+    <a href="#constWARNING" title="details" class="property"><strong>WARNING</strong></a>
+</div>
+<hr />
+<a name="constALL" id="constALL"><!-- --></A>
+<div style="background='#ffffff'">
+<h4>
+<img src="../media/images/Constant.gif" border="0" /> <strong class="property">ALL =  0</strong> (line <span class="linenumber">187</span>)
+ </h4>
+<!-- ========== Info from phpDoc block ========= -->
+<h5>ALL indicates that all messages should be logged.</h5>
+<div class="desc"><p>This level is initialized to 0.</p></div>
+<ul>
+	</ul>
+</div>
+<a name="constDEBUG" id="constDEBUG"><!-- --></A>
+<div style="background='#eeeeee'">
+<h4>
+<img src="../media/images/Constant.gif" border="0" /> <strong class="property">DEBUG =  200</strong> (line <span class="linenumber">175</span>)
+ </h4>
+<!-- ========== Info from phpDoc block ========= -->
+<h5>DEBUG indicates that DEBUG messages and above should be logged.</h5>
+<div class="desc"><p>This level is initialized to 200.</p></div>
+<ul>
+	</ul>
+</div>
+<a name="constERROR" id="constERROR"><!-- --></A>
+<div style="background='#ffffff'">
+<h4>
+<img src="../media/images/Constant.gif" border="0" /> <strong class="property">ERROR =  800</strong> (line <span class="linenumber">157</span>)
+ </h4>
+<!-- ========== Info from phpDoc block ========= -->
+<h5>ERROR indicates that ERROR messages and above should be logged.</h5>
+<div class="desc"><p>This level is initialized to 800.</p></div>
+<ul>
+	</ul>
+</div>
+<a name="constFATAL" id="constFATAL"><!-- --></A>
+<div style="background='#eeeeee'">
+<h4>
+<img src="../media/images/Constant.gif" border="0" /> <strong class="property">FATAL =  1000</strong> (line <span class="linenumber">151</span>)
+ </h4>
+<!-- ========== Info from phpDoc block ========= -->
+<h5>FATAL indicates that only FATAL messages should be logged.</h5>
+<div class="desc"><p>This level is initialized to 1000.</p></div>
+<ul>
+	</ul>
+</div>
+<a name="constFUNCTIONALITY" id="constFUNCTIONALITY"><!-- --></A>
+<div style="background='#ffffff'">
+<h4>
+<img src="../media/images/Constant.gif" border="0" /> <strong class="property">FUNCTIONALITY =  'FUNCTIONALITY'</strong> (line <span class="linenumber">132</span>)
+ </h4>
+<!-- ========== Info from phpDoc block ========= -->
+<h5>The FUNCTIONALITY type of log event. This is the type of event that  non-security focused loggers typically log. If you are going to log your  existing non-security events in the same log with your security events,  you probably want to use this type of log event.</h5>
+<ul>
+	</ul>
+</div>
+<a name="constINFO" id="constINFO"><!-- --></A>
+<div style="background='#eeeeee'">
+<h4>
+<img src="../media/images/Constant.gif" border="0" /> <strong class="property">INFO =  400</strong> (line <span class="linenumber">169</span>)
+ </h4>
+<!-- ========== Info from phpDoc block ========= -->
+<h5>INFO indicates that INFO messages and above should be logged.</h5>
+<div class="desc"><p>This level is initialized to 400.</p></div>
+<ul>
+	</ul>
+</div>
+<a name="constOFF" id="constOFF"><!-- --></A>
+<div style="background='#ffffff'">
+<h4>
+<img src="../media/images/Constant.gif" border="0" /> <strong class="property">OFF =  PHP_INT_MAX</strong> (line <span class="linenumber">145</span>)
+ </h4>
+<!-- ========== Info from phpDoc block ========= -->
+<h5>OFF indicates that no messages should be logged.</h5>
+<div class="desc"><p>This level is initialized to PHP_INT_MAX.</p></div>
+<ul>
+	</ul>
+</div>
+<a name="constPERFORMANCE" id="constPERFORMANCE"><!-- --></A>
+<div style="background='#eeeeee'">
+<h4>
+<img src="../media/images/Constant.gif" border="0" /> <strong class="property">PERFORMANCE =  'PERFORMANCE'</strong> (line <span class="linenumber">124</span>)
+ </h4>
+<!-- ========== Info from phpDoc block ========= -->
+<h5>The PERFORMANCE type of log event.</h5>
+<ul>
+	</ul>
+</div>
+<a name="constSECURITY" id="constSECURITY"><!-- --></A>
+<div style="background='#ffffff'">
+<h4>
+<img src="../media/images/Constant.gif" border="0" /> <strong class="property">SECURITY =  'SECURITY'</strong> (line <span class="linenumber">114</span>)
+ </h4>
+<!-- ========== Info from phpDoc block ========= -->
+<h5>The SECURITY type of log event.</h5>
+<ul>
+	</ul>
+</div>
+<a name="constTRACE" id="constTRACE"><!-- --></A>
+<div style="background='#eeeeee'">
+<h4>
+<img src="../media/images/Constant.gif" border="0" /> <strong class="property">TRACE =  100</strong> (line <span class="linenumber">181</span>)
+ </h4>
+<!-- ========== Info from phpDoc block ========= -->
+<h5>TRACE indicates that TRACE messages and above should be logged.</h5>
+<div class="desc"><p>This level is initialized to 100.</p></div>
+<ul>
+	</ul>
+</div>
+<a name="constUSABILITY" id="constUSABILITY"><!-- --></A>
+<div style="background='#ffffff'">
+<h4>
+<img src="../media/images/Constant.gif" border="0" /> <strong class="property">USABILITY =  'USABILITY'</strong> (line <span class="linenumber">119</span>)
+ </h4>
+<!-- ========== Info from phpDoc block ========= -->
+<h5>The USABILITY type of log event.</h5>
+<ul>
+	</ul>
+</div>
+<a name="constWARNING" id="constWARNING"><!-- --></A>
+<div style="background='#eeeeee'">
+<h4>
+<img src="../media/images/Constant.gif" border="0" /> <strong class="property">WARNING =  600</strong> (line <span class="linenumber">163</span>)
+ </h4>
+<!-- ========== Info from phpDoc block ========= -->
+<h5>WARNING indicates that WARNING messages and above should be logged.</h5>
+<div class="desc"><p>This level is initialized to 600.</p></div>
+<ul>
+	</ul>
+</div>
+<script type="text/javascript">tp1.addTabPage( document.getElementById( "constantsTabpage" ) );</script>
+</div>
+<div class="tab-page" id="tabPage2">
+<h2 class="tab">Method Detail</h2>
+<!-- ============ METHOD DETAIL =========== -->
+<strong>Summary:</strong><br />
+<div class="method-summary">
+    <div class="method-definition">
+            <span class="method-result">does</span>
+        <a href="#methoddebug" title="details" class="method-name">debug</a>
+        (<span class="var-type">int</span>&nbsp;<span class="var-name">$type</span>, <span class="var-type">bool</span>&nbsp;<span class="var-name">$success</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$message</span>, [<span class="var-type">string</span>&nbsp;<span class="var-name">$throwable</span> = <span class="var-default">null</span>])
+        </div>
+    <div class="method-definition">
+            <span class="method-result">does</span>
+        <a href="#methoderror" title="details" class="method-name">error</a>
+        (<span class="var-type">int</span>&nbsp;<span class="var-name">$type</span>, <span class="var-type">bool</span>&nbsp;<span class="var-name">$success</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$message</span>, [<span class="var-type">string</span>&nbsp;<span class="var-name">$throwable</span> = <span class="var-default">null</span>])
+        </div>
+    <div class="method-definition">
+            <span class="method-result">does</span>
+        <a href="#methodfatal" title="details" class="method-name">fatal</a>
+        (<span class="var-type">int</span>&nbsp;<span class="var-name">$type</span>, <span class="var-type">bool</span>&nbsp;<span class="var-name">$success</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$message</span>, [<span class="var-type">string</span>&nbsp;<span class="var-name">$throwable</span> = <span class="var-default">null</span>])
+        </div>
+    <div class="method-definition">
+            <span class="method-result">does</span>
+        <a href="#methodinfo" title="details" class="method-name">info</a>
+        (<span class="var-type">int</span>&nbsp;<span class="var-name">$type</span>, <span class="var-type">bool</span>&nbsp;<span class="var-name">$success</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$message</span>, [<span class="var-type">string</span>&nbsp;<span class="var-name">$throwable</span> = <span class="var-default">null</span>])
+        </div>
+    <div class="method-definition">
+            <span class="method-result">bool</span>
+        <a href="#methodisDebugEnabled" title="details" class="method-name">isDebugEnabled</a>
+        ()
+        </div>
+    <div class="method-definition">
+            <span class="method-result">bool</span>
+        <a href="#methodisErrorEnabled" title="details" class="method-name">isErrorEnabled</a>
+        ()
+        </div>
+    <div class="method-definition">
+            <span class="method-result">bool</span>
+        <a href="#methodisFatalEnabled" title="details" class="method-name">isFatalEnabled</a>
+        ()
+        </div>
+    <div class="method-definition">
+            <span class="method-result">bool</span>
+        <a href="#methodisInfoEnabled" title="details" class="method-name">isInfoEnabled</a>
+        ()
+        </div>
+    <div class="method-definition">
+            <span class="method-result">bool</span>
+        <a href="#methodisTraceEnabled" title="details" class="method-name">isTraceEnabled</a>
+        ()
+        </div>
+    <div class="method-definition">
+            <span class="method-result">bool</span>
+        <a href="#methodisWarningEnabled" title="details" class="method-name">isWarningEnabled</a>
+        ()
+        </div>
+    <div class="method-definition">
+            <span class="method-result">does</span>
+        <a href="#methodsetLevel" title="details" class="method-name">setLevel</a>
+        (<span class="var-type">int</span>&nbsp;<span class="var-name">$level</span>)
+        </div>
+    <div class="method-definition">
+            <span class="method-result">does</span>
+        <a href="#methodtrace" title="details" class="method-name">trace</a>
+        (<span class="var-type">int</span>&nbsp;<span class="var-name">$type</span>, <span class="var-type">bool</span>&nbsp;<span class="var-name">$success</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$message</span>, [<span class="var-type">string</span>&nbsp;<span class="var-name">$throwable</span> = <span class="var-default">null</span>])
+        </div>
+    <div class="method-definition">
+            <span class="method-result">does</span>
+        <a href="#methodwarning" title="details" class="method-name">warning</a>
+        (<span class="var-type">int</span>&nbsp;<span class="var-name">$type</span>, <span class="var-type">bool</span>&nbsp;<span class="var-name">$success</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$message</span>, [<span class="var-type">string</span>&nbsp;<span class="var-name">$throwable</span> = <span class="var-default">null</span>])
+        </div>
+</div>
+<hr />
+<A NAME='method_detail'></A>
+
+
+<a name="methoddebug" id="methoddebug"><!-- --></a>
+<div style="background='#ffffff'"><h4>
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method debug</strong> (line <span class="linenumber">315</span>)
+ </h4> 
+<h4><i>does</i> <strong>debug(
+int
+$type, bool
+$success, string
+$message, [string
+$throwable = null])</strong></h4>
 
 	<!-- ========== Info from phpDoc block ========= -->
-<p class="short-description">DEBUG indicates that DEBUG messages and above should be logged.</p>
-<p class="description"><p>This level is initialized to 200.</p></p>
-	
-	
+<h5>Log a debug level security event if 'debug' level logging is enabled and  also record the stack trace associated with the event.</h5>
+		<h4>Parameters</h4>
+	<ul>
+			<li><strong>int $type</strong>: the type of event - an Logger Type constant.</li>
+			<li><strong>bool $success</strong>: boolean true indicates this was a successful event,                           false indicates this was a failed event (the                           typical value).</li>
+			<li><strong>string $message</strong>: the message to log.</li>
+			<li><strong>string $throwable</strong>: the exception to be logged.</li>
+		</ul>
+		
+	<h4>Info</h4>
+	<ul>
+			<li><strong>return</strong> - not return a value</li>
+		</ul>
 </div>
-<a name="constERROR" id="ERROR"><!-- --></A>
-<div class="oddrow">
-
-	<div class="const-header">
-		<img src="../media/images/Variable.png" />
-		<span class="const-title">
-			<span class="const-name">ERROR</span>
-			 = <span class="const-default"> 800</span>
-			(line <span class="line-number">157</span>)
-		</span>
-	</div>
+<a name="methoderror" id="methoderror"><!-- --></a>
+<div style="background='#eeeeee'"><h4>
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method error</strong> (line <span class="linenumber">240</span>)
+ </h4> 
+<h4><i>does</i> <strong>error(
+int
+$type, bool
+$success, string
+$message, [string
+$throwable = null])</strong></h4>
 
 	<!-- ========== Info from phpDoc block ========= -->
-<p class="short-description">ERROR indicates that ERROR messages and above should be logged.</p>
-<p class="description"><p>This level is initialized to 800.</p></p>
-	
-	
+<h5>Log an error level security event if 'error' level logging is enabled and  also record the stack trace associated with the event.</h5>
+		<h4>Parameters</h4>
+	<ul>
+			<li><strong>int $type</strong>: the type of event - an Logger Type constant.</li>
+			<li><strong>bool $success</strong>: boolean true indicates this was a successful event,                           false indicates this was a failed event (the typical                           value).</li>
+			<li><strong>string $message</strong>: the message to log.</li>
+			<li><strong>string $throwable</strong>: the exception to be logged.</li>
+		</ul>
+		
+	<h4>Info</h4>
+	<ul>
+			<li><strong>return</strong> - not return a value.</li>
+		</ul>
 </div>
-<a name="constFATAL" id="FATAL"><!-- --></A>
-<div class="evenrow">
-
-	<div class="const-header">
-		<img src="../media/images/Variable.png" />
-		<span class="const-title">
-			<span class="const-name">FATAL</span>
-			 = <span class="const-default"> 1000</span>
-			(line <span class="line-number">151</span>)
-		</span>
-	</div>
+<a name="methodfatal" id="methodfatal"><!-- --></a>
+<div style="background='#ffffff'"><h4>
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method fatal</strong> (line <span class="linenumber">215</span>)
+ </h4> 
+<h4><i>does</i> <strong>fatal(
+int
+$type, bool
+$success, string
+$message, [string
+$throwable = null])</strong></h4>
 
 	<!-- ========== Info from phpDoc block ========= -->
-<p class="short-description">FATAL indicates that only FATAL messages should be logged.</p>
-<p class="description"><p>This level is initialized to 1000.</p></p>
-	
-	
+<h5>Log a fatal level security event if 'fatal' level logging is enabled and  also record the stack trace associated with the event.</h5>
+		<h4>Parameters</h4>
+	<ul>
+			<li><strong>int $type</strong>: the type of event - an Logger Type constant.</li>
+			<li><strong>bool $success</strong>: boolean true indicates this was a successful event,                           false indicates this was a failed event (the typical                           value).</li>
+			<li><strong>string $message</strong>: the message to log.</li>
+			<li><strong>string $throwable</strong>: the exception to be logged.</li>
+		</ul>
+		
+	<h4>Info</h4>
+	<ul>
+			<li><strong>return</strong> - not return a value.</li>
+		</ul>
 </div>
-<a name="constFUNCTIONALITY" id="FUNCTIONALITY"><!-- --></A>
-<div class="oddrow">
-
-	<div class="const-header">
-		<img src="../media/images/Variable.png" />
-		<span class="const-title">
-			<span class="const-name">FUNCTIONALITY</span>
-			 = <span class="const-default"> 'FUNCTIONALITY'</span>
-			(line <span class="line-number">132</span>)
-		</span>
-	</div>
+<a name="methodinfo" id="methodinfo"><!-- --></a>
+<div style="background='#eeeeee'"><h4>
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method info</strong> (line <span class="linenumber">290</span>)
+ </h4> 
+<h4><i>does</i> <strong>info(
+int
+$type, bool
+$success, string
+$message, [string
+$throwable = null])</strong></h4>
 
 	<!-- ========== Info from phpDoc block ========= -->
-<p class="short-description">The FUNCTIONALITY type of log event. This is the type of event that  non-security focused loggers typically log. If you are going to log your  existing non-security events in the same log with your security events,  you probably want to use this type of log event.</p>
-	
-	
+<h5>Log an info level security event if 'info' level logging is enabled and  also record the stack trace associated with the event.</h5>
+		<h4>Parameters</h4>
+	<ul>
+			<li><strong>int $type</strong>: the type of event - an Logger Type constant.</li>
+			<li><strong>bool $success</strong>: boolean true indicates this was a successful event,                           false indicates this was a failed event (the                           typical value).</li>
+			<li><strong>string $message</strong>: the message to log.</li>
+			<li><strong>string $throwable</strong>: the exception to be logged.</li>
+		</ul>
+		
+	<h4>Info</h4>
+	<ul>
+			<li><strong>return</strong> - not return a value</li>
+		</ul>
 </div>
-<a name="constINFO" id="INFO"><!-- --></A>
-<div class="evenrow">
-
-	<div class="const-header">
-		<img src="../media/images/Variable.png" />
-		<span class="const-title">
-			<span class="const-name">INFO</span>
-			 = <span class="const-default"> 400</span>
-			(line <span class="line-number">169</span>)
-		</span>
-	</div>
+<a name="methodisDebugEnabled" id="methodisDebugEnabled"><!-- --></a>
+<div style="background='#ffffff'"><h4>
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method isDebugEnabled</strong> (line <span class="linenumber">324</span>)
+ </h4> 
+<h4><i>bool</i> <strong>isDebugEnabled(
+)</strong></h4>
 
 	<!-- ========== Info from phpDoc block ========= -->
-<p class="short-description">INFO indicates that INFO messages and above should be logged.</p>
-<p class="description"><p>This level is initialized to 400.</p></p>
-	
-	
+<h5>Allows the caller to determine if messages logged at this level will be  discarded, to avoid performing expensive processing.</h5>
+		
+	<h4>Info</h4>
+	<ul>
+			<li><strong>return</strong> - true if debug level messages will be output to the log.</li>
+		</ul>
 </div>
-<a name="constOFF" id="OFF"><!-- --></A>
-<div class="oddrow">
-
-	<div class="const-header">
-		<img src="../media/images/Variable.png" />
-		<span class="const-title">
-			<span class="const-name">OFF</span>
-			 = <span class="const-default"> PHP_INT_MAX</span>
-			(line <span class="line-number">145</span>)
-		</span>
-	</div>
+<a name="methodisErrorEnabled" id="methodisErrorEnabled"><!-- --></a>
+<div style="background='#eeeeee'"><h4>
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method isErrorEnabled</strong> (line <span class="linenumber">249</span>)
+ </h4> 
+<h4><i>bool</i> <strong>isErrorEnabled(
+)</strong></h4>
 
 	<!-- ========== Info from phpDoc block ========= -->
-<p class="short-description">OFF indicates that no messages should be logged.</p>
-<p class="description"><p>This level is initialized to PHP_INT_MAX.</p></p>
-	
-	
+<h5>Allows the caller to determine if messages logged at this level will be  discarded, to avoid performing expensive processing.</h5>
+		
+	<h4>Info</h4>
+	<ul>
+			<li><strong>return</strong> - true if error level messages will be output to the log.</li>
+		</ul>
 </div>
-<a name="constPERFORMANCE" id="PERFORMANCE"><!-- --></A>
-<div class="evenrow">
-
-	<div class="const-header">
-		<img src="../media/images/Variable.png" />
-		<span class="const-title">
-			<span class="const-name">PERFORMANCE</span>
-			 = <span class="const-default"> 'PERFORMANCE'</span>
-			(line <span class="line-number">124</span>)
-		</span>
-	</div>
+<a name="methodisFatalEnabled" id="methodisFatalEnabled"><!-- --></a>
+<div style="background='#ffffff'"><h4>
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method isFatalEnabled</strong> (line <span class="linenumber">224</span>)
+ </h4> 
+<h4><i>bool</i> <strong>isFatalEnabled(
+)</strong></h4>
 
 	<!-- ========== Info from phpDoc block ========= -->
-<p class="short-description">The PERFORMANCE type of log event.</p>
-	
-	
+<h5>Allows the caller to determine if messages logged at this level will be  discarded, to avoid performing expensive processing.</h5>
+		
+	<h4>Info</h4>
+	<ul>
+			<li><strong>return</strong> - true if fatal level messages will be output to the log.</li>
+		</ul>
 </div>
-<a name="constSECURITY" id="SECURITY"><!-- --></A>
-<div class="oddrow">
-
-	<div class="const-header">
-		<img src="../media/images/Variable.png" />
-		<span class="const-title">
-			<span class="const-name">SECURITY</span>
-			 = <span class="const-default"> 'SECURITY'</span>
-			(line <span class="line-number">114</span>)
-		</span>
-	</div>
+<a name="methodisInfoEnabled" id="methodisInfoEnabled"><!-- --></a>
+<div style="background='#eeeeee'"><h4>
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method isInfoEnabled</strong> (line <span class="linenumber">299</span>)
+ </h4> 
+<h4><i>bool</i> <strong>isInfoEnabled(
+)</strong></h4>
 
 	<!-- ========== Info from phpDoc block ========= -->
-<p class="short-description">The SECURITY type of log event.</p>
-	
-	
+<h5>Allows the caller to determine if messages logged at this level will be  discarded, to avoid performing expensive processing.</h5>
+		
+	<h4>Info</h4>
+	<ul>
+			<li><strong>return</strong> - true if info level messages will be output to the log.</li>
+		</ul>
 </div>
-<a name="constTRACE" id="TRACE"><!-- --></A>
-<div class="evenrow">
-
-	<div class="const-header">
-		<img src="../media/images/Variable.png" />
-		<span class="const-title">
-			<span class="const-name">TRACE</span>
-			 = <span class="const-default"> 100</span>
-			(line <span class="line-number">181</span>)
-		</span>
-	</div>
+<a name="methodisTraceEnabled" id="methodisTraceEnabled"><!-- --></a>
+<div style="background='#ffffff'"><h4>
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method isTraceEnabled</strong> (line <span class="linenumber">349</span>)
+ </h4> 
+<h4><i>bool</i> <strong>isTraceEnabled(
+)</strong></h4>
 
 	<!-- ========== Info from phpDoc block ========= -->
-<p class="short-description">TRACE indicates that TRACE messages and above should be logged.</p>
-<p class="description"><p>This level is initialized to 100.</p></p>
-	
-	
+<h5>Allows the caller to determine if messages logged at this level will be  discarded, to avoid performing expensive processing.</h5>
+		
+	<h4>Info</h4>
+	<ul>
+			<li><strong>return</strong> - true if trace level messages will be output to the log.</li>
+		</ul>
 </div>
-<a name="constUSABILITY" id="USABILITY"><!-- --></A>
-<div class="oddrow">
-
-	<div class="const-header">
-		<img src="../media/images/Variable.png" />
-		<span class="const-title">
-			<span class="const-name">USABILITY</span>
-			 = <span class="const-default"> 'USABILITY'</span>
-			(line <span class="line-number">119</span>)
-		</span>
-	</div>
+<a name="methodisWarningEnabled" id="methodisWarningEnabled"><!-- --></a>
+<div style="background='#eeeeee'"><h4>
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method isWarningEnabled</strong> (line <span class="linenumber">274</span>)
+ </h4> 
+<h4><i>bool</i> <strong>isWarningEnabled(
+)</strong></h4>
 
 	<!-- ========== Info from phpDoc block ========= -->
-<p class="short-description">The USABILITY type of log event.</p>
-	
-	
+<h5>Allows the caller to determine if messages logged at this level will be  discarded, to avoid performing expensive processing.</h5>
+		
+	<h4>Info</h4>
+	<ul>
+			<li><strong>return</strong> - true if warning level messages will be output to the log.</li>
+		</ul>
 </div>
-<a name="constWARNING" id="WARNING"><!-- --></A>
-<div class="evenrow">
-
-	<div class="const-header">
-		<img src="../media/images/Variable.png" />
-		<span class="const-title">
-			<span class="const-name">WARNING</span>
-			 = <span class="const-default"> 600</span>
-			(line <span class="line-number">163</span>)
-		</span>
-	</div>
+<a name="methodsetLevel" id="methodsetLevel"><!-- --></a>
+<div style="background='#ffffff'"><h4>
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method setLevel</strong> (line <span class="linenumber">199</span>)
+ </h4> 
+<h4><i>does</i> <strong>setLevel(
+int
+$level)</strong></h4>
 
 	<!-- ========== Info from phpDoc block ========= -->
-<p class="short-description">WARNING indicates that WARNING messages and above should be logged.</p>
-<p class="description"><p>This level is initialized to 600.</p></p>
-	
-	
+<h5>Dynamically set the logging severity level. All events of this level and  higher will be logged from this point forward for all logs. All events  below this level will be discarded.</h5>
+		<h4>Parameters</h4>
+	<ul>
+			<li><strong>int $level</strong>: The level to set the logging level to.</li>
+		</ul>
+		
+	<h4>Info</h4>
+	<ul>
+			<li><strong>return</strong> - not return a value.</li>
+		</ul>
 </div>
-						
-		</div>
-	</div>
+<a name="methodtrace" id="methodtrace"><!-- --></a>
+<div style="background='#eeeeee'"><h4>
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method trace</strong> (line <span class="linenumber">340</span>)
+ </h4> 
+<h4><i>does</i> <strong>trace(
+int
+$type, bool
+$success, string
+$message, [string
+$throwable = null])</strong></h4>
 
-	<p class="notes" id="credit">
-		Documentation generated on Fri, 16 Apr 2010 12:01:55 -0400 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
-	</p>
-	</div></body>
+	<!-- ========== Info from phpDoc block ========= -->
+<h5>Log a trace level security event if 'trace' level logging is enabled and  also record the stack trace associated with the event.</h5>
+		<h4>Parameters</h4>
+	<ul>
+			<li><strong>int $type</strong>: the type of event - an Logger Type constant.</li>
+			<li><strong>bool $success</strong>: boolean true indicates this was a successful event,                           false indicates this was a failed event (the typical                           value).</li>
+			<li><strong>string $message</strong>: the message to log.</li>
+			<li><strong>string $throwable</strong>: the exception to be logged.</li>
+		</ul>
+		
+	<h4>Info</h4>
+	<ul>
+			<li><strong>return</strong> - not return a value.</li>
+		</ul>
+</div>
+<a name="methodwarning" id="methodwarning"><!-- --></a>
+<div style="background='#ffffff'"><h4>
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method warning</strong> (line <span class="linenumber">265</span>)
+ </h4> 
+<h4><i>does</i> <strong>warning(
+int
+$type, bool
+$success, string
+$message, [string
+$throwable = null])</strong></h4>
+
+	<!-- ========== Info from phpDoc block ========= -->
+<h5>Log a warning level security event if 'warning' level logging is enabled and  also record the stack trace associated with the event.</h5>
+		<h4>Parameters</h4>
+	<ul>
+			<li><strong>int $type</strong>: the type of event - an Logger Type constant.</li>
+			<li><strong>bool $success</strong>: boolean true indicates this was a successful event,                           false indicates this was a failed event (the typical                           value).</li>
+			<li><strong>string $message</strong>: the message to log.</li>
+			<li><strong>string $throwable</strong>: the exception to be logged.</li>
+		</ul>
+		
+	<h4>Info</h4>
+	<ul>
+			<li><strong>return</strong> - not return a value.</li>
+		</ul>
+</div>
+<script type="text/javascript">tp1.addTabPage( document.getElementById( "tabPage2" ) );</script></div>
+<div class="tab-page" id="iVars">
+<h2 class="tab">Inherited Variables</h2>
+<script type="text/javascript">tp1.addTabPage( document.getElementById( "iVars" ) );</script>
+<!-- =========== VAR INHERITED SUMMARY =========== -->
+<A NAME='var_inherited_summary'><!-- --></A>
+<h3>Inherited Class Variable Summary</h3>
+
+	</div>
+<div class="tab-page" id="iMethods">
+<h2 class="tab">Inherited Methods</h2>
+<script type="text/javascript">tp1.addTabPage( document.getElementById( "iMethods" ) );</script>
+<!-- =========== INHERITED METHOD SUMMARY =========== -->
+<A NAME='functions_inherited'><!-- --></A>
+<h3>Inherited Method Summary</h3>
+
+	</div>
+</div>
+<script type="text/javascript">
+//<![CDATA[
+
+setupAllTabs();
+
+//]]>
+</script>
+	<div id="credit">
+		<hr />
+		Documentation generated on Fri, 16 Apr 2010 13:57:58 -0400 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
+	</div>
+</body>
 </html>

@@ -1,506 +1,483 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-  <html xmlns="http://www.w3.org/1999/xhtml">
-		<head>
-			<!-- template designed by Marco Von Ballmoos -->
-			<title>Docs For Class Codec</title>
-			<link rel="stylesheet" href="../media/stylesheet.css" />
-			<meta http-equiv='Content-Type' content='text/html; charset=iso-8859-1'/>
-		</head>
-		<body>
-			<div class="page-body">			
-<h2 class="class-name">Class Codec</h2>
-
-<a name="sec-description"></a>
-<div class="info-box">
-	<div class="info-box-title">Description</div>
-	<div class="nav-bar">
-					<span class="disabled">Description</span> |
-															<a href="#sec-method-summary">Methods</a> (<a href="#sec-methods">details</a>)
-						
-					</div>
-	<div class="info-box-body">
-        		<!-- ========== Info from phpDoc block ========= -->
-<p class="short-description">The Codec interface defines a set of methods for encoding and decoding</p>
-<p class="description"><p>application level encoding schemes, such as HTML entity encoding and percent  encoding (aka URL encoding). Codecs are used in output encoding and  canonicalization.  The design of these codecs allows for  character-by-character decoding, which is necessary to detect double-encoding  and the use of multiple encoding schemes, both of which are techniques used  by attackers to bypass validation and bury encoded attacks in data.</p><p>PHP version 5.2.9</p></p>
-	<ul class="tags">
-				<li><span class="field">author:</span> Linden Darling &lt;<a href="mailto:Linden.Darling@jds.net.au">Linden.Darling@jds.net.au</a>&gt;</li>
-				<li><span class="field">author:</span> jah &lt;<a href="mailto:jah@jahboite.co.uk">jah@jahboite.co.uk</a>&gt;</li>
-				<li><span class="field">version:</span> 1.0</li>
-				<li><span class="field">copyright:</span> 2009-2010 The OWASP Foundation</li>
-				<li><span class="field">link:</span> <a href="http://www.owasp.org/index.php/ESAPI">http://www.owasp.org/index.php/ESAPI</a></li>
-				<li><span class="field">abstract:</span> </li>
-				<li><span class="field">license:</span> <a href="http://www.opensource.org/licenses/bsd-license.php">New BSD license</a></li>
-			</ul>
-		<p class="notes">
-			Located in <a class="field" href="_codecs---Codec.php.html">/codecs/Codec.php</a> (line <span class="field">50</span>)
-		</p>
-		
-				
-		<pre></pre>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+   <html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <title>Docs For Class Codec</title>
+  <link rel="stylesheet" href="../media/stylesheet.css" />
+  <script src="../media/lib/classTree.js"></script>
+<link id="webfx-tab-style-sheet" type="text/css" rel="stylesheet" href="../media/lib/tab.webfx.css" />
+<script type="text/javascript" src="../media/lib/tabpane.js"></script>
+  <script language="javascript" type="text/javascript" src="../media/lib/ua.js"></script>
+<script language="javascript" type="text/javascript">
+	var imgPlus = new Image();
+	var imgMinus = new Image();
+	imgPlus.src = "../media/images/plus.gif";
+	imgMinus.src = "../media/images/minus.gif";
 	
-			</div>
+	function showNode(Node){
+        switch(navigator.family){
+        	case 'nn4':
+        		// Nav 4.x code fork...
+				var oTable = document.layers["span" + Node];
+				var oImg = document.layers["img" + Node];
+        		break;
+        	case 'ie4':
+        		// IE 4/5 code fork...
+				var oTable = document.all["span" + Node];
+				var oImg = document.all["img" + Node];
+        		break;
+        	case 'gecko':
+        		// Standards Compliant code fork...
+				var oTable = document.getElementById("span" + Node);
+				var oImg = document.getElementById("img" + Node);
+        		break;
+        }
+		oImg.src = imgMinus.src;
+		oTable.style.display = "block";
+	}
+	
+	function hideNode(Node){
+        switch(navigator.family){
+        	case 'nn4':
+        		// Nav 4.x code fork...
+				var oTable = document.layers["span" + Node];
+				var oImg = document.layers["img" + Node];
+        		break;
+        	case 'ie4':
+        		// IE 4/5 code fork...
+				var oTable = document.all["span" + Node];
+				var oImg = document.all["img" + Node];
+        		break;
+        	case 'gecko':
+        		// Standards Compliant code fork...
+				var oTable = document.getElementById("span" + Node);
+				var oImg = document.getElementById("img" + Node);
+        		break;
+        }
+		oImg.src = imgPlus.src;
+		oTable.style.display = "none";
+	}
+	
+	function nodeIsVisible(Node){
+        switch(navigator.family){
+        	case 'nn4':
+        		// Nav 4.x code fork...
+				var oTable = document.layers["span" + Node];
+        		break;
+        	case 'ie4':
+        		// IE 4/5 code fork...
+				var oTable = document.all["span" + Node];
+        		break;
+        	case 'gecko':
+        		// Standards Compliant code fork...
+				var oTable = document.getElementById("span" + Node);
+        		break;
+        }
+		return (oTable && oTable.style.display == "block");
+	}
+	
+	function toggleNodeVisibility(Node){
+		if (nodeIsVisible(Node)){
+			hideNode(Node);
+		}else{
+			showNode(Node);
+		}
+	}
+</script>
+<!-- template designed by Julien Damon based on PHPEdit's generated templates, and tweaked by Greg Beaver -->
+<body bgcolor="#ffffff" ><!-- Start of Class Data -->
+<h2>
+	Class Codec
+</h2> (line <span class="linenumber">50</span>)
+<div class="tab-pane" id="tabPane1">
+<script type="text/javascript">
+tp1 = new WebFXTabPane( document.getElementById( "tabPane1" ));
+</script>
+
+<div class="tab-page" id="Description">
+<h2 class="tab">Description</h2>
+<pre>
+</pre>
+<p>
+	<b><i>Located in File: <a href="_codecs---Codec.php.html">/codecs/Codec.php</a></i></b><br>
+</p>
+<!-- ========== Info from phpDoc block ========= -->
+<h5>The Codec interface defines a set of methods for encoding and decoding</h5>
+<div class="desc"><p>application level encoding schemes, such as HTML entity encoding and percent  encoding (aka URL encoding). Codecs are used in output encoding and  canonicalization.  The design of these codecs allows for  character-by-character decoding, which is necessary to detect double-encoding  and the use of multiple encoding schemes, both of which are techniques used  by attackers to bypass validation and bury encoded attacks in data.</p><p>PHP version 5.2.9</p></div>
+<ul>
+		<li><strong>author:</strong> - Linden Darling &lt;<a href="mailto:Linden.Darling@jds.net.au">Linden.Darling@jds.net.au</a>&gt;</li>
+		<li><strong>author:</strong> - jah &lt;<a href="mailto:jah@jahboite.co.uk">jah@jahboite.co.uk</a>&gt;</li>
+		<li><strong>version:</strong> - 1.0</li>
+		<li><strong>copyright:</strong> - 2009-2010 The OWASP Foundation</li>
+		<li><strong>link:</strong> - <a href="http://www.owasp.org/index.php/ESAPI">http://www.owasp.org/index.php/ESAPI</a></li>
+		<li><strong>abstract:</strong> - </li>
+		<li><strong>license:</strong> - <a href="http://www.opensource.org/licenses/bsd-license.php">New BSD license</a></li>
+	</ul>
+<br /><hr />
 </div>
+<script type="text/javascript">tp1.addTabPage( document.getElementById( "Description" ) );</script>
+<div class="tab-page" id="tabPage1">
+
+<h2 class="tab">Class Variables</h2>
+<!-- ============ VARIABLE DETAIL =========== -->
+<strong>Summary:</strong><br />
+<hr />
+<script type="text/javascript">tp1.addTabPage( document.getElementById( "tabPage1" ) );</script>
+</div>
+<div class="tab-page" id="constantsTabpage">
+
+<h2 class="tab">Class Constants</h2>
+<!-- ============ VARIABLE DETAIL =========== -->
+<strong>Summary:</strong><br />
+<hr />
+<script type="text/javascript">tp1.addTabPage( document.getElementById( "constantsTabpage" ) );</script>
+</div>
+<div class="tab-page" id="tabPage2">
+<h2 class="tab">Method Detail</h2>
+<!-- ============ METHOD DETAIL =========== -->
+<strong>Summary:</strong><br />
+<div class="method-summary">
+    <div class="method-definition">
+    static         <span class="method-result">void</span>
+        <a href="#methodcontainsCharacter" title="details" class="method-name">containsCharacter</a>
+        (<span class="var-type">c</span>&nbsp;<span class="var-name">$c</span>, <span class="var-type">array</span>&nbsp;<span class="var-name">$array</span>)
+        </div>
+    <div class="method-definition">
+    static         <span class="method-result">detectedEncoding</span>
+        <a href="#methoddetectEncoding" title="details" class="method-name">detectEncoding</a>
+        (<span class="var-type">string</span>&nbsp;<span class="var-name">$string</span>)
+        </div>
+    <div class="method-definition">
+    static         <span class="method-result">void</span>
+        <a href="#methodforceToSingleCharacter" title="details" class="method-name">forceToSingleCharacter</a>
+        (<span class="var-type">string</span>&nbsp;<span class="var-name">$string</span>)
+        </div>
+    <div class="method-definition">
+    static         <span class="method-result">string</span>
+        <a href="#methodgetHexForNonAlphanumeric" title="details" class="method-name">getHexForNonAlphanumeric</a>
+        (<span class="var-type">$c</span>&nbsp;<span class="var-name">$c</span>)
+        </div>
+    <div class="method-definition">
+    static         <span class="method-result">void</span>
+        <a href="#methodnormalizeEncoding" title="details" class="method-name">normalizeEncoding</a>
+        (<span class="var-type">string</span>&nbsp;<span class="var-name">$string</span>)
+        </div>
+    <div class="method-definition">
+    static         <span class="method-result">void</span>
+        <a href="#methodtoHex" title="details" class="method-name">toHex</a>
+        (<span class="var-type">c</span>&nbsp;<span class="var-name">$c</span>)
+        </div>
+    <div class="method-definition">
+            <span class="method-result">Codec</span>
+        <a href="#method__construct" title="details" class="method-name">__construct</a>
+        ()
+        </div>
+    <div class="method-definition">
+            <span class="method-result">null</span>
+        <a href="#methoddecode" title="details" class="method-name">decode</a>
+        (<span class="var-type">input</span>&nbsp;<span class="var-name">$input</span>)
+        </div>
+    <div class="method-definition">
+            <span class="method-result">the</span>
+        <a href="#methoddecodeCharacter" title="details" class="method-name">decodeCharacter</a>
+        (<span class="var-type">input</span>&nbsp;<span class="var-name">$input</span>)
+        </div>
+    <div class="method-definition">
+            <span class="method-result">the</span>
+        <a href="#methodencode" title="details" class="method-name">encode</a>
+        (<span class="var-type">$input</span>&nbsp;<span class="var-name">$immune</span>, <span class="var-type"></span>&nbsp;<span class="var-name">$input</span>)
+        </div>
+    <div class="method-definition">
+            <span class="method-result">the</span>
+        <a href="#methodencodeCharacter" title="details" class="method-name">encodeCharacter</a>
+        (<span class="var-type">$c</span>&nbsp;<span class="var-name">$immune</span>, <span class="var-type"></span>&nbsp;<span class="var-name">$c</span>)
+        </div>
+    <div class="method-definition">
+            <span class="method-result">boolean.</span>
+        <a href="#methodisHexDigit" title="details" class="method-name">isHexDigit</a>
+        (<span class="var-type">$c</span>&nbsp;<span class="var-name">$c</span>)
+        </div>
+</div>
+<hr />
+<A NAME='method_detail'></A>
 
 
+<a name="methodcontainsCharacter" id="methodcontainsCharacter"><!-- --></a>
+<div style="background='#eeeeee'"><h4>
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Static Method containsCharacter</strong> (line <span class="linenumber">381</span>)
+ </h4> 
+<h4><i>void</i> <strong>containsCharacter(
+c
+$c, array
+$array)</strong></h4>
 
+	<!-- ========== Info from phpDoc block ========= -->
+<h5>Utility to search a char[] for a specific char.</h5>
+		<h4>Parameters</h4>
+	<ul>
+			<li><strong>c $c</strong>: </li>
+			<li><strong>array $array</strong>: </li>
+		</ul>
+		
+	<h4>Info</h4>
+	<ul>
+			<li><strong>access</strong> - public</li>
+		</ul>
+</div>
+<a name="methoddetectEncoding" id="methoddetectEncoding"><!-- --></a>
+<div style="background='#ffffff'"><h4>
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Static Method detectEncoding</strong> (line <span class="linenumber">414</span>)
+ </h4> 
+<h4><i>detectedEncoding</i> <strong>detectEncoding(
+string
+$string)</strong></h4>
 
-	<a name="sec-method-summary"></a>
-	<div class="info-box">
-		<div class="info-box-title">Method Summary</span></div>
-		<div class="nav-bar">
-			<a href="#sec-description">Description</a> |
-												<span class="disabled">Methods</span> (<a href="#sec-methods">details</a>)
-		</div>
-		<div class="info-box-body">			
-			<div class="method-summary">
-																				<div class="method-definition">
-					static 						<span class="method-result">void</span>
-										<a href="#containsCharacter" title="details" class="method-name">containsCharacter</a>
-											(<span class="var-type">c</span>&nbsp;<span class="var-name">$c</span>, <span class="var-type">array</span>&nbsp;<span class="var-name">$array</span>)
-									</div>
-																																<div class="method-definition">
-					static 						<span class="method-result">detectedEncoding</span>
-										<a href="#detectEncoding" title="details" class="method-name">detectEncoding</a>
-											(<span class="var-type">string</span>&nbsp;<span class="var-name">$string</span>)
-									</div>
-																																<div class="method-definition">
-					static 						<span class="method-result">void</span>
-										<a href="#forceToSingleCharacter" title="details" class="method-name">forceToSingleCharacter</a>
-											(<span class="var-type">string</span>&nbsp;<span class="var-name">$string</span>)
-									</div>
-																<div class="method-definition">
-					static 						<span class="method-result">string</span>
-										<a href="#getHexForNonAlphanumeric" title="details" class="method-name">getHexForNonAlphanumeric</a>
-											(<span class="var-type">$c</span>&nbsp;<span class="var-name">$c</span>)
-									</div>
-																								<div class="method-definition">
-					static 						<span class="method-result">void</span>
-										<a href="#normalizeEncoding" title="details" class="method-name">normalizeEncoding</a>
-											(<span class="var-type">string</span>&nbsp;<span class="var-name">$string</span>)
-									</div>
-																<div class="method-definition">
-					static 						<span class="method-result">void</span>
-										<a href="#toHex" title="details" class="method-name">toHex</a>
-											(<span class="var-type">c</span>&nbsp;<span class="var-name">$c</span>)
-									</div>
-								
-												<div class="method-definition">
-											<span class="method-result">Codec</span>
-										<a href="#__construct" title="details" class="method-name">__construct</a>
-										()
-									</div>
-																								<div class="method-definition">
-											<span class="method-result">null</span>
-										<a href="#decode" title="details" class="method-name">decode</a>
-											(<span class="var-type">input</span>&nbsp;<span class="var-name">$input</span>)
-									</div>
-																<div class="method-definition">
-											<span class="method-result">the</span>
-										<a href="#decodeCharacter" title="details" class="method-name">decodeCharacter</a>
-											(<span class="var-type">input</span>&nbsp;<span class="var-name">$input</span>)
-									</div>
-																								<div class="method-definition">
-											<span class="method-result">the</span>
-										<a href="#encode" title="details" class="method-name">encode</a>
-											(<span class="var-type">$input</span>&nbsp;<span class="var-name">$immune</span>, <span class="var-type"></span>&nbsp;<span class="var-name">$input</span>)
-									</div>
-																<div class="method-definition">
-											<span class="method-result">the</span>
-										<a href="#encodeCharacter" title="details" class="method-name">encodeCharacter</a>
-											(<span class="var-type">$c</span>&nbsp;<span class="var-name">$immune</span>, <span class="var-type"></span>&nbsp;<span class="var-name">$c</span>)
-									</div>
-																																<div class="method-definition">
-											<span class="method-result">boolean.</span>
-										<a href="#isHexDigit" title="details" class="method-name">isHexDigit</a>
-											(<span class="var-type">$c</span>&nbsp;<span class="var-name">$c</span>)
-									</div>
-																								</div>
-		</div>
-	</div>		
+	<!-- ========== Info from phpDoc block ========= -->
+<h5>Utility to detect a (potentially multibyte) string's encoding with extra logic to deal with single characters that mb_detect_encoding() fails upon.</h5>
+		<h4>Parameters</h4>
+	<ul>
+			<li><strong>string $string</strong>: </li>
+		</ul>
+		
+	<h4>Info</h4>
+	<ul>
+			<li><strong>access</strong> - public</li>
+		</ul>
+</div>
+<a name="methodforceToSingleCharacter" id="methodforceToSingleCharacter"><!-- --></a>
+<div style="background='#eeeeee'"><h4>
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Static Method forceToSingleCharacter</strong> (line <span class="linenumber">509</span>)
+ </h4> 
+<h4><i>void</i> <strong>forceToSingleCharacter(
+string
+$string)</strong></h4>
 
-	
-	<a name="sec-methods"></a>
-	<div class="info-box">
-		<div class="info-box-title">Methods</div>
-		<div class="nav-bar">
-			<a href="#sec-description">Description</a> |
-																<a href="#sec-method-summary">Methods</a> (<span class="disabled">details</span>)
-						
-		</div>
-		<div class="info-box-body">
-			<A NAME='method_detail'></A>
-<a name="methodcontainsCharacter" id="containsCharacter"><!-- --></a>
-<div class="oddrow">
-	
-	<div class="method-header">
-		<span class="method-title">static method containsCharacter</span> (line <span class="line-number">381</span>)
-	</div> 
-	
 	<!-- ========== Info from phpDoc block ========= -->
-<p class="short-description">Utility to search a char[] for a specific char.</p>
-	<ul class="tags">
-				<li><span class="field">access:</span> public</li>
-			</ul>
-	
-	<div class="method-signature">
-	    static
-		<span class="method-result">void</span>
-		<span class="method-name">
-			containsCharacter
-		</span>
-					(<span class="var-type">c</span>&nbsp;<span class="var-name">$c</span>, <span class="var-type">array</span>&nbsp;<span class="var-name">$array</span>)
-			</div>
-	
-			<ul class="parameters">
-					<li>
-				<span class="var-type">c</span>
-				<span class="var-name">$c</span>			</li>
-					<li>
-				<span class="var-type">array</span>
-				<span class="var-name">$array</span>			</li>
-				</ul>
+<h5>Utility to get first (potentially multibyte) character from a (potentially multicharacter) multibyte string.</h5>
+		<h4>Parameters</h4>
+	<ul>
+			<li><strong>string $string</strong>: </li>
+		</ul>
 		
-			
-	</div>
-<a name="methoddetectEncoding" id="detectEncoding"><!-- --></a>
-<div class="evenrow">
-	
-	<div class="method-header">
-		<span class="method-title">static method detectEncoding</span> (line <span class="line-number">414</span>)
-	</div> 
-	
-	<!-- ========== Info from phpDoc block ========= -->
-<p class="short-description">Utility to detect a (potentially multibyte) string's encoding with extra logic to deal with single characters that mb_detect_encoding() fails upon.</p>
-	<ul class="tags">
-				<li><span class="field">access:</span> public</li>
-			</ul>
-	
-	<div class="method-signature">
-	    static
-		<span class="method-result">detectedEncoding</span>
-		<span class="method-name">
-			detectEncoding
-		</span>
-					(<span class="var-type">string</span>&nbsp;<span class="var-name">$string</span>)
-			</div>
-	
-			<ul class="parameters">
-					<li>
-				<span class="var-type">string</span>
-				<span class="var-name">$string</span>			</li>
-				</ul>
-		
-			
-	</div>
-<a name="methodforceToSingleCharacter" id="forceToSingleCharacter"><!-- --></a>
-<div class="oddrow">
-	
-	<div class="method-header">
-		<span class="method-title">static method forceToSingleCharacter</span> (line <span class="line-number">509</span>)
-	</div> 
-	
-	<!-- ========== Info from phpDoc block ========= -->
-<p class="short-description">Utility to get first (potentially multibyte) character from a (potentially multicharacter) multibyte string.</p>
-	<ul class="tags">
-				<li><span class="field">access:</span> public</li>
-			</ul>
-	
-	<div class="method-signature">
-	    static
-		<span class="method-result">void</span>
-		<span class="method-name">
-			forceToSingleCharacter
-		</span>
-					(<span class="var-type">string</span>&nbsp;<span class="var-name">$string</span>)
-			</div>
-	
-			<ul class="parameters">
-					<li>
-				<span class="var-type">string</span>
-				<span class="var-name">$string</span>			</li>
-				</ul>
-		
-			
-	</div>
-<a name="methodgetHexForNonAlphanumeric" id="getHexForNonAlphanumeric"><!-- --></a>
-<div class="evenrow">
-	
-	<div class="method-header">
-		<span class="method-title">static method getHexForNonAlphanumeric</span> (line <span class="line-number">342</span>)
-	</div> 
-	
-	<!-- ========== Info from phpDoc block ========= -->
-<p class="short-description">Returns the ordinal value as a hex string of any character that is not a  single-byte alphanumeric. The character should be supplied as a string in  the UTF-32 character encoding.</p>
-<p class="description"><p>If the character is an alphanumeric character with ordinal value below  255 then this method will return null.</p></p>
-	<ul class="tags">
-				<li><span class="field">return:</span> hexadecimal ordinal value of non-alphanumeric characters          or null otherwise.</li>
-				<li><span class="field">access:</span> public</li>
-			</ul>
-	
-	<div class="method-signature">
-	    static
-		<span class="method-result">string</span>
-		<span class="method-name">
-			getHexForNonAlphanumeric
-		</span>
-					(<span class="var-type">$c</span>&nbsp;<span class="var-name">$c</span>)
-			</div>
-	
-			<ul class="parameters">
-					<li>
-				<span class="var-type">$c</span>
-				<span class="var-name">$c</span><span class="var-description">: string 4 byte character character.</span>			</li>
-				</ul>
-		
-			
-	</div>
-<a name="methodnormalizeEncoding" id="normalizeEncoding"><!-- --></a>
-<div class="oddrow">
-	
-	<div class="method-header">
-		<span class="method-title">static method normalizeEncoding</span> (line <span class="line-number">492</span>)
-	</div> 
-	
-	<!-- ========== Info from phpDoc block ========= -->
-<p class="short-description">Utility to normalize a string's encoding to UTF-32.</p>
-	<ul class="tags">
-				<li><span class="field">access:</span> public</li>
-			</ul>
-	
-	<div class="method-signature">
-	    static
-		<span class="method-result">void</span>
-		<span class="method-name">
-			normalizeEncoding
-		</span>
-					(<span class="var-type">string</span>&nbsp;<span class="var-name">$string</span>)
-			</div>
-	
-			<ul class="parameters">
-					<li>
-				<span class="var-type">string</span>
-				<span class="var-name">$string</span>			</li>
-				</ul>
-		
-			
-	</div>
-<a name="methodtoHex" id="toHex"><!-- --></a>
-<div class="evenrow">
-	
-	<div class="method-header">
-		<span class="method-title">static method toHex</span> (line <span class="line-number">367</span>)
-	</div> 
-	
-	<!-- ========== Info from phpDoc block ========= -->
-<p class="short-description">Return the hex value of a character as a string without leading zeroes.</p>
-	<ul class="tags">
-				<li><span class="field">access:</span> public</li>
-			</ul>
-	
-	<div class="method-signature">
-	    static
-		<span class="method-result">void</span>
-		<span class="method-name">
-			toHex
-		</span>
-					(<span class="var-type">c</span>&nbsp;<span class="var-name">$c</span>)
-			</div>
-	
-			<ul class="parameters">
-					<li>
-				<span class="var-type">c</span>
-				<span class="var-name">$c</span>			</li>
-				</ul>
-		
-			
-	</div>
+	<h4>Info</h4>
+	<ul>
+			<li><strong>access</strong> - public</li>
+		</ul>
+</div>
+<a name="methodgetHexForNonAlphanumeric" id="methodgetHexForNonAlphanumeric"><!-- --></a>
+<div style="background='#ffffff'"><h4>
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Static Method getHexForNonAlphanumeric</strong> (line <span class="linenumber">342</span>)
+ </h4> 
+<h4><i>string</i> <strong>getHexForNonAlphanumeric(
+$c
+$c)</strong></h4>
 
-<a name="method__construct" id="__construct"><!-- --></a>
-<div class="oddrow">
-	
-	<div class="method-header">
-		<span class="method-title">Constructor __construct</span> (line <span class="line-number">64</span>)
-	</div> 
-	
 	<!-- ========== Info from phpDoc block ========= -->
-<p class="short-description">Populates the $hex map of non-alphanumeric single-byte characters.</p>
-	<ul class="tags">
-				<li><span class="field">access:</span> public</li>
-			</ul>
-	
-	<div class="method-signature">
-		<span class="method-result">Codec</span>
-		<span class="method-name">
-			__construct
-		</span>
-				()
-			</div>
-	
+<h5>Returns the ordinal value as a hex string of any character that is not a  single-byte alphanumeric. The character should be supplied as a string in  the UTF-32 character encoding.</h5>
+<div class="desc"><p>If the character is an alphanumeric character with ordinal value below  255 then this method will return null.</p></div>
+		<h4>Parameters</h4>
+	<ul>
+			<li><strong>$c $c</strong>: string 4 byte character character.</li>
+		</ul>
 		
-			
-	</div>
-<a name="methoddecode" id="decode"><!-- --></a>
-<div class="evenrow">
-	
-	<div class="method-header">
-		<span class="method-title">decode</span> (line <span class="line-number">140</span>)
-	</div> 
-	
-	<!-- ========== Info from phpDoc block ========= -->
-<p class="short-description">Decode a String that was encoded using the encode method in this Class</p>
-	<ul class="tags">
-				<li><span class="field">return:</span> if null, otherwise return the decoded String</li>
-			</ul>
-	
-	<div class="method-signature">
-		<span class="method-result">null</span>
-		<span class="method-name">
-			decode
-		</span>
-					(<span class="var-type">input</span>&nbsp;<span class="var-name">$input</span>)
-			</div>
-	
-			<ul class="parameters">
-					<li>
-				<span class="var-type">input</span>
-				<span class="var-name">$input</span><span class="var-description">: the String to decode</span>			</li>
-				</ul>
-		
-			
-	</div>
-<a name="methoddecodeCharacter" id="decodeCharacter"><!-- --></a>
-<div class="oddrow">
-	
-	<div class="method-header">
-		<span class="method-title">decodeCharacter</span> (line <span class="line-number">325</span>)
-	</div> 
-	
-	<!-- ========== Info from phpDoc block ========= -->
-<p class="short-description">Returns the decoded version of the next character from the input string and advances the  current character in the PushbackString.  If the current character is not encoded, this  method MUST reset the PushbackString.</p>
-<p class="description"><p>TODO Remove this method?</p></p>
-	<ul class="tags">
-				<li><span class="field">return:</span> decoded Character</li>
-			</ul>
-	
-	<div class="method-signature">
-		<span class="method-result">the</span>
-		<span class="method-name">
-			decodeCharacter
-		</span>
-					(<span class="var-type">input</span>&nbsp;<span class="var-name">$input</span>)
-			</div>
-	
-			<ul class="parameters">
-					<li>
-				<span class="var-type">input</span>
-				<span class="var-name">$input</span><span class="var-description">: the Character to decode</span>			</li>
-				</ul>
-		
-			
-	</div>
-<a name="methodencode" id="encode"><!-- --></a>
-<div class="evenrow">
-	
-	<div class="method-header">
-		<span class="method-title">encode</span> (line <span class="line-number">86</span>)
-	</div> 
-	
-	<!-- ========== Info from phpDoc block ========= -->
-<p class="short-description">Encode a String with a Codec.</p>
-	<ul class="tags">
-				<li><span class="field">return:</span> encoded String.</li>
-				<li><span class="field">access:</span> public</li>
-			</ul>
-	
-	<div class="method-signature">
-		<span class="method-result">the</span>
-		<span class="method-name">
-			encode
-		</span>
-					(<span class="var-type">$input</span>&nbsp;<span class="var-name">$immune</span>, <span class="var-type"></span>&nbsp;<span class="var-name">$input</span>)
-			</div>
-	
-			<ul class="parameters">
-					<li>
-				<span class="var-type">$input</span>
-				<span class="var-name">$immune</span><span class="var-description">: the String to encode.</span>			</li>
-					<li>
-				<span class="var-type"></span>
-				<span class="var-name">$input</span>			</li>
-				</ul>
-		
-			
-	</div>
-<a name="methodencodeCharacter" id="encodeCharacter"><!-- --></a>
-<div class="oddrow">
-	
-	<div class="method-header">
-		<span class="method-title">encodeCharacter</span> (line <span class="line-number">114</span>)
-	</div> 
-	
-	<!-- ========== Info from phpDoc block ========= -->
-<p class="short-description">Encode a Character with a Codec.</p>
-	<ul class="tags">
-				<li><span class="field">return:</span> encoded Character.</li>
-				<li><span class="field">access:</span> public</li>
-			</ul>
-	
-	<div class="method-signature">
-		<span class="method-result">the</span>
-		<span class="method-name">
-			encodeCharacter
-		</span>
-					(<span class="var-type">$c</span>&nbsp;<span class="var-name">$immune</span>, <span class="var-type"></span>&nbsp;<span class="var-name">$c</span>)
-			</div>
-	
-			<ul class="parameters">
-					<li>
-				<span class="var-type">$c</span>
-				<span class="var-name">$immune</span><span class="var-description">: the Character to encode.</span>			</li>
-					<li>
-				<span class="var-type"></span>
-				<span class="var-name">$c</span>			</li>
-				</ul>
-		
-			
-	</div>
-<a name="methodisHexDigit" id="isHexDigit"><!-- --></a>
-<div class="evenrow">
-	
-	<div class="method-header">
-		<span class="method-title">isHexDigit</span> (line <span class="line-number">523</span>)
-	</div> 
-	
-	<!-- ========== Info from phpDoc block ========= -->
-<p class="short-description">*  Utility method to determine if a single character string is a hex digit</p>
-	<ul class="tags">
-				<li><span class="field">return:</span> True indicates that the single character string is a hex digit</li>
-			</ul>
-	
-	<div class="method-signature">
-		<span class="method-result">boolean.</span>
-		<span class="method-name">
-			isHexDigit
-		</span>
-					(<span class="var-type">$c</span>&nbsp;<span class="var-name">$c</span>)
-			</div>
-	
-			<ul class="parameters">
-					<li>
-				<span class="var-type">$c</span>
-				<span class="var-name">$c</span><span class="var-description">: Single character string that is potentially a hex digit</span>			</li>
-				</ul>
-		
-			
-	</div>
-						
-		</div>
-	</div>
+	<h4>Info</h4>
+	<ul>
+			<li><strong>return</strong> - hexadecimal ordinal value of non-alphanumeric characters          or null otherwise.</li>
+			<li><strong>access</strong> - public</li>
+		</ul>
+</div>
+<a name="methodnormalizeEncoding" id="methodnormalizeEncoding"><!-- --></a>
+<div style="background='#eeeeee'"><h4>
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Static Method normalizeEncoding</strong> (line <span class="linenumber">492</span>)
+ </h4> 
+<h4><i>void</i> <strong>normalizeEncoding(
+string
+$string)</strong></h4>
 
+	<!-- ========== Info from phpDoc block ========= -->
+<h5>Utility to normalize a string's encoding to UTF-32.</h5>
+		<h4>Parameters</h4>
+	<ul>
+			<li><strong>string $string</strong>: </li>
+		</ul>
+		
+	<h4>Info</h4>
+	<ul>
+			<li><strong>access</strong> - public</li>
+		</ul>
+</div>
+<a name="methodtoHex" id="methodtoHex"><!-- --></a>
+<div style="background='#ffffff'"><h4>
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Static Method toHex</strong> (line <span class="linenumber">367</span>)
+ </h4> 
+<h4><i>void</i> <strong>toHex(
+c
+$c)</strong></h4>
 
-	<p class="notes" id="credit">
-		Documentation generated on Fri, 16 Apr 2010 12:01:56 -0400 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
-	</p>
-	</div></body>
+	<!-- ========== Info from phpDoc block ========= -->
+<h5>Return the hex value of a character as a string without leading zeroes.</h5>
+		<h4>Parameters</h4>
+	<ul>
+			<li><strong>c $c</strong>: </li>
+		</ul>
+		
+	<h4>Info</h4>
+	<ul>
+			<li><strong>access</strong> - public</li>
+		</ul>
+</div>
+<a name="method__construct" id="method__construct"><!-- --></a>
+<div style="background='#eeeeee'"><h4>
+<img src="../media/images/Constructor.gif" border="0" /> <strong class="method">Constructor __construct</strong> (line <span class="linenumber">64</span>)
+ </h4> 
+<h4><i>Codec</i> <strong>__construct(
+)</strong></h4>
+
+	<!-- ========== Info from phpDoc block ========= -->
+<h5>Populates the $hex map of non-alphanumeric single-byte characters.</h5>
+		
+	<h4>Info</h4>
+	<ul>
+			<li><strong>access</strong> - public</li>
+		</ul>
+</div>
+<a name="methoddecode" id="methoddecode"><!-- --></a>
+<div style="background='#ffffff'"><h4>
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method decode</strong> (line <span class="linenumber">140</span>)
+ </h4> 
+<h4><i>null</i> <strong>decode(
+input
+$input)</strong></h4>
+
+	<!-- ========== Info from phpDoc block ========= -->
+<h5>Decode a String that was encoded using the encode method in this Class</h5>
+		<h4>Parameters</h4>
+	<ul>
+			<li><strong>input $input</strong>: the String to decode</li>
+		</ul>
+		
+	<h4>Info</h4>
+	<ul>
+			<li><strong>return</strong> - if null, otherwise return the decoded String</li>
+		</ul>
+</div>
+<a name="methoddecodeCharacter" id="methoddecodeCharacter"><!-- --></a>
+<div style="background='#eeeeee'"><h4>
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method decodeCharacter</strong> (line <span class="linenumber">325</span>)
+ </h4> 
+<h4><i>the</i> <strong>decodeCharacter(
+input
+$input)</strong></h4>
+
+	<!-- ========== Info from phpDoc block ========= -->
+<h5>Returns the decoded version of the next character from the input string and advances the  current character in the PushbackString.  If the current character is not encoded, this  method MUST reset the PushbackString.</h5>
+<div class="desc"><p>TODO Remove this method?</p></div>
+		<h4>Parameters</h4>
+	<ul>
+			<li><strong>input $input</strong>: the Character to decode</li>
+		</ul>
+		
+	<h4>Info</h4>
+	<ul>
+			<li><strong>return</strong> - decoded Character</li>
+		</ul>
+</div>
+<a name="methodencode" id="methodencode"><!-- --></a>
+<div style="background='#ffffff'"><h4>
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method encode</strong> (line <span class="linenumber">86</span>)
+ </h4> 
+<h4><i>the</i> <strong>encode(
+$input
+$immune, 
+$input)</strong></h4>
+
+	<!-- ========== Info from phpDoc block ========= -->
+<h5>Encode a String with a Codec.</h5>
+		<h4>Parameters</h4>
+	<ul>
+			<li><strong>$input $immune</strong>: the String to encode.</li>
+			<li><strong> $input</strong>: </li>
+		</ul>
+		
+	<h4>Info</h4>
+	<ul>
+			<li><strong>return</strong> - encoded String.</li>
+			<li><strong>access</strong> - public</li>
+		</ul>
+</div>
+<a name="methodencodeCharacter" id="methodencodeCharacter"><!-- --></a>
+<div style="background='#eeeeee'"><h4>
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method encodeCharacter</strong> (line <span class="linenumber">114</span>)
+ </h4> 
+<h4><i>the</i> <strong>encodeCharacter(
+$c
+$immune, 
+$c)</strong></h4>
+
+	<!-- ========== Info from phpDoc block ========= -->
+<h5>Encode a Character with a Codec.</h5>
+		<h4>Parameters</h4>
+	<ul>
+			<li><strong>$c $immune</strong>: the Character to encode.</li>
+			<li><strong> $c</strong>: </li>
+		</ul>
+		
+	<h4>Info</h4>
+	<ul>
+			<li><strong>return</strong> - encoded Character.</li>
+			<li><strong>access</strong> - public</li>
+		</ul>
+</div>
+<a name="methodisHexDigit" id="methodisHexDigit"><!-- --></a>
+<div style="background='#ffffff'"><h4>
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method isHexDigit</strong> (line <span class="linenumber">523</span>)
+ </h4> 
+<h4><i>boolean.</i> <strong>isHexDigit(
+$c
+$c)</strong></h4>
+
+	<!-- ========== Info from phpDoc block ========= -->
+<h5>*  Utility method to determine if a single character string is a hex digit</h5>
+		<h4>Parameters</h4>
+	<ul>
+			<li><strong>$c $c</strong>: Single character string that is potentially a hex digit</li>
+		</ul>
+		
+	<h4>Info</h4>
+	<ul>
+			<li><strong>return</strong> - True indicates that the single character string is a hex digit</li>
+		</ul>
+</div>
+<script type="text/javascript">tp1.addTabPage( document.getElementById( "tabPage2" ) );</script></div>
+<div class="tab-page" id="iVars">
+<h2 class="tab">Inherited Variables</h2>
+<script type="text/javascript">tp1.addTabPage( document.getElementById( "iVars" ) );</script>
+<!-- =========== VAR INHERITED SUMMARY =========== -->
+<A NAME='var_inherited_summary'><!-- --></A>
+<h3>Inherited Class Variable Summary</h3>
+
+	</div>
+<div class="tab-page" id="iMethods">
+<h2 class="tab">Inherited Methods</h2>
+<script type="text/javascript">tp1.addTabPage( document.getElementById( "iMethods" ) );</script>
+<!-- =========== INHERITED METHOD SUMMARY =========== -->
+<A NAME='functions_inherited'><!-- --></A>
+<h3>Inherited Method Summary</h3>
+
+	</div>
+</div>
+<script type="text/javascript">
+//<![CDATA[
+
+setupAllTabs();
+
+//]]>
+</script>
+	<div id="credit">
+		<hr />
+		Documentation generated on Fri, 16 Apr 2010 13:57:58 -0400 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
+	</div>
+</body>
 </html>

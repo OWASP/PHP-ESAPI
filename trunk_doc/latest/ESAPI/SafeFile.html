@@ -1,229 +1,435 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-  <html xmlns="http://www.w3.org/1999/xhtml">
-		<head>
-			<!-- template designed by Marco Von Ballmoos -->
-			<title>Docs For Class SafeFile</title>
-			<link rel="stylesheet" href="../media/stylesheet.css" />
-			<meta http-equiv='Content-Type' content='text/html; charset=iso-8859-1'/>
-		</head>
-		<body>
-			<div class="page-body">			
-<h2 class="class-name">Class SafeFile</h2>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+   <html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <title>Docs For Class SafeFile</title>
+  <link rel="stylesheet" href="../media/stylesheet.css" />
+  <script src="../media/lib/classTree.js"></script>
+<link id="webfx-tab-style-sheet" type="text/css" rel="stylesheet" href="../media/lib/tab.webfx.css" />
+<script type="text/javascript" src="../media/lib/tabpane.js"></script>
+  <script language="javascript" type="text/javascript" src="../media/lib/ua.js"></script>
+<script language="javascript" type="text/javascript">
+	var imgPlus = new Image();
+	var imgMinus = new Image();
+	imgPlus.src = "../media/images/plus.gif";
+	imgMinus.src = "../media/images/minus.gif";
+	
+	function showNode(Node){
+        switch(navigator.family){
+        	case 'nn4':
+        		// Nav 4.x code fork...
+				var oTable = document.layers["span" + Node];
+				var oImg = document.layers["img" + Node];
+        		break;
+        	case 'ie4':
+        		// IE 4/5 code fork...
+				var oTable = document.all["span" + Node];
+				var oImg = document.all["img" + Node];
+        		break;
+        	case 'gecko':
+        		// Standards Compliant code fork...
+				var oTable = document.getElementById("span" + Node);
+				var oImg = document.getElementById("img" + Node);
+        		break;
+        }
+		oImg.src = imgMinus.src;
+		oTable.style.display = "block";
+	}
+	
+	function hideNode(Node){
+        switch(navigator.family){
+        	case 'nn4':
+        		// Nav 4.x code fork...
+				var oTable = document.layers["span" + Node];
+				var oImg = document.layers["img" + Node];
+        		break;
+        	case 'ie4':
+        		// IE 4/5 code fork...
+				var oTable = document.all["span" + Node];
+				var oImg = document.all["img" + Node];
+        		break;
+        	case 'gecko':
+        		// Standards Compliant code fork...
+				var oTable = document.getElementById("span" + Node);
+				var oImg = document.getElementById("img" + Node);
+        		break;
+        }
+		oImg.src = imgPlus.src;
+		oTable.style.display = "none";
+	}
+	
+	function nodeIsVisible(Node){
+        switch(navigator.family){
+        	case 'nn4':
+        		// Nav 4.x code fork...
+				var oTable = document.layers["span" + Node];
+        		break;
+        	case 'ie4':
+        		// IE 4/5 code fork...
+				var oTable = document.all["span" + Node];
+        		break;
+        	case 'gecko':
+        		// Standards Compliant code fork...
+				var oTable = document.getElementById("span" + Node);
+        		break;
+        }
+		return (oTable && oTable.style.display == "block");
+	}
+	
+	function toggleNodeVisibility(Node){
+		if (nodeIsVisible(Node)){
+			hideNode(Node);
+		}else{
+			showNode(Node);
+		}
+	}
+</script>
+<!-- template designed by Julien Damon based on PHPEdit's generated templates, and tweaked by Greg Beaver -->
+<body bgcolor="#ffffff" ><!-- Start of Class Data -->
+<h2>
+	Class SafeFile
+</h2> (line <span class="linenumber">43</span>)
+<div class="tab-pane" id="tabPane1">
+<script type="text/javascript">
+tp1 = new WebFXTabPane( document.getElementById( "tabPane1" ));
+</script>
 
-<a name="sec-description"></a>
-<div class="info-box">
-	<div class="info-box-title">Description</div>
-	<div class="nav-bar">
-					<span class="disabled">Description</span> |
-															<a href="#sec-method-summary">Methods</a> (<a href="#sec-methods">details</a>)
-						
-											<a href="#sec-consts">Constants</a>
-						
-			</div>
-	<div class="info-box-body">
-        		<!-- ========== Info from phpDoc block ========= -->
-<p class="short-description">Extension to SplFileObject to prevent against null byte injections and  other unforeseen problems resulting from unprintable characters  causing problems in path lookups. This does _not_ prevent against  directory traversal attacks.</p>
-	<ul class="tags">
-				<li><span class="field">author:</span> Martin Reiche &lt;<a href="mailto:martin.reiche.ka@googlemail.com">martin.reiche.ka@googlemail.com</a>&gt;</li>
-				<li><span class="field">author:</span> Jeff Williams &lt;<a href="mailto:jeff.williams@aspectsecurity.com">jeff.williams@aspectsecurity.com</a>&gt;</li>
-				<li><span class="field">author:</span> Andrew van der Stock &lt;<a href="mailto:vanderaj@owasp.org">vanderaj@owasp.org</a>&gt;</li>
-				<li><span class="field">version:</span> Release: @package_version@</li>
-				<li><span class="field">copyright:</span> 2009-2010 The OWASP Foundation</li>
-				<li><span class="field">link:</span> <a href="http://www.owasp.org/index.php/ESAPI">http://www.owasp.org/index.php/ESAPI</a></li>
-				<li><span class="field">license:</span> <a href="http://www.opensource.org/licenses/bsd-license.php">New BSD license</a></li>
-			</ul>
-		<p class="notes">
-			Located in <a class="field" href="_SafeFile.php.html">/SafeFile.php</a> (line <span class="field">43</span>)
-		</p>
-		
-				
-		<pre>SplFileObject
+<div class="tab-page" id="Description">
+<h2 class="tab">Description</h2>
+<pre>
+SplFileObject
    |
    --SafeFile</pre>
-	
-			</div>
+<p>
+	<b><i>Located in File: <a href="_SafeFile.php.html">/SafeFile.php</a></i></b><br>
+</p>
+<!-- ========== Info from phpDoc block ========= -->
+<h5>Extension to SplFileObject to prevent against null byte injections and  other unforeseen problems resulting from unprintable characters  causing problems in path lookups. This does _not_ prevent against  directory traversal attacks.</h5>
+<ul>
+		<li><strong>author:</strong> - Martin Reiche &lt;<a href="mailto:martin.reiche.ka@googlemail.com">martin.reiche.ka@googlemail.com</a>&gt;</li>
+		<li><strong>author:</strong> - Jeff Williams &lt;<a href="mailto:jeff.williams@aspectsecurity.com">jeff.williams@aspectsecurity.com</a>&gt;</li>
+		<li><strong>author:</strong> - Andrew van der Stock &lt;<a href="mailto:vanderaj@owasp.org">vanderaj@owasp.org</a>&gt;</li>
+		<li><strong>version:</strong> - Release: @package_version@</li>
+		<li><strong>copyright:</strong> - 2009-2010 The OWASP Foundation</li>
+		<li><strong>link:</strong> - <a href="http://www.owasp.org/index.php/ESAPI">http://www.owasp.org/index.php/ESAPI</a></li>
+		<li><strong>license:</strong> - <a href="http://www.opensource.org/licenses/bsd-license.php">New BSD license</a></li>
+	</ul>
+<br /><hr />
 </div>
+<script type="text/javascript">tp1.addTabPage( document.getElementById( "Description" ) );</script>
+<div class="tab-page" id="tabPage1">
+
+<h2 class="tab">Class Variables</h2>
+<!-- ============ VARIABLE DETAIL =========== -->
+<strong>Summary:</strong><br />
+<hr />
+<script type="text/javascript">tp1.addTabPage( document.getElementById( "tabPage1" ) );</script>
+</div>
+<div class="tab-page" id="constantsTabpage">
+
+<h2 class="tab">Class Constants</h2>
+<!-- ============ VARIABLE DETAIL =========== -->
+<strong>Summary:</strong><br />
+<hr />
+<script type="text/javascript">tp1.addTabPage( document.getElementById( "constantsTabpage" ) );</script>
+</div>
+<div class="tab-page" id="tabPage2">
+<h2 class="tab">Method Detail</h2>
+<!-- ============ METHOD DETAIL =========== -->
+<strong>Summary:</strong><br />
+<div class="method-summary">
+    <div class="method-definition">
+            <span class="method-result">does</span>
+        <a href="#method__construct" title="details" class="method-name">__construct</a>
+        (<span class="var-type">string</span>&nbsp;<span class="var-name">$path</span>)
+        </div>
+</div>
+<hr />
+<A NAME='method_detail'></A>
 
 
+<a name="method__construct" id="method__construct"><!-- --></a>
+<div style="background='#ffffff'"><h4>
+<img src="../media/images/Constructor.gif" border="0" /> <strong class="method">Constructor __construct</strong> (line <span class="linenumber">58</span>)
+ </h4> 
+<h4><i>does</i> <strong>__construct(
+string
+$path)</strong></h4>
 
-
-	<a name="sec-method-summary"></a>
-	<div class="info-box">
-		<div class="info-box-title">Method Summary</span></div>
-		<div class="nav-bar">
-			<a href="#sec-description">Description</a> |
-															<a href="#sec-consts">Constants</a>
-							
-									<span class="disabled">Methods</span> (<a href="#sec-methods">details</a>)
-		</div>
-		<div class="info-box-body">			
-			<div class="method-summary">
-												
-												<div class="method-definition">
-											<span class="method-result">does</span>
-										<a href="#__construct" title="details" class="method-name">__construct</a>
-											(<span class="var-type">string</span>&nbsp;<span class="var-name">$path</span>)
-									</div>
-								</div>
-		</div>
-	</div>		
-
-	
-	<a name="sec-methods"></a>
-	<div class="info-box">
-		<div class="info-box-title">Methods</div>
-		<div class="nav-bar">
-			<a href="#sec-description">Description</a> |
-																		<a href="#sec-consts">Constants</a>
-							
-										<a href="#sec-method-summary">Methods</a> (<span class="disabled">details</span>)
-						
-		</div>
-		<div class="info-box-body">
-			<A NAME='method_detail'></A>
-
-<a name="method__construct" id="__construct"><!-- --></a>
-<div class="evenrow">
-	
-	<div class="method-header">
-		<span class="method-title">Constructor __construct</span> (line <span class="line-number">58</span>)
-	</div> 
-	
+<p><strong>Overrides :</strong> SplFileObject::constructor __construct ( $file_name, [$open_mode = ], [$use_include_path = ], [$context = ] ) parent method not documented</p>
 	<!-- ========== Info from phpDoc block ========= -->
-<p class="short-description">Creates an extended SplFileObject from the given filename, which  prevents against null byte injections and unprintable characters.</p>
-	<ul class="tags">
-				<li><span class="field">return:</span> not return a value.</li>
-			</ul>
-	
-	<div class="method-signature">
-		<span class="method-result">does</span>
-		<span class="method-name">
-			__construct
-		</span>
-					(<span class="var-type">string</span>&nbsp;<span class="var-name">$path</span>)
-			</div>
-	
-			<ul class="parameters">
-					<li>
-				<span class="var-type">string</span>
-				<span class="var-name">$path</span><span class="var-description">: the path to the file (path &amp;&amp; file name)</span>			</li>
-				</ul>
+<h5>Creates an extended SplFileObject from the given filename, which  prevents against null byte injections and unprintable characters.</h5>
+		<h4>Parameters</h4>
+	<ul>
+			<li><strong>string $path</strong>: the path to the file (path &amp;&amp; file name)</li>
+		</ul>
 		
-			<hr class="separator" />
-		<div class="notes">Redefinition of:</div>
-		<dl>
-			<dt>SplFileObject::constructor __construct ( $file_name, [$open_mode = ], [$use_include_path = ], [$context = ] )</dt>
-					</dl>
-			
-	</div>
-							<h4>Inherited Methods</h4>
-				<a name='inherited_methods'><!-- --></a>	
-									<!-- =========== Summary =========== -->
-					<p>Inherited From <span class="classname">SplFileObject (Internal Class)</span></p>
-					<blockquote>
-													<span class="method-name">constructor __construct ( $file_name, [$open_mode = ], [$use_include_path = ], [$context = ] )</span><br>
-													<span class="method-name">current (  )</span><br>
-													<span class="method-name">eof (  )</span><br>
-													<span class="method-name">fflush (  )</span><br>
-													<span class="method-name">fgetc (  )</span><br>
-													<span class="method-name">fgetcsv ( [$delimiter = ], [$enclosure = ] )</span><br>
-													<span class="method-name">fgets (  )</span><br>
-													<span class="method-name">fgetss ( [$allowable_tags = ] )</span><br>
-													<span class="method-name">flock ( $operation, [&$wouldblock = ] )</span><br>
-													<span class="method-name">fpassthru (  )</span><br>
-													<span class="method-name">fscanf ( $format )</span><br>
-													<span class="method-name">fseek ( $pos, [$whence = ] )</span><br>
-													<span class="method-name">fstat (  )</span><br>
-													<span class="method-name">ftell (  )</span><br>
-													<span class="method-name">ftruncate ( $size )</span><br>
-													<span class="method-name">fwrite ( $str, [$length = ] )</span><br>
-													<span class="method-name">getATime (  )</span><br>
-													<span class="method-name">getBasename ( [$suffix = ] )</span><br>
-													<span class="method-name">getChildren (  )</span><br>
-													<span class="method-name">getCsvControl (  )</span><br>
-													<span class="method-name">getCTime (  )</span><br>
-													<span class="method-name">getCurrentLine (  )</span><br>
-													<span class="method-name">getFileInfo ( [$class_name = ] )</span><br>
-													<span class="method-name">getFilename (  )</span><br>
-													<span class="method-name">getFlags (  )</span><br>
-													<span class="method-name">getGroup (  )</span><br>
-													<span class="method-name">getInode (  )</span><br>
-													<span class="method-name">getLinkTarget (  )</span><br>
-													<span class="method-name">getMaxLineLen (  )</span><br>
-													<span class="method-name">getMTime (  )</span><br>
-													<span class="method-name">getOwner (  )</span><br>
-													<span class="method-name">getPath (  )</span><br>
-													<span class="method-name">getPathInfo ( [$class_name = ] )</span><br>
-													<span class="method-name">getPathname (  )</span><br>
-													<span class="method-name">getPerms (  )</span><br>
-													<span class="method-name">getRealPath (  )</span><br>
-													<span class="method-name">getSize (  )</span><br>
-													<span class="method-name">getType (  )</span><br>
-													<span class="method-name">hasChildren (  )</span><br>
-													<span class="method-name">isDir (  )</span><br>
-													<span class="method-name">isExecutable (  )</span><br>
-													<span class="method-name">isFile (  )</span><br>
-													<span class="method-name">isLink (  )</span><br>
-													<span class="method-name">isReadable (  )</span><br>
-													<span class="method-name">isWritable (  )</span><br>
-													<span class="method-name">key (  )</span><br>
-													<span class="method-name">next (  )</span><br>
-													<span class="method-name">openFile ( [$open_mode = ], [$use_include_path = ], [$context = ] )</span><br>
-													<span class="method-name">rewind (  )</span><br>
-													<span class="method-name">seek ( $line_pos )</span><br>
-													<span class="method-name">setCsvControl ( [$delimiter = ], [$enclosure = ] )</span><br>
-													<span class="method-name">setFileClass ( [$class_name = ] )</span><br>
-													<span class="method-name">setFlags ( $flags )</span><br>
-													<span class="method-name">setInfoClass ( [$class_name = ] )</span><br>
-													<span class="method-name">setMaxLineLen ( $max_len )</span><br>
-													<span class="method-name">valid (  )</span><br>
-													<span class="method-name">__toString (  )</span><br>
-											</blockquote>
-										
-		</div>
-	</div>
+	<h4>Info</h4>
+	<ul>
+			<li><strong>return</strong> - not return a value.</li>
+		</ul>
+</div>
+<script type="text/javascript">tp1.addTabPage( document.getElementById( "tabPage2" ) );</script></div>
+<div class="tab-page" id="iVars">
+<h2 class="tab">Inherited Variables</h2>
+<script type="text/javascript">tp1.addTabPage( document.getElementById( "iVars" ) );</script>
+<!-- =========== VAR INHERITED SUMMARY =========== -->
+<A NAME='var_inherited_summary'><!-- --></A>
+<h3>Inherited Class Variable Summary</h3>
 
-	<a name="sec-consts"></a>
-	<div class="info-box">
-		<div class="info-box-title">Class Constants</div>
-		<div class="nav-bar">
-			<a href="#sec-description">Description</a> |
-										<a href="#sec-var-summary">Constants</a> (<span class="disabled">details</span>)
-						
-			
-										| 
-									<a href="#sec-method-summary">Methods</a> (<a href="#sec-methods">details</a>)
-							
-					</div>
-		<div class="info-box-body">
-										<h4>Inherited Constants</h4>
-				<A NAME='inherited_vars'><!-- --></A>
-									<p>Inherited from <span class="classname">SplFileObject (Internal Class)</span></p>
-					<blockquote>
-													<img src="../media/images/Variable.png" />
-							<span class="const-title">
-								<span class="const-name">DROP_NEW_LINE = 1</span><br>
-							</span>
-													<img src="../media/images/Variable.png" />
-							<span class="const-title">
-								<span class="const-name">READ_AHEAD = 2</span><br>
-							</span>
-													<img src="../media/images/Variable.png" />
-							<span class="const-title">
-								<span class="const-name">READ_CSV = 8</span><br>
-							</span>
-													<img src="../media/images/Variable.png" />
-							<span class="const-title">
-								<span class="const-name">SKIP_EMPTY = 6</span><br>
-							</span>
-											</blockquote> 
-										
-		</div>
 	</div>
+<div class="tab-page" id="iMethods">
+<h2 class="tab">Inherited Methods</h2>
+<script type="text/javascript">tp1.addTabPage( document.getElementById( "iMethods" ) );</script>
+<!-- =========== INHERITED METHOD SUMMARY =========== -->
+<A NAME='functions_inherited'><!-- --></A>
+<h3>Inherited Method Summary</h3>
 
-	<p class="notes" id="credit">
-		Documentation generated on Fri, 16 Apr 2010 12:01:59 -0400 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
-	</p>
-	</div></body>
+		<!-- =========== Summary =========== -->
+	<h4>Inherited From Class SplFileObject (Internal Class)</h4>
+				<h4>
+<img src="../media/images/Constructor.gif" border="0" /><strong class="method"> constructor __construct ( $file_name, [$open_mode = ], [$use_include_path = ], [$context = ] )</strong> - 
+		</h4> 
+
+				<h4>
+<img src="../media/images/PublicMethod.gif" border="0" /><strong class="method"> current (  )</strong> - 
+		</h4> 
+
+				<h4>
+<img src="../media/images/PublicMethod.gif" border="0" /><strong class="method"> eof (  )</strong> - 
+		</h4> 
+
+				<h4>
+<img src="../media/images/PublicMethod.gif" border="0" /><strong class="method"> fflush (  )</strong> - 
+		</h4> 
+
+				<h4>
+<img src="../media/images/PublicMethod.gif" border="0" /><strong class="method"> fgetc (  )</strong> - 
+		</h4> 
+
+				<h4>
+<img src="../media/images/PublicMethod.gif" border="0" /><strong class="method"> fgetcsv ( [$delimiter = ], [$enclosure = ] )</strong> - 
+		</h4> 
+
+				<h4>
+<img src="../media/images/PublicMethod.gif" border="0" /><strong class="method"> fgets (  )</strong> - 
+		</h4> 
+
+				<h4>
+<img src="../media/images/PublicMethod.gif" border="0" /><strong class="method"> fgetss ( [$allowable_tags = ] )</strong> - 
+		</h4> 
+
+				<h4>
+<img src="../media/images/PublicMethod.gif" border="0" /><strong class="method"> flock ( $operation, [&$wouldblock = ] )</strong> - 
+		</h4> 
+
+				<h4>
+<img src="../media/images/PublicMethod.gif" border="0" /><strong class="method"> fpassthru (  )</strong> - 
+		</h4> 
+
+				<h4>
+<img src="../media/images/PublicMethod.gif" border="0" /><strong class="method"> fscanf ( $format )</strong> - 
+		</h4> 
+
+				<h4>
+<img src="../media/images/PublicMethod.gif" border="0" /><strong class="method"> fseek ( $pos, [$whence = ] )</strong> - 
+		</h4> 
+
+				<h4>
+<img src="../media/images/PublicMethod.gif" border="0" /><strong class="method"> fstat (  )</strong> - 
+		</h4> 
+
+				<h4>
+<img src="../media/images/PublicMethod.gif" border="0" /><strong class="method"> ftell (  )</strong> - 
+		</h4> 
+
+				<h4>
+<img src="../media/images/PublicMethod.gif" border="0" /><strong class="method"> ftruncate ( $size )</strong> - 
+		</h4> 
+
+				<h4>
+<img src="../media/images/PublicMethod.gif" border="0" /><strong class="method"> fwrite ( $str, [$length = ] )</strong> - 
+		</h4> 
+
+				<h4>
+<img src="../media/images/PublicMethod.gif" border="0" /><strong class="method"> getATime (  )</strong> - 
+		</h4> 
+
+				<h4>
+<img src="../media/images/PublicMethod.gif" border="0" /><strong class="method"> getBasename ( [$suffix = ] )</strong> - 
+		</h4> 
+
+				<h4>
+<img src="../media/images/PublicMethod.gif" border="0" /><strong class="method"> getChildren (  )</strong> - 
+		</h4> 
+
+				<h4>
+<img src="../media/images/PublicMethod.gif" border="0" /><strong class="method"> getCsvControl (  )</strong> - 
+		</h4> 
+
+				<h4>
+<img src="../media/images/PublicMethod.gif" border="0" /><strong class="method"> getCTime (  )</strong> - 
+		</h4> 
+
+				<h4>
+<img src="../media/images/PublicMethod.gif" border="0" /><strong class="method"> getCurrentLine (  )</strong> - 
+		</h4> 
+
+				<h4>
+<img src="../media/images/PublicMethod.gif" border="0" /><strong class="method"> getFileInfo ( [$class_name = ] )</strong> - 
+		</h4> 
+
+				<h4>
+<img src="../media/images/PublicMethod.gif" border="0" /><strong class="method"> getFilename (  )</strong> - 
+		</h4> 
+
+				<h4>
+<img src="../media/images/PublicMethod.gif" border="0" /><strong class="method"> getFlags (  )</strong> - 
+		</h4> 
+
+				<h4>
+<img src="../media/images/PublicMethod.gif" border="0" /><strong class="method"> getGroup (  )</strong> - 
+		</h4> 
+
+				<h4>
+<img src="../media/images/PublicMethod.gif" border="0" /><strong class="method"> getInode (  )</strong> - 
+		</h4> 
+
+				<h4>
+<img src="../media/images/PublicMethod.gif" border="0" /><strong class="method"> getLinkTarget (  )</strong> - 
+		</h4> 
+
+				<h4>
+<img src="../media/images/PublicMethod.gif" border="0" /><strong class="method"> getMaxLineLen (  )</strong> - 
+		</h4> 
+
+				<h4>
+<img src="../media/images/PublicMethod.gif" border="0" /><strong class="method"> getMTime (  )</strong> - 
+		</h4> 
+
+				<h4>
+<img src="../media/images/PublicMethod.gif" border="0" /><strong class="method"> getOwner (  )</strong> - 
+		</h4> 
+
+				<h4>
+<img src="../media/images/PublicMethod.gif" border="0" /><strong class="method"> getPath (  )</strong> - 
+		</h4> 
+
+				<h4>
+<img src="../media/images/PublicMethod.gif" border="0" /><strong class="method"> getPathInfo ( [$class_name = ] )</strong> - 
+		</h4> 
+
+				<h4>
+<img src="../media/images/PublicMethod.gif" border="0" /><strong class="method"> getPathname (  )</strong> - 
+		</h4> 
+
+				<h4>
+<img src="../media/images/PublicMethod.gif" border="0" /><strong class="method"> getPerms (  )</strong> - 
+		</h4> 
+
+				<h4>
+<img src="../media/images/PublicMethod.gif" border="0" /><strong class="method"> getRealPath (  )</strong> - 
+		</h4> 
+
+				<h4>
+<img src="../media/images/PublicMethod.gif" border="0" /><strong class="method"> getSize (  )</strong> - 
+		</h4> 
+
+				<h4>
+<img src="../media/images/PublicMethod.gif" border="0" /><strong class="method"> getType (  )</strong> - 
+		</h4> 
+
+				<h4>
+<img src="../media/images/PublicMethod.gif" border="0" /><strong class="method"> hasChildren (  )</strong> - 
+		</h4> 
+
+				<h4>
+<img src="../media/images/PublicMethod.gif" border="0" /><strong class="method"> isDir (  )</strong> - 
+		</h4> 
+
+				<h4>
+<img src="../media/images/PublicMethod.gif" border="0" /><strong class="method"> isExecutable (  )</strong> - 
+		</h4> 
+
+				<h4>
+<img src="../media/images/PublicMethod.gif" border="0" /><strong class="method"> isFile (  )</strong> - 
+		</h4> 
+
+				<h4>
+<img src="../media/images/PublicMethod.gif" border="0" /><strong class="method"> isLink (  )</strong> - 
+		</h4> 
+
+				<h4>
+<img src="../media/images/PublicMethod.gif" border="0" /><strong class="method"> isReadable (  )</strong> - 
+		</h4> 
+
+				<h4>
+<img src="../media/images/PublicMethod.gif" border="0" /><strong class="method"> isWritable (  )</strong> - 
+		</h4> 
+
+				<h4>
+<img src="../media/images/PublicMethod.gif" border="0" /><strong class="method"> key (  )</strong> - 
+		</h4> 
+
+				<h4>
+<img src="../media/images/PublicMethod.gif" border="0" /><strong class="method"> next (  )</strong> - 
+		</h4> 
+
+				<h4>
+<img src="../media/images/PublicMethod.gif" border="0" /><strong class="method"> openFile ( [$open_mode = ], [$use_include_path = ], [$context = ] )</strong> - 
+		</h4> 
+
+				<h4>
+<img src="../media/images/PublicMethod.gif" border="0" /><strong class="method"> rewind (  )</strong> - 
+		</h4> 
+
+				<h4>
+<img src="../media/images/PublicMethod.gif" border="0" /><strong class="method"> seek ( $line_pos )</strong> - 
+		</h4> 
+
+				<h4>
+<img src="../media/images/PublicMethod.gif" border="0" /><strong class="method"> setCsvControl ( [$delimiter = ], [$enclosure = ] )</strong> - 
+		</h4> 
+
+				<h4>
+<img src="../media/images/PublicMethod.gif" border="0" /><strong class="method"> setFileClass ( [$class_name = ] )</strong> - 
+		</h4> 
+
+				<h4>
+<img src="../media/images/PublicMethod.gif" border="0" /><strong class="method"> setFlags ( $flags )</strong> - 
+		</h4> 
+
+				<h4>
+<img src="../media/images/PublicMethod.gif" border="0" /><strong class="method"> setInfoClass ( [$class_name = ] )</strong> - 
+		</h4> 
+
+				<h4>
+<img src="../media/images/PublicMethod.gif" border="0" /><strong class="method"> setMaxLineLen ( $max_len )</strong> - 
+		</h4> 
+
+				<h4>
+<img src="../media/images/PublicMethod.gif" border="0" /><strong class="method"> valid (  )</strong> - 
+		</h4> 
+
+				<h4>
+<img src="../media/images/PublicMethod.gif" border="0" /><strong class="method"> __toString (  )</strong> - 
+		</h4> 
+
+				<br />
+	</div>
+</div>
+<script type="text/javascript">
+//<![CDATA[
+
+setupAllTabs();
+
+//]]>
+</script>
+	<div id="credit">
+		<hr />
+		Documentation generated on Fri, 16 Apr 2010 13:58:02 -0400 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
+	</div>
+</body>
 </html>

@@ -1,617 +1,586 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-  <html xmlns="http://www.w3.org/1999/xhtml">
-		<head>
-			<!-- template designed by Marco Von Ballmoos -->
-			<title>Docs For Class DefaultAuditor</title>
-			<link rel="stylesheet" href="../media/stylesheet.css" />
-			<meta http-equiv='Content-Type' content='text/html; charset=iso-8859-1'/>
-		</head>
-		<body>
-			<div class="page-body">			
-<h2 class="class-name">Class DefaultAuditor</h2>
-
-<a name="sec-description"></a>
-<div class="info-box">
-	<div class="info-box-title">Description</div>
-	<div class="nav-bar">
-					<span class="disabled">Description</span> |
-															<a href="#sec-method-summary">Methods</a> (<a href="#sec-methods">details</a>)
-						
-					</div>
-	<div class="info-box-body">
-                <p class="implements">
-            Implements interfaces:
-            <ul>
-                <li><a href="../ESAPI/Auditor.html">Auditor</a></li>            </ul>
-        </p>
-        		<!-- ========== Info from phpDoc block ========= -->
-<p class="short-description">Reference Implementation of the Auditor interface.</p>
-	<ul class="tags">
-				<li><span class="field">author:</span> Mike Boberski &lt;<a href="mailto:boberski_michael@bah.com">boberski_michael@bah.com</a>&gt;</li>
-				<li><span class="field">author:</span> Laura Bell &lt;<a href="mailto:laura.d.bell@gmail.com">laura.d.bell@gmail.com</a>&gt;</li>
-				<li><span class="field">author:</span> Andrew van der Stock &lt;<a href="mailto:vanderaj@owasp.org">vanderaj@owasp.org</a>&gt;</li>
-				<li><span class="field">author:</span> jah &lt;<a href="mailto:jah@jahboite.co.uk">jah@jahboite.co.uk</a>&gt;</li>
-				<li><span class="field">version:</span> Release: @package_version@</li>
-				<li><span class="field">copyright:</span> 2009-2010 The OWASP Foundation</li>
-				<li><span class="field">link:</span> <a href="http://www.owasp.org/index.php/ESAPI">http://www.owasp.org/index.php/ESAPI</a></li>
-				<li><span class="field">license:</span> <a href="http://www.opensource.org/licenses/bsd-license.php">New BSD license</a></li>
-			</ul>
-		<p class="notes">
-			Located in <a class="field" href="_reference---DefaultAuditor.php.html">/reference/DefaultAuditor.php</a> (line <span class="field">49</span>)
-		</p>
-		
-				
-		<pre></pre>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+   <html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <title>Docs For Class DefaultAuditor</title>
+  <link rel="stylesheet" href="../media/stylesheet.css" />
+  <script src="../media/lib/classTree.js"></script>
+<link id="webfx-tab-style-sheet" type="text/css" rel="stylesheet" href="../media/lib/tab.webfx.css" />
+<script type="text/javascript" src="../media/lib/tabpane.js"></script>
+  <script language="javascript" type="text/javascript" src="../media/lib/ua.js"></script>
+<script language="javascript" type="text/javascript">
+	var imgPlus = new Image();
+	var imgMinus = new Image();
+	imgPlus.src = "../media/images/plus.gif";
+	imgMinus.src = "../media/images/minus.gif";
 	
-			</div>
+	function showNode(Node){
+        switch(navigator.family){
+        	case 'nn4':
+        		// Nav 4.x code fork...
+				var oTable = document.layers["span" + Node];
+				var oImg = document.layers["img" + Node];
+        		break;
+        	case 'ie4':
+        		// IE 4/5 code fork...
+				var oTable = document.all["span" + Node];
+				var oImg = document.all["img" + Node];
+        		break;
+        	case 'gecko':
+        		// Standards Compliant code fork...
+				var oTable = document.getElementById("span" + Node);
+				var oImg = document.getElementById("img" + Node);
+        		break;
+        }
+		oImg.src = imgMinus.src;
+		oTable.style.display = "block";
+	}
+	
+	function hideNode(Node){
+        switch(navigator.family){
+        	case 'nn4':
+        		// Nav 4.x code fork...
+				var oTable = document.layers["span" + Node];
+				var oImg = document.layers["img" + Node];
+        		break;
+        	case 'ie4':
+        		// IE 4/5 code fork...
+				var oTable = document.all["span" + Node];
+				var oImg = document.all["img" + Node];
+        		break;
+        	case 'gecko':
+        		// Standards Compliant code fork...
+				var oTable = document.getElementById("span" + Node);
+				var oImg = document.getElementById("img" + Node);
+        		break;
+        }
+		oImg.src = imgPlus.src;
+		oTable.style.display = "none";
+	}
+	
+	function nodeIsVisible(Node){
+        switch(navigator.family){
+        	case 'nn4':
+        		// Nav 4.x code fork...
+				var oTable = document.layers["span" + Node];
+        		break;
+        	case 'ie4':
+        		// IE 4/5 code fork...
+				var oTable = document.all["span" + Node];
+        		break;
+        	case 'gecko':
+        		// Standards Compliant code fork...
+				var oTable = document.getElementById("span" + Node);
+        		break;
+        }
+		return (oTable && oTable.style.display == "block");
+	}
+	
+	function toggleNodeVisibility(Node){
+		if (nodeIsVisible(Node)){
+			hideNode(Node);
+		}else{
+			showNode(Node);
+		}
+	}
+</script>
+<!-- template designed by Julien Damon based on PHPEdit's generated templates, and tweaked by Greg Beaver -->
+<body bgcolor="#ffffff" ><!-- Start of Class Data -->
+<h2>
+	Class DefaultAuditor
+</h2> (line <span class="linenumber">49</span>)
+<div class="tab-pane" id="tabPane1">
+<script type="text/javascript">
+tp1 = new WebFXTabPane( document.getElementById( "tabPane1" ));
+</script>
+
+<div class="tab-page" id="Description">
+<h2 class="tab">Description</h2>
+<pre>
+</pre>
+<p>
+	<b><i>Located in File: <a href="_reference---DefaultAuditor.php.html">/reference/DefaultAuditor.php</a></i></b><br>
+</p>
+<!-- ========== Info from phpDoc block ========= -->
+<h5>Reference Implementation of the Auditor interface.</h5>
+<ul>
+		<li><strong>author:</strong> - Mike Boberski &lt;<a href="mailto:boberski_michael@bah.com">boberski_michael@bah.com</a>&gt;</li>
+		<li><strong>author:</strong> - Laura Bell &lt;<a href="mailto:laura.d.bell@gmail.com">laura.d.bell@gmail.com</a>&gt;</li>
+		<li><strong>author:</strong> - Andrew van der Stock &lt;<a href="mailto:vanderaj@owasp.org">vanderaj@owasp.org</a>&gt;</li>
+		<li><strong>author:</strong> - jah &lt;<a href="mailto:jah@jahboite.co.uk">jah@jahboite.co.uk</a>&gt;</li>
+		<li><strong>version:</strong> - Release: @package_version@</li>
+		<li><strong>copyright:</strong> - 2009-2010 The OWASP Foundation</li>
+		<li><strong>link:</strong> - <a href="http://www.owasp.org/index.php/ESAPI">http://www.owasp.org/index.php/ESAPI</a></li>
+		<li><strong>license:</strong> - <a href="http://www.opensource.org/licenses/bsd-license.php">New BSD license</a></li>
+	</ul>
+<br /><hr />
 </div>
+<script type="text/javascript">tp1.addTabPage( document.getElementById( "Description" ) );</script>
+<div class="tab-page" id="tabPage1">
+
+<h2 class="tab">Class Variables</h2>
+<!-- ============ VARIABLE DETAIL =========== -->
+<strong>Summary:</strong><br />
+<hr />
+<script type="text/javascript">tp1.addTabPage( document.getElementById( "tabPage1" ) );</script>
+</div>
+<div class="tab-page" id="constantsTabpage">
+
+<h2 class="tab">Class Constants</h2>
+<!-- ============ VARIABLE DETAIL =========== -->
+<strong>Summary:</strong><br />
+<hr />
+<script type="text/javascript">tp1.addTabPage( document.getElementById( "constantsTabpage" ) );</script>
+</div>
+<div class="tab-page" id="tabPage2">
+<h2 class="tab">Method Detail</h2>
+<!-- ============ METHOD DETAIL =========== -->
+<strong>Summary:</strong><br />
+<div class="method-summary">
+    <div class="method-definition">
+            <span class="method-result">does</span>
+        <a href="#method__construct" title="details" class="method-name">__construct</a>
+        (<span class="var-type">string</span>&nbsp;<span class="var-name">$name</span>)
+        </div>
+    <div class="method-definition">
+            <span class="method-result">void</span>
+        <a href="#methoddebug" title="details" class="method-name">debug</a>
+        (<span class="var-type"></span>&nbsp;<span class="var-name">$type</span>, <span class="var-type"></span>&nbsp;<span class="var-name">$success</span>, <span class="var-type"></span>&nbsp;<span class="var-name">$message</span>, [<span class="var-type"></span>&nbsp;<span class="var-name">$throwable</span> = <span class="var-default">null</span>])
+        </div>
+    <div class="method-definition">
+            <span class="method-result">void</span>
+        <a href="#methoderror" title="details" class="method-name">error</a>
+        (<span class="var-type"></span>&nbsp;<span class="var-name">$type</span>, <span class="var-type"></span>&nbsp;<span class="var-name">$success</span>, <span class="var-type"></span>&nbsp;<span class="var-name">$message</span>, [<span class="var-type"></span>&nbsp;<span class="var-name">$throwable</span> = <span class="var-default">null</span>])
+        </div>
+    <div class="method-definition">
+            <span class="method-result">void</span>
+        <a href="#methodfatal" title="details" class="method-name">fatal</a>
+        (<span class="var-type"></span>&nbsp;<span class="var-name">$type</span>, <span class="var-type"></span>&nbsp;<span class="var-name">$success</span>, <span class="var-type"></span>&nbsp;<span class="var-name">$message</span>, [<span class="var-type"></span>&nbsp;<span class="var-name">$throwable</span> = <span class="var-default">null</span>])
+        </div>
+    <div class="method-definition">
+            <span class="method-result">void</span>
+        <a href="#methodinfo" title="details" class="method-name">info</a>
+        (<span class="var-type"></span>&nbsp;<span class="var-name">$type</span>, <span class="var-type"></span>&nbsp;<span class="var-name">$success</span>, <span class="var-type"></span>&nbsp;<span class="var-name">$message</span>, [<span class="var-type"></span>&nbsp;<span class="var-name">$throwable</span> = <span class="var-default">null</span>])
+        </div>
+    <div class="method-definition">
+            <span class="method-result">void</span>
+        <a href="#methodisDebugEnabled" title="details" class="method-name">isDebugEnabled</a>
+        ()
+        </div>
+    <div class="method-definition">
+            <span class="method-result">void</span>
+        <a href="#methodisErrorEnabled" title="details" class="method-name">isErrorEnabled</a>
+        ()
+        </div>
+    <div class="method-definition">
+            <span class="method-result">void</span>
+        <a href="#methodisFatalEnabled" title="details" class="method-name">isFatalEnabled</a>
+        ()
+        </div>
+    <div class="method-definition">
+            <span class="method-result">void</span>
+        <a href="#methodisInfoEnabled" title="details" class="method-name">isInfoEnabled</a>
+        ()
+        </div>
+    <div class="method-definition">
+            <span class="method-result">void</span>
+        <a href="#methodisTraceEnabled" title="details" class="method-name">isTraceEnabled</a>
+        ()
+        </div>
+    <div class="method-definition">
+            <span class="method-result">void</span>
+        <a href="#methodisWarningEnabled" title="details" class="method-name">isWarningEnabled</a>
+        ()
+        </div>
+    <div class="method-definition">
+            <span class="method-result">void</span>
+        <a href="#methodsetLevel" title="details" class="method-name">setLevel</a>
+        (<span class="var-type"></span>&nbsp;<span class="var-name">$level</span>)
+        </div>
+    <div class="method-definition">
+            <span class="method-result">void</span>
+        <a href="#methodtrace" title="details" class="method-name">trace</a>
+        (<span class="var-type"></span>&nbsp;<span class="var-name">$type</span>, <span class="var-type"></span>&nbsp;<span class="var-name">$success</span>, <span class="var-type"></span>&nbsp;<span class="var-name">$message</span>, [<span class="var-type"></span>&nbsp;<span class="var-name">$throwable</span> = <span class="var-default">null</span>])
+        </div>
+    <div class="method-definition">
+            <span class="method-result">void</span>
+        <a href="#methodwarning" title="details" class="method-name">warning</a>
+        (<span class="var-type"></span>&nbsp;<span class="var-name">$type</span>, <span class="var-type"></span>&nbsp;<span class="var-name">$success</span>, <span class="var-type"></span>&nbsp;<span class="var-name">$message</span>, [<span class="var-type"></span>&nbsp;<span class="var-name">$throwable</span> = <span class="var-default">null</span>])
+        </div>
+</div>
+<hr />
+<A NAME='method_detail'></A>
 
 
+<a name="method__construct" id="method__construct"><!-- --></a>
+<div style="background='#ffffff'"><h4>
+<img src="../media/images/Constructor.gif" border="0" /> <strong class="method">Constructor __construct</strong> (line <span class="linenumber">69</span>)
+ </h4> 
+<h4><i>does</i> <strong>__construct(
+string
+$name)</strong></h4>
 
-
-	<a name="sec-method-summary"></a>
-	<div class="info-box">
-		<div class="info-box-title">Method Summary</span></div>
-		<div class="nav-bar">
-			<a href="#sec-description">Description</a> |
-												<span class="disabled">Methods</span> (<a href="#sec-methods">details</a>)
-		</div>
-		<div class="info-box-body">			
-			<div class="method-summary">
-																																																																																																																				
-												<div class="method-definition">
-											<span class="method-result">does</span>
-										<a href="#__construct" title="details" class="method-name">__construct</a>
-											(<span class="var-type">string</span>&nbsp;<span class="var-name">$name</span>)
-									</div>
-																<div class="method-definition">
-											<span class="method-result">void</span>
-										<a href="#debug" title="details" class="method-name">debug</a>
-											(<span class="var-type"></span>&nbsp;<span class="var-name">$type</span>, <span class="var-type"></span>&nbsp;<span class="var-name">$success</span>, <span class="var-type"></span>&nbsp;<span class="var-name">$message</span>, [<span class="var-type"></span>&nbsp;<span class="var-name">$throwable</span> = <span class="var-default">null</span>])
-									</div>
-																<div class="method-definition">
-											<span class="method-result">void</span>
-										<a href="#error" title="details" class="method-name">error</a>
-											(<span class="var-type"></span>&nbsp;<span class="var-name">$type</span>, <span class="var-type"></span>&nbsp;<span class="var-name">$success</span>, <span class="var-type"></span>&nbsp;<span class="var-name">$message</span>, [<span class="var-type"></span>&nbsp;<span class="var-name">$throwable</span> = <span class="var-default">null</span>])
-									</div>
-																<div class="method-definition">
-											<span class="method-result">void</span>
-										<a href="#fatal" title="details" class="method-name">fatal</a>
-											(<span class="var-type"></span>&nbsp;<span class="var-name">$type</span>, <span class="var-type"></span>&nbsp;<span class="var-name">$success</span>, <span class="var-type"></span>&nbsp;<span class="var-name">$message</span>, [<span class="var-type"></span>&nbsp;<span class="var-name">$throwable</span> = <span class="var-default">null</span>])
-									</div>
-																<div class="method-definition">
-											<span class="method-result">void</span>
-										<a href="#info" title="details" class="method-name">info</a>
-											(<span class="var-type"></span>&nbsp;<span class="var-name">$type</span>, <span class="var-type"></span>&nbsp;<span class="var-name">$success</span>, <span class="var-type"></span>&nbsp;<span class="var-name">$message</span>, [<span class="var-type"></span>&nbsp;<span class="var-name">$throwable</span> = <span class="var-default">null</span>])
-									</div>
-																<div class="method-definition">
-											<span class="method-result">void</span>
-										<a href="#isDebugEnabled" title="details" class="method-name">isDebugEnabled</a>
-										()
-									</div>
-																<div class="method-definition">
-											<span class="method-result">void</span>
-										<a href="#isErrorEnabled" title="details" class="method-name">isErrorEnabled</a>
-										()
-									</div>
-																<div class="method-definition">
-											<span class="method-result">void</span>
-										<a href="#isFatalEnabled" title="details" class="method-name">isFatalEnabled</a>
-										()
-									</div>
-																<div class="method-definition">
-											<span class="method-result">void</span>
-										<a href="#isInfoEnabled" title="details" class="method-name">isInfoEnabled</a>
-										()
-									</div>
-																<div class="method-definition">
-											<span class="method-result">void</span>
-										<a href="#isTraceEnabled" title="details" class="method-name">isTraceEnabled</a>
-										()
-									</div>
-																<div class="method-definition">
-											<span class="method-result">void</span>
-										<a href="#isWarningEnabled" title="details" class="method-name">isWarningEnabled</a>
-										()
-									</div>
-																<div class="method-definition">
-											<span class="method-result">void</span>
-										<a href="#setLevel" title="details" class="method-name">setLevel</a>
-											(<span class="var-type"></span>&nbsp;<span class="var-name">$level</span>)
-									</div>
-																<div class="method-definition">
-											<span class="method-result">void</span>
-										<a href="#trace" title="details" class="method-name">trace</a>
-											(<span class="var-type"></span>&nbsp;<span class="var-name">$type</span>, <span class="var-type"></span>&nbsp;<span class="var-name">$success</span>, <span class="var-type"></span>&nbsp;<span class="var-name">$message</span>, [<span class="var-type"></span>&nbsp;<span class="var-name">$throwable</span> = <span class="var-default">null</span>])
-									</div>
-																<div class="method-definition">
-											<span class="method-result">void</span>
-										<a href="#warning" title="details" class="method-name">warning</a>
-											(<span class="var-type"></span>&nbsp;<span class="var-name">$type</span>, <span class="var-type"></span>&nbsp;<span class="var-name">$success</span>, <span class="var-type"></span>&nbsp;<span class="var-name">$message</span>, [<span class="var-type"></span>&nbsp;<span class="var-name">$throwable</span> = <span class="var-default">null</span>])
-									</div>
-								</div>
-		</div>
-	</div>		
-
-	
-	<a name="sec-methods"></a>
-	<div class="info-box">
-		<div class="info-box-title">Methods</div>
-		<div class="nav-bar">
-			<a href="#sec-description">Description</a> |
-																<a href="#sec-method-summary">Methods</a> (<span class="disabled">details</span>)
-						
-		</div>
-		<div class="info-box-body">
-			<A NAME='method_detail'></A>
-
-<a name="method__construct" id="__construct"><!-- --></a>
-<div class="evenrow">
-	
-	<div class="method-header">
-		<span class="method-title">Constructor __construct</span> (line <span class="line-number">69</span>)
-	</div> 
-	
 	<!-- ========== Info from phpDoc block ========= -->
-<p class="short-description">DefaultAuditor constructor.</p>
-	<ul class="tags">
-				<li><span class="field">return:</span> not return a value.</li>
-			</ul>
-	
-	<div class="method-signature">
-		<span class="method-result">does</span>
-		<span class="method-name">
-			__construct
-		</span>
-					(<span class="var-type">string</span>&nbsp;<span class="var-name">$name</span>)
-			</div>
-	
-			<ul class="parameters">
-					<li>
-				<span class="var-type">string</span>
-				<span class="var-name">$name</span><span class="var-description">: logger name.</span>			</li>
-				</ul>
+<h5>DefaultAuditor constructor.</h5>
+		<h4>Parameters</h4>
+	<ul>
+			<li><strong>string $name</strong>: logger name.</li>
+		</ul>
 		
-			
-	</div>
-<a name="methoddebug" id="debug"><!-- --></a>
-<div class="oddrow">
-	
-	<div class="method-header">
-		<span class="method-title">debug</span> (line <span class="line-number">182</span>)
-	</div> 
-	
-	<!-- ========== Info from phpDoc block ========= -->
-	
-	<div class="method-signature">
-		<span class="method-result">void</span>
-		<span class="method-name">
-			debug
-		</span>
-					(<span class="var-type"></span>&nbsp;<span class="var-name">$type</span>, <span class="var-type"></span>&nbsp;<span class="var-name">$success</span>, <span class="var-type"></span>&nbsp;<span class="var-name">$message</span>, [<span class="var-type"></span>&nbsp;<span class="var-name">$throwable</span> = <span class="var-default">null</span>])
-			</div>
-	
-			<ul class="parameters">
-					<li>
-				<span class="var-type"></span>
-				<span class="var-name">$type</span>			</li>
-					<li>
-				<span class="var-type"></span>
-				<span class="var-name">$success</span>			</li>
-					<li>
-				<span class="var-type"></span>
-				<span class="var-name">$message</span>			</li>
-					<li>
-				<span class="var-type"></span>
-				<span class="var-name">$throwable</span>			</li>
-				</ul>
-		
-				<hr class="separator" />
+	<h4>Info</h4>
+	<ul>
+			<li><strong>return</strong> - not return a value.</li>
+		</ul>
+</div>
+<a name="methoddebug" id="methoddebug"><!-- --></a>
+<div style="background='#eeeeee'"><h4>
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method debug</strong> (line <span class="linenumber">182</span>)
+ </h4> 
+<h4><i>void</i> <strong>debug(
+
+$type, 
+$success, 
+$message, [
+$throwable = null])</strong></h4>
+
+			<hr class="separator" />
 		<div class="notes">Implementation of:</div>
 			<dl>
 			<dt><a href="../ESAPI/Auditor.html#methoddebug">Auditor::debug()</a></dt>
 						<dd>Log a debug level security event if 'debug' level logging is enabled and  also record the stack trace associated with the event.</dd>
 					</dl>
-			
-	</div>
-<a name="methoderror" id="error"><!-- --></a>
-<div class="evenrow">
-	
-	<div class="method-header">
-		<span class="method-title">error</span> (line <span class="line-number">128</span>)
-	</div> 
-	
-	<!-- ========== Info from phpDoc block ========= -->
-	
-	<div class="method-signature">
-		<span class="method-result">void</span>
-		<span class="method-name">
-			error
-		</span>
-					(<span class="var-type"></span>&nbsp;<span class="var-name">$type</span>, <span class="var-type"></span>&nbsp;<span class="var-name">$success</span>, <span class="var-type"></span>&nbsp;<span class="var-name">$message</span>, [<span class="var-type"></span>&nbsp;<span class="var-name">$throwable</span> = <span class="var-default">null</span>])
-			</div>
-	
-			<ul class="parameters">
-					<li>
-				<span class="var-type"></span>
-				<span class="var-name">$type</span>			</li>
-					<li>
-				<span class="var-type"></span>
-				<span class="var-name">$success</span>			</li>
-					<li>
-				<span class="var-type"></span>
-				<span class="var-name">$message</span>			</li>
-					<li>
-				<span class="var-type"></span>
-				<span class="var-name">$throwable</span>			</li>
-				</ul>
+		<!-- ========== Info from phpDoc block ========= -->
+		<h4>Parameters</h4>
+	<ul>
+			<li><strong> $type</strong>: </li>
+			<li><strong> $success</strong>: </li>
+			<li><strong> $message</strong>: </li>
+			<li><strong> $throwable</strong>: </li>
+		</ul>
 		
-				<hr class="separator" />
+	<h4>Info</h4>
+	<ul>
+		</ul>
+</div>
+<a name="methoderror" id="methoderror"><!-- --></a>
+<div style="background='#ffffff'"><h4>
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method error</strong> (line <span class="linenumber">128</span>)
+ </h4> 
+<h4><i>void</i> <strong>error(
+
+$type, 
+$success, 
+$message, [
+$throwable = null])</strong></h4>
+
+			<hr class="separator" />
 		<div class="notes">Implementation of:</div>
 			<dl>
 			<dt><a href="../ESAPI/Auditor.html#methoderror">Auditor::error()</a></dt>
 						<dd>Log an error level security event if 'error' level logging is enabled and  also record the stack trace associated with the event.</dd>
 					</dl>
-			
-	</div>
-<a name="methodfatal" id="fatal"><!-- --></a>
-<div class="oddrow">
-	
-	<div class="method-header">
-		<span class="method-title">fatal</span> (line <span class="line-number">110</span>)
-	</div> 
-	
-	<!-- ========== Info from phpDoc block ========= -->
-	
-	<div class="method-signature">
-		<span class="method-result">void</span>
-		<span class="method-name">
-			fatal
-		</span>
-					(<span class="var-type"></span>&nbsp;<span class="var-name">$type</span>, <span class="var-type"></span>&nbsp;<span class="var-name">$success</span>, <span class="var-type"></span>&nbsp;<span class="var-name">$message</span>, [<span class="var-type"></span>&nbsp;<span class="var-name">$throwable</span> = <span class="var-default">null</span>])
-			</div>
-	
-			<ul class="parameters">
-					<li>
-				<span class="var-type"></span>
-				<span class="var-name">$type</span>			</li>
-					<li>
-				<span class="var-type"></span>
-				<span class="var-name">$success</span>			</li>
-					<li>
-				<span class="var-type"></span>
-				<span class="var-name">$message</span>			</li>
-					<li>
-				<span class="var-type"></span>
-				<span class="var-name">$throwable</span>			</li>
-				</ul>
+		<!-- ========== Info from phpDoc block ========= -->
+		<h4>Parameters</h4>
+	<ul>
+			<li><strong> $type</strong>: </li>
+			<li><strong> $success</strong>: </li>
+			<li><strong> $message</strong>: </li>
+			<li><strong> $throwable</strong>: </li>
+		</ul>
 		
-				<hr class="separator" />
+	<h4>Info</h4>
+	<ul>
+		</ul>
+</div>
+<a name="methodfatal" id="methodfatal"><!-- --></a>
+<div style="background='#eeeeee'"><h4>
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method fatal</strong> (line <span class="linenumber">110</span>)
+ </h4> 
+<h4><i>void</i> <strong>fatal(
+
+$type, 
+$success, 
+$message, [
+$throwable = null])</strong></h4>
+
+			<hr class="separator" />
 		<div class="notes">Implementation of:</div>
 			<dl>
 			<dt><a href="../ESAPI/Auditor.html#methodfatal">Auditor::fatal()</a></dt>
 						<dd>Log a fatal level security event if 'fatal' level logging is enabled and  also record the stack trace associated with the event.</dd>
 					</dl>
-			
-	</div>
-<a name="methodinfo" id="info"><!-- --></a>
-<div class="evenrow">
-	
-	<div class="method-header">
-		<span class="method-title">info</span> (line <span class="line-number">164</span>)
-	</div> 
-	
-	<!-- ========== Info from phpDoc block ========= -->
-	
-	<div class="method-signature">
-		<span class="method-result">void</span>
-		<span class="method-name">
-			info
-		</span>
-					(<span class="var-type"></span>&nbsp;<span class="var-name">$type</span>, <span class="var-type"></span>&nbsp;<span class="var-name">$success</span>, <span class="var-type"></span>&nbsp;<span class="var-name">$message</span>, [<span class="var-type"></span>&nbsp;<span class="var-name">$throwable</span> = <span class="var-default">null</span>])
-			</div>
-	
-			<ul class="parameters">
-					<li>
-				<span class="var-type"></span>
-				<span class="var-name">$type</span>			</li>
-					<li>
-				<span class="var-type"></span>
-				<span class="var-name">$success</span>			</li>
-					<li>
-				<span class="var-type"></span>
-				<span class="var-name">$message</span>			</li>
-					<li>
-				<span class="var-type"></span>
-				<span class="var-name">$throwable</span>			</li>
-				</ul>
+		<!-- ========== Info from phpDoc block ========= -->
+		<h4>Parameters</h4>
+	<ul>
+			<li><strong> $type</strong>: </li>
+			<li><strong> $success</strong>: </li>
+			<li><strong> $message</strong>: </li>
+			<li><strong> $throwable</strong>: </li>
+		</ul>
 		
-				<hr class="separator" />
+	<h4>Info</h4>
+	<ul>
+		</ul>
+</div>
+<a name="methodinfo" id="methodinfo"><!-- --></a>
+<div style="background='#ffffff'"><h4>
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method info</strong> (line <span class="linenumber">164</span>)
+ </h4> 
+<h4><i>void</i> <strong>info(
+
+$type, 
+$success, 
+$message, [
+$throwable = null])</strong></h4>
+
+			<hr class="separator" />
 		<div class="notes">Implementation of:</div>
 			<dl>
 			<dt><a href="../ESAPI/Auditor.html#methodinfo">Auditor::info()</a></dt>
 						<dd>Log an info level security event if 'info' level logging is enabled and  also record the stack trace associated with the event.</dd>
 					</dl>
-			
-	</div>
-<a name="methodisDebugEnabled" id="isDebugEnabled"><!-- --></a>
-<div class="oddrow">
-	
-	<div class="method-header">
-		<span class="method-title">isDebugEnabled</span> (line <span class="line-number">191</span>)
-	</div> 
-	
-	<!-- ========== Info from phpDoc block ========= -->
-	
-	<div class="method-signature">
-		<span class="method-result">void</span>
-		<span class="method-name">
-			isDebugEnabled
-		</span>
-				()
-			</div>
-	
+		<!-- ========== Info from phpDoc block ========= -->
+		<h4>Parameters</h4>
+	<ul>
+			<li><strong> $type</strong>: </li>
+			<li><strong> $success</strong>: </li>
+			<li><strong> $message</strong>: </li>
+			<li><strong> $throwable</strong>: </li>
+		</ul>
 		
-				<hr class="separator" />
+	<h4>Info</h4>
+	<ul>
+		</ul>
+</div>
+<a name="methodisDebugEnabled" id="methodisDebugEnabled"><!-- --></a>
+<div style="background='#eeeeee'"><h4>
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method isDebugEnabled</strong> (line <span class="linenumber">191</span>)
+ </h4> 
+<h4><i>void</i> <strong>isDebugEnabled(
+)</strong></h4>
+
+			<hr class="separator" />
 		<div class="notes">Implementation of:</div>
 			<dl>
 			<dt><a href="../ESAPI/Auditor.html#methodisDebugEnabled">Auditor::isDebugEnabled()</a></dt>
 						<dd>Allows the caller to determine if messages logged at this level will be  discarded, to avoid performing expensive processing.</dd>
 					</dl>
-			
-	</div>
-<a name="methodisErrorEnabled" id="isErrorEnabled"><!-- --></a>
-<div class="evenrow">
-	
-	<div class="method-header">
-		<span class="method-title">isErrorEnabled</span> (line <span class="line-number">137</span>)
-	</div> 
-	
-	<!-- ========== Info from phpDoc block ========= -->
-	
-	<div class="method-signature">
-		<span class="method-result">void</span>
-		<span class="method-name">
-			isErrorEnabled
-		</span>
-				()
-			</div>
-	
+		<!-- ========== Info from phpDoc block ========= -->
 		
-				<hr class="separator" />
+	<h4>Info</h4>
+	<ul>
+		</ul>
+</div>
+<a name="methodisErrorEnabled" id="methodisErrorEnabled"><!-- --></a>
+<div style="background='#ffffff'"><h4>
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method isErrorEnabled</strong> (line <span class="linenumber">137</span>)
+ </h4> 
+<h4><i>void</i> <strong>isErrorEnabled(
+)</strong></h4>
+
+			<hr class="separator" />
 		<div class="notes">Implementation of:</div>
 			<dl>
 			<dt><a href="../ESAPI/Auditor.html#methodisErrorEnabled">Auditor::isErrorEnabled()</a></dt>
 						<dd>Allows the caller to determine if messages logged at this level will be  discarded, to avoid performing expensive processing.</dd>
 					</dl>
-			
-	</div>
-<a name="methodisFatalEnabled" id="isFatalEnabled"><!-- --></a>
-<div class="oddrow">
-	
-	<div class="method-header">
-		<span class="method-title">isFatalEnabled</span> (line <span class="line-number">119</span>)
-	</div> 
-	
-	<!-- ========== Info from phpDoc block ========= -->
-	
-	<div class="method-signature">
-		<span class="method-result">void</span>
-		<span class="method-name">
-			isFatalEnabled
-		</span>
-				()
-			</div>
-	
+		<!-- ========== Info from phpDoc block ========= -->
 		
-				<hr class="separator" />
+	<h4>Info</h4>
+	<ul>
+		</ul>
+</div>
+<a name="methodisFatalEnabled" id="methodisFatalEnabled"><!-- --></a>
+<div style="background='#eeeeee'"><h4>
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method isFatalEnabled</strong> (line <span class="linenumber">119</span>)
+ </h4> 
+<h4><i>void</i> <strong>isFatalEnabled(
+)</strong></h4>
+
+			<hr class="separator" />
 		<div class="notes">Implementation of:</div>
 			<dl>
 			<dt><a href="../ESAPI/Auditor.html#methodisFatalEnabled">Auditor::isFatalEnabled()</a></dt>
 						<dd>Allows the caller to determine if messages logged at this level will be  discarded, to avoid performing expensive processing.</dd>
 					</dl>
-			
-	</div>
-<a name="methodisInfoEnabled" id="isInfoEnabled"><!-- --></a>
-<div class="evenrow">
-	
-	<div class="method-header">
-		<span class="method-title">isInfoEnabled</span> (line <span class="line-number">173</span>)
-	</div> 
-	
-	<!-- ========== Info from phpDoc block ========= -->
-	
-	<div class="method-signature">
-		<span class="method-result">void</span>
-		<span class="method-name">
-			isInfoEnabled
-		</span>
-				()
-			</div>
-	
+		<!-- ========== Info from phpDoc block ========= -->
 		
-				<hr class="separator" />
+	<h4>Info</h4>
+	<ul>
+		</ul>
+</div>
+<a name="methodisInfoEnabled" id="methodisInfoEnabled"><!-- --></a>
+<div style="background='#ffffff'"><h4>
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method isInfoEnabled</strong> (line <span class="linenumber">173</span>)
+ </h4> 
+<h4><i>void</i> <strong>isInfoEnabled(
+)</strong></h4>
+
+			<hr class="separator" />
 		<div class="notes">Implementation of:</div>
 			<dl>
 			<dt><a href="../ESAPI/Auditor.html#methodisInfoEnabled">Auditor::isInfoEnabled()</a></dt>
 						<dd>Allows the caller to determine if messages logged at this level will be  discarded, to avoid performing expensive processing.</dd>
 					</dl>
-			
-	</div>
-<a name="methodisTraceEnabled" id="isTraceEnabled"><!-- --></a>
-<div class="oddrow">
-	
-	<div class="method-header">
-		<span class="method-title">isTraceEnabled</span> (line <span class="line-number">209</span>)
-	</div> 
-	
-	<!-- ========== Info from phpDoc block ========= -->
-	
-	<div class="method-signature">
-		<span class="method-result">void</span>
-		<span class="method-name">
-			isTraceEnabled
-		</span>
-				()
-			</div>
-	
+		<!-- ========== Info from phpDoc block ========= -->
 		
-				<hr class="separator" />
+	<h4>Info</h4>
+	<ul>
+		</ul>
+</div>
+<a name="methodisTraceEnabled" id="methodisTraceEnabled"><!-- --></a>
+<div style="background='#eeeeee'"><h4>
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method isTraceEnabled</strong> (line <span class="linenumber">209</span>)
+ </h4> 
+<h4><i>void</i> <strong>isTraceEnabled(
+)</strong></h4>
+
+			<hr class="separator" />
 		<div class="notes">Implementation of:</div>
 			<dl>
 			<dt><a href="../ESAPI/Auditor.html#methodisTraceEnabled">Auditor::isTraceEnabled()</a></dt>
 						<dd>Allows the caller to determine if messages logged at this level will be  discarded, to avoid performing expensive processing.</dd>
 					</dl>
-			
-	</div>
-<a name="methodisWarningEnabled" id="isWarningEnabled"><!-- --></a>
-<div class="evenrow">
-	
-	<div class="method-header">
-		<span class="method-title">isWarningEnabled</span> (line <span class="line-number">155</span>)
-	</div> 
-	
-	<!-- ========== Info from phpDoc block ========= -->
-	
-	<div class="method-signature">
-		<span class="method-result">void</span>
-		<span class="method-name">
-			isWarningEnabled
-		</span>
-				()
-			</div>
-	
+		<!-- ========== Info from phpDoc block ========= -->
 		
-				<hr class="separator" />
+	<h4>Info</h4>
+	<ul>
+		</ul>
+</div>
+<a name="methodisWarningEnabled" id="methodisWarningEnabled"><!-- --></a>
+<div style="background='#ffffff'"><h4>
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method isWarningEnabled</strong> (line <span class="linenumber">155</span>)
+ </h4> 
+<h4><i>void</i> <strong>isWarningEnabled(
+)</strong></h4>
+
+			<hr class="separator" />
 		<div class="notes">Implementation of:</div>
 			<dl>
 			<dt><a href="../ESAPI/Auditor.html#methodisWarningEnabled">Auditor::isWarningEnabled()</a></dt>
 						<dd>Allows the caller to determine if messages logged at this level will be  discarded, to avoid performing expensive processing.</dd>
 					</dl>
-			
-	</div>
-<a name="methodsetLevel" id="setLevel"><!-- --></a>
-<div class="oddrow">
-	
-	<div class="method-header">
-		<span class="method-title">setLevel</span> (line <span class="line-number">87</span>)
-	</div> 
-	
-	<!-- ========== Info from phpDoc block ========= -->
-	<ul class="tags">
-				<li><span class="field">access:</span> public</li>
-			</ul>
-	
-	<div class="method-signature">
-		<span class="method-result">void</span>
-		<span class="method-name">
-			setLevel
-		</span>
-					(<span class="var-type"></span>&nbsp;<span class="var-name">$level</span>)
-			</div>
-	
-			<ul class="parameters">
-					<li>
-				<span class="var-type"></span>
-				<span class="var-name">$level</span>			</li>
-				</ul>
+		<!-- ========== Info from phpDoc block ========= -->
 		
-				<hr class="separator" />
+	<h4>Info</h4>
+	<ul>
+		</ul>
+</div>
+<a name="methodsetLevel" id="methodsetLevel"><!-- --></a>
+<div style="background='#eeeeee'"><h4>
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method setLevel</strong> (line <span class="linenumber">87</span>)
+ </h4> 
+<h4><i>void</i> <strong>setLevel(
+
+$level)</strong></h4>
+
+			<hr class="separator" />
 		<div class="notes">Implementation of:</div>
 			<dl>
 			<dt><a href="../ESAPI/Auditor.html#methodsetLevel">Auditor::setLevel()</a></dt>
 						<dd>Dynamically set the logging severity level. All events of this level and  higher will be logged from this point forward for all logs. All events  below this level will be discarded.</dd>
 					</dl>
-			
-	</div>
-<a name="methodtrace" id="trace"><!-- --></a>
-<div class="evenrow">
-	
-	<div class="method-header">
-		<span class="method-title">trace</span> (line <span class="line-number">200</span>)
-	</div> 
-	
-	<!-- ========== Info from phpDoc block ========= -->
-	
-	<div class="method-signature">
-		<span class="method-result">void</span>
-		<span class="method-name">
-			trace
-		</span>
-					(<span class="var-type"></span>&nbsp;<span class="var-name">$type</span>, <span class="var-type"></span>&nbsp;<span class="var-name">$success</span>, <span class="var-type"></span>&nbsp;<span class="var-name">$message</span>, [<span class="var-type"></span>&nbsp;<span class="var-name">$throwable</span> = <span class="var-default">null</span>])
-			</div>
-	
-			<ul class="parameters">
-					<li>
-				<span class="var-type"></span>
-				<span class="var-name">$type</span>			</li>
-					<li>
-				<span class="var-type"></span>
-				<span class="var-name">$success</span>			</li>
-					<li>
-				<span class="var-type"></span>
-				<span class="var-name">$message</span>			</li>
-					<li>
-				<span class="var-type"></span>
-				<span class="var-name">$throwable</span>			</li>
-				</ul>
+		<!-- ========== Info from phpDoc block ========= -->
+		<h4>Parameters</h4>
+	<ul>
+			<li><strong> $level</strong>: </li>
+		</ul>
 		
-				<hr class="separator" />
+	<h4>Info</h4>
+	<ul>
+			<li><strong>access</strong> - public</li>
+		</ul>
+</div>
+<a name="methodtrace" id="methodtrace"><!-- --></a>
+<div style="background='#ffffff'"><h4>
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method trace</strong> (line <span class="linenumber">200</span>)
+ </h4> 
+<h4><i>void</i> <strong>trace(
+
+$type, 
+$success, 
+$message, [
+$throwable = null])</strong></h4>
+
+			<hr class="separator" />
 		<div class="notes">Implementation of:</div>
 			<dl>
 			<dt><a href="../ESAPI/Auditor.html#methodtrace">Auditor::trace()</a></dt>
 						<dd>Log a trace level security event if 'trace' level logging is enabled and  also record the stack trace associated with the event.</dd>
 					</dl>
-			
-	</div>
-<a name="methodwarning" id="warning"><!-- --></a>
-<div class="oddrow">
-	
-	<div class="method-header">
-		<span class="method-title">warning</span> (line <span class="line-number">146</span>)
-	</div> 
-	
-	<!-- ========== Info from phpDoc block ========= -->
-	
-	<div class="method-signature">
-		<span class="method-result">void</span>
-		<span class="method-name">
-			warning
-		</span>
-					(<span class="var-type"></span>&nbsp;<span class="var-name">$type</span>, <span class="var-type"></span>&nbsp;<span class="var-name">$success</span>, <span class="var-type"></span>&nbsp;<span class="var-name">$message</span>, [<span class="var-type"></span>&nbsp;<span class="var-name">$throwable</span> = <span class="var-default">null</span>])
-			</div>
-	
-			<ul class="parameters">
-					<li>
-				<span class="var-type"></span>
-				<span class="var-name">$type</span>			</li>
-					<li>
-				<span class="var-type"></span>
-				<span class="var-name">$success</span>			</li>
-					<li>
-				<span class="var-type"></span>
-				<span class="var-name">$message</span>			</li>
-					<li>
-				<span class="var-type"></span>
-				<span class="var-name">$throwable</span>			</li>
-				</ul>
+		<!-- ========== Info from phpDoc block ========= -->
+		<h4>Parameters</h4>
+	<ul>
+			<li><strong> $type</strong>: </li>
+			<li><strong> $success</strong>: </li>
+			<li><strong> $message</strong>: </li>
+			<li><strong> $throwable</strong>: </li>
+		</ul>
 		
-				<hr class="separator" />
+	<h4>Info</h4>
+	<ul>
+		</ul>
+</div>
+<a name="methodwarning" id="methodwarning"><!-- --></a>
+<div style="background='#eeeeee'"><h4>
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method warning</strong> (line <span class="linenumber">146</span>)
+ </h4> 
+<h4><i>void</i> <strong>warning(
+
+$type, 
+$success, 
+$message, [
+$throwable = null])</strong></h4>
+
+			<hr class="separator" />
 		<div class="notes">Implementation of:</div>
 			<dl>
 			<dt><a href="../ESAPI/Auditor.html#methodwarning">Auditor::warning()</a></dt>
 						<dd>Log a warning level security event if 'warning' level logging is enabled and  also record the stack trace associated with the event.</dd>
 					</dl>
-			
-	</div>
-						
-		</div>
-	</div>
+		<!-- ========== Info from phpDoc block ========= -->
+		<h4>Parameters</h4>
+	<ul>
+			<li><strong> $type</strong>: </li>
+			<li><strong> $success</strong>: </li>
+			<li><strong> $message</strong>: </li>
+			<li><strong> $throwable</strong>: </li>
+		</ul>
+		
+	<h4>Info</h4>
+	<ul>
+		</ul>
+</div>
+<script type="text/javascript">tp1.addTabPage( document.getElementById( "tabPage2" ) );</script></div>
+<div class="tab-page" id="iVars">
+<h2 class="tab">Inherited Variables</h2>
+<script type="text/javascript">tp1.addTabPage( document.getElementById( "iVars" ) );</script>
+<!-- =========== VAR INHERITED SUMMARY =========== -->
+<A NAME='var_inherited_summary'><!-- --></A>
+<h3>Inherited Class Variable Summary</h3>
 
+	</div>
+<div class="tab-page" id="iMethods">
+<h2 class="tab">Inherited Methods</h2>
+<script type="text/javascript">tp1.addTabPage( document.getElementById( "iMethods" ) );</script>
+<!-- =========== INHERITED METHOD SUMMARY =========== -->
+<A NAME='functions_inherited'><!-- --></A>
+<h3>Inherited Method Summary</h3>
 
-	<p class="notes" id="credit">
-		Documentation generated on Fri, 16 Apr 2010 12:01:57 -0400 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
-	</p>
-	</div></body>
+	</div>
+</div>
+<script type="text/javascript">
+//<![CDATA[
+
+setupAllTabs();
+
+//]]>
+</script>
+	<div id="credit">
+		<hr />
+		Documentation generated on Fri, 16 Apr 2010 13:57:59 -0400 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
+	</div>
+</body>
 </html>

@@ -1,448 +1,446 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-  <html xmlns="http://www.w3.org/1999/xhtml">
-		<head>
-			<!-- template designed by Marco Von Ballmoos -->
-			<title>Docs For Class ValidationRule</title>
-			<link rel="stylesheet" href="../media/stylesheet.css" />
-			<meta http-equiv='Content-Type' content='text/html; charset=iso-8859-1'/>
-		</head>
-		<body>
-			<div class="page-body">			
-<h2 class="class-name">Interface ValidationRule</h2>
-
-<a name="sec-description"></a>
-<div class="info-box">
-	<div class="info-box-title">Description</div>
-	<div class="nav-bar">
-					<span class="disabled">Description</span> |
-															<a href="#sec-method-summary">Methods</a> (<a href="#sec-methods">details</a>)
-						
-					</div>
-	<div class="info-box-body">
-        		<!-- ========== Info from phpDoc block ========= -->
-<p class="short-description">ValidationRule Interface.</p>
-	<ul class="tags">
-				<li><span class="field">author:</span> jah &lt;<a href="mailto:jah@jahboite.co.uk">jah@jahboite.co.uk</a>&gt;</li>
-				<li><span class="field">author:</span> Johannes B. Ullrich &lt;<a href="mailto:jullrich@sans.edu">jullrich@sans.edu</a>&gt;</li>
-				<li><span class="field">author:</span> Mike Boberski &lt;<a href="mailto:boberski_michael@bah.com">boberski_michael@bah.com</a>&gt;</li>
-				<li><span class="field">version:</span> Release: @package_version@</li>
-				<li><span class="field">copyright:</span> 2009-2010 The OWASP Foundation</li>
-				<li><span class="field">link:</span> <a href="http://www.owasp.org/index.php/ESAPI">http://www.owasp.org/index.php/ESAPI</a></li>
-				<li><span class="field">license:</span> <a href="http://www.opensource.org/licenses/bsd-license.php">New BSD license</a></li>
-			</ul>
-		<p class="notes">
-			Located in <a class="field" href="_ValidationRule.php.html">/ValidationRule.php</a> (line <span class="field">44</span>)
-		</p>
-		
-				
-		<pre></pre>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+   <html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <title>Docs For Class ValidationRule</title>
+  <link rel="stylesheet" href="../media/stylesheet.css" />
+  <script src="../media/lib/classTree.js"></script>
+<link id="webfx-tab-style-sheet" type="text/css" rel="stylesheet" href="../media/lib/tab.webfx.css" />
+<script type="text/javascript" src="../media/lib/tabpane.js"></script>
+  <script language="javascript" type="text/javascript" src="../media/lib/ua.js"></script>
+<script language="javascript" type="text/javascript">
+	var imgPlus = new Image();
+	var imgMinus = new Image();
+	imgPlus.src = "../media/images/plus.gif";
+	imgMinus.src = "../media/images/minus.gif";
 	
-			</div>
+	function showNode(Node){
+        switch(navigator.family){
+        	case 'nn4':
+        		// Nav 4.x code fork...
+				var oTable = document.layers["span" + Node];
+				var oImg = document.layers["img" + Node];
+        		break;
+        	case 'ie4':
+        		// IE 4/5 code fork...
+				var oTable = document.all["span" + Node];
+				var oImg = document.all["img" + Node];
+        		break;
+        	case 'gecko':
+        		// Standards Compliant code fork...
+				var oTable = document.getElementById("span" + Node);
+				var oImg = document.getElementById("img" + Node);
+        		break;
+        }
+		oImg.src = imgMinus.src;
+		oTable.style.display = "block";
+	}
+	
+	function hideNode(Node){
+        switch(navigator.family){
+        	case 'nn4':
+        		// Nav 4.x code fork...
+				var oTable = document.layers["span" + Node];
+				var oImg = document.layers["img" + Node];
+        		break;
+        	case 'ie4':
+        		// IE 4/5 code fork...
+				var oTable = document.all["span" + Node];
+				var oImg = document.all["img" + Node];
+        		break;
+        	case 'gecko':
+        		// Standards Compliant code fork...
+				var oTable = document.getElementById("span" + Node);
+				var oImg = document.getElementById("img" + Node);
+        		break;
+        }
+		oImg.src = imgPlus.src;
+		oTable.style.display = "none";
+	}
+	
+	function nodeIsVisible(Node){
+        switch(navigator.family){
+        	case 'nn4':
+        		// Nav 4.x code fork...
+				var oTable = document.layers["span" + Node];
+        		break;
+        	case 'ie4':
+        		// IE 4/5 code fork...
+				var oTable = document.all["span" + Node];
+        		break;
+        	case 'gecko':
+        		// Standards Compliant code fork...
+				var oTable = document.getElementById("span" + Node);
+        		break;
+        }
+		return (oTable && oTable.style.display == "block");
+	}
+	
+	function toggleNodeVisibility(Node){
+		if (nodeIsVisible(Node)){
+			hideNode(Node);
+		}else{
+			showNode(Node);
+		}
+	}
+</script>
+<!-- template designed by Julien Damon based on PHPEdit's generated templates, and tweaked by Greg Beaver -->
+<body bgcolor="#ffffff" ><!-- Start of Class Data -->
+<h2>
+	Interface ValidationRule
+</h2> (line <span class="linenumber">44</span>)
+<div class="tab-pane" id="tabPane1">
+<script type="text/javascript">
+tp1 = new WebFXTabPane( document.getElementById( "tabPane1" ));
+</script>
+
+<div class="tab-page" id="Description">
+<h2 class="tab">Description</h2>
+<pre>
+</pre>
+<p>
+	<b><i>Located in File: <a href="_ValidationRule.php.html">/ValidationRule.php</a></i></b><br>
+</p>
+<!-- ========== Info from phpDoc block ========= -->
+<h5>ValidationRule Interface.</h5>
+<ul>
+		<li><strong>author:</strong> - jah &lt;<a href="mailto:jah@jahboite.co.uk">jah@jahboite.co.uk</a>&gt;</li>
+		<li><strong>author:</strong> - Johannes B. Ullrich &lt;<a href="mailto:jullrich@sans.edu">jullrich@sans.edu</a>&gt;</li>
+		<li><strong>author:</strong> - Mike Boberski &lt;<a href="mailto:boberski_michael@bah.com">boberski_michael@bah.com</a>&gt;</li>
+		<li><strong>version:</strong> - Release: @package_version@</li>
+		<li><strong>copyright:</strong> - 2009-2010 The OWASP Foundation</li>
+		<li><strong>link:</strong> - <a href="http://www.owasp.org/index.php/ESAPI">http://www.owasp.org/index.php/ESAPI</a></li>
+		<li><strong>license:</strong> - <a href="http://www.opensource.org/licenses/bsd-license.php">New BSD license</a></li>
+	</ul>
+<br /><hr />
 </div>
+<script type="text/javascript">tp1.addTabPage( document.getElementById( "Description" ) );</script>
+<div class="tab-page" id="tabPage1">
+
+<h2 class="tab">Class Variables</h2>
+<!-- ============ VARIABLE DETAIL =========== -->
+<strong>Summary:</strong><br />
+<hr />
+<script type="text/javascript">tp1.addTabPage( document.getElementById( "tabPage1" ) );</script>
+</div>
+<div class="tab-page" id="constantsTabpage">
+
+<h2 class="tab">Class Constants</h2>
+<!-- ============ VARIABLE DETAIL =========== -->
+<strong>Summary:</strong><br />
+<hr />
+<script type="text/javascript">tp1.addTabPage( document.getElementById( "constantsTabpage" ) );</script>
+</div>
+<div class="tab-page" id="tabPage2">
+<h2 class="tab">Method Detail</h2>
+<!-- ============ METHOD DETAIL =========== -->
+<strong>Summary:</strong><br />
+<div class="method-summary">
+    <div class="method-definition">
+            <span class="method-result">does</span>
+        <a href="#methodassertValid" title="details" class="method-name">assertValid</a>
+        (<span class="var-type">string</span>&nbsp;<span class="var-name">$context</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$input</span>)
+        </div>
+    <div class="method-definition">
+            <span class="method-result">string</span>
+        <a href="#methodgetSafe" title="details" class="method-name">getSafe</a>
+        (<span class="var-type">string</span>&nbsp;<span class="var-name">$context</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$input</span>)
+        </div>
+    <div class="method-definition">
+            <span class="method-result">string</span>
+        <a href="#methodgetTypeName" title="details" class="method-name">getTypeName</a>
+        ()
+        </div>
+    <div class="method-definition">
+            <span class="method-result">string</span>
+        <a href="#methodgetValid" title="details" class="method-name">getValid</a>
+        (<span class="var-type">string</span>&nbsp;<span class="var-name">$context</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$input</span>)
+        </div>
+    <div class="method-definition">
+            <span class="method-result">bool</span>
+        <a href="#methodisValid" title="details" class="method-name">isValid</a>
+        (<span class="var-type">string</span>&nbsp;<span class="var-name">$context</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$input</span>)
+        </div>
+    <div class="method-definition">
+            <span class="method-result">string</span>
+        <a href="#methodsanitize" title="details" class="method-name">sanitize</a>
+        (<span class="var-type">string</span>&nbsp;<span class="var-name">$context</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$input</span>)
+        </div>
+    <div class="method-definition">
+            <span class="method-result">does</span>
+        <a href="#methodsetAllowNull" title="details" class="method-name">setAllowNull</a>
+        (<span class="var-type">bool</span>&nbsp;<span class="var-name">$flag</span>)
+        </div>
+    <div class="method-definition">
+            <span class="method-result">does</span>
+        <a href="#methodsetEncoder" title="details" class="method-name">setEncoder</a>
+        (<span class="var-type"><a href="../ESAPI/Encoder.html">Encoder</a></span>&nbsp;<span class="var-name">$encoder</span>)
+        </div>
+    <div class="method-definition">
+            <span class="method-result">does</span>
+        <a href="#methodsetTypeName" title="details" class="method-name">setTypeName</a>
+        (<span class="var-type">string</span>&nbsp;<span class="var-name">$typeName</span>)
+        </div>
+    <div class="method-definition">
+            <span class="method-result">string</span>
+        <a href="#methodwhitelist" title="details" class="method-name">whitelist</a>
+        (<span class="var-type">string</span>&nbsp;<span class="var-name">$input</span>, <span class="var-type">array</span>&nbsp;<span class="var-name">$list</span>)
+        </div>
+</div>
+<hr />
+<A NAME='method_detail'></A>
 
 
+<a name="methodassertValid" id="methodassertValid"><!-- --></a>
+<div style="background='#ffffff'"><h4>
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method assertValid</strong> (line <span class="linenumber">100</span>)
+ </h4> 
+<h4><i>does</i> <strong>assertValid(
+string
+$context, string
+$input)</strong></h4>
 
+	<!-- ========== Info from phpDoc block ========= -->
+<h5>Asserts that the supplied $input is valid after canonicalization. Invalid  Inputs will cause a descriptive ValidationException to be thrown. Inputs  that are obviously an attack will cause an IntrusionException.</h5>
+		<h4>Parameters</h4>
+	<ul>
+			<li><strong>string $context</strong>: A descriptive name of the parameter that you are                         validating (e.g., LoginPage_UsernameField). This                         value is used by any logging or error handling that                         is done with respect to the value passed in.</li>
+			<li><strong>string $input</strong>: The actual user input data to validate.</li>
+		</ul>
+		
+	<h4>Info</h4>
+	<ul>
+			<li><strong>return</strong> - not return a value.</li>
+			<li><strong>access</strong> - public</li>
+		</ul>
+</div>
+<a name="methodgetSafe" id="methodgetSafe"><!-- --></a>
+<div style="background='#eeeeee'"><h4>
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method getSafe</strong> (line <span class="linenumber">134</span>)
+ </h4> 
+<h4><i>string</i> <strong>getSafe(
+string
+$context, string
+$input)</strong></h4>
 
-	<a name="sec-method-summary"></a>
-	<div class="info-box">
-		<div class="info-box-title">Method Summary</span></div>
-		<div class="nav-bar">
-			<a href="#sec-description">Description</a> |
-												<span class="disabled">Methods</span> (<a href="#sec-methods">details</a>)
-		</div>
-		<div class="info-box-body">			
-			<div class="method-summary">
-																																																																																				
-												<div class="method-definition">
-											<span class="method-result">does</span>
-										<a href="#assertValid" title="details" class="method-name">assertValid</a>
-											(<span class="var-type">string</span>&nbsp;<span class="var-name">$context</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$input</span>)
-									</div>
-																<div class="method-definition">
-											<span class="method-result">string</span>
-										<a href="#getSafe" title="details" class="method-name">getSafe</a>
-											(<span class="var-type">string</span>&nbsp;<span class="var-name">$context</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$input</span>)
-									</div>
-																<div class="method-definition">
-											<span class="method-result">string</span>
-										<a href="#getTypeName" title="details" class="method-name">getTypeName</a>
-										()
-									</div>
-																<div class="method-definition">
-											<span class="method-result">string</span>
-										<a href="#getValid" title="details" class="method-name">getValid</a>
-											(<span class="var-type">string</span>&nbsp;<span class="var-name">$context</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$input</span>)
-									</div>
-																<div class="method-definition">
-											<span class="method-result">bool</span>
-										<a href="#isValid" title="details" class="method-name">isValid</a>
-											(<span class="var-type">string</span>&nbsp;<span class="var-name">$context</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$input</span>)
-									</div>
-																<div class="method-definition">
-											<span class="method-result">string</span>
-										<a href="#sanitize" title="details" class="method-name">sanitize</a>
-											(<span class="var-type">string</span>&nbsp;<span class="var-name">$context</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$input</span>)
-									</div>
-																<div class="method-definition">
-											<span class="method-result">does</span>
-										<a href="#setAllowNull" title="details" class="method-name">setAllowNull</a>
-											(<span class="var-type">bool</span>&nbsp;<span class="var-name">$flag</span>)
-									</div>
-																<div class="method-definition">
-											<span class="method-result">does</span>
-										<a href="#setEncoder" title="details" class="method-name">setEncoder</a>
-											(<span class="var-type"><a href="../ESAPI/Encoder.html">Encoder</a></span>&nbsp;<span class="var-name">$encoder</span>)
-									</div>
-																<div class="method-definition">
-											<span class="method-result">does</span>
-										<a href="#setTypeName" title="details" class="method-name">setTypeName</a>
-											(<span class="var-type">string</span>&nbsp;<span class="var-name">$typeName</span>)
-									</div>
-																<div class="method-definition">
-											<span class="method-result">string</span>
-										<a href="#whitelist" title="details" class="method-name">whitelist</a>
-											(<span class="var-type">string</span>&nbsp;<span class="var-name">$input</span>, <span class="var-type">array</span>&nbsp;<span class="var-name">$list</span>)
-									</div>
-								</div>
-		</div>
-	</div>		
+	<!-- ========== Info from phpDoc block ========= -->
+<h5>Attempts to return valid canonicalized input.  If a ValidationException  is thrown, this method will return sanitized input which may or may not  have any similarity to the original input.</h5>
+		<h4>Parameters</h4>
+	<ul>
+			<li><strong>string $context</strong>: A descriptive name of the parameter that you are                         validating (e.g., LoginPage_UsernameField). This                         value is used by any logging or error handling that                         is done with respect to the value passed in.</li>
+			<li><strong>string $input</strong>: The actual user input data to validate.</li>
+		</ul>
+		
+	<h4>Info</h4>
+	<ul>
+			<li><strong>return</strong> - valid, canonicalized input or sanitized input or a default                 value.</li>
+			<li><strong>throws</strong> - IntrusionException if intrusion detected</li>
+			<li><strong>access</strong> - public</li>
+		</ul>
+</div>
+<a name="methodgetTypeName" id="methodgetTypeName"><!-- --></a>
+<div style="background='#ffffff'"><h4>
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method getTypeName</strong> (line <span class="linenumber">73</span>)
+ </h4> 
+<h4><i>string</i> <strong>getTypeName(
+)</strong></h4>
 
-	
-	<a name="sec-methods"></a>
-	<div class="info-box">
-		<div class="info-box-title">Methods</div>
-		<div class="nav-bar">
-			<a href="#sec-description">Description</a> |
-																<a href="#sec-method-summary">Methods</a> (<span class="disabled">details</span>)
-						
-		</div>
-		<div class="info-box-body">
-			<A NAME='method_detail'></A>
+	<!-- ========== Info from phpDoc block ========= -->
+<h5>Gets the descriptive name for the validator.</h5>
+		
+	<h4>Info</h4>
+	<ul>
+			<li><strong>return</strong> - name describing the validator.</li>
+			<li><strong>access</strong> - public</li>
+		</ul>
+</div>
+<a name="methodgetValid" id="methodgetValid"><!-- --></a>
+<div style="background='#eeeeee'"><h4>
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method getValid</strong> (line <span class="linenumber">116</span>)
+ </h4> 
+<h4><i>string</i> <strong>getValid(
+string
+$context, string
+$input)</strong></h4>
 
-<a name="methodassertValid" id="assertValid"><!-- --></a>
-<div class="evenrow">
-	
-	<div class="method-header">
-		<span class="method-title">assertValid</span> (line <span class="line-number">100</span>)
-	</div> 
-	
 	<!-- ========== Info from phpDoc block ========= -->
-<p class="short-description">Asserts that the supplied $input is valid after canonicalization. Invalid  Inputs will cause a descriptive ValidationException to be thrown. Inputs  that are obviously an attack will cause an IntrusionException.</p>
-	<ul class="tags">
-				<li><span class="field">return:</span> not return a value.</li>
-				<li><span class="field">access:</span> public</li>
-			</ul>
-	
-	<div class="method-signature">
-		<span class="method-result">does</span>
-		<span class="method-name">
-			assertValid
-		</span>
-					(<span class="var-type">string</span>&nbsp;<span class="var-name">$context</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$input</span>)
-			</div>
-	
-			<ul class="parameters">
-					<li>
-				<span class="var-type">string</span>
-				<span class="var-name">$context</span><span class="var-description">: A descriptive name of the parameter that you are                         validating (e.g., LoginPage_UsernameField). This                         value is used by any logging or error handling that                         is done with respect to the value passed in.</span>			</li>
-					<li>
-				<span class="var-type">string</span>
-				<span class="var-name">$input</span><span class="var-description">: The actual user input data to validate.</span>			</li>
-				</ul>
+<h5>Returns the canonicalized, valid input.</h5>
+<div class="desc"><p>Throws ValidationException if the input is not valid or  IntrusionException if the input is an obvious attack.</p></div>
+		<h4>Parameters</h4>
+	<ul>
+			<li><strong>string $context</strong>: A descriptive name of the parameter that you are                         validating (e.g., LoginPage_UsernameField). This                         value is used by any logging or error handling that                         is done with respect to the value passed in.</li>
+			<li><strong>string $input</strong>: The actual string user input data to validate.</li>
+		</ul>
 		
-			
-	</div>
-<a name="methodgetSafe" id="getSafe"><!-- --></a>
-<div class="oddrow">
-	
-	<div class="method-header">
-		<span class="method-title">getSafe</span> (line <span class="line-number">134</span>)
-	</div> 
-	
-	<!-- ========== Info from phpDoc block ========= -->
-<p class="short-description">Attempts to return valid canonicalized input.  If a ValidationException  is thrown, this method will return sanitized input which may or may not  have any similarity to the original input.</p>
-	<ul class="tags">
-				<li><span class="field">return:</span> valid, canonicalized input or sanitized input or a default                 value.</li>
-				<li><span class="field">throws:</span> IntrusionException if intrusion detected</li>
-				<li><span class="field">access:</span> public</li>
-			</ul>
-	
-	<div class="method-signature">
-		<span class="method-result">string</span>
-		<span class="method-name">
-			getSafe
-		</span>
-					(<span class="var-type">string</span>&nbsp;<span class="var-name">$context</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$input</span>)
-			</div>
-	
-			<ul class="parameters">
-					<li>
-				<span class="var-type">string</span>
-				<span class="var-name">$context</span><span class="var-description">: A descriptive name of the parameter that you are                         validating (e.g., LoginPage_UsernameField). This                         value is used by any logging or error handling that                         is done with respect to the value passed in.</span>			</li>
-					<li>
-				<span class="var-type">string</span>
-				<span class="var-name">$input</span><span class="var-description">: The actual user input data to validate.</span>			</li>
-				</ul>
-		
-			
-	</div>
-<a name="methodgetTypeName" id="getTypeName"><!-- --></a>
-<div class="evenrow">
-	
-	<div class="method-header">
-		<span class="method-title">getTypeName</span> (line <span class="line-number">73</span>)
-	</div> 
-	
-	<!-- ========== Info from phpDoc block ========= -->
-<p class="short-description">Gets the descriptive name for the validator.</p>
-	<ul class="tags">
-				<li><span class="field">return:</span> name describing the validator.</li>
-				<li><span class="field">access:</span> public</li>
-			</ul>
-	
-	<div class="method-signature">
-		<span class="method-result">string</span>
-		<span class="method-name">
-			getTypeName
-		</span>
-				()
-			</div>
-	
-		
-			
-	</div>
-<a name="methodgetValid" id="getValid"><!-- --></a>
-<div class="oddrow">
-	
-	<div class="method-header">
-		<span class="method-title">getValid</span> (line <span class="line-number">116</span>)
-	</div> 
-	
-	<!-- ========== Info from phpDoc block ========= -->
-<p class="short-description">Returns the canonicalized, valid input.</p>
-<p class="description"><p>Throws ValidationException if the input is not valid or  IntrusionException if the input is an obvious attack.</p></p>
-	<ul class="tags">
-				<li><span class="field">return:</span> canonicalized, valid input.</li>
-				<li><span class="field">access:</span> public</li>
-			</ul>
-	
-	<div class="method-signature">
-		<span class="method-result">string</span>
-		<span class="method-name">
-			getValid
-		</span>
-					(<span class="var-type">string</span>&nbsp;<span class="var-name">$context</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$input</span>)
-			</div>
-	
-			<ul class="parameters">
-					<li>
-				<span class="var-type">string</span>
-				<span class="var-name">$context</span><span class="var-description">: A descriptive name of the parameter that you are                         validating (e.g., LoginPage_UsernameField). This                         value is used by any logging or error handling that                         is done with respect to the value passed in.</span>			</li>
-					<li>
-				<span class="var-type">string</span>
-				<span class="var-name">$input</span><span class="var-description">: The actual string user input data to validate.</span>			</li>
-				</ul>
-		
-			
-	</div>
-<a name="methodisValid" id="isValid"><!-- --></a>
-<div class="evenrow">
-	
-	<div class="method-header">
-		<span class="method-title">isValid</span> (line <span class="line-number">148</span>)
-	</div> 
-	
-	<!-- ========== Info from phpDoc block ========= -->
-<p class="short-description">Returns boolean true if the input is valid, false otherwise.</p>
-	<ul class="tags">
-				<li><span class="field">return:</span> true if the input is valid, false otherwise.</li>
-				<li><span class="field">access:</span> public</li>
-			</ul>
-	
-	<div class="method-signature">
-		<span class="method-result">bool</span>
-		<span class="method-name">
-			isValid
-		</span>
-					(<span class="var-type">string</span>&nbsp;<span class="var-name">$context</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$input</span>)
-			</div>
-	
-			<ul class="parameters">
-					<li>
-				<span class="var-type">string</span>
-				<span class="var-name">$context</span><span class="var-description">: A descriptive name of the parameter that you are                         validating (e.g., LoginPage_UsernameField). This                         value is used by any logging or error handling that                         is done with respect to the value passed in.</span>			</li>
-					<li>
-				<span class="var-type">string</span>
-				<span class="var-name">$input</span><span class="var-description">: The actual user input data to validate.</span>			</li>
-				</ul>
-		
-			
-	</div>
-<a name="methodsanitize" id="sanitize"><!-- --></a>
-<div class="oddrow">
-	
-	<div class="method-header">
-		<span class="method-title">sanitize</span> (line <span class="line-number">166</span>)
-	</div> 
-	
-	<!-- ========== Info from phpDoc block ========= -->
-<p class="short-description">The method is similar to getSafe except that it returns a harmless value</p>
-<p class="description"><p>that may or may not have any similarity to the original input (in some  cases you may not care). In most cases this should be the same as the  getSafe method only instead of throwing an exception, return some default  value.</p></p>
-	<ul class="tags">
-				<li><span class="field">return:</span> a parsed version of the input or a default value.</li>
-				<li><span class="field">access:</span> public</li>
-			</ul>
-	
-	<div class="method-signature">
-		<span class="method-result">string</span>
-		<span class="method-name">
-			sanitize
-		</span>
-					(<span class="var-type">string</span>&nbsp;<span class="var-name">$context</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$input</span>)
-			</div>
-	
-			<ul class="parameters">
-					<li>
-				<span class="var-type">string</span>
-				<span class="var-name">$context</span><span class="var-description">: A descriptive name of the parameter that you are                         validating (e.g., LoginPage_UsernameField). This                         value is used by any logging or error handling that                         is done with respect to the value passed in.</span>			</li>
-					<li>
-				<span class="var-type">string</span>
-				<span class="var-name">$input</span><span class="var-description">: The actual user input data to validate.</span>			</li>
-				</ul>
-		
-			
-	</div>
-<a name="methodsetAllowNull" id="setAllowNull"><!-- --></a>
-<div class="evenrow">
-	
-	<div class="method-header">
-		<span class="method-title">setAllowNull</span> (line <span class="line-number">55</span>)
-	</div> 
-	
-	<!-- ========== Info from phpDoc block ========= -->
-<p class="short-description">Sets the boolean allowNull property which, if set true, will allow empty  inputs to validate as true.</p>
-	<ul class="tags">
-				<li><span class="field">return:</span> not return a value.</li>
-				<li><span class="field">access:</span> public</li>
-			</ul>
-	
-	<div class="method-signature">
-		<span class="method-result">does</span>
-		<span class="method-name">
-			setAllowNull
-		</span>
-					(<span class="var-type">bool</span>&nbsp;<span class="var-name">$flag</span>)
-			</div>
-	
-			<ul class="parameters">
-					<li>
-				<span class="var-type">bool</span>
-				<span class="var-name">$flag</span><span class="var-description">: TRUE, if empty inputs should validate as true.</span>			</li>
-				</ul>
-		
-			
-	</div>
-<a name="methodsetEncoder" id="setEncoder"><!-- --></a>
-<div class="oddrow">
-	
-	<div class="method-header">
-		<span class="method-title">setEncoder</span> (line <span class="line-number">84</span>)
-	</div> 
-	
-	<!-- ========== Info from phpDoc block ========= -->
-<p class="short-description">Sets an instance of an encoder class which should provide a  canonicalize method.</p>
-	<ul class="tags">
-				<li><span class="field">return:</span> not return a value.</li>
-				<li><span class="field">access:</span> public</li>
-			</ul>
-	
-	<div class="method-signature">
-		<span class="method-result">does</span>
-		<span class="method-name">
-			setEncoder
-		</span>
-					(<span class="var-type"><a href="../ESAPI/Encoder.html">Encoder</a></span>&nbsp;<span class="var-name">$encoder</span>)
-			</div>
-	
-			<ul class="parameters">
-					<li>
-				<span class="var-type"><a href="../ESAPI/Encoder.html">Encoder</a></span>
-				<span class="var-name">$encoder</span><span class="var-description">: Encoder which provides a canonicalize method.</span>			</li>
-				</ul>
-		
-			
-	</div>
-<a name="methodsetTypeName" id="setTypeName"><!-- --></a>
-<div class="evenrow">
-	
-	<div class="method-header">
-		<span class="method-title">setTypeName</span> (line <span class="line-number">65</span>)
-	</div> 
-	
-	<!-- ========== Info from phpDoc block ========= -->
-<p class="short-description">Sets a descriptive name for the validator e.g. CreditCardNumber.</p>
-	<ul class="tags">
-				<li><span class="field">return:</span> not return a value.</li>
-				<li><span class="field">access:</span> public</li>
-			</ul>
-	
-	<div class="method-signature">
-		<span class="method-result">does</span>
-		<span class="method-name">
-			setTypeName
-		</span>
-					(<span class="var-type">string</span>&nbsp;<span class="var-name">$typeName</span>)
-			</div>
-	
-			<ul class="parameters">
-					<li>
-				<span class="var-type">string</span>
-				<span class="var-name">$typeName</span><span class="var-description">: name describing the validator.</span>			</li>
-				</ul>
-		
-			
-	</div>
-<a name="methodwhitelist" id="whitelist"><!-- --></a>
-<div class="oddrow">
-	
-	<div class="method-header">
-		<span class="method-title">whitelist</span> (line <span class="line-number">178</span>)
-	</div> 
-	
-	<!-- ========== Info from phpDoc block ========= -->
-<p class="short-description">Returns the supplied input string after removing any characters not  present in the supplied whitelist.</p>
-	<ul class="tags">
-				<li><span class="field">return:</span> a string of characters from $input that are present in $list.</li>
-				<li><span class="field">access:</span> public</li>
-			</ul>
-	
-	<div class="method-signature">
-		<span class="method-result">string</span>
-		<span class="method-name">
-			whitelist
-		</span>
-					(<span class="var-type">string</span>&nbsp;<span class="var-name">$input</span>, <span class="var-type">array</span>&nbsp;<span class="var-name">$list</span>)
-			</div>
-	
-			<ul class="parameters">
-					<li>
-				<span class="var-type">string</span>
-				<span class="var-name">$input</span><span class="var-description">: string input to be filtered.</span>			</li>
-					<li>
-				<span class="var-type">array</span>
-				<span class="var-name">$list</span><span class="var-description">: array or string of whitelist characters.</span>			</li>
-				</ul>
-		
-			
-	</div>
-						
-		</div>
-	</div>
+	<h4>Info</h4>
+	<ul>
+			<li><strong>return</strong> - canonicalized, valid input.</li>
+			<li><strong>access</strong> - public</li>
+		</ul>
+</div>
+<a name="methodisValid" id="methodisValid"><!-- --></a>
+<div style="background='#ffffff'"><h4>
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method isValid</strong> (line <span class="linenumber">148</span>)
+ </h4> 
+<h4><i>bool</i> <strong>isValid(
+string
+$context, string
+$input)</strong></h4>
 
+	<!-- ========== Info from phpDoc block ========= -->
+<h5>Returns boolean true if the input is valid, false otherwise.</h5>
+		<h4>Parameters</h4>
+	<ul>
+			<li><strong>string $context</strong>: A descriptive name of the parameter that you are                         validating (e.g., LoginPage_UsernameField). This                         value is used by any logging or error handling that                         is done with respect to the value passed in.</li>
+			<li><strong>string $input</strong>: The actual user input data to validate.</li>
+		</ul>
+		
+	<h4>Info</h4>
+	<ul>
+			<li><strong>return</strong> - true if the input is valid, false otherwise.</li>
+			<li><strong>access</strong> - public</li>
+		</ul>
+</div>
+<a name="methodsanitize" id="methodsanitize"><!-- --></a>
+<div style="background='#eeeeee'"><h4>
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method sanitize</strong> (line <span class="linenumber">166</span>)
+ </h4> 
+<h4><i>string</i> <strong>sanitize(
+string
+$context, string
+$input)</strong></h4>
 
-	<p class="notes" id="credit">
-		Documentation generated on Fri, 16 Apr 2010 12:02:00 -0400 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
-	</p>
-	</div></body>
+	<!-- ========== Info from phpDoc block ========= -->
+<h5>The method is similar to getSafe except that it returns a harmless value</h5>
+<div class="desc"><p>that may or may not have any similarity to the original input (in some  cases you may not care). In most cases this should be the same as the  getSafe method only instead of throwing an exception, return some default  value.</p></div>
+		<h4>Parameters</h4>
+	<ul>
+			<li><strong>string $context</strong>: A descriptive name of the parameter that you are                         validating (e.g., LoginPage_UsernameField). This                         value is used by any logging or error handling that                         is done with respect to the value passed in.</li>
+			<li><strong>string $input</strong>: The actual user input data to validate.</li>
+		</ul>
+		
+	<h4>Info</h4>
+	<ul>
+			<li><strong>return</strong> - a parsed version of the input or a default value.</li>
+			<li><strong>access</strong> - public</li>
+		</ul>
+</div>
+<a name="methodsetAllowNull" id="methodsetAllowNull"><!-- --></a>
+<div style="background='#ffffff'"><h4>
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method setAllowNull</strong> (line <span class="linenumber">55</span>)
+ </h4> 
+<h4><i>does</i> <strong>setAllowNull(
+bool
+$flag)</strong></h4>
+
+	<!-- ========== Info from phpDoc block ========= -->
+<h5>Sets the boolean allowNull property which, if set true, will allow empty  inputs to validate as true.</h5>
+		<h4>Parameters</h4>
+	<ul>
+			<li><strong>bool $flag</strong>: TRUE, if empty inputs should validate as true.</li>
+		</ul>
+		
+	<h4>Info</h4>
+	<ul>
+			<li><strong>return</strong> - not return a value.</li>
+			<li><strong>access</strong> - public</li>
+		</ul>
+</div>
+<a name="methodsetEncoder" id="methodsetEncoder"><!-- --></a>
+<div style="background='#eeeeee'"><h4>
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method setEncoder</strong> (line <span class="linenumber">84</span>)
+ </h4> 
+<h4><i>does</i> <strong>setEncoder(
+<a href="../ESAPI/Encoder.html">Encoder</a>
+$encoder)</strong></h4>
+
+	<!-- ========== Info from phpDoc block ========= -->
+<h5>Sets an instance of an encoder class which should provide a  canonicalize method.</h5>
+		<h4>Parameters</h4>
+	<ul>
+			<li><strong><a href="../ESAPI/Encoder.html">Encoder</a> $encoder</strong>: Encoder which provides a canonicalize method.</li>
+		</ul>
+		
+	<h4>Info</h4>
+	<ul>
+			<li><strong>return</strong> - not return a value.</li>
+			<li><strong>access</strong> - public</li>
+		</ul>
+</div>
+<a name="methodsetTypeName" id="methodsetTypeName"><!-- --></a>
+<div style="background='#ffffff'"><h4>
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method setTypeName</strong> (line <span class="linenumber">65</span>)
+ </h4> 
+<h4><i>does</i> <strong>setTypeName(
+string
+$typeName)</strong></h4>
+
+	<!-- ========== Info from phpDoc block ========= -->
+<h5>Sets a descriptive name for the validator e.g. CreditCardNumber.</h5>
+		<h4>Parameters</h4>
+	<ul>
+			<li><strong>string $typeName</strong>: name describing the validator.</li>
+		</ul>
+		
+	<h4>Info</h4>
+	<ul>
+			<li><strong>return</strong> - not return a value.</li>
+			<li><strong>access</strong> - public</li>
+		</ul>
+</div>
+<a name="methodwhitelist" id="methodwhitelist"><!-- --></a>
+<div style="background='#eeeeee'"><h4>
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method whitelist</strong> (line <span class="linenumber">178</span>)
+ </h4> 
+<h4><i>string</i> <strong>whitelist(
+string
+$input, array
+$list)</strong></h4>
+
+	<!-- ========== Info from phpDoc block ========= -->
+<h5>Returns the supplied input string after removing any characters not  present in the supplied whitelist.</h5>
+		<h4>Parameters</h4>
+	<ul>
+			<li><strong>string $input</strong>: string input to be filtered.</li>
+			<li><strong>array $list</strong>: array or string of whitelist characters.</li>
+		</ul>
+		
+	<h4>Info</h4>
+	<ul>
+			<li><strong>return</strong> - a string of characters from $input that are present in $list.</li>
+			<li><strong>access</strong> - public</li>
+		</ul>
+</div>
+<script type="text/javascript">tp1.addTabPage( document.getElementById( "tabPage2" ) );</script></div>
+<div class="tab-page" id="iVars">
+<h2 class="tab">Inherited Variables</h2>
+<script type="text/javascript">tp1.addTabPage( document.getElementById( "iVars" ) );</script>
+<!-- =========== VAR INHERITED SUMMARY =========== -->
+<A NAME='var_inherited_summary'><!-- --></A>
+<h3>Inherited Class Variable Summary</h3>
+
+	</div>
+<div class="tab-page" id="iMethods">
+<h2 class="tab">Inherited Methods</h2>
+<script type="text/javascript">tp1.addTabPage( document.getElementById( "iMethods" ) );</script>
+<!-- =========== INHERITED METHOD SUMMARY =========== -->
+<A NAME='functions_inherited'><!-- --></A>
+<h3>Inherited Method Summary</h3>
+
+	</div>
+</div>
+<script type="text/javascript">
+//<![CDATA[
+
+setupAllTabs();
+
+//]]>
+</script>
+	<div id="credit">
+		<hr />
+		Documentation generated on Fri, 16 Apr 2010 13:58:04 -0400 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
+	</div>
+</body>
 </html>

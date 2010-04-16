@@ -1,673 +1,644 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-  <html xmlns="http://www.w3.org/1999/xhtml">
-		<head>
-			<!-- template designed by Marco Von Ballmoos -->
-			<title>Docs For Class DefaultEncoder</title>
-			<link rel="stylesheet" href="../media/stylesheet.css" />
-			<meta http-equiv='Content-Type' content='text/html; charset=iso-8859-1'/>
-		</head>
-		<body>
-			<div class="page-body">			
-<h2 class="class-name">Class DefaultEncoder</h2>
-
-<a name="sec-description"></a>
-<div class="info-box">
-	<div class="info-box-title">Description</div>
-	<div class="nav-bar">
-					<span class="disabled">Description</span> |
-															<a href="#sec-method-summary">Methods</a> (<a href="#sec-methods">details</a>)
-						
-					</div>
-	<div class="info-box-body">
-                <p class="implements">
-            Implements interfaces:
-            <ul>
-                <li><a href="../ESAPI/Encoder.html">Encoder</a></li>            </ul>
-        </p>
-        		<!-- ========== Info from phpDoc block ========= -->
-<p class="short-description">Reference implementation of the Encoder interface.</p>
-	<ul class="tags">
-				<li><span class="field">author:</span> Mike Boberski &lt;<a href="mailto:boberski_michael@bah.com">boberski_michael@bah.com</a>&gt;</li>
-				<li><span class="field">author:</span> Linden Darling &lt;<a href="mailto:Linden.Darling@jds.net.au">Linden.Darling@jds.net.au</a>&gt;</li>
-				<li><span class="field">author:</span> jah &lt;<a href="mailto:jah@jahboite.co.uk">jah@jahboite.co.uk</a>&gt;</li>
-				<li><span class="field">version:</span> Release: @package_version@</li>
-				<li><span class="field">copyright:</span> 2009-2010 The OWASP Foundation</li>
-				<li><span class="field">link:</span> <a href="http://www.owasp.org/index.php/ESAPI">http://www.owasp.org/index.php/ESAPI</a></li>
-				<li><span class="field">license:</span> <a href="http://www.opensource.org/licenses/bsd-license.php">New BSD license</a></li>
-			</ul>
-		<p class="notes">
-			Located in <a class="field" href="_reference---DefaultEncoder.php.html">/reference/DefaultEncoder.php</a> (line <span class="field">50</span>)
-		</p>
-		
-				
-		<pre></pre>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+   <html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <title>Docs For Class DefaultEncoder</title>
+  <link rel="stylesheet" href="../media/stylesheet.css" />
+  <script src="../media/lib/classTree.js"></script>
+<link id="webfx-tab-style-sheet" type="text/css" rel="stylesheet" href="../media/lib/tab.webfx.css" />
+<script type="text/javascript" src="../media/lib/tabpane.js"></script>
+  <script language="javascript" type="text/javascript" src="../media/lib/ua.js"></script>
+<script language="javascript" type="text/javascript">
+	var imgPlus = new Image();
+	var imgMinus = new Image();
+	imgPlus.src = "../media/images/plus.gif";
+	imgMinus.src = "../media/images/minus.gif";
 	
-			</div>
+	function showNode(Node){
+        switch(navigator.family){
+        	case 'nn4':
+        		// Nav 4.x code fork...
+				var oTable = document.layers["span" + Node];
+				var oImg = document.layers["img" + Node];
+        		break;
+        	case 'ie4':
+        		// IE 4/5 code fork...
+				var oTable = document.all["span" + Node];
+				var oImg = document.all["img" + Node];
+        		break;
+        	case 'gecko':
+        		// Standards Compliant code fork...
+				var oTable = document.getElementById("span" + Node);
+				var oImg = document.getElementById("img" + Node);
+        		break;
+        }
+		oImg.src = imgMinus.src;
+		oTable.style.display = "block";
+	}
+	
+	function hideNode(Node){
+        switch(navigator.family){
+        	case 'nn4':
+        		// Nav 4.x code fork...
+				var oTable = document.layers["span" + Node];
+				var oImg = document.layers["img" + Node];
+        		break;
+        	case 'ie4':
+        		// IE 4/5 code fork...
+				var oTable = document.all["span" + Node];
+				var oImg = document.all["img" + Node];
+        		break;
+        	case 'gecko':
+        		// Standards Compliant code fork...
+				var oTable = document.getElementById("span" + Node);
+				var oImg = document.getElementById("img" + Node);
+        		break;
+        }
+		oImg.src = imgPlus.src;
+		oTable.style.display = "none";
+	}
+	
+	function nodeIsVisible(Node){
+        switch(navigator.family){
+        	case 'nn4':
+        		// Nav 4.x code fork...
+				var oTable = document.layers["span" + Node];
+        		break;
+        	case 'ie4':
+        		// IE 4/5 code fork...
+				var oTable = document.all["span" + Node];
+        		break;
+        	case 'gecko':
+        		// Standards Compliant code fork...
+				var oTable = document.getElementById("span" + Node);
+        		break;
+        }
+		return (oTable && oTable.style.display == "block");
+	}
+	
+	function toggleNodeVisibility(Node){
+		if (nodeIsVisible(Node)){
+			hideNode(Node);
+		}else{
+			showNode(Node);
+		}
+	}
+</script>
+<!-- template designed by Julien Damon based on PHPEdit's generated templates, and tweaked by Greg Beaver -->
+<body bgcolor="#ffffff" ><!-- Start of Class Data -->
+<h2>
+	Class DefaultEncoder
+</h2> (line <span class="linenumber">50</span>)
+<div class="tab-pane" id="tabPane1">
+<script type="text/javascript">
+tp1 = new WebFXTabPane( document.getElementById( "tabPane1" ));
+</script>
+
+<div class="tab-page" id="Description">
+<h2 class="tab">Description</h2>
+<pre>
+</pre>
+<p>
+	<b><i>Located in File: <a href="_reference---DefaultEncoder.php.html">/reference/DefaultEncoder.php</a></i></b><br>
+</p>
+<!-- ========== Info from phpDoc block ========= -->
+<h5>Reference implementation of the Encoder interface.</h5>
+<ul>
+		<li><strong>author:</strong> - Mike Boberski &lt;<a href="mailto:boberski_michael@bah.com">boberski_michael@bah.com</a>&gt;</li>
+		<li><strong>author:</strong> - Linden Darling &lt;<a href="mailto:Linden.Darling@jds.net.au">Linden.Darling@jds.net.au</a>&gt;</li>
+		<li><strong>author:</strong> - jah &lt;<a href="mailto:jah@jahboite.co.uk">jah@jahboite.co.uk</a>&gt;</li>
+		<li><strong>version:</strong> - Release: @package_version@</li>
+		<li><strong>copyright:</strong> - 2009-2010 The OWASP Foundation</li>
+		<li><strong>link:</strong> - <a href="http://www.owasp.org/index.php/ESAPI">http://www.owasp.org/index.php/ESAPI</a></li>
+		<li><strong>license:</strong> - <a href="http://www.opensource.org/licenses/bsd-license.php">New BSD license</a></li>
+	</ul>
+<br /><hr />
 </div>
+<script type="text/javascript">tp1.addTabPage( document.getElementById( "Description" ) );</script>
+<div class="tab-page" id="tabPage1">
+
+<h2 class="tab">Class Variables</h2>
+<!-- ============ VARIABLE DETAIL =========== -->
+<strong>Summary:</strong><br />
+<hr />
+<script type="text/javascript">tp1.addTabPage( document.getElementById( "tabPage1" ) );</script>
+</div>
+<div class="tab-page" id="constantsTabpage">
+
+<h2 class="tab">Class Constants</h2>
+<!-- ============ VARIABLE DETAIL =========== -->
+<strong>Summary:</strong><br />
+<hr />
+<script type="text/javascript">tp1.addTabPage( document.getElementById( "constantsTabpage" ) );</script>
+</div>
+<div class="tab-page" id="tabPage2">
+<h2 class="tab">Method Detail</h2>
+<!-- ============ METHOD DETAIL =========== -->
+<strong>Summary:</strong><br />
+<div class="method-summary">
+    <div class="method-definition">
+            <span class="method-result">does</span>
+        <a href="#method__construct" title="details" class="method-name">__construct</a>
+        ([<span class="var-type">array</span>&nbsp;<span class="var-name">$_codecs</span> = <span class="var-default">null</span>])
+        </div>
+    <div class="method-definition">
+            <span class="method-result">void</span>
+        <a href="#methodcanonicalize" title="details" class="method-name">canonicalize</a>
+        (<span class="var-type"></span>&nbsp;<span class="var-name">$input</span>, [<span class="var-type"></span>&nbsp;<span class="var-name">$strict</span> = <span class="var-default">true</span>])
+        </div>
+    <div class="method-definition">
+            <span class="method-result">void</span>
+        <a href="#methoddecodeFromBase64" title="details" class="method-name">decodeFromBase64</a>
+        (<span class="var-type"></span>&nbsp;<span class="var-name">$input</span>)
+        </div>
+    <div class="method-definition">
+            <span class="method-result">void</span>
+        <a href="#methoddecodeFromURL" title="details" class="method-name">decodeFromURL</a>
+        (<span class="var-type"></span>&nbsp;<span class="var-name">$input</span>)
+        </div>
+    <div class="method-definition">
+            <span class="method-result">void</span>
+        <a href="#methodencodeForBase64" title="details" class="method-name">encodeForBase64</a>
+        (<span class="var-type"></span>&nbsp;<span class="var-name">$input</span>, [<span class="var-type"></span>&nbsp;<span class="var-name">$wrap</span> = <span class="var-default">true</span>])
+        </div>
+    <div class="method-definition">
+            <span class="method-result">void</span>
+        <a href="#methodencodeForCSS" title="details" class="method-name">encodeForCSS</a>
+        (<span class="var-type"></span>&nbsp;<span class="var-name">$input</span>)
+        </div>
+    <div class="method-definition">
+            <span class="method-result">void</span>
+        <a href="#methodencodeForHTML" title="details" class="method-name">encodeForHTML</a>
+        (<span class="var-type"></span>&nbsp;<span class="var-name">$input</span>)
+        </div>
+    <div class="method-definition">
+            <span class="method-result">void</span>
+        <a href="#methodencodeForHTMLAttribute" title="details" class="method-name">encodeForHTMLAttribute</a>
+        (<span class="var-type"></span>&nbsp;<span class="var-name">$input</span>)
+        </div>
+    <div class="method-definition">
+            <span class="method-result">void</span>
+        <a href="#methodencodeForJavaScript" title="details" class="method-name">encodeForJavaScript</a>
+        (<span class="var-type"></span>&nbsp;<span class="var-name">$input</span>)
+        </div>
+    <div class="method-definition">
+            <span class="method-result">void</span>
+        <a href="#methodencodeForOS" title="details" class="method-name">encodeForOS</a>
+        (<span class="var-type"></span>&nbsp;<span class="var-name">$codec</span>, <span class="var-type"></span>&nbsp;<span class="var-name">$input</span>)
+        </div>
+    <div class="method-definition">
+            <span class="method-result">void</span>
+        <a href="#methodencodeForSQL" title="details" class="method-name">encodeForSQL</a>
+        (<span class="var-type"></span>&nbsp;<span class="var-name">$codec</span>, <span class="var-type"></span>&nbsp;<span class="var-name">$input</span>)
+        </div>
+    <div class="method-definition">
+            <span class="method-result">void</span>
+        <a href="#methodencodeForURL" title="details" class="method-name">encodeForURL</a>
+        (<span class="var-type"></span>&nbsp;<span class="var-name">$input</span>)
+        </div>
+    <div class="method-definition">
+            <span class="method-result">void</span>
+        <a href="#methodencodeForVBScript" title="details" class="method-name">encodeForVBScript</a>
+        (<span class="var-type"></span>&nbsp;<span class="var-name">$input</span>)
+        </div>
+    <div class="method-definition">
+            <span class="method-result">void</span>
+        <a href="#methodencodeForXML" title="details" class="method-name">encodeForXML</a>
+        (<span class="var-type"></span>&nbsp;<span class="var-name">$input</span>)
+        </div>
+    <div class="method-definition">
+            <span class="method-result">void</span>
+        <a href="#methodencodeForXMLAttribute" title="details" class="method-name">encodeForXMLAttribute</a>
+        (<span class="var-type"></span>&nbsp;<span class="var-name">$input</span>)
+        </div>
+    <div class="method-definition">
+            <span class="method-result">void</span>
+        <a href="#methodencodeForXPath" title="details" class="method-name">encodeForXPath</a>
+        (<span class="var-type"></span>&nbsp;<span class="var-name">$input</span>)
+        </div>
+</div>
+<hr />
+<A NAME='method_detail'></A>
 
 
+<a name="method__construct" id="method__construct"><!-- --></a>
+<div style="background='#ffffff'"><h4>
+<img src="../media/images/Constructor.gif" border="0" /> <strong class="method">Constructor __construct</strong> (line <span class="linenumber">87</span>)
+ </h4> 
+<h4><i>does</i> <strong>__construct(
+[array
+$_codecs = null])</strong></h4>
 
-
-	<a name="sec-method-summary"></a>
-	<div class="info-box">
-		<div class="info-box-title">Method Summary</span></div>
-		<div class="nav-bar">
-			<a href="#sec-description">Description</a> |
-												<span class="disabled">Methods</span> (<a href="#sec-methods">details</a>)
-		</div>
-		<div class="info-box-body">			
-			<div class="method-summary">
-																																																																																																																																				
-												<div class="method-definition">
-											<span class="method-result">does</span>
-										<a href="#__construct" title="details" class="method-name">__construct</a>
-											([<span class="var-type">array</span>&nbsp;<span class="var-name">$_codecs</span> = <span class="var-default">null</span>])
-									</div>
-																<div class="method-definition">
-											<span class="method-result">void</span>
-										<a href="#canonicalize" title="details" class="method-name">canonicalize</a>
-											(<span class="var-type"></span>&nbsp;<span class="var-name">$input</span>, [<span class="var-type"></span>&nbsp;<span class="var-name">$strict</span> = <span class="var-default">true</span>])
-									</div>
-																<div class="method-definition">
-											<span class="method-result">void</span>
-										<a href="#decodeFromBase64" title="details" class="method-name">decodeFromBase64</a>
-											(<span class="var-type"></span>&nbsp;<span class="var-name">$input</span>)
-									</div>
-																<div class="method-definition">
-											<span class="method-result">void</span>
-										<a href="#decodeFromURL" title="details" class="method-name">decodeFromURL</a>
-											(<span class="var-type"></span>&nbsp;<span class="var-name">$input</span>)
-									</div>
-																<div class="method-definition">
-											<span class="method-result">void</span>
-										<a href="#encodeForBase64" title="details" class="method-name">encodeForBase64</a>
-											(<span class="var-type"></span>&nbsp;<span class="var-name">$input</span>, [<span class="var-type"></span>&nbsp;<span class="var-name">$wrap</span> = <span class="var-default">true</span>])
-									</div>
-																<div class="method-definition">
-											<span class="method-result">void</span>
-										<a href="#encodeForCSS" title="details" class="method-name">encodeForCSS</a>
-											(<span class="var-type"></span>&nbsp;<span class="var-name">$input</span>)
-									</div>
-																<div class="method-definition">
-											<span class="method-result">void</span>
-										<a href="#encodeForHTML" title="details" class="method-name">encodeForHTML</a>
-											(<span class="var-type"></span>&nbsp;<span class="var-name">$input</span>)
-									</div>
-																<div class="method-definition">
-											<span class="method-result">void</span>
-										<a href="#encodeForHTMLAttribute" title="details" class="method-name">encodeForHTMLAttribute</a>
-											(<span class="var-type"></span>&nbsp;<span class="var-name">$input</span>)
-									</div>
-																<div class="method-definition">
-											<span class="method-result">void</span>
-										<a href="#encodeForJavaScript" title="details" class="method-name">encodeForJavaScript</a>
-											(<span class="var-type"></span>&nbsp;<span class="var-name">$input</span>)
-									</div>
-																<div class="method-definition">
-											<span class="method-result">void</span>
-										<a href="#encodeForOS" title="details" class="method-name">encodeForOS</a>
-											(<span class="var-type"></span>&nbsp;<span class="var-name">$codec</span>, <span class="var-type"></span>&nbsp;<span class="var-name">$input</span>)
-									</div>
-																<div class="method-definition">
-											<span class="method-result">void</span>
-										<a href="#encodeForSQL" title="details" class="method-name">encodeForSQL</a>
-											(<span class="var-type"></span>&nbsp;<span class="var-name">$codec</span>, <span class="var-type"></span>&nbsp;<span class="var-name">$input</span>)
-									</div>
-																<div class="method-definition">
-											<span class="method-result">void</span>
-										<a href="#encodeForURL" title="details" class="method-name">encodeForURL</a>
-											(<span class="var-type"></span>&nbsp;<span class="var-name">$input</span>)
-									</div>
-																<div class="method-definition">
-											<span class="method-result">void</span>
-										<a href="#encodeForVBScript" title="details" class="method-name">encodeForVBScript</a>
-											(<span class="var-type"></span>&nbsp;<span class="var-name">$input</span>)
-									</div>
-																<div class="method-definition">
-											<span class="method-result">void</span>
-										<a href="#encodeForXML" title="details" class="method-name">encodeForXML</a>
-											(<span class="var-type"></span>&nbsp;<span class="var-name">$input</span>)
-									</div>
-																<div class="method-definition">
-											<span class="method-result">void</span>
-										<a href="#encodeForXMLAttribute" title="details" class="method-name">encodeForXMLAttribute</a>
-											(<span class="var-type"></span>&nbsp;<span class="var-name">$input</span>)
-									</div>
-																<div class="method-definition">
-											<span class="method-result">void</span>
-										<a href="#encodeForXPath" title="details" class="method-name">encodeForXPath</a>
-											(<span class="var-type"></span>&nbsp;<span class="var-name">$input</span>)
-									</div>
-								</div>
-		</div>
-	</div>		
-
-	
-	<a name="sec-methods"></a>
-	<div class="info-box">
-		<div class="info-box-title">Methods</div>
-		<div class="nav-bar">
-			<a href="#sec-description">Description</a> |
-																<a href="#sec-method-summary">Methods</a> (<span class="disabled">details</span>)
-						
-		</div>
-		<div class="info-box-body">
-			<A NAME='method_detail'></A>
-
-<a name="method__construct" id="__construct"><!-- --></a>
-<div class="evenrow">
-	
-	<div class="method-header">
-		<span class="method-title">Constructor __construct</span> (line <span class="line-number">87</span>)
-	</div> 
-	
 	<!-- ========== Info from phpDoc block ========= -->
-<p class="short-description">Encoder constructor.</p>
-	<ul class="tags">
-				<li><span class="field">return:</span> not return a value.</li>
-			</ul>
-	
-	<div class="method-signature">
-		<span class="method-result">does</span>
-		<span class="method-name">
-			__construct
-		</span>
-					([<span class="var-type">array</span>&nbsp;<span class="var-name">$_codecs</span> = <span class="var-default">null</span>])
-			</div>
-	
-			<ul class="parameters">
-					<li>
-				<span class="var-type">array</span>
-				<span class="var-name">$_codecs</span><span class="var-description">: An array of Codec instances which will be used for                        canonicalization.</span>			</li>
-				</ul>
+<h5>Encoder constructor.</h5>
+		<h4>Parameters</h4>
+	<ul>
+			<li><strong>array $_codecs</strong>: An array of Codec instances which will be used for                        canonicalization.</li>
+		</ul>
 		
-			
-	</div>
-<a name="methodcanonicalize" id="canonicalize"><!-- --></a>
-<div class="oddrow">
-	
-	<div class="method-header">
-		<span class="method-title">canonicalize</span> (line <span class="line-number">131</span>)
-	</div> 
-	
-	<!-- ========== Info from phpDoc block ========= -->
-	
-	<div class="method-signature">
-		<span class="method-result">void</span>
-		<span class="method-name">
-			canonicalize
-		</span>
-					(<span class="var-type"></span>&nbsp;<span class="var-name">$input</span>, [<span class="var-type"></span>&nbsp;<span class="var-name">$strict</span> = <span class="var-default">true</span>])
-			</div>
-	
-			<ul class="parameters">
-					<li>
-				<span class="var-type"></span>
-				<span class="var-name">$input</span>			</li>
-					<li>
-				<span class="var-type"></span>
-				<span class="var-name">$strict</span>			</li>
-				</ul>
-		
-				<hr class="separator" />
+	<h4>Info</h4>
+	<ul>
+			<li><strong>return</strong> - not return a value.</li>
+		</ul>
+</div>
+<a name="methodcanonicalize" id="methodcanonicalize"><!-- --></a>
+<div style="background='#eeeeee'"><h4>
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method canonicalize</strong> (line <span class="linenumber">131</span>)
+ </h4> 
+<h4><i>void</i> <strong>canonicalize(
+
+$input, [
+$strict = true])</strong></h4>
+
+			<hr class="separator" />
 		<div class="notes">Implementation of:</div>
 			<dl>
 			<dt><a href="../ESAPI/Encoder.html#methodcanonicalize">Encoder::canonicalize()</a></dt>
 						<dd>Data canonicalization.</dd>
 					</dl>
-			
-	</div>
-<a name="methoddecodeFromBase64" id="decodeFromBase64"><!-- --></a>
-<div class="evenrow">
-	
-	<div class="method-header">
-		<span class="method-title">decodeFromBase64</span> (line <span class="line-number">420</span>)
-	</div> 
-	
-	<!-- ========== Info from phpDoc block ========= -->
-	
-	<div class="method-signature">
-		<span class="method-result">void</span>
-		<span class="method-name">
-			decodeFromBase64
-		</span>
-					(<span class="var-type"></span>&nbsp;<span class="var-name">$input</span>)
-			</div>
-	
-			<ul class="parameters">
-					<li>
-				<span class="var-type"></span>
-				<span class="var-name">$input</span>			</li>
-				</ul>
+		<!-- ========== Info from phpDoc block ========= -->
+		<h4>Parameters</h4>
+	<ul>
+			<li><strong> $input</strong>: </li>
+			<li><strong> $strict</strong>: </li>
+		</ul>
 		
-				<hr class="separator" />
+	<h4>Info</h4>
+	<ul>
+		</ul>
+</div>
+<a name="methoddecodeFromBase64" id="methoddecodeFromBase64"><!-- --></a>
+<div style="background='#ffffff'"><h4>
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method decodeFromBase64</strong> (line <span class="linenumber">420</span>)
+ </h4> 
+<h4><i>void</i> <strong>decodeFromBase64(
+
+$input)</strong></h4>
+
+			<hr class="separator" />
 		<div class="notes">Implementation of:</div>
 			<dl>
 			<dt><a href="../ESAPI/Encoder.html#methoddecodeFromBase64">Encoder::decodeFromBase64()</a></dt>
 						<dd>Decode data encoded with Base64 encoding.</dd>
 					</dl>
-			
-	</div>
-<a name="methoddecodeFromURL" id="decodeFromURL"><!-- --></a>
-<div class="oddrow">
-	
-	<div class="method-header">
-		<span class="method-title">decodeFromURL</span> (line <span class="line-number">377</span>)
-	</div> 
-	
-	<!-- ========== Info from phpDoc block ========= -->
-	
-	<div class="method-signature">
-		<span class="method-result">void</span>
-		<span class="method-name">
-			decodeFromURL
-		</span>
-					(<span class="var-type"></span>&nbsp;<span class="var-name">$input</span>)
-			</div>
-	
-			<ul class="parameters">
-					<li>
-				<span class="var-type"></span>
-				<span class="var-name">$input</span>			</li>
-				</ul>
+		<!-- ========== Info from phpDoc block ========= -->
+		<h4>Parameters</h4>
+	<ul>
+			<li><strong> $input</strong>: </li>
+		</ul>
 		
-				<hr class="separator" />
+	<h4>Info</h4>
+	<ul>
+		</ul>
+</div>
+<a name="methoddecodeFromURL" id="methoddecodeFromURL"><!-- --></a>
+<div style="background='#eeeeee'"><h4>
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method decodeFromURL</strong> (line <span class="linenumber">377</span>)
+ </h4> 
+<h4><i>void</i> <strong>decodeFromURL(
+
+$input)</strong></h4>
+
+			<hr class="separator" />
 		<div class="notes">Implementation of:</div>
 			<dl>
 			<dt><a href="../ESAPI/Encoder.html#methoddecodeFromURL">Encoder::decodeFromURL()</a></dt>
 						<dd>Decode from URL. Implementations should first canonicalize and detect any  double-encoding. If this check passes, then the data is decoded using URL  decoding.</dd>
 					</dl>
-			
-	</div>
-<a name="methodencodeForBase64" id="encodeForBase64"><!-- --></a>
-<div class="evenrow">
-	
-	<div class="method-header">
-		<span class="method-title">encodeForBase64</span> (line <span class="line-number">408</span>)
-	</div> 
-	
-	<!-- ========== Info from phpDoc block ========= -->
-	
-	<div class="method-signature">
-		<span class="method-result">void</span>
-		<span class="method-name">
-			encodeForBase64
-		</span>
-					(<span class="var-type"></span>&nbsp;<span class="var-name">$input</span>, [<span class="var-type"></span>&nbsp;<span class="var-name">$wrap</span> = <span class="var-default">true</span>])
-			</div>
-	
-			<ul class="parameters">
-					<li>
-				<span class="var-type"></span>
-				<span class="var-name">$input</span>			</li>
-					<li>
-				<span class="var-type"></span>
-				<span class="var-name">$wrap</span>			</li>
-				</ul>
+		<!-- ========== Info from phpDoc block ========= -->
+		<h4>Parameters</h4>
+	<ul>
+			<li><strong> $input</strong>: </li>
+		</ul>
 		
-				<hr class="separator" />
+	<h4>Info</h4>
+	<ul>
+		</ul>
+</div>
+<a name="methodencodeForBase64" id="methodencodeForBase64"><!-- --></a>
+<div style="background='#ffffff'"><h4>
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method encodeForBase64</strong> (line <span class="linenumber">408</span>)
+ </h4> 
+<h4><i>void</i> <strong>encodeForBase64(
+
+$input, [
+$wrap = true])</strong></h4>
+
+			<hr class="separator" />
 		<div class="notes">Implementation of:</div>
 			<dl>
 			<dt><a href="../ESAPI/Encoder.html#methodencodeForBase64">Encoder::encodeForBase64()</a></dt>
 						<dd>Encode data with Base64 encoding.</dd>
 					</dl>
-			
-	</div>
-<a name="methodencodeForCSS" id="encodeForCSS"><!-- --></a>
-<div class="oddrow">
-	
-	<div class="method-header">
-		<span class="method-title">encodeForCSS</span> (line <span class="line-number">204</span>)
-	</div> 
-	
-	<!-- ========== Info from phpDoc block ========= -->
-	
-	<div class="method-signature">
-		<span class="method-result">void</span>
-		<span class="method-name">
-			encodeForCSS
-		</span>
-					(<span class="var-type"></span>&nbsp;<span class="var-name">$input</span>)
-			</div>
-	
-			<ul class="parameters">
-					<li>
-				<span class="var-type"></span>
-				<span class="var-name">$input</span>			</li>
-				</ul>
+		<!-- ========== Info from phpDoc block ========= -->
+		<h4>Parameters</h4>
+	<ul>
+			<li><strong> $input</strong>: </li>
+			<li><strong> $wrap</strong>: </li>
+		</ul>
 		
-				<hr class="separator" />
+	<h4>Info</h4>
+	<ul>
+		</ul>
+</div>
+<a name="methodencodeForCSS" id="methodencodeForCSS"><!-- --></a>
+<div style="background='#eeeeee'"><h4>
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method encodeForCSS</strong> (line <span class="linenumber">204</span>)
+ </h4> 
+<h4><i>void</i> <strong>encodeForCSS(
+
+$input)</strong></h4>
+
+			<hr class="separator" />
 		<div class="notes">Implementation of:</div>
 			<dl>
 			<dt><a href="../ESAPI/Encoder.html#methodencodeForCSS">Encoder::encodeForCSS()</a></dt>
 						<dd>Encode data for use in Cascading Style Sheets (CSS) content.</dd>
 					</dl>
-			
-	</div>
-<a name="methodencodeForHTML" id="encodeForHTML"><!-- --></a>
-<div class="evenrow">
-	
-	<div class="method-header">
-		<span class="method-title">encodeForHTML</span> (line <span class="line-number">216</span>)
-	</div> 
-	
-	<!-- ========== Info from phpDoc block ========= -->
-	
-	<div class="method-signature">
-		<span class="method-result">void</span>
-		<span class="method-name">
-			encodeForHTML
-		</span>
-					(<span class="var-type"></span>&nbsp;<span class="var-name">$input</span>)
-			</div>
-	
-			<ul class="parameters">
-					<li>
-				<span class="var-type"></span>
-				<span class="var-name">$input</span>			</li>
-				</ul>
+		<!-- ========== Info from phpDoc block ========= -->
+		<h4>Parameters</h4>
+	<ul>
+			<li><strong> $input</strong>: </li>
+		</ul>
 		
-				<hr class="separator" />
+	<h4>Info</h4>
+	<ul>
+		</ul>
+</div>
+<a name="methodencodeForHTML" id="methodencodeForHTML"><!-- --></a>
+<div style="background='#ffffff'"><h4>
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method encodeForHTML</strong> (line <span class="linenumber">216</span>)
+ </h4> 
+<h4><i>void</i> <strong>encodeForHTML(
+
+$input)</strong></h4>
+
+			<hr class="separator" />
 		<div class="notes">Implementation of:</div>
 			<dl>
 			<dt><a href="../ESAPI/Encoder.html#methodencodeForHTML">Encoder::encodeForHTML()</a></dt>
 						<dd>Encode data for use in HTML using HTML entity encoding</dd>
 					</dl>
-			
-	</div>
-<a name="methodencodeForHTMLAttribute" id="encodeForHTMLAttribute"><!-- --></a>
-<div class="oddrow">
-	
-	<div class="method-header">
-		<span class="method-title">encodeForHTMLAttribute</span> (line <span class="line-number">228</span>)
-	</div> 
-	
-	<!-- ========== Info from phpDoc block ========= -->
-	
-	<div class="method-signature">
-		<span class="method-result">void</span>
-		<span class="method-name">
-			encodeForHTMLAttribute
-		</span>
-					(<span class="var-type"></span>&nbsp;<span class="var-name">$input</span>)
-			</div>
-	
-			<ul class="parameters">
-					<li>
-				<span class="var-type"></span>
-				<span class="var-name">$input</span>			</li>
-				</ul>
+		<!-- ========== Info from phpDoc block ========= -->
+		<h4>Parameters</h4>
+	<ul>
+			<li><strong> $input</strong>: </li>
+		</ul>
 		
-				<hr class="separator" />
+	<h4>Info</h4>
+	<ul>
+		</ul>
+</div>
+<a name="methodencodeForHTMLAttribute" id="methodencodeForHTMLAttribute"><!-- --></a>
+<div style="background='#eeeeee'"><h4>
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method encodeForHTMLAttribute</strong> (line <span class="linenumber">228</span>)
+ </h4> 
+<h4><i>void</i> <strong>encodeForHTMLAttribute(
+
+$input)</strong></h4>
+
+			<hr class="separator" />
 		<div class="notes">Implementation of:</div>
 			<dl>
 			<dt><a href="../ESAPI/Encoder.html#methodencodeForHTMLAttribute">Encoder::encodeForHTMLAttribute()</a></dt>
 						<dd>Encode data for use in HTML attributes.</dd>
 					</dl>
-			
-	</div>
-<a name="methodencodeForJavaScript" id="encodeForJavaScript"><!-- --></a>
-<div class="evenrow">
-	
-	<div class="method-header">
-		<span class="method-title">encodeForJavaScript</span> (line <span class="line-number">240</span>)
-	</div> 
-	
-	<!-- ========== Info from phpDoc block ========= -->
-	
-	<div class="method-signature">
-		<span class="method-result">void</span>
-		<span class="method-name">
-			encodeForJavaScript
-		</span>
-					(<span class="var-type"></span>&nbsp;<span class="var-name">$input</span>)
-			</div>
-	
-			<ul class="parameters">
-					<li>
-				<span class="var-type"></span>
-				<span class="var-name">$input</span>			</li>
-				</ul>
+		<!-- ========== Info from phpDoc block ========= -->
+		<h4>Parameters</h4>
+	<ul>
+			<li><strong> $input</strong>: </li>
+		</ul>
 		
-				<hr class="separator" />
+	<h4>Info</h4>
+	<ul>
+		</ul>
+</div>
+<a name="methodencodeForJavaScript" id="methodencodeForJavaScript"><!-- --></a>
+<div style="background='#ffffff'"><h4>
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method encodeForJavaScript</strong> (line <span class="linenumber">240</span>)
+ </h4> 
+<h4><i>void</i> <strong>encodeForJavaScript(
+
+$input)</strong></h4>
+
+			<hr class="separator" />
 		<div class="notes">Implementation of:</div>
 			<dl>
 			<dt><a href="../ESAPI/Encoder.html#methodencodeForJavaScript">Encoder::encodeForJavaScript()</a></dt>
 						<dd>Encode data for insertion inside a data value in JavaScript. Putting user  data directly inside a script is quite dangerous. Great care must be  taken to prevent putting user data directly into script code itself, as  no amount of encoding will prevent attacks there.</dd>
 					</dl>
-			
-	</div>
-<a name="methodencodeForOS" id="encodeForOS"><!-- --></a>
-<div class="oddrow">
-	
-	<div class="method-header">
-		<span class="method-title">encodeForOS</span> (line <span class="line-number">276</span>)
-	</div> 
-	
-	<!-- ========== Info from phpDoc block ========= -->
-	
-	<div class="method-signature">
-		<span class="method-result">void</span>
-		<span class="method-name">
-			encodeForOS
-		</span>
-					(<span class="var-type"></span>&nbsp;<span class="var-name">$codec</span>, <span class="var-type"></span>&nbsp;<span class="var-name">$input</span>)
-			</div>
-	
-			<ul class="parameters">
-					<li>
-				<span class="var-type"></span>
-				<span class="var-name">$codec</span>			</li>
-					<li>
-				<span class="var-type"></span>
-				<span class="var-name">$input</span>			</li>
-				</ul>
+		<!-- ========== Info from phpDoc block ========= -->
+		<h4>Parameters</h4>
+	<ul>
+			<li><strong> $input</strong>: </li>
+		</ul>
 		
-				<hr class="separator" />
+	<h4>Info</h4>
+	<ul>
+		</ul>
+</div>
+<a name="methodencodeForOS" id="methodencodeForOS"><!-- --></a>
+<div style="background='#eeeeee'"><h4>
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method encodeForOS</strong> (line <span class="linenumber">276</span>)
+ </h4> 
+<h4><i>void</i> <strong>encodeForOS(
+
+$codec, 
+$input)</strong></h4>
+
+			<hr class="separator" />
 		<div class="notes">Implementation of:</div>
 			<dl>
 			<dt><a href="../ESAPI/Encoder.html#methodencodeForOS">Encoder::encodeForOS()</a></dt>
 						<dd>Encode for an operating system command shell according to the selected  codec (appropriate codecs include the WindowsCodec and UnixCodec).</dd>
 					</dl>
-			
-	</div>
-<a name="methodencodeForSQL" id="encodeForSQL"><!-- --></a>
-<div class="evenrow">
-	
-	<div class="method-header">
-		<span class="method-title">encodeForSQL</span> (line <span class="line-number">264</span>)
-	</div> 
-	
-	<!-- ========== Info from phpDoc block ========= -->
-	
-	<div class="method-signature">
-		<span class="method-result">void</span>
-		<span class="method-name">
-			encodeForSQL
-		</span>
-					(<span class="var-type"></span>&nbsp;<span class="var-name">$codec</span>, <span class="var-type"></span>&nbsp;<span class="var-name">$input</span>)
-			</div>
-	
-			<ul class="parameters">
-					<li>
-				<span class="var-type"></span>
-				<span class="var-name">$codec</span>			</li>
-					<li>
-				<span class="var-type"></span>
-				<span class="var-name">$input</span>			</li>
-				</ul>
+		<!-- ========== Info from phpDoc block ========= -->
+		<h4>Parameters</h4>
+	<ul>
+			<li><strong> $codec</strong>: </li>
+			<li><strong> $input</strong>: </li>
+		</ul>
 		
-				<hr class="separator" />
+	<h4>Info</h4>
+	<ul>
+		</ul>
+</div>
+<a name="methodencodeForSQL" id="methodencodeForSQL"><!-- --></a>
+<div style="background='#ffffff'"><h4>
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method encodeForSQL</strong> (line <span class="linenumber">264</span>)
+ </h4> 
+<h4><i>void</i> <strong>encodeForSQL(
+
+$codec, 
+$input)</strong></h4>
+
+			<hr class="separator" />
 		<div class="notes">Implementation of:</div>
 			<dl>
 			<dt><a href="../ESAPI/Encoder.html#methodencodeForSQL">Encoder::encodeForSQL()</a></dt>
 						<dd>Encode input for use in a SQL query, according to the selected codec  (appropriate codecs include the MySQLCodec and OracleCodec).</dd>
 					</dl>
-			
-	</div>
-<a name="methodencodeForURL" id="encodeForURL"><!-- --></a>
-<div class="oddrow">
-	
-	<div class="method-header">
-		<span class="method-title">encodeForURL</span> (line <span class="line-number">334</span>)
-	</div> 
-	
-	<!-- ========== Info from phpDoc block ========= -->
-	
-	<div class="method-signature">
-		<span class="method-result">void</span>
-		<span class="method-name">
-			encodeForURL
-		</span>
-					(<span class="var-type"></span>&nbsp;<span class="var-name">$input</span>)
-			</div>
-	
-			<ul class="parameters">
-					<li>
-				<span class="var-type"></span>
-				<span class="var-name">$input</span>			</li>
-				</ul>
+		<!-- ========== Info from phpDoc block ========= -->
+		<h4>Parameters</h4>
+	<ul>
+			<li><strong> $codec</strong>: </li>
+			<li><strong> $input</strong>: </li>
+		</ul>
 		
-				<hr class="separator" />
+	<h4>Info</h4>
+	<ul>
+		</ul>
+</div>
+<a name="methodencodeForURL" id="methodencodeForURL"><!-- --></a>
+<div style="background='#eeeeee'"><h4>
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method encodeForURL</strong> (line <span class="linenumber">334</span>)
+ </h4> 
+<h4><i>void</i> <strong>encodeForURL(
+
+$input)</strong></h4>
+
+			<hr class="separator" />
 		<div class="notes">Implementation of:</div>
 			<dl>
 			<dt><a href="../ESAPI/Encoder.html#methodencodeForURL">Encoder::encodeForURL()</a></dt>
 						<dd>Encode for use in a URL. This method performs &lt;a  href=&quot;http://en.wikipedia.org/wiki/Percent-encoding&quot;&gt;URL encoding&lt;/a&gt;  on the entire string.</dd>
 					</dl>
-			
-	</div>
-<a name="methodencodeForVBScript" id="encodeForVBScript"><!-- --></a>
-<div class="evenrow">
-	
-	<div class="method-header">
-		<span class="method-title">encodeForVBScript</span> (line <span class="line-number">252</span>)
-	</div> 
-	
-	<!-- ========== Info from phpDoc block ========= -->
-	
-	<div class="method-signature">
-		<span class="method-result">void</span>
-		<span class="method-name">
-			encodeForVBScript
-		</span>
-					(<span class="var-type"></span>&nbsp;<span class="var-name">$input</span>)
-			</div>
-	
-			<ul class="parameters">
-					<li>
-				<span class="var-type"></span>
-				<span class="var-name">$input</span>			</li>
-				</ul>
+		<!-- ========== Info from phpDoc block ========= -->
+		<h4>Parameters</h4>
+	<ul>
+			<li><strong> $input</strong>: </li>
+		</ul>
 		
-				<hr class="separator" />
+	<h4>Info</h4>
+	<ul>
+		</ul>
+</div>
+<a name="methodencodeForVBScript" id="methodencodeForVBScript"><!-- --></a>
+<div style="background='#ffffff'"><h4>
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method encodeForVBScript</strong> (line <span class="linenumber">252</span>)
+ </h4> 
+<h4><i>void</i> <strong>encodeForVBScript(
+
+$input)</strong></h4>
+
+			<hr class="separator" />
 		<div class="notes">Implementation of:</div>
 			<dl>
 			<dt><a href="../ESAPI/Encoder.html#methodencodeForVBScript">Encoder::encodeForVBScript()</a></dt>
 						<dd>Encode data for insertion inside a data value in a Visual Basic script.</dd>
 					</dl>
-			
-	</div>
-<a name="methodencodeForXML" id="encodeForXML"><!-- --></a>
-<div class="oddrow">
-	
-	<div class="method-header">
-		<span class="method-title">encodeForXML</span> (line <span class="line-number">308</span>)
-	</div> 
-	
-	<!-- ========== Info from phpDoc block ========= -->
-	
-	<div class="method-signature">
-		<span class="method-result">void</span>
-		<span class="method-name">
-			encodeForXML
-		</span>
-					(<span class="var-type"></span>&nbsp;<span class="var-name">$input</span>)
-			</div>
-	
-			<ul class="parameters">
-					<li>
-				<span class="var-type"></span>
-				<span class="var-name">$input</span>			</li>
-				</ul>
+		<!-- ========== Info from phpDoc block ========= -->
+		<h4>Parameters</h4>
+	<ul>
+			<li><strong> $input</strong>: </li>
+		</ul>
 		
-				<hr class="separator" />
+	<h4>Info</h4>
+	<ul>
+		</ul>
+</div>
+<a name="methodencodeForXML" id="methodencodeForXML"><!-- --></a>
+<div style="background='#eeeeee'"><h4>
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method encodeForXML</strong> (line <span class="linenumber">308</span>)
+ </h4> 
+<h4><i>void</i> <strong>encodeForXML(
+
+$input)</strong></h4>
+
+			<hr class="separator" />
 		<div class="notes">Implementation of:</div>
 			<dl>
 			<dt><a href="../ESAPI/Encoder.html#methodencodeForXML">Encoder::encodeForXML()</a></dt>
 						<dd>Encode data for use in an XML element. The implementation should follow  the &lt;a href=&quot;http://www.w3schools.com/xml/xml_encoding.asp&quot;&gt;XML Encoding  Standard&lt;/a&gt; from the W3C.</dd>
 					</dl>
-			
-	</div>
-<a name="methodencodeForXMLAttribute" id="encodeForXMLAttribute"><!-- --></a>
-<div class="evenrow">
-	
-	<div class="method-header">
-		<span class="method-title">encodeForXMLAttribute</span> (line <span class="line-number">321</span>)
-	</div> 
-	
-	<!-- ========== Info from phpDoc block ========= -->
-	
-	<div class="method-signature">
-		<span class="method-result">void</span>
-		<span class="method-name">
-			encodeForXMLAttribute
-		</span>
-					(<span class="var-type"></span>&nbsp;<span class="var-name">$input</span>)
-			</div>
-	
-			<ul class="parameters">
-					<li>
-				<span class="var-type"></span>
-				<span class="var-name">$input</span>			</li>
-				</ul>
+		<!-- ========== Info from phpDoc block ========= -->
+		<h4>Parameters</h4>
+	<ul>
+			<li><strong> $input</strong>: </li>
+		</ul>
 		
-				<hr class="separator" />
+	<h4>Info</h4>
+	<ul>
+		</ul>
+</div>
+<a name="methodencodeForXMLAttribute" id="methodencodeForXMLAttribute"><!-- --></a>
+<div style="background='#ffffff'"><h4>
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method encodeForXMLAttribute</strong> (line <span class="linenumber">321</span>)
+ </h4> 
+<h4><i>void</i> <strong>encodeForXMLAttribute(
+
+$input)</strong></h4>
+
+			<hr class="separator" />
 		<div class="notes">Implementation of:</div>
 			<dl>
 			<dt><a href="../ESAPI/Encoder.html#methodencodeForXMLAttribute">Encoder::encodeForXMLAttribute()</a></dt>
 						<dd>Encode data for use in an XML attribute. The implementation should follow  the &lt;a href=&quot;http://www.w3schools.com/xml/xml_encoding.asp&quot;&gt;XML Encoding  Standard&lt;/a&gt; from the W3C.</dd>
 					</dl>
-			
-	</div>
-<a name="methodencodeForXPath" id="encodeForXPath"><!-- --></a>
-<div class="oddrow">
-	
-	<div class="method-header">
-		<span class="method-title">encodeForXPath</span> (line <span class="line-number">296</span>)
-	</div> 
-	
-	<!-- ========== Info from phpDoc block ========= -->
-	
-	<div class="method-signature">
-		<span class="method-result">void</span>
-		<span class="method-name">
-			encodeForXPath
-		</span>
-					(<span class="var-type"></span>&nbsp;<span class="var-name">$input</span>)
-			</div>
-	
-			<ul class="parameters">
-					<li>
-				<span class="var-type"></span>
-				<span class="var-name">$input</span>			</li>
-				</ul>
+		<!-- ========== Info from phpDoc block ========= -->
+		<h4>Parameters</h4>
+	<ul>
+			<li><strong> $input</strong>: </li>
+		</ul>
 		
-				<hr class="separator" />
+	<h4>Info</h4>
+	<ul>
+		</ul>
+</div>
+<a name="methodencodeForXPath" id="methodencodeForXPath"><!-- --></a>
+<div style="background='#eeeeee'"><h4>
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method encodeForXPath</strong> (line <span class="linenumber">296</span>)
+ </h4> 
+<h4><i>void</i> <strong>encodeForXPath(
+
+$input)</strong></h4>
+
+			<hr class="separator" />
 		<div class="notes">Implementation of:</div>
 			<dl>
 			<dt><a href="../ESAPI/Encoder.html#methodencodeForXPath">Encoder::encodeForXPath()</a></dt>
 						<dd>Encode data for use in an XPath query.</dd>
 					</dl>
-			
-	</div>
-						
-		</div>
-	</div>
+		<!-- ========== Info from phpDoc block ========= -->
+		<h4>Parameters</h4>
+	<ul>
+			<li><strong> $input</strong>: </li>
+		</ul>
+		
+	<h4>Info</h4>
+	<ul>
+		</ul>
+</div>
+<script type="text/javascript">tp1.addTabPage( document.getElementById( "tabPage2" ) );</script></div>
+<div class="tab-page" id="iVars">
+<h2 class="tab">Inherited Variables</h2>
+<script type="text/javascript">tp1.addTabPage( document.getElementById( "iVars" ) );</script>
+<!-- =========== VAR INHERITED SUMMARY =========== -->
+<A NAME='var_inherited_summary'><!-- --></A>
+<h3>Inherited Class Variable Summary</h3>
 
+	</div>
+<div class="tab-page" id="iMethods">
+<h2 class="tab">Inherited Methods</h2>
+<script type="text/javascript">tp1.addTabPage( document.getElementById( "iMethods" ) );</script>
+<!-- =========== INHERITED METHOD SUMMARY =========== -->
+<A NAME='functions_inherited'><!-- --></A>
+<h3>Inherited Method Summary</h3>
 
-	<p class="notes" id="credit">
-		Documentation generated on Fri, 16 Apr 2010 12:01:57 -0400 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
-	</p>
-	</div></body>
+	</div>
+</div>
+<script type="text/javascript">
+//<![CDATA[
+
+setupAllTabs();
+
+//]]>
+</script>
+	<div id="credit">
+		<hr />
+		Documentation generated on Fri, 16 Apr 2010 13:57:59 -0400 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
+	</div>
+</body>
 </html>

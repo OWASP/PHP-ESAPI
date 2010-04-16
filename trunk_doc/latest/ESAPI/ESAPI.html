@@ -1,1025 +1,840 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-  <html xmlns="http://www.w3.org/1999/xhtml">
-		<head>
-			<!-- template designed by Marco Von Ballmoos -->
-			<title>Docs For Class ESAPI</title>
-			<link rel="stylesheet" href="../media/stylesheet.css" />
-			<meta http-equiv='Content-Type' content='text/html; charset=iso-8859-1'/>
-		</head>
-		<body>
-			<div class="page-body">			
-<h2 class="class-name">Class ESAPI</h2>
-
-<a name="sec-description"></a>
-<div class="info-box">
-	<div class="info-box-title">Description</div>
-	<div class="nav-bar">
-					<span class="disabled">Description</span> |
-															<a href="#sec-method-summary">Methods</a> (<a href="#sec-methods">details</a>)
-						
-					</div>
-	<div class="info-box-body">
-        		<!-- ========== Info from phpDoc block ========= -->
-<p class="short-description">ESAPI locator class is provided to make it easy to gain access to the current  ESAPI classes in use. Use the set methods to override the reference  implementations with instances of any custom ESAPI implementations.</p>
-	<ul class="tags">
-				<li><span class="field">author:</span> Mike Boberski &lt;<a href="mailto:boberski_michael@bah.com">boberski_michael@bah.com</a>&gt;</li>
-				<li><span class="field">author:</span> Rogan Dawes &lt;<a href="mailto:rogan@dawes.za.net">rogan@dawes.za.net</a>&gt;</li>
-				<li><span class="field">author:</span> Mike Fauzy &lt;<a href="mailto:mike.fauzy@aspectsecurity.com">mike.fauzy@aspectsecurity.com</a>&gt;</li>
-				<li><span class="field">author:</span> Andrew van der Stock &lt;<a href="mailto:vanderaj@owasp.org">vanderaj@owasp.org</a>&gt;</li>
-				<li><span class="field">author:</span> Bipin Upadhyay &lt;<a href="mailto:bipin.code@gmail.com">bipin.code@gmail.com</a>&gt;</li>
-				<li><span class="field">version:</span> Release: @package_version@</li>
-				<li><span class="field">copyright:</span> 2009-2010 The OWASP Foundation</li>
-				<li><span class="field">link:</span> <a href="http://www.owasp.org/index.php/ESAPI">http://www.owasp.org/index.php/ESAPI</a></li>
-				<li><span class="field">license:</span> <a href="http://www.opensource.org/licenses/bsd-license.php">New BSD license</a></li>
-			</ul>
-		<p class="notes">
-			Located in <a class="field" href="_ESAPI.php.html">/ESAPI.php</a> (line <span class="field">44</span>)
-		</p>
-		
-				
-		<pre></pre>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+   <html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <title>Docs For Class ESAPI</title>
+  <link rel="stylesheet" href="../media/stylesheet.css" />
+  <script src="../media/lib/classTree.js"></script>
+<link id="webfx-tab-style-sheet" type="text/css" rel="stylesheet" href="../media/lib/tab.webfx.css" />
+<script type="text/javascript" src="../media/lib/tabpane.js"></script>
+  <script language="javascript" type="text/javascript" src="../media/lib/ua.js"></script>
+<script language="javascript" type="text/javascript">
+	var imgPlus = new Image();
+	var imgMinus = new Image();
+	imgPlus.src = "../media/images/plus.gif";
+	imgMinus.src = "../media/images/minus.gif";
 	
-			</div>
+	function showNode(Node){
+        switch(navigator.family){
+        	case 'nn4':
+        		// Nav 4.x code fork...
+				var oTable = document.layers["span" + Node];
+				var oImg = document.layers["img" + Node];
+        		break;
+        	case 'ie4':
+        		// IE 4/5 code fork...
+				var oTable = document.all["span" + Node];
+				var oImg = document.all["img" + Node];
+        		break;
+        	case 'gecko':
+        		// Standards Compliant code fork...
+				var oTable = document.getElementById("span" + Node);
+				var oImg = document.getElementById("img" + Node);
+        		break;
+        }
+		oImg.src = imgMinus.src;
+		oTable.style.display = "block";
+	}
+	
+	function hideNode(Node){
+        switch(navigator.family){
+        	case 'nn4':
+        		// Nav 4.x code fork...
+				var oTable = document.layers["span" + Node];
+				var oImg = document.layers["img" + Node];
+        		break;
+        	case 'ie4':
+        		// IE 4/5 code fork...
+				var oTable = document.all["span" + Node];
+				var oImg = document.all["img" + Node];
+        		break;
+        	case 'gecko':
+        		// Standards Compliant code fork...
+				var oTable = document.getElementById("span" + Node);
+				var oImg = document.getElementById("img" + Node);
+        		break;
+        }
+		oImg.src = imgPlus.src;
+		oTable.style.display = "none";
+	}
+	
+	function nodeIsVisible(Node){
+        switch(navigator.family){
+        	case 'nn4':
+        		// Nav 4.x code fork...
+				var oTable = document.layers["span" + Node];
+        		break;
+        	case 'ie4':
+        		// IE 4/5 code fork...
+				var oTable = document.all["span" + Node];
+        		break;
+        	case 'gecko':
+        		// Standards Compliant code fork...
+				var oTable = document.getElementById("span" + Node);
+        		break;
+        }
+		return (oTable && oTable.style.display == "block");
+	}
+	
+	function toggleNodeVisibility(Node){
+		if (nodeIsVisible(Node)){
+			hideNode(Node);
+		}else{
+			showNode(Node);
+		}
+	}
+</script>
+<!-- template designed by Julien Damon based on PHPEdit's generated templates, and tweaked by Greg Beaver -->
+<body bgcolor="#ffffff" ><!-- Start of Class Data -->
+<h2>
+	Class ESAPI
+</h2> (line <span class="linenumber">44</span>)
+<div class="tab-pane" id="tabPane1">
+<script type="text/javascript">
+tp1 = new WebFXTabPane( document.getElementById( "tabPane1" ));
+</script>
+
+<div class="tab-page" id="Description">
+<h2 class="tab">Description</h2>
+<pre>
+</pre>
+<p>
+	<b><i>Located in File: <a href="_ESAPI.php.html">/ESAPI.php</a></i></b><br>
+</p>
+<!-- ========== Info from phpDoc block ========= -->
+<h5>ESAPI locator class is provided to make it easy to gain access to the current  ESAPI classes in use. Use the set methods to override the reference  implementations with instances of any custom ESAPI implementations.</h5>
+<ul>
+		<li><strong>author:</strong> - Mike Boberski &lt;<a href="mailto:boberski_michael@bah.com">boberski_michael@bah.com</a>&gt;</li>
+		<li><strong>author:</strong> - Rogan Dawes &lt;<a href="mailto:rogan@dawes.za.net">rogan@dawes.za.net</a>&gt;</li>
+		<li><strong>author:</strong> - Mike Fauzy &lt;<a href="mailto:mike.fauzy@aspectsecurity.com">mike.fauzy@aspectsecurity.com</a>&gt;</li>
+		<li><strong>author:</strong> - Andrew van der Stock &lt;<a href="mailto:vanderaj@owasp.org">vanderaj@owasp.org</a>&gt;</li>
+		<li><strong>author:</strong> - Bipin Upadhyay &lt;<a href="mailto:bipin.code@gmail.com">bipin.code@gmail.com</a>&gt;</li>
+		<li><strong>version:</strong> - Release: @package_version@</li>
+		<li><strong>copyright:</strong> - 2009-2010 The OWASP Foundation</li>
+		<li><strong>link:</strong> - <a href="http://www.owasp.org/index.php/ESAPI">http://www.owasp.org/index.php/ESAPI</a></li>
+		<li><strong>license:</strong> - <a href="http://www.opensource.org/licenses/bsd-license.php">New BSD license</a></li>
+	</ul>
+<br /><hr />
 </div>
+<script type="text/javascript">tp1.addTabPage( document.getElementById( "Description" ) );</script>
+<div class="tab-page" id="tabPage1">
+
+<h2 class="tab">Class Variables</h2>
+<!-- ============ VARIABLE DETAIL =========== -->
+<strong>Summary:</strong><br />
+<hr />
+<script type="text/javascript">tp1.addTabPage( document.getElementById( "tabPage1" ) );</script>
+</div>
+<div class="tab-page" id="constantsTabpage">
+
+<h2 class="tab">Class Constants</h2>
+<!-- ============ VARIABLE DETAIL =========== -->
+<strong>Summary:</strong><br />
+<hr />
+<script type="text/javascript">tp1.addTabPage( document.getElementById( "constantsTabpage" ) );</script>
+</div>
+<div class="tab-page" id="tabPage2">
+<h2 class="tab">Method Detail</h2>
+<!-- ============ METHOD DETAIL =========== -->
+<strong>Summary:</strong><br />
+<div class="method-summary">
+    <div class="method-definition">
+    static         <span class="method-result">the</span>
+        <a href="#methodcurrentRequest" title="details" class="method-name">currentRequest</a>
+        ()
+        </div>
+    <div class="method-definition">
+    static         <span class="method-result">the</span>
+        <a href="#methodcurrentResponse" title="details" class="method-name">currentResponse</a>
+        ()
+        </div>
+    <div class="method-definition">
+    static         <span class="method-result">the</span>
+        <a href="#methodgetAccessController" title="details" class="method-name">getAccessController</a>
+        ()
+        </div>
+    <div class="method-definition">
+    static         <span class="method-result">the</span>
+        <a href="#methodgetAdapter" title="details" class="method-name">getAdapter</a>
+        ()
+        </div>
+    <div class="method-definition">
+    static         <span class="method-result">the</span>
+        <a href="#methodgetAuditor" title="details" class="method-name">getAuditor</a>
+        (<span class="var-type">string</span>&nbsp;<span class="var-name">$logger</span>)
+        </div>
+    <div class="method-definition">
+    static         <span class="method-result">the</span>
+        <a href="#methodgetEncoder" title="details" class="method-name">getEncoder</a>
+        ()
+        </div>
+    <div class="method-definition">
+    static         <span class="method-result">the</span>
+        <a href="#methodgetEncryptor" title="details" class="method-name">getEncryptor</a>
+        ()
+        </div>
+    <div class="method-definition">
+    static         <span class="method-result">the</span>
+        <a href="#methodgetExecutor" title="details" class="method-name">getExecutor</a>
+        ()
+        </div>
+    <div class="method-definition">
+    static         <span class="method-result">the</span>
+        <a href="#methodgetHttpUtilities" title="details" class="method-name">getHttpUtilities</a>
+        ()
+        </div>
+    <div class="method-definition">
+    static         <span class="method-result">the</span>
+        <a href="#methodgetIntrusionDetector" title="details" class="method-name">getIntrusionDetector</a>
+        ()
+        </div>
+    <div class="method-definition">
+    static         <span class="method-result">the</span>
+        <a href="#methodgetRandomizer" title="details" class="method-name">getRandomizer</a>
+        ()
+        </div>
+    <div class="method-definition">
+    static         <span class="method-result">the</span>
+        <a href="#methodgetSanitizer" title="details" class="method-name">getSanitizer</a>
+        ()
+        </div>
+    <div class="method-definition">
+    static         <span class="method-result">the</span>
+        <a href="#methodgetSecurityConfiguration" title="details" class="method-name">getSecurityConfiguration</a>
+        ([<span class="var-type">string</span>&nbsp;<span class="var-name">$path</span> = <span class="var-default">''</span>])
+        </div>
+    <div class="method-definition">
+    static         <span class="method-result">the</span>
+        <a href="#methodgetValidator" title="details" class="method-name">getValidator</a>
+        ()
+        </div>
+    <div class="method-definition">
+    static         <span class="method-result">the</span>
+        <a href="#methodlog" title="details" class="method-name">log</a>
+        ()
+        </div>
+    <div class="method-definition">
+    static         <span class="method-result">does</span>
+        <a href="#methodsetAccessController" title="details" class="method-name">setAccessController</a>
+        (<span class="var-type"><a href="../ESAPI/AccessController.html">AccessController</a></span>&nbsp;<span class="var-name">$accessController</span>)
+        </div>
+    <div class="method-definition">
+    static         <span class="method-result">does</span>
+        <a href="#methodsetAdapter" title="details" class="method-name">setAdapter</a>
+        (<span class="var-type">Adapter</span>&nbsp;<span class="var-name">$adapter</span>)
+        </div>
+    <div class="method-definition">
+    static         <span class="method-result">does</span>
+        <a href="#methodsetAuditorFactory" title="details" class="method-name">setAuditorFactory</a>
+        (<span class="var-type">string</span>&nbsp;<span class="var-name">$factory</span>)
+        </div>
+    <div class="method-definition">
+    static         <span class="method-result">does</span>
+        <a href="#methodsetEncoder" title="details" class="method-name">setEncoder</a>
+        (<span class="var-type"><a href="../ESAPI/Encoder.html">Encoder</a></span>&nbsp;<span class="var-name">$encoder</span>)
+        </div>
+    <div class="method-definition">
+    static         <span class="method-result">does</span>
+        <a href="#methodsetEncryptor" title="details" class="method-name">setEncryptor</a>
+        (<span class="var-type">Encryptor</span>&nbsp;<span class="var-name">$encryptor</span>)
+        </div>
+    <div class="method-definition">
+    static         <span class="method-result">does</span>
+        <a href="#methodsetExecutor" title="details" class="method-name">setExecutor</a>
+        (<span class="var-type"><a href="../ESAPI/Executor.html">Executor</a></span>&nbsp;<span class="var-name">$executor</span>)
+        </div>
+    <div class="method-definition">
+    static         <span class="method-result">does</span>
+        <a href="#methodsetHttpUtilities" title="details" class="method-name">setHttpUtilities</a>
+        (<span class="var-type">HttpUtilities</span>&nbsp;<span class="var-name">$httpUtilities</span>)
+        </div>
+    <div class="method-definition">
+    static         <span class="method-result">does</span>
+        <a href="#methodsetIntrusionDetector" title="details" class="method-name">setIntrusionDetector</a>
+        (<span class="var-type"><a href="../ESAPI/IntrusionDetector.html">IntrusionDetector</a></span>&nbsp;<span class="var-name">$intrusionDetector</span>)
+        </div>
+    <div class="method-definition">
+    static         <span class="method-result">does</span>
+        <a href="#methodsetRandomizer" title="details" class="method-name">setRandomizer</a>
+        (<span class="var-type"><a href="../ESAPI/Randomizer.html">Randomizer</a></span>&nbsp;<span class="var-name">$randomizer</span>)
+        </div>
+    <div class="method-definition">
+    static         <span class="method-result">does</span>
+        <a href="#methodsetSanitizer" title="details" class="method-name">setSanitizer</a>
+        (<span class="var-type"><a href="../ESAPI/Sanitizer.html">Sanitizer</a></span>&nbsp;<span class="var-name">$sanitizer</span>)
+        </div>
+    <div class="method-definition">
+    static         <span class="method-result">does</span>
+        <a href="#methodsetSecurityConfiguration" title="details" class="method-name">setSecurityConfiguration</a>
+        (<span class="var-type"><a href="../ESAPI/SecurityConfiguration.html">SecurityConfiguration</a></span>&nbsp;<span class="var-name">$securityConfiguration</span>)
+        </div>
+    <div class="method-definition">
+    static         <span class="method-result">does</span>
+        <a href="#methodsetValidator" title="details" class="method-name">setValidator</a>
+        (<span class="var-type"><a href="../ESAPI/Validator.html">Validator</a></span>&nbsp;<span class="var-name">$validator</span>)
+        </div>
+    <div class="method-definition">
+            <span class="method-result">ESAPI</span>
+        <a href="#method__construct" title="details" class="method-name">__construct</a>
+        ([<span class="var-type">string</span>&nbsp;<span class="var-name">$path</span> = <span class="var-default">''</span>])
+        </div>
+</div>
+<hr />
+<A NAME='method_detail'></A>
 
 
+<a name="methodcurrentRequest" id="methodcurrentRequest"><!-- --></a>
+<div style="background='#ffffff'"><h4>
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Static Method currentRequest</strong> (line <span class="linenumber">80</span>)
+ </h4> 
+<h4><i>the</i> <strong>currentRequest(
+)</strong></h4>
 
+	<!-- ========== Info from phpDoc block ========= -->
+<h5>Get the current HTTP Servlet Request being processed.</h5>
+		
+	<h4>Info</h4>
+	<ul>
+			<li><strong>return</strong> - current HTTP Servlet Request.</li>
+			<li><strong>access</strong> - public</li>
+		</ul>
+</div>
+<a name="methodcurrentResponse" id="methodcurrentResponse"><!-- --></a>
+<div style="background='#eeeeee'"><h4>
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Static Method currentResponse</strong> (line <span class="linenumber">90</span>)
+ </h4> 
+<h4><i>the</i> <strong>currentResponse(
+)</strong></h4>
 
-	<a name="sec-method-summary"></a>
-	<div class="info-box">
-		<div class="info-box-title">Method Summary</span></div>
-		<div class="nav-bar">
-			<a href="#sec-description">Description</a> |
-												<span class="disabled">Methods</span> (<a href="#sec-methods">details</a>)
-		</div>
-		<div class="info-box-body">			
-			<div class="method-summary">
-																				<div class="method-definition">
-					static 						<span class="method-result">the</span>
-										<a href="#currentRequest" title="details" class="method-name">currentRequest</a>
-										()
-									</div>
-																<div class="method-definition">
-					static 						<span class="method-result">the</span>
-										<a href="#currentResponse" title="details" class="method-name">currentResponse</a>
-										()
-									</div>
-																<div class="method-definition">
-					static 						<span class="method-result">the</span>
-										<a href="#getAccessController" title="details" class="method-name">getAccessController</a>
-										()
-									</div>
-																<div class="method-definition">
-					static 						<span class="method-result">the</span>
-										<a href="#getAdapter" title="details" class="method-name">getAdapter</a>
-										()
-									</div>
-																<div class="method-definition">
-					static 						<span class="method-result">the</span>
-										<a href="#getAuditor" title="details" class="method-name">getAuditor</a>
-											(<span class="var-type">string</span>&nbsp;<span class="var-name">$logger</span>)
-									</div>
-																<div class="method-definition">
-					static 						<span class="method-result">the</span>
-										<a href="#getEncoder" title="details" class="method-name">getEncoder</a>
-										()
-									</div>
-																<div class="method-definition">
-					static 						<span class="method-result">the</span>
-										<a href="#getEncryptor" title="details" class="method-name">getEncryptor</a>
-										()
-									</div>
-																<div class="method-definition">
-					static 						<span class="method-result">the</span>
-										<a href="#getExecutor" title="details" class="method-name">getExecutor</a>
-										()
-									</div>
-																<div class="method-definition">
-					static 						<span class="method-result">the</span>
-										<a href="#getHttpUtilities" title="details" class="method-name">getHttpUtilities</a>
-										()
-									</div>
-																<div class="method-definition">
-					static 						<span class="method-result">the</span>
-										<a href="#getIntrusionDetector" title="details" class="method-name">getIntrusionDetector</a>
-										()
-									</div>
-																<div class="method-definition">
-					static 						<span class="method-result">the</span>
-										<a href="#getRandomizer" title="details" class="method-name">getRandomizer</a>
-										()
-									</div>
-																<div class="method-definition">
-					static 						<span class="method-result">the</span>
-										<a href="#getSanitizer" title="details" class="method-name">getSanitizer</a>
-										()
-									</div>
-																<div class="method-definition">
-					static 						<span class="method-result">the</span>
-										<a href="#getSecurityConfiguration" title="details" class="method-name">getSecurityConfiguration</a>
-											([<span class="var-type">string</span>&nbsp;<span class="var-name">$path</span> = <span class="var-default">''</span>])
-									</div>
-																<div class="method-definition">
-					static 						<span class="method-result">the</span>
-										<a href="#getValidator" title="details" class="method-name">getValidator</a>
-										()
-									</div>
-																<div class="method-definition">
-					static 						<span class="method-result">the</span>
-										<a href="#log" title="details" class="method-name">log</a>
-										()
-									</div>
-																<div class="method-definition">
-					static 						<span class="method-result">does</span>
-										<a href="#setAccessController" title="details" class="method-name">setAccessController</a>
-											(<span class="var-type"><a href="../ESAPI/AccessController.html">AccessController</a></span>&nbsp;<span class="var-name">$accessController</span>)
-									</div>
-																<div class="method-definition">
-					static 						<span class="method-result">does</span>
-										<a href="#setAdapter" title="details" class="method-name">setAdapter</a>
-											(<span class="var-type">Adapter</span>&nbsp;<span class="var-name">$adapter</span>)
-									</div>
-																<div class="method-definition">
-					static 						<span class="method-result">does</span>
-										<a href="#setAuditorFactory" title="details" class="method-name">setAuditorFactory</a>
-											(<span class="var-type">string</span>&nbsp;<span class="var-name">$factory</span>)
-									</div>
-																<div class="method-definition">
-					static 						<span class="method-result">does</span>
-										<a href="#setEncoder" title="details" class="method-name">setEncoder</a>
-											(<span class="var-type"><a href="../ESAPI/Encoder.html">Encoder</a></span>&nbsp;<span class="var-name">$encoder</span>)
-									</div>
-																<div class="method-definition">
-					static 						<span class="method-result">does</span>
-										<a href="#setEncryptor" title="details" class="method-name">setEncryptor</a>
-											(<span class="var-type">Encryptor</span>&nbsp;<span class="var-name">$encryptor</span>)
-									</div>
-																<div class="method-definition">
-					static 						<span class="method-result">does</span>
-										<a href="#setExecutor" title="details" class="method-name">setExecutor</a>
-											(<span class="var-type"><a href="../ESAPI/Executor.html">Executor</a></span>&nbsp;<span class="var-name">$executor</span>)
-									</div>
-																<div class="method-definition">
-					static 						<span class="method-result">does</span>
-										<a href="#setHttpUtilities" title="details" class="method-name">setHttpUtilities</a>
-											(<span class="var-type">HttpUtilities</span>&nbsp;<span class="var-name">$httpUtilities</span>)
-									</div>
-																<div class="method-definition">
-					static 						<span class="method-result">does</span>
-										<a href="#setIntrusionDetector" title="details" class="method-name">setIntrusionDetector</a>
-											(<span class="var-type"><a href="../ESAPI/IntrusionDetector.html">IntrusionDetector</a></span>&nbsp;<span class="var-name">$intrusionDetector</span>)
-									</div>
-																<div class="method-definition">
-					static 						<span class="method-result">does</span>
-										<a href="#setRandomizer" title="details" class="method-name">setRandomizer</a>
-											(<span class="var-type"><a href="../ESAPI/Randomizer.html">Randomizer</a></span>&nbsp;<span class="var-name">$randomizer</span>)
-									</div>
-																<div class="method-definition">
-					static 						<span class="method-result">does</span>
-										<a href="#setSanitizer" title="details" class="method-name">setSanitizer</a>
-											(<span class="var-type"><a href="../ESAPI/Sanitizer.html">Sanitizer</a></span>&nbsp;<span class="var-name">$sanitizer</span>)
-									</div>
-																<div class="method-definition">
-					static 						<span class="method-result">does</span>
-										<a href="#setSecurityConfiguration" title="details" class="method-name">setSecurityConfiguration</a>
-											(<span class="var-type"><a href="../ESAPI/SecurityConfiguration.html">SecurityConfiguration</a></span>&nbsp;<span class="var-name">$securityConfiguration</span>)
-									</div>
-																<div class="method-definition">
-					static 						<span class="method-result">does</span>
-										<a href="#setValidator" title="details" class="method-name">setValidator</a>
-											(<span class="var-type"><a href="../ESAPI/Validator.html">Validator</a></span>&nbsp;<span class="var-name">$validator</span>)
-									</div>
-								
-												<div class="method-definition">
-											<span class="method-result">ESAPI</span>
-										<a href="#__construct" title="details" class="method-name">__construct</a>
-											([<span class="var-type">string</span>&nbsp;<span class="var-name">$path</span> = <span class="var-default">''</span>])
-									</div>
-																																																																																																																																																																																																																																</div>
-		</div>
-	</div>		
+	<!-- ========== Info from phpDoc block ========= -->
+<h5>Get the current HTTP Servlet Response being generated.</h5>
+		
+	<h4>Info</h4>
+	<ul>
+			<li><strong>return</strong> - current HTTP Servlet Response.</li>
+			<li><strong>access</strong> - public</li>
+		</ul>
+</div>
+<a name="methodgetAccessController" id="methodgetAccessController"><!-- --></a>
+<div style="background='#ffffff'"><h4>
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Static Method getAccessController</strong> (line <span class="linenumber">101</span>)
+ </h4> 
+<h4><i>the</i> <strong>getAccessController(
+)</strong></h4>
 
-	
-	<a name="sec-methods"></a>
-	<div class="info-box">
-		<div class="info-box-title">Methods</div>
-		<div class="nav-bar">
-			<a href="#sec-description">Description</a> |
-																<a href="#sec-method-summary">Methods</a> (<span class="disabled">details</span>)
-						
-		</div>
-		<div class="info-box-body">
-			<A NAME='method_detail'></A>
-<a name="methodcurrentRequest" id="currentRequest"><!-- --></a>
-<div class="evenrow">
-	
-	<div class="method-header">
-		<span class="method-title">static method currentRequest</span> (line <span class="line-number">80</span>)
-	</div> 
-	
 	<!-- ========== Info from phpDoc block ========= -->
-<p class="short-description">Get the current HTTP Servlet Request being processed.</p>
-	<ul class="tags">
-				<li><span class="field">return:</span> current HTTP Servlet Request.</li>
-				<li><span class="field">access:</span> public</li>
-			</ul>
-	
-	<div class="method-signature">
-	    static
-		<span class="method-result">the</span>
-		<span class="method-name">
-			currentRequest
-		</span>
-				()
-			</div>
-	
+<h5>Get the current ESAPI AccessController object being used to maintain the  access control rules for this application.</h5>
 		
-			
-	</div>
-<a name="methodcurrentResponse" id="currentResponse"><!-- --></a>
-<div class="oddrow">
-	
-	<div class="method-header">
-		<span class="method-title">static method currentResponse</span> (line <span class="line-number">90</span>)
-	</div> 
-	
-	<!-- ========== Info from phpDoc block ========= -->
-<p class="short-description">Get the current HTTP Servlet Response being generated.</p>
-	<ul class="tags">
-				<li><span class="field">return:</span> current HTTP Servlet Response.</li>
-				<li><span class="field">access:</span> public</li>
-			</ul>
-	
-	<div class="method-signature">
-	    static
-		<span class="method-result">the</span>
-		<span class="method-name">
-			currentResponse
-		</span>
-				()
-			</div>
-	
-		
-			
-	</div>
-<a name="methodgetAccessController" id="getAccessController"><!-- --></a>
-<div class="evenrow">
-	
-	<div class="method-header">
-		<span class="method-title">static method getAccessController</span> (line <span class="line-number">101</span>)
-	</div> 
-	
-	<!-- ========== Info from phpDoc block ========= -->
-<p class="short-description">Get the current ESAPI AccessController object being used to maintain the  access control rules for this application.</p>
-	<ul class="tags">
-				<li><span class="field">return:</span> current ESAPI AccessController.</li>
-				<li><span class="field">access:</span> public</li>
-			</ul>
-	
-	<div class="method-signature">
-	    static
-		<span class="method-result">the</span>
-		<span class="method-name">
-			getAccessController
-		</span>
-				()
-			</div>
-	
-		
-			
-	</div>
-<a name="methodgetAdapter" id="getAdapter"><!-- --></a>
-<div class="oddrow">
-	
-	<div class="method-header">
-		<span class="method-title">static method getAdapter</span> (line <span class="line-number">452</span>)
-	</div> 
-	
-	<!-- ========== Info from phpDoc block ========= -->
-<p class="short-description">Get the current ESAPI Adapter object being used to wrap ESAPI functions  for this application.</p>
-	<ul class="tags">
-				<li><span class="field">return:</span> current ESAPI Adapter.</li>
-				<li><span class="field">access:</span> public</li>
-			</ul>
-	
-	<div class="method-signature">
-	    static
-		<span class="method-result">the</span>
-		<span class="method-name">
-			getAdapter
-		</span>
-				()
-			</div>
-	
-		
-			
-	</div>
-<a name="methodgetAuditor" id="getAuditor"><!-- --></a>
-<div class="evenrow">
-	
-	<div class="method-header">
-		<span class="method-title">static method getAuditor</span> (line <span class="line-number">283</span>)
-	</div> 
-	
-	<!-- ========== Info from phpDoc block ========= -->
-<p class="short-description">Set then get the current ESAPI Logger factory object being used to create  the ESAPI Logger for this application.</p>
-	<ul class="tags">
-				<li><span class="field">return:</span> current ESAPI Logger.</li>
-				<li><span class="field">access:</span> public</li>
-			</ul>
-	
-	<div class="method-signature">
-	    static
-		<span class="method-result">the</span>
-		<span class="method-name">
-			getAuditor
-		</span>
-					(<span class="var-type">string</span>&nbsp;<span class="var-name">$logger</span>)
-			</div>
-	
-			<ul class="parameters">
-					<li>
-				<span class="var-type">string</span>
-				<span class="var-name">$logger</span><span class="var-description">: the new ESAPI Auditor factory name.</span>			</li>
-				</ul>
-		
-			
-	</div>
-<a name="methodgetEncoder" id="getEncoder"><!-- --></a>
-<div class="oddrow">
-	
-	<div class="method-header">
-		<span class="method-title">static method getEncoder</span> (line <span class="line-number">131</span>)
-	</div> 
-	
-	<!-- ========== Info from phpDoc block ========= -->
-<p class="short-description">Get the current ESAPI Encoder object being used to encode and decode data for  this application</p>
-	<ul class="tags">
-				<li><span class="field">return:</span> current ESAPI Encoder.</li>
-				<li><span class="field">access:</span> public</li>
-			</ul>
-	
-	<div class="method-signature">
-	    static
-		<span class="method-result">the</span>
-		<span class="method-name">
-			getEncoder
-		</span>
-				()
-			</div>
-	
-		
-			
-	</div>
-<a name="methodgetEncryptor" id="getEncryptor"><!-- --></a>
-<div class="evenrow">
-	
-	<div class="method-header">
-		<span class="method-title">static method getEncryptor</span> (line <span class="line-number">161</span>)
-	</div> 
-	
-	<!-- ========== Info from phpDoc block ========= -->
-<p class="short-description">Get the current ESAPI Encryptor object being used to encrypt and decrypt data  for this application.</p>
-	<ul class="tags">
-				<li><span class="field">return:</span> current ESAPI Encryptor.</li>
-				<li><span class="field">access:</span> public</li>
-			</ul>
-	
-	<div class="method-signature">
-	    static
-		<span class="method-result">the</span>
-		<span class="method-name">
-			getEncryptor
-		</span>
-				()
-			</div>
-	
-		
-			
-	</div>
-<a name="methodgetExecutor" id="getExecutor"><!-- --></a>
-<div class="oddrow">
-	
-	<div class="method-header">
-		<span class="method-title">static method getExecutor</span> (line <span class="line-number">191</span>)
-	</div> 
-	
-	<!-- ========== Info from phpDoc block ========= -->
-<p class="short-description">Get the current ESAPI Executor object being used to safely execute OS  commands for this application.</p>
-	<ul class="tags">
-				<li><span class="field">return:</span> current ESAPI Executor.</li>
-				<li><span class="field">access:</span> public</li>
-			</ul>
-	
-	<div class="method-signature">
-	    static
-		<span class="method-result">the</span>
-		<span class="method-name">
-			getExecutor
-		</span>
-				()
-			</div>
-	
-		
-			
-	</div>
-<a name="methodgetHttpUtilities" id="getHttpUtilities"><!-- --></a>
-<div class="evenrow">
-	
-	<div class="method-header">
-		<span class="method-title">static method getHttpUtilities</span> (line <span class="line-number">221</span>)
-	</div> 
-	
-	<!-- ========== Info from phpDoc block ========= -->
-<p class="short-description">Get the current ESAPI HTTPUtilities object being used to safely access HTTP  requests and responses for this application.</p>
-	<ul class="tags">
-				<li><span class="field">return:</span> current ESAPI HTTPUtilities.</li>
-				<li><span class="field">access:</span> public</li>
-			</ul>
-	
-	<div class="method-signature">
-	    static
-		<span class="method-result">the</span>
-		<span class="method-name">
-			getHttpUtilities
-		</span>
-				()
-			</div>
-	
-		
-			
-	</div>
-<a name="methodgetIntrusionDetector" id="getIntrusionDetector"><!-- --></a>
-<div class="oddrow">
-	
-	<div class="method-header">
-		<span class="method-title">static method getIntrusionDetector</span> (line <span class="line-number">251</span>)
-	</div> 
-	
-	<!-- ========== Info from phpDoc block ========= -->
-<p class="short-description">Get the current ESAPI IntrusionDetector object being used to monitor for  intrusions in this application.</p>
-	<ul class="tags">
-				<li><span class="field">return:</span> current ESAPI IntrusionDetector.</li>
-				<li><span class="field">access:</span> public</li>
-			</ul>
-	
-	<div class="method-signature">
-	    static
-		<span class="method-result">the</span>
-		<span class="method-name">
-			getIntrusionDetector
-		</span>
-				()
-			</div>
-	
-		
-			
-	</div>
-<a name="methodgetRandomizer" id="getRandomizer"><!-- --></a>
-<div class="evenrow">
-	
-	<div class="method-header">
-		<span class="method-title">static method getRandomizer</span> (line <span class="line-number">327</span>)
-	</div> 
-	
-	<!-- ========== Info from phpDoc block ========= -->
-<p class="short-description">Get the current ESAPI Randomizer object being used to generate random numbers  for this application.</p>
-	<ul class="tags">
-				<li><span class="field">return:</span> current ESAPI Randomizer.</li>
-				<li><span class="field">access:</span> public</li>
-			</ul>
-	
-	<div class="method-signature">
-	    static
-		<span class="method-result">the</span>
-		<span class="method-name">
-			getRandomizer
-		</span>
-				()
-			</div>
-	
-		
-			
-	</div>
-<a name="methodgetSanitizer" id="getSanitizer"><!-- --></a>
-<div class="oddrow">
-	
-	<div class="method-header">
-		<span class="method-title">static method getSanitizer</span> (line <span class="line-number">420</span>)
-	</div> 
-	
-	<!-- ========== Info from phpDoc block ========= -->
-<p class="short-description">Get the current ESAPI Sanitizer object being used to sanitize data for  this application.</p>
-	<ul class="tags">
-				<li><span class="field">return:</span> current ESAPI Sanitizer.</li>
-				<li><span class="field">access:</span> public</li>
-			</ul>
-	
-	<div class="method-signature">
-	    static
-		<span class="method-result">the</span>
-		<span class="method-name">
-			getSanitizer
-		</span>
-				()
-			</div>
-	
-		
-			
-	</div>
-<a name="methodgetSecurityConfiguration" id="getSecurityConfiguration"><!-- --></a>
-<div class="evenrow">
-	
-	<div class="method-header">
-		<span class="method-title">static method getSecurityConfiguration</span> (line <span class="line-number">359</span>)
-	</div> 
-	
-	<!-- ========== Info from phpDoc block ========= -->
-<p class="short-description">Get the current ESAPI SecurityConfiguration object being used to manage the  security configuration for this application.</p>
-	<ul class="tags">
-				<li><span class="field">return:</span> current ESAPI SecurityConfiguration.</li>
-				<li><span class="field">access:</span> public</li>
-			</ul>
-	
-	<div class="method-signature">
-	    static
-		<span class="method-result">the</span>
-		<span class="method-name">
-			getSecurityConfiguration
-		</span>
-					([<span class="var-type">string</span>&nbsp;<span class="var-name">$path</span> = <span class="var-default">''</span>])
-			</div>
-	
-			<ul class="parameters">
-					<li>
-				<span class="var-type">string</span>
-				<span class="var-name">$path</span><span class="var-description">: the path of the ESAPI.xml configuration file.</span>			</li>
-				</ul>
-		
-			
-	</div>
-<a name="methodgetValidator" id="getValidator"><!-- --></a>
-<div class="oddrow">
-	
-	<div class="method-header">
-		<span class="method-title">static method getValidator</span> (line <span class="line-number">390</span>)
-	</div> 
-	
-	<!-- ========== Info from phpDoc block ========= -->
-<p class="short-description">Get the current ESAPI Validator object being used to validate data for this  application.</p>
-	<ul class="tags">
-				<li><span class="field">return:</span> current ESAPI Validator.</li>
-				<li><span class="field">access:</span> public</li>
-			</ul>
-	
-	<div class="method-signature">
-	    static
-		<span class="method-result">the</span>
-		<span class="method-name">
-			getValidator
-		</span>
-				()
-			</div>
-	
-		
-			
-	</div>
-<a name="methodlog" id="log"><!-- --></a>
-<div class="evenrow">
-	
-	<div class="method-header">
-		<span class="method-title">static method log</span> (line <span class="line-number">299</span>)
-	</div> 
-	
-	<!-- ========== Info from phpDoc block ========= -->
-<p class="short-description">Get the current ESAPI Auditor object being used to to audit security-relevant  events for this application.</p>
-	<ul class="tags">
-				<li><span class="field">return:</span> current ESAPI Logger.</li>
-				<li><span class="field">access:</span> public</li>
-			</ul>
-	
-	<div class="method-signature">
-	    static
-		<span class="method-result">the</span>
-		<span class="method-name">
-			log
-		</span>
-				()
-			</div>
-	
-		
-			
-	</div>
-<a name="methodsetAccessController" id="setAccessController"><!-- --></a>
-<div class="oddrow">
-	
-	<div class="method-header">
-		<span class="method-title">static method setAccessController</span> (line <span class="line-number">120</span>)
-	</div> 
-	
-	<!-- ========== Info from phpDoc block ========= -->
-<p class="short-description">Set the current ESAPI AccessController object being used to maintain the  access control rules for this application.</p>
-	<ul class="tags">
-				<li><span class="field">return:</span> not return a value.</li>
-				<li><span class="field">access:</span> public</li>
-			</ul>
-	
-	<div class="method-signature">
-	    static
-		<span class="method-result">does</span>
-		<span class="method-name">
-			setAccessController
-		</span>
-					(<span class="var-type"><a href="../ESAPI/AccessController.html">AccessController</a></span>&nbsp;<span class="var-name">$accessController</span>)
-			</div>
-	
-			<ul class="parameters">
-					<li>
-				<span class="var-type"><a href="../ESAPI/AccessController.html">AccessController</a></span>
-				<span class="var-name">$accessController</span><span class="var-description">: the new ESAPI AccessController.</span>			</li>
-				</ul>
-		
-			
-	</div>
-<a name="methodsetAdapter" id="setAdapter"><!-- --></a>
-<div class="evenrow">
-	
-	<div class="method-header">
-		<span class="method-title">static method setAdapter</span> (line <span class="line-number">471</span>)
-	</div> 
-	
-	<!-- ========== Info from phpDoc block ========= -->
-<p class="short-description">Set the current ESAPI AccessController object being used to wrap ESAPI  functions for this application.</p>
-	<ul class="tags">
-				<li><span class="field">return:</span> not return a value.</li>
-				<li><span class="field">access:</span> public</li>
-			</ul>
-	
-	<div class="method-signature">
-	    static
-		<span class="method-result">does</span>
-		<span class="method-name">
-			setAdapter
-		</span>
-					(<span class="var-type">Adapter</span>&nbsp;<span class="var-name">$adapter</span>)
-			</div>
-	
-			<ul class="parameters">
-					<li>
-				<span class="var-type">Adapter</span>
-				<span class="var-name">$adapter</span><span class="var-description">: the new ESAPI Adapter.</span>			</li>
-				</ul>
-		
-			
-	</div>
-<a name="methodsetAuditorFactory" id="setAuditorFactory"><!-- --></a>
-<div class="oddrow">
-	
-	<div class="method-header">
-		<span class="method-title">static method setAuditorFactory</span> (line <span class="line-number">315</span>)
-	</div> 
-	
-	<!-- ========== Info from phpDoc block ========= -->
-<p class="short-description">Set the current ESAPI Logger factory object being used to create  the ESAPI Logger for this application.</p>
-	<ul class="tags">
-				<li><span class="field">return:</span> not return a value.</li>
-				<li><span class="field">access:</span> public</li>
-			</ul>
-	
-	<div class="method-signature">
-	    static
-		<span class="method-result">does</span>
-		<span class="method-name">
-			setAuditorFactory
-		</span>
-					(<span class="var-type">string</span>&nbsp;<span class="var-name">$factory</span>)
-			</div>
-	
-			<ul class="parameters">
-					<li>
-				<span class="var-type">string</span>
-				<span class="var-name">$factory</span><span class="var-description">: the new ESAPI Logger factory.</span>			</li>
-				</ul>
-		
-			
-	</div>
-<a name="methodsetEncoder" id="setEncoder"><!-- --></a>
-<div class="evenrow">
-	
-	<div class="method-header">
-		<span class="method-title">static method setEncoder</span> (line <span class="line-number">150</span>)
-	</div> 
-	
-	<!-- ========== Info from phpDoc block ========= -->
-<p class="short-description">Set the current ESAPI Encoder object being used to encode and decode data  for this application.</p>
-	<ul class="tags">
-				<li><span class="field">return:</span> not return a value.</li>
-				<li><span class="field">access:</span> public</li>
-			</ul>
-	
-	<div class="method-signature">
-	    static
-		<span class="method-result">does</span>
-		<span class="method-name">
-			setEncoder
-		</span>
-					(<span class="var-type"><a href="../ESAPI/Encoder.html">Encoder</a></span>&nbsp;<span class="var-name">$encoder</span>)
-			</div>
-	
-			<ul class="parameters">
-					<li>
-				<span class="var-type"><a href="../ESAPI/Encoder.html">Encoder</a></span>
-				<span class="var-name">$encoder</span><span class="var-description">: the new ESAPI AccessController.</span>			</li>
-				</ul>
-		
-			
-	</div>
-<a name="methodsetEncryptor" id="setEncryptor"><!-- --></a>
-<div class="oddrow">
-	
-	<div class="method-header">
-		<span class="method-title">static method setEncryptor</span> (line <span class="line-number">177</span>)
-	</div> 
-	
-	<!-- ========== Info from phpDoc block ========= -->
-<p class="short-description">Set the current ESAPI Encryptor object being used to encrypt and decrypt  data for this application.</p>
-	<ul class="tags">
-				<li><span class="field">return:</span> not return a value.</li>
-				<li><span class="field">access:</span> public</li>
-			</ul>
-	
-	<div class="method-signature">
-	    static
-		<span class="method-result">does</span>
-		<span class="method-name">
-			setEncryptor
-		</span>
-					(<span class="var-type">Encryptor</span>&nbsp;<span class="var-name">$encryptor</span>)
-			</div>
-	
-			<ul class="parameters">
-					<li>
-				<span class="var-type">Encryptor</span>
-				<span class="var-name">$encryptor</span><span class="var-description">: the new ESAPI Encryptor.</span>			</li>
-				</ul>
-		
-			
-	</div>
-<a name="methodsetExecutor" id="setExecutor"><!-- --></a>
-<div class="evenrow">
-	
-	<div class="method-header">
-		<span class="method-title">static method setExecutor</span> (line <span class="line-number">210</span>)
-	</div> 
-	
-	<!-- ========== Info from phpDoc block ========= -->
-<p class="short-description">Set the current ESAPI Executor object being used to safely execute OS  commands for this application.</p>
-	<ul class="tags">
-				<li><span class="field">return:</span> not return a value.</li>
-				<li><span class="field">access:</span> public</li>
-			</ul>
-	
-	<div class="method-signature">
-	    static
-		<span class="method-result">does</span>
-		<span class="method-name">
-			setExecutor
-		</span>
-					(<span class="var-type"><a href="../ESAPI/Executor.html">Executor</a></span>&nbsp;<span class="var-name">$executor</span>)
-			</div>
-	
-			<ul class="parameters">
-					<li>
-				<span class="var-type"><a href="../ESAPI/Executor.html">Executor</a></span>
-				<span class="var-name">$executor</span><span class="var-description">: the new ESAPI Executor.</span>			</li>
-				</ul>
-		
-			
-	</div>
-<a name="methodsetHttpUtilities" id="setHttpUtilities"><!-- --></a>
-<div class="oddrow">
-	
-	<div class="method-header">
-		<span class="method-title">static method setHttpUtilities</span> (line <span class="line-number">240</span>)
-	</div> 
-	
-	<!-- ========== Info from phpDoc block ========= -->
-<p class="short-description">Set the current ESAPI HttpUtilities object being used to safely access HTTP  requests and responses for this application.</p>
-	<ul class="tags">
-				<li><span class="field">return:</span> not return a value.</li>
-				<li><span class="field">access:</span> public</li>
-			</ul>
-	
-	<div class="method-signature">
-	    static
-		<span class="method-result">does</span>
-		<span class="method-name">
-			setHttpUtilities
-		</span>
-					(<span class="var-type">HttpUtilities</span>&nbsp;<span class="var-name">$httpUtilities</span>)
-			</div>
-	
-			<ul class="parameters">
-					<li>
-				<span class="var-type">HttpUtilities</span>
-				<span class="var-name">$httpUtilities</span><span class="var-description">: the new ESAPI HttpUtilities.</span>			</li>
-				</ul>
-		
-			
-	</div>
-<a name="methodsetIntrusionDetector" id="setIntrusionDetector"><!-- --></a>
-<div class="evenrow">
-	
-	<div class="method-header">
-		<span class="method-title">static method setIntrusionDetector</span> (line <span class="line-number">269</span>)
-	</div> 
-	
-	<!-- ========== Info from phpDoc block ========= -->
-<p class="short-description">Set the current ESAPI AccessController object being used to to monitor for  intrusions in this application.</p>
-	<ul class="tags">
-				<li><span class="field">return:</span> not return a value.</li>
-				<li><span class="field">access:</span> public</li>
-			</ul>
-	
-	<div class="method-signature">
-	    static
-		<span class="method-result">does</span>
-		<span class="method-name">
-			setIntrusionDetector
-		</span>
-					(<span class="var-type"><a href="../ESAPI/IntrusionDetector.html">IntrusionDetector</a></span>&nbsp;<span class="var-name">$intrusionDetector</span>)
-			</div>
-	
-			<ul class="parameters">
-					<li>
-				<span class="var-type"><a href="../ESAPI/IntrusionDetector.html">IntrusionDetector</a></span>
-				<span class="var-name">$intrusionDetector</span><span class="var-description">: the new ESAPI IntrusionDetector.</span>			</li>
-				</ul>
-		
-			
-	</div>
-<a name="methodsetRandomizer" id="setRandomizer"><!-- --></a>
-<div class="oddrow">
-	
-	<div class="method-header">
-		<span class="method-title">static method setRandomizer</span> (line <span class="line-number">346</span>)
-	</div> 
-	
-	<!-- ========== Info from phpDoc block ========= -->
-<p class="short-description">Set the current ESAPI Randomizer object being used to generate random numbers  for this application.</p>
-	<ul class="tags">
-				<li><span class="field">return:</span> not return a value.</li>
-				<li><span class="field">access:</span> public</li>
-			</ul>
-	
-	<div class="method-signature">
-	    static
-		<span class="method-result">does</span>
-		<span class="method-name">
-			setRandomizer
-		</span>
-					(<span class="var-type"><a href="../ESAPI/Randomizer.html">Randomizer</a></span>&nbsp;<span class="var-name">$randomizer</span>)
-			</div>
-	
-			<ul class="parameters">
-					<li>
-				<span class="var-type"><a href="../ESAPI/Randomizer.html">Randomizer</a></span>
-				<span class="var-name">$randomizer</span><span class="var-description">: the new ESAPI Randomizer.</span>			</li>
-				</ul>
-		
-			
-	</div>
-<a name="methodsetSanitizer" id="setSanitizer"><!-- --></a>
-<div class="evenrow">
-	
-	<div class="method-header">
-		<span class="method-title">static method setSanitizer</span> (line <span class="line-number">439</span>)
-	</div> 
-	
-	<!-- ========== Info from phpDoc block ========= -->
-<p class="short-description">Set the current ESAPI Sanitizer object being used to sanitize data for  this application.</p>
-	<ul class="tags">
-				<li><span class="field">return:</span> not return a value.</li>
-				<li><span class="field">access:</span> public</li>
-			</ul>
-	
-	<div class="method-signature">
-	    static
-		<span class="method-result">does</span>
-		<span class="method-name">
-			setSanitizer
-		</span>
-					(<span class="var-type"><a href="../ESAPI/Sanitizer.html">Sanitizer</a></span>&nbsp;<span class="var-name">$sanitizer</span>)
-			</div>
-	
-			<ul class="parameters">
-					<li>
-				<span class="var-type"><a href="../ESAPI/Sanitizer.html">Sanitizer</a></span>
-				<span class="var-name">$sanitizer</span><span class="var-description">: the new ESAPI Sanitizer.</span>			</li>
-				</ul>
-		
-			
-	</div>
-<a name="methodsetSecurityConfiguration" id="setSecurityConfiguration"><!-- --></a>
-<div class="oddrow">
-	
-	<div class="method-header">
-		<span class="method-title">static method setSecurityConfiguration</span> (line <span class="line-number">379</span>)
-	</div> 
-	
-	<!-- ========== Info from phpDoc block ========= -->
-<p class="short-description">Set the current ESAPI SecurityConfiguration object being used to manage the  security configuration for this application.</p>
-	<ul class="tags">
-				<li><span class="field">return:</span> not return a value.</li>
-				<li><span class="field">access:</span> public</li>
-			</ul>
-	
-	<div class="method-signature">
-	    static
-		<span class="method-result">does</span>
-		<span class="method-name">
-			setSecurityConfiguration
-		</span>
-					(<span class="var-type"><a href="../ESAPI/SecurityConfiguration.html">SecurityConfiguration</a></span>&nbsp;<span class="var-name">$securityConfiguration</span>)
-			</div>
-	
-			<ul class="parameters">
-					<li>
-				<span class="var-type"><a href="../ESAPI/SecurityConfiguration.html">SecurityConfiguration</a></span>
-				<span class="var-name">$securityConfiguration</span><span class="var-description">: the new ESAPI  SecurityConfiguration.</span>			</li>
-				</ul>
-		
-			
-	</div>
-<a name="methodsetValidator" id="setValidator"><!-- --></a>
-<div class="evenrow">
-	
-	<div class="method-header">
-		<span class="method-title">static method setValidator</span> (line <span class="line-number">409</span>)
-	</div> 
-	
-	<!-- ========== Info from phpDoc block ========= -->
-<p class="short-description">Set the current ESAPI Validator object being used to validate data for  this application.</p>
-	<ul class="tags">
-				<li><span class="field">return:</span> not return a value.</li>
-				<li><span class="field">access:</span> public</li>
-			</ul>
-	
-	<div class="method-signature">
-	    static
-		<span class="method-result">does</span>
-		<span class="method-name">
-			setValidator
-		</span>
-					(<span class="var-type"><a href="../ESAPI/Validator.html">Validator</a></span>&nbsp;<span class="var-name">$validator</span>)
-			</div>
-	
-			<ul class="parameters">
-					<li>
-				<span class="var-type"><a href="../ESAPI/Validator.html">Validator</a></span>
-				<span class="var-name">$validator</span><span class="var-description">: the new ESAPI Validator.</span>			</li>
-				</ul>
-		
-			
-	</div>
+	<h4>Info</h4>
+	<ul>
+			<li><strong>return</strong> - current ESAPI AccessController.</li>
+			<li><strong>access</strong> - public</li>
+		</ul>
+</div>
+<a name="methodgetAdapter" id="methodgetAdapter"><!-- --></a>
+<div style="background='#eeeeee'"><h4>
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Static Method getAdapter</strong> (line <span class="linenumber">452</span>)
+ </h4> 
+<h4><i>the</i> <strong>getAdapter(
+)</strong></h4>
 
-<a name="method__construct" id="__construct"><!-- --></a>
-<div class="oddrow">
-	
-	<div class="method-header">
-		<span class="method-title">Constructor __construct</span> (line <span class="line-number">66</span>)
-	</div> 
-	
 	<!-- ========== Info from phpDoc block ========= -->
-<p class="short-description">This is the locator class' constructor, which prevents instantiation of this  class.</p>
-	<ul class="tags">
-				<li><span class="field">access:</span> public</li>
-			</ul>
-	
-	<div class="method-signature">
-		<span class="method-result">ESAPI</span>
-		<span class="method-name">
-			__construct
-		</span>
-					([<span class="var-type">string</span>&nbsp;<span class="var-name">$path</span> = <span class="var-default">''</span>])
-			</div>
-	
-			<ul class="parameters">
-					<li>
-				<span class="var-type">string</span>
-				<span class="var-name">$path</span><span class="var-description">: the path of the ESAPI.xml configuration file.</span>			</li>
-				</ul>
+<h5>Get the current ESAPI Adapter object being used to wrap ESAPI functions  for this application.</h5>
 		
-			
-	</div>
-						
-		</div>
-	</div>
+	<h4>Info</h4>
+	<ul>
+			<li><strong>return</strong> - current ESAPI Adapter.</li>
+			<li><strong>access</strong> - public</li>
+		</ul>
+</div>
+<a name="methodgetAuditor" id="methodgetAuditor"><!-- --></a>
+<div style="background='#ffffff'"><h4>
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Static Method getAuditor</strong> (line <span class="linenumber">283</span>)
+ </h4> 
+<h4><i>the</i> <strong>getAuditor(
+string
+$logger)</strong></h4>
 
+	<!-- ========== Info from phpDoc block ========= -->
+<h5>Set then get the current ESAPI Logger factory object being used to create  the ESAPI Logger for this application.</h5>
+		<h4>Parameters</h4>
+	<ul>
+			<li><strong>string $logger</strong>: the new ESAPI Auditor factory name.</li>
+		</ul>
+		
+	<h4>Info</h4>
+	<ul>
+			<li><strong>return</strong> - current ESAPI Logger.</li>
+			<li><strong>access</strong> - public</li>
+		</ul>
+</div>
+<a name="methodgetEncoder" id="methodgetEncoder"><!-- --></a>
+<div style="background='#eeeeee'"><h4>
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Static Method getEncoder</strong> (line <span class="linenumber">131</span>)
+ </h4> 
+<h4><i>the</i> <strong>getEncoder(
+)</strong></h4>
 
-	<p class="notes" id="credit">
-		Documentation generated on Fri, 16 Apr 2010 12:01:58 -0400 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
-	</p>
-	</div></body>
+	<!-- ========== Info from phpDoc block ========= -->
+<h5>Get the current ESAPI Encoder object being used to encode and decode data for  this application</h5>
+		
+	<h4>Info</h4>
+	<ul>
+			<li><strong>return</strong> - current ESAPI Encoder.</li>
+			<li><strong>access</strong> - public</li>
+		</ul>
+</div>
+<a name="methodgetEncryptor" id="methodgetEncryptor"><!-- --></a>
+<div style="background='#ffffff'"><h4>
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Static Method getEncryptor</strong> (line <span class="linenumber">161</span>)
+ </h4> 
+<h4><i>the</i> <strong>getEncryptor(
+)</strong></h4>
+
+	<!-- ========== Info from phpDoc block ========= -->
+<h5>Get the current ESAPI Encryptor object being used to encrypt and decrypt data  for this application.</h5>
+		
+	<h4>Info</h4>
+	<ul>
+			<li><strong>return</strong> - current ESAPI Encryptor.</li>
+			<li><strong>access</strong> - public</li>
+		</ul>
+</div>
+<a name="methodgetExecutor" id="methodgetExecutor"><!-- --></a>
+<div style="background='#eeeeee'"><h4>
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Static Method getExecutor</strong> (line <span class="linenumber">191</span>)
+ </h4> 
+<h4><i>the</i> <strong>getExecutor(
+)</strong></h4>
+
+	<!-- ========== Info from phpDoc block ========= -->
+<h5>Get the current ESAPI Executor object being used to safely execute OS  commands for this application.</h5>
+		
+	<h4>Info</h4>
+	<ul>
+			<li><strong>return</strong> - current ESAPI Executor.</li>
+			<li><strong>access</strong> - public</li>
+		</ul>
+</div>
+<a name="methodgetHttpUtilities" id="methodgetHttpUtilities"><!-- --></a>
+<div style="background='#ffffff'"><h4>
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Static Method getHttpUtilities</strong> (line <span class="linenumber">221</span>)
+ </h4> 
+<h4><i>the</i> <strong>getHttpUtilities(
+)</strong></h4>
+
+	<!-- ========== Info from phpDoc block ========= -->
+<h5>Get the current ESAPI HTTPUtilities object being used to safely access HTTP  requests and responses for this application.</h5>
+		
+	<h4>Info</h4>
+	<ul>
+			<li><strong>return</strong> - current ESAPI HTTPUtilities.</li>
+			<li><strong>access</strong> - public</li>
+		</ul>
+</div>
+<a name="methodgetIntrusionDetector" id="methodgetIntrusionDetector"><!-- --></a>
+<div style="background='#eeeeee'"><h4>
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Static Method getIntrusionDetector</strong> (line <span class="linenumber">251</span>)
+ </h4> 
+<h4><i>the</i> <strong>getIntrusionDetector(
+)</strong></h4>
+
+	<!-- ========== Info from phpDoc block ========= -->
+<h5>Get the current ESAPI IntrusionDetector object being used to monitor for  intrusions in this application.</h5>
+		
+	<h4>Info</h4>
+	<ul>
+			<li><strong>return</strong> - current ESAPI IntrusionDetector.</li>
+			<li><strong>access</strong> - public</li>
+		</ul>
+</div>
+<a name="methodgetRandomizer" id="methodgetRandomizer"><!-- --></a>
+<div style="background='#ffffff'"><h4>
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Static Method getRandomizer</strong> (line <span class="linenumber">327</span>)
+ </h4> 
+<h4><i>the</i> <strong>getRandomizer(
+)</strong></h4>
+
+	<!-- ========== Info from phpDoc block ========= -->
+<h5>Get the current ESAPI Randomizer object being used to generate random numbers  for this application.</h5>
+		
+	<h4>Info</h4>
+	<ul>
+			<li><strong>return</strong> - current ESAPI Randomizer.</li>
+			<li><strong>access</strong> - public</li>
+		</ul>
+</div>
+<a name="methodgetSanitizer" id="methodgetSanitizer"><!-- --></a>
+<div style="background='#eeeeee'"><h4>
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Static Method getSanitizer</strong> (line <span class="linenumber">420</span>)
+ </h4> 
+<h4><i>the</i> <strong>getSanitizer(
+)</strong></h4>
+
+	<!-- ========== Info from phpDoc block ========= -->
+<h5>Get the current ESAPI Sanitizer object being used to sanitize data for  this application.</h5>
+		
+	<h4>Info</h4>
+	<ul>
+			<li><strong>return</strong> - current ESAPI Sanitizer.</li>
+			<li><strong>access</strong> - public</li>
+		</ul>
+</div>
+<a name="methodgetSecurityConfiguration" id="methodgetSecurityConfiguration"><!-- --></a>
+<div style="background='#ffffff'"><h4>
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Static Method getSecurityConfiguration</strong> (line <span class="linenumber">359</span>)
+ </h4> 
+<h4><i>the</i> <strong>getSecurityConfiguration(
+[string
+$path = ''])</strong></h4>
+
+	<!-- ========== Info from phpDoc block ========= -->
+<h5>Get the current ESAPI SecurityConfiguration object being used to manage the  security configuration for this application.</h5>
+		<h4>Parameters</h4>
+	<ul>
+			<li><strong>string $path</strong>: the path of the ESAPI.xml configuration file.</li>
+		</ul>
+		
+	<h4>Info</h4>
+	<ul>
+			<li><strong>return</strong> - current ESAPI SecurityConfiguration.</li>
+			<li><strong>access</strong> - public</li>
+		</ul>
+</div>
+<a name="methodgetValidator" id="methodgetValidator"><!-- --></a>
+<div style="background='#eeeeee'"><h4>
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Static Method getValidator</strong> (line <span class="linenumber">390</span>)
+ </h4> 
+<h4><i>the</i> <strong>getValidator(
+)</strong></h4>
+
+	<!-- ========== Info from phpDoc block ========= -->
+<h5>Get the current ESAPI Validator object being used to validate data for this  application.</h5>
+		
+	<h4>Info</h4>
+	<ul>
+			<li><strong>return</strong> - current ESAPI Validator.</li>
+			<li><strong>access</strong> - public</li>
+		</ul>
+</div>
+<a name="methodlog" id="methodlog"><!-- --></a>
+<div style="background='#ffffff'"><h4>
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Static Method log</strong> (line <span class="linenumber">299</span>)
+ </h4> 
+<h4><i>the</i> <strong>log(
+)</strong></h4>
+
+	<!-- ========== Info from phpDoc block ========= -->
+<h5>Get the current ESAPI Auditor object being used to to audit security-relevant  events for this application.</h5>
+		
+	<h4>Info</h4>
+	<ul>
+			<li><strong>return</strong> - current ESAPI Logger.</li>
+			<li><strong>access</strong> - public</li>
+		</ul>
+</div>
+<a name="methodsetAccessController" id="methodsetAccessController"><!-- --></a>
+<div style="background='#eeeeee'"><h4>
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Static Method setAccessController</strong> (line <span class="linenumber">120</span>)
+ </h4> 
+<h4><i>does</i> <strong>setAccessController(
+<a href="../ESAPI/AccessController.html">AccessController</a>
+$accessController)</strong></h4>
+
+	<!-- ========== Info from phpDoc block ========= -->
+<h5>Set the current ESAPI AccessController object being used to maintain the  access control rules for this application.</h5>
+		<h4>Parameters</h4>
+	<ul>
+			<li><strong><a href="../ESAPI/AccessController.html">AccessController</a> $accessController</strong>: the new ESAPI AccessController.</li>
+		</ul>
+		
+	<h4>Info</h4>
+	<ul>
+			<li><strong>return</strong> - not return a value.</li>
+			<li><strong>access</strong> - public</li>
+		</ul>
+</div>
+<a name="methodsetAdapter" id="methodsetAdapter"><!-- --></a>
+<div style="background='#ffffff'"><h4>
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Static Method setAdapter</strong> (line <span class="linenumber">471</span>)
+ </h4> 
+<h4><i>does</i> <strong>setAdapter(
+Adapter
+$adapter)</strong></h4>
+
+	<!-- ========== Info from phpDoc block ========= -->
+<h5>Set the current ESAPI AccessController object being used to wrap ESAPI  functions for this application.</h5>
+		<h4>Parameters</h4>
+	<ul>
+			<li><strong>Adapter $adapter</strong>: the new ESAPI Adapter.</li>
+		</ul>
+		
+	<h4>Info</h4>
+	<ul>
+			<li><strong>return</strong> - not return a value.</li>
+			<li><strong>access</strong> - public</li>
+		</ul>
+</div>
+<a name="methodsetAuditorFactory" id="methodsetAuditorFactory"><!-- --></a>
+<div style="background='#eeeeee'"><h4>
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Static Method setAuditorFactory</strong> (line <span class="linenumber">315</span>)
+ </h4> 
+<h4><i>does</i> <strong>setAuditorFactory(
+string
+$factory)</strong></h4>
+
+	<!-- ========== Info from phpDoc block ========= -->
+<h5>Set the current ESAPI Logger factory object being used to create  the ESAPI Logger for this application.</h5>
+		<h4>Parameters</h4>
+	<ul>
+			<li><strong>string $factory</strong>: the new ESAPI Logger factory.</li>
+		</ul>
+		
+	<h4>Info</h4>
+	<ul>
+			<li><strong>return</strong> - not return a value.</li>
+			<li><strong>access</strong> - public</li>
+		</ul>
+</div>
+<a name="methodsetEncoder" id="methodsetEncoder"><!-- --></a>
+<div style="background='#ffffff'"><h4>
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Static Method setEncoder</strong> (line <span class="linenumber">150</span>)
+ </h4> 
+<h4><i>does</i> <strong>setEncoder(
+<a href="../ESAPI/Encoder.html">Encoder</a>
+$encoder)</strong></h4>
+
+	<!-- ========== Info from phpDoc block ========= -->
+<h5>Set the current ESAPI Encoder object being used to encode and decode data  for this application.</h5>
+		<h4>Parameters</h4>
+	<ul>
+			<li><strong><a href="../ESAPI/Encoder.html">Encoder</a> $encoder</strong>: the new ESAPI AccessController.</li>
+		</ul>
+		
+	<h4>Info</h4>
+	<ul>
+			<li><strong>return</strong> - not return a value.</li>
+			<li><strong>access</strong> - public</li>
+		</ul>
+</div>
+<a name="methodsetEncryptor" id="methodsetEncryptor"><!-- --></a>
+<div style="background='#eeeeee'"><h4>
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Static Method setEncryptor</strong> (line <span class="linenumber">177</span>)
+ </h4> 
+<h4><i>does</i> <strong>setEncryptor(
+Encryptor
+$encryptor)</strong></h4>
+
+	<!-- ========== Info from phpDoc block ========= -->
+<h5>Set the current ESAPI Encryptor object being used to encrypt and decrypt  data for this application.</h5>
+		<h4>Parameters</h4>
+	<ul>
+			<li><strong>Encryptor $encryptor</strong>: the new ESAPI Encryptor.</li>
+		</ul>
+		
+	<h4>Info</h4>
+	<ul>
+			<li><strong>return</strong> - not return a value.</li>
+			<li><strong>access</strong> - public</li>
+		</ul>
+</div>
+<a name="methodsetExecutor" id="methodsetExecutor"><!-- --></a>
+<div style="background='#ffffff'"><h4>
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Static Method setExecutor</strong> (line <span class="linenumber">210</span>)
+ </h4> 
+<h4><i>does</i> <strong>setExecutor(
+<a href="../ESAPI/Executor.html">Executor</a>
+$executor)</strong></h4>
+
+	<!-- ========== Info from phpDoc block ========= -->
+<h5>Set the current ESAPI Executor object being used to safely execute OS  commands for this application.</h5>
+		<h4>Parameters</h4>
+	<ul>
+			<li><strong><a href="../ESAPI/Executor.html">Executor</a> $executor</strong>: the new ESAPI Executor.</li>
+		</ul>
+		
+	<h4>Info</h4>
+	<ul>
+			<li><strong>return</strong> - not return a value.</li>
+			<li><strong>access</strong> - public</li>
+		</ul>
+</div>
+<a name="methodsetHttpUtilities" id="methodsetHttpUtilities"><!-- --></a>
+<div style="background='#eeeeee'"><h4>
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Static Method setHttpUtilities</strong> (line <span class="linenumber">240</span>)
+ </h4> 
+<h4><i>does</i> <strong>setHttpUtilities(
+HttpUtilities
+$httpUtilities)</strong></h4>
+
+	<!-- ========== Info from phpDoc block ========= -->
+<h5>Set the current ESAPI HttpUtilities object being used to safely access HTTP  requests and responses for this application.</h5>
+		<h4>Parameters</h4>
+	<ul>
+			<li><strong>HttpUtilities $httpUtilities</strong>: the new ESAPI HttpUtilities.</li>
+		</ul>
+		
+	<h4>Info</h4>
+	<ul>
+			<li><strong>return</strong> - not return a value.</li>
+			<li><strong>access</strong> - public</li>
+		</ul>
+</div>
+<a name="methodsetIntrusionDetector" id="methodsetIntrusionDetector"><!-- --></a>
+<div style="background='#ffffff'"><h4>
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Static Method setIntrusionDetector</strong> (line <span class="linenumber">269</span>)
+ </h4> 
+<h4><i>does</i> <strong>setIntrusionDetector(
+<a href="../ESAPI/IntrusionDetector.html">IntrusionDetector</a>
+$intrusionDetector)</strong></h4>
+
+	<!-- ========== Info from phpDoc block ========= -->
+<h5>Set the current ESAPI AccessController object being used to to monitor for  intrusions in this application.</h5>
+		<h4>Parameters</h4>
+	<ul>
+			<li><strong><a href="../ESAPI/IntrusionDetector.html">IntrusionDetector</a> $intrusionDetector</strong>: the new ESAPI IntrusionDetector.</li>
+		</ul>
+		
+	<h4>Info</h4>
+	<ul>
+			<li><strong>return</strong> - not return a value.</li>
+			<li><strong>access</strong> - public</li>
+		</ul>
+</div>
+<a name="methodsetRandomizer" id="methodsetRandomizer"><!-- --></a>
+<div style="background='#eeeeee'"><h4>
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Static Method setRandomizer</strong> (line <span class="linenumber">346</span>)
+ </h4> 
+<h4><i>does</i> <strong>setRandomizer(
+<a href="../ESAPI/Randomizer.html">Randomizer</a>
+$randomizer)</strong></h4>
+
+	<!-- ========== Info from phpDoc block ========= -->
+<h5>Set the current ESAPI Randomizer object being used to generate random numbers  for this application.</h5>
+		<h4>Parameters</h4>
+	<ul>
+			<li><strong><a href="../ESAPI/Randomizer.html">Randomizer</a> $randomizer</strong>: the new ESAPI Randomizer.</li>
+		</ul>
+		
+	<h4>Info</h4>
+	<ul>
+			<li><strong>return</strong> - not return a value.</li>
+			<li><strong>access</strong> - public</li>
+		</ul>
+</div>
+<a name="methodsetSanitizer" id="methodsetSanitizer"><!-- --></a>
+<div style="background='#ffffff'"><h4>
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Static Method setSanitizer</strong> (line <span class="linenumber">439</span>)
+ </h4> 
+<h4><i>does</i> <strong>setSanitizer(
+<a href="../ESAPI/Sanitizer.html">Sanitizer</a>
+$sanitizer)</strong></h4>
+
+	<!-- ========== Info from phpDoc block ========= -->
+<h5>Set the current ESAPI Sanitizer object being used to sanitize data for  this application.</h5>
+		<h4>Parameters</h4>
+	<ul>
+			<li><strong><a href="../ESAPI/Sanitizer.html">Sanitizer</a> $sanitizer</strong>: the new ESAPI Sanitizer.</li>
+		</ul>
+		
+	<h4>Info</h4>
+	<ul>
+			<li><strong>return</strong> - not return a value.</li>
+			<li><strong>access</strong> - public</li>
+		</ul>
+</div>
+<a name="methodsetSecurityConfiguration" id="methodsetSecurityConfiguration"><!-- --></a>
+<div style="background='#eeeeee'"><h4>
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Static Method setSecurityConfiguration</strong> (line <span class="linenumber">379</span>)
+ </h4> 
+<h4><i>does</i> <strong>setSecurityConfiguration(
+<a href="../ESAPI/SecurityConfiguration.html">SecurityConfiguration</a>
+$securityConfiguration)</strong></h4>
+
+	<!-- ========== Info from phpDoc block ========= -->
+<h5>Set the current ESAPI SecurityConfiguration object being used to manage the  security configuration for this application.</h5>
+		<h4>Parameters</h4>
+	<ul>
+			<li><strong><a href="../ESAPI/SecurityConfiguration.html">SecurityConfiguration</a> $securityConfiguration</strong>: the new ESAPI  SecurityConfiguration.</li>
+		</ul>
+		
+	<h4>Info</h4>
+	<ul>
+			<li><strong>return</strong> - not return a value.</li>
+			<li><strong>access</strong> - public</li>
+		</ul>
+</div>
+<a name="methodsetValidator" id="methodsetValidator"><!-- --></a>
+<div style="background='#ffffff'"><h4>
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Static Method setValidator</strong> (line <span class="linenumber">409</span>)
+ </h4> 
+<h4><i>does</i> <strong>setValidator(
+<a href="../ESAPI/Validator.html">Validator</a>
+$validator)</strong></h4>
+
+	<!-- ========== Info from phpDoc block ========= -->
+<h5>Set the current ESAPI Validator object being used to validate data for  this application.</h5>
+		<h4>Parameters</h4>
+	<ul>
+			<li><strong><a href="../ESAPI/Validator.html">Validator</a> $validator</strong>: the new ESAPI Validator.</li>
+		</ul>
+		
+	<h4>Info</h4>
+	<ul>
+			<li><strong>return</strong> - not return a value.</li>
+			<li><strong>access</strong> - public</li>
+		</ul>
+</div>
+<a name="method__construct" id="method__construct"><!-- --></a>
+<div style="background='#eeeeee'"><h4>
+<img src="../media/images/Constructor.gif" border="0" /> <strong class="method">Constructor __construct</strong> (line <span class="linenumber">66</span>)
+ </h4> 
+<h4><i>ESAPI</i> <strong>__construct(
+[string
+$path = ''])</strong></h4>
+
+	<!-- ========== Info from phpDoc block ========= -->
+<h5>This is the locator class' constructor, which prevents instantiation of this  class.</h5>
+		<h4>Parameters</h4>
+	<ul>
+			<li><strong>string $path</strong>: the path of the ESAPI.xml configuration file.</li>
+		</ul>
+		
+	<h4>Info</h4>
+	<ul>
+			<li><strong>access</strong> - public</li>
+		</ul>
+</div>
+<script type="text/javascript">tp1.addTabPage( document.getElementById( "tabPage2" ) );</script></div>
+<div class="tab-page" id="iVars">
+<h2 class="tab">Inherited Variables</h2>
+<script type="text/javascript">tp1.addTabPage( document.getElementById( "iVars" ) );</script>
+<!-- =========== VAR INHERITED SUMMARY =========== -->
+<A NAME='var_inherited_summary'><!-- --></A>
+<h3>Inherited Class Variable Summary</h3>
+
+	</div>
+<div class="tab-page" id="iMethods">
+<h2 class="tab">Inherited Methods</h2>
+<script type="text/javascript">tp1.addTabPage( document.getElementById( "iMethods" ) );</script>
+<!-- =========== INHERITED METHOD SUMMARY =========== -->
+<A NAME='functions_inherited'><!-- --></A>
+<h3>Inherited Method Summary</h3>
+
+	</div>
+</div>
+<script type="text/javascript">
+//<![CDATA[
+
+setupAllTabs();
+
+//]]>
+</script>
+	<div id="credit">
+		<hr />
+		Documentation generated on Fri, 16 Apr 2010 13:58:01 -0400 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
+	</div>
+</body>
 </html>

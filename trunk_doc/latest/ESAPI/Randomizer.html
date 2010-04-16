@@ -1,321 +1,349 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-  <html xmlns="http://www.w3.org/1999/xhtml">
-		<head>
-			<!-- template designed by Marco Von Ballmoos -->
-			<title>Docs For Class Randomizer</title>
-			<link rel="stylesheet" href="../media/stylesheet.css" />
-			<meta http-equiv='Content-Type' content='text/html; charset=iso-8859-1'/>
-		</head>
-		<body>
-			<div class="page-body">			
-<h2 class="class-name">Interface Randomizer</h2>
-
-<a name="sec-description"></a>
-<div class="info-box">
-	<div class="info-box-title">Description</div>
-	<div class="nav-bar">
-					<span class="disabled">Description</span> |
-															<a href="#sec-method-summary">Methods</a> (<a href="#sec-methods">details</a>)
-						
-					</div>
-	<div class="info-box-body">
-        		<!-- ========== Info from phpDoc block ========= -->
-<p class="short-description">The Randomizer interface defines a set of methods for creating  cryptographically random numbers and strings. Implementers should be sure to  use a strong cryptographic implementation, such as the JCE or BouncyCastle.</p>
-<p class="description"><p>Weak sources of randomness can undermine a wide variety of security  mechanisms. The specific algorithm used is configurable in ESAPI.properties.</p></p>
-	<ul class="tags">
-				<li><span class="field">author:</span> Andrew van der Stock &lt;<a href="mailto:vanderaj@owasp.org">vanderaj@owasp.org</a>&gt;</li>
-				<li><span class="field">author:</span> Jeff Williams &lt;<a href="mailto:jeff.williams@aspectsecurity.com">jeff.williams@aspectsecurity.com</a>&gt;</li>
-				<li><span class="field">version:</span> Release: @package_version@</li>
-				<li><span class="field">copyright:</span> 2009-2010 The OWASP Foundation</li>
-				<li><span class="field">link:</span> <a href="http://www.owasp.org/index.php/ESAPI">http://www.owasp.org/index.php/ESAPI</a></li>
-				<li><span class="field">license:</span> <a href="http://www.opensource.org/licenses/bsd-license.php">New BSD license</a></li>
-			</ul>
-		<p class="notes">
-			Located in <a class="field" href="_Randomizer.php.html">/Randomizer.php</a> (line <span class="field">46</span>)
-		</p>
-		
-				
-		<pre></pre>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+   <html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <title>Docs For Class Randomizer</title>
+  <link rel="stylesheet" href="../media/stylesheet.css" />
+  <script src="../media/lib/classTree.js"></script>
+<link id="webfx-tab-style-sheet" type="text/css" rel="stylesheet" href="../media/lib/tab.webfx.css" />
+<script type="text/javascript" src="../media/lib/tabpane.js"></script>
+  <script language="javascript" type="text/javascript" src="../media/lib/ua.js"></script>
+<script language="javascript" type="text/javascript">
+	var imgPlus = new Image();
+	var imgMinus = new Image();
+	imgPlus.src = "../media/images/plus.gif";
+	imgMinus.src = "../media/images/minus.gif";
 	
-			</div>
+	function showNode(Node){
+        switch(navigator.family){
+        	case 'nn4':
+        		// Nav 4.x code fork...
+				var oTable = document.layers["span" + Node];
+				var oImg = document.layers["img" + Node];
+        		break;
+        	case 'ie4':
+        		// IE 4/5 code fork...
+				var oTable = document.all["span" + Node];
+				var oImg = document.all["img" + Node];
+        		break;
+        	case 'gecko':
+        		// Standards Compliant code fork...
+				var oTable = document.getElementById("span" + Node);
+				var oImg = document.getElementById("img" + Node);
+        		break;
+        }
+		oImg.src = imgMinus.src;
+		oTable.style.display = "block";
+	}
+	
+	function hideNode(Node){
+        switch(navigator.family){
+        	case 'nn4':
+        		// Nav 4.x code fork...
+				var oTable = document.layers["span" + Node];
+				var oImg = document.layers["img" + Node];
+        		break;
+        	case 'ie4':
+        		// IE 4/5 code fork...
+				var oTable = document.all["span" + Node];
+				var oImg = document.all["img" + Node];
+        		break;
+        	case 'gecko':
+        		// Standards Compliant code fork...
+				var oTable = document.getElementById("span" + Node);
+				var oImg = document.getElementById("img" + Node);
+        		break;
+        }
+		oImg.src = imgPlus.src;
+		oTable.style.display = "none";
+	}
+	
+	function nodeIsVisible(Node){
+        switch(navigator.family){
+        	case 'nn4':
+        		// Nav 4.x code fork...
+				var oTable = document.layers["span" + Node];
+        		break;
+        	case 'ie4':
+        		// IE 4/5 code fork...
+				var oTable = document.all["span" + Node];
+        		break;
+        	case 'gecko':
+        		// Standards Compliant code fork...
+				var oTable = document.getElementById("span" + Node);
+        		break;
+        }
+		return (oTable && oTable.style.display == "block");
+	}
+	
+	function toggleNodeVisibility(Node){
+		if (nodeIsVisible(Node)){
+			hideNode(Node);
+		}else{
+			showNode(Node);
+		}
+	}
+</script>
+<!-- template designed by Julien Damon based on PHPEdit's generated templates, and tweaked by Greg Beaver -->
+<body bgcolor="#ffffff" ><!-- Start of Class Data -->
+<h2>
+	Interface Randomizer
+</h2> (line <span class="linenumber">46</span>)
+<div class="tab-pane" id="tabPane1">
+<script type="text/javascript">
+tp1 = new WebFXTabPane( document.getElementById( "tabPane1" ));
+</script>
+
+<div class="tab-page" id="Description">
+<h2 class="tab">Description</h2>
+<pre>
+</pre>
+<p>
+	<b><i>Located in File: <a href="_Randomizer.php.html">/Randomizer.php</a></i></b><br>
+</p>
+<!-- ========== Info from phpDoc block ========= -->
+<h5>The Randomizer interface defines a set of methods for creating  cryptographically random numbers and strings. Implementers should be sure to  use a strong cryptographic implementation, such as the JCE or BouncyCastle.</h5>
+<div class="desc"><p>Weak sources of randomness can undermine a wide variety of security  mechanisms. The specific algorithm used is configurable in ESAPI.properties.</p></div>
+<ul>
+		<li><strong>author:</strong> - Andrew van der Stock &lt;<a href="mailto:vanderaj@owasp.org">vanderaj@owasp.org</a>&gt;</li>
+		<li><strong>author:</strong> - Jeff Williams &lt;<a href="mailto:jeff.williams@aspectsecurity.com">jeff.williams@aspectsecurity.com</a>&gt;</li>
+		<li><strong>version:</strong> - Release: @package_version@</li>
+		<li><strong>copyright:</strong> - 2009-2010 The OWASP Foundation</li>
+		<li><strong>link:</strong> - <a href="http://www.owasp.org/index.php/ESAPI">http://www.owasp.org/index.php/ESAPI</a></li>
+		<li><strong>license:</strong> - <a href="http://www.opensource.org/licenses/bsd-license.php">New BSD license</a></li>
+	</ul>
+<br /><hr />
 </div>
+<script type="text/javascript">tp1.addTabPage( document.getElementById( "Description" ) );</script>
+<div class="tab-page" id="tabPage1">
+
+<h2 class="tab">Class Variables</h2>
+<!-- ============ VARIABLE DETAIL =========== -->
+<strong>Summary:</strong><br />
+<hr />
+<script type="text/javascript">tp1.addTabPage( document.getElementById( "tabPage1" ) );</script>
+</div>
+<div class="tab-page" id="constantsTabpage">
+
+<h2 class="tab">Class Constants</h2>
+<!-- ============ VARIABLE DETAIL =========== -->
+<strong>Summary:</strong><br />
+<hr />
+<script type="text/javascript">tp1.addTabPage( document.getElementById( "constantsTabpage" ) );</script>
+</div>
+<div class="tab-page" id="tabPage2">
+<h2 class="tab">Method Detail</h2>
+<!-- ============ METHOD DETAIL =========== -->
+<strong>Summary:</strong><br />
+<div class="method-summary">
+    <div class="method-definition">
+            <span class="method-result">bool</span>
+        <a href="#methodgetRandomBoolean" title="details" class="method-name">getRandomBoolean</a>
+        ()
+        </div>
+    <div class="method-definition">
+            <span class="method-result">string</span>
+        <a href="#methodgetRandomFilename" title="details" class="method-name">getRandomFilename</a>
+        ([<span class="var-type">string</span>&nbsp;<span class="var-name">$extension</span> = <span class="var-default">''</span>])
+        </div>
+    <div class="method-definition">
+            <span class="method-result">string</span>
+        <a href="#methodgetRandomGUID" title="details" class="method-name">getRandomGUID</a>
+        ()
+        </div>
+    <div class="method-definition">
+            <span class="method-result">int</span>
+        <a href="#methodgetRandomInteger" title="details" class="method-name">getRandomInteger</a>
+        (<span class="var-type">int</span>&nbsp;<span class="var-name">$min</span>, <span class="var-type">int</span>&nbsp;<span class="var-name">$max</span>)
+        </div>
+    <div class="method-definition">
+            <span class="method-result">int</span>
+        <a href="#methodgetRandomLong" title="details" class="method-name">getRandomLong</a>
+        ()
+        </div>
+    <div class="method-definition">
+            <span class="method-result">float</span>
+        <a href="#methodgetRandomReal" title="details" class="method-name">getRandomReal</a>
+        (<span class="var-type">float</span>&nbsp;<span class="var-name">$min</span>, <span class="var-type">float</span>&nbsp;<span class="var-name">$max</span>)
+        </div>
+    <div class="method-definition">
+            <span class="method-result">string</span>
+        <a href="#methodgetRandomString" title="details" class="method-name">getRandomString</a>
+        (<span class="var-type">int</span>&nbsp;<span class="var-name">$length</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$characterSet</span>)
+        </div>
+</div>
+<hr />
+<A NAME='method_detail'></A>
 
 
+<a name="methodgetRandomBoolean" id="methodgetRandomBoolean"><!-- --></a>
+<div style="background='#ffffff'"><h4>
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method getRandomBoolean</strong> (line <span class="linenumber">79</span>)
+ </h4> 
+<h4><i>bool</i> <strong>getRandomBoolean(
+)</strong></h4>
 
-
-	<a name="sec-method-summary"></a>
-	<div class="info-box">
-		<div class="info-box-title">Method Summary</span></div>
-		<div class="nav-bar">
-			<a href="#sec-description">Description</a> |
-												<span class="disabled">Methods</span> (<a href="#sec-methods">details</a>)
-		</div>
-		<div class="info-box-body">			
-			<div class="method-summary">
-																																																												
-												<div class="method-definition">
-											<span class="method-result">bool</span>
-										<a href="#getRandomBoolean" title="details" class="method-name">getRandomBoolean</a>
-										()
-									</div>
-																<div class="method-definition">
-											<span class="method-result">string</span>
-										<a href="#getRandomFilename" title="details" class="method-name">getRandomFilename</a>
-											([<span class="var-type">string</span>&nbsp;<span class="var-name">$extension</span> = <span class="var-default">''</span>])
-									</div>
-																<div class="method-definition">
-											<span class="method-result">string</span>
-										<a href="#getRandomGUID" title="details" class="method-name">getRandomGUID</a>
-										()
-									</div>
-																<div class="method-definition">
-											<span class="method-result">int</span>
-										<a href="#getRandomInteger" title="details" class="method-name">getRandomInteger</a>
-											(<span class="var-type">int</span>&nbsp;<span class="var-name">$min</span>, <span class="var-type">int</span>&nbsp;<span class="var-name">$max</span>)
-									</div>
-																<div class="method-definition">
-											<span class="method-result">int</span>
-										<a href="#getRandomLong" title="details" class="method-name">getRandomLong</a>
-										()
-									</div>
-																<div class="method-definition">
-											<span class="method-result">float</span>
-										<a href="#getRandomReal" title="details" class="method-name">getRandomReal</a>
-											(<span class="var-type">float</span>&nbsp;<span class="var-name">$min</span>, <span class="var-type">float</span>&nbsp;<span class="var-name">$max</span>)
-									</div>
-																<div class="method-definition">
-											<span class="method-result">string</span>
-										<a href="#getRandomString" title="details" class="method-name">getRandomString</a>
-											(<span class="var-type">int</span>&nbsp;<span class="var-name">$length</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$characterSet</span>)
-									</div>
-								</div>
-		</div>
-	</div>		
-
-	
-	<a name="sec-methods"></a>
-	<div class="info-box">
-		<div class="info-box-title">Methods</div>
-		<div class="nav-bar">
-			<a href="#sec-description">Description</a> |
-																<a href="#sec-method-summary">Methods</a> (<span class="disabled">details</span>)
-						
-		</div>
-		<div class="info-box-body">
-			<A NAME='method_detail'></A>
-
-<a name="methodgetRandomBoolean" id="getRandomBoolean"><!-- --></a>
-<div class="evenrow">
-	
-	<div class="method-header">
-		<span class="method-title">getRandomBoolean</span> (line <span class="line-number">79</span>)
-	</div> 
-	
 	<!-- ========== Info from phpDoc block ========= -->
-<p class="short-description">Returns a random boolean.  The use of java.security.SecureRandom</p>
-<p class="description"><p>is recommended because it provides a cryptographically strong  pseudo-random number generator. If SecureRandom is not used, the  pseudo-random number gernerator used should comply with the  statistical random number generator tests specified in  &lt;a href=&quot;http://csrc.nist.gov/cryptval/140-2.htm&quot;&gt;  FIPS 140-2, Security Requirements for Cryptographic Modules&lt;/a&gt;,  section 4.9.1.</p></p>
-	<ul class="tags">
-				<li><span class="field">return:</span> true or false, randomly</li>
-			</ul>
-	
-	<div class="method-signature">
-		<span class="method-result">bool</span>
-		<span class="method-name">
-			getRandomBoolean
-		</span>
-				()
-			</div>
-	
+<h5>Returns a random boolean.  The use of java.security.SecureRandom</h5>
+<div class="desc"><p>is recommended because it provides a cryptographically strong  pseudo-random number generator. If SecureRandom is not used, the  pseudo-random number gernerator used should comply with the  statistical random number generator tests specified in  &lt;a href=&quot;http://csrc.nist.gov/cryptval/140-2.htm&quot;&gt;  FIPS 140-2, Security Requirements for Cryptographic Modules&lt;/a&gt;,  section 4.9.1.</p></div>
 		
-			
-	</div>
-<a name="methodgetRandomFilename" id="getRandomFilename"><!-- --></a>
-<div class="oddrow">
-	
-	<div class="method-header">
-		<span class="method-title">getRandomFilename</span> (line <span class="line-number">125</span>)
-	</div> 
-	
-	<!-- ========== Info from phpDoc block ========= -->
-<p class="short-description">Returns an unguessable random filename with the specified extension.</p>
-<p class="description"><p>This method could call getRandomString(length, charset) from this  Class with the desired length and alphanumerics as the charset  then merely append &quot;.&quot; + extension.</p></p>
-	<ul class="tags">
-				<li><span class="field">return:</span> a random unguessable filename ending with the specified                 extension</li>
-			</ul>
-	
-	<div class="method-signature">
-		<span class="method-result">string</span>
-		<span class="method-name">
-			getRandomFilename
-		</span>
-					([<span class="var-type">string</span>&nbsp;<span class="var-name">$extension</span> = <span class="var-default">''</span>])
-			</div>
-	
-			<ul class="parameters">
-					<li>
-				<span class="var-type">string</span>
-				<span class="var-name">$extension</span><span class="var-description">: extension to add to the random filename</span>			</li>
-				</ul>
-		
-			
-	</div>
-<a name="methodgetRandomGUID" id="getRandomGUID"><!-- --></a>
-<div class="evenrow">
-	
-	<div class="method-header">
-		<span class="method-title">getRandomGUID</span> (line <span class="line-number">152</span>)
-	</div> 
-	
-	<!-- ========== Info from phpDoc block ========= -->
-<p class="short-description">Generates a random GUID.  This method could use a hash of random Strings,  the current time, and any other random data available.  The format is a  well-defined sequence of 32 hex digits grouped into chunks of 8-4-4-4-12.</p>
-	<ul class="tags">
-				<li><span class="field">return:</span> the GUID</li>
-				<li><span class="field">throws:</span> EncryptionException if hashing or encryption fails</li>
-			</ul>
-	
-	<div class="method-signature">
-		<span class="method-result">string</span>
-		<span class="method-name">
-			getRandomGUID
-		</span>
-				()
-			</div>
-	
-		
-			
-	</div>
-<a name="methodgetRandomInteger" id="getRandomInteger"><!-- --></a>
-<div class="oddrow">
-	
-	<div class="method-header">
-		<span class="method-title">getRandomInteger</span> (line <span class="line-number">96</span>)
-	</div> 
-	
-	<!-- ========== Info from phpDoc block ========= -->
-<p class="short-description">Gets the random integer. The use of java.security.SecureRandom</p>
-<p class="description"><p>is recommended because it provides a cryptographically strong  pseudo-random number generator. If SecureRandom is not used, the   pseudo-random number gernerator used should comply with the  statistical random number generator tests specified in  &lt;a href=&quot;http://csrc.nist.gov/cryptval/140-2.htm&quot;&gt;  FIPS 140-2, Security Requirements for Cryptographic Modules&lt;/a&gt;,  section 4.9.1.</p></p>
-	<ul class="tags">
-				<li><span class="field">return:</span> the random integer</li>
-			</ul>
-	
-	<div class="method-signature">
-		<span class="method-result">int</span>
-		<span class="method-name">
-			getRandomInteger
-		</span>
-					(<span class="var-type">int</span>&nbsp;<span class="var-name">$min</span>, <span class="var-type">int</span>&nbsp;<span class="var-name">$max</span>)
-			</div>
-	
-			<ul class="parameters">
-					<li>
-				<span class="var-type">int</span>
-				<span class="var-name">$min</span><span class="var-description">: the minimum integer that will be returned</span>			</li>
-					<li>
-				<span class="var-type">int</span>
-				<span class="var-name">$max</span><span class="var-description">: the maximum integer that will be returned</span>			</li>
-				</ul>
-		
-			
-	</div>
-<a name="methodgetRandomLong" id="getRandomLong"><!-- --></a>
-<div class="evenrow">
-	
-	<div class="method-header">
-		<span class="method-title">getRandomLong</span> (line <span class="line-number">111</span>)
-	</div> 
-	
-	<!-- ========== Info from phpDoc block ========= -->
-<p class="short-description">Gets the random long. The use of java.security.SecureRandom</p>
-<p class="description"><p>is recommended because it provides a cryptographically strong  pseudo-random number generator. If SecureRandom is not used, the  pseudo-random number gernerator used should comply with the  statistical random number generator tests specified in  &lt;a href=&quot;http://csrc.nist.gov/cryptval/140-2.htm&quot;&gt;  FIPS 140-2, Security Requirements for Cryptographic Modules&lt;/a&gt;,  section 4.9.1.</p></p>
-	<ul class="tags">
-				<li><span class="field">return:</span> the random long</li>
-			</ul>
-	
-	<div class="method-signature">
-		<span class="method-result">int</span>
-		<span class="method-name">
-			getRandomLong
-		</span>
-				()
-			</div>
-	
-		
-			
-	</div>
-<a name="methodgetRandomReal" id="getRandomReal"><!-- --></a>
-<div class="oddrow">
-	
-	<div class="method-header">
-		<span class="method-title">getRandomReal</span> (line <span class="line-number">142</span>)
-	</div> 
-	
-	<!-- ========== Info from phpDoc block ========= -->
-<p class="short-description">Gets the random real.  The use of java.security.SecureRandom</p>
-<p class="description"><p>is recommended because it provides a cryptographically strong pseudo-random  number generator. If SecureRandom is not used, the pseudo-random number  generator used should comply with the statistical random number generator  tests specified in &lt;a href=&quot;http://csrc.nist.gov/cryptval/140-2.htm&quot;&gt;  FIPS 140-2, Security Requirements for Cryptographic Modules&lt;/a&gt;, section  4.9.1.</p></p>
-	<ul class="tags">
-				<li><span class="field">return:</span> the random real</li>
-			</ul>
-	
-	<div class="method-signature">
-		<span class="method-result">float</span>
-		<span class="method-name">
-			getRandomReal
-		</span>
-					(<span class="var-type">float</span>&nbsp;<span class="var-name">$min</span>, <span class="var-type">float</span>&nbsp;<span class="var-name">$max</span>)
-			</div>
-	
-			<ul class="parameters">
-					<li>
-				<span class="var-type">float</span>
-				<span class="var-name">$min</span><span class="var-description">: the minimum real number that will be returned</span>			</li>
-					<li>
-				<span class="var-type">float</span>
-				<span class="var-name">$max</span><span class="var-description">: the maximum real number that will be returned</span>			</li>
-				</ul>
-		
-			
-	</div>
-<a name="methodgetRandomString" id="getRandomString"><!-- --></a>
-<div class="evenrow">
-	
-	<div class="method-header">
-		<span class="method-title">getRandomString</span> (line <span class="line-number">65</span>)
-	</div> 
-	
-	<!-- ========== Info from phpDoc block ========= -->
-<p class="short-description">Gets a random string of a desired length and character set.  The use of</p>
-<p class="description"><p>java.security.SecureRandom is recommended because it provides a  cryptographically strong pseudo-random number generator. If SecureRandom  is not used, the pseudo-random number gernerator used should comply with the  statistical random number generator tests specified in  &lt;a href=&quot;http://csrc.nist.gov/cryptval/140-2.htm&quot;&gt;  FIPS 140-2, Security Requirements for Cryptographic Modules&lt;/a&gt;, section  4.9.1.</p></p>
-	<ul class="tags">
-				<li><span class="field">return:</span> the random string of the desired length and character set</li>
-			</ul>
-	
-	<div class="method-signature">
-		<span class="method-result">string</span>
-		<span class="method-name">
-			getRandomString
-		</span>
-					(<span class="var-type">int</span>&nbsp;<span class="var-name">$length</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$characterSet</span>)
-			</div>
-	
-			<ul class="parameters">
-					<li>
-				<span class="var-type">int</span>
-				<span class="var-name">$length</span><span class="var-description">: the length of the string</span>			</li>
-					<li>
-				<span class="var-type">string</span>
-				<span class="var-name">$characterSet</span><span class="var-description">: the set of characters to include in the created                              random string</span>			</li>
-				</ul>
-		
-			
-	</div>
-						
-		</div>
-	</div>
+	<h4>Info</h4>
+	<ul>
+			<li><strong>return</strong> - true or false, randomly</li>
+		</ul>
+</div>
+<a name="methodgetRandomFilename" id="methodgetRandomFilename"><!-- --></a>
+<div style="background='#eeeeee'"><h4>
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method getRandomFilename</strong> (line <span class="linenumber">125</span>)
+ </h4> 
+<h4><i>string</i> <strong>getRandomFilename(
+[string
+$extension = ''])</strong></h4>
 
+	<!-- ========== Info from phpDoc block ========= -->
+<h5>Returns an unguessable random filename with the specified extension.</h5>
+<div class="desc"><p>This method could call getRandomString(length, charset) from this  Class with the desired length and alphanumerics as the charset  then merely append &quot;.&quot; + extension.</p></div>
+		<h4>Parameters</h4>
+	<ul>
+			<li><strong>string $extension</strong>: extension to add to the random filename</li>
+		</ul>
+		
+	<h4>Info</h4>
+	<ul>
+			<li><strong>return</strong> - a random unguessable filename ending with the specified                 extension</li>
+		</ul>
+</div>
+<a name="methodgetRandomGUID" id="methodgetRandomGUID"><!-- --></a>
+<div style="background='#ffffff'"><h4>
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method getRandomGUID</strong> (line <span class="linenumber">152</span>)
+ </h4> 
+<h4><i>string</i> <strong>getRandomGUID(
+)</strong></h4>
 
-	<p class="notes" id="credit">
-		Documentation generated on Fri, 16 Apr 2010 12:01:59 -0400 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
-	</p>
-	</div></body>
+	<!-- ========== Info from phpDoc block ========= -->
+<h5>Generates a random GUID.  This method could use a hash of random Strings,  the current time, and any other random data available.  The format is a  well-defined sequence of 32 hex digits grouped into chunks of 8-4-4-4-12.</h5>
+		
+	<h4>Info</h4>
+	<ul>
+			<li><strong>return</strong> - the GUID</li>
+			<li><strong>throws</strong> - EncryptionException if hashing or encryption fails</li>
+		</ul>
+</div>
+<a name="methodgetRandomInteger" id="methodgetRandomInteger"><!-- --></a>
+<div style="background='#eeeeee'"><h4>
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method getRandomInteger</strong> (line <span class="linenumber">96</span>)
+ </h4> 
+<h4><i>int</i> <strong>getRandomInteger(
+int
+$min, int
+$max)</strong></h4>
+
+	<!-- ========== Info from phpDoc block ========= -->
+<h5>Gets the random integer. The use of java.security.SecureRandom</h5>
+<div class="desc"><p>is recommended because it provides a cryptographically strong  pseudo-random number generator. If SecureRandom is not used, the   pseudo-random number gernerator used should comply with the  statistical random number generator tests specified in  &lt;a href=&quot;http://csrc.nist.gov/cryptval/140-2.htm&quot;&gt;  FIPS 140-2, Security Requirements for Cryptographic Modules&lt;/a&gt;,  section 4.9.1.</p></div>
+		<h4>Parameters</h4>
+	<ul>
+			<li><strong>int $min</strong>: the minimum integer that will be returned</li>
+			<li><strong>int $max</strong>: the maximum integer that will be returned</li>
+		</ul>
+		
+	<h4>Info</h4>
+	<ul>
+			<li><strong>return</strong> - the random integer</li>
+		</ul>
+</div>
+<a name="methodgetRandomLong" id="methodgetRandomLong"><!-- --></a>
+<div style="background='#ffffff'"><h4>
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method getRandomLong</strong> (line <span class="linenumber">111</span>)
+ </h4> 
+<h4><i>int</i> <strong>getRandomLong(
+)</strong></h4>
+
+	<!-- ========== Info from phpDoc block ========= -->
+<h5>Gets the random long. The use of java.security.SecureRandom</h5>
+<div class="desc"><p>is recommended because it provides a cryptographically strong  pseudo-random number generator. If SecureRandom is not used, the  pseudo-random number gernerator used should comply with the  statistical random number generator tests specified in  &lt;a href=&quot;http://csrc.nist.gov/cryptval/140-2.htm&quot;&gt;  FIPS 140-2, Security Requirements for Cryptographic Modules&lt;/a&gt;,  section 4.9.1.</p></div>
+		
+	<h4>Info</h4>
+	<ul>
+			<li><strong>return</strong> - the random long</li>
+		</ul>
+</div>
+<a name="methodgetRandomReal" id="methodgetRandomReal"><!-- --></a>
+<div style="background='#eeeeee'"><h4>
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method getRandomReal</strong> (line <span class="linenumber">142</span>)
+ </h4> 
+<h4><i>float</i> <strong>getRandomReal(
+float
+$min, float
+$max)</strong></h4>
+
+	<!-- ========== Info from phpDoc block ========= -->
+<h5>Gets the random real.  The use of java.security.SecureRandom</h5>
+<div class="desc"><p>is recommended because it provides a cryptographically strong pseudo-random  number generator. If SecureRandom is not used, the pseudo-random number  generator used should comply with the statistical random number generator  tests specified in &lt;a href=&quot;http://csrc.nist.gov/cryptval/140-2.htm&quot;&gt;  FIPS 140-2, Security Requirements for Cryptographic Modules&lt;/a&gt;, section  4.9.1.</p></div>
+		<h4>Parameters</h4>
+	<ul>
+			<li><strong>float $min</strong>: the minimum real number that will be returned</li>
+			<li><strong>float $max</strong>: the maximum real number that will be returned</li>
+		</ul>
+		
+	<h4>Info</h4>
+	<ul>
+			<li><strong>return</strong> - the random real</li>
+		</ul>
+</div>
+<a name="methodgetRandomString" id="methodgetRandomString"><!-- --></a>
+<div style="background='#ffffff'"><h4>
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method getRandomString</strong> (line <span class="linenumber">65</span>)
+ </h4> 
+<h4><i>string</i> <strong>getRandomString(
+int
+$length, string
+$characterSet)</strong></h4>
+
+	<!-- ========== Info from phpDoc block ========= -->
+<h5>Gets a random string of a desired length and character set.  The use of</h5>
+<div class="desc"><p>java.security.SecureRandom is recommended because it provides a  cryptographically strong pseudo-random number generator. If SecureRandom  is not used, the pseudo-random number gernerator used should comply with the  statistical random number generator tests specified in  &lt;a href=&quot;http://csrc.nist.gov/cryptval/140-2.htm&quot;&gt;  FIPS 140-2, Security Requirements for Cryptographic Modules&lt;/a&gt;, section  4.9.1.</p></div>
+		<h4>Parameters</h4>
+	<ul>
+			<li><strong>int $length</strong>: the length of the string</li>
+			<li><strong>string $characterSet</strong>: the set of characters to include in the created                              random string</li>
+		</ul>
+		
+	<h4>Info</h4>
+	<ul>
+			<li><strong>return</strong> - the random string of the desired length and character set</li>
+		</ul>
+</div>
+<script type="text/javascript">tp1.addTabPage( document.getElementById( "tabPage2" ) );</script></div>
+<div class="tab-page" id="iVars">
+<h2 class="tab">Inherited Variables</h2>
+<script type="text/javascript">tp1.addTabPage( document.getElementById( "iVars" ) );</script>
+<!-- =========== VAR INHERITED SUMMARY =========== -->
+<A NAME='var_inherited_summary'><!-- --></A>
+<h3>Inherited Class Variable Summary</h3>
+
+	</div>
+<div class="tab-page" id="iMethods">
+<h2 class="tab">Inherited Methods</h2>
+<script type="text/javascript">tp1.addTabPage( document.getElementById( "iMethods" ) );</script>
+<!-- =========== INHERITED METHOD SUMMARY =========== -->
+<A NAME='functions_inherited'><!-- --></A>
+<h3>Inherited Method Summary</h3>
+
+	</div>
+</div>
+<script type="text/javascript">
+//<![CDATA[
+
+setupAllTabs();
+
+//]]>
+</script>
+	<div id="credit">
+		<hr />
+		Documentation generated on Fri, 16 Apr 2010 13:58:02 -0400 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
+	</div>
+</body>
 </html>

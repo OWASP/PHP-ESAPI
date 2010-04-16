@@ -1,167 +1,239 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-  <html xmlns="http://www.w3.org/1999/xhtml">
-		<head>
-			<!-- template designed by Marco Von Ballmoos -->
-			<title>Docs For Class Executor</title>
-			<link rel="stylesheet" href="../media/stylesheet.css" />
-			<meta http-equiv='Content-Type' content='text/html; charset=iso-8859-1'/>
-		</head>
-		<body>
-			<div class="page-body">			
-<h2 class="class-name">Interface Executor</h2>
-
-<a name="sec-description"></a>
-<div class="info-box">
-	<div class="info-box-title">Description</div>
-	<div class="nav-bar">
-					<span class="disabled">Description</span> |
-															<a href="#sec-method-summary">Methods</a> (<a href="#sec-methods">details</a>)
-						
-					</div>
-	<div class="info-box-body">
-        		<!-- ========== Info from phpDoc block ========= -->
-<p class="short-description">The Executor interface is used to run an OS command with reduced security  risk.</p>
-<p class="description"><p>Implementations should do as much as possible to minimize the risk of  injection into either the command or parameters. In addition, implementations  should timeout after a specified time period in order to help prevent denial  of service attacks.</p><p>The class should perform logging and error handling as well. Finally,  implementation should handle errors and generate an ExecutorException with  all the necessary information.</p><p>&lt;img src=&quot;doc-files/Executor.jpg&quot;&gt;</p></p>
-	<ul class="tags">
-				<li><span class="field">author:</span> Mike Boberski &lt;<a href="mailto:boberski_michael@bah.com">boberski_michael@bah.com</a>&gt;</li>
-				<li><span class="field">author:</span> Andrew van der Stock &lt;<a href="mailto:vanderaj@owasp.org">vanderaj@owasp.org</a>&gt;</li>
-				<li><span class="field">author:</span> Jeff Williams &lt;<a href="mailto:jeff.williams@aspectsecurity.com">jeff.williams@aspectsecurity.com</a>&gt;</li>
-				<li><span class="field">author:</span> Mike Boberski &lt;<a href="mailto:boberski_michael@bah.com">boberski_michael@bah.com</a>&gt;</li>
-				<li><span class="field">author:</span> Linden Darling &lt;<a href="mailto:linden.darling@jds.net.au">linden.darling@jds.net.au</a>&gt;</li>
-				<li><span class="field">version:</span> Release: @package_version@</li>
-				<li><span class="field">copyright:</span> 2009-2010 The OWASP Foundation</li>
-				<li><span class="field">link:</span> <a href="http://www.owasp.org/index.php/ESAPI">http://www.owasp.org/index.php/ESAPI</a></li>
-				<li><span class="field">license:</span> <a href="http://www.opensource.org/licenses/bsd-license.php">New BSD license</a></li>
-			</ul>
-		<p class="notes">
-			Located in <a class="field" href="_Executor.php.html">/Executor.php</a> (line <span class="field">57</span>)
-		</p>
-		
-				
-		<pre></pre>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+   <html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <title>Docs For Class Executor</title>
+  <link rel="stylesheet" href="../media/stylesheet.css" />
+  <script src="../media/lib/classTree.js"></script>
+<link id="webfx-tab-style-sheet" type="text/css" rel="stylesheet" href="../media/lib/tab.webfx.css" />
+<script type="text/javascript" src="../media/lib/tabpane.js"></script>
+  <script language="javascript" type="text/javascript" src="../media/lib/ua.js"></script>
+<script language="javascript" type="text/javascript">
+	var imgPlus = new Image();
+	var imgMinus = new Image();
+	imgPlus.src = "../media/images/plus.gif";
+	imgMinus.src = "../media/images/minus.gif";
 	
-			</div>
+	function showNode(Node){
+        switch(navigator.family){
+        	case 'nn4':
+        		// Nav 4.x code fork...
+				var oTable = document.layers["span" + Node];
+				var oImg = document.layers["img" + Node];
+        		break;
+        	case 'ie4':
+        		// IE 4/5 code fork...
+				var oTable = document.all["span" + Node];
+				var oImg = document.all["img" + Node];
+        		break;
+        	case 'gecko':
+        		// Standards Compliant code fork...
+				var oTable = document.getElementById("span" + Node);
+				var oImg = document.getElementById("img" + Node);
+        		break;
+        }
+		oImg.src = imgMinus.src;
+		oTable.style.display = "block";
+	}
+	
+	function hideNode(Node){
+        switch(navigator.family){
+        	case 'nn4':
+        		// Nav 4.x code fork...
+				var oTable = document.layers["span" + Node];
+				var oImg = document.layers["img" + Node];
+        		break;
+        	case 'ie4':
+        		// IE 4/5 code fork...
+				var oTable = document.all["span" + Node];
+				var oImg = document.all["img" + Node];
+        		break;
+        	case 'gecko':
+        		// Standards Compliant code fork...
+				var oTable = document.getElementById("span" + Node);
+				var oImg = document.getElementById("img" + Node);
+        		break;
+        }
+		oImg.src = imgPlus.src;
+		oTable.style.display = "none";
+	}
+	
+	function nodeIsVisible(Node){
+        switch(navigator.family){
+        	case 'nn4':
+        		// Nav 4.x code fork...
+				var oTable = document.layers["span" + Node];
+        		break;
+        	case 'ie4':
+        		// IE 4/5 code fork...
+				var oTable = document.all["span" + Node];
+        		break;
+        	case 'gecko':
+        		// Standards Compliant code fork...
+				var oTable = document.getElementById("span" + Node);
+        		break;
+        }
+		return (oTable && oTable.style.display == "block");
+	}
+	
+	function toggleNodeVisibility(Node){
+		if (nodeIsVisible(Node)){
+			hideNode(Node);
+		}else{
+			showNode(Node);
+		}
+	}
+</script>
+<!-- template designed by Julien Damon based on PHPEdit's generated templates, and tweaked by Greg Beaver -->
+<body bgcolor="#ffffff" ><!-- Start of Class Data -->
+<h2>
+	Interface Executor
+</h2> (line <span class="linenumber">57</span>)
+<div class="tab-pane" id="tabPane1">
+<script type="text/javascript">
+tp1 = new WebFXTabPane( document.getElementById( "tabPane1" ));
+</script>
+
+<div class="tab-page" id="Description">
+<h2 class="tab">Description</h2>
+<pre>
+</pre>
+<p>
+	<b><i>Located in File: <a href="_Executor.php.html">/Executor.php</a></i></b><br>
+</p>
+<!-- ========== Info from phpDoc block ========= -->
+<h5>The Executor interface is used to run an OS command with reduced security  risk.</h5>
+<div class="desc"><p>Implementations should do as much as possible to minimize the risk of  injection into either the command or parameters. In addition, implementations  should timeout after a specified time period in order to help prevent denial  of service attacks.</p><p>The class should perform logging and error handling as well. Finally,  implementation should handle errors and generate an ExecutorException with  all the necessary information.</p><p>&lt;img src=&quot;doc-files/Executor.jpg&quot;&gt;</p></div>
+<ul>
+		<li><strong>author:</strong> - Mike Boberski &lt;<a href="mailto:boberski_michael@bah.com">boberski_michael@bah.com</a>&gt;</li>
+		<li><strong>author:</strong> - Andrew van der Stock &lt;<a href="mailto:vanderaj@owasp.org">vanderaj@owasp.org</a>&gt;</li>
+		<li><strong>author:</strong> - Jeff Williams &lt;<a href="mailto:jeff.williams@aspectsecurity.com">jeff.williams@aspectsecurity.com</a>&gt;</li>
+		<li><strong>author:</strong> - Mike Boberski &lt;<a href="mailto:boberski_michael@bah.com">boberski_michael@bah.com</a>&gt;</li>
+		<li><strong>author:</strong> - Linden Darling &lt;<a href="mailto:linden.darling@jds.net.au">linden.darling@jds.net.au</a>&gt;</li>
+		<li><strong>version:</strong> - Release: @package_version@</li>
+		<li><strong>copyright:</strong> - 2009-2010 The OWASP Foundation</li>
+		<li><strong>link:</strong> - <a href="http://www.owasp.org/index.php/ESAPI">http://www.owasp.org/index.php/ESAPI</a></li>
+		<li><strong>license:</strong> - <a href="http://www.opensource.org/licenses/bsd-license.php">New BSD license</a></li>
+	</ul>
+<br /><hr />
 </div>
+<script type="text/javascript">tp1.addTabPage( document.getElementById( "Description" ) );</script>
+<div class="tab-page" id="tabPage1">
+
+<h2 class="tab">Class Variables</h2>
+<!-- ============ VARIABLE DETAIL =========== -->
+<strong>Summary:</strong><br />
+<hr />
+<script type="text/javascript">tp1.addTabPage( document.getElementById( "tabPage1" ) );</script>
+</div>
+<div class="tab-page" id="constantsTabpage">
+
+<h2 class="tab">Class Constants</h2>
+<!-- ============ VARIABLE DETAIL =========== -->
+<strong>Summary:</strong><br />
+<hr />
+<script type="text/javascript">tp1.addTabPage( document.getElementById( "constantsTabpage" ) );</script>
+</div>
+<div class="tab-page" id="tabPage2">
+<h2 class="tab">Method Detail</h2>
+<!-- ============ METHOD DETAIL =========== -->
+<strong>Summary:</strong><br />
+<div class="method-summary">
+    <div class="method-definition">
+            <span class="method-result">does</span>
+        <a href="#methodexecuteSystemCommand" title="details" class="method-name">executeSystemCommand</a>
+        (<span class="var-type">string</span>&nbsp;<span class="var-name">$executable</span>, <span class="var-type">array</span>&nbsp;<span class="var-name">$params</span>)
+        </div>
+    <div class="method-definition">
+            <span class="method-result">string</span>
+        <a href="#methodexecuteSystemCommandLonghand" title="details" class="method-name">executeSystemCommandLonghand</a>
+        (<span class="var-type">string</span>&nbsp;<span class="var-name">$executable</span>, <span class="var-type">array</span>&nbsp;<span class="var-name">$params</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$workdir</span>, <span class="var-type">bool</span>&nbsp;<span class="var-name">$logParams</span>)
+        </div>
+</div>
+<hr />
+<A NAME='method_detail'></A>
 
 
+<a name="methodexecuteSystemCommand" id="methodexecuteSystemCommand"><!-- --></a>
+<div style="background='#ffffff'"><h4>
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method executeSystemCommand</strong> (line <span class="linenumber">69</span>)
+ </h4> 
+<h4><i>does</i> <strong>executeSystemCommand(
+string
+$executable, array
+$params)</strong></h4>
 
-
-	<a name="sec-method-summary"></a>
-	<div class="info-box">
-		<div class="info-box-title">Method Summary</span></div>
-		<div class="nav-bar">
-			<a href="#sec-description">Description</a> |
-												<span class="disabled">Methods</span> (<a href="#sec-methods">details</a>)
-		</div>
-		<div class="info-box-body">			
-			<div class="method-summary">
-																				
-												<div class="method-definition">
-											<span class="method-result">does</span>
-										<a href="#executeSystemCommand" title="details" class="method-name">executeSystemCommand</a>
-											(<span class="var-type">string</span>&nbsp;<span class="var-name">$executable</span>, <span class="var-type">array</span>&nbsp;<span class="var-name">$params</span>)
-									</div>
-																<div class="method-definition">
-											<span class="method-result">string</span>
-										<a href="#executeSystemCommandLonghand" title="details" class="method-name">executeSystemCommandLonghand</a>
-											(<span class="var-type">string</span>&nbsp;<span class="var-name">$executable</span>, <span class="var-type">array</span>&nbsp;<span class="var-name">$params</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$workdir</span>, <span class="var-type">bool</span>&nbsp;<span class="var-name">$logParams</span>)
-									</div>
-								</div>
-		</div>
-	</div>		
-
-	
-	<a name="sec-methods"></a>
-	<div class="info-box">
-		<div class="info-box-title">Methods</div>
-		<div class="nav-bar">
-			<a href="#sec-description">Description</a> |
-																<a href="#sec-method-summary">Methods</a> (<span class="disabled">details</span>)
-						
-		</div>
-		<div class="info-box-body">
-			<A NAME='method_detail'></A>
-
-<a name="methodexecuteSystemCommand" id="executeSystemCommand"><!-- --></a>
-<div class="evenrow">
-	
-	<div class="method-header">
-		<span class="method-title">executeSystemCommand</span> (line <span class="line-number">69</span>)
-	</div> 
-	
 	<!-- ========== Info from phpDoc block ========= -->
-<p class="short-description">Invokes the specified executable with default workdir and not logging  parameters.</p>
-	<ul class="tags">
-				<li><span class="field">return:</span> not return a value.</li>
-			</ul>
-	
-	<div class="method-signature">
-		<span class="method-result">does</span>
-		<span class="method-name">
-			executeSystemCommand
-		</span>
-					(<span class="var-type">string</span>&nbsp;<span class="var-name">$executable</span>, <span class="var-type">array</span>&nbsp;<span class="var-name">$params</span>)
-			</div>
-	
-			<ul class="parameters">
-					<li>
-				<span class="var-type">string</span>
-				<span class="var-name">$executable</span><span class="var-description">: the command to execute</span>			</li>
-					<li>
-				<span class="var-type">array</span>
-				<span class="var-name">$params</span><span class="var-description">: the parameters of the command being executed</span>			</li>
-				</ul>
+<h5>Invokes the specified executable with default workdir and not logging  parameters.</h5>
+		<h4>Parameters</h4>
+	<ul>
+			<li><strong>string $executable</strong>: the command to execute</li>
+			<li><strong>array $params</strong>: the parameters of the command being executed</li>
+		</ul>
 		
-			
-	</div>
-<a name="methodexecuteSystemCommandLonghand" id="executeSystemCommandLonghand"><!-- --></a>
-<div class="oddrow">
-	
-	<div class="method-header">
-		<span class="method-title">executeSystemCommandLonghand</span> (line <span class="line-number">92</span>)
-	</div> 
-	
+	<h4>Info</h4>
+	<ul>
+			<li><strong>return</strong> - not return a value.</li>
+		</ul>
+</div>
+<a name="methodexecuteSystemCommandLonghand" id="methodexecuteSystemCommandLonghand"><!-- --></a>
+<div style="background='#eeeeee'"><h4>
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method executeSystemCommandLonghand</strong> (line <span class="linenumber">92</span>)
+ </h4> 
+<h4><i>string</i> <strong>executeSystemCommandLonghand(
+string
+$executable, array
+$params, string
+$workdir, bool
+$logParams)</strong></h4>
+
 	<!-- ========== Info from phpDoc block ========= -->
-<p class="short-description">Executes a system command after checking that the executable exists and  escaping all the parameters to ensure that injection is impossible.</p>
-<p class="description"><p>Implementations must change to the specified working  directory before invoking the command.</p><p>note: this is PHP's equivalent to ESAPI4JAVA's overloaded  executeSystemCommand($executable, $params, $workdir, $codec, $logParams)  note: the codec argument has been eliminated from this implementation since  PHP's escapeshellcmd function does enough to not require explicit OS codecs</p></p>
-	<ul class="tags">
-				<li><span class="field">return:</span> the output of the command being run</li>
-				<li><span class="field">throws:</span> ExecutorException the service exception</li>
-			</ul>
-	
-	<div class="method-signature">
-		<span class="method-result">string</span>
-		<span class="method-name">
-			executeSystemCommandLonghand
-		</span>
-					(<span class="var-type">string</span>&nbsp;<span class="var-name">$executable</span>, <span class="var-type">array</span>&nbsp;<span class="var-name">$params</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$workdir</span>, <span class="var-type">bool</span>&nbsp;<span class="var-name">$logParams</span>)
-			</div>
-	
-			<ul class="parameters">
-					<li>
-				<span class="var-type">string</span>
-				<span class="var-name">$executable</span><span class="var-description">: the command to execute</span>			</li>
-					<li>
-				<span class="var-type">array</span>
-				<span class="var-name">$params</span><span class="var-description">: the parameters of the command being executed</span>			</li>
-					<li>
-				<span class="var-type">string</span>
-				<span class="var-name">$workdir</span><span class="var-description">: the working directory</span>			</li>
-					<li>
-				<span class="var-type">bool</span>
-				<span class="var-name">$logParams</span><span class="var-description">: use false if any parameters contains sensitive or                            confidential information. (this is an ESAPI 2.0                            feature)</span>			</li>
-				</ul>
+<h5>Executes a system command after checking that the executable exists and  escaping all the parameters to ensure that injection is impossible.</h5>
+<div class="desc"><p>Implementations must change to the specified working  directory before invoking the command.</p><p>note: this is PHP's equivalent to ESAPI4JAVA's overloaded  executeSystemCommand($executable, $params, $workdir, $codec, $logParams)  note: the codec argument has been eliminated from this implementation since  PHP's escapeshellcmd function does enough to not require explicit OS codecs</p></div>
+		<h4>Parameters</h4>
+	<ul>
+			<li><strong>string $executable</strong>: the command to execute</li>
+			<li><strong>array $params</strong>: the parameters of the command being executed</li>
+			<li><strong>string $workdir</strong>: the working directory</li>
+			<li><strong>bool $logParams</strong>: use false if any parameters contains sensitive or                            confidential information. (this is an ESAPI 2.0                            feature)</li>
+		</ul>
 		
-			
-	</div>
-						
-		</div>
-	</div>
+	<h4>Info</h4>
+	<ul>
+			<li><strong>return</strong> - the output of the command being run</li>
+			<li><strong>throws</strong> - ExecutorException the service exception</li>
+		</ul>
+</div>
+<script type="text/javascript">tp1.addTabPage( document.getElementById( "tabPage2" ) );</script></div>
+<div class="tab-page" id="iVars">
+<h2 class="tab">Inherited Variables</h2>
+<script type="text/javascript">tp1.addTabPage( document.getElementById( "iVars" ) );</script>
+<!-- =========== VAR INHERITED SUMMARY =========== -->
+<A NAME='var_inherited_summary'><!-- --></A>
+<h3>Inherited Class Variable Summary</h3>
 
+	</div>
+<div class="tab-page" id="iMethods">
+<h2 class="tab">Inherited Methods</h2>
+<script type="text/javascript">tp1.addTabPage( document.getElementById( "iMethods" ) );</script>
+<!-- =========== INHERITED METHOD SUMMARY =========== -->
+<A NAME='functions_inherited'><!-- --></A>
+<h3>Inherited Method Summary</h3>
 
-	<p class="notes" id="credit">
-		Documentation generated on Fri, 16 Apr 2010 12:01:58 -0400 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
-	</p>
-	</div></body>
+	</div>
+</div>
+<script type="text/javascript">
+//<![CDATA[
+
+setupAllTabs();
+
+//]]>
+</script>
+	<div id="credit">
+		<hr />
+		Documentation generated on Fri, 16 Apr 2010 13:58:01 -0400 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
+	</div>
+</body>
 </html>
