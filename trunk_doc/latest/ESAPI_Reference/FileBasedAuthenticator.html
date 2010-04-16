@@ -1,0 +1,758 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+   <html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <title>Docs For Class FileBasedAuthenticator</title>
+  <link rel="stylesheet" href="../media/stylesheet.css" />
+  <script src="../media/lib/classTree.js"></script>
+<link id="webfx-tab-style-sheet" type="text/css" rel="stylesheet" href="../media/lib/tab.webfx.css" />
+<script type="text/javascript" src="../media/lib/tabpane.js"></script>
+  <script language="javascript" type="text/javascript" src="../media/lib/ua.js"></script>
+<script language="javascript" type="text/javascript">
+	var imgPlus = new Image();
+	var imgMinus = new Image();
+	imgPlus.src = "../media/images/plus.gif";
+	imgMinus.src = "../media/images/minus.gif";
+	
+	function showNode(Node){
+        switch(navigator.family){
+        	case 'nn4':
+        		// Nav 4.x code fork...
+				var oTable = document.layers["span" + Node];
+				var oImg = document.layers["img" + Node];
+        		break;
+        	case 'ie4':
+        		// IE 4/5 code fork...
+				var oTable = document.all["span" + Node];
+				var oImg = document.all["img" + Node];
+        		break;
+        	case 'gecko':
+        		// Standards Compliant code fork...
+				var oTable = document.getElementById("span" + Node);
+				var oImg = document.getElementById("img" + Node);
+        		break;
+        }
+		oImg.src = imgMinus.src;
+		oTable.style.display = "block";
+	}
+	
+	function hideNode(Node){
+        switch(navigator.family){
+        	case 'nn4':
+        		// Nav 4.x code fork...
+				var oTable = document.layers["span" + Node];
+				var oImg = document.layers["img" + Node];
+        		break;
+        	case 'ie4':
+        		// IE 4/5 code fork...
+				var oTable = document.all["span" + Node];
+				var oImg = document.all["img" + Node];
+        		break;
+        	case 'gecko':
+        		// Standards Compliant code fork...
+				var oTable = document.getElementById("span" + Node);
+				var oImg = document.getElementById("img" + Node);
+        		break;
+        }
+		oImg.src = imgPlus.src;
+		oTable.style.display = "none";
+	}
+	
+	function nodeIsVisible(Node){
+        switch(navigator.family){
+        	case 'nn4':
+        		// Nav 4.x code fork...
+				var oTable = document.layers["span" + Node];
+        		break;
+        	case 'ie4':
+        		// IE 4/5 code fork...
+				var oTable = document.all["span" + Node];
+        		break;
+        	case 'gecko':
+        		// Standards Compliant code fork...
+				var oTable = document.getElementById("span" + Node);
+        		break;
+        }
+		return (oTable && oTable.style.display == "block");
+	}
+	
+	function toggleNodeVisibility(Node){
+		if (nodeIsVisible(Node)){
+			hideNode(Node);
+		}else{
+			showNode(Node);
+		}
+	}
+</script>
+<!-- template designed by Julien Damon based on PHPEdit's generated templates, and tweaked by Greg Beaver -->
+<body bgcolor="#ffffff" ><!-- Start of Class Data -->
+<h2>
+	Class FileBasedAuthenticator
+</h2> (line <span class="linenumber">25</span>)
+<div class="tab-pane" id="tabPane1">
+<script type="text/javascript">
+tp1 = new WebFXTabPane( document.getElementById( "tabPane1" ));
+</script>
+
+<div class="tab-page" id="Description">
+<h2 class="tab">Description</h2>
+<pre>
+</pre>
+<p>
+	<b><i>Located in File: <a href="_reference---FileBasedAuthenticator.php.html">/reference/FileBasedAuthenticator.php</a></i></b><br>
+</p>
+<!-- ========== Info from phpDoc block ========= -->
+<ul>
+	</ul>
+<br /><hr />
+</div>
+<script type="text/javascript">tp1.addTabPage( document.getElementById( "Description" ) );</script>
+<div class="tab-page" id="tabPage1">
+
+<h2 class="tab">Class Variables</h2>
+<!-- ============ VARIABLE DETAIL =========== -->
+<strong>Summary:</strong><br />
+<hr />
+<script type="text/javascript">tp1.addTabPage( document.getElementById( "tabPage1" ) );</script>
+</div>
+<div class="tab-page" id="constantsTabpage">
+
+<h2 class="tab">Class Constants</h2>
+<!-- ============ VARIABLE DETAIL =========== -->
+<strong>Summary:</strong><br />
+<hr />
+<script type="text/javascript">tp1.addTabPage( document.getElementById( "constantsTabpage" ) );</script>
+</div>
+<div class="tab-page" id="tabPage2">
+<h2 class="tab">Method Detail</h2>
+<!-- ============ METHOD DETAIL =========== -->
+<strong>Summary:</strong><br />
+<div class="method-summary">
+    <div class="method-definition">
+            <span class="method-result">FileBasedAuthenticator</span>
+        <a href="#method__construct" title="details" class="method-name">__construct</a>
+        ()
+        </div>
+    <div class="method-definition">
+            <span class="method-result">void</span>
+        <a href="#methodchangePassword" title="details" class="method-name">changePassword</a>
+        (<span class="var-type">user</span>&nbsp;<span class="var-name">$user</span>, <span class="var-type">currentPassword</span>&nbsp;<span class="var-name">$currentPassword</span>, <span class="var-type">newPassword</span>&nbsp;<span class="var-name">$newPassword</span>, <span class="var-type">newPassword2</span>&nbsp;<span class="var-name">$newPassword2</span>)
+        </div>
+    <div class="method-definition">
+            <span class="method-result">void</span>
+        <a href="#methodclearCurrent" title="details" class="method-name">clearCurrent</a>
+        ()
+        </div>
+    <div class="method-definition">
+            <span class="method-result">the</span>
+        <a href="#methodcreateUser" title="details" class="method-name">createUser</a>
+        (<span class="var-type">accountName</span>&nbsp;<span class="var-name">$accountName</span>, <span class="var-type">password1</span>&nbsp;<span class="var-name">$password1</span>, <span class="var-type">password2</span>&nbsp;<span class="var-name">$password2</span>)
+        </div>
+    <div class="method-definition">
+            <span class="method-result">true,</span>
+        <a href="#methodexists" title="details" class="method-name">exists</a>
+        (<span class="var-type">accountName</span>&nbsp;<span class="var-name">$accountName</span>)
+        </div>
+    <div class="method-definition">
+            <span class="method-result">a</span>
+        <a href="#methodgenerateStrongPassword" title="details" class="method-name">generateStrongPassword</a>
+        ([<span class="var-type">user</span>&nbsp;<span class="var-name">$user</span> = <span class="var-default">null</span>], [<span class="var-type">oldPassword</span>&nbsp;<span class="var-name">$oldPassword</span> = <span class="var-default">null</span>])
+        </div>
+    <div class="method-definition">
+            <span class="method-result">a</span>
+        <a href="#methodgetAllHashedPasswords" title="details" class="method-name">getAllHashedPasswords</a>
+        (<span class="var-type">user</span>&nbsp;<span class="var-name">$user</span>, <span class="var-type">create</span>&nbsp;<span class="var-name">$create</span>)
+        </div>
+    <div class="method-definition">
+            <span class="method-result">the</span>
+        <a href="#methodgetCurrentUser" title="details" class="method-name">getCurrentUser</a>
+        ()
+        </div>
+    <div class="method-definition">
+            <span class="method-result">the</span>
+        <a href="#methodgetHashedPassword" title="details" class="method-name">getHashedPassword</a>
+        (<span class="var-type">user</span>&nbsp;<span class="var-name">$user</span>)
+        </div>
+    <div class="method-definition">
+            <span class="method-result">the</span>
+        <a href="#methodgetOldPasswordHashes" title="details" class="method-name">getOldPasswordHashes</a>
+        (<span class="var-type">user</span>&nbsp;<span class="var-name">$user</span>)
+        </div>
+    <div class="method-definition">
+            <span class="method-result">the</span>
+        <a href="#methodgetUserById" title="details" class="method-name">getUserById</a>
+        (<span class="var-type">accountId</span>&nbsp;<span class="var-name">$accountId</span>)
+        </div>
+    <div class="method-definition">
+            <span class="method-result">the</span>
+        <a href="#methodgetUserByName" title="details" class="method-name">getUserByName</a>
+        (<span class="var-type">accountName</span>&nbsp;<span class="var-name">$accountName</span>)
+        </div>
+    <div class="method-definition">
+            <span class="method-result">a</span>
+        <a href="#methodgetUserNames" title="details" class="method-name">getUserNames</a>
+        ()
+        </div>
+    <div class="method-definition">
+            <span class="method-result">the</span>
+        <a href="#methodhashPassword" title="details" class="method-name">hashPassword</a>
+        (<span class="var-type">password</span>&nbsp;<span class="var-name">$password</span>, <span class="var-type">accountName</span>&nbsp;<span class="var-name">$accountName</span>)
+        </div>
+    <div class="method-definition">
+            <span class="method-result">void</span>
+        <a href="#methodloadUsersIfNecessary" title="details" class="method-name">loadUsersIfNecessary</a>
+        ()
+        </div>
+    <div class="method-definition">
+            <span class="method-result">void</span>
+        <a href="#methodloadUsersImmediately" title="details" class="method-name">loadUsersImmediately</a>
+        ()
+        </div>
+    <div class="method-definition">
+            <span class="method-result">the</span>
+        <a href="#methodlogin" title="details" class="method-name">login</a>
+        (<span class="var-type">request</span>&nbsp;<span class="var-name">$request</span>, <span class="var-type">response</span>&nbsp;<span class="var-name">$response</span>)
+        </div>
+    <div class="method-definition">
+            <span class="method-result">void</span>
+        <a href="#methodlogout" title="details" class="method-name">logout</a>
+        ()
+        </div>
+    <div class="method-definition">
+            <span class="method-result">void</span>
+        <a href="#methodremoveUser" title="details" class="method-name">removeUser</a>
+        (<span class="var-type">accountName</span>&nbsp;<span class="var-name">$accountName</span>)
+        </div>
+    <div class="method-definition">
+            <span class="method-result">void</span>
+        <a href="#methodsaveUsers" title="details" class="method-name">saveUsers</a>
+        ()
+        </div>
+    <div class="method-definition">
+            <span class="method-result">void</span>
+        <a href="#methodsetCurrentUser" title="details" class="method-name">setCurrentUser</a>
+        (<span class="var-type">user</span>&nbsp;<span class="var-name">$user</span>)
+        </div>
+    <div class="method-definition">
+            <span class="method-result">void</span>
+        <a href="#methodverifyAccountNameStrength" title="details" class="method-name">verifyAccountNameStrength</a>
+        (<span class="var-type">accountName</span>&nbsp;<span class="var-name">$accountName</span>)
+        </div>
+    <div class="method-definition">
+            <span class="method-result">true,</span>
+        <a href="#methodverifyPassword" title="details" class="method-name">verifyPassword</a>
+        (<span class="var-type">user</span>&nbsp;<span class="var-name">$user</span>, <span class="var-type">password</span>&nbsp;<span class="var-name">$password</span>)
+        </div>
+    <div class="method-definition">
+            <span class="method-result">void</span>
+        <a href="#methodverifyPasswordStrength" title="details" class="method-name">verifyPasswordStrength</a>
+        (<span class="var-type">oldPassword</span>&nbsp;<span class="var-name">$oldPassword</span>, <span class="var-type">newPassword</span>&nbsp;<span class="var-name">$newPassword</span>)
+        </div>
+</div>
+<hr />
+<A NAME='method_detail'></A>
+
+
+<a name="method__construct" id="method__construct"><!-- --></a>
+<div style="background='#ffffff'"><h4>
+<img src="../media/images/Constructor.gif" border="0" /> <strong class="method">Constructor __construct</strong> (line <span class="linenumber">46</span>)
+ </h4> 
+<h4><i>FileBasedAuthenticator</i> <strong>__construct(
+)</strong></h4>
+
+	<!-- ========== Info from phpDoc block ========= -->
+		
+	<h4>Info</h4>
+	<ul>
+		</ul>
+</div>
+<a name="methodchangePassword" id="methodchangePassword"><!-- --></a>
+<div style="background='#eeeeee'"><h4>
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method changePassword</strong> (line <span class="linenumber">270</span>)
+ </h4> 
+<h4><i>void</i> <strong>changePassword(
+user
+$user, currentPassword
+$currentPassword, newPassword
+$newPassword, newPassword2
+$newPassword2)</strong></h4>
+
+	<!-- ========== Info from phpDoc block ========= -->
+<h5>Changes the password for the specified user. This requires the current password, as well as  the password to replace it with. The new password should be checked against old hashes to be sure the new password does not closely resemble or equal any recent passwords for that User.</h5>
+<div class="desc"><p>Password strength should also be verified.  This new password must be repeated to ensure that the user has typed it in correctly.</p></div>
+		<h4>Parameters</h4>
+	<ul>
+			<li><strong>user $user</strong>: the user to change the password for</li>
+			<li><strong>currentPassword $currentPassword</strong>: the current password for the specified user</li>
+			<li><strong>newPassword $newPassword</strong>: the new password to use</li>
+			<li><strong>newPassword2 $newPassword2</strong>: a verification copy of the new password</li>
+		</ul>
+		
+	<h4>Info</h4>
+	<ul>
+			<li><strong>throws</strong> - AuthenticationException          if any errors occur</li>
+		</ul>
+</div>
+<a name="methodclearCurrent" id="methodclearCurrent"><!-- --></a>
+<div style="background='#ffffff'"><h4>
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method clearCurrent</strong> (line <span class="linenumber">58</span>)
+ </h4> 
+<h4><i>void</i> <strong>clearCurrent(
+)</strong></h4>
+
+	<!-- ========== Info from phpDoc block ========= -->
+<h5>Clears the current User. This allows the thread to be reused safely.</h5>
+<div class="desc"><p>This clears all threadlocal variables from the thread. This should ONLY be called after  all possible ESAPI operations have concluded. If you clear too early, many calls will  fail, including logging, which requires the user identity.</p></div>
+		
+	<h4>Info</h4>
+	<ul>
+		</ul>
+</div>
+<a name="methodcreateUser" id="methodcreateUser"><!-- --></a>
+<div style="background='#eeeeee'"><h4>
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method createUser</strong> (line <span class="linenumber">148</span>)
+ </h4> 
+<h4><i>the</i> <strong>createUser(
+accountName
+$accountName, password1
+$password1, password2
+$password2)</strong></h4>
+
+	<!-- ========== Info from phpDoc block ========= -->
+<h5>Creates a new User with the information provided. Implementations should check  accountName and password for proper format and strength against brute force  attacks ( verifyAccountNameStrength(String), verifyPasswordStrength(String, String)  ).</h5>
+<div class="desc"><p>Two copies of the new password are required to encourage user interface designers to  include a &quot;re-type password&quot; field in their forms. Implementations should verify that  both are the same.</p></div>
+		<h4>Parameters</h4>
+	<ul>
+			<li><strong>accountName $accountName</strong>: the account name of the new user</li>
+			<li><strong>password1 $password1</strong>: the password of the new user</li>
+			<li><strong>password2 $password2</strong>: the password of the new user.  This field is to encourage user interface designers to include two password fields in their forms.</li>
+		</ul>
+		
+	<h4>Info</h4>
+	<ul>
+			<li><strong>return</strong> - User that has been created</li>
+			<li><strong>throws</strong> - AuthenticationException          if user creation fails due to any of the qualifications listed in this method's description</li>
+		</ul>
+</div>
+<a name="methodexists" id="methodexists"><!-- --></a>
+<div style="background='#ffffff'"><h4>
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method exists</strong> (line <span class="linenumber">614</span>)
+ </h4> 
+<h4><i>true,</i> <strong>exists(
+accountName
+$accountName)</strong></h4>
+
+	<!-- ========== Info from phpDoc block ========= -->
+<h5>Determine if the account exists.</h5>
+		<h4>Parameters</h4>
+	<ul>
+			<li><strong>accountName $accountName</strong>: the account name</li>
+		</ul>
+		
+	<h4>Info</h4>
+	<ul>
+			<li><strong>return</strong> - if the account exists</li>
+		</ul>
+</div>
+<a name="methodgenerateStrongPassword" id="methodgenerateStrongPassword"><!-- --></a>
+<div style="background='#eeeeee'"><h4>
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method generateStrongPassword</strong> (line <span class="linenumber">237</span>)
+ </h4> 
+<h4><i>a</i> <strong>generateStrongPassword(
+[user
+$user = null], [oldPassword
+$oldPassword = null])</strong></h4>
+
+	<!-- ========== Info from phpDoc block ========= -->
+<h5>Generate strong password that takes into account the user's information and old password. Implementations  should verify that the new password does not include information such as the username, fragments of the  old password, and other information that could be used to weaken the strength of the password.</h5>
+		<h4>Parameters</h4>
+	<ul>
+			<li><strong>user $user</strong>: the user whose information to use when generating password</li>
+			<li><strong>oldPassword $oldPassword</strong>: the old password to use when verifying strength of new password.  The new password may be checked for fragments of oldPassword.</li>
+		</ul>
+		
+	<h4>Info</h4>
+	<ul>
+			<li><strong>return</strong> - password with strong password strength</li>
+		</ul>
+</div>
+<a name="methodgetAllHashedPasswords" id="methodgetAllHashedPasswords"><!-- --></a>
+<div style="background='#ffffff'"><h4>
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method getAllHashedPasswords</strong> (line <span class="linenumber">314</span>)
+ </h4> 
+<h4><i>a</i> <strong>getAllHashedPasswords(
+user
+$user, create
+$create)</strong></h4>
+
+	<!-- ========== Info from phpDoc block ========= -->
+<h5>Returns all of the specified User's hashed passwords.  If the User's list of passwords is null,  and create is set to true, an empty password list will be associated with the specified User  and then returned. If the User's password map is null and create is set to false, an exception  will be thrown.</h5>
+		<h4>Parameters</h4>
+	<ul>
+			<li><strong>user $user</strong>: the User whose old hashes should be returned</li>
+			<li><strong>create $create</strong>: true - if no password list is associated with this user, create one          false - if no password list is associated with this user, do not create one</li>
+		</ul>
+		
+	<h4>Info</h4>
+	<ul>
+			<li><strong>return</strong> - List containing all of the specified User's password hashes</li>
+			<li><strong>access</strong> - public</li>
+		</ul>
+</div>
+<a name="methodgetCurrentUser" id="methodgetCurrentUser"><!-- --></a>
+<div style="background='#eeeeee'"><h4>
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method getCurrentUser</strong> (line <span class="linenumber">445</span>)
+ </h4> 
+<h4><i>the</i> <strong>getCurrentUser(
+)</strong></h4>
+
+	<!-- ========== Info from phpDoc block ========= -->
+<h5>Returns the currently logged in User.</h5>
+		
+	<h4>Info</h4>
+	<ul>
+			<li><strong>return</strong> - matching User object, or the Anonymous User if no match          exists</li>
+		</ul>
+</div>
+<a name="methodgetHashedPassword" id="methodgetHashedPassword"><!-- --></a>
+<div style="background='#ffffff'"><h4>
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method getHashedPassword</strong> (line <span class="linenumber">336</span>)
+ </h4> 
+<h4><i>the</i> <strong>getHashedPassword(
+user
+$user)</strong></h4>
+
+	<!-- ========== Info from phpDoc block ========= -->
+<h5>Return the specified User's current hashed password.</h5>
+		<h4>Parameters</h4>
+	<ul>
+			<li><strong>user $user</strong>: this User's current hashed password will be returned</li>
+		</ul>
+		
+	<h4>Info</h4>
+	<ul>
+			<li><strong>return</strong> - specified User's current hashed password</li>
+			<li><strong>access</strong> - public</li>
+		</ul>
+</div>
+<a name="methodgetOldPasswordHashes" id="methodgetOldPasswordHashes"><!-- --></a>
+<div style="background='#eeeeee'"><h4>
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method getOldPasswordHashes</strong> (line <span class="linenumber">351</span>)
+ </h4> 
+<h4><i>the</i> <strong>getOldPasswordHashes(
+user
+$user)</strong></h4>
+
+	<!-- ========== Info from phpDoc block ========= -->
+<h5>Get a List of the specified User's old password hashes.  This will not return the User's current  password hash.</h5>
+		<h4>Parameters</h4>
+	<ul>
+			<li><strong>user $user</strong>: he user whose old password hashes should be returned</li>
+		</ul>
+		
+	<h4>Info</h4>
+	<ul>
+			<li><strong>return</strong> - specified User's old password hashes</li>
+			<li><strong>access</strong> - public</li>
+		</ul>
+</div>
+<a name="methodgetUserById" id="methodgetUserById"><!-- --></a>
+<div style="background='#ffffff'"><h4>
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method getUserById</strong> (line <span class="linenumber">369</span>)
+ </h4> 
+<h4><i>the</i> <strong>getUserById(
+accountId
+$accountId)</strong></h4>
+
+	<!-- ========== Info from phpDoc block ========= -->
+<h5>Returns the User matching the provided accountId.  If the accoundId is not found, an Anonymous  User or null may be returned.</h5>
+		<h4>Parameters</h4>
+	<ul>
+			<li><strong>accountId $accountId</strong>: the account id</li>
+		</ul>
+		
+	<h4>Info</h4>
+	<ul>
+			<li><strong>return</strong> - matching User object, or the Anonymous User if no match exists</li>
+		</ul>
+</div>
+<a name="methodgetUserByName" id="methodgetUserByName"><!-- --></a>
+<div style="background='#eeeeee'"><h4>
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method getUserByName</strong> (line <span class="linenumber">395</span>)
+ </h4> 
+<h4><i>the</i> <strong>getUserByName(
+accountName
+$accountName)</strong></h4>
+
+	<!-- ========== Info from phpDoc block ========= -->
+<h5>Returns the User matching the provided accountName.  If the accoundId is not found, an Anonymous  User or null may be returned.</h5>
+		<h4>Parameters</h4>
+	<ul>
+			<li><strong>accountName $accountName</strong>: the account name</li>
+		</ul>
+		
+	<h4>Info</h4>
+	<ul>
+			<li><strong>return</strong> - matching User object, or the Anonymous User if no match exists</li>
+		</ul>
+</div>
+<a name="methodgetUserNames" id="methodgetUserNames"><!-- --></a>
+<div style="background='#ffffff'"><h4>
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method getUserNames</strong> (line <span class="linenumber">413</span>)
+ </h4> 
+<h4><i>a</i> <strong>getUserNames(
+)</strong></h4>
+
+	<!-- ========== Info from phpDoc block ========= -->
+<h5>Gets a collection containing all the existing user names.</h5>
+		
+	<h4>Info</h4>
+	<ul>
+			<li><strong>return</strong> - set of all user names</li>
+		</ul>
+</div>
+<a name="methodhashPassword" id="methodhashPassword"><!-- --></a>
+<div style="background='#eeeeee'"><h4>
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method hashPassword</strong> (line <span class="linenumber">494</span>)
+ </h4> 
+<h4><i>the</i> <strong>hashPassword(
+password
+$password, accountName
+$accountName)</strong></h4>
+
+	<!-- ========== Info from phpDoc block ========= -->
+<h5>Returns a $representation of the hashed password, using the  accountName as the salt. The salt helps to prevent against &quot;rainbow&quot;  table attacks where the attacker pre-calculates hashes for known strings.</h5>
+<div class="desc"><p>This method specifies the use of the user's account name as the &quot;salt&quot;  value. The Encryptor.hash method can be used if a different salt is  required.</p></div>
+		<h4>Parameters</h4>
+	<ul>
+			<li><strong>password $password</strong>: the password to hash</li>
+			<li><strong>accountName $accountName</strong>: the account name to use as the salt</li>
+		</ul>
+		
+	<h4>Info</h4>
+	<ul>
+			<li><strong>return</strong> - hashed password</li>
+		</ul>
+</div>
+<a name="methodloadUsersIfNecessary" id="methodloadUsersIfNecessary"><!-- --></a>
+<div style="background='#ffffff'"><h4>
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method loadUsersIfNecessary</strong> (line <span class="linenumber">187</span>)
+ </h4> 
+<h4><i>void</i> <strong>loadUsersIfNecessary(
+)</strong></h4>
+
+	<!-- ========== Info from phpDoc block ========= -->
+<h5>Load users if they haven't been loaded in a while.</h5>
+		
+	<h4>Info</h4>
+	<ul>
+			<li><strong>access</strong> - protected</li>
+		</ul>
+</div>
+<a name="methodloadUsersImmediately" id="methodloadUsersImmediately"><!-- --></a>
+<div style="background='#eeeeee'"><h4>
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method loadUsersImmediately</strong> (line <span class="linenumber">209</span>)
+ </h4> 
+<h4><i>void</i> <strong>loadUsersImmediately(
+)</strong></h4>
+
+	<!-- ========== Info from phpDoc block ========= -->
+		
+	<h4>Info</h4>
+	<ul>
+			<li><strong>access</strong> - protected</li>
+		</ul>
+</div>
+<a name="methodlogin" id="methodlogin"><!-- --></a>
+<div style="background='#ffffff'"><h4>
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method login</strong> (line <span class="linenumber">94</span>)
+ </h4> 
+<h4><i>the</i> <strong>login(
+request
+$request, response
+$response)</strong></h4>
+
+	<!-- ========== Info from phpDoc block ========= -->
+<h5>This method should be called for every HTTP request, to login the current user either from the session of HTTP  request. This method will set the current user so that getCurrentUser() will work properly.</h5>
+<div class="desc"><p>Authenticates the user's credentials from the HttpServletRequest if  necessary, creates a session if necessary, and sets the user as the  current user.</p><p>Specification:  The implementation should do the following:  	1) Check if the User is already stored in the session  		a. If so, check that session absolute and inactivity timeout have not expired  		b. Step 2 may not be required if 1a has been satisfied  	2) Verify User credentials  		a. It is recommended that you use  			loginWithUsernameAndPassword(HttpServletRequest, HttpServletResponse) to verify credentials  	3) Set the last host of the User (ex.  user.setLastHostAddress(address) )  	4) Verify that the request is secure (ex. over SSL)  	5) Verify the User account is allowed to be logged in  		a. Verify the User is not disabled, expired or locked  	6) Assign User to session variable</p></div>
+		<h4>Parameters</h4>
+	<ul>
+			<li><strong>request $request</strong>: the current HTTP request</li>
+			<li><strong>response $response</strong>: the HTTP response</li>
+		</ul>
+		
+	<h4>Info</h4>
+	<ul>
+			<li><strong>return</strong> - User</li>
+			<li><strong>throws</strong> - AuthenticationException              if the credentials are not verified, or if the account is disabled, locked, expired, or timed out</li>
+		</ul>
+</div>
+<a name="methodlogout" id="methodlogout"><!-- --></a>
+<div style="background='#eeeeee'"><h4>
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method logout</strong> (line <span class="linenumber">122</span>)
+ </h4> 
+<h4><i>void</i> <strong>logout(
+)</strong></h4>
+
+	<!-- ========== Info from phpDoc block ========= -->
+<h5>Logs out the current user.</h5>
+<div class="desc"><p>This is usually done by calling User.logout on the current User.</p></div>
+		
+	<h4>Info</h4>
+	<ul>
+		</ul>
+</div>
+<a name="methodremoveUser" id="methodremoveUser"><!-- --></a>
+<div style="background='#ffffff'"><h4>
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method removeUser</strong> (line <span class="linenumber">508</span>)
+ </h4> 
+<h4><i>void</i> <strong>removeUser(
+accountName
+$accountName)</strong></h4>
+
+	<!-- ========== Info from phpDoc block ========= -->
+<h5>Removes the account of the specified accountName.</h5>
+		<h4>Parameters</h4>
+	<ul>
+			<li><strong>accountName $accountName</strong>: the account name to remove</li>
+		</ul>
+		
+	<h4>Info</h4>
+	<ul>
+			<li><strong>throws</strong> - AuthenticationException              the authentication exception if user does not exist</li>
+		</ul>
+</div>
+<a name="methodsaveUsers" id="methodsaveUsers"><!-- --></a>
+<div style="background='#eeeeee'"><h4>
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method saveUsers</strong> (line <span class="linenumber">220</span>)
+ </h4> 
+<h4><i>void</i> <strong>saveUsers(
+)</strong></h4>
+
+	<!-- ========== Info from phpDoc block ========= -->
+<h5>Saves the user database to the file system. In this implementation you must call save to commit any changes to  the user file. Otherwise changes will be lost when the program ends.</h5>
+		
+	<h4>Info</h4>
+	<ul>
+			<li><strong>throws</strong> - AuthenticationException          if the user file could not be written</li>
+			<li><strong>access</strong> - public</li>
+		</ul>
+</div>
+<a name="methodsetCurrentUser" id="methodsetCurrentUser"><!-- --></a>
+<div style="background='#ffffff'"><h4>
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method setCurrentUser</strong> (line <span class="linenumber">455</span>)
+ </h4> 
+<h4><i>void</i> <strong>setCurrentUser(
+user
+$user)</strong></h4>
+
+	<!-- ========== Info from phpDoc block ========= -->
+<h5>Sets the currently logged in User.</h5>
+		<h4>Parameters</h4>
+	<ul>
+			<li><strong>user $user</strong>: the user to set as the current user</li>
+		</ul>
+		
+	<h4>Info</h4>
+	<ul>
+		</ul>
+</div>
+<a name="methodverifyAccountNameStrength" id="methodverifyAccountNameStrength"><!-- --></a>
+<div style="background='#eeeeee'"><h4>
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method verifyAccountNameStrength</strong> (line <span class="linenumber">529</span>)
+ </h4> 
+<h4><i>void</i> <strong>verifyAccountNameStrength(
+accountName
+$accountName)</strong></h4>
+
+	<!-- ========== Info from phpDoc block ========= -->
+<h5>Ensures that the account name passes site-specific complexity requirements, like minimum length.</h5>
+		<h4>Parameters</h4>
+	<ul>
+			<li><strong>accountName $accountName</strong>: the account name</li>
+		</ul>
+		
+	<h4>Info</h4>
+	<ul>
+			<li><strong>throws</strong> - AuthenticationException              if account name does not meet complexity requirements</li>
+		</ul>
+</div>
+<a name="methodverifyPassword" id="methodverifyPassword"><!-- --></a>
+<div style="background='#ffffff'"><h4>
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method verifyPassword</strong> (line <span class="linenumber">113</span>)
+ </h4> 
+<h4><i>true,</i> <strong>verifyPassword(
+user
+$user, password
+$password)</strong></h4>
+
+	<!-- ========== Info from phpDoc block ========= -->
+<h5>Verify that the supplied password matches the password for this user. Password should  be stored as a hash. It is recommended you use the hashPassword(password, accountName) method  in this class.</h5>
+<div class="desc"><p>This method is typically used for &quot;reauthentication&quot; for the most sensitive functions, such  as transactions, changing email address, and changing other account information.</p></div>
+		<h4>Parameters</h4>
+	<ul>
+			<li><strong>user $user</strong>: the user who requires verification</li>
+			<li><strong>password $password</strong>: the hashed user-supplied password</li>
+		</ul>
+		
+	<h4>Info</h4>
+	<ul>
+			<li><strong>return</strong> - if the password is correct for the specified user</li>
+		</ul>
+</div>
+<a name="methodverifyPasswordStrength" id="methodverifyPasswordStrength"><!-- --></a>
+<div style="background='#eeeeee'"><h4>
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method verifyPasswordStrength</strong> (line <span class="linenumber">554</span>)
+ </h4> 
+<h4><i>void</i> <strong>verifyPasswordStrength(
+oldPassword
+$oldPassword, newPassword
+$newPassword)</strong></h4>
+
+	<!-- ========== Info from phpDoc block ========= -->
+<h5>Ensures that the password meets site-specific complexity requirements, like length or number</h5>
+<div class="desc"><p>of character sets. This method takes the old password so that the algorithm can analyze the  new password to see if it is too similar to the old password. Note that this has to be  invoked when the user has entered the old password, as the list of old  credentials stored by ESAPI is all hashed.</p></div>
+		<h4>Parameters</h4>
+	<ul>
+			<li><strong>oldPassword $oldPassword</strong>: the old password</li>
+			<li><strong>newPassword $newPassword</strong>: the new password</li>
+		</ul>
+		
+	<h4>Info</h4>
+	<ul>
+			<li><strong>throws</strong> - AuthenticationException                 if newPassword is too similar to oldPassword or if newPassword does not meet complexity requirements</li>
+		</ul>
+</div>
+<script type="text/javascript">tp1.addTabPage( document.getElementById( "tabPage2" ) );</script></div>
+<div class="tab-page" id="iVars">
+<h2 class="tab">Inherited Variables</h2>
+<script type="text/javascript">tp1.addTabPage( document.getElementById( "iVars" ) );</script>
+<!-- =========== VAR INHERITED SUMMARY =========== -->
+<A NAME='var_inherited_summary'><!-- --></A>
+<h3>Inherited Class Variable Summary</h3>
+
+	</div>
+<div class="tab-page" id="iMethods">
+<h2 class="tab">Inherited Methods</h2>
+<script type="text/javascript">tp1.addTabPage( document.getElementById( "iMethods" ) );</script>
+<!-- =========== INHERITED METHOD SUMMARY =========== -->
+<A NAME='functions_inherited'><!-- --></A>
+<h3>Inherited Method Summary</h3>
+
+	</div>
+</div>
+<script type="text/javascript">
+//<![CDATA[
+
+setupAllTabs();
+
+//]]>
+</script>
+	<div id="credit">
+		<hr />
+		Documentation generated on Fri, 16 Apr 2010 14:39:15 -0400 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
+	</div>
+</body>
+</html>

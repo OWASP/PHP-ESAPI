@@ -1,0 +1,296 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+   <html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <title>Docs For Class Base64Codec</title>
+  <link rel="stylesheet" href="../media/stylesheet.css" />
+  <script src="../media/lib/classTree.js"></script>
+<link id="webfx-tab-style-sheet" type="text/css" rel="stylesheet" href="../media/lib/tab.webfx.css" />
+<script type="text/javascript" src="../media/lib/tabpane.js"></script>
+  <script language="javascript" type="text/javascript" src="../media/lib/ua.js"></script>
+<script language="javascript" type="text/javascript">
+	var imgPlus = new Image();
+	var imgMinus = new Image();
+	imgPlus.src = "../media/images/plus.gif";
+	imgMinus.src = "../media/images/minus.gif";
+	
+	function showNode(Node){
+        switch(navigator.family){
+        	case 'nn4':
+        		// Nav 4.x code fork...
+				var oTable = document.layers["span" + Node];
+				var oImg = document.layers["img" + Node];
+        		break;
+        	case 'ie4':
+        		// IE 4/5 code fork...
+				var oTable = document.all["span" + Node];
+				var oImg = document.all["img" + Node];
+        		break;
+        	case 'gecko':
+        		// Standards Compliant code fork...
+				var oTable = document.getElementById("span" + Node);
+				var oImg = document.getElementById("img" + Node);
+        		break;
+        }
+		oImg.src = imgMinus.src;
+		oTable.style.display = "block";
+	}
+	
+	function hideNode(Node){
+        switch(navigator.family){
+        	case 'nn4':
+        		// Nav 4.x code fork...
+				var oTable = document.layers["span" + Node];
+				var oImg = document.layers["img" + Node];
+        		break;
+        	case 'ie4':
+        		// IE 4/5 code fork...
+				var oTable = document.all["span" + Node];
+				var oImg = document.all["img" + Node];
+        		break;
+        	case 'gecko':
+        		// Standards Compliant code fork...
+				var oTable = document.getElementById("span" + Node);
+				var oImg = document.getElementById("img" + Node);
+        		break;
+        }
+		oImg.src = imgPlus.src;
+		oTable.style.display = "none";
+	}
+	
+	function nodeIsVisible(Node){
+        switch(navigator.family){
+        	case 'nn4':
+        		// Nav 4.x code fork...
+				var oTable = document.layers["span" + Node];
+        		break;
+        	case 'ie4':
+        		// IE 4/5 code fork...
+				var oTable = document.all["span" + Node];
+        		break;
+        	case 'gecko':
+        		// Standards Compliant code fork...
+				var oTable = document.getElementById("span" + Node);
+        		break;
+        }
+		return (oTable && oTable.style.display == "block");
+	}
+	
+	function toggleNodeVisibility(Node){
+		if (nodeIsVisible(Node)){
+			hideNode(Node);
+		}else{
+			showNode(Node);
+		}
+	}
+</script>
+<!-- template designed by Julien Damon based on PHPEdit's generated templates, and tweaked by Greg Beaver -->
+<body bgcolor="#ffffff" ><!-- Start of Class Data -->
+<h2>
+	Class Base64Codec
+</h2> (line <span class="linenumber">40</span>)
+<div class="tab-pane" id="tabPane1">
+<script type="text/javascript">
+tp1 = new WebFXTabPane( document.getElementById( "tabPane1" ));
+</script>
+
+<div class="tab-page" id="Description">
+<h2 class="tab">Description</h2>
+<pre>
+</pre>
+<p>
+	<b><i>Located in File: <a href="_codecs---Base64Codec.php.html">/codecs/Base64Codec.php</a></i></b><br>
+</p>
+<!-- ========== Info from phpDoc block ========= -->
+<h5>Implementation of the Codec Interface for Base64 encoding and decoding.</h5>
+<div class="desc"><p>This implementation makes use of the standard PHP base64_encode function and  implements Section 6.8 of RFC 2045.</p><p>For more information see:  <a href="http://tools.ietf.org/html/rfc2045#section-6.8">http://tools.ietf.org/html/rfc2045#section-6.8</a>  <a href="http://en.wikipedia.org/wiki/Base64#MIME">http://en.wikipedia.org/wiki/Base64#MIME</a></p></div>
+<ul>
+	</ul>
+<br /><hr />
+</div>
+<script type="text/javascript">tp1.addTabPage( document.getElementById( "Description" ) );</script>
+<div class="tab-page" id="tabPage1">
+
+<h2 class="tab">Class Variables</h2>
+<!-- ============ VARIABLE DETAIL =========== -->
+<strong>Summary:</strong><br />
+<hr />
+<script type="text/javascript">tp1.addTabPage( document.getElementById( "tabPage1" ) );</script>
+</div>
+<div class="tab-page" id="constantsTabpage">
+
+<h2 class="tab">Class Constants</h2>
+<!-- ============ VARIABLE DETAIL =========== -->
+<strong>Summary:</strong><br />
+<hr />
+<script type="text/javascript">tp1.addTabPage( document.getElementById( "constantsTabpage" ) );</script>
+</div>
+<div class="tab-page" id="tabPage2">
+<h2 class="tab">Method Detail</h2>
+<!-- ============ METHOD DETAIL =========== -->
+<strong>Summary:</strong><br />
+<div class="method-summary">
+    <div class="method-definition">
+            <span class="method-result">Base64Codec</span>
+        <a href="#method__construct" title="details" class="method-name">__construct</a>
+        ()
+        </div>
+    <div class="method-definition">
+            <span class="method-result">the</span>
+        <a href="#methoddecode" title="details" class="method-name">decode</a>
+        (<span class="var-type">$input</span>&nbsp;<span class="var-name">$input</span>)
+        </div>
+    <div class="method-definition">
+            <span class="method-result">the</span>
+        <a href="#methoddecodeCharacter" title="details" class="method-name">decodeCharacter</a>
+        (<span class="var-type">$input</span>&nbsp;<span class="var-name">$input</span>)
+        </div>
+    <div class="method-definition">
+            <span class="method-result">the</span>
+        <a href="#methodencode" title="details" class="method-name">encode</a>
+        (<span class="var-type">input</span>&nbsp;<span class="var-name">$input</span>, [<span class="var-type"></span>&nbsp;<span class="var-name">$wrap</span> = <span class="var-default">true</span>])
+        </div>
+    <div class="method-definition">
+            <span class="method-result">the</span>
+        <a href="#methodencodeCharacter" title="details" class="method-name">encodeCharacter</a>
+        (<span class="var-type">$input</span>&nbsp;<span class="var-name">$input</span>)
+        </div>
+</div>
+<hr />
+<A NAME='method_detail'></A>
+
+
+<a name="method__construct" id="method__construct"><!-- --></a>
+<div style="background='#ffffff'"><h4>
+<img src="../media/images/Constructor.gif" border="0" /> <strong class="method">Constructor __construct</strong> (line <span class="linenumber">46</span>)
+ </h4> 
+<h4><i>Base64Codec</i> <strong>__construct(
+)</strong></h4>
+
+	<!-- ========== Info from phpDoc block ========= -->
+<h5>Public Constructor</h5>
+		
+	<h4>Info</h4>
+	<ul>
+		</ul>
+</div>
+<a name="methoddecode" id="methoddecode"><!-- --></a>
+<div style="background='#eeeeee'"><h4>
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method decode</strong> (line <span class="linenumber">108</span>)
+ </h4> 
+<h4><i>the</i> <strong>decode(
+$input
+$input)</strong></h4>
+
+	<!-- ========== Info from phpDoc block ========= -->
+<h5>Decodes the given input string from Base64 to plain text.</h5>
+		<h4>Parameters</h4>
+	<ul>
+			<li><strong>$input $input</strong>: the base64 encoded input string</li>
+		</ul>
+		
+	<h4>Info</h4>
+	<ul>
+			<li><strong>return</strong> - decoded string</li>
+			<li><strong>access</strong> - public</li>
+		</ul>
+</div>
+<a name="methoddecodeCharacter" id="methoddecodeCharacter"><!-- --></a>
+<div style="background='#ffffff'"><h4>
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method decodeCharacter</strong> (line <span class="linenumber">119</span>)
+ </h4> 
+<h4><i>the</i> <strong>decodeCharacter(
+$input
+$input)</strong></h4>
+
+	<!-- ========== Info from phpDoc block ========= -->
+<h5>Decodes a character from Base64 to plain text</h5>
+		<h4>Parameters</h4>
+	<ul>
+			<li><strong>$input $input</strong>: the character to decode</li>
+		</ul>
+		
+	<h4>Info</h4>
+	<ul>
+			<li><strong>return</strong> - decoded character</li>
+			<li><strong>access</strong> - public</li>
+		</ul>
+</div>
+<a name="methodencode" id="methodencode"><!-- --></a>
+<div style="background='#eeeeee'"><h4>
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method encode</strong> (line <span class="linenumber">61</span>)
+ </h4> 
+<h4><i>the</i> <strong>encode(
+input
+$input, [
+$wrap = true])</strong></h4>
+
+	<!-- ========== Info from phpDoc block ========= -->
+<h5>Encodes the input string to Base64.</h5>
+<div class="desc"><p>The output is wrapped at 76 characters by default, but this behaviour may  be overridden by supplying a value of boolean false for the $wrap  parameter.</p></div>
+		<h4>Parameters</h4>
+	<ul>
+			<li><strong>input $input</strong>: the input string to be encoded</li>
+			<li><strong> $wrap</strong>: </li>
+		</ul>
+		
+	<h4>Info</h4>
+	<ul>
+			<li><strong>return</strong> - encoded string</li>
+			<li><strong>access</strong> - public</li>
+		</ul>
+</div>
+<a name="methodencodeCharacter" id="methodencodeCharacter"><!-- --></a>
+<div style="background='#ffffff'"><h4>
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method encodeCharacter</strong> (line <span class="linenumber">93</span>)
+ </h4> 
+<h4><i>the</i> <strong>encodeCharacter(
+$input
+$input)</strong></h4>
+
+	<!-- ========== Info from phpDoc block ========= -->
+<h5>Encodes a single character to Base64.</h5>
+		<h4>Parameters</h4>
+	<ul>
+			<li><strong>$input $input</strong>: the character to encode</li>
+		</ul>
+		
+	<h4>Info</h4>
+	<ul>
+			<li><strong>return</strong> - base64 encoded character</li>
+			<li><strong>access</strong> - public</li>
+		</ul>
+</div>
+<script type="text/javascript">tp1.addTabPage( document.getElementById( "tabPage2" ) );</script></div>
+<div class="tab-page" id="iVars">
+<h2 class="tab">Inherited Variables</h2>
+<script type="text/javascript">tp1.addTabPage( document.getElementById( "iVars" ) );</script>
+<!-- =========== VAR INHERITED SUMMARY =========== -->
+<A NAME='var_inherited_summary'><!-- --></A>
+<h3>Inherited Class Variable Summary</h3>
+
+	</div>
+<div class="tab-page" id="iMethods">
+<h2 class="tab">Inherited Methods</h2>
+<script type="text/javascript">tp1.addTabPage( document.getElementById( "iMethods" ) );</script>
+<!-- =========== INHERITED METHOD SUMMARY =========== -->
+<A NAME='functions_inherited'><!-- --></A>
+<h3>Inherited Method Summary</h3>
+
+	</div>
+</div>
+<script type="text/javascript">
+//<![CDATA[
+
+setupAllTabs();
+
+//]]>
+</script>
+	<div id="credit">
+		<hr />
+		Documentation generated on Fri, 16 Apr 2010 14:30:23 -0400 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
+	</div>
+</body>
+</html>

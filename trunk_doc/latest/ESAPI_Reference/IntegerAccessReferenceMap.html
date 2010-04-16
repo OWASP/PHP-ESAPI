@@ -1,0 +1,382 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+   <html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <title>Docs For Class IntegerAccessReferenceMap</title>
+  <link rel="stylesheet" href="../media/stylesheet.css" />
+  <script src="../media/lib/classTree.js"></script>
+<link id="webfx-tab-style-sheet" type="text/css" rel="stylesheet" href="../media/lib/tab.webfx.css" />
+<script type="text/javascript" src="../media/lib/tabpane.js"></script>
+  <script language="javascript" type="text/javascript" src="../media/lib/ua.js"></script>
+<script language="javascript" type="text/javascript">
+	var imgPlus = new Image();
+	var imgMinus = new Image();
+	imgPlus.src = "../media/images/plus.gif";
+	imgMinus.src = "../media/images/minus.gif";
+	
+	function showNode(Node){
+        switch(navigator.family){
+        	case 'nn4':
+        		// Nav 4.x code fork...
+				var oTable = document.layers["span" + Node];
+				var oImg = document.layers["img" + Node];
+        		break;
+        	case 'ie4':
+        		// IE 4/5 code fork...
+				var oTable = document.all["span" + Node];
+				var oImg = document.all["img" + Node];
+        		break;
+        	case 'gecko':
+        		// Standards Compliant code fork...
+				var oTable = document.getElementById("span" + Node);
+				var oImg = document.getElementById("img" + Node);
+        		break;
+        }
+		oImg.src = imgMinus.src;
+		oTable.style.display = "block";
+	}
+	
+	function hideNode(Node){
+        switch(navigator.family){
+        	case 'nn4':
+        		// Nav 4.x code fork...
+				var oTable = document.layers["span" + Node];
+				var oImg = document.layers["img" + Node];
+        		break;
+        	case 'ie4':
+        		// IE 4/5 code fork...
+				var oTable = document.all["span" + Node];
+				var oImg = document.all["img" + Node];
+        		break;
+        	case 'gecko':
+        		// Standards Compliant code fork...
+				var oTable = document.getElementById("span" + Node);
+				var oImg = document.getElementById("img" + Node);
+        		break;
+        }
+		oImg.src = imgPlus.src;
+		oTable.style.display = "none";
+	}
+	
+	function nodeIsVisible(Node){
+        switch(navigator.family){
+        	case 'nn4':
+        		// Nav 4.x code fork...
+				var oTable = document.layers["span" + Node];
+        		break;
+        	case 'ie4':
+        		// IE 4/5 code fork...
+				var oTable = document.all["span" + Node];
+        		break;
+        	case 'gecko':
+        		// Standards Compliant code fork...
+				var oTable = document.getElementById("span" + Node);
+        		break;
+        }
+		return (oTable && oTable.style.display == "block");
+	}
+	
+	function toggleNodeVisibility(Node){
+		if (nodeIsVisible(Node)){
+			hideNode(Node);
+		}else{
+			showNode(Node);
+		}
+	}
+</script>
+<!-- template designed by Julien Damon based on PHPEdit's generated templates, and tweaked by Greg Beaver -->
+<body bgcolor="#ffffff" ><!-- Start of Class Data -->
+<h2>
+	Class IntegerAccessReferenceMap
+</h2> (line <span class="linenumber">23</span>)
+<div class="tab-pane" id="tabPane1">
+<script type="text/javascript">
+tp1 = new WebFXTabPane( document.getElementById( "tabPane1" ));
+</script>
+
+<div class="tab-page" id="Description">
+<h2 class="tab">Description</h2>
+<pre>
+</pre>
+<p>
+	<b><i>Located in File: <a href="_reference---IntegerAccessReferenceMap.php.html">/reference/IntegerAccessReferenceMap.php</a></i></b><br>
+</p>
+<!-- ========== Info from phpDoc block ========= -->
+<ul>
+	</ul>
+<br /><hr />
+</div>
+<script type="text/javascript">tp1.addTabPage( document.getElementById( "Description" ) );</script>
+<div class="tab-page" id="tabPage1">
+
+<h2 class="tab">Class Variables</h2>
+<!-- ============ VARIABLE DETAIL =========== -->
+<strong>Summary:</strong><br />
+<hr />
+<script type="text/javascript">tp1.addTabPage( document.getElementById( "tabPage1" ) );</script>
+</div>
+<div class="tab-page" id="constantsTabpage">
+
+<h2 class="tab">Class Constants</h2>
+<!-- ============ VARIABLE DETAIL =========== -->
+<strong>Summary:</strong><br />
+<hr />
+<script type="text/javascript">tp1.addTabPage( document.getElementById( "constantsTabpage" ) );</script>
+</div>
+<div class="tab-page" id="tabPage2">
+<h2 class="tab">Method Detail</h2>
+<!-- ============ METHOD DETAIL =========== -->
+<strong>Summary:</strong><br />
+<div class="method-summary">
+    <div class="method-definition">
+            <span class="method-result">IntegerAccessReferenceMap</span>
+        <a href="#method__construct" title="details" class="method-name">__construct</a>
+        ([<span class="var-type"></span>&nbsp;<span class="var-name">$directReferences</span> = <span class="var-default">null</span>])
+        </div>
+    <div class="method-definition">
+            <span class="method-result">the</span>
+        <a href="#methodaddDirectReference" title="details" class="method-name">addDirectReference</a>
+        (<span class="var-type">direct</span>&nbsp;<span class="var-name">$direct</span>)
+        </div>
+    <div class="method-definition">
+            <span class="method-result">the</span>
+        <a href="#methodgetDirectReference" title="details" class="method-name">getDirectReference</a>
+        (<span class="var-type">indirectReference</span>&nbsp;<span class="var-name">$indirectReference</span>)
+        </div>
+    <div class="method-definition">
+            <span class="method-result">void</span>
+        <a href="#methodgetHash" title="details" class="method-name">getHash</a>
+        (<span class="var-type"></span>&nbsp;<span class="var-name">$direct</span>)
+        </div>
+    <div class="method-definition">
+            <span class="method-result">the</span>
+        <a href="#methodgetIndirectReference" title="details" class="method-name">getIndirectReference</a>
+        (<span class="var-type">directReference</span>&nbsp;<span class="var-name">$direct</span>)
+        </div>
+    <div class="method-definition">
+            <span class="method-result">a</span>
+        <a href="#methodgetUniqueReference" title="details" class="method-name">getUniqueReference</a>
+        ()
+        </div>
+    <div class="method-definition">
+            <span class="method-result">the</span>
+        <a href="#methoditerator" title="details" class="method-name">iterator</a>
+        ()
+        </div>
+    <div class="method-definition">
+            <span class="method-result">the</span>
+        <a href="#methodremoveDirectReference" title="details" class="method-name">removeDirectReference</a>
+        (<span class="var-type">direct</span>&nbsp;<span class="var-name">$direct</span>)
+        </div>
+    <div class="method-definition">
+            <span class="method-result">void</span>
+        <a href="#methodupdate" title="details" class="method-name">update</a>
+        (<span class="var-type">directReferences</span>&nbsp;<span class="var-name">$directReferences</span>)
+        </div>
+</div>
+<hr />
+<A NAME='method_detail'></A>
+
+
+<a name="method__construct" id="method__construct"><!-- --></a>
+<div style="background='#eeeeee'"><h4>
+<img src="../media/images/Constructor.gif" border="0" /> <strong class="method">Constructor __construct</strong> (line <span class="linenumber">28</span>)
+ </h4> 
+<h4><i>IntegerAccessReferenceMap</i> <strong>__construct(
+[
+$directReferences = null])</strong></h4>
+
+	<!-- ========== Info from phpDoc block ========= -->
+		<h4>Parameters</h4>
+	<ul>
+			<li><strong> $directReferences</strong>: </li>
+		</ul>
+		
+	<h4>Info</h4>
+	<ul>
+		</ul>
+</div>
+<a name="methodaddDirectReference" id="methodaddDirectReference"><!-- --></a>
+<div style="background='#ffffff'"><h4>
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method addDirectReference</strong> (line <span class="linenumber">116</span>)
+ </h4> 
+<h4><i>the</i> <strong>addDirectReference(
+direct
+$direct)</strong></h4>
+
+	<!-- ========== Info from phpDoc block ========= -->
+<h5>Adds a direct reference to the AccessReferenceMap, then generates and returns  an associated indirect reference.</h5>
+		<h4>Parameters</h4>
+	<ul>
+			<li><strong>direct $direct</strong>: the direct reference</li>
+		</ul>
+		
+	<h4>Info</h4>
+	<ul>
+			<li><strong>return</strong> - corresponding indirect reference</li>
+		</ul>
+</div>
+<a name="methodgetDirectReference" id="methodgetDirectReference"><!-- --></a>
+<div style="background='#eeeeee'"><h4>
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method getDirectReference</strong> (line <span class="linenumber">95</span>)
+ </h4> 
+<h4><i>the</i> <strong>getDirectReference(
+indirectReference
+$indirectReference)</strong></h4>
+
+	<!-- ========== Info from phpDoc block ========= -->
+<h5>Get the original direct object reference from an indirect reference.</h5>
+<div class="desc"><p>Developers should use this when they get an indirect reference from a  request to translate it back into the real direct reference. If an  invalid indirect reference is requested, then an AccessControlException is  thrown.</p></div>
+		<h4>Parameters</h4>
+	<ul>
+			<li><strong>indirectReference $indirectReference</strong>: the indirect reference</li>
+		</ul>
+		
+	<h4>Info</h4>
+	<ul>
+			<li><strong>return</strong> - direct reference</li>
+			<li><strong>throws</strong> - AccessControlException          if no direct reference exists for the specified indirect reference</li>
+		</ul>
+</div>
+<a name="methodgetHash" id="methodgetHash"><!-- --></a>
+<div style="background='#ffffff'"><h4>
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method getHash</strong> (line <span class="linenumber">148</span>)
+ </h4> 
+<h4><i>void</i> <strong>getHash(
+
+$direct)</strong></h4>
+
+	<!-- ========== Info from phpDoc block ========= -->
+		<h4>Parameters</h4>
+	<ul>
+			<li><strong> $direct</strong>: </li>
+		</ul>
+		
+	<h4>Info</h4>
+	<ul>
+		</ul>
+</div>
+<a name="methodgetIndirectReference" id="methodgetIndirectReference"><!-- --></a>
+<div style="background='#eeeeee'"><h4>
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method getIndirectReference</strong> (line <span class="linenumber">62</span>)
+ </h4> 
+<h4><i>the</i> <strong>getIndirectReference(
+directReference
+$direct)</strong></h4>
+
+	<!-- ========== Info from phpDoc block ========= -->
+<h5>Get a safe indirect reference to use in place of a potentially sensitive  direct object reference. Developers should use this call when building  URL's, form fields, hidden fields, etc... to help protect their private  implementation information.</h5>
+		<h4>Parameters</h4>
+	<ul>
+			<li><strong>directReference $direct</strong>: the direct reference</li>
+		</ul>
+		
+	<h4>Info</h4>
+	<ul>
+			<li><strong>return</strong> - indirect reference</li>
+		</ul>
+</div>
+<a name="methodgetUniqueReference" id="methodgetUniqueReference"><!-- --></a>
+<div style="background='#ffffff'"><h4>
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method getUniqueReference</strong> (line <span class="linenumber">144</span>)
+ </h4> 
+<h4><i>a</i> <strong>getUniqueReference(
+)</strong></h4>
+
+	<!-- ========== Info from phpDoc block ========= -->
+<h5>Create a new random reference that is guaranteed to be unique.</h5>
+		
+	<h4>Info</h4>
+	<ul>
+			<li><strong>return</strong> - random reference that is guaranteed to be unique</li>
+		</ul>
+</div>
+<a name="methoditerator" id="methoditerator"><!-- --></a>
+<div style="background='#eeeeee'"><h4>
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method iterator</strong> (line <span class="linenumber">45</span>)
+ </h4> 
+<h4><i>the</i> <strong>iterator(
+)</strong></h4>
+
+	<!-- ========== Info from phpDoc block ========= -->
+<h5>Get an iterator through the direct object references. No guarantee is made as  to the order of items returned.</h5>
+		
+	<h4>Info</h4>
+	<ul>
+			<li><strong>return</strong> - iterator</li>
+		</ul>
+</div>
+<a name="methodremoveDirectReference" id="methodremoveDirectReference"><!-- --></a>
+<div style="background='#ffffff'"><h4>
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method removeDirectReference</strong> (line <span class="linenumber">171</span>)
+ </h4> 
+<h4><i>the</i> <strong>removeDirectReference(
+direct
+$direct)</strong></h4>
+
+	<!-- ========== Info from phpDoc block ========= -->
+<h5>Removes a direct reference and its associated indirect reference from the AccessReferenceMap.</h5>
+		<h4>Parameters</h4>
+	<ul>
+			<li><strong>direct $direct</strong>: the direct reference to remove</li>
+		</ul>
+		
+	<h4>Info</h4>
+	<ul>
+			<li><strong>return</strong> - corresponding indirect reference</li>
+			<li><strong>throws</strong> - AccessControlException</li>
+		</ul>
+</div>
+<a name="methodupdate" id="methodupdate"><!-- --></a>
+<div style="background='#eeeeee'"><h4>
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method update</strong> (line <span class="linenumber">201</span>)
+ </h4> 
+<h4><i>void</i> <strong>update(
+directReferences
+$directReferences)</strong></h4>
+
+	<!-- ========== Info from phpDoc block ========= -->
+<h5>Updates the access reference map with a new set of direct references, maintaining  any existing indirect references associated with items that are in the new list.</h5>
+<div class="desc"><p>New indirect references could be generated every time, but that  might mess up anything that previously used an indirect reference, such  as a URL parameter.</p></div>
+		<h4>Parameters</h4>
+	<ul>
+			<li><strong>directReferences $directReferences</strong>: a Set of direct references to add</li>
+		</ul>
+		
+	<h4>Info</h4>
+	<ul>
+		</ul>
+</div>
+<script type="text/javascript">tp1.addTabPage( document.getElementById( "tabPage2" ) );</script></div>
+<div class="tab-page" id="iVars">
+<h2 class="tab">Inherited Variables</h2>
+<script type="text/javascript">tp1.addTabPage( document.getElementById( "iVars" ) );</script>
+<!-- =========== VAR INHERITED SUMMARY =========== -->
+<A NAME='var_inherited_summary'><!-- --></A>
+<h3>Inherited Class Variable Summary</h3>
+
+	</div>
+<div class="tab-page" id="iMethods">
+<h2 class="tab">Inherited Methods</h2>
+<script type="text/javascript">tp1.addTabPage( document.getElementById( "iMethods" ) );</script>
+<!-- =========== INHERITED METHOD SUMMARY =========== -->
+<A NAME='functions_inherited'><!-- --></A>
+<h3>Inherited Method Summary</h3>
+
+	</div>
+</div>
+<script type="text/javascript">
+//<![CDATA[
+
+setupAllTabs();
+
+//]]>
+</script>
+	<div id="credit">
+		<hr />
+		Documentation generated on Fri, 16 Apr 2010 14:39:16 -0400 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
+	</div>
+</body>
+</html>
