@@ -14,7 +14,7 @@
  * @author Mike Boberski
  * @created 2009
  * @since 1.6
- * @package org.owasp.esapi.codecs
+ * @package ESAPI
  */
 
 
