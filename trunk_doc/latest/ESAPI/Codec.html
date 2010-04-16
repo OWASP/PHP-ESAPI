@@ -116,6 +116,44 @@ tp1 = new WebFXTabPane( document.getElementById( "tabPane1" ));
 		<li><strong>license:</strong> - <a href="http://www.opensource.org/licenses/bsd-license.php">New BSD license</a></li>
 	</ul>
 <br /><hr />
+<span class="type">Classes extended from Codec:</span>
+ 		<dl>
+	<dt><a href="../ESAPI/CSSCodec.html">CSSCodec</a></dt>
+		<dd>Implementation of the Codec interface for backslash encoding used in CSS.</dd>
+	</dl>
+		<dl>
+	<dt><a href="../ESAPI/HTMLEntityCodec.html">HTMLEntityCodec</a></dt>
+		<dd>Implementation of the Codec interface for HTML entity encoding.</dd>
+	</dl>
+		<dl>
+	<dt><a href="../ESAPI/JavaScriptCodec.html">JavaScriptCodec</a></dt>
+		<dd>Implementation of the Codec interface for backslash encoding in JavaScript.</dd>
+	</dl>
+		<dl>
+	<dt><a href="../ESAPI/MySQLCodec.html">MySQLCodec</a></dt>
+		<dd>Implementation of the Codec interface for MySQL strings. See http://mirror.yandex.ru/mirrors/ftp.mysql.com/doc/refman/5.0/en/string-syntax.html  for more information.</dd>
+	</dl>
+		<dl>
+	<dt><a href="../ESAPI/OracleCodec.html">OracleCodec</a></dt>
+		<dd>Implementation of the Codec interface for Oracle strings. See http://download-uk.oracle.com/docs/cd/B10501_01/text.920/a96518/cqspcl.htm  for more information.</dd>
+	</dl>
+		<dl>
+	<dt><a href="../ESAPI/PercentCodec.html">PercentCodec</a></dt>
+		<dd>Implementation of the Codec interface for percent encoding (aka URL encoding).</dd>
+	</dl>
+		<dl>
+	<dt><a href="../ESAPI/UnixCodec.html">UnixCodec</a></dt>
+		<dd>Implementation of the Codec interface for '\' encoding from Unix command shell.</dd>
+	</dl>
+		<dl>
+	<dt><a href="../ESAPI/VBScriptCodec.html">VBScriptCodec</a></dt>
+		<dd>Implementation of the Codec interface for 'quote' encoding from VBScript.</dd>
+	</dl>
+		<dl>
+	<dt><a href="../ESAPI/WindowsCodec.html">WindowsCodec</a></dt>
+		<dd>Implementation of the Codec interface for '^' encoding from Windows command shell.</dd>
+	</dl>
+	</p>
 </div>
 <script type="text/javascript">tp1.addTabPage( document.getElementById( "Description" ) );</script>
 <div class="tab-page" id="tabPage1">
@@ -205,7 +243,7 @@ tp1 = new WebFXTabPane( document.getElementById( "tabPane1" ));
 
 
 <a name="methodcontainsCharacter" id="methodcontainsCharacter"><!-- --></a>
-<div style="background='#eeeeee'"><h4>
+<div style="background='#ffffff'"><h4>
 <img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Static Method containsCharacter</strong> (line <span class="linenumber">381</span>)
  </h4> 
 <h4><i>void</i> <strong>containsCharacter(
@@ -227,7 +265,7 @@ $array)</strong></h4>
 		</ul>
 </div>
 <a name="methoddetectEncoding" id="methoddetectEncoding"><!-- --></a>
-<div style="background='#ffffff'"><h4>
+<div style="background='#eeeeee'"><h4>
 <img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Static Method detectEncoding</strong> (line <span class="linenumber">414</span>)
  </h4> 
 <h4><i>detectedEncoding</i> <strong>detectEncoding(
@@ -247,7 +285,7 @@ $string)</strong></h4>
 		</ul>
 </div>
 <a name="methodforceToSingleCharacter" id="methodforceToSingleCharacter"><!-- --></a>
-<div style="background='#eeeeee'"><h4>
+<div style="background='#ffffff'"><h4>
 <img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Static Method forceToSingleCharacter</strong> (line <span class="linenumber">509</span>)
  </h4> 
 <h4><i>void</i> <strong>forceToSingleCharacter(
@@ -267,7 +305,7 @@ $string)</strong></h4>
 		</ul>
 </div>
 <a name="methodgetHexForNonAlphanumeric" id="methodgetHexForNonAlphanumeric"><!-- --></a>
-<div style="background='#ffffff'"><h4>
+<div style="background='#eeeeee'"><h4>
 <img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Static Method getHexForNonAlphanumeric</strong> (line <span class="linenumber">342</span>)
  </h4> 
 <h4><i>string</i> <strong>getHexForNonAlphanumeric(
@@ -289,7 +327,7 @@ $c)</strong></h4>
 		</ul>
 </div>
 <a name="methodnormalizeEncoding" id="methodnormalizeEncoding"><!-- --></a>
-<div style="background='#eeeeee'"><h4>
+<div style="background='#ffffff'"><h4>
 <img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Static Method normalizeEncoding</strong> (line <span class="linenumber">492</span>)
  </h4> 
 <h4><i>void</i> <strong>normalizeEncoding(
@@ -309,7 +347,7 @@ $string)</strong></h4>
 		</ul>
 </div>
 <a name="methodtoHex" id="methodtoHex"><!-- --></a>
-<div style="background='#ffffff'"><h4>
+<div style="background='#eeeeee'"><h4>
 <img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Static Method toHex</strong> (line <span class="linenumber">367</span>)
  </h4> 
 <h4><i>void</i> <strong>toHex(
@@ -329,11 +367,49 @@ $c)</strong></h4>
 		</ul>
 </div>
 <a name="method__construct" id="method__construct"><!-- --></a>
-<div style="background='#eeeeee'"><h4>
+<div style="background='#ffffff'"><h4>
 <img src="../media/images/Constructor.gif" border="0" /> <strong class="method">Constructor __construct</strong> (line <span class="linenumber">64</span>)
  </h4> 
 <h4><i>Codec</i> <strong>__construct(
 )</strong></h4>
+	<p>Overridden in child classes as:<br />
+		<dl>
+	<dt><a href="../ESAPI/CSSCodec.html#method__construct">CSSCodec::__construct()</a></dt>
+		<dd>Public Constructor</dd>
+	</dl>
+		<dl>
+	<dt><a href="../ESAPI/HTMLEntityCodec.html#method__construct">HTMLEntityCodec::__construct()</a></dt>
+		<dd>Public Constructor</dd>
+	</dl>
+		<dl>
+	<dt><a href="../ESAPI/JavaScriptCodec.html#method__construct">JavaScriptCodec::__construct()</a></dt>
+		<dd>Public Constructor</dd>
+	</dl>
+		<dl>
+	<dt><a href="../ESAPI/MySQLCodec.html#method__construct">MySQLCodec::__construct()</a></dt>
+		<dd>Public Constructor</dd>
+	</dl>
+		<dl>
+	<dt><a href="../ESAPI/OracleCodec.html#method__construct">OracleCodec::__construct()</a></dt>
+		<dd>Public Constructor</dd>
+	</dl>
+		<dl>
+	<dt><a href="../ESAPI/PercentCodec.html#method__construct">PercentCodec::__construct()</a></dt>
+		<dd>Public Constructor</dd>
+	</dl>
+		<dl>
+	<dt><a href="../ESAPI/UnixCodec.html#method__construct">UnixCodec::__construct()</a></dt>
+		<dd>Public Constructor</dd>
+	</dl>
+		<dl>
+	<dt><a href="../ESAPI/VBScriptCodec.html#method__construct">VBScriptCodec::__construct()</a></dt>
+		<dd>Public Constructor</dd>
+	</dl>
+		<dl>
+	<dt><a href="../ESAPI/WindowsCodec.html#method__construct">WindowsCodec::__construct()</a></dt>
+		<dd>Public Constructor</dd>
+	</dl>
+	</p>
 
 	<!-- ========== Info from phpDoc block ========= -->
 <h5>Populates the $hex map of non-alphanumeric single-byte characters.</h5>
@@ -344,7 +420,7 @@ $c)</strong></h4>
 		</ul>
 </div>
 <a name="methoddecode" id="methoddecode"><!-- --></a>
-<div style="background='#ffffff'"><h4>
+<div style="background='#eeeeee'"><h4>
 <img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method decode</strong> (line <span class="linenumber">140</span>)
  </h4> 
 <h4><i>null</i> <strong>decode(
@@ -364,12 +440,50 @@ $input)</strong></h4>
 		</ul>
 </div>
 <a name="methoddecodeCharacter" id="methoddecodeCharacter"><!-- --></a>
-<div style="background='#eeeeee'"><h4>
+<div style="background='#ffffff'"><h4>
 <img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method decodeCharacter</strong> (line <span class="linenumber">325</span>)
  </h4> 
 <h4><i>the</i> <strong>decodeCharacter(
 input
 $input)</strong></h4>
+	<p>Overridden in child classes as:<br />
+		<dl>
+	<dt><a href="../ESAPI/CSSCodec.html#methoddecodeCharacter">CSSCodec::decodeCharacter()</a></dt>
+		<dd>{@inheritDoc}</dd>
+	</dl>
+		<dl>
+	<dt><a href="../ESAPI/HTMLEntityCodec.html#methoddecodeCharacter">HTMLEntityCodec::decodeCharacter()</a></dt>
+		<dd>{@inheritDoc}</dd>
+	</dl>
+		<dl>
+	<dt><a href="../ESAPI/JavaScriptCodec.html#methoddecodeCharacter">JavaScriptCodec::decodeCharacter()</a></dt>
+		<dd>{@inheritDoc}</dd>
+	</dl>
+		<dl>
+	<dt><a href="../ESAPI/MySQLCodec.html#methoddecodeCharacter">MySQLCodec::decodeCharacter()</a></dt>
+		<dd>{@inheritDoc}</dd>
+	</dl>
+		<dl>
+	<dt><a href="../ESAPI/OracleCodec.html#methoddecodeCharacter">OracleCodec::decodeCharacter()</a></dt>
+		<dd>{@inheritDoc}</dd>
+	</dl>
+		<dl>
+	<dt><a href="../ESAPI/PercentCodec.html#methoddecodeCharacter">PercentCodec::decodeCharacter()</a></dt>
+		<dd>{@inheritDoc}</dd>
+	</dl>
+		<dl>
+	<dt><a href="../ESAPI/UnixCodec.html#methoddecodeCharacter">UnixCodec::decodeCharacter()</a></dt>
+		<dd>{@inheritDoc}</dd>
+	</dl>
+		<dl>
+	<dt><a href="../ESAPI/VBScriptCodec.html#methoddecodeCharacter">VBScriptCodec::decodeCharacter()</a></dt>
+		<dd>{@inheritDoc}</dd>
+	</dl>
+		<dl>
+	<dt><a href="../ESAPI/WindowsCodec.html#methoddecodeCharacter">WindowsCodec::decodeCharacter()</a></dt>
+		<dd>{@inheritDoc}</dd>
+	</dl>
+	</p>
 
 	<!-- ========== Info from phpDoc block ========= -->
 <h5>Returns the decoded version of the next character from the input string and advances the  current character in the PushbackString.  If the current character is not encoded, this  method MUST reset the PushbackString.</h5>
@@ -385,7 +499,7 @@ $input)</strong></h4>
 		</ul>
 </div>
 <a name="methodencode" id="methodencode"><!-- --></a>
-<div style="background='#ffffff'"><h4>
+<div style="background='#eeeeee'"><h4>
 <img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method encode</strong> (line <span class="linenumber">86</span>)
  </h4> 
 <h4><i>the</i> <strong>encode(
@@ -408,13 +522,51 @@ $input)</strong></h4>
 		</ul>
 </div>
 <a name="methodencodeCharacter" id="methodencodeCharacter"><!-- --></a>
-<div style="background='#eeeeee'"><h4>
+<div style="background='#ffffff'"><h4>
 <img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method encodeCharacter</strong> (line <span class="linenumber">114</span>)
  </h4> 
 <h4><i>the</i> <strong>encodeCharacter(
 $c
 $immune, 
 $c)</strong></h4>
+	<p>Overridden in child classes as:<br />
+		<dl>
+	<dt><a href="../ESAPI/CSSCodec.html#methodencodeCharacter">CSSCodec::encodeCharacter()</a></dt>
+		<dd>{@inheritDoc}</dd>
+	</dl>
+		<dl>
+	<dt><a href="../ESAPI/HTMLEntityCodec.html#methodencodeCharacter">HTMLEntityCodec::encodeCharacter()</a></dt>
+		<dd>{@inheritDoc}</dd>
+	</dl>
+		<dl>
+	<dt><a href="../ESAPI/JavaScriptCodec.html#methodencodeCharacter">JavaScriptCodec::encodeCharacter()</a></dt>
+		<dd>{@inheritDoc}</dd>
+	</dl>
+		<dl>
+	<dt><a href="../ESAPI/MySQLCodec.html#methodencodeCharacter">MySQLCodec::encodeCharacter()</a></dt>
+		<dd>{@inheritDoc}</dd>
+	</dl>
+		<dl>
+	<dt><a href="../ESAPI/OracleCodec.html#methodencodeCharacter">OracleCodec::encodeCharacter()</a></dt>
+		<dd>{@inheritDoc}</dd>
+	</dl>
+		<dl>
+	<dt><a href="../ESAPI/PercentCodec.html#methodencodeCharacter">PercentCodec::encodeCharacter()</a></dt>
+		<dd>{@inheritDoc}</dd>
+	</dl>
+		<dl>
+	<dt><a href="../ESAPI/UnixCodec.html#methodencodeCharacter">UnixCodec::encodeCharacter()</a></dt>
+		<dd>{@inheritDoc}</dd>
+	</dl>
+		<dl>
+	<dt><a href="../ESAPI/VBScriptCodec.html#methodencodeCharacter">VBScriptCodec::encodeCharacter()</a></dt>
+		<dd>{@inheritDoc}</dd>
+	</dl>
+		<dl>
+	<dt><a href="../ESAPI/WindowsCodec.html#methodencodeCharacter">WindowsCodec::encodeCharacter()</a></dt>
+		<dd>{@inheritDoc}</dd>
+	</dl>
+	</p>
 
 	<!-- ========== Info from phpDoc block ========= -->
 <h5>Encode a Character with a Codec.</h5>
@@ -431,7 +583,7 @@ $c)</strong></h4>
 		</ul>
 </div>
 <a name="methodisHexDigit" id="methodisHexDigit"><!-- --></a>
-<div style="background='#ffffff'"><h4>
+<div style="background='#eeeeee'"><h4>
 <img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method isHexDigit</strong> (line <span class="linenumber">523</span>)
  </h4> 
 <h4><i>boolean.</i> <strong>isHexDigit(
@@ -477,7 +629,7 @@ setupAllTabs();
 </script>
 	<div id="credit">
 		<hr />
-		Documentation generated on Fri, 16 Apr 2010 13:57:58 -0400 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
+		Documentation generated on Fri, 16 Apr 2010 14:23:09 -0400 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
 	</div>
 </body>
 </html>
