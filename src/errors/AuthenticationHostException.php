@@ -14,7 +14,7 @@
  * @author Andrew van der Stock <vanderaj .(at). owasp.org>
  * @created 2008
  * @since 1.4
- * @package org.owasp.esapi.errors
+ * @package ESAPI
  */
 
 require_once dirname(__FILE__).'/AuthenticationException.php';
