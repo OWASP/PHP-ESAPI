@@ -14,7 +14,7 @@
  * @author Bipin Upadhyay <http://projectbee.org/blog/contact/>
  * @created 2009
  * @since 1.4
- * @package org.owasp.esapi.reference
+ * @package ESAPI_Reference
  */
 
 require_once dirname(__FILE__).'/../Authenticator.php';

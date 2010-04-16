@@ -10,7 +10,7 @@
  * software.
  *
  * @category  OWASP
- * @package   ESAPI
+ * @package   ESAPI_Reference_Validation
  * @author    Mike Boberski <boberski_michael@bah.com>
  * @copyright 2009-2010 The OWASP Foundation
  * @license   http://www.opensource.org/licenses/bsd-license.php New BSD license

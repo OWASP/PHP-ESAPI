@@ -10,7 +10,7 @@
  * software.
  *
  * @category  OWASP
- * @package   ESAPI
+ * @package   ESAPI_Reference_Validation
  * @author    Jeff Williams <jeff.williams@aspectsecurity.com>
  * @author    Johannes B. Ullrich <jullrich@sans.edu>
  * @author    jah <jah@jahboite.co.uk>

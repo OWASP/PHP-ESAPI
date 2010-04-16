@@ -10,7 +10,7 @@
  * software.
  *
  * @category  OWASP
- * @package   ESAPI
+ * @package   ESAPI_Reference
  * @author    Jeff Williams <jeff.williams@owasp.org>
  * @copyright 2009-2010 The OWASP Foundation
  * @license   http://www.opensource.org/licenses/bsd-license.php New BSD license

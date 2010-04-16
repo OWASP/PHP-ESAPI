@@ -12,7 +12,7 @@
  * software.
  *
  * @category  OWASP
- * @package   ESAPI
+ * @package   ESAPI_Reference
  * @author    Jeff Williams <jeff.williams@aspectsecurity.com>
  * @author    Linden Darling <Linden.Darling@jds.net.au>
  * @author    jah <jah@jahboite.co.uk>

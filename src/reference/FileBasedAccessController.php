@@ -14,7 +14,7 @@
  * @author 
  * @created 2008
  * @since 1.4
- * @package org.owasp.esapi.reference
+ * @package ESAPI_Reference
  */
 
 require_once dirname(__FILE__).'/../AccessController.php';
