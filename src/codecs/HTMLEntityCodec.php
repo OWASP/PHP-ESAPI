@@ -14,6 +14,7 @@
  * @author Linden Darling <a href="http://www.jds.net.au">JDS Australia</a>
  * @created 2009 
  * @since 1.6
+ * @package ESAPI
  */
 
 

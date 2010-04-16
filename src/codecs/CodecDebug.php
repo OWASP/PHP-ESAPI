@@ -6,6 +6,8 @@
  * encoded characters, as well as the final output from the Codec method.  The
  * debug info is logged immediately before the Codec method returns its value
  * and the buffer is cleared at that time.
+ * 
+ * @package ESAPI
  */
 
 define('LOG', 'CodecDebug');

@@ -15,7 +15,7 @@
  * @author jah (at jahboite.co.uk)
  * @created 2009
  * @since 1.6
- * @package org.owasp.esapi.codecs
+ * @package ESAPI
  */
 
 
