@@ -10,7 +10,7 @@
  * software.
  *
  * @category  OWASP
- * @package   ESAPI
+ * @package   ESAPI_Codecs
  * @author    Linden Darling <Linden.Darling@jds.net.au>
  * @author    jah <jah@jahboite.co.uk>
  * @copyright 2009-2010 The OWASP Foundation
