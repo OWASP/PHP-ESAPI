@@ -319,7 +319,7 @@ class AuditorTest extends UnitTestCase {
     }
 
 
-/*    function testLoggingToFile() {
+    function testLoggingToFile() {
         $testMsg = null;
         $r = getRandomAlphaNumString(32);
         $logMsg = "Test message. {$r}";
@@ -934,7 +934,7 @@ class AuditorTest extends UnitTestCase {
             $this->fail($failMessage);
         }
     }
-*/
+
 
     /**
      * Helper function to read the logfile and match the supplied pattern.
@@ -993,15 +993,21 @@ class AuditorTest extends UnitTestCase {
     private function getExpected($level, $type, $success, $msg, $exceptionClassName = null) {
         $date = '[0-9-]{10,10} [0-9:]{8,8} [+-][0-9:]{5,5}';
         $success = $success ? '-SUCCESS' : '-FAILURE';
+        $appName
+            = ESAPI::getSecurityConfiguration()->getLogApplicationName() === true
+            ? ' ' . ESAPI::getSecurityConfiguration()->getApplicationName()
+            : '';
         $num = $this->testCount -1;
         $name = "LoggerTest #{$num}";
-        $localSocket = '[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}:[0-9]{1,5}';
+        $serverName
+            = '((?:(?:[0-9a-zA-Z][0-9a-zA-Z\-]{0,61}[0-9a-zA-Z])\.)*[a-zA-Z]{2,4}|[0-9a-zA-Z][0-9a-zA-Z\-]{0,61}[0-9a-zA-Z]|(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?))';
+        $localSocket = "{$serverName}:[0-9]{1,5}";
         $username = '[^@]+@';
-        $remoteAddr = '[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}';
+        $remoteAddr = '([0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}|UnknownRemoteHost)';
         $sessionID = '([0-9]{1,7}|SessionUnknown)';
         if ($exceptionClassName !== null) {
             $msg .= " exception '{$exceptionClassName}'";
         }
-        return "{$date} {$level} {$name} {$type}{$success} {$localSocket} {$username}{$remoteAddr}\[ID:{$sessionID}\] {$msg}";
+        return "{$date} {$level}{$appName} {$name} {$type}{$success} {$localSocket} {$username}{$remoteAddr}\[ID:{$sessionID}\] {$msg}";
     }
 }
