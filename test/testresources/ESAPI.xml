@@ -131,11 +131,11 @@
     <!--
         Logging level values are ALL, DEBUG, INFO, WARN, ERROR, FATAL and OFF.
          -->
-    <LogLevel>OFF</LogLevel>
+    <LogLevel>ALL</LogLevel>
     <!--
         If you expect logs to contain HTML or hostile input, set this to true
         -->
-    <LogEncodingRequired>false</LogEncodingRequired>
+    <LogEncodingRequired>true</LogEncodingRequired>
     <!--
         Application name used not only by the logger, but by ESAPI itself.
         -->
@@ -160,7 +160,7 @@
         MaxLogFileSize, the max size (in bytes) of a single log file before it
         cuts over to a new one (default is 10,000,000)
         -->
-    <MaxLogFileSize>10000000</MaxLogFileSize>
+    <MaxLogFileSize>1000000</MaxLogFileSize>
     <!--
         MaxLogFileBackups, the maximum number of logfile backups kept.  The
         oldest will be overwritten if this number has been reached when a new
@@ -275,4 +275,20 @@
       <action>logout</action>
     </event>
   </IntrusionDetector>
+
+  <SpecialDebugging>
+    <!--
+        SpecialDebugging is currently used only by CodecDebug to determine whether
+        it should perform any work.  The output from CodecDebug is designed to make
+        the encoding and decoding of characters visible. CodecDebug log entries span
+        several lines of the log file and are the only log entries from which
+        carriage return and line feed characters are not removed.  If you wish to
+        enable SpecialDebugging you should also set the LogEncodingRequired property
+        to false or the output will be much less useful - needless to say, log files
+        which are not encoded should not be viewed in web browser or other user
+        agents which render HTML markup.
+    -->
+    <Enabled>false</Enabled>
+  </SpecialDebugging>
+
 </esapi-properties>
