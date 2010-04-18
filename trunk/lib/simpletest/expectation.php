@@ -446,7 +446,7 @@ class OutsideMarginExpectation extends WithinMarginExpectation {
  *    @package SimpleTest
  *    @subpackage UnitTester
  */
-class ReferenceExpectation extends SimpleExpectation {
+class ReferenceExpectation {
     var $_value;
 
     /**
@@ -456,7 +456,7 @@ class ReferenceExpectation extends SimpleExpectation {
      *    @access public
      */
     function ReferenceExpectation(&$value, $message = '%s') {
-        $this->SimpleExpectation($message);
+        $this->_message = $message;
         $this->_value =& $value;
     }
 
