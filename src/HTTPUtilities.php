@@ -22,7 +22,7 @@
  */
 
 /**
- *
+ * HTTPUtilities requires various Exceptions and SafeRequest.
  */
 require_once dirname(__FILE__) . '/errors/AccessControlException.php';
 require_once dirname(__FILE__) . '/errors/AuthenticationException.php';
@@ -64,18 +64,6 @@ interface HTTPUtilities
 
 
     /**
-     * Get the first cookie with the matching name.
-     *
-     * @param SafeRequest $request Request object.
-     * @param string      $name    The name of the cookie to retreive.
-     *
-     * @return string|null value of the requested cookie or
-     *                     null if the specified cookie is not present.
-     */
-    public function getCookie($request, $name);
-
-
-    /**
      * Returns the CSRF token from the current session. If there is no current
      * session then null is returned. If the CSRF Token is not present in the
      * session it will be created.
@@ -84,6 +72,19 @@ interface HTTPUtilities
      *                     null.
      */
     public function getCSRFToken();
+
+
+    /**
+     * Searches the GET and POST parameters in a request for the CSRF token stored
+     * in the current session and throws an IntrusionException if it is missing.
+     *
+     * @param SafeRequest $request A request object.
+     *
+     * @return null
+     *
+     * @throws IntrusionException if the CSRF token is missing or incorrect.
+     */
+    public function verifyCSRFToken($request);
 
 
     /**
@@ -97,35 +98,15 @@ interface HTTPUtilities
 
 
     /**
-     * Set a cookie containing the current User's remember me token for
-     * automatic authentication. The use of remember me tokens is generally not
-     * recommended, but this method will help do it as safely as possible. The
-     * user interface should strongly warn the user that this should only be
-     * enabled on computers where no other users will have access.
+     * Get the first cookie with the matching name.
      *
-     * Implementations should save the user's remember me data in an encrypted
-     * cookie and send it to the user. Any old remember me cookie should be
-     * destroyed first. Setting this cookie should keep the user logged in until
-     * the maxAge passes, the password is changed, or the cookie is deleted. If
-     * the cookie exists for the current user, it should automatically be used
-     * by ESAPI to log the user in, if the data is valid and not expired.
+     * @param SafeRequest $request Request object.
+     * @param string      $name    The name of the cookie to retreive.
      *
-     * The ESAPI reference implementation, DefaultHTTPUtilities.setRememberToken()
-     * implements all these suggestions.
-     *
-     * @param SafeRequest  $request  Request object.
-     * @param SafeResponse $response Response object.
-     * @param string       $password the user's password.
-     * @param int          $maxAge   the length of time that the token should be
-     *                               valid for in relative seconds.
-     * @param string|null  $domain   the domain to restrict the token to.
-     * @param string|null  $path     the path to restrict the token to.
-     *
-     * @return string  encrypted "Remember Me" token.
+     * @return string|null value of the requested cookie or
+     *                     null if the specified cookie is not present.
      */
-    public function setRememberToken(
-        $request, $response, $password, $maxAge, $domain, $path
-    );
+    public function getCookie($request, $name);
 
 
     /**
@@ -157,116 +138,6 @@ interface HTTPUtilities
 
 
     /**
-     * Searches the GET and POST parameters in a request for the CSRF token stored
-     * in the current session and throws an IntrusionException if it is missing.
-     *
-     * @param SafeRequest $request A request object.
-     *
-     * @return null
-     *
-     * @throws IntrusionException if the CSRF token is missing or incorrect.
-     */
-    public function verifyCSRFToken($request);
-
-
-    /**
-     * Decrypts an encrypted hidden field value and returns the plain text. If
-     * the field does not decrypt properly, an IntrusionException is thrown to
-     * indicate tampering.
-     *
-     * @param string $encrypted hidden field value to decrypt.
-     *
-     * @return string decrypted hidden field value.
-     *
-     * @throws IntrusionException.
-     */
-    public function decryptHiddenField($encrypted);
-
-
-    /**
-     * Takes an encrypted query string and returns an asscoiative array
-     * containing the original, unencrypted parameters.
-     *
-     * @param string $encrypted The encrypted query string to be decrypted.
-     *
-     * @return array of name-value pairs from the decrypted query string.
-     *
-     * @throws EncryptionException
-     */
-    public function decryptQueryString($encrypted);
-
-
-    /**
-     * Retrieves a map of data from a cookie encrypted with encryptStateInCookie().
-     *
-     * @param SafeRequest $request object.
-     *
-     * @return array a map containing the decrypted cookie state value.
-     *
-     * @throws EncryptionException.
-     */
-    public function decryptStateFromCookie($request);
-
-
-    /**
-     * Encrypts a hidden field value for use in HTML.
-     *
-     * @param string $value Plain text value of the hidden field.
-     *
-     * @return string encrypted value of the hidden field.
-     *
-     * @throws EncryptionException
-     */
-    public function encryptHiddenField($value);
-
-
-    /**
-     * Takes an HTTP query string (everything after the question mark in the
-     * URL) and returns an encrypted string containing the parameters.
-     *
-     * @param string $query Query string to be encrypted.
-     *
-     * @return string encrypted query string.
-     *
-     * @throws EncryptionException
-     */
-    public function encryptQueryString($query);
-
-
-    /**
-     * Stores a Map of data in an encrypted cookie. Generally the session is a
-     * better place to store state information, as it does not expose it to the
-     * user at all. If there is a requirement not to use sessions, or the data
-     * should be stored across sessions (for a long time), the use of encrypted
-     * cookies is an effective way to prevent the exposure.
-     *
-     * @param SafeResponse $response  response object.
-     * @param array        $cleartext state information.
-     *
-     * @return null.
-     */
-    public function encryptStateInCookie($response, $cleartext);
-
-
-    /**
-     * Extract uploaded files from a multipart HTTP requests. Implementations
-     * must check the content to ensure that it is safe before making a permanent
-     * copy on the local filesystem. Checks should include length and content
-     * checks, possibly virus checking, and path and name checks. Refer to the
-     * file checking methods in Validator for more information.
-     *
-     * @param SafeRequest $request  Request object.
-     * @param string      $tempDir  the temporary directory.
-     * @param string      $finalDir the final directory.
-     *
-     * @return array List of new File objects from upload.
-     *
-     * @throws ValidationException if the file fails validation.
-     */
-    public function getSafeFileUploads($request, $tempDir, $finalDir);
-
-
-    /**
      * Kill all cookies received in the last request from the browser. Note that
      * new cookies set by the application in this response may not be killed by
      * this method.
@@ -293,6 +164,186 @@ interface HTTPUtilities
 
 
     /**
+     * Stores the supplied SafeRequest object so that it may be readily accessed
+     * throughout ESAPI (and elsewhere).
+     *
+     * @param SafeRequest $request Current Request object.
+     *
+     * @return null.
+     */
+    public function setCurrentHTTP($request);
+
+
+    /**
+     * Retrieves the current HttpServletRequest.
+     *
+     * @return SafeRequest the current request.
+     */
+    public function getCurrentRequest();
+
+
+    /**
+     * Format the Source IP address, URL, URL parameters, and all form parameters
+     * into a string suitable for the log file. Be careful not to log sensitive
+     * information, and consider masking with the logHTTPRequestObfuscate method.
+     *
+     * @param SafeRequest $request Current Request object.
+     * @param Auditor     $auditor the auditor to write the request to.
+     *
+     * @return null
+     */
+    public function logHTTPRequest($request, $auditor);
+
+
+    /**
+     * Format the Source IP address, URL, URL parameters, and all form parameters
+     * into a string suitable for the log file. The list of parameters to obfuscate
+     * should be specified in order to prevent sensitive information from being
+     * logged. If a null or empty list of parameters is provided, then all
+     * parameters will be logged in the clear. If HTTP request logging is done in a
+     * central place $paramsToObfuscate could be made a configuration parameter. We
+     * include it here in case different parts of the application need to obfuscate
+     * different parameters.
+     *
+     * @param SafeRequest $request           Current Request object.
+     * @param Auditor     $auditor           The auditor to write the request to.
+     * @param array|null  $paramsToObfuscate The sensitive parameters.
+     *
+     * @return null
+     */
+    public function logHTTPRequestObfuscate($request, $auditor, $paramsToObfuscate);
+
+
+    /*
+     * Set a cookie containing the current User's remember me token for
+     * automatic authentication. The use of remember me tokens is generally not
+     * recommended, but this method will help do it as safely as possible. The
+     * user interface should strongly warn the user that this should only be
+     * enabled on computers where no other users will have access.
+     *
+     * Implementations should save the user's remember me data in an encrypted
+     * cookie and send it to the user. Any old remember me cookie should be
+     * destroyed first. Setting this cookie should keep the user logged in until
+     * the maxAge passes, the password is changed, or the cookie is deleted. If
+     * the cookie exists for the current user, it should automatically be used
+     * by ESAPI to log the user in, if the data is valid and not expired.
+     *
+     * The ESAPI reference implementation, DefaultHTTPUtilities.setRememberToken()
+     * implements all these suggestions.
+     *
+     * @param SafeRequest  $request  Request object.
+     * @param SafeResponse $response Response object.
+     * @param string       $password the user's password.
+     * @param int          $maxAge   the length of time that the token should be
+     *                               valid for in relative seconds.
+     * @param string|null  $domain   the domain to restrict the token to.
+     * @param string|null  $path     the path to restrict the token to.
+     *
+     * @return string  encrypted "Remember Me" token.
+     */
+    // public function setRememberToken(
+    //     $request, $response, $password, $maxAge, $domain, $path
+    // );
+
+
+    /*
+     * Decrypts an encrypted hidden field value and returns the plain text. If
+     * the field does not decrypt properly, an IntrusionException is thrown to
+     * indicate tampering.
+     *
+     * @param string $encrypted hidden field value to decrypt.
+     *
+     * @return string decrypted hidden field value.
+     *
+     * @throws IntrusionException.
+     */
+    // public function decryptHiddenField($encrypted);
+
+
+    /*
+     * Takes an encrypted query string and returns an asscoiative array
+     * containing the original, unencrypted parameters.
+     *
+     * @param string $encrypted The encrypted query string to be decrypted.
+     *
+     * @return array of name-value pairs from the decrypted query string.
+     *
+     * @throws EncryptionException
+     */
+    // public function decryptQueryString($encrypted);
+
+
+    /*
+     * Retrieves a map of data from a cookie encrypted with encryptStateInCookie().
+     *
+     * @param SafeRequest $request object.
+     *
+     * @return array a map containing the decrypted cookie state value.
+     *
+     * @throws EncryptionException.
+     */
+    // public function decryptStateFromCookie($request);
+
+
+    /*
+     * Encrypts a hidden field value for use in HTML.
+     *
+     * @param string $value Plain text value of the hidden field.
+     *
+     * @return string encrypted value of the hidden field.
+     *
+     * @throws EncryptionException
+     */
+    // public function encryptHiddenField($value);
+
+
+    /**
+     * Takes an HTTP query string (everything after the question mark in the
+     * URL) and returns an encrypted string containing the parameters.
+     *
+     * @param string $query Query string to be encrypted.
+     *
+     * @return string encrypted query string.
+     *
+     * @throws EncryptionException
+     */
+    // public function encryptQueryString($query);
+
+
+    /*
+     * Stores a Map of data in an encrypted cookie. Generally the session is a
+     * better place to store state information, as it does not expose it to the
+     * user at all. If there is a requirement not to use sessions, or the data
+     * should be stored across sessions (for a long time), the use of encrypted
+     * cookies is an effective way to prevent the exposure.
+     *
+     * @param SafeResponse $response  response object.
+     * @param array        $cleartext state information.
+     *
+     * @return null.
+     */
+    // public function encryptStateInCookie($response, $cleartext);
+
+
+    /*
+     * Extract uploaded files from a multipart HTTP requests. Implementations
+     * must check the content to ensure that it is safe before making a permanent
+     * copy on the local filesystem. Checks should include length and content
+     * checks, possibly virus checking, and path and name checks. Refer to the
+     * file checking methods in Validator for more information.
+     *
+     * @param SafeRequest $request  Request object.
+     * @param string      $tempDir  the temporary directory.
+     * @param string      $finalDir the final directory.
+     *
+     * @return array List of new File objects from upload.
+     *
+     * @throws ValidationException if the file fails validation.
+     */
+    // public function getSafeFileUploads($request, $tempDir, $finalDir);
+
+
+    /*
      * This method performs a forward to any resource located inside the WEB-INF
      * directory. Forwarding to publicly accessible resources can be dangerous,
      * as the request will have already passed the URL based access control
@@ -312,10 +363,10 @@ interface HTTPUtilities
      * @throws ServletException
      * @throws IOException
      */
-    public function safeSendForward($request, $response, $context, $location);
+    // public function safeSendForward($request, $response, $context, $location);
 
 
-    /**
+    /*
      * Set the content type character encoding header on every HttpServletResponse
      * in order to limit the ways in which the input data can be represented. This
      * prevents malicious users from using encoding and multi-byte escape sequences
@@ -335,10 +386,10 @@ interface HTTPUtilities
      *
      * @return null.
      */
-    public function setSafeContentType($response);
+    // public function setSafeContentType($response);
 
 
-    /**
+    /*
      * Set headers to protect sensitive information against being cached in the
      * browser. Developers should make this call for any HTTP responses that contain
      * any sensitive data that should not be cached within the browser or any
@@ -379,26 +430,7 @@ interface HTTPUtilities
      *
      * @return null.
      */
-    public function setNoCacheHeaders($response);
-
-
-    /**
-     * Stores the supplied SafeRequest object so that it may be readily accessed
-     * throughout ESAPI (and elsewhere).
-     *
-     * @param SafeRequest $request Current Request object.
-     *
-     * @return null.
-     */
-    public function setCurrentHTTP($request);
-
-
-    /**
-     * Retrieves the current HttpServletRequest.
-     *
-     * @return SafeRequest the current request.
-     */
-    public function getCurrentRequest();
+    // public function setNoCacheHeaders($response);
 
 
     /*
@@ -407,37 +439,5 @@ interface HTTPUtilities
      * @return SafeResponse the current response.
      */
     // public function getCurrentResponse();
-
-
-    /**
-     * Format the Source IP address, URL, URL parameters, and all form parameters
-     * into a string suitable for the log file. Be careful not to log sensitive
-     * information, and consider masking with the logHTTPRequestObfuscate method.
-     *
-     * @param SafeRequest $request Current Request object.
-     * @param Auditor     $auditor the auditor to write the request to.
-     *
-     * @return null
-     */
-    public function logHTTPRequest($request, $auditor);
-
-
-    /**
-     * Format the Source IP address, URL, URL parameters, and all form parameters
-     * into a string suitable for the log file. The list of parameters to obfuscate
-     * should be specified in order to prevent sensitive information from being
-     * logged. If a null or empty list of parameters is provided, then all
-     * parameters will be logged in the clear. If HTTP request logging is done in a
-     * central place $paramsToObfuscate could be made a configuration parameter. We
-     * include it here in case different parts of the application need to obfuscate
-     * different parameters.
-     *
-     * @param SafeRequest $request           Current Request object.
-     * @param Auditor     $auditor           The auditor to write the request to.
-     * @param array|null  $paramsToObfuscate The sensitive parameters.
-     *
-     * @return null
-     */
-    public function logHTTPRequestObfuscate($request, $auditor, $paramsToObfuscate);
 
 }
