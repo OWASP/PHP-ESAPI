@@ -266,8 +266,8 @@ class DefaultAuditor implements Auditor
 
         // Application name.
         // $this->appName is set only if it is to be logged.
-        if ($this->appName !== null) {
-            $context .= $this->appName;
+        if ($this->_appName !== null) {
+            $context .= ' ' . $this->_appName;
         }
 
         // Logger name (Category in Log4PHP parlance)
@@ -286,51 +286,54 @@ class DefaultAuditor implements Auditor
             $context .= '-FAILURE';
         }
 
-        // Local IP:PortNumber, Generated Session ID and Remote User ID and Host
-        // Note that until getCurrentRequest is implemented and I can determine
-        // whether it's possible to return a request object whilst, for example,
-        // testing ESAPI via the command line I shall be checking for a null
-        // request.
-        $request = null; // TODO ESAPI::getHttpUtilities()->getCurrentRequest();
-        if ($request != null) {
-            $context .=
-                ' ' .
-                $request->getLocalAddr() .
-                ':' .
-                $request->getLocalPort();
+        $request = ESAPI::getHttpUtilities()->getCurrentRequest();
+        if ($request === null) {
+            $request = new SafeRequest;
+            ESAPI::getHttpUtilities()->setCurrentHTTP($request);
+        }
+        
+        $laddr = $request->getServerName();
+        if ($laddr === '') {
+            $laddr = 'UnknownLocalHost';
+        }
+        $lport = $request->getServerPort();
+        
+        $ruser = $request->getRemoteUser();
+        if ($ruser === '') {
+            $ruser = 'AnonymousUser';
+        }
+        $raddr = $request->getRemoteAddr();
+        if ($raddr === '') {
+            $raddr = 'UnknownRemoteHost';
+        }
+        
+        $context .= " {$laddr}:{$lport} {$ruser}@{$raddr}";
 
-            // username and remote address
-            $context .=
-                ' ' .
-                $request->getRemoteUser() .
-                '@' .
-                $request->getRemoteAddr() .
-                ':';
-
-            // create a random session number for the user to represent the
-            // user's session, if it doesn't exist already
-            $userSessionIDforLogging = 'SessionUnknown';
-            try
-            {
-                $session = $request->getSession(false);
-                $userSessionIDforLogging = $session->getAttribute('ESAPI_SESSION');
-                // if there is no session ID for the user yet, we create one and 
-                //store it in the user's session
-                if ( $userSessionIDforLogging == null ) {
-                    $userSessionIDforLogging = ''.
-                        ESAPI::getRandomizer()->getRandomInteger(0, 1000000);
-                    $session->setAttribute(
-                        'ESAPI_SESSION', 
-                        $userSessionIDforLogging
-                    );
+        // create a random session number for the user to represent the
+        // user's session, if it doesn't exist already
+        $userSessionIDforLogging = 'SessionUnknown';
+        if (isset($_SESSION)) {
+            if (isset($_SESSION['DefaultAuditor'])
+                && isset($_SESSION['DefaultAuditor']['SessionIDForLogging'])
+            ) {
+                $userSessionIDforLogging
+                    = $_SESSION['DefaultAuditor']['SessionIDForLogging'];
+            } else {
+                try
+                {
+                    $userSessionIDforLogging
+                        = (string) ESAPI::getRandomizer()->getRandomInteger(
+                            0, 1000000
+                        );
+                    $_SESSION['DefaultAuditor']['SessionIDForLogging']
+                        = $userSessionIDforLogging;
+                } catch( Exception $e ) {
+                    // continue
                 }
             }
-            catch( Exception $e )
-            {
-                // continue
-            }
-            $context .= "[ID:{$userSessionIDforLogging}]";
         }
+        $context .= "[ID:{$userSessionIDforLogging}]";
+
 
         // Now comes the message.
         if (! is_string($message)) {
@@ -338,10 +341,12 @@ class DefaultAuditor implements Auditor
         }
 
         // Encode CRLF - this bit might have to go in a try block
-        /* '_' FIXME for the null poarameter, when we don't want pretty CodecDebug 
-         * output 
-         */
-        $crlfEncoded = $this->replaceCRLF($message, null);
+        // Codec Debugging entries are not affected.
+        if (defined('CD_LOG') == true && $this->_log4phpName === CD_LOG) {
+            $crlfEncoded = $message;
+        } else {
+            $crlfEncoded = $this->_replaceCRLF($message, '_');
+        }
 
         // Encode for HTML if ESAPI.xml says so
         $encodedMessage = null;
@@ -366,7 +371,7 @@ class DefaultAuditor implements Auditor
         // Now handle the exception
         $dumpedException = '';
         if ($throwable !== null && $throwable instanceof Exception) {
-            $dumpedException = ' ' . $this->replaceCRLF($throwable, ' | ');
+            $dumpedException = ' ' . $this->_replaceCRLF($throwable, ' | ');
         }
 
         $messageForLog = $context . ' ' . $encodedMessage . $dumpedException;
@@ -512,7 +517,6 @@ class DefaultAuditor implements Auditor
         // d date, p priority (level), m message, n newline
         $dateFormat = $secConfig->getLogFileDateFormat();
         $logfileLayoutPattern = "%d{{$dateFormat}} %m %n";
-        $consoleLayoutPattern = "%d{{$dateFormat}} %m <br />%n";
 
         // LogFile properties.
         $logFileName = $secConfig->getLogFileName();
@@ -523,38 +527,20 @@ class DefaultAuditor implements Auditor
         $logfileLayout = new LoggerLayoutPattern();
         $logfileLayout->setConversionPattern($logfileLayoutPattern); 
 
-        // Get a LoggerFilter - Use LevelMatch to deny DEBUG in the logfile.
-        // TODO remove LoggerFilter when codec debugging is done and before
-        // release.
-        $loggerFilter = new LoggerFilterLevelMatch();
-        $loggerFilter->setLevelToMatch(LoggerLevel::DEBUG);
-        $loggerFilter->setAcceptOnMatch("false");
-        $loggerFilter->activateOptions();
-
         // LogFile RollingFile Appender
         $appenderLogfile = new LoggerAppenderRollingFile('ESAPI LogFile');
         $appenderLogfile->setFile($logFileName, true);
         $appenderLogfile->setMaxFileSize($maxLogFileSize);
         $appenderLogfile->setMaxBackupIndex($maxLogFileBackups);
-        $appenderLogfile->addFilter($loggerFilter); // TODO remove temp filter
         $appenderLogfile->setLayout($logfileLayout);
         if ($logLevel !== 'OFF') {
             $appenderLogfile->activateOptions();
         }
-        // Console layout
-        $consoleLayout = new LoggerLayoutPattern();
-        $consoleLayout->setConversionPattern($consoleLayoutPattern);
-
-        // Console Echo Appender
-        $appenderEcho = new LoggerAppenderEcho('Echo Output');
-        $appenderEcho->setLayout($consoleLayout);
-        $appenderEcho->activateOptions();
 
         // Get the RootLogger and reset it, before adding our Appenders and
         // setting our Loglevel
         $rootLogger = Logger::getRootLogger();
         $rootLogger->removeAllAppenders();
-        $rootLogger->addAppender($appenderEcho);
         $rootLogger->addAppender($appenderLogfile);
         $rootLogger->setLevel(
             self::_convertESAPILeveltoLoggerLevel($logLevel)

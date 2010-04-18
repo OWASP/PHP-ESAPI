@@ -71,7 +71,7 @@ class SafeRequest
     const PATTERN_REQUEST_AUTHTYPE
         = '^([dD][iI][gG][eE][sS][tT]|[bB][aA][sS][iI][cC])$';
     const PATTERN_HOST_NAME
-        = '^((?:(?:[0-9a-zA-Z][0-9a-zA-Z\-]{0,61}[0-9a-zA-Z])\.)*[a-zA-Z]{2,4}|localhost)$';
+        = '^((?:(?:[0-9a-zA-Z][0-9a-zA-Z\-]{0,61}[0-9a-zA-Z])\.)*[a-zA-Z]{2,4}|[0-9a-zA-Z][0-9a-zA-Z\-]{0,61}[0-9a-zA-Z])$';
     const PATTERN_IPV4_ADDRESS
         = '^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$';
 
@@ -165,8 +165,12 @@ class SafeRequest
      */
     public function getAuthType()
     {
+        $defaultValue = '';
+        
         if ($this->_authType !== null) {
             return $this->_authType;
+        } else {
+            $this->_authType = $defaultValue;
         }
 
         $key = 'AUTH_TYPE';
@@ -182,11 +186,10 @@ class SafeRequest
             // NoOp - already logged.
         }
 
-        if ($authType === null) {
-            $authType = '';
+        if ($authType !== null) {
+            $this->_authType = $authType;
         }
-
-        $this->_authType = $authType;
+        
         return $this->_authType;
     }
 
@@ -199,8 +202,12 @@ class SafeRequest
      */
     public function getContentLength()
     {
+        $defaultValue = 0;
+        
         if ($this->_contentLength !== null) {
             return $this->_contentLength;
+        } else {
+            $this->_contentLength = $defaultValue;
         }
 
         $key   = 'CONTENT_LENGTH';
@@ -209,14 +216,10 @@ class SafeRequest
             'HTTP Request Content-Length validation',
             $canon, 0, PHP_INT_MAX, true
         );
-        $len = null;
         if ($isValid == true) {
-            $len = (int) $canon;
-        } else {
-            $len = 0;
+            $this->_contentLength = (int) $canon;
         }
 
-        $this->_contentLength = $len;
         return $this->_contentLength;
     }
 
@@ -229,8 +232,12 @@ class SafeRequest
      */
     public function getContentType()
     {
+        $defaultValue = '';
+        
         if ($this->_contentType !== null) {
             return $this->_contentType;
+        } else {
+            $this->_contentType = $defaultValue;
         }
 
         $key          = 'CONTENT_TYPE';
@@ -249,11 +256,10 @@ class SafeRequest
             // NoOp - already logged.
         }
 
-        if ($contentType === null) {
-            $contentType = '';
+        if ($contentType !== null) {
+            $this->_contentType = $contentType;
         }
-
-        $this->_contentType = $contentType;
+        
         return $this->_contentType;
     }
 
@@ -266,8 +272,12 @@ class SafeRequest
      */
     public function getPathInfo()
     {
+        $defaultValue = '';
+        
         if ($this->_pathInfo !== null) {
             return $this->_pathInfo;
+        } else {
+            $this->_pathInfo = $defaultValue;
         }
 
         $key      = 'PATH_INFO';
@@ -286,11 +296,10 @@ class SafeRequest
             // NoOp - already logged.
         }
 
-        if ($pathInfo === null) {
-            $pathInfo = '';
+        if ($pathInfo !== null) {
+            $this->_pathInfo = $pathInfo;
         }
-
-        $this->_pathInfo = $pathInfo;
+        
         return $this->_pathInfo;
     }
 
@@ -303,8 +312,12 @@ class SafeRequest
      */
     public function getPathTranslated()
     {
+        $defaultValue = '';
+        
         if ($this->_pathTranslated !== null) {
             return $this->_pathTranslated;
+        } else {
+            $this->_pathTranslated = $defaultValue;
         }
 
         $key      = 'PATH_TRANSLATED';
@@ -323,11 +336,10 @@ class SafeRequest
             // NoOp - already logged.
         }
 
-        if ($pathTranslated === null) {
-            $pathTranslated = '';
+        if ($pathTranslated !== null) {
+            $this->_pathTranslated = $pathTranslated;
         }
 
-        $this->_pathTranslated = $pathTranslated;
         return $this->_pathTranslated;
     }
 
@@ -340,8 +352,12 @@ class SafeRequest
      */
     public function getQueryString()
     {
+        $defaultValue = '';
+        
         if ($this->_queryString !== null) {
             return $this->_queryString;
+        } else {
+            $this->_queryString = $defaultValue;
         }
 
         $key      = 'QUERY_STRING';
@@ -360,11 +376,10 @@ class SafeRequest
             // NoOp - already logged.
         }
 
-        if ($queryString === null) {
-            $queryString = '';
+        if ($queryString !== null) {
+            $this->_queryString = $queryString;
         }
 
-        $this->_queryString = $queryString;
         return $this->_queryString;
     }
 
@@ -377,8 +392,12 @@ class SafeRequest
      */
     public function getRemoteAddr()
     {
+        $defaultValue = '';
+        
         if ($this->_remoteAddr !== null) {
             return $this->_remoteAddr;
+        } else {
+            $this->_remoteAddr = $defaultValue;
         }
 
         $key      = 'REMOTE_ADDR';
@@ -395,11 +414,10 @@ class SafeRequest
             // NoOp - already logged.
         }
 
-        if ($remoteAddr === null) {
-            $remoteAddr = '';
+        if ($remoteAddr !== null) {
+            $this->_remoteAddr = $remoteAddr;
         }
 
-        $this->_remoteAddr = $remoteAddr;
         return $this->_remoteAddr;
     }
 
@@ -412,8 +430,12 @@ class SafeRequest
      */
     public function getRemoteHost()
     {
+        $defaultValue = '';
+        
         if ($this->_remoteHost !== null) {
             return $this->_remoteHost;
+        } else {
+            $this->_remoteHost = $defaultValue;
         }
 
         $key      = 'REMOTE_HOST';
@@ -430,11 +452,10 @@ class SafeRequest
             // NoOp - already logged.
         }
 
-        if ($remoteHost === null) {
-            $remoteHost = '';
+        if ($remoteHost !== null) {
+            $this->_remoteHost = $remoteHost;
         }
 
-        $this->_remoteHost = $remoteHost;
         return $this->_remoteHost;
     }
 
@@ -447,8 +468,12 @@ class SafeRequest
      */
     public function getRemoteUser()
     {
+        $defaultValue = '';
+        
         if ($this->_remoteUser !== null) {
             return $this->_remoteUser;
+        } else {
+            $this->_remoteUser = $defaultValue;
         }
 
         $key      = 'REMOTE_USER';
@@ -467,11 +492,10 @@ class SafeRequest
             // NoOp - already logged.
         }
 
-        if ($remoteUser === null) {
-            $remoteUser = '';
+        if ($remoteUser !== null) {
+            $this->_remoteUser = $remoteUser;
         }
 
-        $this->_remoteUser = $remoteUser;
         return $this->_remoteUser;
     }
 
@@ -484,8 +508,12 @@ class SafeRequest
      */
     public function getMethod()
     {
+        $defaultValue = '';
+        
         if ($this->_method !== null) {
             return $this->_method;
+        } else {
+            $this->_method = $defaultValue;
         }
 
         $key     = 'REQUEST_METHOD';
@@ -501,11 +529,10 @@ class SafeRequest
         } catch (Exception $e) {
             // NoOp - already logged.
         }
-        if ($method === null) {
-            $method = '';
+        if ($method !== null) {
+            $this->_method = $method;
         }
 
-        $this->_method = $method;
         return $this->_method;
     }
 
@@ -518,8 +545,12 @@ class SafeRequest
      */
     public function getRequestURI()
     {
+        $defaultValue = '';
+        
         if ($this->_requestURI !== null) {
             return $this->_requestURI;
+        } else {
+            $this->_requestURI = $defaultValue;
         }
 
         $key     = 'SCRIPT_NAME';
@@ -537,12 +568,10 @@ class SafeRequest
         } catch (Exception $e) {
             // NoOp - already logged.
         }
-        if ($path === null) {
-            $this->_requestURI = '';
-            return $this->_requestURI;
+        if ($path !== null) {
+            $this->_requestURI = $path;
         }
 
-        $this->_requestURI = $path;
         return $this->_requestURI;
     }
 
@@ -555,8 +584,12 @@ class SafeRequest
      */
     public function getServerName()
     {
+        $defaultValue = '';
+        
         if ($this->_serverName !== null) {
             return $this->_serverName;
+        } else {
+            $this->_serverName = '';
         }
 
         $key      = 'SERVER_NAME';
@@ -585,11 +618,10 @@ class SafeRequest
             }
         }
 
-        if ($serverName === null) {
-            $serverName = '';
+        if ($serverName !== null) {
+            $this->_serverName = $serverName;
         }
 
-        $this->_serverName = $serverName;
         return $this->_serverName;
     }
 
@@ -602,24 +634,24 @@ class SafeRequest
      */
     public function getServerPort()
     {
+        $defaultValue = 0;
+        
         if ($this->_serverPort !== null) {
             return $this->_serverPort;
+        } else {
+            $this->_serverPort = $defaultValue;
         }
 
         $key        = 'SERVER_PORT';
         $canon      = $this->getServerGlobal($key);
-        $serverPort = null;
         $isValid = $this->_validator->isValidInteger(
             'HTTP Request Server Port validation',
             $canon, 0, 65535, true
         );
         if ($isValid == true) {
-            $serverPort = (int) $canon;
-        } else {
-            $serverPort = 0;
+            $this->_serverPort = (int) $canon;
         }
 
-        $this->_serverPort = $serverPort;
         return $this->_serverPort;
     }
 

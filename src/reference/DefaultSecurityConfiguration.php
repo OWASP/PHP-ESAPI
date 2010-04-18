@@ -98,6 +98,10 @@ class DefaultSecurityConfiguration implements SecurityConfiguration
         
     private $_resourceDir = null;
     
+    // Special Debugging
+    
+    private $_SpecialDebugging = null;
+    
     /**
      * SecurityConfiguration constructor.
      * 
@@ -848,6 +852,24 @@ class DefaultSecurityConfiguration implements SecurityConfiguration
         }
         
         return $this->_AllowedResources;
+    }
+    
+    /**
+     * getSpecialDebugging returns boolean true if special debugging should be
+     * enabled. Default is false.
+     * At the moment, special debugging is used for producing output from
+     * CodecDebug.
+     * 
+     * @return bool True if special debugging should be enabled. Default is false.
+     */
+    function getSpecialDebugging() 
+    {
+        if ( $this->_SpecialDebugging === null ) {
+            $path = 'SpecialDebugging/Enabled';
+            $this->_SpecialDebugging = $this->_getESAPIBooleanProperty($path, false);
+        }
+        
+        return $this->_SpecialDebugging;
     }
 }
 ?>
