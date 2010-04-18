@@ -30,6 +30,8 @@ require_once dirname(__FILE__).'/../src/ESAPI.php';
 
 $ESAPI = new ESAPI(dirname(__FILE__)."/testresources/ESAPI.xml");
 
+session_start(); // For HTTPUtilities
+
 $test = new GroupTest('Core Function Tests');
     $test->addTestFile(dirname(__FILE__).'/errors/EnterpriseSecurityExceptionTest.php');
     $test->addTestFile(dirname(__FILE__).'/reference/SecurityConfigurationTest.php');
@@ -51,7 +53,7 @@ $test = new GroupTest('Core Function Helper Tests');
     $test->addTestFile(dirname(__FILE__).'/codecs/UnixCodecTest.php');
     $test->addTestFile(dirname(__FILE__).'/codecs/VBScriptCodecTest.php');
     $test->addTestFile(dirname(__FILE__).'/codecs/WindowsCodecTest.php');
-//    $test->addTestFile(dirname(__FILE__).'/reference/HTTPUtilitiesTest.php');
+    $test->addTestFile(dirname(__FILE__).'/reference/HTTPUtilitiesTest.php');
     $test->addTestFile(dirname(__FILE__).'/filters/SafeRequestTest.php');
     $test->addTestFile(dirname(__FILE__).'/reference/RandomizerTest.php');
     $test->addTestFile(dirname(__FILE__).'/reference/StringUtilitiesTest.php');

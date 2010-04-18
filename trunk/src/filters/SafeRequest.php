@@ -71,7 +71,7 @@ class SafeRequest
     const PATTERN_REQUEST_AUTHTYPE
         = '^([dD][iI][gG][eE][sS][tT]|[bB][aA][sS][iI][cC])$';
     const PATTERN_HOST_NAME
-        = '^(?:(?:[0-9a-zA-Z][0-9a-zA-Z\-]{0,61}[0-9a-zA-Z])\.)*[a-zA-Z]{2,4}$';
+        = '^((?:(?:[0-9a-zA-Z][0-9a-zA-Z\-]{0,61}[0-9a-zA-Z])\.)*[a-zA-Z]{2,4}|localhost)$';
     const PATTERN_IPV4_ADDRESS
         = '^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$';
 
@@ -768,10 +768,10 @@ class SafeRequest
         if (! array_key_exists($name, $this->_parameterMap)) {
             return null;
         }
-        if (! is_array($this->_parameterMap['name'])) {
-            return $this->_parameterMap['name'];
+        if (! is_array($this->_parameterMap[$name])) {
+            return $this->_parameterMap[$name];
         }
-        return $this->_parameterMap['name'][0];
+        return $this->_parameterMap[$name][0];
     }
 
 
