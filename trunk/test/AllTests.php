@@ -4,7 +4,7 @@
  *
  * This file is part of the Open Web Application Security Project (OWASP)
  * Enterprise Security API (ESAPI) project.
- * 
+ *
  * PHP version 5.2
  *
  * LICENSE: This source file is subject to the New BSD license.  You should read
@@ -24,7 +24,7 @@
 require_once dirname(__FILE__).'/../lib/simpletest/unit_tester.php';
 require_once dirname(__FILE__).'/../lib/simpletest/reporter.php';
 
-error_reporting(E_ALL | ~E_STRICT);  
+error_reporting(E_ALL | ~E_STRICT);
 
 require_once dirname(__FILE__).'/../src/ESAPI.php';
 
@@ -64,7 +64,7 @@ $test = new GroupTest('Reference Implementation Tests');
     $test->addTestFile(dirname(__FILE__).'/reference/IntegerAccessReferenceMapTest.php');
     $test->addTestFile(dirname(__FILE__).'/reference/RandomAccessReferenceMapTest.php');
     $test->addTestFile(dirname(__FILE__).'/reference/AuditorTest.php');
-//    $test->addTestFile(dirname(__FILE__).'/reference/IntrusionDetectorTest.php');
+    $test->addTestFile(dirname(__FILE__).'/reference/IntrusionDetectorTest.php');
     $test->addTestFile(dirname(__FILE__).'/reference/SanitizerTest.php');
 $test->run(new HTMLReporter('UTF-8'));
 
