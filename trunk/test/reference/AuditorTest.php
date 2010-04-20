@@ -899,7 +899,7 @@ class AuditorTest extends UnitTestCase {
         $testMsg = null;
         $r = getRandomAlphaNumString(16);
         $expected = "{$r}_{$r}";
-        $this->testLogger->trace(Auditor::SECURITY, true, "{$r}\n{$r}");
+        $this->testLogger->fatal(Auditor::SECURITY, true, "{$r}\n{$r}");
         $result = $this->verifyLogEntry($expected, $testMsg);
         if ($result === true) {
             $this->pass('CRLF Encoding is working!');
@@ -926,7 +926,7 @@ class AuditorTest extends UnitTestCase {
         $testMsg = null;
         $r = getRandomAlphaNumString(16);
         $expected = "{$r}&amp;{$r}";
-        $this->testLogger->trace(Auditor::SECURITY, true, "{$r}&{$r}");
+        $this->testLogger->fatal(Auditor::SECURITY, true, "{$r}&{$r}");
         $result = $this->verifyLogEntry($expected, $testMsg);
         if ($result === true) {
             $this->pass('HTML Encoding is working!');
