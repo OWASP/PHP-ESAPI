@@ -167,13 +167,13 @@ class DefaultSecurityConfiguration implements SecurityConfiguration
         foreach ($_events as $event) {
             // Obtain data for the event
 
-            $name = (string) $event[0]->attributes()->name;
-            $count = (int) $event[0]->attributes()->count;
-            $interval = (int) $event[0]->attributes()->interval;
+            $name = (string) $event->attributes()->name;
+            $count = (int) $event->attributes()->count;
+            $interval = (int) $event->attributes()->interval;
             
             $actions = array();
-            foreach ( $event[0]->action as $node ) {
-                $actions[] = (string) $node[0];    
+            foreach ( $event->action as $node ) {
+                $actions[] = (string) $node;    
             }
             
             // Validate the event
@@ -260,9 +260,9 @@ class DefaultSecurityConfiguration implements SecurityConfiguration
         }
 
         $result = array();
-        if (isset($var[0]) ) {
-            while (list( , $node) = each($var)) {
-                 $result[] = (string) $node[0];
+        if (isset($var) ) {
+            foreach ($var as $node) {
+                $result[] = (string) $node;    
             }
             
             $val = $result;
@@ -297,14 +297,14 @@ class DefaultSecurityConfiguration implements SecurityConfiguration
             
         if (isset($var[0]) ) {
             while (list( , $node) = each($var)) {
-                 $result[] = (string) $node[0];
-                 
-                foreach ($node[0]->attributes() as $a => $b) {
+                 $result[] = (string) $node;
+                
+                foreach ($node->attributes() as $a => $b) {
                     if (!strcmp($a, "name")) {
-                        if ( !strcmp($b, $type)) {
+                        if ( !strcmp((string) $b, $type)) {
                             $val = $var[$i];
                             $found = true;
-                            break;
+                            break 2;
                         }
                     }
                 }
