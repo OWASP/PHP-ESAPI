@@ -145,7 +145,7 @@ class DefaultExecutor implements Executor
             }
             //note: no whitespace between $executable and $paramstr since 
             //$paramstr already has a leading whitespace
-            $output = $executable.$paramstr;    
+            $output = shell_exec($executable . $paramstr);    
             return $output;
         }
         catch ( Exception $e ) {
