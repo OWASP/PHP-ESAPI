@@ -23,9 +23,8 @@
 
 
 /**
- * HttpUtilitiesTest requires DefaultHTTPUtilities.
+ * HttpUtilitiesTest requires SafeRequest.
  */
-require_once dirname(__FILE__) . '/../../src/reference/DefaultHTTPUtilities.php';
 require_once dirname(__FILE__) . '/../../src/filters/SafeRequest.php';
 
 
@@ -56,7 +55,8 @@ class HttpUtilitiesTest extends UnitTestCase
     private $_httpUtils = null;
 
     /**
-     * Store an instance of DefaultHTTPUtilities.
+     * Constructor ensures global ESAPI is set and stores an instance of
+     * DefaultHTTPUtilities.
      * 
      * @return null
      */
