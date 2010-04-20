@@ -141,7 +141,10 @@ class DateValidationRule extends BaseValidationRule
         }
 
         // try to create a DateTime object from the canonical input
-        $date = date_create($canonical);
+        $date = false;
+        if ((@strtotime($canonical)) !== false) {
+            $date = date_create($canonical);
+        }
         if ($date === false) {
             throw new ValidationException(
                 $context . ": Invalid date must follow the " . $this->format . " format",
