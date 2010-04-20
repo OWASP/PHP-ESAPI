@@ -279,7 +279,7 @@ class DefaultEncoder implements Encoder
             return null;
         }
         
-        if (! is_a($codec, 'Codec')) {
+        if ($codec instanceof Codec == false) {
             ESAPI::getLogger('Encoder')->error(
                 ESAPILogger::SECURITY, false,
                 'Invalid Argument, expected an instance of an OS Codec.'
