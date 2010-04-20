@@ -16,13 +16,19 @@
  * @author    Jeff Williams <jeff.williams@aspectsecurity.com>
  * @author    Andrew van der Stock <vanderaj@owasp.org>
  * @author    Martin Reiche <martin.reiche.ka@googlemail.com>
+ * @author    Arnaud Labenne <arnaud.labenne@dotsafe.fr>
  * @copyright 2009-2010 The OWASP Foundation
  * @license   http://www.opensource.org/licenses/bsd-license.php New BSD license
  * @version   SVN: $Id$
  * @link      http://www.owasp.org/index.php/ESAPI
  */
 
+
+/**
+ * SafeFile requires ValidationException and EnterpriseSecurityException.
+ */
 require_once dirname(__FILE__).'/errors/ValidationException.php';
+
 
 /**
  * Extension to SplFileObject to prevent against null byte injections and
@@ -35,6 +41,7 @@ require_once dirname(__FILE__).'/errors/ValidationException.php';
  * @author    Jeff Williams <jeff.williams@aspectsecurity.com>
  * @author    Andrew van der Stock <vanderaj@owasp.org>
  * @author    Martin Reiche <martin.reiche.ka@googlemail.com>
+ * @author    Arnaud Labenne <arnaud.labenne@dotsafe.fr>
  * @copyright 2009-2010 The OWASP Foundation
  * @license   http://www.opensource.org/licenses/bsd-license.php New BSD license
  * @version   Release: @package_version@
@@ -66,32 +73,34 @@ class SafeFile extends SplFileObject
                 );
         }
 
-        $this->_doDirCheck($this->getPath());
-        $this->_doFileCheck($this->getFilename());
+        $this->_doDirCheck($path);
+        $this->_doFileCheck($path);
         $this->_doExtraCheck($path);
     }
 
     /**
      * Checks the directory against null bytes and unprintable characters.
      *
-     * @param string $path the directory path (without the file name)
+     * @param string $path the path to the file (path && file name)
      *
      * @return does not return a value
      * @exception ValidationException thrown if check fails
      */
     private function _doDirCheck($path)
     {
-        if ( preg_match($this->_DIR_BLACKLIST_PAT, $path) ) {
+        $dir = $this->getPath();
+        
+        if ( preg_match($this->_DIR_BLACKLIST_PAT, $dir) ) {
             throw new ValidationException(
                 'Invalid directory',
-                "Directory path ({$path}) contains illegal character. "
+                "Directory path ({$dir}) contains illegal character. "
             );
         }
 
-        if ( preg_match($this->_PERCENTS_PAT, $path) ) {
+        if ( preg_match($this->_PERCENTS_PAT, $dir) ) {
             throw new ValidationException(
                 'Invalid directory',
-                "Directory path ({$path}) contains encoded characters. "
+                "Directory path ({$dir}) contains encoded characters. "
             );
         }
 
@@ -99,7 +108,7 @@ class SafeFile extends SplFileObject
         if ($ch != -1) {
             throw new ValidationException(
                 'Invalid directory',
-                "Directory path ({$path}) contains unprintable character. "
+                "Directory path ({$dir}) contains unprintable character. "
             );
         }
     }
@@ -114,24 +123,59 @@ class SafeFile extends SplFileObject
      */
     private function _doFileCheck($path)
     {
-        if ( preg_match($this->_FILE_BLACKLIST_PAT, $path) ) {
-            throw new ValidationException(
-                'Invalid file',
-                "File path ({$path}) contains illegal character.");
+        $filename = $this->getFilename();
+
+        // Workaround for PHP == 5.2.0 getFilename returns entire path.
+        if (preg_match('/[\/\\\]/', $filename)) {
+            // this _might_ be a filename with a slash in it or it might be
+            // a full path.
+            $charEncP = mb_detect_encoding($path);
+            $pathLen = mb_strlen($path, $charEncP);
+
+            $charEncF = mb_detect_encoding($filename);
+            $fileLen = mb_strlen($filename, $charEncF);
+
+            if ($pathLen === $fileLen) {
+                // filename is the entire path!
+                $dir = $this->getPath();
+                $charEncD = mb_detect_encoding($dir);
+                $dirLen = mb_strlen($dir, $charEncD);
+
+                // sanity check that the entire path returned by getFilename is
+                // longer than the path returned by getPath
+                if ($fileLen <= $dirLen) {
+                    throw new ValidationException(
+                        'Invalid file',
+                        'The path returned from SplFileObject::getFilename should have been shorter than the path returned by SplFileObject::getPath.'
+                    );
+                }
+
+                // Assume file name is $filename with $dir+slash knocked off it.
+                $dirLen += 1;
+                $filename
+                    = mb_substr($filename, $dirLen, $fileLen-$dirLen, $charEncF);
+            }
+
         }
 
-        if ( preg_match($this->_PERCENTS_PAT, $path) ) {
+        if ( preg_match($this->_FILE_BLACKLIST_PAT, $filename) ) {
             throw new ValidationException(
                 'Invalid file',
-                "File path ({$path}) contains encoded characters."
+                "File path ({$filename}) contains illegal character.");
+        }
+
+        if ( preg_match($this->_PERCENTS_PAT, $filename) ) {
+            throw new ValidationException(
+                'Invalid file',
+                "File path ({$filename}) contains encoded characters."
             );
         }
 
-        $ch = $this->_containsUnprintableCharacters($path);
+        $ch = $this->_containsUnprintableCharacters($filename);
         if ($ch != -1) {
             throw new ValidationException(
                 'Invalid file',
-                "File path ({$path}) contains unprintable character."
+                "File path ({$filename}) contains unprintable character."
             );
         }
     }
