@@ -593,29 +593,21 @@ class SafeRequest
         }
 
         $key      = 'SERVER_NAME';
-        $pattern  = self::PATTERN_IPV4_ADDRESS;
+        $pattern  = '(';
+        $pattern .= self::PATTERN_IPV4_ADDRESS;
+        $pattern .= '|';
+        $pattern .= self::PATTERN_HOST_NAME;
+        $pattern .= ')';
 
         $canon      = $this->getServerGlobal($key);
         $serverName = null;
         try {
             $serverName = $this->_getIfValid(
-                'HTTP Request Server Address validation',
-                $canon, $pattern, $key, 15, true
+                'HTTP Request Server Name validation',
+                $canon, $pattern, $key, 255, true
             );
         } catch (Exception $e) {
             // NoOp - already logged.
-        }
-
-        if ($serverName === null) {
-            $pattern = self::PATTERN_HOST_NAME;
-            try {
-                $serverName = $this->_getIfValid(
-                    'HTTP Request Server Name validation',
-                    $canon, $pattern, $key, 255, true
-                );
-            } catch (Exception $e) {
-                // NoOp - already logged.
-            }
         }
 
         if ($serverName !== null) {
