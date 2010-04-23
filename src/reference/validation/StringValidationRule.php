@@ -32,7 +32,7 @@ require_once dirname(__FILE__) . '/BaseValidationRule.php';
  * PHP version 5.2.9
  *
  * @category  OWASP
- * @package   ESAPI
+ * @package   ESAPI_Reference_Validation
  * @version   1.0
  * @author    Jeff Williams <jeff.williams@aspectsecurity.com>
  * @author    Johannes B. Ullrich <jullrich@sans.edu>

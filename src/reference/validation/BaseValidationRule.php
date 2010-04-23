@@ -12,7 +12,7 @@
  * software.
  *
  * @category  OWASP
- * @package   ESAPI_Reference
+ * @package   ESAPI_Reference_Validation
  * @author    Johannes B. Ullrich <jullrich@sans.edu>
  * @author    jah <jah@jahboite.co.uk>
  * @author    Mike Boberski <boberski_michael@bah.com>
@@ -33,7 +33,7 @@ require_once dirname(__FILE__) . '/../DefaultEncoder.php';
  * Reference Implementation of the ValidationRule interface.
  *
  * @category  OWASP
- * @package   ESAPI
+ * @package   ESAPI_Reference_Validation
  * @author    Johannes B. Ullrich <jullrich@sans.edu>
  * @author    jah <jah@jahboite.co.uk>
  * @author    Mike Boberski <boberski_michael@bah.com>
