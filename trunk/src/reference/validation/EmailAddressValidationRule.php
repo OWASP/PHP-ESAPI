@@ -60,7 +60,7 @@ class EmailAddressValidationRule extends StringValidationRule
 
         parent::__construct($typeName, $encoder);
 
-        $this->$_auditor = $ESAPI->getAuditor("EmailAddressValidationRule");
+        $this->_auditor = $ESAPI->getAuditor("EmailAddressValidationRule");
     }
 
     /**
