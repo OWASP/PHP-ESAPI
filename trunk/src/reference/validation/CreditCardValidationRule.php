@@ -8,17 +8,19 @@
  * LICENSE: This source file is subject to the New BSD license.  You should read
  * and accept the LICENSE before you use, modify, and/or redistribute this
  * software.
+ * 
+ * PHP version 5.2
  *
  * @category  OWASP
- * @package   ESAPI_Reference_Validation
- * @author    Jeff Williams <jeff.williams@aspectsecurity.com>
+ * @package   ESAPI
  * @author    Johannes B. Ullrich <jullrich@sans.edu>
+ * @author    Mike Boberski <boberski_michael@bah.com>
  * @author    jah <jah@jahboite.co.uk>
  * @copyright 2009-2010 The OWASP Foundation
  * @license   http://www.opensource.org/licenses/bsd-license.php New BSD license
+ * @version   SVN: $Id$
  * @link      http://www.owasp.org/index.php/ESAPI
  */
-
 
 /**
  * CreditCardValidationRule requires the BaseValidationRule and
@@ -29,23 +31,21 @@ require_once dirname(__FILE__) . '/StringValidationRule.php';
 
 
 /**
- * CreditCardValidationRule implementation of the ValidationRule interface.
- *
- * PHP version 5.2.9
+ * Reference extension of the BaseValidationRule class.
  *
  * @category  OWASP
  * @package   ESAPI
- * @version   1.0
- * @author    Jeff Williams <jeff.williams@aspectsecurity.com>
  * @author    Johannes B. Ullrich <jullrich@sans.edu>
  * @author    jah <jah@jahboite.co.uk>
+ * @author    Mike Boberski <boberski_michael@bah.com>
  * @copyright 2009-2010 The OWASP Foundation
  * @license   http://www.opensource.org/licenses/bsd-license.php New BSD license
+ * @version   Release: @package_version@
  * @link      http://www.owasp.org/index.php/ESAPI
  */
 class CreditCardValidationRule extends BaseValidationRule
 {
-    private $ccrule = null ;
+    private $_ccrule = null ;
     const CREDIT_CARD_VALIDATOR_KEY = 'CreditCard';
 
 
@@ -55,10 +55,13 @@ class CreditCardValidationRule extends BaseValidationRule
      * optional instance of a ValidationRule implementation for validating
      * Credit Card Numbers.
      *
-     * @param  $typeName string descriptive name for this validator.
-     * @param  $encoder object providing canonicalize method.
-     * @param  $validationRule object instance of a ValidationRule
-     *         implementation for validating Credit Card Numbers.
+     * @param string $typeName       descriptive name for this validator.
+     * @param object $encoder        Encoder providing canonicalize method.
+     * @param object $validationRule instance of a ValidationRule
+     *                               implementation for validating Credit 
+     *                               Card Numbers.
+     *                                       
+     * @return does not return a value.
      */
     public function __construct($typeName, $encoder = null, $validationRule = null)
     {
@@ -67,7 +70,7 @@ class CreditCardValidationRule extends BaseValidationRule
         if ($validationRule instanceof ValidationRule) {
             $this->ccrule = $validationRule;
         } else {
-            $this->ccrule = $this->getCCRule();
+            $this->ccrule = $this->_getCCRule();
         }
     }
 
@@ -77,14 +80,18 @@ class CreditCardValidationRule extends BaseValidationRule
      * pattern for validating Credit Card Numbers obtained from the ESAPI
      * SecurityConfiguration.
      *
-     * @return object of type StringValidationRule.
+     * @return object object of type StringValidationRule.
      */
-    private function getCCRule()
+    private function _getCCRule()
     {
         global $ESAPI;
         $config = ESAPI::getSecurityConfiguration();
         $pattern = $config->getValidationPattern(self::CREDIT_CARD_VALIDATOR_KEY);
-        $ccr = new StringValidationRule('CreditCardValidator', $this->encoder, $pattern);
+        $ccr = new StringValidationRule(
+            'CreditCardValidator', 
+            $this->encoder, 
+            $pattern
+        );
         $ccr->setMaximumLength(19);
         $ccr->setAllowNull(false);
         return $ccr;
@@ -96,14 +103,13 @@ class CreditCardValidationRule extends BaseValidationRule
      * Throws ValidationException if the input is not valid or
      * IntrusionException if the input is an obvious attack.
      *
-     * @param  $context A descriptive name of the parameter that you are
-     *         validating (e.g., LoginPage_UsernameField). This value is used by
-     *         any logging or error handling that is done with respect to the
-     *         value passed in.
-     * @param  $input The actual string user input data to validate.
+     * @param string $context A descriptive name of the parameter that you are
+     *                        validating (e.g., LoginPage_UsernameField). This 
+     *                        value is used by any logging or error handling that 
+     *                        is done with respect to the value passed in.
+     * @param string $input   The actual string user input data to validate.
      *
      * @return string canonicalized, valid input.
-     *
      * @throws ValidationException, IntrusionException
      */
     public function getValid($context, $input)
@@ -119,8 +125,7 @@ class CreditCardValidationRule extends BaseValidationRule
                 $context
             );
         }
-        if ($input === null || $input == '')
-        {
+        if ($input === null || $input == '') {
             if ($this->allowNull) {
                 return null;
             }
@@ -140,7 +145,7 @@ class CreditCardValidationRule extends BaseValidationRule
         $len = mb_strlen($digitsOnly, $charEnc);
         $odd = ! $len % 2;
         $sum = 0;
-        for($i = $len - 1; $i >= 0; $i--) {
+        for ($i = $len - 1; $i >= 0; $i--) {
             $n = mb_substr($digitsOnly, $i, 1, $charEnc);
             $odd = ! $odd;
             if ($odd) {
@@ -153,7 +158,8 @@ class CreditCardValidationRule extends BaseValidationRule
         if (($sum % 10) != 0) {
             throw new ValidationException(
                 "{$context}: Invalid Credit Card Number",
-                "Input Credit Card Number contains errors - check digit failure: context={$context}",
+                "Input Credit Card Number contains errors - check digit failure:".
+                " context={$context}",
                 $context
             );
         }
@@ -166,13 +172,13 @@ class CreditCardValidationRule extends BaseValidationRule
      * Returns the supplied input string after removing any non-numeric
      * characters.
      *
-     * @param  $context A descriptive name of the parameter that you are
-     *         validating (e.g., LoginPage_UsernameField). This value is used by
-     *         any logging or error handling that is done with respect to the
-     *         value passed in.
-     * @param  $input The actual user input data to validate.
+     * @param string $context A descriptive name of the parameter that you are
+     *                        validating (e.g., LoginPage_UsernameField). This 
+     *                        value is used by any logging or error handling that 
+     *                        is done with respect to the value passed in.
+     * @param string $input   The actual user input data to validate.
      *
-     * @return string of zero or more numeric characters from $input.
+     * @return string string of zero or more numeric characters from $input.
      */
     public function sanitize($context, $input)
     {
