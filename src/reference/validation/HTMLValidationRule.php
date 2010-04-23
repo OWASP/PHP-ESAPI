@@ -54,7 +54,7 @@ class HTMLValidationRule extends StringValidationRule
     // $config->set('Core.CollectErrors' , true);
     //
     //
-    private $_auditor   = null;
+    private $_auditor = null;
     private $_purifier = null;
 
     /**
@@ -77,10 +77,10 @@ class HTMLValidationRule extends StringValidationRule
 
         parent::__construct($typeName, $encoder);
 
-        $this->$_auditor = ESAPI::getAuditor('HTMLValidationRule');
+        $this->_auditor = ESAPI::getAuditor('HTMLValidationRule');
         try
         {
-            $this->$_purifier = new HTMLPurifier($this->basicConfig());
+            $this->_purifier = new HTMLPurifier($this->_basicConfig());
         }
         catch (Exception $e)
         {
