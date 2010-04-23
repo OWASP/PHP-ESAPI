@@ -35,30 +35,49 @@
  * @version   Release: @package_version@
  * @link      http://www.owasp.org/index.php/ESAPI
  */
-class DateFormat {
-	private $format = array();
-	const types = array('SMALL','MEDIUM','LONG','FULL');
-	
-	function __construct($format=null, $type='MEDIUM') {
-		$this->setformat($format,$type);
-	}
-	
-	function setformat($format, $type='MEDIUM') {
-		
-		if ( is_array($format)) {
-			foreach ( self::types as $t ) {
-				if ( key_exists($t, $format)) {
-					$this->format[$t] = $format[$t];		
-				}
-			}
-		} else {
-			if ( in_array($type, self::types) ) {
-				$this->format[$type] = $format;
-			} else {
-				throw ValidationException("invalid date type " . $type);
-			}						
-		}
-	}
+class DateFormat
+{
+    private $_format = array();
+    const TYPES = array('SMALL','MEDIUM','LONG','FULL');
+    
+    /**
+     * Constructor.
+     * 
+     * @param string $format date format
+     * @param string $type   date type
+     * 
+     * @return does not return a value.
+     */
+    function __construct($format=null, $type='MEDIUM') 
+    {
+        $this->setformat($format, $type);
+    }
+    
+    /**
+     * Helper function.
+     * 
+     * @param string $format date format
+     * @param string $type   date type
+     * 
+     * @return does not return a value.
+     */
+    function setformat($format, $type='MEDIUM') 
+    {
+        
+        if ( is_array($format)) {
+            foreach ( self::TYPES as $t ) {
+                if ( key_exists($t, $format)) {
+                    $this->_format[$t] = $format[$t];        
+                }
+            }
+        } else {
+            if ( in_array($type, self::TYPES) ) {
+                $this->_format[$type] = $format;
+            } else {
+                throw ValidationException("invalid date type " . $type);
+            }                        
+        }
+    }
 }
 
 ?>
