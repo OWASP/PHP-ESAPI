@@ -4,20 +4,23 @@
  *
  * This file is part of the Open Web Application Security Project (OWASP)
  * Enterprise Security API (ESAPI) project.
+ * 
+ * PHP version 5.2
  *
  * LICENSE: This source file is subject to the New BSD license.  You should read
  * and accept the LICENSE before you use, modify, and/or redistribute this
  * software.
  *
  * @category  OWASP
- * @package   ESAPI_Reference_Validation
+ * @package   ESAPI_Reference
  * @author    Johannes B. Ullrich <jullrich@sans.edu>
  * @author    jah <jah@jahboite.co.uk>
+ * @author    Mike Boberski <boberski_michael@bah.com>
  * @copyright 2009-2010 The OWASP Foundation
  * @license   http://www.opensource.org/licenses/bsd-license.php New BSD license
+ * @version   SVN: $Id$
  * @link      http://www.owasp.org/index.php/ESAPI
  */
-
 
 /**
  * BaseValidationRule requires the ValidationRule Interface and DefaultEncoder
@@ -26,22 +29,17 @@
 require_once dirname(__FILE__) . '/../../ValidationRule.php';
 require_once dirname(__FILE__) . '/../DefaultEncoder.php';
 
-
 /**
- * Abstract BaseValidationRule implementation of the ValidationRule interface.
- * This abstract class does not define getValid or sanitize methods which MUST
- * be implemented by extending classes.  All other methods need not be
- * overridden.
- *
- * PHP version 5.2.9
+ * Reference Implementation of the ValidationRule interface.
  *
  * @category  OWASP
  * @package   ESAPI
- * @version   1.0
  * @author    Johannes B. Ullrich <jullrich@sans.edu>
  * @author    jah <jah@jahboite.co.uk>
+ * @author    Mike Boberski <boberski_michael@bah.com>
  * @copyright 2009-2010 The OWASP Foundation
  * @license   http://www.opensource.org/licenses/bsd-license.php New BSD license
+ * @version   Release: @package_version@
  * @link      http://www.owasp.org/index.php/ESAPI
  */
 abstract class BaseValidationRule implements ValidationRule
@@ -56,8 +54,10 @@ abstract class BaseValidationRule implements ValidationRule
      * be used for canonicalization and a name for the type of Input to be
      * validated (e.g. 'Date' or 'CreditCardNumber').
      *
-     * @param  $typeName string type name of the input to be validated.
-     * @param  $encoder instance of an Encoder implementation.
+     * @param string  $typeName type name of the input to be validated.
+     * @param Encoder $encoder  instance of an Encoder implementation.
+     * 
+     * @return does not return a value.
      */
     protected function __construct($typeName, $encoder)
     {
@@ -75,7 +75,9 @@ abstract class BaseValidationRule implements ValidationRule
      * Sets the boolean allowNull property which, if set true, will allow empty
      * inputs to validate as true.
      *
-     * @param  $flag boolean true if empty inputs should validate as true.
+     * @param bool $flag set to true if empty inputs should validate as true.
+     * 
+     * @return does not return a value.
      */
     public function setAllowNull($flag)
     {
@@ -91,8 +93,8 @@ abstract class BaseValidationRule implements ValidationRule
      * Gets the boolean allowNull property which, if set true, will allow empty
      * inputs to validate as true.
      *
-     * @return boolean true if empty inputs should validate as true, false
-     *         otherwise.
+     * @return bool returns true if empty inputs should validate as true, false
+     *              otherwise.
      */
     public function getAllowNull()
     {
@@ -104,7 +106,9 @@ abstract class BaseValidationRule implements ValidationRule
      * Sets a descriptive name for the validator e.g. CreditCardNumber.
      * If $typeName is empty or not a string then a default value will be set.
      *
-     * @param  $typeName string name describing the validator.
+     * @param string $typeName name describing the validator.
+     * 
+     * @return does not return a value.
      */
     public function setTypeName($typeName)
     {
@@ -132,7 +136,10 @@ abstract class BaseValidationRule implements ValidationRule
      * TODO should ensure that a canonicalize method is available or should
      * only allow instances of Encoder implementations...
      *
-     * @param  $encoder object which provides a canonicalize method.
+     * @param Encoder $encoder object which provides a canonicalize method.
+     * 
+     * @return does not return a value.
+     * @throws InvalidArgumentException if encoder is missing a canonicalize method
      */
     final public function setEncoder($encoder)
     {
@@ -152,11 +159,13 @@ abstract class BaseValidationRule implements ValidationRule
      * Inputs will cause a descriptive ValidationException to be thrown. Inputs
      * that are obviously an attack will cause an IntrusionException.
      *
-     * @param  $context A descriptive name of the parameter that you are
-     *         validating (e.g., LoginPage_UsernameField). This value is used by
-     *         any logging or error handling that is done with respect to the
-     *         value passed in.
-     * @param  $input The actual user input data to validate.
+     * @param string $context A descriptive name of the parameter that you are
+     *                        validating (e.g., LoginPage_UsernameField). This 
+     *                        value is used by any logging or error handling that 
+     *                        is done with respect to the value passed in.
+     * @param string $input   The actual user input data to validate.
+     * 
+     * @return does not return a value.
      */
     public function assertValid($context, $input)
     {
@@ -169,13 +178,14 @@ abstract class BaseValidationRule implements ValidationRule
      * is thrown, this method will return sanitized input which may or may not
      * have any similarity to the original input.
      *
-     * @param  $context A descriptive name of the parameter that you are
-     *         validating (e.g., LoginPage_UsernameField). This value is used by
-     *         any logging or error handling that is done with respect to the
-     *         value passed in.
-     * @param  $input The actual user input data to validate.
+     * @param string $context A descriptive name of the parameter that you are
+     *                        validating (e.g., LoginPage_UsernameField). This 
+     *                        value is used by any logging or error handling that 
+     *                        is done with respect to the value passed in.
+     * @param string $input   The actual user input data to validate.
      *
-     * @return valid, canonicalized input or sanitized input or a default value.
+     * @return string valid, canonicalized input or sanitized input or a default 
+     *                value.
      */
     public function getSafe($context, $input)
     {
@@ -195,13 +205,13 @@ abstract class BaseValidationRule implements ValidationRule
     /**
      * Returns boolean true if the input is valid, false otherwise.
      *
-     * @param  $context A descriptive name of the parameter that you are
-     *         validating (e.g., LoginPage_UsernameField). This value is used by
-     *         any logging or error handling that is done with respect to the
-     *         value passed in.
-     * @param  $input The actual user input data to validate.
+     * @param string $context A descriptive name of the parameter that you are
+     *                        validating (e.g., LoginPage_UsernameField). This 
+     *                        value is used by any logging or error handling that 
+     *                        is done with respect to the value passed in.
+     * @param string $input   The actual user input data to validate.
      *
-     * @return boolean true if the input is valid, false otherwise.
+     * @return bool true if the input is valid, false otherwise.
      */
     public function isValid($context, $input)
     {
@@ -221,10 +231,10 @@ abstract class BaseValidationRule implements ValidationRule
      * Returns the supplied input string after removing any characters not
      * present in the supplied whitelist.
      *
-     * @param  $input string input to be filtered.
-     * @param  $whitelist array or string of whitelist characters.
+     * @param string $input     string input to be filtered.
+     * @param string $whitelist array or string of whitelist characters.
      *
-     * @return string of characters from $input that are present in $whitelist.
+     * @return string returns characters from $input that are present in $whitelist.
      */
     public function whitelist($input, $whitelist)
     {
@@ -246,8 +256,7 @@ abstract class BaseValidationRule implements ValidationRule
         $initialCharEnc = Codec::detectEncoding($input);
         $_4ByteCharacterString = Codec::normalizeEncoding($input);
         $limit = mb_strlen($_4ByteCharacterString, 'UTF-32');
-        for ($i = 0; $i < $limit; $i++)
-        {
+        for ($i = 0; $i < $limit; $i++) {
             $c = mb_substr($_4ByteCharacterString, $i, 1, 'UTF-32');
             if (Codec::containsCharacter($c, $whitelist)) {
                 $filtered .= $c;
