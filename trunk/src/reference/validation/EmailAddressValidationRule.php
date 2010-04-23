@@ -8,15 +8,17 @@
  * LICENSE: This source file is subject to the New BSD license.  You should read
  * and accept the LICENSE before you use, modify, and/or redistribute this
  * software.
+ * 
+ * PHP version 5.2
  *
  * @category  OWASP
  * @package   ESAPI_Reference_Validation
  * @author    Mike Boberski <boberski_michael@bah.com>
  * @copyright 2009-2010 The OWASP Foundation
  * @license   http://www.opensource.org/licenses/bsd-license.php New BSD license
+ * @version   SVN: $Id$
  * @link      http://www.owasp.org/index.php/ESAPI
  */
-
 
 /**
  * EmailAddressValidationRule requires the BaseValidationRule.
@@ -25,22 +27,19 @@ require_once dirname(__FILE__) . '/BaseValidationRule.php';
 
 
 /**
- * EmailAddressValidationRule implementation of the ValidationRule interface.
- *
- * PHP version 5.2.9
+ * Reference extension of the StringValidationRule class.
  *
  * @category  OWASP
- * @package   ESAPI_Reference_Validation
- * @version   1.0
+ * @package   ESAPI
  * @author    Mike Boberski <boberski_michael@bah.com>
  * @copyright 2009-2010 The OWASP Foundation
  * @license   http://www.opensource.org/licenses/bsd-license.php New BSD license
+ * @version   Release: @package_version@
  * @link      http://www.owasp.org/index.php/ESAPI
  */
-
 class EmailAddressValidationRule extends StringValidationRule
 {
-    private $logger   = null;
+    private $_auditor   = null;
  
     /**
      * Constructor sets-up the validation rule with a descriptive name for this
@@ -49,9 +48,11 @@ class EmailAddressValidationRule extends StringValidationRule
      * email address purification.
      * An instance of the HTMLPurifier class is created and stored too.
      *
-     * @param  $typeName string descriptive name for this validator.
-     * @param  $encoder object providing canonicalize method.
-     * @param  $whiteListPattern string whitelist regex.
+     * @param string $typeName         descriptive name for this validator.
+     * @param object $encoder          object providing canonicalize method.
+     * @param string $whitelistPattern whitelist regex.
+     * 
+     * @return does not return a value.
      */
     public function __construct($typeName, $encoder = null, $whitelistPattern = null)
     {
@@ -59,7 +60,7 @@ class EmailAddressValidationRule extends StringValidationRule
 
         parent::__construct($typeName, $encoder);
 
-        $this->logger = $ESAPI->getAuditor("EmailAddressValidationRule");
+        $this->$_auditor = $ESAPI->getAuditor("EmailAddressValidationRule");
     }
 
     /**
@@ -67,14 +68,13 @@ class EmailAddressValidationRule extends StringValidationRule
      * Throws ValidationException if the input is not valid or
      * IntrusionException if the input is an obvious attack.
      *
-     * @param  $context A descriptive name of the parameter that you are
-     *         validating (e.g., ProfilePage_Signature). This value is used by
-     *         any logging or error handling that is done with respect to the
-     *         value passed in.
-     * @param  $input The actual string user input data to validate.
+     * @param string $context A descriptive name of the parameter that you are
+     *                        validating (e.g., ProfilePage_Signature). This value 
+     *                        is used by any logging or error handling that is done 
+     *                        with respect to the value passed in.
+     * @param string $input   The actual string user input data to validate.
      *
      * @return string canonicalized, valid input.
-     *
      * @throws ValidationException, IntrusionException
      */
     public function getValid($context, $input)
@@ -83,8 +83,7 @@ class EmailAddressValidationRule extends StringValidationRule
         $canonical = parent::getValid($context, $input);
 
         $clean_email = filter_var($canonical, FILTER_SANITIZE_EMAIL);
-        if($clean_email == FALSE)
-        {
+        if ($clean_email == false) {
             throw new ValidationException(
                 'Email Address Input is not valid.',
                 'Error attempting to sanitize Email Address: '. $input,
@@ -92,11 +91,11 @@ class EmailAddressValidationRule extends StringValidationRule
             );
         }
 
-        if (strcmp($canonical, $clean_email) !== 0)
-        {
+        if (strcmp($canonical, $clean_email) !== 0) {
             throw new ValidationException(
                 'Email Address Input may not be valid.',
-                'Resorted to string comparsion of canonicalized and purified Email Address input - result was Not Equal',
+                'Resorted to string comparsion of canonicalized and purified '.
+                'Email Address input - result was Not Equal',
                 $context
             );
         }
@@ -109,25 +108,22 @@ class EmailAddressValidationRule extends StringValidationRule
      * Simply attempt to purify the email address and return an empty string if that
      * fails.
      *
-     * @param  $context A descriptive name of the parameter that you are
-     *         validating (e.g., ProfilePage_Signature). This value is used by
-     *         any logging or error handling that is done with respect to the
-     *         value passed in.
-     * @param  $input The actual user input data to validate.
+     * @param string $context A descriptive name of the parameter that you are
+     *                        validating (e.g., ProfilePage_Signature). This value 
+     *                        is used by any logging or error handling that is done 
+     *                        with respect to the value passed in.
+     * @param string $input   The actual user input data to validate.
      *
      * @return string purified email address or en empty string.
      */
     public function sanitize($context, $input)
     {
-    	$clean_email = filter_var($input, FILTER_SANITIZE_EMAIL);
-    	if($clean_email == FALSE)
-    	{
-    		return "";
-    	}
-    	else
-    	{
-        	return $clean_email;
-    	}
+        $clean_email = filter_var($input, FILTER_SANITIZE_EMAIL);
+        if ($clean_email == false) {
+            return "";
+        } else {
+            return $clean_email;
+        }
     }
 
 }
