@@ -149,7 +149,7 @@ class HTMLValidationRule extends StringValidationRule
         // the html.  If not, (poor quality) assumption is that if canonicalized
         // input and the output don't match then the input wasn't valid.
         $numErrors = 0;
-        $errors = $this->purifier->context->get('ErrorCollector');
+        $errors = $this->_purifier->context->get('ErrorCollector');
         if ($errors instanceof HTMLPurifier_ErrorCollector) {
             $numErrors = sizeof($errors->getRaw(), false);
             if ($numErrors > 0) {
