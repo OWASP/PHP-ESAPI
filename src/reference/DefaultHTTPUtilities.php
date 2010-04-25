@@ -474,23 +474,24 @@ class DefaultHTTPUtilities implements HTTPUtilities
         } else if ($msg !== '') {
             $msg .= ' ';
         }
+        $paramBuilder = array();
         foreach ($params as $pName => $pValues) {
             foreach ($pValues as $pval) {
-                $msg .= "{$pName}";
+                $pair = '';
+                $pair .= "{$pName}";
                 if ($pval == '') {
+                    $paramBuilder[] = $pair;
                     continue;
                 }
                 if (in_array($pName, $paramsToObfuscate, true)) {
-                    $msg .= '=********';
+                    $pair .= '=********';
                 } else {
-                    $msg .= "={$pval}";
+                    $pair .= "={$pval}";
                 }
-                $msg .= '&';
+                $paramBuilder[] = $pair;
             }
         }
-        if ($path !== '' && sizeof($params, false) > 0) { // remove trailing ampersand.
-            $msg = mb_substr($msg, 0, mb_strlen($msg, 'ASCII')-1, 'ASCII');
-        }
+        $msg .= implode('&', $paramBuilder);
         
         $cookies = $request->getCookies();
         $sessName = session_name();
