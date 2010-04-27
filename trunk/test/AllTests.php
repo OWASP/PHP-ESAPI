@@ -53,6 +53,7 @@ $test = new GroupTest('Core Function Helper Tests');
     $test->addTestFile(dirname(__FILE__).'/codecs/UnixCodecTest.php');
     $test->addTestFile(dirname(__FILE__).'/codecs/VBScriptCodecTest.php');
     $test->addTestFile(dirname(__FILE__).'/codecs/WindowsCodecTest.php');
+	$test->addTestFile(dirname(__FILE__).'/codecs/XMLEntityCodecTest.php');
     $test->addTestFile(dirname(__FILE__).'/reference/HTTPUtilitiesTest.php');
     $test->addTestFile(dirname(__FILE__).'/filters/SafeRequestTest.php');
     $test->addTestFile(dirname(__FILE__).'/reference/RandomizerTest.php');
