@@ -33,6 +33,7 @@ require_once dirname(__FILE__).'/../codecs/HTMLEntityCodec.php';
 require_once dirname(__FILE__).'/../codecs/JavaScriptCodec.php';
 require_once dirname(__FILE__).'/../codecs/PercentCodec.php';
 require_once dirname(__FILE__).'/../codecs/VBScriptCodec.php';
+require_once dirname(__FILE__).'/../codecs/XMLEntityCodec.php';
 
 /**
  * Reference implementation of the Encoder interface.
@@ -56,6 +57,7 @@ class DefaultEncoder implements Encoder
     private $_javascriptCodec = null;
     private $_percentCodec    = null;
     private $_vbscriptCodec   = null;
+    private $_xmlCodec        = null;
 
     /*
      * Character sets that define characters (in addition to alphanumerics) that are
@@ -95,6 +97,7 @@ class DefaultEncoder implements Encoder
         $this->_javascriptCodec = new JavaScriptCodec();
         $this->_percentCodec    = new PercentCodec();
         $this->_vbscriptCodec   = new VBScriptCodec();
+        $this->_xmlCodec        = new XMLEntityCodec();
 
         // initialise array of codecs for use by canonicalize
         if ($_codecs === null) {
@@ -307,11 +310,10 @@ class DefaultEncoder implements Encoder
      */
     function encodeForXML($input)
     {
-        // TODO http://code.google.com/p/owasp-esapi-java/issues/detail?id=62
         if ($input === null) {
             return null;
         }
-        return $this->_htmlCodec->encode($this->_immune_xml, $input);
+        return $this->_xmlCodec->encode($this->_immune_xml, $input);
     }
 
 
@@ -320,11 +322,10 @@ class DefaultEncoder implements Encoder
      */
     function encodeForXMLAttribute($input)
     {
-        // TODO http://code.google.com/p/owasp-esapi-java/issues/detail?id=62
         if ($input === null) {
             return null;
         }
-        return $this->_htmlCodec->encode($this->_immune_xmlattr, $input);
+        return $this->_xmlCodec->encode($this->_immune_xmlattr, $input);
     }
 
 
