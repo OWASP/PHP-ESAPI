@@ -65,13 +65,13 @@ class IntegerValidationRule extends BaseValidationRule
 
         parent::__construct($typeName, $encoder);
 
-        if ($_minValue === null || ! is_numeric($minValue)) {
+        if ($minValue === null || ! is_numeric($minValue)) {
             $this->_minValue = 1 - PHP_INT_MAX;
         } else {
             $this->_minValue = (int) $minValue;
         }
         
-        if ($_maxValue === null || ! is_numeric($maxValue)) {
+        if ($maxValue === null || ! is_numeric($maxValue)) {
             $this->_maxValue = PHP_INT_MAX;
         } else {
             $this->_maxValue = (int) $maxValue;
@@ -106,7 +106,7 @@ class IntegerValidationRule extends BaseValidationRule
                 $context
             );
         }
-        if ($this->minValue > $this->maxValue) {
+        if ($this->_minValue > $this->_maxValue) {
             throw new RuntimeException(
                 'Validation misconfiguration - $_minValue should not be '.
                 'greater than $_maxValue!'
@@ -158,7 +158,7 @@ class IntegerValidationRule extends BaseValidationRule
                 );
             }
             $i = (int) $i;
-            if ($i < $this->minValue) {
+            if ($i < $this->_minValue) {
                 throw new ValidationException(
                     'Invalid integer input must not be less than '.$this->_minValue,
                     'Invalid integer input must not be less than '.$this->_minValue.
