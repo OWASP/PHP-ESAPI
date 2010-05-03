@@ -617,4 +617,12 @@ class DefaultValidator implements Validator
         return null;
     }
   
+    /**
+     * @inheritdoc
+     */
+    public function isValidRedirectLocation($context, $input, $allowNull)
+    {
+    	return isValidInput($context, $input, "Redirect", 512, $allowNull);
+    }
+    
 }
