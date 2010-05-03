@@ -1,6 +1,0 @@
-#sidebar TableOfContents
-
-The following controls have been assigned:
-
-|| *Control* || *Current status* || *Assignee* || *Notes* ||
-|| HTTPUtilities || Initial development || jah || ||

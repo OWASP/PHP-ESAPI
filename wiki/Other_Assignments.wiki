@@ -1,6 +1,0 @@
-#sidebar TableOfContents
-
-The following items have been assigned:
-
-|| *Assignment* || *Current status* || *Assignee* || *Notes* ||
-|| PEAR coding standard indentation, other conversion || In progress || Mike||  ||
