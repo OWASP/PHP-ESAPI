@@ -1,5 +1,5 @@
 #sidebar TableOfContents
 
-http://owasp-esapi-java.googlecode.com/svn/trunk/documentation/esapi4java-big-duke.JPG
+http://owasp-esapi-php.googlecode.com/svn/trunk/documentation/esapi4php-big.PNG
 
 =ESAPI is a quite handy toolkit! Let me tell you a little bit more about it.=
