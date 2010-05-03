@@ -871,5 +871,29 @@ class ValidatorTest extends UnitTestCase
     }
 */
 
+/*  ////regex in ESAPI.xml should be ^\/test.*$
+    function testIsRedirectLocation_01()
+    {
+        $val = ESAPI::getValidator();
+        $this->assertTrue(
+            $val->isValidRedirectLocation(
+                'testIsRedirectLocation_01', 
+                '\/test.php',  
+                false
+            )
+        );
+    }
+    
+    function testIsRedirectLocation_02()
+    {
+        $val = ESAPI::getValidator();
+        $this->assertFalse(
+            $val->isValidRedirectLocation(
+                'testIsRedirectLocation_01', 
+                '\/badlocation.php', 
+                false
+            )
+        );
+    }*/
 }
 ?>
