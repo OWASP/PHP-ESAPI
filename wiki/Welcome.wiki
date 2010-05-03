@@ -1,6 +1,6 @@
 #sidebar TableOfContents
 
-http://owasp-esapi-java.googlecode.com/svn/trunk/documentation/esapi4java-big-duke.JPG
+http://owasp-esapi-php.googlecode.com/svn/trunk/documentation/esapi4php-big.PNG
 
 =Welcome to OWASP's ESAPI for PHP!=
 <br><br><br>
