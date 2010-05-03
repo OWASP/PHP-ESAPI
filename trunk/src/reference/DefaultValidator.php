@@ -622,7 +622,7 @@ class DefaultValidator implements Validator
      */
     public function isValidRedirectLocation($context, $input, $allowNull)
     {
-    	return isValidInput($context, $input, "Redirect", 512, $allowNull);
+    	return $this->isValidInput($context, $input, "Redirect", 512, $allowNull);
     }
     
 }
