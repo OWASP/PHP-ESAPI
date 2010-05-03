@@ -261,5 +261,22 @@ interface Validator
      * @return bool TRUE if the input is valid, FALSE otherwise.
      */
     public function isValidPrintable($context, $input, $maxLength, $allowNull);
+    
+    /**
+     * Returns true if input is a valid redirect location.
+     * 
+     * @param string $context   A descriptive name of the parameter that you are
+     *                          validating (e.g. ASCIIArt_Submission). This value 
+     *                          is used by any logging or error handling that is 
+     *                          done with respect to the value passed in.
+     * @param string $input     The actual user input data to validate.
+     * @param bool   $allowNull If allowNull is true then an input that is NULL or an
+     *                          empty string will be legal. If allowNull is false 
+     *                          then NULL or an empty String will throw a 
+     *                          ValidationException.
+     * 
+     * @return bool TRUE if the input is valid, FALSE otherwise.
+     */    
+    public function isValidRedirectLocation($context, $input, $allowNull);
  
 }
