@@ -263,7 +263,8 @@ class CodecDebug
             ) {
                 if ($i == 4) { // this is a bit tenuous, but it should suffice...
                     $pos = 6;
-                    $trace .= $dt[$pos]['class'] . '-&gt;' .  $dt[$pos--]['function'] . ', ';
+                    $trace .= $dt[$pos]['class'] . '-&gt;' .  
+                        $dt[$pos--]['function'] . ', ';
                 } else {
                     $pos = ($dt[5]['class'] == 'SimpleInvoker') ? 4 : 5;
                     $objName = ', ' . get_class($dt[$i]['object']);
