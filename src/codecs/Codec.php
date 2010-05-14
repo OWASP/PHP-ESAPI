@@ -39,7 +39,7 @@ require_once dirname(__FILE__) . '/../Encoder.php';
  * by attackers to bypass validation and bury encoded attacks in data.
  *
  * @category  OWASP
- * @package   ESAPI
+ * @package   ESAPI_Codecs
  * @author    Linden Darling <Linden.Darling@jds.net.au>
  * @author    jah <jah@jahboite.co.uk>
  * @author    Mike Boberski <boberski_michael@bah.com>
