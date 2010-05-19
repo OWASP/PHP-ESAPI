@@ -1,5 +1,0 @@
-#sidebar TableOfContents
-
-http://owasp-esapi-php.googlecode.com/svn/trunk/documentation/esapi4php-big.PNG
-
-=Let's get ESAPI installed! Installation instructions and more are in this section.=
