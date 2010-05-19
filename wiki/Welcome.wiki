@@ -1,8 +1,9 @@
-#sidebar TableOfContents
+
 
 http://owasp-esapi-php.googlecode.com/svn/trunk/documentation/esapi4php-big.PNG
 
 =Welcome to OWASP's ESAPI for PHP!=
+==The wiki is currently under construction. Please check back soon!==
 <br><br><br>
 
 http://owasp-esapi-java.googlecode.com/svn/trunk/documentation/cc.JPG
