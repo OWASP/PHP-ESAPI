@@ -63,7 +63,7 @@ class DefaultAuditorFactory implements AuditorFactory
 
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function getLogger($moduleName) 
     {
