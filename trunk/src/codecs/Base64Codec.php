@@ -38,7 +38,7 @@ require_once dirname(__FILE__) . '/../ESAPI.php';
  * @version   Release: @package_version@
  * @link      http://www.owasp.org/index.php/ESAPI
  */
-class Base64Codec
+class Base64Codec extends Codec
 {
     /**
      * Public Constructor
