@@ -22,9 +22,10 @@
  */
 
 /**
- * The Sanitizer interface defines a set of methods for sanitizing untrusted
- * input to remove all but a whitelist of characters. Implementors should feel
- * free to extend this interface to accommodate their own data formats.
+ * Use this ESAPI security control to wrap your sanitization functions.
+ * 
+ * The idea behind this interface is to define a set of functions that can
+ * be used to attempt to sanitize data.
  *
  * @category  OWASP
  * @package   ESAPI

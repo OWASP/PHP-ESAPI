@@ -29,8 +29,12 @@ require_once dirname(__FILE__) . '/errors/IntrusionException.php';
 require_once dirname(__FILE__) . '/errors/ValidationException.php';
 
 /**
- * ValidationRule Interface.
- *
+ * Use this ESAPI security control to wrap your data type-specific 
+ * validation rules.
+ * 
+ * The idea behind this interface is to encapsulate data type-specific
+ * validation logic. 
+ * 
  * @category  OWASP
  * @package   ESAPI
  * @author    Johannes B. Ullrich <jullrich@sans.edu>

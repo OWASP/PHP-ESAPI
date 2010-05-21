@@ -13,8 +13,8 @@
  *
  * @category  OWASP
  * @package   ESAPI
- * @author    Jeff Williams <jeff.williams@aspectsecurity.com>
  * @author    Andrew van der Stock <vanderaj@owasp.org>
+ * @author    Mike Boberski <boberski_michael@bah.com>
  * @copyright 2009-2010 The OWASP Foundation
  * @license   http://www.opensource.org/licenses/bsd-license.php New BSD license
  * @version   SVN: $Id$
@@ -28,16 +28,15 @@ require_once dirname(__FILE__) . '/errors/EncryptionException.php';
 
 
 /**
- * The Randomizer interface defines a set of methods for creating
- * cryptographically random numbers and strings. Implementers should be sure to
- * use a strong cryptographic implementation, such as the JCE or BouncyCastle.
- * Weak sources of randomness can undermine a wide variety of security
- * mechanisms. The specific algorithm used is configurable in ESAPI.properties.
- *
+ * Use this ESAPI security control to get random numbers and strings.
+ * 
+ * The idea behind this interface is to define a set of functions for
+ * creating better random numbers and strings.
+ * 
  * @category  OWASP
  * @package   ESAPI
- * @author    Jeff Williams <jeff.williams@aspectsecurity.com>
  * @author    Andrew van der Stock <vanderaj@owasp.org>
+ * @author    Mike Boberski <boberski_michael@bah.com>
  * @copyright 2009-2010 The OWASP Foundation
  * @license   http://www.opensource.org/licenses/bsd-license.php New BSD license
  * @version   Release: @package_version@

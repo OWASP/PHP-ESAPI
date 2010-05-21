@@ -13,8 +13,9 @@
  *
  * @category  OWASP
  * @package   ESAPI
- * @author    Jeff Williams <jeff.williams@aspectsecurity.com>
  * @author    Andrew van der Stock <vanderaj@owasp.org>
+ * @author    Mike Boberski <boberski_michael@bah.com>
+ * @author    Linden Darling <linden.darling@jds.net.au>
  * @author    Mike Boberski <boberski_michael@bah.com>
  * @copyright 2009-2010 The OWASP Foundation
  * @license   http://www.opensource.org/licenses/bsd-license.php New BSD license
@@ -28,23 +29,14 @@
 require_once dirname(__FILE__) . '/errors/ExecutorException.php';
 
 /**
- * The Executor interface is used to run an OS command with reduced security
- * risk.
+ * Use this ESAPI security control to call command-line operating
+ * system functions.
  * 
- * Implementations should do as much as possible to minimize the risk of
- * injection into either the command or parameters. In addition, implementations
- * should timeout after a specified time period in order to help prevent denial
- * of service attacks.
- * 
- * The class should perform logging and error handling as well. Finally,
- * implementation should handle errors and generate an ExecutorException with
- * all the necessary information.
- *
- * <img src="doc-files/Executor.jpg">
+ * The idea behind this interface is to run an OS command with reduced 
+ * security risk.
  *
  * @category  OWASP
  * @package   ESAPI
- * @author    Jeff Williams <jeff.williams@aspectsecurity.com>
  * @author    Andrew van der Stock <vanderaj@owasp.org>
  * @author    Mike Boberski <boberski_michael@bah.com>
  * @author    Linden Darling <linden.darling@jds.net.au>

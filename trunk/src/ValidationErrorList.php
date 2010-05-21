@@ -13,7 +13,7 @@
  *
  * @category  OWASP
  * @package   ESAPI
- * @author    Jeff Williams <jeff.williams@aspectsecurity.com>
+ * @author    Mike Boberski <boberski_michael@bah.com>
  * @author    Andrew van der Stock <vanderaj@owasp.org>
  * @copyright 2009-2010 The OWASP Foundation
  * @license   http://www.opensource.org/licenses/bsd-license.php New BSD license
@@ -24,62 +24,15 @@
 require_once dirname(__FILE__).'/errors/ValidationException.php';
 
 /**
- * The ValidationErrorList class defines a well-formed collection of 
+ * Use this ESAPI security control to enumerate validation exceptions.
+ * 
+ * The idea behind this interface is to define a well-formed collection of 
  * ValidationExceptions so that groups of validation functions can be 
  * called in a non-blocking fashion.
- * 
- * <P>
- * <img src="doc-files/Validator.jpg">
- * <P>
- * 
- * To use the ValidationErrorList to execute groups of validation 
- * attempts, your controller code would look something like:
- * 
- * <samp>
- * ValidationErrorList() errorList = new ValidationErrorList();.
- * String name  = getValidInput("Name", form.getName(), "SomeESAPIRegExName1", 255, false, errorList);
- * String address = getValidInput("Address", form.getAddress(), "SomeESAPIRegExName2", 255, false, errorList);
- * Integer weight = getValidInteger("Weight", form.getWeight(), 1, 1000000000, false, errorList);
- * Integer sortOrder = getValidInteger("Sort Order", form.getSortOrder(), -100000, +100000, false, errorList);
- * request.setAttribute( "ERROR_LIST", errorList );
- * </samp>
- * 
- * The at your view layer you would be able to retrieve all
- * of your error messages via a helper function like:
- * 
- * <samp>
- * public static ValidationErrorList getErrors() {          
- *     HttpServletRequest request = ESAPI.httpUtilities().getCurrentRequest();
- *     ValidationErrorList errors = new ValidationErrorList();
- *     if (request.getAttribute(Constants.ERROR_LIST) != null) {
- *        errors = (ValidationErrorList)request.getAttribute("ERROR_LIST");
- *     }
- * 	   return errors;
- * }
- * </samp>
- * 
- * You can list all errors like:
- * 
- * <samp>
- * <%
- *      for (Object vo : errorList.errors()) {
- *         ValidationException ve = (ValidationException)vo;
- * %>
- * <%= ESAPI.encoder().encodeForHTML(ve.getMessage()) %><br/>
- * <%
- *     }
- * %>
- * </samp>
- * 
- * And even check if a specific UI component is in error via calls like:
- * 
- * <samp>
- * ValidationException e = errorList.getError("Name");
- * </samp>
  *
  * @category  OWASP
  * @package   ESAPI
- * @author    Jeff Williams <jeff.williams@aspectsecurity.com>
+ * @author    Mike Boberski <boberski_michael@bah.com>
  * @author    Andrew van der Stock <vanderaj@owasp.org>
  * @copyright 2009-2010 The OWASP Foundation
  * @license   http://www.opensource.org/licenses/bsd-license.php New BSD license

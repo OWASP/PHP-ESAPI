@@ -13,8 +13,8 @@
  *
  * @category  OWASP
  * @package   ESAPI
- * @author    Jeff Williams <jeff.williams@aspectsecurity.com>
  * @author    Andrew van der Stock <vanderaj@owasp.org>
+ * @author    Mike Boberski <boberski_michael@bah.com>
  * @copyright 2009-2010 The OWASP Foundation
  * @license   http://www.opensource.org/licenses/bsd-license.php New BSD license
  * @version   SVN: $Id$
@@ -33,16 +33,16 @@ require_once dirname(__FILE__) . '/errors/ValidationException.php';
 require_once dirname(__FILE__) . '/filters/SafeRequest.php';
 
 /**
- * The HTTPUtilities interface is a collection of methods that provide
- * additional security related to HTTP requests, responses, sessions, cookies,
+ * Use this ESAPI security control to assist with HTTP security.
+ * 
+ * The idea behind this interface is to define a set of helper
+ * functions related to HTTP requests, responses, sessions, cookies,
  * headers, and logging.
- *
- * <img src="doc-files/HTTPUtilities.jpg">
- *
+ * 
  * @category  OWASP
  * @package   ESAPI
- * @author    Jeff Williams <jeff.williams@aspectsecurity.com>
  * @author    Andrew van der Stock <vanderaj@owasp.org>
+ * @author    Mike Boberski <boberski_michael@bah.com>
  * @copyright 2009-2010 The OWASP Foundation
  * @license   http://www.opensource.org/licenses/bsd-license.php New BSD license
  * @version   Release: @package_version@
