@@ -39,7 +39,7 @@ require_once dirname(__FILE__).'/../codecs/XMLEntityCodec.php';
  * Reference implementation of the Encoder interface.
  *
  * @category  OWASP
- * @package   ESAPI
+ * @package   ESAPI_Reference
  * @author    Linden Darling <Linden.Darling@jds.net.au>
  * @author    jah <jah@jahboite.co.uk>
  * @author    Mike Boberski <boberski_michael@bah.com>
