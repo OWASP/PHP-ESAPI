@@ -19,6 +19,16 @@
 
 require_once dirname(__FILE__).'/../AccessController.php';
 
+/**
+ * Reference Implementation of the FileBasedAccessController interface.
+ *
+ * @category  OWASP
+ * @package   ESAPI_Reference
+ * @copyright 2009-2010 The OWASP Foundation
+ * @license   http://www.opensource.org/licenses/bsd-license.php New BSD license
+ * @version   Release: @package_version@
+ * @link      http://www.owasp.org/index.php/ESAPI
+ */
 class FileBasedAccessController implements AccessController {
 	
 	

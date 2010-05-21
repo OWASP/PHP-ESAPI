@@ -35,7 +35,7 @@ require_once dirname(__FILE__).'/DefaultAuditor.php';
  * Reference Implementation of the DefaultAuditorFactory interface.
  *
  * @category  OWASP
- * @package   ESAPI
+ * @package   ESAPI_Reference
  * @author    Andrew van der Stock <vanderaj@owasp.org>
  * @author    Laura Bell <laura.d.bell@gmail.com>
  * @author    jah <jah@jahboite.co.uk>

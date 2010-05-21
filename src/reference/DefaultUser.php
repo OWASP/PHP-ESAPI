@@ -23,6 +23,16 @@
 require_once dirname(__FILE__) . '/../User.php';
 define("MAX_ROLE_LENGTH", 250);
 
+/**
+ * Reference Implementation of the DefaultUser interface.
+ *
+ * @category  OWASP
+ * @package   ESAPI_Reference
+ * @copyright 2009-2010 The OWASP Foundation
+ * @license   http://www.opensource.org/licenses/bsd-license.php New BSD license
+ * @version   Release: @package_version@
+ * @link      http://www.owasp.org/index.php/ESAPI
+ */
 class DefaultUser implements User {
 //Configs
     public $allowedLoginAttempts = 3;

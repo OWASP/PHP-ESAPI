@@ -33,7 +33,7 @@ require_once dirname(__FILE__) . '/../HTTPUtilities.php';
  * PHP version 5.2
  *
  * @category  OWASP
- * @package   ESAPI
+ * @package   ESAPI_Reference
  * @author    jah <jah@jahboite.co.uk>
  * @copyright 2009-2010 The OWASP Foundation
  * @license   http://www.opensource.org/licenses/bsd-license.php New BSD license
