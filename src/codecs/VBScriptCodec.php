@@ -46,7 +46,7 @@ class VBScriptCodec extends Codec
     }
     
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function encodeCharacter($immune, $c)
     {
@@ -96,7 +96,7 @@ class VBScriptCodec extends Codec
     }
     
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      * 
      * 	 Formats all are legal both upper/lower case:
      *   "x - all special characters

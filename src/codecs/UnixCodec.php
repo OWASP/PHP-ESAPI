@@ -47,7 +47,7 @@ class UnixCodec extends Codec
     
     
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function encodeCharacter($immune, $c)
     {
@@ -84,7 +84,7 @@ class UnixCodec extends Codec
     
     
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function decodeCharacter($input)
     {

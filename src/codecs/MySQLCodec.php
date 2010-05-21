@@ -70,7 +70,7 @@ class MySQLCodec extends Codec
     }
     
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function encodeCharacter($immune, $c)
     {
@@ -207,7 +207,7 @@ class MySQLCodec extends Codec
      *   In ANSI_MODE '' decodes to '
      *   In MYSQL_MODE \x decodes to x (or a small list of specials)
      *   
-     *   {@inheritDoc}
+     *   {@inheritdoc}
      */
     public function decodeCharacter($input)
     {

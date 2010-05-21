@@ -47,7 +47,7 @@ class CSSCodec extends Codec
     }
     
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function encodeCharacter($immune, $c)
     {
@@ -93,7 +93,7 @@ class CSSCodec extends Codec
     }
     
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      * 
      * Returns the decoded version of the character starting at index, or null if 
      * no decoding is possible.  This implementation does not support \\### octal 
