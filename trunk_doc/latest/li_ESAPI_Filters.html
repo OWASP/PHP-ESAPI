@@ -109,12 +109,16 @@ if (document.getElementById) {
 	var tree_interface = new WebFXTreeItem('Interface(s)', 'classtrees_ESAPI_Filters.html');
     tree_interface.openIcon = 'media/images/classFolder.gif';
     tree_interface.icon = 'media/images/classFolder.gif';
-    	tree.add(tree_interface);
+              	tree.add(tree_interface);
 	
     var tree_classe = new WebFXTreeItem('Class(es)', 'classtrees_ESAPI_Filters.html');
     tree_classe.openIcon = 'media/images/classFolder.gif';
     tree_classe.icon = 'media/images/classFolder.gif';
-    	tree.add(tree_classe);
+          	  var classe = new WebFXTreeItem('SafeRequest', 'ESAPI_Filters/SafeRequest.html');
+      classe.openIcon = 'media/images/Class.gif';
+      classe.icon = 'media/images/Class.gif';
+      tree_classe.add(classe);
+          	tree.add(tree_classe);
 
     var tree_file = new WebFXTreeItem('File(s)', '');
     tree_file.openIcon = 'media/images/FolderOpened.gif';

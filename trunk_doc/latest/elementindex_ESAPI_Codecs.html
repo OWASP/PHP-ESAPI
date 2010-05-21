@@ -12,10 +12,10 @@
 <strong>Indexes by package:</strong><br>
 <ul>
 <li><a href="elementindex_ESAPI.html">ESAPI</a></li>
+<li><a href="elementindex_ESAPI_Reference_Validation.html">ESAPI_Reference_Validation</a></li>
 <li><a href="elementindex_ESAPI_Errors.html">ESAPI_Errors</a></li>
 <li><a href="elementindex_ESAPI_Filters.html">ESAPI_Filters</a></li>
 <li><a href="elementindex_ESAPI_Reference.html">ESAPI_Reference</a></li>
-<li><a href="elementindex_ESAPI_Reference_Validation.html">ESAPI_Reference_Validation</a></li>
 </ul>
 <a href="elementindex.html"><strong>Index of all elements</strong></a>
 <br />
@@ -24,13 +24,16 @@
 	<a href="elementindex_ESAPI_Codecs.html#c">c</a>
 	<a href="elementindex_ESAPI_Codecs.html#d">d</a>
 	<a href="elementindex_ESAPI_Codecs.html#e">e</a>
+	<a href="elementindex_ESAPI_Codecs.html#f">f</a>
 	<a href="elementindex_ESAPI_Codecs.html#g">g</a>
 	<a href="elementindex_ESAPI_Codecs.html#h">h</a>
+	<a href="elementindex_ESAPI_Codecs.html#i">i</a>
 	<a href="elementindex_ESAPI_Codecs.html#j">j</a>
-	<a href="elementindex_ESAPI_Codecs.html#l">l</a>
 	<a href="elementindex_ESAPI_Codecs.html#m">m</a>
+	<a href="elementindex_ESAPI_Codecs.html#n">n</a>
 	<a href="elementindex_ESAPI_Codecs.html#o">o</a>
 	<a href="elementindex_ESAPI_Codecs.html#p">p</a>
+	<a href="elementindex_ESAPI_Codecs.html#t">t</a>
 	<a href="elementindex_ESAPI_Codecs.html#u">u</a>
 	<a href="elementindex_ESAPI_Codecs.html#v">v</a>
 	<a href="elementindex_ESAPI_Codecs.html#w">w</a>
@@ -69,6 +72,10 @@
     <tr>
     <td>&nbsp;&nbsp;&nbsp;<strong>__construct</strong></td>
     <td width="100%" align="left" valign="top">in file MySQLCodec.php, method <a href="ESAPI_Codecs/MySQLCodec.html#method__construct">MySQLCodec::__construct()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Public Constructor</td>
+  </tr>
+    <tr>
+    <td>&nbsp;&nbsp;&nbsp;<strong>__construct</strong></td>
+    <td width="100%" align="left" valign="top">in file Codec.php, method <a href="ESAPI_Codecs/Codec.html#method__construct">Codec::__construct()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Populates the $hex map of non-alphanumeric single-byte characters.</td>
   </tr>
     <tr>
     <td>&nbsp;&nbsp;&nbsp;<strong>__construct</strong></td>
@@ -114,7 +121,7 @@
 <tbody>
     <tr>
     <td>&nbsp;&nbsp;&nbsp;<strong>Base64Codec</strong></td>
-    <td width="100%" align="left" valign="top">in file Base64Codec.php, class <a href="ESAPI_Codecs/Base64Codec.html">Base64Codec</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Implementation of the Codec Interface for Base64 encoding and decoding.</td>
+    <td width="100%" align="left" valign="top">in file Base64Codec.php, class <a href="ESAPI_Codecs/Base64Codec.html">Base64Codec</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Reference implementation of the base 64 codec.</td>
   </tr>
     <tr>
     <td>&nbsp;&nbsp;&nbsp;<strong>Base64Codec.php</strong></td>
@@ -130,8 +137,16 @@
 </thead>
 <tbody>
     <tr>
+    <td>&nbsp;&nbsp;&nbsp;<strong>CD_LOG</strong></td>
+    <td width="100%" align="left" valign="top">in file CodecDebug.php, constant <a href="ESAPI_Codecs/_codecs---CodecDebug.php.html#defineCD_LOG">CD_LOG</a></td>
+  </tr>
+    <tr>
+    <td>&nbsp;&nbsp;&nbsp;<strong>Codec</strong></td>
+    <td width="100%" align="left" valign="top">in file Codec.php, class <a href="ESAPI_Codecs/Codec.html">Codec</a><br>&nbsp;&nbsp;&nbsp;&nbsp;The Codec interface defines a set of methods for encoding and decoding</td>
+  </tr>
+    <tr>
     <td>&nbsp;&nbsp;&nbsp;<strong>CodecDebug</strong></td>
-    <td width="100%" align="left" valign="top">in file CodecDebug.php, class <a href="ESAPI_Codecs/CodecDebug.html">CodecDebug</a></td>
+    <td width="100%" align="left" valign="top">in file CodecDebug.php, class <a href="ESAPI_Codecs/CodecDebug.html">CodecDebug</a><br>&nbsp;&nbsp;&nbsp;&nbsp;CodecDebug is a singleton class to aid Codec debugging.  It buffers debug</td>
   </tr>
     <tr>
     <td>&nbsp;&nbsp;&nbsp;<strong>Codec.php</strong></td>
@@ -146,8 +161,12 @@
     <td width="100%" align="left" valign="top">procedural page <a href="ESAPI_Codecs/_codecs---CSSCodec.php.html">CSSCodec.php</a></td>
   </tr>
     <tr>
+    <td>&nbsp;&nbsp;&nbsp;<strong>containsCharacter</strong></td>
+    <td width="100%" align="left" valign="top">in file Codec.php, method <a href="ESAPI_Codecs/Codec.html#methodcontainsCharacter">Codec::containsCharacter()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Utility to search a char[] for a specific char.</td>
+  </tr>
+    <tr>
     <td>&nbsp;&nbsp;&nbsp;<strong>CSSCodec</strong></td>
-    <td width="100%" align="left" valign="top">in file CSSCodec.php, class <a href="ESAPI_Codecs/CSSCodec.html">CSSCodec</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Implementation of the Codec interface for backslash encoding used in CSS.</td>
+    <td width="100%" align="left" valign="top">in file CSSCodec.php, class <a href="ESAPI_Codecs/CSSCodec.html">CSSCodec</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Reference implementation of the CSS codec.</td>
   </tr>
   </tbody>
 <thead>
@@ -158,6 +177,10 @@
   </tr>
 </thead>
 <tbody>
+    <tr>
+    <td>&nbsp;&nbsp;&nbsp;<strong>decode</strong></td>
+    <td width="100%" align="left" valign="top">in file Codec.php, method <a href="ESAPI_Codecs/Codec.html#methoddecode">Codec::decode()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Decode a String that was encoded using the encode method in this Class</td>
+  </tr>
     <tr>
     <td>&nbsp;&nbsp;&nbsp;<strong>decode</strong></td>
     <td width="100%" align="left" valign="top">in file Base64Codec.php, method <a href="ESAPI_Codecs/Base64Codec.html#methoddecode">Base64Codec::decode()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Decodes the given input string from Base64 to plain text.</td>
@@ -184,11 +207,15 @@
   </tr>
     <tr>
     <td>&nbsp;&nbsp;&nbsp;<strong>decodeCharacter</strong></td>
-    <td width="100%" align="left" valign="top">in file MySQLCodec.php, method <a href="ESAPI_Codecs/MySQLCodec.html#methoddecodeCharacter">MySQLCodec::decodeCharacter()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;{@inheritDoc}</td>
+    <td width="100%" align="left" valign="top">in file JavaScriptCodec.php, method <a href="ESAPI_Codecs/JavaScriptCodec.html#methoddecodeCharacter">JavaScriptCodec::decodeCharacter()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Returns the decoded version of the character starting at index, or  null if no decoding is possible.</td>
   </tr>
     <tr>
     <td>&nbsp;&nbsp;&nbsp;<strong>decodeCharacter</strong></td>
     <td width="100%" align="left" valign="top">in file Base64Codec.php, method <a href="ESAPI_Codecs/Base64Codec.html#methoddecodeCharacter">Base64Codec::decodeCharacter()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Decodes a character from Base64 to plain text</td>
+  </tr>
+    <tr>
+    <td>&nbsp;&nbsp;&nbsp;<strong>decodeCharacter</strong></td>
+    <td width="100%" align="left" valign="top">in file MySQLCodec.php, method <a href="ESAPI_Codecs/MySQLCodec.html#methoddecodeCharacter">MySQLCodec::decodeCharacter()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Returns the decoded version of the character starting at index, or  null if no decoding is possible.</td>
   </tr>
     <tr>
     <td>&nbsp;&nbsp;&nbsp;<strong>decodeCharacter</strong></td>
@@ -199,8 +226,8 @@
     <td width="100%" align="left" valign="top">in file HTMLEntityCodec.php, method <a href="ESAPI_Codecs/HTMLEntityCodec.html#methoddecodeCharacter">HTMLEntityCodec::decodeCharacter()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;{@inheritDoc}</td>
   </tr>
     <tr>
-    <td>&nbsp;&nbsp;&nbsp;<strong>decodeCharacter</strong></td>
-    <td width="100%" align="left" valign="top">in file JavaScriptCodec.php, method <a href="ESAPI_Codecs/JavaScriptCodec.html#methoddecodeCharacter">JavaScriptCodec::decodeCharacter()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;{@inheritDoc}</td>
+    <td>&nbsp;&nbsp;&nbsp;<strong>detectEncoding</strong></td>
+    <td width="100%" align="left" valign="top">in file Codec.php, method <a href="ESAPI_Codecs/Codec.html#methoddetectEncoding">Codec::detectEncoding()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Utility to detect a (potentially multibyte) string's encoding with  extra logic to deal with single characters that mb_detect_encoding() fails  upon.</td>
   </tr>
   </tbody>
 <thead>
@@ -211,6 +238,10 @@
   </tr>
 </thead>
 <tbody>
+    <tr>
+    <td>&nbsp;&nbsp;&nbsp;<strong>encode</strong></td>
+    <td width="100%" align="left" valign="top">in file Codec.php, method <a href="ESAPI_Codecs/Codec.html#methodencode">Codec::encode()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Encode a String with a Codec.</td>
+  </tr>
     <tr>
     <td>&nbsp;&nbsp;&nbsp;<strong>encode</strong></td>
     <td width="100%" align="left" valign="top">in file Base64Codec.php, method <a href="ESAPI_Codecs/Base64Codec.html#methodencode">Base64Codec::encode()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Encodes the input string to Base64.</td>
@@ -237,11 +268,15 @@
   </tr>
     <tr>
     <td>&nbsp;&nbsp;&nbsp;<strong>encodeCharacter</strong></td>
-    <td width="100%" align="left" valign="top">in file MySQLCodec.php, method <a href="ESAPI_Codecs/MySQLCodec.html#methodencodeCharacter">MySQLCodec::encodeCharacter()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;{@inheritDoc}</td>
+    <td width="100%" align="left" valign="top">in file JavaScriptCodec.php, method <a href="ESAPI_Codecs/JavaScriptCodec.html#methodencodeCharacter">JavaScriptCodec::encodeCharacter()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Returns backslash encoded numeric format. Does not use backslash  character escapes such as, \&quot; or \' as these may cause parsing problems.</td>
   </tr>
     <tr>
     <td>&nbsp;&nbsp;&nbsp;<strong>encodeCharacter</strong></td>
     <td width="100%" align="left" valign="top">in file Base64Codec.php, method <a href="ESAPI_Codecs/Base64Codec.html#methodencodeCharacter">Base64Codec::encodeCharacter()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Encodes a single character to Base64.</td>
+  </tr>
+    <tr>
+    <td>&nbsp;&nbsp;&nbsp;<strong>encodeCharacter</strong></td>
+    <td width="100%" align="left" valign="top">in file Codec.php, method <a href="ESAPI_Codecs/Codec.html#methodencodeCharacter">Codec::encodeCharacter()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Encode a Character with a Codec.</td>
   </tr>
     <tr>
     <td>&nbsp;&nbsp;&nbsp;<strong>encodeCharacter</strong></td>
@@ -253,7 +288,20 @@
   </tr>
     <tr>
     <td>&nbsp;&nbsp;&nbsp;<strong>encodeCharacter</strong></td>
-    <td width="100%" align="left" valign="top">in file JavaScriptCodec.php, method <a href="ESAPI_Codecs/JavaScriptCodec.html#methodencodeCharacter">JavaScriptCodec::encodeCharacter()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;{@inheritDoc}</td>
+    <td width="100%" align="left" valign="top">in file MySQLCodec.php, method <a href="ESAPI_Codecs/MySQLCodec.html#methodencodeCharacter">MySQLCodec::encodeCharacter()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;{@inheritDoc}</td>
+  </tr>
+  </tbody>
+<thead>
+  <tr>
+    <td><strong>f</strong></td>
+    <td align='right'><a name="f">&nbsp; </a>
+                      <a href="#top">top</a><br /></td>
+  </tr>
+</thead>
+<tbody>
+    <tr>
+    <td>&nbsp;&nbsp;&nbsp;<strong>forceToSingleCharacter</strong></td>
+    <td width="100%" align="left" valign="top">in file Codec.php, method <a href="ESAPI_Codecs/Codec.html#methodforceToSingleCharacter">Codec::forceToSingleCharacter()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Utility to get first (potentially multibyte) character from a (potentially  multicharacter) multibyte string.</td>
   </tr>
   </tbody>
 <thead>
@@ -265,8 +313,12 @@
 </thead>
 <tbody>
     <tr>
+    <td>&nbsp;&nbsp;&nbsp;<strong>getHexForNonAlphanumeric</strong></td>
+    <td width="100%" align="left" valign="top">in file Codec.php, method <a href="ESAPI_Codecs/Codec.html#methodgetHexForNonAlphanumeric">Codec::getHexForNonAlphanumeric()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Returns the ordinal value as a hex string of any character that is not a  single-byte alphanumeric. The character should be supplied as a string in  the UTF-32 character encoding.</td>
+  </tr>
+    <tr>
     <td>&nbsp;&nbsp;&nbsp;<strong>getInstance</strong></td>
-    <td width="100%" align="left" valign="top">in file CodecDebug.php, method <a href="ESAPI_Codecs/CodecDebug.html#methodgetInstance">CodecDebug::getInstance()</a></td>
+    <td width="100%" align="left" valign="top">in file CodecDebug.php, method <a href="ESAPI_Codecs/CodecDebug.html#methodgetInstance">CodecDebug::getInstance()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Retrieves the singleton instance of CodecDebug.</td>
   </tr>
   </tbody>
 <thead>
@@ -283,7 +335,20 @@
   </tr>
     <tr>
     <td>&nbsp;&nbsp;&nbsp;<strong>HTMLEntityCodec</strong></td>
-    <td width="100%" align="left" valign="top">in file HTMLEntityCodec.php, class <a href="ESAPI_Codecs/HTMLEntityCodec.html">HTMLEntityCodec</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Implementation of the Codec interface for HTML entity encoding.</td>
+    <td width="100%" align="left" valign="top">in file HTMLEntityCodec.php, class <a href="ESAPI_Codecs/HTMLEntityCodec.html">HTMLEntityCodec</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Reference implementation of the HTML entity codec.</td>
+  </tr>
+  </tbody>
+<thead>
+  <tr>
+    <td><strong>i</strong></td>
+    <td align='right'><a name="i">&nbsp; </a>
+                      <a href="#top">top</a><br /></td>
+  </tr>
+</thead>
+<tbody>
+    <tr>
+    <td>&nbsp;&nbsp;&nbsp;<strong>isHexDigit</strong></td>
+    <td width="100%" align="left" valign="top">in file Codec.php, method <a href="ESAPI_Codecs/Codec.html#methodisHexDigit">Codec::isHexDigit()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Utility method to determine if a single character string is a hex digit</td>
   </tr>
   </tbody>
 <thead>
@@ -300,20 +365,7 @@
   </tr>
     <tr>
     <td>&nbsp;&nbsp;&nbsp;<strong>JavaScriptCodec</strong></td>
-    <td width="100%" align="left" valign="top">in file JavaScriptCodec.php, class <a href="ESAPI_Codecs/JavaScriptCodec.html">JavaScriptCodec</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Implementation of the Codec interface for backslash encoding in JavaScript.</td>
-  </tr>
-  </tbody>
-<thead>
-  <tr>
-    <td><strong>l</strong></td>
-    <td align='right'><a name="l">&nbsp; </a>
-                      <a href="#top">top</a><br /></td>
-  </tr>
-</thead>
-<tbody>
-    <tr>
-    <td>&nbsp;&nbsp;&nbsp;<strong>LOG</strong></td>
-    <td width="100%" align="left" valign="top">in file CodecDebug.php, constant <a href="ESAPI_Codecs/_codecs---CodecDebug.php.html#defineLOG">LOG</a></td>
+    <td width="100%" align="left" valign="top">in file JavaScriptCodec.php, class <a href="ESAPI_Codecs/JavaScriptCodec.html">JavaScriptCodec</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Reference implementation of the JavaScriptCodec codec.</td>
   </tr>
   </tbody>
 <thead>
@@ -330,7 +382,7 @@
   </tr>
     <tr>
     <td>&nbsp;&nbsp;&nbsp;<strong>MySQLCodec</strong></td>
-    <td width="100%" align="left" valign="top">in file MySQLCodec.php, class <a href="ESAPI_Codecs/MySQLCodec.html">MySQLCodec</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Implementation of the Codec interface for MySQL strings. See http://mirror.yandex.ru/mirrors/ftp.mysql.com/doc/refman/5.0/en/string-syntax.html  for more information.</td>
+    <td width="100%" align="left" valign="top">in file MySQLCodec.php, class <a href="ESAPI_Codecs/MySQLCodec.html">MySQLCodec</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Reference implementation of the CSS codec.</td>
   </tr>
     <tr>
     <td>&nbsp;&nbsp;&nbsp;<strong>MYSQL_ANSI</strong></td>
@@ -339,6 +391,19 @@
     <tr>
     <td>&nbsp;&nbsp;&nbsp;<strong>MYSQL_STD</strong></td>
     <td width="100%" align="left" valign="top">in file MySQLCodec.php, class constant <a href="ESAPI_Codecs/MySQLCodec.html#constMYSQL_STD">MySQLCodec::MYSQL_STD</a></td>
+  </tr>
+  </tbody>
+<thead>
+  <tr>
+    <td><strong>n</strong></td>
+    <td align='right'><a name="n">&nbsp; </a>
+                      <a href="#top">top</a><br /></td>
+  </tr>
+</thead>
+<tbody>
+    <tr>
+    <td>&nbsp;&nbsp;&nbsp;<strong>normalizeEncoding</strong></td>
+    <td width="100%" align="left" valign="top">in file Codec.php, method <a href="ESAPI_Codecs/Codec.html#methodnormalizeEncoding">Codec::normalizeEncoding()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Utility to normalize a string's encoding to UTF-32.</td>
   </tr>
   </tbody>
 <thead>
@@ -355,7 +420,7 @@
   </tr>
     <tr>
     <td>&nbsp;&nbsp;&nbsp;<strong>OracleCodec</strong></td>
-    <td width="100%" align="left" valign="top">in file OracleCodec.php, class <a href="ESAPI_Codecs/OracleCodec.html">OracleCodec</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Implementation of the Codec interface for Oracle strings. See http://download-uk.oracle.com/docs/cd/B10501_01/text.920/a96518/cqspcl.htm  for more information.</td>
+    <td width="100%" align="left" valign="top">in file OracleCodec.php, class <a href="ESAPI_Codecs/OracleCodec.html">OracleCodec</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Reference implementation of the CSS codec.</td>
   </tr>
     <tr>
     <td>&nbsp;&nbsp;&nbsp;<strong>ORD_VALUE_0</strong></td>
@@ -403,7 +468,7 @@
   </tr>
     <tr>
     <td>&nbsp;&nbsp;&nbsp;<strong>output</strong></td>
-    <td width="100%" align="left" valign="top">in file CodecDebug.php, method <a href="ESAPI_Codecs/CodecDebug.html#methodoutput">CodecDebug::output()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;output appends the final output from a codec (either an encoded or  decoded string) to the contents of $this-&gt;buf and then logs this  debugging output before resetting the CodecDebug instance ready for  reuse.</td>
+    <td width="100%" align="left" valign="top">in file CodecDebug.php, method <a href="ESAPI_Codecs/CodecDebug.html#methodoutput">CodecDebug::output()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;output appends the final output from a codec (either an encoded or  decoded string) to the contents of $this-&gt;_buf and then logs this  debugging output before resetting the CodecDebug instance ready for  reuse.</td>
   </tr>
   </tbody>
 <thead>
@@ -420,7 +485,20 @@
   </tr>
     <tr>
     <td>&nbsp;&nbsp;&nbsp;<strong>PercentCodec</strong></td>
-    <td width="100%" align="left" valign="top">in file PercentCodec.php, class <a href="ESAPI_Codecs/PercentCodec.html">PercentCodec</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Implementation of the Codec interface for percent encoding (aka URL encoding).</td>
+    <td width="100%" align="left" valign="top">in file PercentCodec.php, class <a href="ESAPI_Codecs/PercentCodec.html">PercentCodec</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Reference implementation of the CSS codec.</td>
+  </tr>
+  </tbody>
+<thead>
+  <tr>
+    <td><strong>t</strong></td>
+    <td align='right'><a name="t">&nbsp; </a>
+                      <a href="#top">top</a><br /></td>
+  </tr>
+</thead>
+<tbody>
+    <tr>
+    <td>&nbsp;&nbsp;&nbsp;<strong>toHex</strong></td>
+    <td width="100%" align="left" valign="top">in file Codec.php, method <a href="ESAPI_Codecs/Codec.html#methodtoHex">Codec::toHex()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Return the hex value of a character as a string without leading zeroes.</td>
   </tr>
   </tbody>
 <thead>
@@ -437,7 +515,7 @@
   </tr>
     <tr>
     <td>&nbsp;&nbsp;&nbsp;<strong>UnixCodec</strong></td>
-    <td width="100%" align="left" valign="top">in file UnixCodec.php, class <a href="ESAPI_Codecs/UnixCodec.html">UnixCodec</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Implementation of the Codec interface for '\' encoding from Unix command shell.</td>
+    <td width="100%" align="left" valign="top">in file UnixCodec.php, class <a href="ESAPI_Codecs/UnixCodec.html">UnixCodec</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Reference implementation of the Unix codec.</td>
   </tr>
   </tbody>
 <thead>
@@ -454,7 +532,7 @@
   </tr>
     <tr>
     <td>&nbsp;&nbsp;&nbsp;<strong>VBScriptCodec</strong></td>
-    <td width="100%" align="left" valign="top">in file VBScriptCodec.php, class <a href="ESAPI_Codecs/VBScriptCodec.html">VBScriptCodec</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Implementation of the Codec interface for 'quote' encoding from VBScript.</td>
+    <td width="100%" align="left" valign="top">in file VBScriptCodec.php, class <a href="ESAPI_Codecs/VBScriptCodec.html">VBScriptCodec</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Reference implementation of the CSS codec.</td>
   </tr>
   </tbody>
 <thead>
@@ -471,7 +549,7 @@
   </tr>
     <tr>
     <td>&nbsp;&nbsp;&nbsp;<strong>WindowsCodec</strong></td>
-    <td width="100%" align="left" valign="top">in file WindowsCodec.php, class <a href="ESAPI_Codecs/WindowsCodec.html">WindowsCodec</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Implementation of the Codec interface for '^' encoding from Windows command shell.</td>
+    <td width="100%" align="left" valign="top">in file WindowsCodec.php, class <a href="ESAPI_Codecs/WindowsCodec.html">WindowsCodec</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Reference implementation of the Windows codec.</td>
   </tr>
   </tbody>
 </table></body>

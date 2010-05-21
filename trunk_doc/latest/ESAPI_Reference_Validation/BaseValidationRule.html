@@ -1,0 +1,545 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+   <html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <title>Docs For Class BaseValidationRule</title>
+  <link rel="stylesheet" href="../media/stylesheet.css" />
+  <script src="../media/lib/classTree.js"></script>
+<link id="webfx-tab-style-sheet" type="text/css" rel="stylesheet" href="../media/lib/tab.webfx.css" />
+<script type="text/javascript" src="../media/lib/tabpane.js"></script>
+  <script language="javascript" type="text/javascript" src="../media/lib/ua.js"></script>
+<script language="javascript" type="text/javascript">
+	var imgPlus = new Image();
+	var imgMinus = new Image();
+	imgPlus.src = "../media/images/plus.gif";
+	imgMinus.src = "../media/images/minus.gif";
+	
+	function showNode(Node){
+        switch(navigator.family){
+        	case 'nn4':
+        		// Nav 4.x code fork...
+				var oTable = document.layers["span" + Node];
+				var oImg = document.layers["img" + Node];
+        		break;
+        	case 'ie4':
+        		// IE 4/5 code fork...
+				var oTable = document.all["span" + Node];
+				var oImg = document.all["img" + Node];
+        		break;
+        	case 'gecko':
+        		// Standards Compliant code fork...
+				var oTable = document.getElementById("span" + Node);
+				var oImg = document.getElementById("img" + Node);
+        		break;
+        }
+		oImg.src = imgMinus.src;
+		oTable.style.display = "block";
+	}
+	
+	function hideNode(Node){
+        switch(navigator.family){
+        	case 'nn4':
+        		// Nav 4.x code fork...
+				var oTable = document.layers["span" + Node];
+				var oImg = document.layers["img" + Node];
+        		break;
+        	case 'ie4':
+        		// IE 4/5 code fork...
+				var oTable = document.all["span" + Node];
+				var oImg = document.all["img" + Node];
+        		break;
+        	case 'gecko':
+        		// Standards Compliant code fork...
+				var oTable = document.getElementById("span" + Node);
+				var oImg = document.getElementById("img" + Node);
+        		break;
+        }
+		oImg.src = imgPlus.src;
+		oTable.style.display = "none";
+	}
+	
+	function nodeIsVisible(Node){
+        switch(navigator.family){
+        	case 'nn4':
+        		// Nav 4.x code fork...
+				var oTable = document.layers["span" + Node];
+        		break;
+        	case 'ie4':
+        		// IE 4/5 code fork...
+				var oTable = document.all["span" + Node];
+        		break;
+        	case 'gecko':
+        		// Standards Compliant code fork...
+				var oTable = document.getElementById("span" + Node);
+        		break;
+        }
+		return (oTable && oTable.style.display == "block");
+	}
+	
+	function toggleNodeVisibility(Node){
+		if (nodeIsVisible(Node)){
+			hideNode(Node);
+		}else{
+			showNode(Node);
+		}
+	}
+</script>
+<!-- template designed by Julien Damon based on PHPEdit's generated templates, and tweaked by Greg Beaver -->
+<body bgcolor="#ffffff" ><!-- Start of Class Data -->
+<h2>
+	Class BaseValidationRule
+</h2> (line <span class="linenumber">45</span>)
+<div class="tab-pane" id="tabPane1">
+<script type="text/javascript">
+tp1 = new WebFXTabPane( document.getElementById( "tabPane1" ));
+</script>
+
+<div class="tab-page" id="Description">
+<h2 class="tab">Description</h2>
+<pre>
+</pre>
+<p>
+	<b><i>Located in File: <a href="_reference---validation---BaseValidationRule.php.html">/reference/validation/BaseValidationRule.php</a></i></b><br>
+</p>
+<!-- ========== Info from phpDoc block ========= -->
+<h5>Reference Implementation of the ValidationRule interface.</h5>
+<ul>
+		<li><strong>author:</strong> - Mike Boberski &lt;<a href="mailto:boberski_michael@bah.com">boberski_michael@bah.com</a>&gt;</li>
+		<li><strong>author:</strong> - Johannes B. Ullrich &lt;<a href="mailto:jullrich@sans.edu">jullrich@sans.edu</a>&gt;</li>
+		<li><strong>author:</strong> - jah &lt;<a href="mailto:jah@jahboite.co.uk">jah@jahboite.co.uk</a>&gt;</li>
+		<li><strong>version:</strong> - Release: @package_version@</li>
+		<li><strong>copyright:</strong> - 2009-2010 The OWASP Foundation</li>
+		<li><strong>link:</strong> - <a href="http://www.owasp.org/index.php/ESAPI">http://www.owasp.org/index.php/ESAPI</a></li>
+		<li><strong>abstract:</strong> - </li>
+		<li><strong>license:</strong> - <a href="http://www.opensource.org/licenses/bsd-license.php">New BSD license</a></li>
+	</ul>
+<br /><hr />
+<span class="type">Classes extended from BaseValidationRule:</span>
+ 		<dl>
+	<dt><a href="../ESAPI_Reference_Validation/CreditCardValidationRule.html">CreditCardValidationRule</a></dt>
+		<dd>Reference extension of the BaseValidationRule class.</dd>
+	</dl>
+		<dl>
+	<dt><a href="../ESAPI_Reference_Validation/DateValidationRule.html">DateValidationRule</a></dt>
+		<dd>DateValidationRule implementation of the ValidationRule interface.</dd>
+	</dl>
+		<dl>
+	<dt><a href="../ESAPI_Reference_Validation/IntegerValidationRule.html">IntegerValidationRule</a></dt>
+		<dd>Reference extension of the BaseValidationRule class.</dd>
+	</dl>
+		<dl>
+	<dt><a href="../ESAPI_Reference_Validation/NumberValidationRule.html">NumberValidationRule</a></dt>
+		<dd>Reference extension of the BaseValidationRule class.</dd>
+	</dl>
+		<dl>
+	<dt><a href="../ESAPI_Reference_Validation/StringValidationRule.html">StringValidationRule</a></dt>
+		<dd>Reference extension of the BaseValidationRule class.</dd>
+	</dl>
+	</p>
+</div>
+<script type="text/javascript">tp1.addTabPage( document.getElementById( "Description" ) );</script>
+<div class="tab-page" id="tabPage1">
+
+<h2 class="tab">Class Variables</h2>
+<!-- ============ VARIABLE DETAIL =========== -->
+<strong>Summary:</strong><br />
+<div class="var-title">
+    <span class="var-type">mixed</span>
+    <a href="#var$allowNull" title="details" class="property"><strong>$allowNull</strong></a>
+</div>
+<div class="var-title">
+    <span class="var-type">mixed</span>
+    <a href="#var$encoder" title="details" class="property"><strong>$encoder</strong></a>
+</div>
+<div class="var-title">
+    <span class="var-type">mixed</span>
+    <a href="#var$typeName" title="details" class="property"><strong>$typeName</strong></a>
+</div>
+<hr />
+<a name="var$allowNull" id="var$allowNull"><!-- --></A>
+<div style="background='#eeeeee'">
+<h4>
+<img src="../media/images/PublicProperty.gif" border="0" /> <strong class="property">$allowNull =  false</strong> (line <span class="linenumber">49</span>)
+ </h4>
+<h4>Data type : mixed</h4>
+<!-- ========== Info from phpDoc block ========= -->
+<ul>
+		<li><strong>access:</strong> - protected</li>
+	</ul>
+</div>
+<a name="var$encoder" id="var$encoder"><!-- --></A>
+<div style="background='#ffffff'">
+<h4>
+<img src="../media/images/PublicProperty.gif" border="0" /> <strong class="property">$encoder =  null</strong> (line <span class="linenumber">48</span>)
+ </h4>
+<h4>Data type : mixed</h4>
+<!-- ========== Info from phpDoc block ========= -->
+<ul>
+		<li><strong>access:</strong> - protected</li>
+	</ul>
+</div>
+<a name="var$typeName" id="var$typeName"><!-- --></A>
+<div style="background='#eeeeee'">
+<h4>
+<img src="../media/images/PublicProperty.gif" border="0" /> <strong class="property">$typeName =  null</strong> (line <span class="linenumber">47</span>)
+ </h4>
+<h4>Data type : mixed</h4>
+<!-- ========== Info from phpDoc block ========= -->
+<ul>
+		<li><strong>access:</strong> - protected</li>
+	</ul>
+</div>
+<script type="text/javascript">tp1.addTabPage( document.getElementById( "tabPage1" ) );</script>
+</div>
+<div class="tab-page" id="constantsTabpage">
+
+<h2 class="tab">Class Constants</h2>
+<!-- ============ VARIABLE DETAIL =========== -->
+<strong>Summary:</strong><br />
+<hr />
+<script type="text/javascript">tp1.addTabPage( document.getElementById( "constantsTabpage" ) );</script>
+</div>
+<div class="tab-page" id="tabPage2">
+<h2 class="tab">Method Detail</h2>
+<!-- ============ METHOD DETAIL =========== -->
+<strong>Summary:</strong><br />
+<div class="method-summary">
+    <div class="method-definition">
+            <span class="method-result">does</span>
+        <a href="#method__construct" title="details" class="method-name">__construct</a>
+        (<span class="var-type">string</span>&nbsp;<span class="var-name">$typeName</span>, <span class="var-type"><a href="../ESAPI/Encoder.html">Encoder</a></span>&nbsp;<span class="var-name">$encoder</span>)
+        </div>
+    <div class="method-definition">
+            <span class="method-result">does</span>
+        <a href="#methodassertValid" title="details" class="method-name">assertValid</a>
+        (<span class="var-type">string</span>&nbsp;<span class="var-name">$context</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$input</span>)
+        </div>
+    <div class="method-definition">
+            <span class="method-result">bool</span>
+        <a href="#methodgetAllowNull" title="details" class="method-name">getAllowNull</a>
+        ()
+        </div>
+    <div class="method-definition">
+            <span class="method-result">string</span>
+        <a href="#methodgetSafe" title="details" class="method-name">getSafe</a>
+        (<span class="var-type">string</span>&nbsp;<span class="var-name">$context</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$input</span>)
+        </div>
+    <div class="method-definition">
+            <span class="method-result">string</span>
+        <a href="#methodgetTypeName" title="details" class="method-name">getTypeName</a>
+        ()
+        </div>
+    <div class="method-definition">
+            <span class="method-result">bool</span>
+        <a href="#methodisValid" title="details" class="method-name">isValid</a>
+        (<span class="var-type">string</span>&nbsp;<span class="var-name">$context</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$input</span>)
+        </div>
+    <div class="method-definition">
+            <span class="method-result">does</span>
+        <a href="#methodsetAllowNull" title="details" class="method-name">setAllowNull</a>
+        (<span class="var-type">bool</span>&nbsp;<span class="var-name">$flag</span>)
+        </div>
+    <div class="method-definition">
+            <span class="method-result">does</span>
+        <a href="#methodsetEncoder" title="details" class="method-name">setEncoder</a>
+        (<span class="var-type"><a href="../ESAPI/Encoder.html">Encoder</a></span>&nbsp;<span class="var-name">$encoder</span>)
+        </div>
+    <div class="method-definition">
+            <span class="method-result">does</span>
+        <a href="#methodsetTypeName" title="details" class="method-name">setTypeName</a>
+        (<span class="var-type">string</span>&nbsp;<span class="var-name">$typeName</span>)
+        </div>
+    <div class="method-definition">
+            <span class="method-result">string</span>
+        <a href="#methodwhitelist" title="details" class="method-name">whitelist</a>
+        (<span class="var-type">string</span>&nbsp;<span class="var-name">$input</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$whitelist</span>)
+        </div>
+</div>
+<hr />
+<A NAME='method_detail'></A>
+
+
+<a name="method__construct" id="method__construct"><!-- --></a>
+<div style="background='#ffffff'"><h4>
+<img src="../media/images/Constructor.gif" border="0" /> <strong class="method">Constructor __construct</strong> (line <span class="linenumber">62</span>)
+ </h4> 
+<h4><i>does</i> <strong>__construct(
+string
+$typeName, <a href="../ESAPI/Encoder.html">Encoder</a>
+$encoder)</strong></h4>
+	<p>Overridden in child classes as:<br />
+		<dl>
+	<dt><a href="../ESAPI_Reference_Validation/CreditCardValidationRule.html#method__construct">CreditCardValidationRule::__construct()</a></dt>
+		<dd>Constructor sets-up the validation rule with a descriptive name for this  validator, an optional Encoder instance (for canonicalization) and an  optional instance of a ValidationRule implementation for validating  Credit Card Numbers.</dd>
+	</dl>
+		<dl>
+	<dt><a href="../ESAPI_Reference_Validation/DateValidationRule.html#method__construct">DateValidationRule::__construct()</a></dt>
+		<dd>Constructor sets-up the validation rule with a descriptive name for this  validator, an optional Encoder instance (for canonicalization) and an  optional date format string. The date format string should be of the type  accepted by PHP's date() function.</dd>
+	</dl>
+		<dl>
+	<dt><a href="../ESAPI_Reference_Validation/IntegerValidationRule.html#method__construct">IntegerValidationRule::__construct()</a></dt>
+		<dd>Constructor sets-up the validation rule with a descriptive name for this  validator, an optional Encoder instance (for canonicalization) and  optional minimum and maximum bounds for valid integers.</dd>
+	</dl>
+		<dl>
+	<dt><a href="../ESAPI_Reference_Validation/NumberValidationRule.html#method__construct">NumberValidationRule::__construct()</a></dt>
+		<dd>Constructor sets-up the validation rule with a descriptive name for this  validator, an optional Encoder instance (for canonicalization) and  optional minimum and maximum bounds for valid numbers.</dd>
+	</dl>
+		<dl>
+	<dt><a href="../ESAPI_Reference_Validation/StringValidationRule.html#method__construct">StringValidationRule::__construct()</a></dt>
+		<dd>Constructor sets-up the validation rule with a descriptive name for this  validator, an optional Encoder instance (for canonicalization) and an  optional whitelist regex pattern.</dd>
+	</dl>
+		<dl>
+	<dt><a href="../ESAPI_Reference_Validation/EmailAddressValidationRule.html#method__construct">EmailAddressValidationRule::__construct()</a></dt>
+		<dd>Constructor sets-up the validation rule with a descriptive name for this  validator, an optional Encoder instance (for canonicalization) and an  optional whitelist regex pattern to validate the input against prior to  email address purification.</dd>
+	</dl>
+		<dl>
+	<dt><a href="../ESAPI_Reference_Validation/HTMLValidationRule.html#method__construct">HTMLValidationRule::__construct()</a></dt>
+		<dd>Constructor sets-up the validation rule with a descriptive name for this  validator, an optional Encoder instance (for canonicalization) and an  optional whitelist regex pattern to validate the input against prior to  HTML purification.</dd>
+	</dl>
+		<dl>
+	<dt><a href="../ESAPI_Reference_Validation/URLValidationRule.html#method__construct">URLValidationRule::__construct()</a></dt>
+		<dd>Constructor sets-up the validation rule with a descriptive name for this  validator, an optional Encoder instance (for canonicalization) and an  optional whitelist regex pattern to validate the input against prior to  email address purification.</dd>
+	</dl>
+		<dl>
+	<dt><a href="../ESAPI_Reference_Validation/WordValidationRule.html#method__construct">WordValidationRule::__construct()</a></dt>
+		<dd>Constructor sets-up the validation rule with a descriptive name for this  validator, an optional Encoder instance (for canonicalization) and an  optional whitelist regex pattern to validate the input against prior to  email address purification.</dd>
+	</dl>
+	</p>
+
+	<!-- ========== Info from phpDoc block ========= -->
+<h5>Stores an instance of an Encoder implementation (e.g. DefaultEncoder) to  be used for canonicalization and a name for the type of Input to be  validated (e.g. 'Date' or 'CreditCardNumber').</h5>
+		<h4>Parameters</h4>
+	<ul>
+			<li><strong>string $typeName</strong>: type name of the input to be validated.</li>
+			<li><strong><a href="../ESAPI/Encoder.html">Encoder</a> $encoder</strong>: instance of an Encoder implementation.</li>
+		</ul>
+		
+	<h4>Info</h4>
+	<ul>
+			<li><strong>return</strong> - not return a value.</li>
+			<li><strong>access</strong> - protected</li>
+		</ul>
+</div>
+<a name="methodassertValid" id="methodassertValid"><!-- --></a>
+<div style="background='#eeeeee'"><h4>
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method assertValid</strong> (line <span class="linenumber">170</span>)
+ </h4> 
+<h4><i>does</i> <strong>assertValid(
+string
+$context, string
+$input)</strong></h4>
+
+	<!-- ========== Info from phpDoc block ========= -->
+<h5>Asserts that the supplied $input is valid after canonicalization. Invalid  Inputs will cause a descriptive ValidationException to be thrown. Inputs  that are obviously an attack will cause an IntrusionException.</h5>
+		<h4>Parameters</h4>
+	<ul>
+			<li><strong>string $context</strong>: A descriptive name of the parameter that you are                         validating (e.g., LoginPage_UsernameField). This                         value is used by any logging or error handling that                         is done with respect to the value passed in.</li>
+			<li><strong>string $input</strong>: The actual user input data to validate.</li>
+		</ul>
+		
+	<h4>Info</h4>
+	<ul>
+			<li><strong>return</strong> - not return a value.</li>
+			<li><strong>access</strong> - public</li>
+		</ul>
+</div>
+<a name="methodgetAllowNull" id="methodgetAllowNull"><!-- --></a>
+<div style="background='#ffffff'"><h4>
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method getAllowNull</strong> (line <span class="linenumber">99</span>)
+ </h4> 
+<h4><i>bool</i> <strong>getAllowNull(
+)</strong></h4>
+
+	<!-- ========== Info from phpDoc block ========= -->
+<h5>Gets the boolean allowNull property which, if set true, will allow empty  inputs to validate as true.</h5>
+		
+	<h4>Info</h4>
+	<ul>
+			<li><strong>return</strong> - returns true if empty inputs should validate as true, false               otherwise.</li>
+			<li><strong>access</strong> - public</li>
+		</ul>
+</div>
+<a name="methodgetSafe" id="methodgetSafe"><!-- --></a>
+<div style="background='#eeeeee'"><h4>
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method getSafe</strong> (line <span class="linenumber">190</span>)
+ </h4> 
+<h4><i>string</i> <strong>getSafe(
+string
+$context, string
+$input)</strong></h4>
+
+	<!-- ========== Info from phpDoc block ========= -->
+<h5>Attempts to return valid canonicalized input.  If a ValidationException  is thrown, this method will return sanitized input which may or may not  have any similarity to the original input.</h5>
+		<h4>Parameters</h4>
+	<ul>
+			<li><strong>string $context</strong>: A descriptive name of the parameter that you are                         validating (e.g., LoginPage_UsernameField). This                         value is used by any logging or error handling that                         is done with respect to the value passed in.</li>
+			<li><strong>string $input</strong>: The actual user input data to validate.</li>
+		</ul>
+		
+	<h4>Info</h4>
+	<ul>
+			<li><strong>return</strong> - valid, canonicalized input or sanitized input or a default                 value.</li>
+			<li><strong>access</strong> - public</li>
+		</ul>
+</div>
+<a name="methodgetTypeName" id="methodgetTypeName"><!-- --></a>
+<div style="background='#ffffff'"><h4>
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method getTypeName</strong> (line <span class="linenumber">127</span>)
+ </h4> 
+<h4><i>string</i> <strong>getTypeName(
+)</strong></h4>
+
+	<!-- ========== Info from phpDoc block ========= -->
+<h5>Gets the descriptive name for the validator.</h5>
+		
+	<h4>Info</h4>
+	<ul>
+			<li><strong>return</strong> - name describing the validator.</li>
+			<li><strong>access</strong> - public</li>
+		</ul>
+</div>
+<a name="methodisValid" id="methodisValid"><!-- --></a>
+<div style="background='#eeeeee'"><h4>
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method isValid</strong> (line <span class="linenumber">216</span>)
+ </h4> 
+<h4><i>bool</i> <strong>isValid(
+string
+$context, string
+$input)</strong></h4>
+
+	<!-- ========== Info from phpDoc block ========= -->
+<h5>Returns boolean true if the input is valid, false otherwise.</h5>
+		<h4>Parameters</h4>
+	<ul>
+			<li><strong>string $context</strong>: A descriptive name of the parameter that you are                         validating (e.g., LoginPage_UsernameField). This                         value is used by any logging or error handling that                         is done with respect to the value passed in.</li>
+			<li><strong>string $input</strong>: The actual user input data to validate.</li>
+		</ul>
+		
+	<h4>Info</h4>
+	<ul>
+			<li><strong>return</strong> - true if the input is valid, false otherwise.</li>
+			<li><strong>access</strong> - public</li>
+		</ul>
+</div>
+<a name="methodsetAllowNull" id="methodsetAllowNull"><!-- --></a>
+<div style="background='#ffffff'"><h4>
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method setAllowNull</strong> (line <span class="linenumber">82</span>)
+ </h4> 
+<h4><i>does</i> <strong>setAllowNull(
+bool
+$flag)</strong></h4>
+
+	<!-- ========== Info from phpDoc block ========= -->
+<h5>Sets the boolean allowNull property which, if set true, will allow empty  inputs to validate as true.</h5>
+		<h4>Parameters</h4>
+	<ul>
+			<li><strong>bool $flag</strong>: set to true if empty inputs should validate as true.</li>
+		</ul>
+		
+	<h4>Info</h4>
+	<ul>
+			<li><strong>return</strong> - not return a value.</li>
+			<li><strong>access</strong> - public</li>
+		</ul>
+</div>
+<a name="methodsetEncoder" id="methodsetEncoder"><!-- --></a>
+<div style="background='#eeeeee'"><h4>
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method setEncoder</strong> (line <span class="linenumber">144</span>)
+ </h4> 
+<h4><i>does</i> <strong>setEncoder(
+<a href="../ESAPI/Encoder.html">Encoder</a>
+$encoder)</strong></h4>
+
+	<!-- ========== Info from phpDoc block ========= -->
+<h5>Sets an instance of an encoder class which should provide a  canonicalize method.</h5>
+<div class="desc"><p>TODO should ensure that a canonicalize method is available or should  only allow instances of Encoder implementations...</p></div>
+		<h4>Parameters</h4>
+	<ul>
+			<li><strong><a href="../ESAPI/Encoder.html">Encoder</a> $encoder</strong>: object which provides a canonicalize method.</li>
+		</ul>
+		
+	<h4>Info</h4>
+	<ul>
+			<li><strong>return</strong> - not return a value.</li>
+			<li><strong>throws</strong> - InvalidArgumentException if encoder is missing a canonicalize method</li>
+			<li><strong>access</strong> - public</li>
+		</ul>
+</div>
+<a name="methodsetTypeName" id="methodsetTypeName"><!-- --></a>
+<div style="background='#ffffff'"><h4>
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method setTypeName</strong> (line <span class="linenumber">113</span>)
+ </h4> 
+<h4><i>does</i> <strong>setTypeName(
+string
+$typeName)</strong></h4>
+
+	<!-- ========== Info from phpDoc block ========= -->
+<h5>Sets a descriptive name for the validator e.g. CreditCardNumber.</h5>
+<div class="desc"><p>If $typeName is empty or not a string then a default value will be set.</p></div>
+		<h4>Parameters</h4>
+	<ul>
+			<li><strong>string $typeName</strong>: name describing the validator.</li>
+		</ul>
+		
+	<h4>Info</h4>
+	<ul>
+			<li><strong>return</strong> - not return a value.</li>
+			<li><strong>access</strong> - public</li>
+		</ul>
+</div>
+<a name="methodwhitelist" id="methodwhitelist"><!-- --></a>
+<div style="background='#eeeeee'"><h4>
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method whitelist</strong> (line <span class="linenumber">239</span>)
+ </h4> 
+<h4><i>string</i> <strong>whitelist(
+string
+$input, string
+$whitelist)</strong></h4>
+
+	<!-- ========== Info from phpDoc block ========= -->
+<h5>Returns the supplied input string after removing any characters not  present in the supplied whitelist.</h5>
+		<h4>Parameters</h4>
+	<ul>
+			<li><strong>string $input</strong>: string input to be filtered.</li>
+			<li><strong>string $whitelist</strong>: array or string of whitelist characters.</li>
+		</ul>
+		
+	<h4>Info</h4>
+	<ul>
+			<li><strong>return</strong> - returns characters from $input that are present in $whitelist.</li>
+			<li><strong>access</strong> - public</li>
+		</ul>
+</div>
+<script type="text/javascript">tp1.addTabPage( document.getElementById( "tabPage2" ) );</script></div>
+<div class="tab-page" id="iVars">
+<h2 class="tab">Inherited Variables</h2>
+<script type="text/javascript">tp1.addTabPage( document.getElementById( "iVars" ) );</script>
+<!-- =========== VAR INHERITED SUMMARY =========== -->
+<A NAME='var_inherited_summary'><!-- --></A>
+<h3>Inherited Class Variable Summary</h3>
+
+	</div>
+<div class="tab-page" id="iMethods">
+<h2 class="tab">Inherited Methods</h2>
+<script type="text/javascript">tp1.addTabPage( document.getElementById( "iMethods" ) );</script>
+<!-- =========== INHERITED METHOD SUMMARY =========== -->
+<A NAME='functions_inherited'><!-- --></A>
+<h3>Inherited Method Summary</h3>
+
+	</div>
+</div>
+<script type="text/javascript">
+//<![CDATA[
+
+setupAllTabs();
+
+//]]>
+</script>
+	<div id="credit">
+		<hr />
+		Documentation generated on Fri, 21 May 2010 08:50:46 -0400 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
+	</div>
+</body>
+</html>

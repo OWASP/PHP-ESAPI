@@ -109,12 +109,16 @@ if (document.getElementById) {
 	var tree_interface = new WebFXTreeItem('Interface(s)', 'classtrees_ESAPI_Codecs.html');
     tree_interface.openIcon = 'media/images/classFolder.gif';
     tree_interface.icon = 'media/images/classFolder.gif';
-                                                                                                                  	tree.add(tree_interface);
+                                                                                                                            	tree.add(tree_interface);
 	
     var tree_classe = new WebFXTreeItem('Class(es)', 'classtrees_ESAPI_Codecs.html');
     tree_classe.openIcon = 'media/images/classFolder.gif';
     tree_classe.icon = 'media/images/classFolder.gif';
           	  var classe = new WebFXTreeItem('Base64Codec', 'ESAPI_Codecs/Base64Codec.html');
+      classe.openIcon = 'media/images/Class.gif';
+      classe.icon = 'media/images/Class.gif';
+      tree_classe.add(classe);
+                	  var classe = new WebFXTreeItem('Codec', 'ESAPI_Codecs/Codec.html');
       classe.openIcon = 'media/images/Class.gif';
       classe.icon = 'media/images/Class.gif';
       tree_classe.add(classe);

@@ -90,7 +90,7 @@
 <body bgcolor="#ffffff" ><!-- Start of Class Data -->
 <h2>
 	Class ValidationException
-</h2> (line <span class="linenumber">27</span>)
+</h2> (line <span class="linenumber">40</span>)
 <div class="tab-pane" id="tabPane1">
 <script type="text/javascript">
 tp1 = new WebFXTabPane( document.getElementById( "tabPane1" ));
@@ -110,16 +110,22 @@ Exception
 <!-- ========== Info from phpDoc block ========= -->
 <h5>A ValidationException should be thrown to indicate that the data provided by  the user or from some other external source does not match the validation  rules that have been specified for that data.</h5>
 <ul>
+		<li><strong>author:</strong> - Mike Boberski &lt;<a href="mailto:boberski_michael@bah.com">boberski_michael@bah.com</a>&gt;</li>
+		<li><strong>author:</strong> - Andrew van der Stock &lt;<a href="mailto:vanderaj@owasp.org">vanderaj@owasp.org</a>&gt;</li>
+		<li><strong>version:</strong> - Release: @package_version@</li>
+		<li><strong>copyright:</strong> - 2009-2010 The OWASP Foundation</li>
+		<li><strong>link:</strong> - <a href="http://www.owasp.org/index.php/ESAPI">http://www.owasp.org/index.php/ESAPI</a></li>
+		<li><strong>license:</strong> - <a href="http://www.opensource.org/licenses/bsd-license.php">New BSD license</a></li>
 	</ul>
 <br /><hr />
 <span class="type">Classes extended from ValidationException:</span>
  		<dl>
 	<dt><a href="../ESAPI_Errors/ValidationAvailabilityException.html">ValidationAvailabilityException</a></dt>
-		<dd>TODO: Document this class</dd>
+		<dd>A ValidationAvailabilityException should be thrown when a validator is not  available.</dd>
 	</dl>
 		<dl>
 	<dt><a href="../ESAPI_Errors/ValidationUploadException.html">ValidationUploadException</a></dt>
-		<dd>TODO: Document this class</dd>
+		<dd>A ValidationUploadException should be thrown when uploaded content validation  fails.</dd>
 	</dl>
 	</p>
 </div>
@@ -146,19 +152,19 @@ Exception
 <strong>Summary:</strong><br />
 <div class="method-summary">
     <div class="method-definition">
-            <span class="method-result">ValidationException</span>
+            <span class="method-result">does</span>
         <a href="#method__construct" title="details" class="method-name">__construct</a>
-        ([<span class="var-type">userMessage</span>&nbsp;<span class="var-name">$userMessage</span> = <span class="var-default">''</span>], [<span class="var-type">logMessage</span>&nbsp;<span class="var-name">$logMessage</span> = <span class="var-default">''</span>], [<span class="var-type">cause</span>&nbsp;<span class="var-name">$context</span> = <span class="var-default">''</span>], <span class="var-type">context</span>&nbsp;<span class="var-name">3</span>)
+        ([<span class="var-type">string</span>&nbsp;<span class="var-name">$userMessage</span> = <span class="var-default">''</span>], [<span class="var-type">string</span>&nbsp;<span class="var-name">$logMessage</span> = <span class="var-default">''</span>], [<span class="var-type">string</span>&nbsp;<span class="var-name">$context</span> = <span class="var-default">''</span>])
         </div>
     <div class="method-definition">
-            <span class="method-result">context,</span>
+            <span class="method-result">string</span>
         <a href="#methodgetContext" title="details" class="method-name">getContext</a>
         ()
         </div>
     <div class="method-definition">
-            <span class="method-result">void</span>
+            <span class="method-result">does</span>
         <a href="#methodsetContext" title="details" class="method-name">setContext</a>
-        (<span class="var-type">context</span>&nbsp;<span class="var-name">$context</span>)
+        (<span class="var-type">string</span>&nbsp;<span class="var-name">$context</span>)
         </div>
 </div>
 <hr />
@@ -167,14 +173,13 @@ Exception
 
 <a name="method__construct" id="method__construct"><!-- --></a>
 <div style="background='#eeeeee'"><h4>
-<img src="../media/images/Constructor.gif" border="0" /> <strong class="method">Constructor __construct</strong> (line <span class="linenumber">45</span>)
+<img src="../media/images/Constructor.gif" border="0" /> <strong class="method">Constructor __construct</strong> (line <span class="linenumber">56</span>)
  </h4> 
-<h4><i>ValidationException</i> <strong>__construct(
-[userMessage
-$userMessage = ''], [logMessage
-$logMessage = ''], [cause
-$context = ''], context
-3)</strong></h4>
+<h4><i>does</i> <strong>__construct(
+[string
+$userMessage = ''], [string
+$logMessage = ''], [string
+$context = ''])</strong></h4>
 	<p>Overridden in child classes as:<br />
 		<dl>
 	<dt><a href="../ESAPI_Errors/ValidationAvailabilityException.html#method__construct">ValidationAvailabilityException::__construct()</a></dt>
@@ -186,26 +191,27 @@ $context = ''], context
 	</dl>
 	</p>
 
-<p><strong>Overrides :</strong> <a href="../ESAPI_Errors/EnterpriseSecurityException.html#method__construct">EnterpriseSecurityException::__construct()</a> Creates a new instance of EnterpriseSecurityException that includes a root cause</p>
+<p><strong>Overrides :</strong> <a href="../ESAPI_Errors/EnterpriseSecurityException.html#method__construct">EnterpriseSecurityException::__construct()</a> Creates a new instance of EnterpriseSecurityException that includes a  root cause</p>
 	<!-- ========== Info from phpDoc block ========= -->
 <h5>Instantiates a new ValidationException.</h5>
+<div class="desc"><p>Create a new ValidationAvailabilityException</p></div>
 		<h4>Parameters</h4>
 	<ul>
-			<li><strong>context 3</strong>: the source that caused this exception</li>
-			<li><strong>userMessage $userMessage</strong>: the message to display to users</li>
-			<li><strong>logMessage $logMessage</strong>: the message logged</li>
-			<li><strong>cause $context</strong>: the cause</li>
+			<li><strong>string $userMessage</strong>: the message displayed to the user</li>
+			<li><strong>string $logMessage</strong>: the message logged</li>
+			<li><strong>string $context</strong>: the source that caused this exception</li>
 		</ul>
 		
 	<h4>Info</h4>
 	<ul>
+			<li><strong>return</strong> - not return a value.</li>
 		</ul>
 </div>
 <a name="methodgetContext" id="methodgetContext"><!-- --></a>
 <div style="background='#ffffff'"><h4>
-<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method getContext</strong> (line <span class="linenumber">56</span>)
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method getContext</strong> (line <span class="linenumber">68</span>)
  </h4> 
-<h4><i>context,</i> <strong>getContext(
+<h4><i>string</i> <strong>getContext(
 )</strong></h4>
 
 	<!-- ========== Info from phpDoc block ========= -->
@@ -213,27 +219,28 @@ $context = ''], context
 		
 	<h4>Info</h4>
 	<ul>
-			<li><strong>return</strong> - the source that caused the exception, stored as a string</li>
+			<li><strong>return</strong> - context, the source that caused the exception, stored as a                 string</li>
 			<li><strong>access</strong> - public</li>
 		</ul>
 </div>
 <a name="methodsetContext" id="methodsetContext"><!-- --></a>
 <div style="background='#eeeeee'"><h4>
-<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method setContext</strong> (line <span class="linenumber">67</span>)
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method setContext</strong> (line <span class="linenumber">80</span>)
  </h4> 
-<h4><i>void</i> <strong>setContext(
-context
+<h4><i>does</i> <strong>setContext(
+string
 $context)</strong></h4>
 
 	<!-- ========== Info from phpDoc block ========= -->
 <h5>Set's the UI reference that caused this ValidationException</h5>
 		<h4>Parameters</h4>
 	<ul>
-			<li><strong>context $context</strong>: the context to set, passed as a String</li>
+			<li><strong>string $context</strong>: the context to set, passed as a String</li>
 		</ul>
 		
 	<h4>Info</h4>
 	<ul>
+			<li><strong>return</strong> - not return a value.</li>
 			<li><strong>access</strong> - public</li>
 		</ul>
 </div>
@@ -264,7 +271,7 @@ $context)</strong></h4>
 		<!-- =========== Summary =========== -->
 	<h4>Inherited From Class <a href="../ESAPI_Errors/EnterpriseSecurityException.html">EnterpriseSecurityException</a></h4>
 				<h4>
-<img src="../media/images/Constructor.gif" border="0" /><strong class="method"> <a href="../ESAPI_Errors/EnterpriseSecurityException.html#method__construct">EnterpriseSecurityException::__construct()</a></strong> - Creates a new instance of EnterpriseSecurityException that includes a root cause
+<img src="../media/images/Constructor.gif" border="0" /><strong class="method"> <a href="../ESAPI_Errors/EnterpriseSecurityException.html#method__construct">EnterpriseSecurityException::__construct()</a></strong> - Creates a new instance of EnterpriseSecurityException that includes a  root cause
 		</h4> 
 
 				<h4>
@@ -287,7 +294,7 @@ setupAllTabs();
 </script>
 	<div id="credit">
 		<hr />
-		Documentation generated on Fri, 16 Apr 2010 14:39:20 -0400 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
+		Documentation generated on Fri, 21 May 2010 08:50:58 -0400 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
 	</div>
 </body>
 </html>

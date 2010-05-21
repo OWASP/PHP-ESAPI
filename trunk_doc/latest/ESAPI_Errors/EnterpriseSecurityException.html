@@ -90,7 +90,7 @@
 <body bgcolor="#ffffff" ><!-- Start of Class Data -->
 <h2>
 	Class EnterpriseSecurityException
-</h2> (line <span class="linenumber">35</span>)
+</h2> (line <span class="linenumber">53</span>)
 <div class="tab-pane" id="tabPane1">
 <script type="text/javascript">
 tp1 = new WebFXTabPane( document.getElementById( "tabPane1" ));
@@ -106,9 +106,17 @@ Exception
 	<b><i>Located in File: <a href="_errors---EnterpriseSecurityException.php.html">/errors/EnterpriseSecurityException.php</a></i></b><br>
 </p>
 <!-- ========== Info from phpDoc block ========= -->
-<h5>EnterpriseSecurityException is the base class for all security related exceptions. You should pass in the root cause exception where possible. Constructors for classes extending EnterpriseSecurityException should be sure to call the appropriate super() method in order to ensure that logging and intrusion detection occur properly.</h5>
-<div class="desc"><p>All EnterpriseSecurityExceptions have two messages, one for the user and one for the log file. This way, a message  can be shown to the user that doesn't contain sensitive information or unnecessary implementation details. Meanwhile,  all the critical information can be included in the exception so that it gets logged.</p><p>Note that the &quot;logMessage&quot; for ALL EnterpriseSecurityExceptions is logged in the log file. This feature should be  used extensively throughout ESAPI implementations and the result is a fairly complete set of security log records.  ALL EnterpriseSecurityExceptions are also sent to the IntrusionDetector for use in detecting anomolous patterns of  application usage.</p><p></p></div>
+<h5>EnterpriseSecurityException is the base class for all security related  exceptions. You should pass in the root cause exception where possible.</h5>
+<div class="desc"><p>Constructors for classes extending EnterpriseSecurityException should be  sure to call the appropriate super() method in order to ensure that logging  and intrusion detection occur properly.  &lt;p&gt;
+ All EnterpriseSecurityExceptions have two messages, one for the user and one  for the log file. This way, a message can be shown to the user that doesn't  contain sensitive information or unnecessary implementation details. Meanwhile,  all the critical information can be included in the exception so that it gets  logged.  &lt;p&gt;
+ Note that the &quot;logMessage&quot; for ALL EnterpriseSecurityExceptions is logged in  the log file. This feature should be used extensively throughout ESAPI  implementations and the result is a fairly complete set of security log records.  ALL EnterpriseSecurityExceptions are also sent to the IntrusionDetector for use  in detecting anomolous patterns of application usage.  &lt;p&gt;</p></div>
 <ul>
+		<li><strong>author:</strong> - Mike Boberski &lt;<a href="mailto:boberski_michael@bah.com">boberski_michael@bah.com</a>&gt;</li>
+		<li><strong>author:</strong> - Andrew van der Stock &lt;<a href="mailto:vanderaj@owasp.org">vanderaj@owasp.org</a>&gt;</li>
+		<li><strong>version:</strong> - Release: @package_version@</li>
+		<li><strong>copyright:</strong> - 2009-2010 The OWASP Foundation</li>
+		<li><strong>link:</strong> - <a href="http://www.owasp.org/index.php/ESAPI">http://www.owasp.org/index.php/ESAPI</a></li>
+		<li><strong>license:</strong> - <a href="http://www.opensource.org/licenses/bsd-license.php">New BSD license</a></li>
 	</ul>
 <br /><hr />
 <span class="type">Classes extended from EnterpriseSecurityException:</span>
@@ -142,7 +150,7 @@ Exception
 	</dl>
 		<dl>
 	<dt><a href="../ESAPI_Errors/IntegrityException.html">IntegrityException</a></dt>
-		<dd>An AvailabilityException should be thrown when the availability of a limited  resource is in jeopardy. For example, if a database connection pool runs out  of connections, an availability exception should be thrown.</dd>
+		<dd>An IntegrityException should be thrown when the integrity of a resource  cannot be assured. For example, if Message Authentication Code does not have the  expected value for a given message.</dd>
 	</dl>
 		<dl>
 	<dt><a href="../ESAPI_Errors/ValidationException.html">ValidationException</a></dt>
@@ -166,9 +174,9 @@ Exception
 </div>
 <hr />
 <a name="var$logger" id="var$logger"><!-- --></A>
-<div style="background='#eeeeee'">
+<div style="background='#ffffff'">
 <h4>
-<img src="../media/images/PublicProperty.gif" border="0" /> <strong class="property">$logger</strong> (line <span class="linenumber">38</span>)
+<img src="../media/images/PublicProperty.gif" border="0" /> <strong class="property">$logger</strong> (line <span class="linenumber">56</span>)
  </h4>
 <h4>Data type : mixed</h4>
 <!-- ========== Info from phpDoc block ========= -->
@@ -178,9 +186,9 @@ Exception
 	</ul>
 </div>
 <a name="var$logMessage" id="var$logMessage"><!-- --></A>
-<div style="background='#ffffff'">
+<div style="background='#eeeeee'">
 <h4>
-<img src="../media/images/PublicProperty.gif" border="0" /> <strong class="property">$logMessage =  null</strong> (line <span class="linenumber">39</span>)
+<img src="../media/images/PublicProperty.gif" border="0" /> <strong class="property">$logMessage =  null</strong> (line <span class="linenumber">57</span>)
  </h4>
 <h4>Data type : mixed</h4>
 <!-- ========== Info from phpDoc block ========= -->
@@ -204,17 +212,17 @@ Exception
 <strong>Summary:</strong><br />
 <div class="method-summary">
     <div class="method-definition">
-            <span class="method-result">EnterpriseSecurityException</span>
+            <span class="method-result">does</span>
         <a href="#method__construct" title="details" class="method-name">__construct</a>
-        ([<span class="var-type">userMessage</span>&nbsp;<span class="var-name">$userMessage</span> = <span class="var-default">''</span>], [<span class="var-type">logMessage</span>&nbsp;<span class="var-name">$logMessage</span> = <span class="var-default">''</span>], <span class="var-type">cause</span>&nbsp;<span class="var-name">2</span>)
+        ([<span class="var-type">string</span>&nbsp;<span class="var-name">$userMessage</span> = <span class="var-default">''</span>], [<span class="var-type">string</span>&nbsp;<span class="var-name">$logMessage</span> = <span class="var-default">''</span>])
         </div>
     <div class="method-definition">
-            <span class="method-result">a</span>
+            <span class="method-result">string</span>
         <a href="#methodgetLogMessage" title="details" class="method-name">getLogMessage</a>
         ()
         </div>
     <div class="method-definition">
-            <span class="method-result">a</span>
+            <span class="method-result">string</span>
         <a href="#methodgetUserMessage" title="details" class="method-name">getUserMessage</a>
         ()
         </div>
@@ -224,14 +232,13 @@ Exception
 
 
 <a name="method__construct" id="method__construct"><!-- --></a>
-<div style="background='#eeeeee'"><h4>
-<img src="../media/images/Constructor.gif" border="0" /> <strong class="method">Constructor __construct</strong> (line <span class="linenumber">50</span>)
+<div style="background='#ffffff'"><h4>
+<img src="../media/images/Constructor.gif" border="0" /> <strong class="method">Constructor __construct</strong> (line <span class="linenumber">68</span>)
  </h4> 
-<h4><i>EnterpriseSecurityException</i> <strong>__construct(
-[userMessage
-$userMessage = ''], [logMessage
-$logMessage = ''], cause
-2)</strong></h4>
+<h4><i>does</i> <strong>__construct(
+[string
+$userMessage = ''], [string
+$logMessage = ''])</strong></h4>
 	<p>Overridden in child classes as:<br />
 		<dl>
 	<dt><a href="../ESAPI_Errors/AccessControlException.html#method__construct">AccessControlException::__construct()</a></dt>
@@ -297,24 +304,24 @@ $logMessage = ''], cause
 
 <p><strong>Overrides :</strong> Exception::constructor __construct ( [$message = ], [$code = ] ) parent method not documented</p>
 	<!-- ========== Info from phpDoc block ========= -->
-<h5>Creates a new instance of EnterpriseSecurityException that includes a root cause</h5>
+<h5>Creates a new instance of EnterpriseSecurityException that includes a  root cause</h5>
 		<h4>Parameters</h4>
 	<ul>
-			<li><strong>cause 2</strong>: the cause</li>
-			<li><strong>userMessage $userMessage</strong>: the message displayed to the user</li>
-			<li><strong>logMessage $logMessage</strong>: the message logged</li>
+			<li><strong>string $userMessage</strong>: the message displayed to the user</li>
+			<li><strong>string $logMessage</strong>: the message logged</li>
 		</ul>
 		
 	<h4>Info</h4>
 	<ul>
+			<li><strong>return</strong> - not return a value.</li>
 			<li><strong>access</strong> - public</li>
 		</ul>
 </div>
 <a name="methodgetLogMessage" id="methodgetLogMessage"><!-- --></a>
-<div style="background='#ffffff'"><h4>
-<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method getLogMessage</strong> (line <span class="linenumber">84</span>)
+<div style="background='#eeeeee'"><h4>
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method getLogMessage</strong> (line <span class="linenumber">103</span>)
  </h4> 
-<h4><i>a</i> <strong>getLogMessage(
+<h4><i>string</i> <strong>getLogMessage(
 )</strong></h4>
 
 	<!-- ========== Info from phpDoc block ========= -->
@@ -322,15 +329,15 @@ $logMessage = ''], cause
 		
 	<h4>Info</h4>
 	<ul>
-			<li><strong>return</strong> - String containing a message that is safe to display in logs, but probably not to users</li>
+			<li><strong>return</strong> - a String containing a message that is safe to display in                 logs, but probably not to users</li>
 			<li><strong>access</strong> - public</li>
 		</ul>
 </div>
 <a name="methodgetUserMessage" id="methodgetUserMessage"><!-- --></a>
-<div style="background='#eeeeee'"><h4>
-<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method getUserMessage</strong> (line <span class="linenumber">74</span>)
+<div style="background='#ffffff'"><h4>
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method getUserMessage</strong> (line <span class="linenumber">92</span>)
  </h4> 
-<h4><i>a</i> <strong>getUserMessage(
+<h4><i>string</i> <strong>getUserMessage(
 )</strong></h4>
 
 	<!-- ========== Info from phpDoc block ========= -->
@@ -338,7 +345,7 @@ $logMessage = ''], cause
 		
 	<h4>Info</h4>
 	<ul>
-			<li><strong>return</strong> - String containing a message that is safe to display to users</li>
+			<li><strong>return</strong> - a String containing a message that is safe to display to                 users</li>
 			<li><strong>access</strong> - public</li>
 		</ul>
 </div>
@@ -428,7 +435,7 @@ setupAllTabs();
 </script>
 	<div id="credit">
 		<hr />
-		Documentation generated on Fri, 16 Apr 2010 14:39:14 -0400 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
+		Documentation generated on Fri, 21 May 2010 08:50:52 -0400 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
 	</div>
 </body>
 </html>
