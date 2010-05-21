@@ -27,7 +27,7 @@ require_once dirname(__FILE__) . '/../SecurityConfiguration.php';
  * Reference Implementation of the SecurityConfiguration interface.
  *
  * @category  OWASP
- * @package   ESAPI
+ * @package   ESAPI_Reference
  * @author    Andrew van der Stock <vanderaj@owasp.org>
  * @author    Mike Boberski <boberski_michael@bah.com>
  * @copyright 2009-2010 The OWASP Foundation

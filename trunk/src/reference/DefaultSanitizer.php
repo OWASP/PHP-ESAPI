@@ -37,10 +37,10 @@ require_once dirname ( __FILE__ ) . '/validation/WordValidationRule.php';
 /**
  * Reference Implementation of the Sanitizer Interface.
  *
- * PHP version 5.2.9
+ * PHP version 5.2
  *
  * @category  OWASP
- * @package   ESAPI
+ * @package   ESAPI_Reference
  * @version   1.0
  * @author    jah <jah@jahboite.co.uk>
  * @copyright 2009-2010 The OWASP Foundation

@@ -39,7 +39,7 @@ require_once dirname(__FILE__).'/validation/DateValidationRule.php';
  * Reference Implementation of the Validator interface.
  *
  * @category  OWASP
- * @package   ESAPI
+ * @package   ESAPI_Reference
  * @author    Jeff Williams <jeff.williams@aspectsecurity.com>
  * @author    Andrew van der Stock <vanderaj@owasp.org>
  * @author    Johannes B. Ullrich <jullrich@sans.edu>
