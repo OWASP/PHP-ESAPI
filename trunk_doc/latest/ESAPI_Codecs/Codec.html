@@ -119,6 +119,10 @@ tp1 = new WebFXTabPane( document.getElementById( "tabPane1" ));
 <br /><hr />
 <span class="type">Classes extended from Codec:</span>
  		<dl>
+	<dt><a href="../ESAPI_Codecs/Base64Codec.html">Base64Codec</a></dt>
+		<dd>Reference implementation of the base 64 codec.</dd>
+	</dl>
+		<dl>
 	<dt><a href="../ESAPI_Codecs/CSSCodec.html">CSSCodec</a></dt>
 		<dd>Reference implementation of the CSS codec.</dd>
 	</dl>
@@ -379,6 +383,10 @@ $c)</strong></h4>
 )</strong></h4>
 	<p>Overridden in child classes as:<br />
 		<dl>
+	<dt><a href="../ESAPI_Codecs/Base64Codec.html#method__construct">Base64Codec::__construct()</a></dt>
+		<dd>Public Constructor</dd>
+	</dl>
+		<dl>
 	<dt><a href="../ESAPI_Codecs/CSSCodec.html#method__construct">CSSCodec::__construct()</a></dt>
 		<dd>Public Constructor</dd>
 	</dl>
@@ -435,6 +443,12 @@ $c)</strong></h4>
 <h4><i>string</i> <strong>decode(
 string
 $input)</strong></h4>
+	<p>Overridden in child classes as:<br />
+		<dl>
+	<dt><a href="../ESAPI_Codecs/Base64Codec.html#methoddecode">Base64Codec::decode()</a></dt>
+		<dd>Decodes the given input string from Base64 to plain text.</dd>
+	</dl>
+	</p>
 
 	<!-- ========== Info from phpDoc block ========= -->
 <h5>Decode a String that was encoded using the encode method in this Class</h5>
@@ -456,6 +470,12 @@ $input)</strong></h4>
 string
 $immune, string
 $input)</strong></h4>
+	<p>Overridden in child classes as:<br />
+		<dl>
+	<dt><a href="../ESAPI_Codecs/Base64Codec.html#methodencode">Base64Codec::encode()</a></dt>
+		<dd>Encodes the input string to Base64.</dd>
+	</dl>
+	</p>
 
 	<!-- ========== Info from phpDoc block ========= -->
 <h5>Encode a String with a Codec.</h5>
@@ -481,12 +501,16 @@ $immune, string
 $c)</strong></h4>
 	<p>Overridden in child classes as:<br />
 		<dl>
+	<dt><a href="../ESAPI_Codecs/Base64Codec.html#methodencodeCharacter">Base64Codec::encodeCharacter()</a></dt>
+		<dd>Encodes a single character to Base64.</dd>
+	</dl>
+		<dl>
 	<dt><a href="../ESAPI_Codecs/CSSCodec.html#methodencodeCharacter">CSSCodec::encodeCharacter()</a></dt>
-		<dd>{@inheritDoc}</dd>
+		<dd></dd>
 	</dl>
 		<dl>
 	<dt><a href="../ESAPI_Codecs/HTMLEntityCodec.html#methodencodeCharacter">HTMLEntityCodec::encodeCharacter()</a></dt>
-		<dd>{@inheritDoc}</dd>
+		<dd></dd>
 	</dl>
 		<dl>
 	<dt><a href="../ESAPI_Codecs/JavaScriptCodec.html#methodencodeCharacter">JavaScriptCodec::encodeCharacter()</a></dt>
@@ -494,31 +518,31 @@ $c)</strong></h4>
 	</dl>
 		<dl>
 	<dt><a href="../ESAPI_Codecs/MySQLCodec.html#methodencodeCharacter">MySQLCodec::encodeCharacter()</a></dt>
-		<dd>{@inheritDoc}</dd>
+		<dd></dd>
 	</dl>
 		<dl>
 	<dt><a href="../ESAPI_Codecs/OracleCodec.html#methodencodeCharacter">OracleCodec::encodeCharacter()</a></dt>
-		<dd>{@inheritDoc}</dd>
+		<dd></dd>
 	</dl>
 		<dl>
 	<dt><a href="../ESAPI_Codecs/PercentCodec.html#methodencodeCharacter">PercentCodec::encodeCharacter()</a></dt>
-		<dd>{@inheritDoc}</dd>
+		<dd></dd>
 	</dl>
 		<dl>
 	<dt><a href="../ESAPI_Codecs/UnixCodec.html#methodencodeCharacter">UnixCodec::encodeCharacter()</a></dt>
-		<dd>{@inheritDoc}</dd>
+		<dd></dd>
 	</dl>
 		<dl>
 	<dt><a href="../ESAPI_Codecs/VBScriptCodec.html#methodencodeCharacter">VBScriptCodec::encodeCharacter()</a></dt>
-		<dd>{@inheritDoc}</dd>
+		<dd></dd>
 	</dl>
 		<dl>
 	<dt><a href="../ESAPI_Codecs/WindowsCodec.html#methodencodeCharacter">WindowsCodec::encodeCharacter()</a></dt>
-		<dd>{@inheritDoc}</dd>
+		<dd></dd>
 	</dl>
 		<dl>
 	<dt><a href="../ESAPI_Reference_Validation/XMLEntityCodec.html#methodencodeCharacter">XMLEntityCodec::encodeCharacter()</a></dt>
-		<dd>{@inheritDoc}</dd>
+		<dd></dd>
 	</dl>
 	</p>
 
@@ -583,7 +607,7 @@ setupAllTabs();
 </script>
 	<div id="credit">
 		<hr />
-		Documentation generated on Fri, 21 May 2010 09:20:28 -0400 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
+		Documentation generated on Fri, 21 May 2010 11:50:11 -0400 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
 	</div>
 </body>
 </html>
