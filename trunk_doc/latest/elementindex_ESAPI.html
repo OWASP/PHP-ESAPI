@@ -77,7 +77,7 @@
   </tr>
     <tr>
     <td>&nbsp;&nbsp;&nbsp;<strong>AccessController</strong></td>
-    <td width="100%" align="left" valign="top">in file AccessController.php, class <a href="ESAPI/AccessController.html">AccessController</a><br>&nbsp;&nbsp;&nbsp;&nbsp;The AccessController interface defines a set of methods that can be used in a</td>
+    <td width="100%" align="left" valign="top">in file AccessController.php, class <a href="ESAPI/AccessController.html">AccessController</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Use this ESAPI security control to wrap your access control functions.</td>
   </tr>
     <tr>
     <td>&nbsp;&nbsp;&nbsp;<strong>AccessController.php</strong></td>
@@ -85,7 +85,7 @@
   </tr>
     <tr>
     <td>&nbsp;&nbsp;&nbsp;<strong>AccessReferenceMap</strong></td>
-    <td width="100%" align="left" valign="top">in file AccessReferenceMap.php, class <a href="ESAPI/AccessReferenceMap.html">AccessReferenceMap</a><br>&nbsp;&nbsp;&nbsp;&nbsp;The AccessReferenceMap interface is used to map from a set of internal</td>
+    <td width="100%" align="left" valign="top">in file AccessReferenceMap.php, class <a href="ESAPI/AccessReferenceMap.html">AccessReferenceMap</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Use this ESAPI security control to create access reference maps.</td>
   </tr>
     <tr>
     <td>&nbsp;&nbsp;&nbsp;<strong>AccessReferenceMap.php</strong></td>
@@ -149,7 +149,7 @@
   </tr>
     <tr>
     <td>&nbsp;&nbsp;&nbsp;<strong>Auditor</strong></td>
-    <td width="100%" align="left" valign="top">in file Auditor.php, class <a href="ESAPI/Auditor.html">Auditor</a><br>&nbsp;&nbsp;&nbsp;&nbsp;The Logger interface defines a set of methods that can be used to log</td>
+    <td width="100%" align="left" valign="top">in file Auditor.php, class <a href="ESAPI/Auditor.html">Auditor</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Use this ESAPI security control to wrap your auditing functions.</td>
   </tr>
     <tr>
     <td>&nbsp;&nbsp;&nbsp;<strong>Auditor.php</strong></td>
@@ -157,7 +157,7 @@
   </tr>
     <tr>
     <td>&nbsp;&nbsp;&nbsp;<strong>AuditorFactory</strong></td>
-    <td width="100%" align="left" valign="top">in file AuditorFactory.php, class <a href="ESAPI/AuditorFactory.html">AuditorFactory</a><br>&nbsp;&nbsp;&nbsp;&nbsp;The LogFactory interface is intended to allow substitution of various logging  packages, while providing a common interface to access them.</td>
+    <td width="100%" align="left" valign="top">in file AuditorFactory.php, class <a href="ESAPI/AuditorFactory.html">AuditorFactory</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Use this ESAPI security control to swap audit libraries in and out.</td>
   </tr>
     <tr>
     <td>&nbsp;&nbsp;&nbsp;<strong>AuditorFactory.php</strong></td>
@@ -324,7 +324,7 @@
   </tr>
     <tr>
     <td>&nbsp;&nbsp;&nbsp;<strong>Encoder</strong></td>
-    <td width="100%" align="left" valign="top">in file Encoder.php, class <a href="ESAPI/Encoder.html">Encoder</a><br>&nbsp;&nbsp;&nbsp;&nbsp;The Encoder interface contains a number of methods for decoding input and</td>
+    <td width="100%" align="left" valign="top">in file Encoder.php, class <a href="ESAPI/Encoder.html">Encoder</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Use this ESAPI security control to wrap your codecs.</td>
   </tr>
     <tr>
     <td>&nbsp;&nbsp;&nbsp;<strong>Encoder.php</strong></td>
@@ -344,7 +344,7 @@
   </tr>
     <tr>
     <td>&nbsp;&nbsp;&nbsp;<strong>ESAPI</strong></td>
-    <td width="100%" align="left" valign="top">in file ESAPI.php, class <a href="ESAPI/ESAPI.html">ESAPI</a><br>&nbsp;&nbsp;&nbsp;&nbsp;ESAPI locator class is provided to make it easy to gain access to the current  ESAPI classes in use. Use the set methods to override the reference  implementations with instances of any custom ESAPI implementations.</td>
+    <td width="100%" align="left" valign="top">in file ESAPI.php, class <a href="ESAPI/ESAPI.html">ESAPI</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Use this class to get and set ESAPI security controls.</td>
   </tr>
     <tr>
     <td>&nbsp;&nbsp;&nbsp;<strong>ESAPI.php</strong></td>
@@ -360,7 +360,7 @@
   </tr>
     <tr>
     <td>&nbsp;&nbsp;&nbsp;<strong>Executor</strong></td>
-    <td width="100%" align="left" valign="top">in file Executor.php, class <a href="ESAPI/Executor.html">Executor</a><br>&nbsp;&nbsp;&nbsp;&nbsp;The Executor interface is used to run an OS command with reduced security  risk.</td>
+    <td width="100%" align="left" valign="top">in file Executor.php, class <a href="ESAPI/Executor.html">Executor</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Use this ESAPI security control to call command-line operating  system functions.</td>
   </tr>
     <tr>
     <td>&nbsp;&nbsp;&nbsp;<strong>Executor.php</strong></td>
@@ -399,10 +399,6 @@
     <tr>
     <td>&nbsp;&nbsp;&nbsp;<strong>getAccessController</strong></td>
     <td width="100%" align="left" valign="top">in file ESAPI.php, method <a href="ESAPI/ESAPI.html#methodgetAccessController">ESAPI::getAccessController()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Get the current ESAPI AccessController object being used to maintain the  access control rules for this application.</td>
-  </tr>
-    <tr>
-    <td>&nbsp;&nbsp;&nbsp;<strong>getAdapter</strong></td>
-    <td width="100%" align="left" valign="top">in file ESAPI.php, method <a href="ESAPI/ESAPI.html#methodgetAdapter">ESAPI::getAdapter()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Get the current ESAPI Adapter object being used to wrap ESAPI functions  for this application.</td>
   </tr>
     <tr>
     <td>&nbsp;&nbsp;&nbsp;<strong>getAllowedExecutables</strong></td>
@@ -659,7 +655,7 @@
 <tbody>
     <tr>
     <td>&nbsp;&nbsp;&nbsp;<strong>HTTPUtilities</strong></td>
-    <td width="100%" align="left" valign="top">in file HTTPUtilities.php, class <a href="ESAPI/HTTPUtilities.html">HTTPUtilities</a><br>&nbsp;&nbsp;&nbsp;&nbsp;The HTTPUtilities interface is a collection of methods that provide  additional security related to HTTP requests, responses, sessions, cookies,  headers, and logging.</td>
+    <td width="100%" align="left" valign="top">in file HTTPUtilities.php, class <a href="ESAPI/HTTPUtilities.html">HTTPUtilities</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Use this ESAPI security control to assist with HTTP security.</td>
   </tr>
     <tr>
     <td>&nbsp;&nbsp;&nbsp;<strong>HTTPUtilities.php</strong></td>
@@ -688,7 +684,7 @@
   </tr>
     <tr>
     <td>&nbsp;&nbsp;&nbsp;<strong>IntrusionDetector</strong></td>
-    <td width="100%" align="left" valign="top">in file IntrusionDetector.php, class <a href="ESAPI/IntrusionDetector.html">IntrusionDetector</a><br>&nbsp;&nbsp;&nbsp;&nbsp;The IntrusionDetector interface is intended to track security relevant events  and identify attack behavior. The implementation can use as much state as  necessary to detect attacks, but note that storing too much state will burden  your system.</td>
+    <td width="100%" align="left" valign="top">in file IntrusionDetector.php, class <a href="ESAPI/IntrusionDetector.html">IntrusionDetector</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Use this ESAPI security control to wrap intrusion detection functions  that are internal to your application.</td>
   </tr>
     <tr>
     <td>&nbsp;&nbsp;&nbsp;<strong>IntrusionDetector.php</strong></td>
@@ -886,7 +882,7 @@
 <tbody>
     <tr>
     <td>&nbsp;&nbsp;&nbsp;<strong>Randomizer</strong></td>
-    <td width="100%" align="left" valign="top">in file Randomizer.php, class <a href="ESAPI/Randomizer.html">Randomizer</a><br>&nbsp;&nbsp;&nbsp;&nbsp;The Randomizer interface defines a set of methods for creating  cryptographically random numbers and strings. Implementers should be sure to  use a strong cryptographic implementation, such as the JCE or BouncyCastle.</td>
+    <td width="100%" align="left" valign="top">in file Randomizer.php, class <a href="ESAPI/Randomizer.html">Randomizer</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Use this ESAPI security control to get random numbers and strings.</td>
   </tr>
     <tr>
     <td>&nbsp;&nbsp;&nbsp;<strong>Randomizer.php</strong></td>
@@ -907,7 +903,7 @@
 <tbody>
     <tr>
     <td>&nbsp;&nbsp;&nbsp;<strong>SafeFile</strong></td>
-    <td width="100%" align="left" valign="top">in file SafeFile.php, class <a href="ESAPI/SafeFile.html">SafeFile</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Extension to SplFileObject to prevent against null byte injections and  other unforeseen problems resulting from unprintable characters  causing problems in path lookups. This does _not_ prevent against  directory traversal attacks.</td>
+    <td width="100%" align="left" valign="top">in file SafeFile.php, class <a href="ESAPI/SafeFile.html">SafeFile</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Use this ESAPI security control to read files from the operating  system.</td>
   </tr>
     <tr>
     <td>&nbsp;&nbsp;&nbsp;<strong>SafeFile.php</strong></td>
@@ -919,7 +915,7 @@
   </tr>
     <tr>
     <td>&nbsp;&nbsp;&nbsp;<strong>Sanitizer</strong></td>
-    <td width="100%" align="left" valign="top">in file Sanitizer.php, class <a href="ESAPI/Sanitizer.html">Sanitizer</a><br>&nbsp;&nbsp;&nbsp;&nbsp;The Sanitizer interface defines a set of methods for sanitizing untrusted  input to remove all but a whitelist of characters. Implementors should feel  free to extend this interface to accommodate their own data formats.</td>
+    <td width="100%" align="left" valign="top">in file Sanitizer.php, class <a href="ESAPI/Sanitizer.html">Sanitizer</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Use this ESAPI security control to wrap your sanitization functions.</td>
   </tr>
     <tr>
     <td>&nbsp;&nbsp;&nbsp;<strong>Sanitizer.php</strong></td>
@@ -931,7 +927,7 @@
   </tr>
     <tr>
     <td>&nbsp;&nbsp;&nbsp;<strong>SecurityConfiguration</strong></td>
-    <td width="100%" align="left" valign="top">in file SecurityConfiguration.php, class <a href="ESAPI/SecurityConfiguration.html">SecurityConfiguration</a><br>&nbsp;&nbsp;&nbsp;&nbsp;The SecurityConfiguration interface stores all configuration information that  directs the behavior of the ESAPI implementation.</td>
+    <td width="100%" align="left" valign="top">in file SecurityConfiguration.php, class <a href="ESAPI/SecurityConfiguration.html">SecurityConfiguration</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Use this ESAPI security control to manage ESAPI security control  functions.</td>
   </tr>
     <tr>
     <td>&nbsp;&nbsp;&nbsp;<strong>SecurityConfiguration.php</strong></td>
@@ -940,10 +936,6 @@
     <tr>
     <td>&nbsp;&nbsp;&nbsp;<strong>setAccessController</strong></td>
     <td width="100%" align="left" valign="top">in file ESAPI.php, method <a href="ESAPI/ESAPI.html#methodsetAccessController">ESAPI::setAccessController()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Set the current ESAPI AccessController object being used to maintain the  access control rules for this application.</td>
-  </tr>
-    <tr>
-    <td>&nbsp;&nbsp;&nbsp;<strong>setAdapter</strong></td>
-    <td width="100%" align="left" valign="top">in file ESAPI.php, method <a href="ESAPI/ESAPI.html#methodsetAdapter">ESAPI::setAdapter()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Set the current ESAPI AccessController object being used to wrap ESAPI  functions for this application.</td>
   </tr>
     <tr>
     <td>&nbsp;&nbsp;&nbsp;<strong>setAllowNull</strong></td>
@@ -1019,7 +1011,7 @@
   </tr>
     <tr>
     <td>&nbsp;&nbsp;&nbsp;<strong>StringUtilities</strong></td>
-    <td width="100%" align="left" valign="top">in file StringUtilities.php, class <a href="ESAPI/StringUtilities.html">StringUtilities</a><br>&nbsp;&nbsp;&nbsp;&nbsp;String utilities used in various filters.</td>
+    <td width="100%" align="left" valign="top">in file StringUtilities.php, class <a href="ESAPI/StringUtilities.html">StringUtilities</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Use this ESAPI security control to assist with manipulating strings  in other ESAPI security controls.</td>
   </tr>
     <tr>
     <td>&nbsp;&nbsp;&nbsp;<strong>StringUtilities.php</strong></td>
@@ -1082,7 +1074,7 @@
 <tbody>
     <tr>
     <td>&nbsp;&nbsp;&nbsp;<strong>ValidationErrorList</strong></td>
-    <td width="100%" align="left" valign="top">in file ValidationErrorList.php, class <a href="ESAPI/ValidationErrorList.html">ValidationErrorList</a><br>&nbsp;&nbsp;&nbsp;&nbsp;The ValidationErrorList class defines a well-formed collection of ValidationExceptions so that groups of validation functions can be called in a non-blocking fashion.</td>
+    <td width="100%" align="left" valign="top">in file ValidationErrorList.php, class <a href="ESAPI/ValidationErrorList.html">ValidationErrorList</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Use this ESAPI security control to enumerate validation exceptions.</td>
   </tr>
     <tr>
     <td>&nbsp;&nbsp;&nbsp;<strong>ValidationErrorList.php</strong></td>
@@ -1090,7 +1082,7 @@
   </tr>
     <tr>
     <td>&nbsp;&nbsp;&nbsp;<strong>ValidationRule</strong></td>
-    <td width="100%" align="left" valign="top">in file ValidationRule.php, class <a href="ESAPI/ValidationRule.html">ValidationRule</a><br>&nbsp;&nbsp;&nbsp;&nbsp;ValidationRule Interface.</td>
+    <td width="100%" align="left" valign="top">in file ValidationRule.php, class <a href="ESAPI/ValidationRule.html">ValidationRule</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Use this ESAPI security control to wrap your data type-specific  validation rules.</td>
   </tr>
     <tr>
     <td>&nbsp;&nbsp;&nbsp;<strong>ValidationRule.php</strong></td>
@@ -1098,7 +1090,7 @@
   </tr>
     <tr>
     <td>&nbsp;&nbsp;&nbsp;<strong>Validator</strong></td>
-    <td width="100%" align="left" valign="top">in file Validator.php, class <a href="ESAPI/Validator.html">Validator</a><br>&nbsp;&nbsp;&nbsp;&nbsp;The Validator interface defines a set of methods for canonicalizing and</td>
+    <td width="100%" align="left" valign="top">in file Validator.php, class <a href="ESAPI/Validator.html">Validator</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Use this ESAPI security control to wrap data validation functions.</td>
   </tr>
     <tr>
     <td>&nbsp;&nbsp;&nbsp;<strong>Validator.php</strong></td>

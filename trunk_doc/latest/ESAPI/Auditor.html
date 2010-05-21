@@ -90,7 +90,7 @@
 <body bgcolor="#ffffff" ><!-- Start of Class Data -->
 <h2>
 	Interface Auditor
-</h2> (line <span class="linenumber">102</span>)
+</h2> (line <span class="linenumber">44</span>)
 <div class="tab-pane" id="tabPane1">
 <script type="text/javascript">
 tp1 = new WebFXTabPane( document.getElementById( "tabPane1" ));
@@ -104,23 +104,13 @@ tp1 = new WebFXTabPane( document.getElementById( "tabPane1" ));
 	<b><i>Located in File: <a href="_Auditor.php.html">/Auditor.php</a></i></b><br>
 </p>
 <!-- ========== Info from phpDoc block ========= -->
-<h5>The Logger interface defines a set of methods that can be used to log</h5>
-<div class="desc"><p>security events. It supports a hierarchy of logging levels which can be  configured at runtime to determine the severity of events that are logged,  and those below the current threshold that are discarded. Implementors should  use a well established logging library as it is quite difficult to create a  high-performance logger.</p><p>&lt;img src=&quot;doc-files/Logger.jpg&quot;&gt;</p><p>The logging levels defined by this interface (in descending order) are:  <ul><li>fatal (highest value)</li><li>error</li><li>warning</li><li>info</li><li>debug</li><li>trace (lowest value)</li></ul></p><p>This Logger allows callers to determine which logging levels are enabled, and  to submit events at different severity levels.</p><p>Implementors of this interface should:</p><p><ol><li>provide a mechanism for setting the logging level threshold that is
- currently enabled. This usually works by logging all events at and above that
- severity level, and discarding all events below that level. This is usually
- done via configuration, but can also be made accessible programmatically.</li><li>ensure that dangerous HTML characters are encoded before they are logged
- to defend against malicious injection into logs that might be viewed in an
- HTML based log viewer.</li><li>encode any CRLF characters included in log data in order to prevent log
- injection attacks.</li><li>avoid logging the user's session ID. Rather, they should log something
- equivalent like a generated logging session ID, or a hashed value of the
- session ID so they can track session specific events without risking the
- exposure of a live session's ID.</li><li>record the following information with each event:</li><li>identity of the user that caused the event,</li><li>a description of the event (supplied by the caller),</li><li>whether the event succeeded or failed (indicated by the caller),</li><li>severity level of the event (indicated by the caller),</li><li>that this is a security relevant event (indicated by the caller),</li><li>hostname or IP where the event occurred (and ideally the user's source
-   IP as well),</li><li>a time stamp</li></ol>  &lt;/ol&gt;</p><p>Custom logger implementations might also:  &lt;ol start=&quot;6&quot;&gt;  &lt;li&gt;filter out any sensitive data specific to the current application or  organization, such as credit cards, social security numbers, etc.&lt;/li&gt;  &lt;/ol&gt;</p><p>Customization: It is expected that most organizations will implement their  own custom Logger class in order to integrate ESAPI logging with their  logging infrastructure. The ESAPI Reference Implementation is intended to  provide a simple functional example of an implementation.</p></div>
+<h5>Use this ESAPI security control to wrap your auditing functions.</h5>
+<div class="desc"><p>The idea behind this interface is to define a set of functions that can  be used to log security events. Implementors should use a well  established logging library.</p></div>
 <ul>
-		<li><strong>author:</strong> - jah &lt;<a href="mailto:jah@jahboite.co.uk">jah@jahboite.co.uk</a>&gt;</li>
-		<li><strong>author:</strong> - Andrew van der Stock &lt;<a href="mailto:vanderaj@owasp.org">vanderaj@owasp.org</a>&gt;</li>
-		<li><strong>author:</strong> - Jeff Williams &lt;<a href="mailto:jeff.williams@aspectsecurity.com">jeff.williams@aspectsecurity.com</a>&gt;</li>
+		<li><strong>author:</strong> - Mike Boberski &lt;<a href="mailto:boberski_michael@bah.com">boberski_michael@bah.com</a>&gt;</li>
 		<li><strong>author:</strong> - Laura Bell &lt;<a href="mailto:laura.d.bell@gmail.com">laura.d.bell@gmail.com</a>&gt;</li>
+		<li><strong>author:</strong> - Andrew van der Stock &lt;<a href="mailto:vanderaj@owasp.org">vanderaj@owasp.org</a>&gt;</li>
+		<li><strong>author:</strong> - jah &lt;<a href="mailto:jah@jahboite.co.uk">jah@jahboite.co.uk</a>&gt;</li>
 		<li><strong>version:</strong> - Release: @package_version@</li>
 		<li><strong>copyright:</strong> - 2009-2010 The OWASP Foundation</li>
 		<li><strong>link:</strong> - <a href="http://www.owasp.org/index.php/ESAPI">http://www.owasp.org/index.php/ESAPI</a></li>
@@ -182,7 +172,7 @@ tp1 = new WebFXTabPane( document.getElementById( "tabPane1" ));
 <a name="constALL" id="constALL"><!-- --></A>
 <div style="background='#ffffff'">
 <h4>
-<img src="../media/images/Constant.gif" border="0" /> <strong class="property">ALL =  0</strong> (line <span class="linenumber">187</span>)
+<img src="../media/images/Constant.gif" border="0" /> <strong class="property">ALL =  0</strong> (line <span class="linenumber">129</span>)
  </h4>
 <!-- ========== Info from phpDoc block ========= -->
 <h5>ALL indicates that all messages should be logged.</h5>
@@ -193,7 +183,7 @@ tp1 = new WebFXTabPane( document.getElementById( "tabPane1" ));
 <a name="constDEBUG" id="constDEBUG"><!-- --></A>
 <div style="background='#eeeeee'">
 <h4>
-<img src="../media/images/Constant.gif" border="0" /> <strong class="property">DEBUG =  200</strong> (line <span class="linenumber">175</span>)
+<img src="../media/images/Constant.gif" border="0" /> <strong class="property">DEBUG =  200</strong> (line <span class="linenumber">117</span>)
  </h4>
 <!-- ========== Info from phpDoc block ========= -->
 <h5>DEBUG indicates that DEBUG messages and above should be logged.</h5>
@@ -204,7 +194,7 @@ tp1 = new WebFXTabPane( document.getElementById( "tabPane1" ));
 <a name="constERROR" id="constERROR"><!-- --></A>
 <div style="background='#ffffff'">
 <h4>
-<img src="../media/images/Constant.gif" border="0" /> <strong class="property">ERROR =  800</strong> (line <span class="linenumber">157</span>)
+<img src="../media/images/Constant.gif" border="0" /> <strong class="property">ERROR =  800</strong> (line <span class="linenumber">99</span>)
  </h4>
 <!-- ========== Info from phpDoc block ========= -->
 <h5>ERROR indicates that ERROR messages and above should be logged.</h5>
@@ -215,7 +205,7 @@ tp1 = new WebFXTabPane( document.getElementById( "tabPane1" ));
 <a name="constFATAL" id="constFATAL"><!-- --></A>
 <div style="background='#eeeeee'">
 <h4>
-<img src="../media/images/Constant.gif" border="0" /> <strong class="property">FATAL =  1000</strong> (line <span class="linenumber">151</span>)
+<img src="../media/images/Constant.gif" border="0" /> <strong class="property">FATAL =  1000</strong> (line <span class="linenumber">93</span>)
  </h4>
 <!-- ========== Info from phpDoc block ========= -->
 <h5>FATAL indicates that only FATAL messages should be logged.</h5>
@@ -226,7 +216,7 @@ tp1 = new WebFXTabPane( document.getElementById( "tabPane1" ));
 <a name="constFUNCTIONALITY" id="constFUNCTIONALITY"><!-- --></A>
 <div style="background='#ffffff'">
 <h4>
-<img src="../media/images/Constant.gif" border="0" /> <strong class="property">FUNCTIONALITY =  'FUNCTIONALITY'</strong> (line <span class="linenumber">132</span>)
+<img src="../media/images/Constant.gif" border="0" /> <strong class="property">FUNCTIONALITY =  'FUNCTIONALITY'</strong> (line <span class="linenumber">74</span>)
  </h4>
 <!-- ========== Info from phpDoc block ========= -->
 <h5>The FUNCTIONALITY type of log event. This is the type of event that  non-security focused loggers typically log. If you are going to log your  existing non-security events in the same log with your security events,  you probably want to use this type of log event.</h5>
@@ -236,7 +226,7 @@ tp1 = new WebFXTabPane( document.getElementById( "tabPane1" ));
 <a name="constINFO" id="constINFO"><!-- --></A>
 <div style="background='#eeeeee'">
 <h4>
-<img src="../media/images/Constant.gif" border="0" /> <strong class="property">INFO =  400</strong> (line <span class="linenumber">169</span>)
+<img src="../media/images/Constant.gif" border="0" /> <strong class="property">INFO =  400</strong> (line <span class="linenumber">111</span>)
  </h4>
 <!-- ========== Info from phpDoc block ========= -->
 <h5>INFO indicates that INFO messages and above should be logged.</h5>
@@ -247,7 +237,7 @@ tp1 = new WebFXTabPane( document.getElementById( "tabPane1" ));
 <a name="constOFF" id="constOFF"><!-- --></A>
 <div style="background='#ffffff'">
 <h4>
-<img src="../media/images/Constant.gif" border="0" /> <strong class="property">OFF =  PHP_INT_MAX</strong> (line <span class="linenumber">145</span>)
+<img src="../media/images/Constant.gif" border="0" /> <strong class="property">OFF =  PHP_INT_MAX</strong> (line <span class="linenumber">87</span>)
  </h4>
 <!-- ========== Info from phpDoc block ========= -->
 <h5>OFF indicates that no messages should be logged.</h5>
@@ -258,7 +248,7 @@ tp1 = new WebFXTabPane( document.getElementById( "tabPane1" ));
 <a name="constPERFORMANCE" id="constPERFORMANCE"><!-- --></A>
 <div style="background='#eeeeee'">
 <h4>
-<img src="../media/images/Constant.gif" border="0" /> <strong class="property">PERFORMANCE =  'PERFORMANCE'</strong> (line <span class="linenumber">124</span>)
+<img src="../media/images/Constant.gif" border="0" /> <strong class="property">PERFORMANCE =  'PERFORMANCE'</strong> (line <span class="linenumber">66</span>)
  </h4>
 <!-- ========== Info from phpDoc block ========= -->
 <h5>The PERFORMANCE type of log event.</h5>
@@ -268,7 +258,7 @@ tp1 = new WebFXTabPane( document.getElementById( "tabPane1" ));
 <a name="constSECURITY" id="constSECURITY"><!-- --></A>
 <div style="background='#ffffff'">
 <h4>
-<img src="../media/images/Constant.gif" border="0" /> <strong class="property">SECURITY =  'SECURITY'</strong> (line <span class="linenumber">114</span>)
+<img src="../media/images/Constant.gif" border="0" /> <strong class="property">SECURITY =  'SECURITY'</strong> (line <span class="linenumber">56</span>)
  </h4>
 <!-- ========== Info from phpDoc block ========= -->
 <h5>The SECURITY type of log event.</h5>
@@ -278,7 +268,7 @@ tp1 = new WebFXTabPane( document.getElementById( "tabPane1" ));
 <a name="constTRACE" id="constTRACE"><!-- --></A>
 <div style="background='#eeeeee'">
 <h4>
-<img src="../media/images/Constant.gif" border="0" /> <strong class="property">TRACE =  100</strong> (line <span class="linenumber">181</span>)
+<img src="../media/images/Constant.gif" border="0" /> <strong class="property">TRACE =  100</strong> (line <span class="linenumber">123</span>)
  </h4>
 <!-- ========== Info from phpDoc block ========= -->
 <h5>TRACE indicates that TRACE messages and above should be logged.</h5>
@@ -289,7 +279,7 @@ tp1 = new WebFXTabPane( document.getElementById( "tabPane1" ));
 <a name="constUSABILITY" id="constUSABILITY"><!-- --></A>
 <div style="background='#ffffff'">
 <h4>
-<img src="../media/images/Constant.gif" border="0" /> <strong class="property">USABILITY =  'USABILITY'</strong> (line <span class="linenumber">119</span>)
+<img src="../media/images/Constant.gif" border="0" /> <strong class="property">USABILITY =  'USABILITY'</strong> (line <span class="linenumber">61</span>)
  </h4>
 <!-- ========== Info from phpDoc block ========= -->
 <h5>The USABILITY type of log event.</h5>
@@ -299,7 +289,7 @@ tp1 = new WebFXTabPane( document.getElementById( "tabPane1" ));
 <a name="constWARNING" id="constWARNING"><!-- --></A>
 <div style="background='#eeeeee'">
 <h4>
-<img src="../media/images/Constant.gif" border="0" /> <strong class="property">WARNING =  600</strong> (line <span class="linenumber">163</span>)
+<img src="../media/images/Constant.gif" border="0" /> <strong class="property">WARNING =  600</strong> (line <span class="linenumber">105</span>)
  </h4>
 <!-- ========== Info from phpDoc block ========= -->
 <h5>WARNING indicates that WARNING messages and above should be logged.</h5>
@@ -386,7 +376,7 @@ tp1 = new WebFXTabPane( document.getElementById( "tabPane1" ));
 
 <a name="methoddebug" id="methoddebug"><!-- --></a>
 <div style="background='#ffffff'"><h4>
-<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method debug</strong> (line <span class="linenumber">315</span>)
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method debug</strong> (line <span class="linenumber">257</span>)
  </h4> 
 <h4><i>does</i> <strong>debug(
 int
@@ -412,7 +402,7 @@ $throwable = null])</strong></h4>
 </div>
 <a name="methoderror" id="methoderror"><!-- --></a>
 <div style="background='#eeeeee'"><h4>
-<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method error</strong> (line <span class="linenumber">240</span>)
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method error</strong> (line <span class="linenumber">182</span>)
  </h4> 
 <h4><i>does</i> <strong>error(
 int
@@ -438,7 +428,7 @@ $throwable = null])</strong></h4>
 </div>
 <a name="methodfatal" id="methodfatal"><!-- --></a>
 <div style="background='#ffffff'"><h4>
-<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method fatal</strong> (line <span class="linenumber">215</span>)
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method fatal</strong> (line <span class="linenumber">157</span>)
  </h4> 
 <h4><i>does</i> <strong>fatal(
 int
@@ -464,7 +454,7 @@ $throwable = null])</strong></h4>
 </div>
 <a name="methodinfo" id="methodinfo"><!-- --></a>
 <div style="background='#eeeeee'"><h4>
-<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method info</strong> (line <span class="linenumber">290</span>)
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method info</strong> (line <span class="linenumber">232</span>)
  </h4> 
 <h4><i>does</i> <strong>info(
 int
@@ -490,7 +480,7 @@ $throwable = null])</strong></h4>
 </div>
 <a name="methodisDebugEnabled" id="methodisDebugEnabled"><!-- --></a>
 <div style="background='#ffffff'"><h4>
-<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method isDebugEnabled</strong> (line <span class="linenumber">324</span>)
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method isDebugEnabled</strong> (line <span class="linenumber">266</span>)
  </h4> 
 <h4><i>bool</i> <strong>isDebugEnabled(
 )</strong></h4>
@@ -505,7 +495,7 @@ $throwable = null])</strong></h4>
 </div>
 <a name="methodisErrorEnabled" id="methodisErrorEnabled"><!-- --></a>
 <div style="background='#eeeeee'"><h4>
-<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method isErrorEnabled</strong> (line <span class="linenumber">249</span>)
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method isErrorEnabled</strong> (line <span class="linenumber">191</span>)
  </h4> 
 <h4><i>bool</i> <strong>isErrorEnabled(
 )</strong></h4>
@@ -520,7 +510,7 @@ $throwable = null])</strong></h4>
 </div>
 <a name="methodisFatalEnabled" id="methodisFatalEnabled"><!-- --></a>
 <div style="background='#ffffff'"><h4>
-<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method isFatalEnabled</strong> (line <span class="linenumber">224</span>)
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method isFatalEnabled</strong> (line <span class="linenumber">166</span>)
  </h4> 
 <h4><i>bool</i> <strong>isFatalEnabled(
 )</strong></h4>
@@ -535,7 +525,7 @@ $throwable = null])</strong></h4>
 </div>
 <a name="methodisInfoEnabled" id="methodisInfoEnabled"><!-- --></a>
 <div style="background='#eeeeee'"><h4>
-<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method isInfoEnabled</strong> (line <span class="linenumber">299</span>)
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method isInfoEnabled</strong> (line <span class="linenumber">241</span>)
  </h4> 
 <h4><i>bool</i> <strong>isInfoEnabled(
 )</strong></h4>
@@ -550,7 +540,7 @@ $throwable = null])</strong></h4>
 </div>
 <a name="methodisTraceEnabled" id="methodisTraceEnabled"><!-- --></a>
 <div style="background='#ffffff'"><h4>
-<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method isTraceEnabled</strong> (line <span class="linenumber">349</span>)
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method isTraceEnabled</strong> (line <span class="linenumber">291</span>)
  </h4> 
 <h4><i>bool</i> <strong>isTraceEnabled(
 )</strong></h4>
@@ -565,7 +555,7 @@ $throwable = null])</strong></h4>
 </div>
 <a name="methodisWarningEnabled" id="methodisWarningEnabled"><!-- --></a>
 <div style="background='#eeeeee'"><h4>
-<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method isWarningEnabled</strong> (line <span class="linenumber">274</span>)
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method isWarningEnabled</strong> (line <span class="linenumber">216</span>)
  </h4> 
 <h4><i>bool</i> <strong>isWarningEnabled(
 )</strong></h4>
@@ -580,7 +570,7 @@ $throwable = null])</strong></h4>
 </div>
 <a name="methodsetLevel" id="methodsetLevel"><!-- --></a>
 <div style="background='#ffffff'"><h4>
-<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method setLevel</strong> (line <span class="linenumber">199</span>)
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method setLevel</strong> (line <span class="linenumber">141</span>)
  </h4> 
 <h4><i>does</i> <strong>setLevel(
 int
@@ -600,7 +590,7 @@ $level)</strong></h4>
 </div>
 <a name="methodtrace" id="methodtrace"><!-- --></a>
 <div style="background='#eeeeee'"><h4>
-<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method trace</strong> (line <span class="linenumber">340</span>)
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method trace</strong> (line <span class="linenumber">282</span>)
  </h4> 
 <h4><i>does</i> <strong>trace(
 int
@@ -626,7 +616,7 @@ $throwable = null])</strong></h4>
 </div>
 <a name="methodwarning" id="methodwarning"><!-- --></a>
 <div style="background='#ffffff'"><h4>
-<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method warning</strong> (line <span class="linenumber">265</span>)
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method warning</strong> (line <span class="linenumber">207</span>)
  </h4> 
 <h4><i>does</i> <strong>warning(
 int
@@ -677,7 +667,7 @@ setupAllTabs();
 </script>
 	<div id="credit">
 		<hr />
-		Documentation generated on Fri, 21 May 2010 11:50:06 -0400 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
+		Documentation generated on Fri, 21 May 2010 14:53:27 -0400 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
 	</div>
 </body>
 </html>

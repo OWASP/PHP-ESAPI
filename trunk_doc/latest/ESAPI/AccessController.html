@@ -90,7 +90,7 @@
 <body bgcolor="#ffffff" ><!-- Start of Class Data -->
 <h2>
 	Interface AccessController
-</h2> (line <span class="linenumber">96</span>)
+</h2> (line <span class="linenumber">45</span>)
 <div class="tab-pane" id="tabPane1">
 <script type="text/javascript">
 tp1 = new WebFXTabPane( document.getElementById( "tabPane1" ));
@@ -104,21 +104,11 @@ tp1 = new WebFXTabPane( document.getElementById( "tabPane1" ));
 	<b><i>Located in File: <a href="_AccessController.php.html">/AccessController.php</a></i></b><br>
 </p>
 <!-- ========== Info from phpDoc block ========= -->
-<h5>The AccessController interface defines a set of methods that can be used in a</h5>
-<div class="desc"><p>wide variety of applications to enforce access control. In most applications,  access control must be performed in multiple different locations across the  various application layers. This class provides access control for URLs,  business functions, data, services, and files.</p><p>&lt;img src=&quot;doc-files/AccessController.jpg&quot;&gt;</p><p>The implementation of this interface will need to access the current User  object (from Authenticator.getCurrentUser()) to determine roles or  permissions. In addition, the implementation will also need information about  the resources that are being accessed. Using the user information and the  resource information, the implementation should return an access control  decision.</p><p>Implementers are encouraged to implement the ESAPI access control methods,  like assertAuthorizedForFunction() using existing access control mechanisms,  such as methods like isUserInRole() or hasPrivilege(). While powerful,  methods like isUserInRole() can be confusing for developers, as users may be  in multiple roles or possess multiple overlapping privileges. Direct use of  these finer grained access control methods encourages the use of complex  boolean tests throughout the code, which can easily lead to developer  mistakes.</p><p>The point of the ESAPI access control interface is to centralize access  control logic behind easy to use calls like assertAuthorizedForData() so that  access control is easy to use and easy to verify. Here is an example of a  very straightforward to implement, understand, and verify ESAPI access  control check:</p><p><pre> try {
-     ESAPI.accessController().assertAuthorizedForFunction( BUSINESS_FUNCTION );
-     // execute BUSINESS_FUNCTION
- } catch (AccessControlException ace) {
- ... attack in progress
- }</pre></p><p>Note that in the user interface layer, access control checks can be used to  control whether particular controls are rendered or not. These checks are  supposed to fail when an unauthorized user is logged in, and do not represent  attacks. Remember that regardless of how the user interface appears, an  attacker can attempt to invoke any business function or access any data in  your application. Therefore, access control checks in the user interface  should be repeated in both the business logic and data layers.</p><p><pre> &lt;% if ( ESAPI.accessController().isAuthorizedForFunction( ADMIN_FUNCTION ) ) { %&gt;
- &lt;a href=&quot;/doAdminFunction&quot;&gt;ADMIN&lt;/a&gt;
- &lt;% } else { %&gt;
- &lt;a href=&quot;/doNormalFunction&quot;&gt;NORMAL&lt;/a&gt;
- &lt;% } %&gt;</pre></p></div>
+<h5>Use this ESAPI security control to wrap your access control functions.</h5>
+<div class="desc"><p>The idea behind this interface is to centralize access control logic  behind easy to use calls so that access control is easy to use and  easy to verify.</p></div>
 <ul>
 		<li><strong>author:</strong> - Andrew van der Stock &lt;<a href="mailto:vanderaj@owasp.org">vanderaj@owasp.org</a>&gt;</li>
-		<li><strong>author:</strong> - Jeff Williams &lt;<a href="mailto:jeff.williams@aspectsecurity.com">jeff.williams@aspectsecurity.com</a>&gt;</li>
-		<li><strong>author:</strong> - Mike Fauzy &lt;<a href="mailto:mike.fauzy@aspectsecurity.com">mike.fauzy@aspectsecurity.com</a>&gt;</li>
+		<li><strong>author:</strong> - Mike Boberski &lt;<a href="mailto:boberski_michael@bah.com">boberski_michael@bah.com</a>&gt;</li>
 		<li><strong>version:</strong> - Release: @package_version@</li>
 		<li><strong>copyright:</strong> - 2009-2010 The OWASP Foundation</li>
 		<li><strong>link:</strong> - <a href="http://www.owasp.org/index.php/ESAPI">http://www.owasp.org/index.php/ESAPI</a></li>
@@ -215,7 +205,7 @@ tp1 = new WebFXTabPane( document.getElementById( "tabPane1" ));
 
 <a name="methodassertAuthorizedForData" id="methodassertAuthorizedForData"><!-- --></a>
 <div style="background='#ffffff'"><h4>
-<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method assertAuthorizedForData</strong> (line <span class="linenumber">293</span>)
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method assertAuthorizedForData</strong> (line <span class="linenumber">242</span>)
  </h4> 
 <h4><i>void</i> <strong>assertAuthorizedForData(
 action
@@ -239,7 +229,7 @@ $data)</strong></h4>
 </div>
 <a name="methodassertAuthorizedForDataByKey" id="methodassertAuthorizedForDataByKey"><!-- --></a>
 <div style="background='#eeeeee'"><h4>
-<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method assertAuthorizedForDataByKey</strong> (line <span class="linenumber">266</span>)
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method assertAuthorizedForDataByKey</strong> (line <span class="linenumber">215</span>)
  </h4> 
 <h4><i>void</i> <strong>assertAuthorizedForDataByKey(
 key
@@ -261,7 +251,7 @@ $key)</strong></h4>
 </div>
 <a name="methodassertAuthorizedForFile" id="methodassertAuthorizedForFile"><!-- --></a>
 <div style="background='#ffffff'"><h4>
-<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method assertAuthorizedForFile</strong> (line <span class="linenumber">318</span>)
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method assertAuthorizedForFile</strong> (line <span class="linenumber">267</span>)
  </h4> 
 <h4><i>void</i> <strong>assertAuthorizedForFile(
 filepath
@@ -282,7 +272,7 @@ $filepath)</strong></h4>
 </div>
 <a name="methodassertAuthorizedForFunction" id="methodassertAuthorizedForFunction"><!-- --></a>
 <div style="background='#eeeeee'"><h4>
-<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method assertAuthorizedForFunction</strong> (line <span class="linenumber">243</span>)
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method assertAuthorizedForFunction</strong> (line <span class="linenumber">192</span>)
  </h4> 
 <h4><i>void</i> <strong>assertAuthorizedForFunction(
 functionName
@@ -303,7 +293,7 @@ $functionName)</strong></h4>
 </div>
 <a name="methodassertAuthorizedForService" id="methodassertAuthorizedForService"><!-- --></a>
 <div style="background='#ffffff'"><h4>
-<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method assertAuthorizedForService</strong> (line <span class="linenumber">345</span>)
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method assertAuthorizedForService</strong> (line <span class="linenumber">294</span>)
  </h4> 
 <h4><i>void</i> <strong>assertAuthorizedForService(
 serviceName
@@ -324,7 +314,7 @@ $serviceName)</strong></h4>
 </div>
 <a name="methodassertAuthorizedForURL" id="methodassertAuthorizedForURL"><!-- --></a>
 <div style="background='#eeeeee'"><h4>
-<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method assertAuthorizedForURL</strong> (line <span class="linenumber">215</span>)
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method assertAuthorizedForURL</strong> (line <span class="linenumber">164</span>)
  </h4> 
 <h4><i>void</i> <strong>assertAuthorizedForURL(
 url
@@ -346,7 +336,7 @@ $url)</strong></h4>
 </div>
 <a name="methodisAuthorizedForData" id="methodisAuthorizedForData"><!-- --></a>
 <div style="background='#ffffff'"><h4>
-<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method isAuthorizedForData</strong> (line <span class="linenumber">158</span>)
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method isAuthorizedForData</strong> (line <span class="linenumber">107</span>)
  </h4> 
 <h4><i>true,</i> <strong>isAuthorizedForData(
 action
@@ -369,7 +359,7 @@ $data)</strong></h4>
 </div>
 <a name="methodisAuthorizedForDataByKey" id="methodisAuthorizedForDataByKey"><!-- --></a>
 <div style="background='#eeeeee'"><h4>
-<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method isAuthorizedForDataByKey</strong> (line <span class="linenumber">141</span>)
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method isAuthorizedForDataByKey</strong> (line <span class="linenumber">90</span>)
  </h4> 
 <h4><i>true,</i> <strong>isAuthorizedForDataByKey(
 key
@@ -390,7 +380,7 @@ $key)</strong></h4>
 </div>
 <a name="methodisAuthorizedForFile" id="methodisAuthorizedForFile"><!-- --></a>
 <div style="background='#ffffff'"><h4>
-<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method isAuthorizedForFile</strong> (line <span class="linenumber">172</span>)
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method isAuthorizedForFile</strong> (line <span class="linenumber">121</span>)
  </h4> 
 <h4><i>true,</i> <strong>isAuthorizedForFile(
 filepath
@@ -411,7 +401,7 @@ $filepath)</strong></h4>
 </div>
 <a name="methodisAuthorizedForFunction" id="methodisAuthorizedForFunction"><!-- --></a>
 <div style="background='#eeeeee'"><h4>
-<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method isAuthorizedForFunction</strong> (line <span class="linenumber">127</span>)
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method isAuthorizedForFunction</strong> (line <span class="linenumber">76</span>)
  </h4> 
 <h4><i>true,</i> <strong>isAuthorizedForFunction(
 functionName
@@ -432,7 +422,7 @@ $functionName)</strong></h4>
 </div>
 <a name="methodisAuthorizedForService" id="methodisAuthorizedForService"><!-- --></a>
 <div style="background='#ffffff'"><h4>
-<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method isAuthorizedForService</strong> (line <span class="linenumber">187</span>)
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method isAuthorizedForService</strong> (line <span class="linenumber">136</span>)
  </h4> 
 <h4><i>true,</i> <strong>isAuthorizedForService(
 serviceName
@@ -453,7 +443,7 @@ $serviceName)</strong></h4>
 </div>
 <a name="methodisAuthorizedForURL" id="methodisAuthorizedForURL"><!-- --></a>
 <div style="background='#eeeeee'"><h4>
-<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method isAuthorizedForURL</strong> (line <span class="linenumber">113</span>)
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method isAuthorizedForURL</strong> (line <span class="linenumber">62</span>)
  </h4> 
 <h4><i>true,</i> <strong>isAuthorizedForURL(
 url
@@ -499,7 +489,7 @@ setupAllTabs();
 </script>
 	<div id="credit">
 		<hr />
-		Documentation generated on Fri, 21 May 2010 11:50:04 -0400 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
+		Documentation generated on Fri, 21 May 2010 14:53:25 -0400 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
 	</div>
 </body>
 </html>

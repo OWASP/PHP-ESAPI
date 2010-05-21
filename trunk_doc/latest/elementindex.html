@@ -77,7 +77,7 @@
   </tr>
     <tr>
     <td>&nbsp;&nbsp;&nbsp;<strong>AccessController</strong></td>
-    <td width="100%" align="left" valign="top">in file AccessController.php, class <a href="ESAPI/AccessController.html">AccessController</a><br>&nbsp;&nbsp;&nbsp;&nbsp;The AccessController interface defines a set of methods that can be used in a</td>
+    <td width="100%" align="left" valign="top">in file AccessController.php, class <a href="ESAPI/AccessController.html">AccessController</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Use this ESAPI security control to wrap your access control functions.</td>
   </tr>
     <tr>
     <td>&nbsp;&nbsp;&nbsp;<strong>AccessController.php</strong></td>
@@ -85,7 +85,7 @@
   </tr>
     <tr>
     <td>&nbsp;&nbsp;&nbsp;<strong>AccessReferenceMap</strong></td>
-    <td width="100%" align="left" valign="top">in file AccessReferenceMap.php, class <a href="ESAPI/AccessReferenceMap.html">AccessReferenceMap</a><br>&nbsp;&nbsp;&nbsp;&nbsp;The AccessReferenceMap interface is used to map from a set of internal</td>
+    <td width="100%" align="left" valign="top">in file AccessReferenceMap.php, class <a href="ESAPI/AccessReferenceMap.html">AccessReferenceMap</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Use this ESAPI security control to create access reference maps.</td>
   </tr>
     <tr>
     <td>&nbsp;&nbsp;&nbsp;<strong>AccessReferenceMap.php</strong></td>
@@ -221,7 +221,7 @@
   </tr>
     <tr>
     <td>&nbsp;&nbsp;&nbsp;<strong>Auditor</strong></td>
-    <td width="100%" align="left" valign="top">in file Auditor.php, class <a href="ESAPI/Auditor.html">Auditor</a><br>&nbsp;&nbsp;&nbsp;&nbsp;The Logger interface defines a set of methods that can be used to log</td>
+    <td width="100%" align="left" valign="top">in file Auditor.php, class <a href="ESAPI/Auditor.html">Auditor</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Use this ESAPI security control to wrap your auditing functions.</td>
   </tr>
     <tr>
     <td>&nbsp;&nbsp;&nbsp;<strong>Auditor.php</strong></td>
@@ -229,7 +229,7 @@
   </tr>
     <tr>
     <td>&nbsp;&nbsp;&nbsp;<strong>AuditorFactory</strong></td>
-    <td width="100%" align="left" valign="top">in file AuditorFactory.php, class <a href="ESAPI/AuditorFactory.html">AuditorFactory</a><br>&nbsp;&nbsp;&nbsp;&nbsp;The LogFactory interface is intended to allow substitution of various logging  packages, while providing a common interface to access them.</td>
+    <td width="100%" align="left" valign="top">in file AuditorFactory.php, class <a href="ESAPI/AuditorFactory.html">AuditorFactory</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Use this ESAPI security control to swap audit libraries in and out.</td>
   </tr>
     <tr>
     <td>&nbsp;&nbsp;&nbsp;<strong>AuditorFactory.php</strong></td>
@@ -881,7 +881,7 @@
   </tr>
     <tr>
     <td>&nbsp;&nbsp;&nbsp;<strong>Encoder</strong></td>
-    <td width="100%" align="left" valign="top">in file Encoder.php, class <a href="ESAPI/Encoder.html">Encoder</a><br>&nbsp;&nbsp;&nbsp;&nbsp;The Encoder interface contains a number of methods for decoding input and</td>
+    <td width="100%" align="left" valign="top">in file Encoder.php, class <a href="ESAPI/Encoder.html">Encoder</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Use this ESAPI security control to wrap your codecs.</td>
   </tr>
     <tr>
     <td>&nbsp;&nbsp;&nbsp;<strong>Encoder.php</strong></td>
@@ -933,7 +933,7 @@
   </tr>
     <tr>
     <td>&nbsp;&nbsp;&nbsp;<strong>ESAPI</strong></td>
-    <td width="100%" align="left" valign="top">in file ESAPI.php, class <a href="ESAPI/ESAPI.html">ESAPI</a><br>&nbsp;&nbsp;&nbsp;&nbsp;ESAPI locator class is provided to make it easy to gain access to the current  ESAPI classes in use. Use the set methods to override the reference  implementations with instances of any custom ESAPI implementations.</td>
+    <td width="100%" align="left" valign="top">in file ESAPI.php, class <a href="ESAPI/ESAPI.html">ESAPI</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Use this class to get and set ESAPI security controls.</td>
   </tr>
     <tr>
     <td>&nbsp;&nbsp;&nbsp;<strong>ESAPI.php</strong></td>
@@ -961,7 +961,7 @@
   </tr>
     <tr>
     <td>&nbsp;&nbsp;&nbsp;<strong>Executor</strong></td>
-    <td width="100%" align="left" valign="top">in file Executor.php, class <a href="ESAPI/Executor.html">Executor</a><br>&nbsp;&nbsp;&nbsp;&nbsp;The Executor interface is used to run an OS command with reduced security  risk.</td>
+    <td width="100%" align="left" valign="top">in file Executor.php, class <a href="ESAPI/Executor.html">Executor</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Use this ESAPI security control to call command-line operating  system functions.</td>
   </tr>
     <tr>
     <td>&nbsp;&nbsp;&nbsp;<strong>Executor.php</strong></td>
@@ -1050,10 +1050,6 @@
     <td width="100%" align="left" valign="top">in file DefaultUser.php, method <a href="ESAPI_Reference/DefaultUser.html#methodgetAccountName">DefaultUser::getAccountName()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Gets this user's account name.</td>
   </tr>
     <tr>
-    <td>&nbsp;&nbsp;&nbsp;<strong>getAdapter</strong></td>
-    <td width="100%" align="left" valign="top">in file ESAPI.php, method <a href="ESAPI/ESAPI.html#methodgetAdapter">ESAPI::getAdapter()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Get the current ESAPI Adapter object being used to wrap ESAPI functions  for this application.</td>
-  </tr>
-    <tr>
     <td>&nbsp;&nbsp;&nbsp;<strong>getAllHashedPasswords</strong></td>
     <td width="100%" align="left" valign="top">in file FileBasedAuthenticator.php, method <a href="ESAPI_Reference/FileBasedAuthenticator.html#methodgetAllHashedPasswords">FileBasedAuthenticator::getAllHashedPasswords()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Returns all of the specified User's hashed passwords.  If the User's list of passwords is null,  and create is set to true, an empty password list will be associated with the specified User  and then returned. If the User's password map is null and create is set to false, an exception  will be thrown.</td>
   </tr>
@@ -1067,19 +1063,19 @@
   </tr>
     <tr>
     <td>&nbsp;&nbsp;&nbsp;<strong>getAllowedFileExtensions</strong></td>
-    <td width="100%" align="left" valign="top">in file DefaultSecurityConfiguration.php, method <a href="ESAPI_Reference/DefaultSecurityConfiguration.html#methodgetAllowedFileExtensions">DefaultSecurityConfiguration::getAllowedFileExtensions()</a></td>
-  </tr>
-    <tr>
-    <td>&nbsp;&nbsp;&nbsp;<strong>getAllowedFileExtensions</strong></td>
     <td width="100%" align="left" valign="top">in file SecurityConfiguration.php, method <a href="ESAPI/SecurityConfiguration.html#methodgetAllowedFileExtensions">SecurityConfiguration::getAllowedFileExtensions()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Gets the allowed file extensions for files that are uploaded to this  application.</td>
   </tr>
     <tr>
-    <td>&nbsp;&nbsp;&nbsp;<strong>getAllowedFileUploadSize</strong></td>
-    <td width="100%" align="left" valign="top">in file SecurityConfiguration.php, method <a href="ESAPI/SecurityConfiguration.html#methodgetAllowedFileUploadSize">SecurityConfiguration::getAllowedFileUploadSize()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Gets the maximum allowed file upload size.</td>
+    <td>&nbsp;&nbsp;&nbsp;<strong>getAllowedFileExtensions</strong></td>
+    <td width="100%" align="left" valign="top">in file DefaultSecurityConfiguration.php, method <a href="ESAPI_Reference/DefaultSecurityConfiguration.html#methodgetAllowedFileExtensions">DefaultSecurityConfiguration::getAllowedFileExtensions()</a></td>
   </tr>
     <tr>
     <td>&nbsp;&nbsp;&nbsp;<strong>getAllowedFileUploadSize</strong></td>
     <td width="100%" align="left" valign="top">in file DefaultSecurityConfiguration.php, method <a href="ESAPI_Reference/DefaultSecurityConfiguration.html#methodgetAllowedFileUploadSize">DefaultSecurityConfiguration::getAllowedFileUploadSize()</a></td>
+  </tr>
+    <tr>
+    <td>&nbsp;&nbsp;&nbsp;<strong>getAllowedFileUploadSize</strong></td>
+    <td width="100%" align="left" valign="top">in file SecurityConfiguration.php, method <a href="ESAPI/SecurityConfiguration.html#methodgetAllowedFileUploadSize">SecurityConfiguration::getAllowedFileUploadSize()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Gets the maximum allowed file upload size.</td>
   </tr>
     <tr>
     <td>&nbsp;&nbsp;&nbsp;<strong>getAllowedIncludes</strong></td>
@@ -1111,11 +1107,11 @@
   </tr>
     <tr>
     <td>&nbsp;&nbsp;&nbsp;<strong>getApplicationName</strong></td>
-    <td width="100%" align="left" valign="top">in file DefaultSecurityConfiguration.php, method <a href="ESAPI_Reference/DefaultSecurityConfiguration.html#methodgetApplicationName">DefaultSecurityConfiguration::getApplicationName()</a></td>
+    <td width="100%" align="left" valign="top">in file SecurityConfiguration.php, method <a href="ESAPI/SecurityConfiguration.html#methodgetApplicationName">SecurityConfiguration::getApplicationName()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Gets the application name, used for logging</td>
   </tr>
     <tr>
     <td>&nbsp;&nbsp;&nbsp;<strong>getApplicationName</strong></td>
-    <td width="100%" align="left" valign="top">in file SecurityConfiguration.php, method <a href="ESAPI/SecurityConfiguration.html#methodgetApplicationName">SecurityConfiguration::getApplicationName()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Gets the application name, used for logging</td>
+    <td width="100%" align="left" valign="top">in file DefaultSecurityConfiguration.php, method <a href="ESAPI_Reference/DefaultSecurityConfiguration.html#methodgetApplicationName">DefaultSecurityConfiguration::getApplicationName()</a></td>
   </tr>
     <tr>
     <td>&nbsp;&nbsp;&nbsp;<strong>getAuditor</strong></td>
@@ -1127,11 +1123,11 @@
   </tr>
     <tr>
     <td>&nbsp;&nbsp;&nbsp;<strong>getCharacterEncoding</strong></td>
-    <td width="100%" align="left" valign="top">in file DefaultSecurityConfiguration.php, method <a href="ESAPI_Reference/DefaultSecurityConfiguration.html#methodgetCharacterEncoding">DefaultSecurityConfiguration::getCharacterEncoding()</a></td>
+    <td width="100%" align="left" valign="top">in file SecurityConfiguration.php, method <a href="ESAPI/SecurityConfiguration.html#methodgetCharacterEncoding">SecurityConfiguration::getCharacterEncoding()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Gets the character encoding scheme supported by this application. This is</td>
   </tr>
     <tr>
     <td>&nbsp;&nbsp;&nbsp;<strong>getCharacterEncoding</strong></td>
-    <td width="100%" align="left" valign="top">in file SecurityConfiguration.php, method <a href="ESAPI/SecurityConfiguration.html#methodgetCharacterEncoding">SecurityConfiguration::getCharacterEncoding()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Gets the character encoding scheme supported by this application. This is</td>
+    <td width="100%" align="left" valign="top">in file DefaultSecurityConfiguration.php, method <a href="ESAPI_Reference/DefaultSecurityConfiguration.html#methodgetCharacterEncoding">DefaultSecurityConfiguration::getCharacterEncoding()</a></td>
   </tr>
     <tr>
     <td>&nbsp;&nbsp;&nbsp;<strong>getContentLength</strong></td>
@@ -1175,11 +1171,11 @@
   </tr>
     <tr>
     <td>&nbsp;&nbsp;&nbsp;<strong>getCurrentRequest</strong></td>
-    <td width="100%" align="left" valign="top">in file DefaultHTTPUtilities.php, method <a href="ESAPI_Reference/DefaultHTTPUtilities.html#methodgetCurrentRequest">DefaultHTTPUtilities::getCurrentRequest()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Retrieves the current SafeRequest.</td>
+    <td width="100%" align="left" valign="top">in file HTTPUtilities.php, method <a href="ESAPI/HTTPUtilities.html#methodgetCurrentRequest">HTTPUtilities::getCurrentRequest()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Retrieves the current HttpServletRequest.</td>
   </tr>
     <tr>
     <td>&nbsp;&nbsp;&nbsp;<strong>getCurrentRequest</strong></td>
-    <td width="100%" align="left" valign="top">in file HTTPUtilities.php, method <a href="ESAPI/HTTPUtilities.html#methodgetCurrentRequest">HTTPUtilities::getCurrentRequest()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Retrieves the current HttpServletRequest.</td>
+    <td width="100%" align="left" valign="top">in file DefaultHTTPUtilities.php, method <a href="ESAPI_Reference/DefaultHTTPUtilities.html#methodgetCurrentRequest">DefaultHTTPUtilities::getCurrentRequest()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Retrieves the current SafeRequest.</td>
   </tr>
     <tr>
     <td>&nbsp;&nbsp;&nbsp;<strong>getCurrentUser</strong></td>
@@ -1187,11 +1183,15 @@
   </tr>
     <tr>
     <td>&nbsp;&nbsp;&nbsp;<strong>getDigitalSignatureAlgorithm</strong></td>
-    <td width="100%" align="left" valign="top">in file DefaultSecurityConfiguration.php, method <a href="ESAPI_Reference/DefaultSecurityConfiguration.html#methodgetDigitalSignatureAlgorithm">DefaultSecurityConfiguration::getDigitalSignatureAlgorithm()</a></td>
+    <td width="100%" align="left" valign="top">in file SecurityConfiguration.php, method <a href="ESAPI/SecurityConfiguration.html#methodgetDigitalSignatureAlgorithm">SecurityConfiguration::getDigitalSignatureAlgorithm()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Gets the digital signature algorithm used by ESAPI to generate and verify  signatures.</td>
   </tr>
     <tr>
     <td>&nbsp;&nbsp;&nbsp;<strong>getDigitalSignatureAlgorithm</strong></td>
-    <td width="100%" align="left" valign="top">in file SecurityConfiguration.php, method <a href="ESAPI/SecurityConfiguration.html#methodgetDigitalSignatureAlgorithm">SecurityConfiguration::getDigitalSignatureAlgorithm()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Gets the digital signature algorithm used by ESAPI to generate and verify  signatures.</td>
+    <td width="100%" align="left" valign="top">in file DefaultSecurityConfiguration.php, method <a href="ESAPI_Reference/DefaultSecurityConfiguration.html#methodgetDigitalSignatureAlgorithm">DefaultSecurityConfiguration::getDigitalSignatureAlgorithm()</a></td>
+  </tr>
+    <tr>
+    <td>&nbsp;&nbsp;&nbsp;<strong>getDirectReference</strong></td>
+    <td width="100%" align="left" valign="top">in file IntegerAccessReferenceMap.php, method <a href="ESAPI_Reference/IntegerAccessReferenceMap.html#methodgetDirectReference">IntegerAccessReferenceMap::getDirectReference()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Get the original direct object reference from an indirect reference.</td>
   </tr>
     <tr>
     <td>&nbsp;&nbsp;&nbsp;<strong>getDirectReference</strong></td>
@@ -1200,10 +1200,6 @@
     <tr>
     <td>&nbsp;&nbsp;&nbsp;<strong>getDirectReference</strong></td>
     <td width="100%" align="left" valign="top">in file RandomAccessReferenceMap.php, method <a href="ESAPI_Reference/RandomAccessReferenceMap.html#methodgetDirectReference">RandomAccessReferenceMap::getDirectReference()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Get the original direct object reference from an indirect reference.</td>
-  </tr>
-    <tr>
-    <td>&nbsp;&nbsp;&nbsp;<strong>getDirectReference</strong></td>
-    <td width="100%" align="left" valign="top">in file IntegerAccessReferenceMap.php, method <a href="ESAPI_Reference/IntegerAccessReferenceMap.html#methodgetDirectReference">IntegerAccessReferenceMap::getDirectReference()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Get the original direct object reference from an indirect reference.</td>
   </tr>
     <tr>
     <td>&nbsp;&nbsp;&nbsp;<strong>getDisableIntrusionDetection</strong></td>
@@ -1255,11 +1251,11 @@
   </tr>
     <tr>
     <td>&nbsp;&nbsp;&nbsp;<strong>getHashAlgorithm</strong></td>
-    <td width="100%" align="left" valign="top">in file DefaultSecurityConfiguration.php, method <a href="ESAPI_Reference/DefaultSecurityConfiguration.html#methodgetHashAlgorithm">DefaultSecurityConfiguration::getHashAlgorithm()</a></td>
+    <td width="100%" align="left" valign="top">in file SecurityConfiguration.php, method <a href="ESAPI/SecurityConfiguration.html#methodgetHashAlgorithm">SecurityConfiguration::getHashAlgorithm()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Gets the hashing algorithm used by ESAPI to hash data.</td>
   </tr>
     <tr>
     <td>&nbsp;&nbsp;&nbsp;<strong>getHashAlgorithm</strong></td>
-    <td width="100%" align="left" valign="top">in file SecurityConfiguration.php, method <a href="ESAPI/SecurityConfiguration.html#methodgetHashAlgorithm">SecurityConfiguration::getHashAlgorithm()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Gets the hashing algorithm used by ESAPI to hash data.</td>
+    <td width="100%" align="left" valign="top">in file DefaultSecurityConfiguration.php, method <a href="ESAPI_Reference/DefaultSecurityConfiguration.html#methodgetHashAlgorithm">DefaultSecurityConfiguration::getHashAlgorithm()</a></td>
   </tr>
     <tr>
     <td>&nbsp;&nbsp;&nbsp;<strong>getHashedPassword</strong></td>
@@ -1283,15 +1279,15 @@
   </tr>
     <tr>
     <td>&nbsp;&nbsp;&nbsp;<strong>getIndirectReference</strong></td>
+    <td width="100%" align="left" valign="top">in file IntegerAccessReferenceMap.php, method <a href="ESAPI_Reference/IntegerAccessReferenceMap.html#methodgetIndirectReference">IntegerAccessReferenceMap::getIndirectReference()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Get a safe indirect reference to use in place of a potentially sensitive  direct object reference. Developers should use this call when building  URL's, form fields, hidden fields, etc... to help protect their private  implementation information.</td>
+  </tr>
+    <tr>
+    <td>&nbsp;&nbsp;&nbsp;<strong>getIndirectReference</strong></td>
     <td width="100%" align="left" valign="top">in file AccessReferenceMap.php, method <a href="ESAPI/AccessReferenceMap.html#methodgetIndirectReference">AccessReferenceMap::getIndirectReference()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Get a safe indirect reference to use in place of a potentially sensitive  direct object reference. Developers should use this call when building  URL's, form fields, hidden fields, etc... to help protect their private  implementation information.</td>
   </tr>
     <tr>
     <td>&nbsp;&nbsp;&nbsp;<strong>getIndirectReference</strong></td>
     <td width="100%" align="left" valign="top">in file RandomAccessReferenceMap.php, method <a href="ESAPI_Reference/RandomAccessReferenceMap.html#methodgetIndirectReference">RandomAccessReferenceMap::getIndirectReference()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Get a safe indirect reference to use in place of a potentially sensitive  direct object reference. Developers should use this call when building  URL's, form fields, hidden fields, etc... to help protect their private  implementation information.</td>
-  </tr>
-    <tr>
-    <td>&nbsp;&nbsp;&nbsp;<strong>getIndirectReference</strong></td>
-    <td width="100%" align="left" valign="top">in file IntegerAccessReferenceMap.php, method <a href="ESAPI_Reference/IntegerAccessReferenceMap.html#methodgetIndirectReference">IntegerAccessReferenceMap::getIndirectReference()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Get a safe indirect reference to use in place of a potentially sensitive  direct object reference. Developers should use this call when building  URL's, form fields, hidden fields, etc... to help protect their private  implementation information.</td>
   </tr>
     <tr>
     <td>&nbsp;&nbsp;&nbsp;<strong>getIntrusionDetector</strong></td>
@@ -1319,11 +1315,11 @@
   </tr>
     <tr>
     <td>&nbsp;&nbsp;&nbsp;<strong>getLogEncodingRequired</strong></td>
-    <td width="100%" align="left" valign="top">in file SecurityConfiguration.php, method <a href="ESAPI/SecurityConfiguration.html#methodgetLogEncodingRequired">SecurityConfiguration::getLogEncodingRequired()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Returns whether HTML entity encoding should be applied to log entries.</td>
+    <td width="100%" align="left" valign="top">in file DefaultSecurityConfiguration.php, method <a href="ESAPI_Reference/DefaultSecurityConfiguration.html#methodgetLogEncodingRequired">DefaultSecurityConfiguration::getLogEncodingRequired()</a></td>
   </tr>
     <tr>
     <td>&nbsp;&nbsp;&nbsp;<strong>getLogEncodingRequired</strong></td>
-    <td width="100%" align="left" valign="top">in file DefaultSecurityConfiguration.php, method <a href="ESAPI_Reference/DefaultSecurityConfiguration.html#methodgetLogEncodingRequired">DefaultSecurityConfiguration::getLogEncodingRequired()</a></td>
+    <td width="100%" align="left" valign="top">in file SecurityConfiguration.php, method <a href="ESAPI/SecurityConfiguration.html#methodgetLogEncodingRequired">SecurityConfiguration::getLogEncodingRequired()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Returns whether HTML entity encoding should be applied to log entries.</td>
   </tr>
     <tr>
     <td>&nbsp;&nbsp;&nbsp;<strong>getLogFileDateFormat</strong></td>
@@ -1331,19 +1327,19 @@
   </tr>
     <tr>
     <td>&nbsp;&nbsp;&nbsp;<strong>getLogFileName</strong></td>
-    <td width="100%" align="left" valign="top">in file DefaultSecurityConfiguration.php, method <a href="ESAPI_Reference/DefaultSecurityConfiguration.html#methodgetLogFileName">DefaultSecurityConfiguration::getLogFileName()</a></td>
-  </tr>
-    <tr>
-    <td>&nbsp;&nbsp;&nbsp;<strong>getLogFileName</strong></td>
     <td width="100%" align="left" valign="top">in file SecurityConfiguration.php, method <a href="ESAPI/SecurityConfiguration.html#methodgetLogFileName">SecurityConfiguration::getLogFileName()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Get the name of the log file specified in the ESAPI configuration properties  file. Return a default value if it is not specified.</td>
   </tr>
     <tr>
-    <td>&nbsp;&nbsp;&nbsp;<strong>getLogger</strong></td>
-    <td width="100%" align="left" valign="top">in file AuditorFactory.php, method <a href="ESAPI/AuditorFactory.html#methodgetLogger">AuditorFactory::getLogger()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Gets the logger associated with the specified module name. The module</td>
+    <td>&nbsp;&nbsp;&nbsp;<strong>getLogFileName</strong></td>
+    <td width="100%" align="left" valign="top">in file DefaultSecurityConfiguration.php, method <a href="ESAPI_Reference/DefaultSecurityConfiguration.html#methodgetLogFileName">DefaultSecurityConfiguration::getLogFileName()</a></td>
   </tr>
     <tr>
     <td>&nbsp;&nbsp;&nbsp;<strong>getLogger</strong></td>
     <td width="100%" align="left" valign="top">in file DefaultAuditorFactory.php, method <a href="ESAPI_Reference/DefaultAuditorFactory.html#methodgetLogger">DefaultAuditorFactory::getLogger()</a></td>
+  </tr>
+    <tr>
+    <td>&nbsp;&nbsp;&nbsp;<strong>getLogger</strong></td>
+    <td width="100%" align="left" valign="top">in file AuditorFactory.php, method <a href="ESAPI/AuditorFactory.html#methodgetLogger">AuditorFactory::getLogger()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Gets the logger associated with the specified module name. The module</td>
   </tr>
     <tr>
     <td>&nbsp;&nbsp;&nbsp;<strong>getLogLevel</strong></td>
@@ -1355,19 +1351,19 @@
   </tr>
     <tr>
     <td>&nbsp;&nbsp;&nbsp;<strong>getLogMessage</strong></td>
-    <td width="100%" align="left" valign="top">in file IntrusionException.php, method <a href="ESAPI_Errors/IntrusionException.html#methodgetLogMessage">IntrusionException::getLogMessage()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Returns a String that is safe to display in logs, but probably not to users</td>
-  </tr>
-    <tr>
-    <td>&nbsp;&nbsp;&nbsp;<strong>getLogMessage</strong></td>
     <td width="100%" align="left" valign="top">in file EnterpriseSecurityException.php, method <a href="ESAPI_Errors/EnterpriseSecurityException.html#methodgetLogMessage">EnterpriseSecurityException::getLogMessage()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Returns a message that is safe to display in logs, but probably not to users</td>
   </tr>
     <tr>
-    <td>&nbsp;&nbsp;&nbsp;<strong>getMasterKey</strong></td>
-    <td width="100%" align="left" valign="top">in file DefaultSecurityConfiguration.php, method <a href="ESAPI_Reference/DefaultSecurityConfiguration.html#methodgetMasterKey">DefaultSecurityConfiguration::getMasterKey()</a></td>
+    <td>&nbsp;&nbsp;&nbsp;<strong>getLogMessage</strong></td>
+    <td width="100%" align="left" valign="top">in file IntrusionException.php, method <a href="ESAPI_Errors/IntrusionException.html#methodgetLogMessage">IntrusionException::getLogMessage()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Returns a String that is safe to display in logs, but probably not to users</td>
   </tr>
     <tr>
     <td>&nbsp;&nbsp;&nbsp;<strong>getMasterKey</strong></td>
     <td width="100%" align="left" valign="top">in file SecurityConfiguration.php, method <a href="ESAPI/SecurityConfiguration.html#methodgetMasterKey">SecurityConfiguration::getMasterKey()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Gets the master password. This password can be used to encrypt/decrypt other  files or types of data that need to be protected by your application.</td>
+  </tr>
+    <tr>
+    <td>&nbsp;&nbsp;&nbsp;<strong>getMasterKey</strong></td>
+    <td width="100%" align="left" valign="top">in file DefaultSecurityConfiguration.php, method <a href="ESAPI_Reference/DefaultSecurityConfiguration.html#methodgetMasterKey">DefaultSecurityConfiguration::getMasterKey()</a></td>
   </tr>
     <tr>
     <td>&nbsp;&nbsp;&nbsp;<strong>getMasterSalt</strong></td>
@@ -1391,11 +1387,11 @@
   </tr>
     <tr>
     <td>&nbsp;&nbsp;&nbsp;<strong>getMaxOldPasswordHashes</strong></td>
-    <td width="100%" align="left" valign="top">in file DefaultSecurityConfiguration.php, method <a href="ESAPI_Reference/DefaultSecurityConfiguration.html#methodgetMaxOldPasswordHashes">DefaultSecurityConfiguration::getMaxOldPasswordHashes()</a></td>
+    <td width="100%" align="left" valign="top">in file SecurityConfiguration.php, method <a href="ESAPI/SecurityConfiguration.html#methodgetMaxOldPasswordHashes">SecurityConfiguration::getMaxOldPasswordHashes()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Gets the maximum number of old password hashes that should be retained.</td>
   </tr>
     <tr>
     <td>&nbsp;&nbsp;&nbsp;<strong>getMaxOldPasswordHashes</strong></td>
-    <td width="100%" align="left" valign="top">in file SecurityConfiguration.php, method <a href="ESAPI/SecurityConfiguration.html#methodgetMaxOldPasswordHashes">SecurityConfiguration::getMaxOldPasswordHashes()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Gets the maximum number of old password hashes that should be retained.</td>
+    <td width="100%" align="left" valign="top">in file DefaultSecurityConfiguration.php, method <a href="ESAPI_Reference/DefaultSecurityConfiguration.html#methodgetMaxOldPasswordHashes">DefaultSecurityConfiguration::getMaxOldPasswordHashes()</a></td>
   </tr>
     <tr>
     <td>&nbsp;&nbsp;&nbsp;<strong>getMethod</strong></td>
@@ -1423,11 +1419,11 @@
   </tr>
     <tr>
     <td>&nbsp;&nbsp;&nbsp;<strong>getPasswordParameterName</strong></td>
-    <td width="100%" align="left" valign="top">in file SecurityConfiguration.php, method <a href="ESAPI/SecurityConfiguration.html#methodgetPasswordParameterName">SecurityConfiguration::getPasswordParameterName()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Gets the name of the password parameter used during user authentication.</td>
+    <td width="100%" align="left" valign="top">in file DefaultSecurityConfiguration.php, method <a href="ESAPI_Reference/DefaultSecurityConfiguration.html#methodgetPasswordParameterName">DefaultSecurityConfiguration::getPasswordParameterName()</a></td>
   </tr>
     <tr>
     <td>&nbsp;&nbsp;&nbsp;<strong>getPasswordParameterName</strong></td>
-    <td width="100%" align="left" valign="top">in file DefaultSecurityConfiguration.php, method <a href="ESAPI_Reference/DefaultSecurityConfiguration.html#methodgetPasswordParameterName">DefaultSecurityConfiguration::getPasswordParameterName()</a></td>
+    <td width="100%" align="left" valign="top">in file SecurityConfiguration.php, method <a href="ESAPI/SecurityConfiguration.html#methodgetPasswordParameterName">SecurityConfiguration::getPasswordParameterName()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Gets the name of the password parameter used during user authentication.</td>
   </tr>
     <tr>
     <td>&nbsp;&nbsp;&nbsp;<strong>getPathInfo</strong></td>
@@ -1443,11 +1439,11 @@
   </tr>
     <tr>
     <td>&nbsp;&nbsp;&nbsp;<strong>getQuota</strong></td>
-    <td width="100%" align="left" valign="top">in file SecurityConfiguration.php, method <a href="ESAPI/SecurityConfiguration.html#methodgetQuota">SecurityConfiguration::getQuota()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Gets the intrusion detection quota for the specified event.</td>
+    <td width="100%" align="left" valign="top">in file DefaultSecurityConfiguration.php, method <a href="ESAPI_Reference/DefaultSecurityConfiguration.html#methodgetQuota">DefaultSecurityConfiguration::getQuota()</a></td>
   </tr>
     <tr>
     <td>&nbsp;&nbsp;&nbsp;<strong>getQuota</strong></td>
-    <td width="100%" align="left" valign="top">in file DefaultSecurityConfiguration.php, method <a href="ESAPI_Reference/DefaultSecurityConfiguration.html#methodgetQuota">DefaultSecurityConfiguration::getQuota()</a></td>
+    <td width="100%" align="left" valign="top">in file SecurityConfiguration.php, method <a href="ESAPI/SecurityConfiguration.html#methodgetQuota">SecurityConfiguration::getQuota()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Gets the intrusion detection quota for the specified event.</td>
   </tr>
     <tr>
     <td>&nbsp;&nbsp;&nbsp;<strong>getRandomAlgorithm</strong></td>
@@ -1459,35 +1455,35 @@
   </tr>
     <tr>
     <td>&nbsp;&nbsp;&nbsp;<strong>getRandomBoolean</strong></td>
-    <td width="100%" align="left" valign="top">in file Randomizer.php, method <a href="ESAPI/Randomizer.html#methodgetRandomBoolean">Randomizer::getRandomBoolean()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Returns a random boolean.  The use of java.security.SecureRandom</td>
-  </tr>
-    <tr>
-    <td>&nbsp;&nbsp;&nbsp;<strong>getRandomBoolean</strong></td>
     <td width="100%" align="left" valign="top">in file DefaultRandomizer.php, method <a href="ESAPI_Reference/DefaultRandomizer.html#methodgetRandomBoolean">DefaultRandomizer::getRandomBoolean()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Returns a random boolean.  The use of java.security.SecureRandom  is recommended because it provides a cryptographically strong pseudo-random number generator.</td>
   </tr>
     <tr>
-    <td>&nbsp;&nbsp;&nbsp;<strong>getRandomFilename</strong></td>
-    <td width="100%" align="left" valign="top">in file DefaultRandomizer.php, method <a href="ESAPI_Reference/DefaultRandomizer.html#methodgetRandomFilename">DefaultRandomizer::getRandomFilename()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Returns an unguessable random filename with the specified extension.  This method could call  getRandomString(length, charset) from this Class with the desired length and alphanumerics as the charset  then merely append &quot;.&quot; + extension.</td>
+    <td>&nbsp;&nbsp;&nbsp;<strong>getRandomBoolean</strong></td>
+    <td width="100%" align="left" valign="top">in file Randomizer.php, method <a href="ESAPI/Randomizer.html#methodgetRandomBoolean">Randomizer::getRandomBoolean()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Returns a random boolean.  The use of java.security.SecureRandom</td>
   </tr>
     <tr>
     <td>&nbsp;&nbsp;&nbsp;<strong>getRandomFilename</strong></td>
     <td width="100%" align="left" valign="top">in file Randomizer.php, method <a href="ESAPI/Randomizer.html#methodgetRandomFilename">Randomizer::getRandomFilename()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Returns an unguessable random filename with the specified extension.</td>
   </tr>
     <tr>
-    <td>&nbsp;&nbsp;&nbsp;<strong>getRandomGUID</strong></td>
-    <td width="100%" align="left" valign="top">in file Randomizer.php, method <a href="ESAPI/Randomizer.html#methodgetRandomGUID">Randomizer::getRandomGUID()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Generates a random GUID.  This method could use a hash of random Strings,  the current time, and any other random data available.  The format is a  well-defined sequence of 32 hex digits grouped into chunks of 8-4-4-4-12.</td>
+    <td>&nbsp;&nbsp;&nbsp;<strong>getRandomFilename</strong></td>
+    <td width="100%" align="left" valign="top">in file DefaultRandomizer.php, method <a href="ESAPI_Reference/DefaultRandomizer.html#methodgetRandomFilename">DefaultRandomizer::getRandomFilename()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Returns an unguessable random filename with the specified extension.  This method could call  getRandomString(length, charset) from this Class with the desired length and alphanumerics as the charset  then merely append &quot;.&quot; + extension.</td>
   </tr>
     <tr>
     <td>&nbsp;&nbsp;&nbsp;<strong>getRandomGUID</strong></td>
     <td width="100%" align="left" valign="top">in file DefaultRandomizer.php, method <a href="ESAPI_Reference/DefaultRandomizer.html#methodgetRandomGUID">DefaultRandomizer::getRandomGUID()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Generates a random GUID.  This method could use a hash of random Strings, the current time,  and any other random data available.  The format is a well-defined sequence of 32 hex digits  grouped into chunks of 8-4-4-4-12.</td>
   </tr>
     <tr>
-    <td>&nbsp;&nbsp;&nbsp;<strong>getRandomInteger</strong></td>
-    <td width="100%" align="left" valign="top">in file Randomizer.php, method <a href="ESAPI/Randomizer.html#methodgetRandomInteger">Randomizer::getRandomInteger()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Gets the random integer. The use of java.security.SecureRandom</td>
+    <td>&nbsp;&nbsp;&nbsp;<strong>getRandomGUID</strong></td>
+    <td width="100%" align="left" valign="top">in file Randomizer.php, method <a href="ESAPI/Randomizer.html#methodgetRandomGUID">Randomizer::getRandomGUID()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Generates a random GUID.  This method could use a hash of random Strings,  the current time, and any other random data available.  The format is a  well-defined sequence of 32 hex digits grouped into chunks of 8-4-4-4-12.</td>
   </tr>
     <tr>
     <td>&nbsp;&nbsp;&nbsp;<strong>getRandomInteger</strong></td>
     <td width="100%" align="left" valign="top">in file DefaultRandomizer.php, method <a href="ESAPI_Reference/DefaultRandomizer.html#methodgetRandomInteger">DefaultRandomizer::getRandomInteger()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Gets the random integer. The use of java.security.SecureRandom  is recommended because it provides a cryptographically strong pseudo-random number generator.</td>
+  </tr>
+    <tr>
+    <td>&nbsp;&nbsp;&nbsp;<strong>getRandomInteger</strong></td>
+    <td width="100%" align="left" valign="top">in file Randomizer.php, method <a href="ESAPI/Randomizer.html#methodgetRandomInteger">Randomizer::getRandomInteger()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Gets the random integer. The use of java.security.SecureRandom</td>
   </tr>
     <tr>
     <td>&nbsp;&nbsp;&nbsp;<strong>getRandomizer</strong></td>
@@ -1503,19 +1499,19 @@
   </tr>
     <tr>
     <td>&nbsp;&nbsp;&nbsp;<strong>getRandomReal</strong></td>
-    <td width="100%" align="left" valign="top">in file DefaultRandomizer.php, method <a href="ESAPI_Reference/DefaultRandomizer.html#methodgetRandomReal">DefaultRandomizer::getRandomReal()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Gets the random real.  The use of java.security.SecureRandom  is recommended because it provides a cryptographically strong pseudo-random number generator.</td>
-  </tr>
-    <tr>
-    <td>&nbsp;&nbsp;&nbsp;<strong>getRandomReal</strong></td>
     <td width="100%" align="left" valign="top">in file Randomizer.php, method <a href="ESAPI/Randomizer.html#methodgetRandomReal">Randomizer::getRandomReal()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Gets the random real.  The use of java.security.SecureRandom</td>
   </tr>
     <tr>
-    <td>&nbsp;&nbsp;&nbsp;<strong>getRandomString</strong></td>
-    <td width="100%" align="left" valign="top">in file Randomizer.php, method <a href="ESAPI/Randomizer.html#methodgetRandomString">Randomizer::getRandomString()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Gets a random string of a desired length and character set.  The use of</td>
+    <td>&nbsp;&nbsp;&nbsp;<strong>getRandomReal</strong></td>
+    <td width="100%" align="left" valign="top">in file DefaultRandomizer.php, method <a href="ESAPI_Reference/DefaultRandomizer.html#methodgetRandomReal">DefaultRandomizer::getRandomReal()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Gets the random real.  The use of java.security.SecureRandom  is recommended because it provides a cryptographically strong pseudo-random number generator.</td>
   </tr>
     <tr>
     <td>&nbsp;&nbsp;&nbsp;<strong>getRandomString</strong></td>
     <td width="100%" align="left" valign="top">in file DefaultRandomizer.php, method <a href="ESAPI_Reference/DefaultRandomizer.html#methodgetRandomString">DefaultRandomizer::getRandomString()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Gets a random string of a desired length and character set.  The use of java.security.SecureRandom  is recommended because it provides a cryptographically strong pseudo-random number generator.</td>
+  </tr>
+    <tr>
+    <td>&nbsp;&nbsp;&nbsp;<strong>getRandomString</strong></td>
+    <td width="100%" align="left" valign="top">in file Randomizer.php, method <a href="ESAPI/Randomizer.html#methodgetRandomString">Randomizer::getRandomString()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Gets a random string of a desired length and character set.  The use of</td>
   </tr>
     <tr>
     <td>&nbsp;&nbsp;&nbsp;<strong>getRememberTokenDuration</strong></td>
@@ -1543,19 +1539,19 @@
   </tr>
     <tr>
     <td>&nbsp;&nbsp;&nbsp;<strong>getResourceDirectory</strong></td>
-    <td width="100%" align="left" valign="top">in file SecurityConfiguration.php, method <a href="ESAPI/SecurityConfiguration.html#methodgetResourceDirectory">SecurityConfiguration::getResourceDirectory()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Gets the name of the ESAPI resource directory as a String.</td>
-  </tr>
-    <tr>
-    <td>&nbsp;&nbsp;&nbsp;<strong>getResourceDirectory</strong></td>
     <td width="100%" align="left" valign="top">in file DefaultSecurityConfiguration.php, method <a href="ESAPI_Reference/DefaultSecurityConfiguration.html#methodgetResourceDirectory">DefaultSecurityConfiguration::getResourceDirectory()</a></td>
   </tr>
     <tr>
-    <td>&nbsp;&nbsp;&nbsp;<strong>getResponseContentType</strong></td>
-    <td width="100%" align="left" valign="top">in file SecurityConfiguration.php, method <a href="ESAPI/SecurityConfiguration.html#methodgetResponseContentType">SecurityConfiguration::getResponseContentType()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Gets the content type for responses used when setSafeContentType() is called.</td>
+    <td>&nbsp;&nbsp;&nbsp;<strong>getResourceDirectory</strong></td>
+    <td width="100%" align="left" valign="top">in file SecurityConfiguration.php, method <a href="ESAPI/SecurityConfiguration.html#methodgetResourceDirectory">SecurityConfiguration::getResourceDirectory()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Gets the name of the ESAPI resource directory as a String.</td>
   </tr>
     <tr>
     <td>&nbsp;&nbsp;&nbsp;<strong>getResponseContentType</strong></td>
     <td width="100%" align="left" valign="top">in file DefaultSecurityConfiguration.php, method <a href="ESAPI_Reference/DefaultSecurityConfiguration.html#methodgetResponseContentType">DefaultSecurityConfiguration::getResponseContentType()</a></td>
+  </tr>
+    <tr>
+    <td>&nbsp;&nbsp;&nbsp;<strong>getResponseContentType</strong></td>
+    <td width="100%" align="left" valign="top">in file SecurityConfiguration.php, method <a href="ESAPI/SecurityConfiguration.html#methodgetResponseContentType">SecurityConfiguration::getResponseContentType()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Gets the content type for responses used when setSafeContentType() is called.</td>
   </tr>
     <tr>
     <td>&nbsp;&nbsp;&nbsp;<strong>getRoles</strong></td>
@@ -1579,11 +1575,11 @@
   </tr>
     <tr>
     <td>&nbsp;&nbsp;&nbsp;<strong>getSanitizedHTML</strong></td>
-    <td width="100%" align="left" valign="top">in file Sanitizer.php, method <a href="ESAPI/Sanitizer.html#methodgetSanitizedHTML">Sanitizer::getSanitizedHTML()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Returns valid, &quot;safe&quot; HTML.</td>
+    <td width="100%" align="left" valign="top">in file DefaultSanitizer.php, method <a href="ESAPI_Reference/DefaultSanitizer.html#methodgetSanitizedHTML">DefaultSanitizer::getSanitizedHTML()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Returns valid, &quot;safe&quot; HTML.</td>
   </tr>
     <tr>
     <td>&nbsp;&nbsp;&nbsp;<strong>getSanitizedHTML</strong></td>
-    <td width="100%" align="left" valign="top">in file DefaultSanitizer.php, method <a href="ESAPI_Reference/DefaultSanitizer.html#methodgetSanitizedHTML">DefaultSanitizer::getSanitizedHTML()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Returns valid, &quot;safe&quot; HTML.</td>
+    <td width="100%" align="left" valign="top">in file Sanitizer.php, method <a href="ESAPI/Sanitizer.html#methodgetSanitizedHTML">Sanitizer::getSanitizedHTML()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Returns valid, &quot;safe&quot; HTML.</td>
   </tr>
     <tr>
     <td>&nbsp;&nbsp;&nbsp;<strong>getSanitizedURL</strong></td>
@@ -1595,11 +1591,11 @@
   </tr>
     <tr>
     <td>&nbsp;&nbsp;&nbsp;<strong>getSanitizedWord</strong></td>
-    <td width="100%" align="left" valign="top">in file Sanitizer.php, method <a href="ESAPI/Sanitizer.html#methodgetSanitizedWord">Sanitizer::getSanitizedWord()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Generically attempts to sanitize English language words based on the  provided guess by calculating and comparing metaphone values.</td>
+    <td width="100%" align="left" valign="top">in file DefaultSanitizer.php, method <a href="ESAPI_Reference/DefaultSanitizer.html#methodgetSanitizedWord">DefaultSanitizer::getSanitizedWord()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Returns valid, &quot;safe&quot; English language word based on the provided guess.</td>
   </tr>
     <tr>
     <td>&nbsp;&nbsp;&nbsp;<strong>getSanitizedWord</strong></td>
-    <td width="100%" align="left" valign="top">in file DefaultSanitizer.php, method <a href="ESAPI_Reference/DefaultSanitizer.html#methodgetSanitizedWord">DefaultSanitizer::getSanitizedWord()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Returns valid, &quot;safe&quot; English language word based on the provided guess.</td>
+    <td width="100%" align="left" valign="top">in file Sanitizer.php, method <a href="ESAPI/Sanitizer.html#methodgetSanitizedWord">Sanitizer::getSanitizedWord()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Generically attempts to sanitize English language words based on the  provided guess by calculating and comparing metaphone values.</td>
   </tr>
     <tr>
     <td>&nbsp;&nbsp;&nbsp;<strong>getSanitizer</strong></td>
@@ -1627,11 +1623,11 @@
   </tr>
     <tr>
     <td>&nbsp;&nbsp;&nbsp;<strong>getSessionAbsoluteTimeoutLength</strong></td>
-    <td width="100%" align="left" valign="top">in file SecurityConfiguration.php, method <a href="ESAPI/SecurityConfiguration.html#methodgetSessionAbsoluteTimeoutLength">SecurityConfiguration::getSessionAbsoluteTimeoutLength()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Gets the absolute timeout length for sessions (in milliseconds). This is</td>
+    <td width="100%" align="left" valign="top">in file DefaultSecurityConfiguration.php, method <a href="ESAPI_Reference/DefaultSecurityConfiguration.html#methodgetSessionAbsoluteTimeoutLength">DefaultSecurityConfiguration::getSessionAbsoluteTimeoutLength()</a></td>
   </tr>
     <tr>
     <td>&nbsp;&nbsp;&nbsp;<strong>getSessionAbsoluteTimeoutLength</strong></td>
-    <td width="100%" align="left" valign="top">in file DefaultSecurityConfiguration.php, method <a href="ESAPI_Reference/DefaultSecurityConfiguration.html#methodgetSessionAbsoluteTimeoutLength">DefaultSecurityConfiguration::getSessionAbsoluteTimeoutLength()</a></td>
+    <td width="100%" align="left" valign="top">in file SecurityConfiguration.php, method <a href="ESAPI/SecurityConfiguration.html#methodgetSessionAbsoluteTimeoutLength">SecurityConfiguration::getSessionAbsoluteTimeoutLength()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Gets the absolute timeout length for sessions (in milliseconds). This is</td>
   </tr>
     <tr>
     <td>&nbsp;&nbsp;&nbsp;<strong>getSessionIdleTimeoutLength</strong></td>
@@ -1651,11 +1647,11 @@
   </tr>
     <tr>
     <td>&nbsp;&nbsp;&nbsp;<strong>getTypeName</strong></td>
-    <td width="100%" align="left" valign="top">in file BaseValidationRule.php, method <a href="ESAPI_Reference_Validation/BaseValidationRule.html#methodgetTypeName">BaseValidationRule::getTypeName()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Gets the descriptive name for the validator.</td>
+    <td width="100%" align="left" valign="top">in file ValidationRule.php, method <a href="ESAPI/ValidationRule.html#methodgetTypeName">ValidationRule::getTypeName()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Gets the descriptive name for the validator.</td>
   </tr>
     <tr>
     <td>&nbsp;&nbsp;&nbsp;<strong>getTypeName</strong></td>
-    <td width="100%" align="left" valign="top">in file ValidationRule.php, method <a href="ESAPI/ValidationRule.html#methodgetTypeName">ValidationRule::getTypeName()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Gets the descriptive name for the validator.</td>
+    <td width="100%" align="left" valign="top">in file BaseValidationRule.php, method <a href="ESAPI_Reference_Validation/BaseValidationRule.html#methodgetTypeName">BaseValidationRule::getTypeName()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Gets the descriptive name for the validator.</td>
   </tr>
     <tr>
     <td>&nbsp;&nbsp;&nbsp;<strong>getUniqueRandomReference</strong></td>
@@ -1675,11 +1671,11 @@
   </tr>
     <tr>
     <td>&nbsp;&nbsp;&nbsp;<strong>getUserMessage</strong></td>
-    <td width="100%" align="left" valign="top">in file IntrusionException.php, method <a href="ESAPI_Errors/IntrusionException.html#methodgetUserMessage">IntrusionException::getUserMessage()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Returns a String containing a message that is safe to display to users</td>
+    <td width="100%" align="left" valign="top">in file EnterpriseSecurityException.php, method <a href="ESAPI_Errors/EnterpriseSecurityException.html#methodgetUserMessage">EnterpriseSecurityException::getUserMessage()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Returns message that is safe to display to users</td>
   </tr>
     <tr>
     <td>&nbsp;&nbsp;&nbsp;<strong>getUserMessage</strong></td>
-    <td width="100%" align="left" valign="top">in file EnterpriseSecurityException.php, method <a href="ESAPI_Errors/EnterpriseSecurityException.html#methodgetUserMessage">EnterpriseSecurityException::getUserMessage()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Returns message that is safe to display to users</td>
+    <td width="100%" align="left" valign="top">in file IntrusionException.php, method <a href="ESAPI_Errors/IntrusionException.html#methodgetUserMessage">IntrusionException::getUserMessage()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Returns a String containing a message that is safe to display to users</td>
   </tr>
     <tr>
     <td>&nbsp;&nbsp;&nbsp;<strong>getUsernameParameterName</strong></td>
@@ -1695,11 +1691,7 @@
   </tr>
     <tr>
     <td>&nbsp;&nbsp;&nbsp;<strong>getValid</strong></td>
-    <td width="100%" align="left" valign="top">in file WordValidationRule.php, method <a href="ESAPI_Reference_Validation/WordValidationRule.html#methodgetValid">WordValidationRule::getValid()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Returns the canonicalized, valid input.</td>
-  </tr>
-    <tr>
-    <td>&nbsp;&nbsp;&nbsp;<strong>getValid</strong></td>
-    <td width="100%" align="left" valign="top">in file ValidationRule.php, method <a href="ESAPI/ValidationRule.html#methodgetValid">ValidationRule::getValid()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Returns the canonicalized, valid input.</td>
+    <td width="100%" align="left" valign="top">in file StringValidationRule.php, method <a href="ESAPI_Reference_Validation/StringValidationRule.html#methodgetValid">StringValidationRule::getValid()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Returns the canonicalized, valid input.</td>
   </tr>
     <tr>
     <td>&nbsp;&nbsp;&nbsp;<strong>getValid</strong></td>
@@ -1707,23 +1699,15 @@
   </tr>
     <tr>
     <td>&nbsp;&nbsp;&nbsp;<strong>getValid</strong></td>
-    <td width="100%" align="left" valign="top">in file StringValidationRule.php, method <a href="ESAPI_Reference_Validation/StringValidationRule.html#methodgetValid">StringValidationRule::getValid()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Returns the canonicalized, valid input.</td>
-  </tr>
-    <tr>
-    <td>&nbsp;&nbsp;&nbsp;<strong>getValid</strong></td>
-    <td width="100%" align="left" valign="top">in file IntegerValidationRule.php, method <a href="ESAPI_Reference_Validation/IntegerValidationRule.html#methodgetValid">IntegerValidationRule::getValid()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Returns the canonicalized, valid input.</td>
-  </tr>
-    <tr>
-    <td>&nbsp;&nbsp;&nbsp;<strong>getValid</strong></td>
-    <td width="100%" align="left" valign="top">in file EmailAddressValidationRule.php, method <a href="ESAPI_Reference_Validation/EmailAddressValidationRule.html#methodgetValid">EmailAddressValidationRule::getValid()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Returns the canonicalized, valid input.</td>
-  </tr>
-    <tr>
-    <td>&nbsp;&nbsp;&nbsp;<strong>getValid</strong></td>
-    <td width="100%" align="left" valign="top">in file HTMLValidationRule.php, method <a href="ESAPI_Reference_Validation/HTMLValidationRule.html#methodgetValid">HTMLValidationRule::getValid()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Returns the canonicalized, valid input.</td>
-  </tr>
-    <tr>
-    <td>&nbsp;&nbsp;&nbsp;<strong>getValid</strong></td>
     <td width="100%" align="left" valign="top">in file DateValidationRule.php, method <a href="ESAPI_Reference_Validation/DateValidationRule.html#methodgetValid">DateValidationRule::getValid()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Returns the canonicalized, valid input.</td>
+  </tr>
+    <tr>
+    <td>&nbsp;&nbsp;&nbsp;<strong>getValid</strong></td>
+    <td width="100%" align="left" valign="top">in file ValidationRule.php, method <a href="ESAPI/ValidationRule.html#methodgetValid">ValidationRule::getValid()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Returns the canonicalized, valid input.</td>
+  </tr>
+    <tr>
+    <td>&nbsp;&nbsp;&nbsp;<strong>getValid</strong></td>
+    <td width="100%" align="left" valign="top">in file NumberValidationRule.php, method <a href="ESAPI_Reference_Validation/NumberValidationRule.html#methodgetValid">NumberValidationRule::getValid()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Returns the canonicalized, valid input.</td>
   </tr>
     <tr>
     <td>&nbsp;&nbsp;&nbsp;<strong>getValid</strong></td>
@@ -1731,7 +1715,19 @@
   </tr>
     <tr>
     <td>&nbsp;&nbsp;&nbsp;<strong>getValid</strong></td>
-    <td width="100%" align="left" valign="top">in file NumberValidationRule.php, method <a href="ESAPI_Reference_Validation/NumberValidationRule.html#methodgetValid">NumberValidationRule::getValid()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Returns the canonicalized, valid input.</td>
+    <td width="100%" align="left" valign="top">in file HTMLValidationRule.php, method <a href="ESAPI_Reference_Validation/HTMLValidationRule.html#methodgetValid">HTMLValidationRule::getValid()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Returns the canonicalized, valid input.</td>
+  </tr>
+    <tr>
+    <td>&nbsp;&nbsp;&nbsp;<strong>getValid</strong></td>
+    <td width="100%" align="left" valign="top">in file EmailAddressValidationRule.php, method <a href="ESAPI_Reference_Validation/EmailAddressValidationRule.html#methodgetValid">EmailAddressValidationRule::getValid()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Returns the canonicalized, valid input.</td>
+  </tr>
+    <tr>
+    <td>&nbsp;&nbsp;&nbsp;<strong>getValid</strong></td>
+    <td width="100%" align="left" valign="top">in file WordValidationRule.php, method <a href="ESAPI_Reference_Validation/WordValidationRule.html#methodgetValid">WordValidationRule::getValid()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Returns the canonicalized, valid input.</td>
+  </tr>
+    <tr>
+    <td>&nbsp;&nbsp;&nbsp;<strong>getValid</strong></td>
+    <td width="100%" align="left" valign="top">in file IntegerValidationRule.php, method <a href="ESAPI_Reference_Validation/IntegerValidationRule.html#methodgetValid">IntegerValidationRule::getValid()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Returns the canonicalized, valid input.</td>
   </tr>
     <tr>
     <td>&nbsp;&nbsp;&nbsp;<strong>getValidationPattern</strong></td>
@@ -1784,7 +1780,7 @@
   </tr>
     <tr>
     <td>&nbsp;&nbsp;&nbsp;<strong>HTTPUtilities</strong></td>
-    <td width="100%" align="left" valign="top">in file HTTPUtilities.php, class <a href="ESAPI/HTTPUtilities.html">HTTPUtilities</a><br>&nbsp;&nbsp;&nbsp;&nbsp;The HTTPUtilities interface is a collection of methods that provide  additional security related to HTTP requests, responses, sessions, cookies,  headers, and logging.</td>
+    <td width="100%" align="left" valign="top">in file HTTPUtilities.php, class <a href="ESAPI/HTTPUtilities.html">HTTPUtilities</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Use this ESAPI security control to assist with HTTP security.</td>
   </tr>
     <tr>
     <td>&nbsp;&nbsp;&nbsp;<strong>HTTPUtilities.php</strong></td>
@@ -1849,7 +1845,7 @@
   </tr>
     <tr>
     <td>&nbsp;&nbsp;&nbsp;<strong>IntrusionDetector</strong></td>
-    <td width="100%" align="left" valign="top">in file IntrusionDetector.php, class <a href="ESAPI/IntrusionDetector.html">IntrusionDetector</a><br>&nbsp;&nbsp;&nbsp;&nbsp;The IntrusionDetector interface is intended to track security relevant events  and identify attack behavior. The implementation can use as much state as  necessary to detect attacks, but note that storing too much state will burden  your system.</td>
+    <td width="100%" align="left" valign="top">in file IntrusionDetector.php, class <a href="ESAPI/IntrusionDetector.html">IntrusionDetector</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Use this ESAPI security control to wrap intrusion detection functions  that are internal to your application.</td>
   </tr>
     <tr>
     <td>&nbsp;&nbsp;&nbsp;<strong>IntrusionDetector.php</strong></td>
@@ -2433,7 +2429,7 @@
   </tr>
     <tr>
     <td>&nbsp;&nbsp;&nbsp;<strong>Randomizer</strong></td>
-    <td width="100%" align="left" valign="top">in file Randomizer.php, class <a href="ESAPI/Randomizer.html">Randomizer</a><br>&nbsp;&nbsp;&nbsp;&nbsp;The Randomizer interface defines a set of methods for creating  cryptographically random numbers and strings. Implementers should be sure to  use a strong cryptographic implementation, such as the JCE or BouncyCastle.</td>
+    <td width="100%" align="left" valign="top">in file Randomizer.php, class <a href="ESAPI/Randomizer.html">Randomizer</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Use this ESAPI security control to get random numbers and strings.</td>
   </tr>
     <tr>
     <td>&nbsp;&nbsp;&nbsp;<strong>Randomizer.php</strong></td>
@@ -2498,7 +2494,7 @@
   </tr>
     <tr>
     <td>&nbsp;&nbsp;&nbsp;<strong>SafeFile</strong></td>
-    <td width="100%" align="left" valign="top">in file SafeFile.php, class <a href="ESAPI/SafeFile.html">SafeFile</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Extension to SplFileObject to prevent against null byte injections and  other unforeseen problems resulting from unprintable characters  causing problems in path lookups. This does _not_ prevent against  directory traversal attacks.</td>
+    <td width="100%" align="left" valign="top">in file SafeFile.php, class <a href="ESAPI/SafeFile.html">SafeFile</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Use this ESAPI security control to read files from the operating  system.</td>
   </tr>
     <tr>
     <td>&nbsp;&nbsp;&nbsp;<strong>SafeFile.php</strong></td>
@@ -2510,7 +2506,7 @@
   </tr>
     <tr>
     <td>&nbsp;&nbsp;&nbsp;<strong>sanitize</strong></td>
-    <td width="100%" align="left" valign="top">in file NumberValidationRule.php, method <a href="ESAPI_Reference_Validation/NumberValidationRule.html#methodsanitize">NumberValidationRule::sanitize()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Returns a default safe number - in this case (double) zero.</td>
+    <td width="100%" align="left" valign="top">in file StringValidationRule.php, method <a href="ESAPI_Reference_Validation/StringValidationRule.html#methodsanitize">StringValidationRule::sanitize()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Returns the supplied input string after removing any non-alphanumeric  characters.</td>
   </tr>
     <tr>
     <td>&nbsp;&nbsp;&nbsp;<strong>sanitize</strong></td>
@@ -2522,7 +2518,7 @@
   </tr>
     <tr>
     <td>&nbsp;&nbsp;&nbsp;<strong>sanitize</strong></td>
-    <td width="100%" align="left" valign="top">in file URLValidationRule.php, method <a href="ESAPI_Reference_Validation/URLValidationRule.html#methodsanitize">URLValidationRule::sanitize()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Simply attempt to purify the URL and return an empty string if that  fails.</td>
+    <td width="100%" align="left" valign="top">in file WordValidationRule.php, method <a href="ESAPI_Reference_Validation/WordValidationRule.html#methodsanitize">WordValidationRule::sanitize()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Simply attempt to purify the URL and return an empty string if that  fails.</td>
   </tr>
     <tr>
     <td>&nbsp;&nbsp;&nbsp;<strong>sanitize</strong></td>
@@ -2530,7 +2526,7 @@
   </tr>
     <tr>
     <td>&nbsp;&nbsp;&nbsp;<strong>sanitize</strong></td>
-    <td width="100%" align="left" valign="top">in file WordValidationRule.php, method <a href="ESAPI_Reference_Validation/WordValidationRule.html#methodsanitize">WordValidationRule::sanitize()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Simply attempt to purify the URL and return an empty string if that  fails.</td>
+    <td width="100%" align="left" valign="top">in file HTMLValidationRule.php, method <a href="ESAPI_Reference_Validation/HTMLValidationRule.html#methodsanitize">HTMLValidationRule::sanitize()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Simply attempt to purify the HTML and return an empty string if that  fails.</td>
   </tr>
     <tr>
     <td>&nbsp;&nbsp;&nbsp;<strong>sanitize</strong></td>
@@ -2538,19 +2534,19 @@
   </tr>
     <tr>
     <td>&nbsp;&nbsp;&nbsp;<strong>sanitize</strong></td>
+    <td width="100%" align="left" valign="top">in file URLValidationRule.php, method <a href="ESAPI_Reference_Validation/URLValidationRule.html#methodsanitize">URLValidationRule::sanitize()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Simply attempt to purify the URL and return an empty string if that  fails.</td>
+  </tr>
+    <tr>
+    <td>&nbsp;&nbsp;&nbsp;<strong>sanitize</strong></td>
+    <td width="100%" align="left" valign="top">in file NumberValidationRule.php, method <a href="ESAPI_Reference_Validation/NumberValidationRule.html#methodsanitize">NumberValidationRule::sanitize()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Returns a default safe number - in this case (double) zero.</td>
+  </tr>
+    <tr>
+    <td>&nbsp;&nbsp;&nbsp;<strong>sanitize</strong></td>
     <td width="100%" align="left" valign="top">in file DateValidationRule.php, method <a href="ESAPI_Reference_Validation/DateValidationRule.html#methodsanitize">DateValidationRule::sanitize()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Returns a default DateTime object created by calling date_create without  supplying any parameters.</td>
   </tr>
     <tr>
-    <td>&nbsp;&nbsp;&nbsp;<strong>sanitize</strong></td>
-    <td width="100%" align="left" valign="top">in file HTMLValidationRule.php, method <a href="ESAPI_Reference_Validation/HTMLValidationRule.html#methodsanitize">HTMLValidationRule::sanitize()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Simply attempt to purify the HTML and return an empty string if that  fails.</td>
-  </tr>
-    <tr>
-    <td>&nbsp;&nbsp;&nbsp;<strong>sanitize</strong></td>
-    <td width="100%" align="left" valign="top">in file StringValidationRule.php, method <a href="ESAPI_Reference_Validation/StringValidationRule.html#methodsanitize">StringValidationRule::sanitize()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Returns the supplied input string after removing any non-alphanumeric  characters.</td>
-  </tr>
-    <tr>
     <td>&nbsp;&nbsp;&nbsp;<strong>Sanitizer</strong></td>
-    <td width="100%" align="left" valign="top">in file Sanitizer.php, class <a href="ESAPI/Sanitizer.html">Sanitizer</a><br>&nbsp;&nbsp;&nbsp;&nbsp;The Sanitizer interface defines a set of methods for sanitizing untrusted  input to remove all but a whitelist of characters. Implementors should feel  free to extend this interface to accommodate their own data formats.</td>
+    <td width="100%" align="left" valign="top">in file Sanitizer.php, class <a href="ESAPI/Sanitizer.html">Sanitizer</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Use this ESAPI security control to wrap your sanitization functions.</td>
   </tr>
     <tr>
     <td>&nbsp;&nbsp;&nbsp;<strong>Sanitizer.php</strong></td>
@@ -2566,7 +2562,7 @@
   </tr>
     <tr>
     <td>&nbsp;&nbsp;&nbsp;<strong>SecurityConfiguration</strong></td>
-    <td width="100%" align="left" valign="top">in file SecurityConfiguration.php, class <a href="ESAPI/SecurityConfiguration.html">SecurityConfiguration</a><br>&nbsp;&nbsp;&nbsp;&nbsp;The SecurityConfiguration interface stores all configuration information that  directs the behavior of the ESAPI implementation.</td>
+    <td width="100%" align="left" valign="top">in file SecurityConfiguration.php, class <a href="ESAPI/SecurityConfiguration.html">SecurityConfiguration</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Use this ESAPI security control to manage ESAPI security control  functions.</td>
   </tr>
     <tr>
     <td>&nbsp;&nbsp;&nbsp;<strong>SecurityConfiguration.php</strong></td>
@@ -2585,16 +2581,12 @@
     <td width="100%" align="left" valign="top">in file DefaultUser.php, method <a href="ESAPI_Reference/DefaultUser.html#methodsetAccountName">DefaultUser::setAccountName()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Sets this user's account name.</td>
   </tr>
     <tr>
-    <td>&nbsp;&nbsp;&nbsp;<strong>setAdapter</strong></td>
-    <td width="100%" align="left" valign="top">in file ESAPI.php, method <a href="ESAPI/ESAPI.html#methodsetAdapter">ESAPI::setAdapter()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Set the current ESAPI AccessController object being used to wrap ESAPI  functions for this application.</td>
+    <td>&nbsp;&nbsp;&nbsp;<strong>setAllowNull</strong></td>
+    <td width="100%" align="left" valign="top">in file BaseValidationRule.php, method <a href="ESAPI_Reference_Validation/BaseValidationRule.html#methodsetAllowNull">BaseValidationRule::setAllowNull()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Sets the boolean allowNull property which, if set true, will allow empty  inputs to validate as true.</td>
   </tr>
     <tr>
     <td>&nbsp;&nbsp;&nbsp;<strong>setAllowNull</strong></td>
     <td width="100%" align="left" valign="top">in file ValidationRule.php, method <a href="ESAPI/ValidationRule.html#methodsetAllowNull">ValidationRule::setAllowNull()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Sets the boolean allowNull property which, if set true, will allow empty  inputs to validate as true.</td>
-  </tr>
-    <tr>
-    <td>&nbsp;&nbsp;&nbsp;<strong>setAllowNull</strong></td>
-    <td width="100%" align="left" valign="top">in file BaseValidationRule.php, method <a href="ESAPI_Reference_Validation/BaseValidationRule.html#methodsetAllowNull">BaseValidationRule::setAllowNull()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Sets the boolean allowNull property which, if set true, will allow empty  inputs to validate as true.</td>
   </tr>
     <tr>
     <td>&nbsp;&nbsp;&nbsp;<strong>setAuditorFactory</strong></td>
@@ -2634,11 +2626,11 @@
   </tr>
     <tr>
     <td>&nbsp;&nbsp;&nbsp;<strong>setEncoder</strong></td>
-    <td width="100%" align="left" valign="top">in file ESAPI.php, method <a href="ESAPI/ESAPI.html#methodsetEncoder">ESAPI::setEncoder()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Set the current ESAPI Encoder object being used to encode and decode data  for this application.</td>
+    <td width="100%" align="left" valign="top">in file BaseValidationRule.php, method <a href="ESAPI_Reference_Validation/BaseValidationRule.html#methodsetEncoder">BaseValidationRule::setEncoder()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Sets an instance of an encoder class which should provide a  canonicalize method.</td>
   </tr>
     <tr>
     <td>&nbsp;&nbsp;&nbsp;<strong>setEncoder</strong></td>
-    <td width="100%" align="left" valign="top">in file BaseValidationRule.php, method <a href="ESAPI_Reference_Validation/BaseValidationRule.html#methodsetEncoder">BaseValidationRule::setEncoder()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Sets an instance of an encoder class which should provide a  canonicalize method.</td>
+    <td width="100%" align="left" valign="top">in file ESAPI.php, method <a href="ESAPI/ESAPI.html#methodsetEncoder">ESAPI::setEncoder()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Set the current ESAPI Encoder object being used to encode and decode data  for this application.</td>
   </tr>
     <tr>
     <td>&nbsp;&nbsp;&nbsp;<strong>setEncoder</strong></td>
@@ -2690,11 +2682,11 @@
   </tr>
     <tr>
     <td>&nbsp;&nbsp;&nbsp;<strong>setLevel</strong></td>
-    <td width="100%" align="left" valign="top">in file DefaultAuditor.php, method <a href="ESAPI_Reference/DefaultAuditor.html#methodsetLevel">DefaultAuditor::setLevel()</a></td>
+    <td width="100%" align="left" valign="top">in file Auditor.php, method <a href="ESAPI/Auditor.html#methodsetLevel">Auditor::setLevel()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Dynamically set the logging severity level. All events of this level and  higher will be logged from this point forward for all logs. All events  below this level will be discarded.</td>
   </tr>
     <tr>
     <td>&nbsp;&nbsp;&nbsp;<strong>setLevel</strong></td>
-    <td width="100%" align="left" valign="top">in file Auditor.php, method <a href="ESAPI/Auditor.html#methodsetLevel">Auditor::setLevel()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Dynamically set the logging severity level. All events of this level and  higher will be logged from this point forward for all logs. All events  below this level will be discarded.</td>
+    <td width="100%" align="left" valign="top">in file DefaultAuditor.php, method <a href="ESAPI_Reference/DefaultAuditor.html#methodsetLevel">DefaultAuditor::setLevel()</a></td>
   </tr>
     <tr>
     <td>&nbsp;&nbsp;&nbsp;<strong>setMaximumLength</strong></td>
@@ -2750,7 +2742,7 @@
   </tr>
     <tr>
     <td>&nbsp;&nbsp;&nbsp;<strong>StringUtilities</strong></td>
-    <td width="100%" align="left" valign="top">in file StringUtilities.php, class <a href="ESAPI/StringUtilities.html">StringUtilities</a><br>&nbsp;&nbsp;&nbsp;&nbsp;String utilities used in various filters.</td>
+    <td width="100%" align="left" valign="top">in file StringUtilities.php, class <a href="ESAPI/StringUtilities.html">StringUtilities</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Use this ESAPI security control to assist with manipulating strings  in other ESAPI security controls.</td>
   </tr>
     <tr>
     <td>&nbsp;&nbsp;&nbsp;<strong>StringUtilities.php</strong></td>
@@ -2881,7 +2873,7 @@
   </tr>
     <tr>
     <td>&nbsp;&nbsp;&nbsp;<strong>ValidationErrorList</strong></td>
-    <td width="100%" align="left" valign="top">in file ValidationErrorList.php, class <a href="ESAPI/ValidationErrorList.html">ValidationErrorList</a><br>&nbsp;&nbsp;&nbsp;&nbsp;The ValidationErrorList class defines a well-formed collection of ValidationExceptions so that groups of validation functions can be called in a non-blocking fashion.</td>
+    <td width="100%" align="left" valign="top">in file ValidationErrorList.php, class <a href="ESAPI/ValidationErrorList.html">ValidationErrorList</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Use this ESAPI security control to enumerate validation exceptions.</td>
   </tr>
     <tr>
     <td>&nbsp;&nbsp;&nbsp;<strong>ValidationErrorList.php</strong></td>
@@ -2893,7 +2885,7 @@
   </tr>
     <tr>
     <td>&nbsp;&nbsp;&nbsp;<strong>ValidationRule</strong></td>
-    <td width="100%" align="left" valign="top">in file ValidationRule.php, class <a href="ESAPI/ValidationRule.html">ValidationRule</a><br>&nbsp;&nbsp;&nbsp;&nbsp;ValidationRule Interface.</td>
+    <td width="100%" align="left" valign="top">in file ValidationRule.php, class <a href="ESAPI/ValidationRule.html">ValidationRule</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Use this ESAPI security control to wrap your data type-specific  validation rules.</td>
   </tr>
     <tr>
     <td>&nbsp;&nbsp;&nbsp;<strong>ValidationRule.php</strong></td>
@@ -2905,7 +2897,7 @@
   </tr>
     <tr>
     <td>&nbsp;&nbsp;&nbsp;<strong>Validator</strong></td>
-    <td width="100%" align="left" valign="top">in file Validator.php, class <a href="ESAPI/Validator.html">Validator</a><br>&nbsp;&nbsp;&nbsp;&nbsp;The Validator interface defines a set of methods for canonicalizing and</td>
+    <td width="100%" align="left" valign="top">in file Validator.php, class <a href="ESAPI/Validator.html">Validator</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Use this ESAPI security control to wrap data validation functions.</td>
   </tr>
     <tr>
     <td>&nbsp;&nbsp;&nbsp;<strong>Validator.php</strong></td>

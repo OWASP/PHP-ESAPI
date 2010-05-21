@@ -90,7 +90,7 @@
 <body bgcolor="#ffffff" ><!-- Start of Class Data -->
 <h2>
 	Interface Validator
-</h2> (line <span class="linenumber">60</span>)
+</h2> (line <span class="linenumber">52</span>)
 <div class="tab-pane" id="tabPane1">
 <script type="text/javascript">
 tp1 = new WebFXTabPane( document.getElementById( "tabPane1" ));
@@ -104,13 +104,12 @@ tp1 = new WebFXTabPane( document.getElementById( "tabPane1" ));
 	<b><i>Located in File: <a href="_Validator.php.html">/Validator.php</a></i></b><br>
 </p>
 <!-- ========== Info from phpDoc block ========= -->
-<h5>The Validator interface defines a set of methods for canonicalizing and</h5>
-<div class="desc"><p>validating untrusted input. Implementors should feel free to extend this  interface to accommodate their own data formats. Rather than throw  exceptions, this interface returns boolean results because not all  validation problems are security issues. Boolean returns allow developers to  handle both valid and invalid results more cleanly than exceptions.</p><p>&lt;img src=&quot;doc-files/Validator.jpg&quot;&gt;</p><p>Implementations must adopt a &quot;whitelist&quot; approach to validation where a  specific pattern or character set is matched. &quot;Blacklist&quot; approaches that  attempt to identify the invalid or disallowed characters are much more likely  to allow a bypass with encoding or other tricks.</p></div>
+<h5>Use this ESAPI security control to wrap data validation functions.</h5>
+<div class="desc"><p>The idea behind this interface is to define a set of functions that  perform a more complete set of checks than frameworks for example  otherwise typically do, or make available for developers to use, such  as checking for multiple encodings before validating.</p></div>
 <ul>
 		<li><strong>author:</strong> - jah &lt;<a href="mailto:jah@jahboite.co.uk">jah@jahboite.co.uk</a>&gt;</li>
-		<li><strong>author:</strong> - Andrew van der Stock &lt;<a href="mailto:vanderaj@owasp.org">vanderaj@owasp.org</a>&gt;</li>
-		<li><strong>author:</strong> - Jeff Williams &lt;<a href="mailto:jeff.williams@aspectsecurity.com">jeff.williams@aspectsecurity.com</a>&gt;</li>
 		<li><strong>author:</strong> - Johannes B. Ullrich &lt;<a href="mailto:jullrich@sans.edu">jullrich@sans.edu</a>&gt;</li>
+		<li><strong>author:</strong> - Andrew van der Stock &lt;<a href="mailto:vanderaj@owasp.org">vanderaj@owasp.org</a>&gt;</li>
 		<li><strong>author:</strong> - Mike Boberski &lt;<a href="mailto:boberski_michael@bah.com">boberski_michael@bah.com</a>&gt;</li>
 		<li><strong>version:</strong> - Release: @package_version@</li>
 		<li><strong>copyright:</strong> - 2009-2010 The OWASP Foundation</li>
@@ -203,7 +202,7 @@ tp1 = new WebFXTabPane( document.getElementById( "tabPane1" ));
 
 <a name="methodisValidCreditCard" id="methodisValidCreditCard"><!-- --></a>
 <div style="background='#ffffff'"><h4>
-<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method isValidCreditCard</strong> (line <span class="linenumber">144</span>)
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method isValidCreditCard</strong> (line <span class="linenumber">136</span>)
  </h4> 
 <h4><i>bool</i> <strong>isValidCreditCard(
 string
@@ -228,7 +227,7 @@ $allowNull)</strong></h4>
 </div>
 <a name="methodisValidDate" id="methodisValidDate"><!-- --></a>
 <div style="background='#eeeeee'"><h4>
-<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method isValidDate</strong> (line <span class="linenumber">102</span>)
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method isValidDate</strong> (line <span class="linenumber">94</span>)
  </h4> 
 <h4><i>bool</i> <strong>isValidDate(
 string
@@ -255,7 +254,7 @@ $allowNull)</strong></h4>
 </div>
 <a name="methodisValidDirectoryPath" id="methodisValidDirectoryPath"><!-- --></a>
 <div style="background='#ffffff'"><h4>
-<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method isValidDirectoryPath</strong> (line <span class="linenumber">161</span>)
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method isValidDirectoryPath</strong> (line <span class="linenumber">153</span>)
  </h4> 
 <h4><i>bool</i> <strong>isValidDirectoryPath(
 string
@@ -280,7 +279,7 @@ $allowNull)</strong></h4>
 </div>
 <a name="methodisValidDouble" id="methodisValidDouble"><!-- --></a>
 <div style="background='#eeeeee'"><h4>
-<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method isValidDouble</strong> (line <span class="linenumber">227</span>)
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method isValidDouble</strong> (line <span class="linenumber">219</span>)
  </h4> 
 <h4><i>bool</i> <strong>isValidDouble(
 string
@@ -309,7 +308,7 @@ $allowNull)</strong></h4>
 </div>
 <a name="methodisValidHTML" id="methodisValidHTML"><!-- --></a>
 <div style="background='#ffffff'"><h4>
-<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method isValidHTML</strong> (line <span class="linenumber">126</span>)
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method isValidHTML</strong> (line <span class="linenumber">118</span>)
  </h4> 
 <h4><i>bool</i> <strong>isValidHTML(
 string
@@ -337,7 +336,7 @@ $allowNull)</strong></h4>
 </div>
 <a name="methodisValidInput" id="methodisValidInput"><!-- --></a>
 <div style="background='#eeeeee'"><h4>
-<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method isValidInput</strong> (line <span class="linenumber">83</span>)
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method isValidInput</strong> (line <span class="linenumber">75</span>)
  </h4> 
 <h4><i>bool</i> <strong>isValidInput(
 string
@@ -366,7 +365,7 @@ $allowNull)</strong></h4>
 </div>
 <a name="methodisValidInteger" id="methodisValidInteger"><!-- --></a>
 <div style="background='#ffffff'"><h4>
-<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method isValidInteger</strong> (line <span class="linenumber">204</span>)
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method isValidInteger</strong> (line <span class="linenumber">196</span>)
  </h4> 
 <h4><i>bool</i> <strong>isValidInteger(
 string
@@ -395,7 +394,7 @@ $allowNull)</strong></h4>
 </div>
 <a name="methodisValidListItem" id="methodisValidListItem"><!-- --></a>
 <div style="background='#eeeeee'"><h4>
-<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method isValidListItem</strong> (line <span class="linenumber">243</span>)
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method isValidListItem</strong> (line <span class="linenumber">235</span>)
  </h4> 
 <h4><i>bool</i> <strong>isValidListItem(
 string
@@ -420,7 +419,7 @@ $list)</strong></h4>
 </div>
 <a name="methodisValidNumber" id="methodisValidNumber"><!-- --></a>
 <div style="background='#ffffff'"><h4>
-<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method isValidNumber</strong> (line <span class="linenumber">181</span>)
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method isValidNumber</strong> (line <span class="linenumber">173</span>)
  </h4> 
 <h4><i>bool</i> <strong>isValidNumber(
 string
@@ -449,7 +448,7 @@ $allowNull)</strong></h4>
 </div>
 <a name="methodisValidPrintable" id="methodisValidPrintable"><!-- --></a>
 <div style="background='#eeeeee'"><h4>
-<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method isValidPrintable</strong> (line <span class="linenumber">263</span>)
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method isValidPrintable</strong> (line <span class="linenumber">255</span>)
  </h4> 
 <h4><i>bool</i> <strong>isValidPrintable(
 string
@@ -476,7 +475,7 @@ $allowNull)</strong></h4>
 </div>
 <a name="methodisValidRedirectLocation" id="methodisValidRedirectLocation"><!-- --></a>
 <div style="background='#ffffff'"><h4>
-<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method isValidRedirectLocation</strong> (line <span class="linenumber">280</span>)
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method isValidRedirectLocation</strong> (line <span class="linenumber">272</span>)
  </h4> 
 <h4><i>bool</i> <strong>isValidRedirectLocation(
 string
@@ -526,7 +525,7 @@ setupAllTabs();
 </script>
 	<div id="credit">
 		<hr />
-		Documentation generated on Fri, 21 May 2010 11:50:23 -0400 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
+		Documentation generated on Fri, 21 May 2010 14:53:45 -0400 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
 	</div>
 </body>
 </html>

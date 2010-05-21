@@ -90,7 +90,7 @@
 <body bgcolor="#ffffff" ><!-- Start of Class Data -->
 <h2>
 	Class ESAPI
-</h2> (line <span class="linenumber">44</span>)
+</h2> (line <span class="linenumber">43</span>)
 <div class="tab-pane" id="tabPane1">
 <script type="text/javascript">
 tp1 = new WebFXTabPane( document.getElementById( "tabPane1" ));
@@ -104,11 +104,10 @@ tp1 = new WebFXTabPane( document.getElementById( "tabPane1" ));
 	<b><i>Located in File: <a href="_ESAPI.php.html">/ESAPI.php</a></i></b><br>
 </p>
 <!-- ========== Info from phpDoc block ========= -->
-<h5>ESAPI locator class is provided to make it easy to gain access to the current  ESAPI classes in use. Use the set methods to override the reference  implementations with instances of any custom ESAPI implementations.</h5>
+<h5>Use this class to get and set ESAPI security controls.</h5>
+<div class="desc"><p>This class is also known as the &quot;ESAPI locator class&quot;. Before you  can use an ESAPI security control, you must first use this class to  get an instance of the security control. You can use the set functions  to override default security control implementations.</p></div>
 <ul>
 		<li><strong>author:</strong> - Mike Boberski &lt;<a href="mailto:boberski_michael@bah.com">boberski_michael@bah.com</a>&gt;</li>
-		<li><strong>author:</strong> - Rogan Dawes &lt;<a href="mailto:rogan@dawes.za.net">rogan@dawes.za.net</a>&gt;</li>
-		<li><strong>author:</strong> - Mike Fauzy &lt;<a href="mailto:mike.fauzy@aspectsecurity.com">mike.fauzy@aspectsecurity.com</a>&gt;</li>
 		<li><strong>author:</strong> - Andrew van der Stock &lt;<a href="mailto:vanderaj@owasp.org">vanderaj@owasp.org</a>&gt;</li>
 		<li><strong>author:</strong> - Bipin Upadhyay &lt;<a href="mailto:bipin.code@gmail.com">bipin.code@gmail.com</a>&gt;</li>
 		<li><strong>version:</strong> - Release: @package_version@</li>
@@ -153,11 +152,6 @@ tp1 = new WebFXTabPane( document.getElementById( "tabPane1" ));
     <div class="method-definition">
     static         <span class="method-result">the</span>
         <a href="#methodgetAccessController" title="details" class="method-name">getAccessController</a>
-        ()
-        </div>
-    <div class="method-definition">
-    static         <span class="method-result">the</span>
-        <a href="#methodgetAdapter" title="details" class="method-name">getAdapter</a>
         ()
         </div>
     <div class="method-definition">
@@ -222,11 +216,6 @@ tp1 = new WebFXTabPane( document.getElementById( "tabPane1" ));
         </div>
     <div class="method-definition">
     static         <span class="method-result">does</span>
-        <a href="#methodsetAdapter" title="details" class="method-name">setAdapter</a>
-        (<span class="var-type">Adapter</span>&nbsp;<span class="var-name">$adapter</span>)
-        </div>
-    <div class="method-definition">
-    static         <span class="method-result">does</span>
         <a href="#methodsetAuditorFactory" title="details" class="method-name">setAuditorFactory</a>
         (<span class="var-type">string</span>&nbsp;<span class="var-name">$factory</span>)
         </div>
@@ -287,7 +276,7 @@ tp1 = new WebFXTabPane( document.getElementById( "tabPane1" ));
 
 <a name="methodcurrentRequest" id="methodcurrentRequest"><!-- --></a>
 <div style="background='#ffffff'"><h4>
-<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Static Method currentRequest</strong> (line <span class="linenumber">80</span>)
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Static Method currentRequest</strong> (line <span class="linenumber">78</span>)
  </h4> 
 <h4><i>the</i> <strong>currentRequest(
 )</strong></h4>
@@ -303,7 +292,7 @@ tp1 = new WebFXTabPane( document.getElementById( "tabPane1" ));
 </div>
 <a name="methodcurrentResponse" id="methodcurrentResponse"><!-- --></a>
 <div style="background='#eeeeee'"><h4>
-<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Static Method currentResponse</strong> (line <span class="linenumber">90</span>)
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Static Method currentResponse</strong> (line <span class="linenumber">88</span>)
  </h4> 
 <h4><i>the</i> <strong>currentResponse(
 )</strong></h4>
@@ -319,7 +308,7 @@ tp1 = new WebFXTabPane( document.getElementById( "tabPane1" ));
 </div>
 <a name="methodgetAccessController" id="methodgetAccessController"><!-- --></a>
 <div style="background='#ffffff'"><h4>
-<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Static Method getAccessController</strong> (line <span class="linenumber">101</span>)
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Static Method getAccessController</strong> (line <span class="linenumber">99</span>)
  </h4> 
 <h4><i>the</i> <strong>getAccessController(
 )</strong></h4>
@@ -333,25 +322,9 @@ tp1 = new WebFXTabPane( document.getElementById( "tabPane1" ));
 			<li><strong>access</strong> - public</li>
 		</ul>
 </div>
-<a name="methodgetAdapter" id="methodgetAdapter"><!-- --></a>
-<div style="background='#eeeeee'"><h4>
-<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Static Method getAdapter</strong> (line <span class="linenumber">452</span>)
- </h4> 
-<h4><i>the</i> <strong>getAdapter(
-)</strong></h4>
-
-	<!-- ========== Info from phpDoc block ========= -->
-<h5>Get the current ESAPI Adapter object being used to wrap ESAPI functions  for this application.</h5>
-		
-	<h4>Info</h4>
-	<ul>
-			<li><strong>return</strong> - current ESAPI Adapter.</li>
-			<li><strong>access</strong> - public</li>
-		</ul>
-</div>
 <a name="methodgetAuditor" id="methodgetAuditor"><!-- --></a>
-<div style="background='#ffffff'"><h4>
-<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Static Method getAuditor</strong> (line <span class="linenumber">283</span>)
+<div style="background='#eeeeee'"><h4>
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Static Method getAuditor</strong> (line <span class="linenumber">281</span>)
  </h4> 
 <h4><i>the</i> <strong>getAuditor(
 string
@@ -371,8 +344,8 @@ $logger)</strong></h4>
 		</ul>
 </div>
 <a name="methodgetEncoder" id="methodgetEncoder"><!-- --></a>
-<div style="background='#eeeeee'"><h4>
-<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Static Method getEncoder</strong> (line <span class="linenumber">131</span>)
+<div style="background='#ffffff'"><h4>
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Static Method getEncoder</strong> (line <span class="linenumber">129</span>)
  </h4> 
 <h4><i>the</i> <strong>getEncoder(
 )</strong></h4>
@@ -387,8 +360,8 @@ $logger)</strong></h4>
 		</ul>
 </div>
 <a name="methodgetEncryptor" id="methodgetEncryptor"><!-- --></a>
-<div style="background='#ffffff'"><h4>
-<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Static Method getEncryptor</strong> (line <span class="linenumber">161</span>)
+<div style="background='#eeeeee'"><h4>
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Static Method getEncryptor</strong> (line <span class="linenumber">159</span>)
  </h4> 
 <h4><i>the</i> <strong>getEncryptor(
 )</strong></h4>
@@ -403,8 +376,8 @@ $logger)</strong></h4>
 		</ul>
 </div>
 <a name="methodgetExecutor" id="methodgetExecutor"><!-- --></a>
-<div style="background='#eeeeee'"><h4>
-<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Static Method getExecutor</strong> (line <span class="linenumber">191</span>)
+<div style="background='#ffffff'"><h4>
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Static Method getExecutor</strong> (line <span class="linenumber">189</span>)
  </h4> 
 <h4><i>the</i> <strong>getExecutor(
 )</strong></h4>
@@ -419,8 +392,8 @@ $logger)</strong></h4>
 		</ul>
 </div>
 <a name="methodgetHttpUtilities" id="methodgetHttpUtilities"><!-- --></a>
-<div style="background='#ffffff'"><h4>
-<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Static Method getHttpUtilities</strong> (line <span class="linenumber">221</span>)
+<div style="background='#eeeeee'"><h4>
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Static Method getHttpUtilities</strong> (line <span class="linenumber">219</span>)
  </h4> 
 <h4><i>the</i> <strong>getHttpUtilities(
 )</strong></h4>
@@ -435,8 +408,8 @@ $logger)</strong></h4>
 		</ul>
 </div>
 <a name="methodgetIntrusionDetector" id="methodgetIntrusionDetector"><!-- --></a>
-<div style="background='#eeeeee'"><h4>
-<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Static Method getIntrusionDetector</strong> (line <span class="linenumber">251</span>)
+<div style="background='#ffffff'"><h4>
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Static Method getIntrusionDetector</strong> (line <span class="linenumber">249</span>)
  </h4> 
 <h4><i>the</i> <strong>getIntrusionDetector(
 )</strong></h4>
@@ -451,8 +424,8 @@ $logger)</strong></h4>
 		</ul>
 </div>
 <a name="methodgetRandomizer" id="methodgetRandomizer"><!-- --></a>
-<div style="background='#ffffff'"><h4>
-<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Static Method getRandomizer</strong> (line <span class="linenumber">327</span>)
+<div style="background='#eeeeee'"><h4>
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Static Method getRandomizer</strong> (line <span class="linenumber">325</span>)
  </h4> 
 <h4><i>the</i> <strong>getRandomizer(
 )</strong></h4>
@@ -467,8 +440,8 @@ $logger)</strong></h4>
 		</ul>
 </div>
 <a name="methodgetSanitizer" id="methodgetSanitizer"><!-- --></a>
-<div style="background='#eeeeee'"><h4>
-<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Static Method getSanitizer</strong> (line <span class="linenumber">420</span>)
+<div style="background='#ffffff'"><h4>
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Static Method getSanitizer</strong> (line <span class="linenumber">418</span>)
  </h4> 
 <h4><i>the</i> <strong>getSanitizer(
 )</strong></h4>
@@ -483,8 +456,8 @@ $logger)</strong></h4>
 		</ul>
 </div>
 <a name="methodgetSecurityConfiguration" id="methodgetSecurityConfiguration"><!-- --></a>
-<div style="background='#ffffff'"><h4>
-<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Static Method getSecurityConfiguration</strong> (line <span class="linenumber">359</span>)
+<div style="background='#eeeeee'"><h4>
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Static Method getSecurityConfiguration</strong> (line <span class="linenumber">357</span>)
  </h4> 
 <h4><i>the</i> <strong>getSecurityConfiguration(
 [string
@@ -504,8 +477,8 @@ $path = ''])</strong></h4>
 		</ul>
 </div>
 <a name="methodgetValidator" id="methodgetValidator"><!-- --></a>
-<div style="background='#eeeeee'"><h4>
-<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Static Method getValidator</strong> (line <span class="linenumber">390</span>)
+<div style="background='#ffffff'"><h4>
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Static Method getValidator</strong> (line <span class="linenumber">388</span>)
  </h4> 
 <h4><i>the</i> <strong>getValidator(
 )</strong></h4>
@@ -520,8 +493,8 @@ $path = ''])</strong></h4>
 		</ul>
 </div>
 <a name="methodlog" id="methodlog"><!-- --></a>
-<div style="background='#ffffff'"><h4>
-<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Static Method log</strong> (line <span class="linenumber">299</span>)
+<div style="background='#eeeeee'"><h4>
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Static Method log</strong> (line <span class="linenumber">297</span>)
  </h4> 
 <h4><i>the</i> <strong>log(
 )</strong></h4>
@@ -536,8 +509,8 @@ $path = ''])</strong></h4>
 		</ul>
 </div>
 <a name="methodsetAccessController" id="methodsetAccessController"><!-- --></a>
-<div style="background='#eeeeee'"><h4>
-<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Static Method setAccessController</strong> (line <span class="linenumber">120</span>)
+<div style="background='#ffffff'"><h4>
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Static Method setAccessController</strong> (line <span class="linenumber">118</span>)
  </h4> 
 <h4><i>does</i> <strong>setAccessController(
 <a href="../ESAPI/AccessController.html">AccessController</a>
@@ -556,30 +529,9 @@ $accessController)</strong></h4>
 			<li><strong>access</strong> - public</li>
 		</ul>
 </div>
-<a name="methodsetAdapter" id="methodsetAdapter"><!-- --></a>
-<div style="background='#ffffff'"><h4>
-<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Static Method setAdapter</strong> (line <span class="linenumber">471</span>)
- </h4> 
-<h4><i>does</i> <strong>setAdapter(
-Adapter
-$adapter)</strong></h4>
-
-	<!-- ========== Info from phpDoc block ========= -->
-<h5>Set the current ESAPI AccessController object being used to wrap ESAPI  functions for this application.</h5>
-		<h4>Parameters</h4>
-	<ul>
-			<li><strong>Adapter $adapter</strong>: the new ESAPI Adapter.</li>
-		</ul>
-		
-	<h4>Info</h4>
-	<ul>
-			<li><strong>return</strong> - not return a value.</li>
-			<li><strong>access</strong> - public</li>
-		</ul>
-</div>
 <a name="methodsetAuditorFactory" id="methodsetAuditorFactory"><!-- --></a>
 <div style="background='#eeeeee'"><h4>
-<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Static Method setAuditorFactory</strong> (line <span class="linenumber">315</span>)
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Static Method setAuditorFactory</strong> (line <span class="linenumber">313</span>)
  </h4> 
 <h4><i>does</i> <strong>setAuditorFactory(
 string
@@ -600,7 +552,7 @@ $factory)</strong></h4>
 </div>
 <a name="methodsetEncoder" id="methodsetEncoder"><!-- --></a>
 <div style="background='#ffffff'"><h4>
-<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Static Method setEncoder</strong> (line <span class="linenumber">150</span>)
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Static Method setEncoder</strong> (line <span class="linenumber">148</span>)
  </h4> 
 <h4><i>does</i> <strong>setEncoder(
 <a href="../ESAPI/Encoder.html">Encoder</a>
@@ -621,7 +573,7 @@ $encoder)</strong></h4>
 </div>
 <a name="methodsetEncryptor" id="methodsetEncryptor"><!-- --></a>
 <div style="background='#eeeeee'"><h4>
-<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Static Method setEncryptor</strong> (line <span class="linenumber">177</span>)
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Static Method setEncryptor</strong> (line <span class="linenumber">175</span>)
  </h4> 
 <h4><i>does</i> <strong>setEncryptor(
 Encryptor
@@ -642,7 +594,7 @@ $encryptor)</strong></h4>
 </div>
 <a name="methodsetExecutor" id="methodsetExecutor"><!-- --></a>
 <div style="background='#ffffff'"><h4>
-<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Static Method setExecutor</strong> (line <span class="linenumber">210</span>)
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Static Method setExecutor</strong> (line <span class="linenumber">208</span>)
  </h4> 
 <h4><i>does</i> <strong>setExecutor(
 <a href="../ESAPI/Executor.html">Executor</a>
@@ -663,7 +615,7 @@ $executor)</strong></h4>
 </div>
 <a name="methodsetHttpUtilities" id="methodsetHttpUtilities"><!-- --></a>
 <div style="background='#eeeeee'"><h4>
-<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Static Method setHttpUtilities</strong> (line <span class="linenumber">240</span>)
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Static Method setHttpUtilities</strong> (line <span class="linenumber">238</span>)
  </h4> 
 <h4><i>does</i> <strong>setHttpUtilities(
 HttpUtilities
@@ -684,7 +636,7 @@ $httpUtilities)</strong></h4>
 </div>
 <a name="methodsetIntrusionDetector" id="methodsetIntrusionDetector"><!-- --></a>
 <div style="background='#ffffff'"><h4>
-<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Static Method setIntrusionDetector</strong> (line <span class="linenumber">269</span>)
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Static Method setIntrusionDetector</strong> (line <span class="linenumber">267</span>)
  </h4> 
 <h4><i>does</i> <strong>setIntrusionDetector(
 <a href="../ESAPI/IntrusionDetector.html">IntrusionDetector</a>
@@ -705,7 +657,7 @@ $intrusionDetector)</strong></h4>
 </div>
 <a name="methodsetRandomizer" id="methodsetRandomizer"><!-- --></a>
 <div style="background='#eeeeee'"><h4>
-<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Static Method setRandomizer</strong> (line <span class="linenumber">346</span>)
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Static Method setRandomizer</strong> (line <span class="linenumber">344</span>)
  </h4> 
 <h4><i>does</i> <strong>setRandomizer(
 <a href="../ESAPI/Randomizer.html">Randomizer</a>
@@ -726,7 +678,7 @@ $randomizer)</strong></h4>
 </div>
 <a name="methodsetSanitizer" id="methodsetSanitizer"><!-- --></a>
 <div style="background='#ffffff'"><h4>
-<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Static Method setSanitizer</strong> (line <span class="linenumber">439</span>)
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Static Method setSanitizer</strong> (line <span class="linenumber">437</span>)
  </h4> 
 <h4><i>does</i> <strong>setSanitizer(
 <a href="../ESAPI/Sanitizer.html">Sanitizer</a>
@@ -747,7 +699,7 @@ $sanitizer)</strong></h4>
 </div>
 <a name="methodsetSecurityConfiguration" id="methodsetSecurityConfiguration"><!-- --></a>
 <div style="background='#eeeeee'"><h4>
-<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Static Method setSecurityConfiguration</strong> (line <span class="linenumber">379</span>)
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Static Method setSecurityConfiguration</strong> (line <span class="linenumber">377</span>)
  </h4> 
 <h4><i>does</i> <strong>setSecurityConfiguration(
 <a href="../ESAPI/SecurityConfiguration.html">SecurityConfiguration</a>
@@ -768,7 +720,7 @@ $securityConfiguration)</strong></h4>
 </div>
 <a name="methodsetValidator" id="methodsetValidator"><!-- --></a>
 <div style="background='#ffffff'"><h4>
-<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Static Method setValidator</strong> (line <span class="linenumber">409</span>)
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Static Method setValidator</strong> (line <span class="linenumber">407</span>)
  </h4> 
 <h4><i>does</i> <strong>setValidator(
 <a href="../ESAPI/Validator.html">Validator</a>
@@ -789,7 +741,7 @@ $validator)</strong></h4>
 </div>
 <a name="method__construct" id="method__construct"><!-- --></a>
 <div style="background='#eeeeee'"><h4>
-<img src="../media/images/Constructor.gif" border="0" /> <strong class="method">Constructor __construct</strong> (line <span class="linenumber">66</span>)
+<img src="../media/images/Constructor.gif" border="0" /> <strong class="method">Constructor __construct</strong> (line <span class="linenumber">64</span>)
  </h4> 
 <h4><i>ESAPI</i> <strong>__construct(
 [string
@@ -834,7 +786,7 @@ setupAllTabs();
 </script>
 	<div id="credit">
 		<hr />
-		Documentation generated on Fri, 21 May 2010 11:50:15 -0400 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
+		Documentation generated on Fri, 21 May 2010 14:53:36 -0400 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
 	</div>
 </body>
 </html>

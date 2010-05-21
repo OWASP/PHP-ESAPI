@@ -90,7 +90,7 @@
 <body bgcolor="#ffffff" ><!-- Start of Class Data -->
 <h2>
 	Interface SecurityConfiguration
-</h2> (line <span class="linenumber">55</span>)
+</h2> (line <span class="linenumber">40</span>)
 <div class="tab-pane" id="tabPane1">
 <script type="text/javascript">
 tp1 = new WebFXTabPane( document.getElementById( "tabPane1" ));
@@ -104,12 +104,10 @@ tp1 = new WebFXTabPane( document.getElementById( "tabPane1" ));
 	<b><i>Located in File: <a href="_SecurityConfiguration.php.html">/SecurityConfiguration.php</a></i></b><br>
 </p>
 <!-- ========== Info from phpDoc block ========= -->
-<h5>The SecurityConfiguration interface stores all configuration information that  directs the behavior of the ESAPI implementation.</h5>
-<div class="desc"><p>Protection of this configuration information is critical to the secure  operation of the application using the ESAPI. You should use operating system  access controls to limit access to wherever the configuration information is  stored.</p><p>Please note that adding another layer of encryption does not make the  attackers job much more difficult. Somewhere there must be a master &quot;secret&quot;  that is stored unencrypted on the application platform. Creating another  layer of indirection doesn't provide any real additional security. Its up to  the reference implementation to decide whether this file should be encrypted  or not.  The ESAPI reference implementation (DefaultSecurityConfiguration.java) does  not encrypt its properties file.</p></div>
+<h5>Use this ESAPI security control to manage ESAPI security control  functions.</h5>
+<div class="desc"><p>The idea behind this interface is to centralize ESAPI security control  management.</p></div>
 <ul>
 		<li><strong>author:</strong> - Mike Boberski &lt;<a href="mailto:boberski_michael@bah.com">boberski_michael@bah.com</a>&gt;</li>
-		<li><strong>author:</strong> - Mike Fauzy &lt;<a href="mailto:mike.fauzy@aspectsecurity.com">mike.fauzy@aspectsecurity.com</a>&gt;</li>
-		<li><strong>author:</strong> - Jeff Williams &lt;<a href="mailto:jeff.williams@aspectsecurity.com">jeff.williams@aspectsecurity.com</a>&gt;</li>
 		<li><strong>author:</strong> - Andrew van der Stock &lt;<a href="mailto:vanderaj@owasp.org">vanderaj@owasp.org</a>&gt;</li>
 		<li><strong>version:</strong> - Release: @package_version@</li>
 		<li><strong>copyright:</strong> - 2009-2010 The OWASP Foundation</li>
@@ -302,7 +300,7 @@ tp1 = new WebFXTabPane( document.getElementById( "tabPane1" ));
 
 <a name="methodgetAllowedExecutables" id="methodgetAllowedExecutables"><!-- --></a>
 <div style="background='#eeeeee'"><h4>
-<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method getAllowedExecutables</strong> (line <span class="linenumber">320</span>)
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method getAllowedExecutables</strong> (line <span class="linenumber">305</span>)
  </h4> 
 <h4><i>array</i> <strong>getAllowedExecutables(
 )</strong></h4>
@@ -317,7 +315,7 @@ tp1 = new WebFXTabPane( document.getElementById( "tabPane1" ));
 </div>
 <a name="methodgetAllowedFileExtensions" id="methodgetAllowedFileExtensions"><!-- --></a>
 <div style="background='#ffffff'"><h4>
-<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method getAllowedFileExtensions</strong> (line <span class="linenumber">87</span>)
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method getAllowedFileExtensions</strong> (line <span class="linenumber">72</span>)
  </h4> 
 <h4><i>array</i> <strong>getAllowedFileExtensions(
 )</strong></h4>
@@ -332,7 +330,7 @@ tp1 = new WebFXTabPane( document.getElementById( "tabPane1" ));
 </div>
 <a name="methodgetAllowedFileUploadSize" id="methodgetAllowedFileUploadSize"><!-- --></a>
 <div style="background='#eeeeee'"><h4>
-<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method getAllowedFileUploadSize</strong> (line <span class="linenumber">94</span>)
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method getAllowedFileUploadSize</strong> (line <span class="linenumber">79</span>)
  </h4> 
 <h4><i>int</i> <strong>getAllowedFileUploadSize(
 )</strong></h4>
@@ -347,7 +345,7 @@ tp1 = new WebFXTabPane( document.getElementById( "tabPane1" ));
 </div>
 <a name="methodgetAllowedIncludes" id="methodgetAllowedIncludes"><!-- --></a>
 <div style="background='#ffffff'"><h4>
-<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method getAllowedIncludes</strong> (line <span class="linenumber">170</span>)
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method getAllowedIncludes</strong> (line <span class="linenumber">155</span>)
  </h4> 
 <h4><i>array</i> <strong>getAllowedIncludes(
 )</strong></h4>
@@ -362,7 +360,7 @@ tp1 = new WebFXTabPane( document.getElementById( "tabPane1" ));
 </div>
 <a name="methodgetAllowedLoginAttempts" id="methodgetAllowedLoginAttempts"><!-- --></a>
 <div style="background='#eeeeee'"><h4>
-<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method getAllowedLoginAttempts</strong> (line <span class="linenumber">162</span>)
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method getAllowedLoginAttempts</strong> (line <span class="linenumber">147</span>)
  </h4> 
 <h4><i>int</i> <strong>getAllowedLoginAttempts(
 )</strong></h4>
@@ -377,7 +375,7 @@ tp1 = new WebFXTabPane( document.getElementById( "tabPane1" ));
 </div>
 <a name="methodgetAllowedResources" id="methodgetAllowedResources"><!-- --></a>
 <div style="background='#ffffff'"><h4>
-<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method getAllowedResources</strong> (line <span class="linenumber">179</span>)
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method getAllowedResources</strong> (line <span class="linenumber">164</span>)
  </h4> 
 <h4><i>array</i> <strong>getAllowedResources(
 )</strong></h4>
@@ -393,7 +391,7 @@ tp1 = new WebFXTabPane( document.getElementById( "tabPane1" ));
 </div>
 <a name="methodgetApplicationName" id="methodgetApplicationName"><!-- --></a>
 <div style="background='#eeeeee'"><h4>
-<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method getApplicationName</strong> (line <span class="linenumber">63</span>)
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method getApplicationName</strong> (line <span class="linenumber">48</span>)
  </h4> 
 <h4><i>string</i> <strong>getApplicationName(
 )</strong></h4>
@@ -408,7 +406,7 @@ tp1 = new WebFXTabPane( document.getElementById( "tabPane1" ));
 </div>
 <a name="methodgetCharacterEncoding" id="methodgetCharacterEncoding"><!-- --></a>
 <div style="background='#ffffff'"><h4>
-<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method getCharacterEncoding</strong> (line <span class="linenumber">136</span>)
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method getCharacterEncoding</strong> (line <span class="linenumber">121</span>)
  </h4> 
 <h4><i>string</i> <strong>getCharacterEncoding(
 )</strong></h4>
@@ -424,7 +422,7 @@ tp1 = new WebFXTabPane( document.getElementById( "tabPane1" ));
 </div>
 <a name="methodgetDigitalSignatureAlgorithm" id="methodgetDigitalSignatureAlgorithm"><!-- --></a>
 <div style="background='#eeeeee'"><h4>
-<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method getDigitalSignatureAlgorithm</strong> (line <span class="linenumber">144</span>)
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method getDigitalSignatureAlgorithm</strong> (line <span class="linenumber">129</span>)
  </h4> 
 <h4><i>string</i> <strong>getDigitalSignatureAlgorithm(
 )</strong></h4>
@@ -439,7 +437,7 @@ tp1 = new WebFXTabPane( document.getElementById( "tabPane1" ));
 </div>
 <a name="methodgetDisableIntrusionDetection" id="methodgetDisableIntrusionDetection"><!-- --></a>
 <div style="background='#ffffff'"><h4>
-<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method getDisableIntrusionDetection</strong> (line <span class="linenumber">205</span>)
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method getDisableIntrusionDetection</strong> (line <span class="linenumber">190</span>)
  </h4> 
 <h4><i>bool</i> <strong>getDisableIntrusionDetection(
 )</strong></h4>
@@ -454,7 +452,7 @@ tp1 = new WebFXTabPane( document.getElementById( "tabPane1" ));
 </div>
 <a name="methodgetEncryptionAlgorithm" id="methodgetEncryptionAlgorithm"><!-- --></a>
 <div style="background='#eeeeee'"><h4>
-<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method getEncryptionAlgorithm</strong> (line <span class="linenumber">115</span>)
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method getEncryptionAlgorithm</strong> (line <span class="linenumber">100</span>)
  </h4> 
 <h4><i>string</i> <strong>getEncryptionAlgorithm(
 )</strong></h4>
@@ -469,7 +467,7 @@ tp1 = new WebFXTabPane( document.getElementById( "tabPane1" ));
 </div>
 <a name="methodgetHashAlgorithm" id="methodgetHashAlgorithm"><!-- --></a>
 <div style="background='#ffffff'"><h4>
-<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method getHashAlgorithm</strong> (line <span class="linenumber">122</span>)
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method getHashAlgorithm</strong> (line <span class="linenumber">107</span>)
  </h4> 
 <h4><i>string</i> <strong>getHashAlgorithm(
 )</strong></h4>
@@ -484,7 +482,7 @@ tp1 = new WebFXTabPane( document.getElementById( "tabPane1" ));
 </div>
 <a name="methodgetLogEncodingRequired" id="methodgetLogEncodingRequired"><!-- --></a>
 <div style="background='#eeeeee'"><h4>
-<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method getLogEncodingRequired</strong> (line <span class="linenumber">268</span>)
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method getLogEncodingRequired</strong> (line <span class="linenumber">253</span>)
  </h4> 
 <h4><i>bool</i> <strong>getLogEncodingRequired(
 )</strong></h4>
@@ -499,7 +497,7 @@ tp1 = new WebFXTabPane( document.getElementById( "tabPane1" ));
 </div>
 <a name="methodgetLogFileName" id="methodgetLogFileName"><!-- --></a>
 <div style="background='#ffffff'"><h4>
-<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method getLogFileName</strong> (line <span class="linenumber">285</span>)
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method getLogFileName</strong> (line <span class="linenumber">270</span>)
  </h4> 
 <h4><i>string</i> <strong>getLogFileName(
 )</strong></h4>
@@ -514,7 +512,7 @@ tp1 = new WebFXTabPane( document.getElementById( "tabPane1" ));
 </div>
 <a name="methodgetLogLevel" id="methodgetLogLevel"><!-- --></a>
 <div style="background='#eeeeee'"><h4>
-<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method getLogLevel</strong> (line <span class="linenumber">277</span>)
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method getLogLevel</strong> (line <span class="linenumber">262</span>)
  </h4> 
 <h4><i>int</i> <strong>getLogLevel(
 )</strong></h4>
@@ -530,7 +528,7 @@ tp1 = new WebFXTabPane( document.getElementById( "tabPane1" ));
 </div>
 <a name="methodgetMasterKey" id="methodgetMasterKey"><!-- --></a>
 <div style="background='#ffffff'"><h4>
-<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method getMasterKey</strong> (line <span class="linenumber">71</span>)
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method getMasterKey</strong> (line <span class="linenumber">56</span>)
  </h4> 
 <h4><i>string</i> <strong>getMasterKey(
 )</strong></h4>
@@ -545,7 +543,7 @@ tp1 = new WebFXTabPane( document.getElementById( "tabPane1" ));
 </div>
 <a name="methodgetMasterSalt" id="methodgetMasterSalt"><!-- --></a>
 <div style="background='#eeeeee'"><h4>
-<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method getMasterSalt</strong> (line <span class="linenumber">79</span>)
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method getMasterSalt</strong> (line <span class="linenumber">64</span>)
  </h4> 
 <h4><i>string</i> <strong>getMasterSalt(
 )</strong></h4>
@@ -560,7 +558,7 @@ tp1 = new WebFXTabPane( document.getElementById( "tabPane1" ));
 </div>
 <a name="methodgetMaxLogFileSize" id="methodgetMaxLogFileSize"><!-- --></a>
 <div style="background='#ffffff'"><h4>
-<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method getMaxLogFileSize</strong> (line <span class="linenumber">294</span>)
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method getMaxLogFileSize</strong> (line <span class="linenumber">279</span>)
  </h4> 
 <h4><i>int</i> <strong>getMaxLogFileSize(
 )</strong></h4>
@@ -575,7 +573,7 @@ tp1 = new WebFXTabPane( document.getElementById( "tabPane1" ));
 </div>
 <a name="methodgetMaxOldPasswordHashes" id="methodgetMaxOldPasswordHashes"><!-- --></a>
 <div style="background='#eeeeee'"><h4>
-<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method getMaxOldPasswordHashes</strong> (line <span class="linenumber">188</span>)
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method getMaxOldPasswordHashes</strong> (line <span class="linenumber">173</span>)
  </h4> 
 <h4><i>int</i> <strong>getMaxOldPasswordHashes(
 )</strong></h4>
@@ -591,7 +589,7 @@ tp1 = new WebFXTabPane( document.getElementById( "tabPane1" ));
 </div>
 <a name="methodgetPasswordParameterName" id="methodgetPasswordParameterName"><!-- --></a>
 <div style="background='#ffffff'"><h4>
-<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method getPasswordParameterName</strong> (line <span class="linenumber">101</span>)
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method getPasswordParameterName</strong> (line <span class="linenumber">86</span>)
  </h4> 
 <h4><i>string</i> <strong>getPasswordParameterName(
 )</strong></h4>
@@ -606,7 +604,7 @@ tp1 = new WebFXTabPane( document.getElementById( "tabPane1" ));
 </div>
 <a name="methodgetQuota" id="methodgetQuota"><!-- --></a>
 <div style="background='#eeeeee'"><h4>
-<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method getQuota</strong> (line <span class="linenumber">198</span>)
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method getQuota</strong> (line <span class="linenumber">183</span>)
  </h4> 
 <h4><i>int</i> <strong>getQuota(
 string
@@ -626,7 +624,7 @@ $eventName)</strong></h4>
 </div>
 <a name="methodgetRandomAlgorithm" id="methodgetRandomAlgorithm"><!-- --></a>
 <div style="background='#ffffff'"><h4>
-<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method getRandomAlgorithm</strong> (line <span class="linenumber">152</span>)
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method getRandomAlgorithm</strong> (line <span class="linenumber">137</span>)
  </h4> 
 <h4><i>string</i> <strong>getRandomAlgorithm(
 )</strong></h4>
@@ -641,7 +639,7 @@ $eventName)</strong></h4>
 </div>
 <a name="methodgetRememberTokenDuration" id="methodgetRememberTokenDuration"><!-- --></a>
 <div style="background='#eeeeee'"><h4>
-<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method getRememberTokenDuration</strong> (line <span class="linenumber">239</span>)
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method getRememberTokenDuration</strong> (line <span class="linenumber">224</span>)
  </h4> 
 <h4><i>int</i> <strong>getRememberTokenDuration(
 )</strong></h4>
@@ -656,7 +654,7 @@ $eventName)</strong></h4>
 </div>
 <a name="methodgetResourceDirectory" id="methodgetResourceDirectory"><!-- --></a>
 <div style="background='#ffffff'"><h4>
-<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method getResourceDirectory</strong> (line <span class="linenumber">212</span>)
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method getResourceDirectory</strong> (line <span class="linenumber">197</span>)
  </h4> 
 <h4><i>string</i> <strong>getResourceDirectory(
 )</strong></h4>
@@ -671,7 +669,7 @@ $eventName)</strong></h4>
 </div>
 <a name="methodgetResponseContentType" id="methodgetResponseContentType"><!-- --></a>
 <div style="background='#eeeeee'"><h4>
-<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method getResponseContentType</strong> (line <span class="linenumber">231</span>)
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method getResponseContentType</strong> (line <span class="linenumber">216</span>)
  </h4> 
 <h4><i>string</i> <strong>getResponseContentType(
 )</strong></h4>
@@ -687,7 +685,7 @@ $eventName)</strong></h4>
 </div>
 <a name="methodgetSessionAbsoluteTimeoutLength" id="methodgetSessionAbsoluteTimeoutLength"><!-- --></a>
 <div style="background='#ffffff'"><h4>
-<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method getSessionAbsoluteTimeoutLength</strong> (line <span class="linenumber">260</span>)
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method getSessionAbsoluteTimeoutLength</strong> (line <span class="linenumber">245</span>)
  </h4> 
 <h4><i>int</i> <strong>getSessionAbsoluteTimeoutLength(
 )</strong></h4>
@@ -703,7 +701,7 @@ $eventName)</strong></h4>
 </div>
 <a name="methodgetSessionIdleTimeoutLength" id="methodgetSessionIdleTimeoutLength"><!-- --></a>
 <div style="background='#eeeeee'"><h4>
-<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method getSessionIdleTimeoutLength</strong> (line <span class="linenumber">249</span>)
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method getSessionIdleTimeoutLength</strong> (line <span class="linenumber">234</span>)
  </h4> 
 <h4><i>int</i> <strong>getSessionIdleTimeoutLength(
 )</strong></h4>
@@ -718,7 +716,7 @@ $eventName)</strong></h4>
 </div>
 <a name="methodgetUsernameParameterName" id="methodgetUsernameParameterName"><!-- --></a>
 <div style="background='#ffffff'"><h4>
-<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method getUsernameParameterName</strong> (line <span class="linenumber">108</span>)
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method getUsernameParameterName</strong> (line <span class="linenumber">93</span>)
  </h4> 
 <h4><i>string</i> <strong>getUsernameParameterName(
 )</strong></h4>
@@ -733,7 +731,7 @@ $eventName)</strong></h4>
 </div>
 <a name="methodgetValidationPattern" id="methodgetValidationPattern"><!-- --></a>
 <div style="background='#eeeeee'"><h4>
-<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method getValidationPattern</strong> (line <span class="linenumber">304</span>)
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method getValidationPattern</strong> (line <span class="linenumber">289</span>)
  </h4> 
 <h4><i>string</i> <strong>getValidationPattern(
 string
@@ -753,7 +751,7 @@ $type)</strong></h4>
 </div>
 <a name="methodgetWorkingDirectory" id="methodgetWorkingDirectory"><!-- --></a>
 <div style="background='#ffffff'"><h4>
-<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method getWorkingDirectory</strong> (line <span class="linenumber">312</span>)
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method getWorkingDirectory</strong> (line <span class="linenumber">297</span>)
  </h4> 
 <h4><i>string</i> <strong>getWorkingDirectory(
 )</strong></h4>
@@ -768,7 +766,7 @@ $type)</strong></h4>
 </div>
 <a name="methodsetResourceDirectory" id="methodsetResourceDirectory"><!-- --></a>
 <div style="background='#eeeeee'"><h4>
-<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method setResourceDirectory</strong> (line <span class="linenumber">221</span>)
+<img src="../media/images/PublicMethod.gif" border="0" /> <strong class="method">Method setResourceDirectory</strong> (line <span class="linenumber">206</span>)
  </h4> 
 <h4><i>Does</i> <strong>setResourceDirectory(
 string
@@ -813,7 +811,7 @@ setupAllTabs();
 </script>
 	<div id="credit">
 		<hr />
-		Documentation generated on Fri, 21 May 2010 11:50:21 -0400 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
+		Documentation generated on Fri, 21 May 2010 14:53:43 -0400 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
 	</div>
 </body>
 </html>
