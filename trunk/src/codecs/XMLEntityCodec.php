@@ -70,7 +70,7 @@ class XMLEntityCodec extends Codec
 
     
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function encodeCharacter($immune,$c)
     {
@@ -129,7 +129,7 @@ class XMLEntityCodec extends Codec
 
  
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function decodeCharacter($input)
     {

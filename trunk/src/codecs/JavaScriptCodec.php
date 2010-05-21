@@ -50,7 +50,7 @@ class JavaScriptCodec extends Codec
      * a \" that will close the entire attribute and allow an attacker to inject 
      * another script attribute.
      *
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function encodeCharacter($immune, $c)
     {
@@ -116,7 +116,7 @@ class JavaScriptCodec extends Codec
      *   \\uHHHH
      *   \\OOO (1, 2, or 3 digits)
      *   
-     * {@inheritDoc}
+     * {@inheritdoc}
     */
     public function decodeCharacter($input)
     {
