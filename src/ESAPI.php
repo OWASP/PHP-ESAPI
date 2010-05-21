@@ -13,8 +13,6 @@
  *
  * @category  OWASP
  * @package   ESAPI
- * @author    Mike Fauzy <mike.fauzy@aspectsecurity.com>
- * @author    Rogan Dawes <rogan@dawes.za.net>
  * @author    Andrew van der Stock <vanderaj@owasp.org>
  * @author    Bipin Upadhyay <bipin.code@gmail.com>
  * @author    Mike Boberski <boberski_michael@bah.com>
@@ -25,14 +23,15 @@
  */
 
 /**
- * ESAPI locator class is provided to make it easy to gain access to the current
- * ESAPI classes in use. Use the set methods to override the reference
- * implementations with instances of any custom ESAPI implementations.
+ * Use this class to get and set ESAPI security controls.
+ * 
+ * This class is also known as the "ESAPI locator class". Before you 
+ * can use an ESAPI security control, you must first use this class to 
+ * get an instance of the security control. You can use the set functions 
+ * to override default security control implementations.
  *
  * @category  OWASP
  * @package   ESAPI
- * @author    Mike Fauzy <mike.fauzy@aspectsecurity.com>
- * @author    Rogan Dawes <rogan@dawes.za.net>
  * @author    Andrew van der Stock <vanderaj@owasp.org>
  * @author    Bipin Upadhyay <bipin.code@gmail.com>
  * @author    Mike Boberski <boberski_michael@bah.com>

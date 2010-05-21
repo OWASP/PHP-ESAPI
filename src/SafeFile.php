@@ -13,10 +13,10 @@
  *
  * @category  OWASP
  * @package   ESAPI
- * @author    Jeff Williams <jeff.williams@aspectsecurity.com>
  * @author    Andrew van der Stock <vanderaj@owasp.org>
  * @author    Martin Reiche <martin.reiche.ka@googlemail.com>
  * @author    Arnaud Labenne <arnaud.labenne@dotsafe.fr>
+ * @author    Mike Boberski <boberski_michael@bah.com>
  * @copyright 2009-2010 The OWASP Foundation
  * @license   http://www.opensource.org/licenses/bsd-license.php New BSD license
  * @version   SVN: $Id$
@@ -31,17 +31,20 @@ require_once dirname(__FILE__).'/errors/ValidationException.php';
 
 
 /**
- * Extension to SplFileObject to prevent against null byte injections and
- * other unforeseen problems resulting from unprintable characters
- * causing problems in path lookups. This does _not_ prevent against
- * directory traversal attacks.
+ * Use this ESAPI security control to read files from the operating 
+ * system.
+ * 
+ * The idea behind this interface is to extend the PHP SplFileObject 
+ * to prevent against null byte injections and other unforeseen problems 
+ * resulting from unprintable characters causing problems in path 
+ * lookups. This does NOT prevent against directory traversal attacks.
  *
  * @category  OWASP
  * @package   ESAPI
- * @author    Jeff Williams <jeff.williams@aspectsecurity.com>
  * @author    Andrew van der Stock <vanderaj@owasp.org>
  * @author    Martin Reiche <martin.reiche.ka@googlemail.com>
  * @author    Arnaud Labenne <arnaud.labenne@dotsafe.fr>
+ * @author    Mike Boberski <boberski_michael@bah.com>
  * @copyright 2009-2010 The OWASP Foundation
  * @license   http://www.opensource.org/licenses/bsd-license.php New BSD license
  * @version   Release: @package_version@

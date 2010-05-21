@@ -13,7 +13,6 @@
  *
  * @category  OWASP
  * @package   ESAPI
- * @author    Jeff Williams <jeff.williams@aspectsecurity.com>
  * @author    Andrew van der Stock <vanderaj@owasp.org>
  * @author    jah <jah@jahboite.co.uk>
  * @author    Mike Boberski <boberski_michael@bah.com>
@@ -30,20 +29,14 @@ require_once dirname(__FILE__) . '/errors/IntrusionException.php';
 
 
 /**
- * The IntrusionDetector interface is intended to track security relevant events
- * and identify attack behavior. The implementation can use as much state as
- * necessary to detect attacks, but note that storing too much state will burden
- * your system.
- *
- * <img src="doc-files/IntrusionDetector.jpg">
- *
- * The interface is currently designed to accept exceptions as well as custom
- * events. Implementations can use this stream of information to detect both
- * normal and abnormal behavior.
+ * Use this ESAPI security control to wrap intrusion detection functions
+ * that are internal to your application.
+ * 
+ * The idea behind this interface is to define a set of functions to track 
+ * security relevant events and identify attack behavior. 
  *
  * @category  OWASP
  * @package   ESAPI
- * @author    Jeff Williams <jeff.williams@aspectsecurity.com>
  * @author    Andrew van der Stock <vanderaj@owasp.org>
  * @author    jah <jah@jahboite.co.uk>
  * @author    Mike Boberski <boberski_michael@bah.com>

@@ -13,9 +13,8 @@
  *
  * @category  OWASP
  * @package   ESAPI
- * @author    Jeff Williams <jeff.williams@aspectsecurity.com>
- * @author    Mike Fauzy <mike.fauzy@aspectsecurity.com>
  * @author    Andrew van der Stock <vanderaj@owasp.org>
+ * @author    Mike Boberski <boberski_michael@bah.com>
  * @copyright 2009-2010 The OWASP Foundation
  * @license   http://www.opensource.org/licenses/bsd-license.php New BSD license
  * @version   SVN: $Id$
@@ -28,65 +27,15 @@
 require_once dirname(__FILE__) . '/errors/AccessControlException.php';
 
 /**
- * The AccessController interface defines a set of methods that can be used in a
- * wide variety of applications to enforce access control. In most applications,
- * access control must be performed in multiple different locations across the
- * various application layers. This class provides access control for URLs,
- * business functions, data, services, and files.
- *
- * <img src="doc-files/AccessController.jpg">
- *
- * The implementation of this interface will need to access the current User
- * object (from Authenticator.getCurrentUser()) to determine roles or
- * permissions. In addition, the implementation will also need information about
- * the resources that are being accessed. Using the user information and the
- * resource information, the implementation should return an access control
- * decision.
- *
- * Implementers are encouraged to implement the ESAPI access control methods,
- * like assertAuthorizedForFunction() using existing access control mechanisms,
- * such as methods like isUserInRole() or hasPrivilege(). While powerful,
- * methods like isUserInRole() can be confusing for developers, as users may be
- * in multiple roles or possess multiple overlapping privileges. Direct use of
- * these finer grained access control methods encourages the use of complex
- * boolean tests throughout the code, which can easily lead to developer
- * mistakes.
- *
- * The point of the ESAPI access control interface is to centralize access
- * control logic behind easy to use calls like assertAuthorizedForData() so that
- * access control is easy to use and easy to verify. Here is an example of a
- * very straightforward to implement, understand, and verify ESAPI access
- * control check:
- *
- * <pre>
- * try {
- *     ESAPI.accessController().assertAuthorizedForFunction( BUSINESS_FUNCTION );
- *     // execute BUSINESS_FUNCTION
- * } catch (AccessControlException ace) {
- * ... attack in progress
- * }
- * </pre>
- *
- * Note that in the user interface layer, access control checks can be used to
- * control whether particular controls are rendered or not. These checks are
- * supposed to fail when an unauthorized user is logged in, and do not represent
- * attacks. Remember that regardless of how the user interface appears, an
- * attacker can attempt to invoke any business function or access any data in
- * your application. Therefore, access control checks in the user interface
- * should be repeated in both the business logic and data layers.
- *
- * <pre>
- * &lt;% if ( ESAPI.accessController().isAuthorizedForFunction( ADMIN_FUNCTION ) ) { %&gt;
- * &lt;a href=&quot;/doAdminFunction&quot;&gt;ADMIN&lt;/a&gt;
- * &lt;% } else { %&gt;
- * &lt;a href=&quot;/doNormalFunction&quot;&gt;NORMAL&lt;/a&gt;
- * &lt;% } %&gt;
- * </pre>
- *
+ * Use this ESAPI security control to wrap your access control functions.
+ * 
+ * The idea behind this interface is to centralize access control logic 
+ * behind easy to use calls so that access control is easy to use and 
+ * easy to verify.
+ * 
  * @category  OWASP
  * @package   ESAPI
- * @author    Jeff Williams <jeff.williams@aspectsecurity.com>
- * @author    Mike Fauzy <mike.fauzy@aspectsecurity.com>
+ * @author    Mike Boberski <boberski_michael@bah.com>
  * @author    Andrew van der Stock <vanderaj@owasp.org>
  * @copyright 2009-2010 The OWASP Foundation
  * @license   http://www.opensource.org/licenses/bsd-license.php New BSD license

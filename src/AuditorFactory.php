@@ -13,8 +13,8 @@
  *
  * @category  OWASP
  * @package   ESAPI
- * @author    Rogan Dawes <rogan@dawes.za.net>
  * @author    Laura Bell <laura.d.bell@gmail.com>
+ * @author    Mike Boberski <boberski_michael@bah.com>
  * @copyright 2009-2010 The OWASP Foundation
  * @license   http://www.opensource.org/licenses/bsd-license.php New BSD license
  * @version   SVN: $Id$
@@ -22,13 +22,15 @@
  */
 
 /**
- * The LogFactory interface is intended to allow substitution of various logging
- * packages, while providing a common interface to access them.
+ * Use this ESAPI security control to swap audit libraries in and out.
+ * 
+ * The idea behind this interface is to allow substitution of various 
+ * logging packages, while providing a common interface to access them.
  *
  * @category  OWASP
  * @package   ESAPI
- * @author    Rogan Dawes <rogan@dawes.za.net>
  * @author    Laura Bell <laura.d.bell@gmail.com>
+ * @author    Mike Boberski <boberski_michael@bah.com>
  * @copyright 2009-2010 The OWASP Foundation
  * @license   http://www.opensource.org/licenses/bsd-license.php New BSD license
  * @version   Release: @package_version@

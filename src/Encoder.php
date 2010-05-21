@@ -13,7 +13,6 @@
  *
  * @category  OWASP
  * @package   ESAPI
- * @author    Jeff Williams <jeff.williams@aspectsecurity.com>
  * @author    Andrew van der Stock <vanderaj@owasp.org>
  * @author    Linden Darling <Linden.Darling@jds.net.au>
  * @author    jah <jah@jahboite.co.uk>
@@ -30,26 +29,13 @@
 require_once dirname(__FILE__) . '/codecs/Codec.php';
 
 /**
- * The Encoder interface contains a number of methods for decoding input and
- * encoding output so that it will be safe for a variety of interpreters. To
- * prevent double-encoding, all encoding methods should first check to see that
- * the input does not already contain encoded characters. There are a few
- * methods related to decoding that are used for canonicalization purposes. See
- * theValidator class for more information as the Validators rely heavily on
- * these decoders for canonicalizing data before validating it.
- *
- * <img src="doc-files/Encoder.jpg">
- *
- * All of the methods must use a "whitelist" or "positive" security model. For
- * the encoding methods, this means that all characters should be encoded,
- * except for a specific list of "immune" characters that are known to be safe.
- * For the decoding methods, all encoded characters should be decoded and if any
- * doubly encoded characters (using the same encoding scheme or two different
- * encoding schemes) should be rejected.
+ * Use this ESAPI security control to wrap your codecs.
+ * 
+ * The idea behind this interface is to make output safe so that it 
+ * will be safe for the intended interpreter.
  *
  * @category  OWASP
  * @package   ESAPI
- * @author    Jeff Williams <jeff.williams@aspectsecurity.com>
  * @author    Andrew van der Stock <vanderaj@owasp.org>
  * @author    Linden Darling <Linden.Darling@jds.net.au>
  * @author    jah <jah@jahboite.co.uk>
