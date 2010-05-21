@@ -29,7 +29,7 @@ require_once dirname(__FILE__) . '/../ESAPI.php';
  * Reference implementation of the base 64 codec.
  *
  * @category  OWASP
- * @package   ESAPI
+ * @package   ESAPI_Codecs
  * @author    Martin Reiche <martin.reiche.ka@gmail.com>
  * @author    jah <jah@jahboite.co.uk>
  * @author    Mike Boberski <boberski_michael@bah.com>
