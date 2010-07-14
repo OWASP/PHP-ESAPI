@@ -1018,7 +1018,7 @@ class SafeRequest
                 $maxValLen = 4096 - 1 - mb_strlen($safeKey, 'ASCII');
                 $safeVal = $this->_getIfValid(
                     '$_COOKIES Index', $unvalidatedVal, $ptnVal,
-                    'HTTP Cookie Value Validator', $maxValLen, false
+                    'HTTP Cookie Value Validator', $maxValLen, true
                 );
                 $tmp[$safeKey] = $safeVal;
             } catch (Exception $e) {
