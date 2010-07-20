@@ -154,7 +154,7 @@ class DefaultSecurityConfiguration implements SecurityConfiguration
 
         if ( $_events === false ) {
             $this->_events = null;
-            $this->logSpecial(
+            $this->_logSpecial(
                 'SecurityConfiguration for '.
                 '/esapi-properties/IntrusionDetector/event not found in ESAPI.xml.'
             );
@@ -188,7 +188,7 @@ class DefaultSecurityConfiguration implements SecurityConfiguration
     
         if ( count($this->_events) == 0 ) {
             $this->_events = null;
-            $this->logSpecial(
+            $this->_logSpecial(
                 'SecurityConfiguration found no valid events in '.
                 'the Intrusion Detection section.' 
             );
@@ -225,7 +225,7 @@ class DefaultSecurityConfiguration implements SecurityConfiguration
         $var = $this->_xml->xpath('/esapi-properties/'.$prop);
 
         if ( $var === false ) {
-            $this->logSpecial(
+            $this->_logSpecial(
                 'SecurityConfiguration for /esapi-properties/'.
                 $prop.' not found in ESAPI.xml. Using default: '. $def
             );
@@ -253,7 +253,7 @@ class DefaultSecurityConfiguration implements SecurityConfiguration
         $var = $this->_xml->xpath('/esapi-properties/'.$prop);
 
         if ( $var === false ) {
-            $this->logSpecial(
+            $this->_logSpecial(
                 'SecurityConfiguration for /esapi-properties/'.
                 $prop.' not found in ESAPI.xml. Using default: '.$def
             );
@@ -288,7 +288,7 @@ class DefaultSecurityConfiguration implements SecurityConfiguration
         $var = $this->_xml->xpath('//regexp');
 
         if ( $var === false ) {
-            $this->logSpecial(
+            $this->_logSpecial(
                 'getESAPIValidationExpression: No regular '.
                 'expressions in the config file.'
             );
@@ -315,7 +315,7 @@ class DefaultSecurityConfiguration implements SecurityConfiguration
         if ( $found && isset($val->attributes()->value) ) {
             return (string)$val->attributes()->value;
         } else {
-            $this->logSpecial(
+            $this->_logSpecial(
                 'getESAPIValidationExpression: Cannot find '.
                 'regular expression: ' . $type 
             );
@@ -351,7 +351,7 @@ class DefaultSecurityConfiguration implements SecurityConfiguration
         $var = $this->_xml->xpath('/esapi-properties/'.$prop);
 
         if ( $var === false ) {
-            $this->logSpecial(
+            $this->_logSpecial(
                 'SecurityConfiguration for /esapi-properties/'.
                 $prop.' not found in ESAPI.xml. Using default: '. $def
             );
