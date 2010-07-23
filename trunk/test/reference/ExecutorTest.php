@@ -6,7 +6,7 @@
  * Enterprise Security API (ESAPI) project. For details, please see
  * <a href="http://www.owasp.org/index.php/ESAPI">http://www.owasp.org/index.php/ESAPI</a>.
  *
- * Copyright (c) 2007 - 2009 The OWASP Foundation
+ * Copyright (c) 2007 - 2010 The OWASP Foundation
  * 
  * The ESAPI is published by OWASP under the BSD license. You should read and accept the
  * LICENSE before you use, modify, and/or redistribute this software.
@@ -16,11 +16,21 @@
  * @created 2009
  */
 require_once dirname(__FILE__).'/../../src/ESAPI.php';
+require_once dirname(__FILE__).'/../../src/errors/ExecutorException.php';
 require_once dirname(__FILE__).'/../../src/reference/DefaultExecutor.php';
-require_once dirname(__FILE__).'/../../src/codecs/WindowsCodec.php';
 
 class ExecutorTest extends UnitTestCase 
 {
+	private $_os;
+	private $_instance;
+	
+	private $_executable;
+	private $_params;
+	private $_workdir;
+	
+	const PLATFORM_WINDOWS 	= 1;
+	const PLATFORM_UNIX 	= 2;
+	 
 	function setUp() 
 	{
 		global $ESAPI;
@@ -29,6 +39,22 @@ class ExecutorTest extends UnitTestCase
 		{
 			$ESAPI = new ESAPI();
 		}
+		
+	    if (substr(PHP_OS, 0, 3) == 'WIN')
+        {
+        	$this->_os = self::PLATFORM_WINDOWS; 
+			$this->_executable = '%SYSTEMROOT%\\System32\\cmd.exe';
+	    	$this->_params = array("/C", "dir");
+        }
+        else 
+        {
+        	$this->_os = self::PLATFORM_UNIX;
+        	$this->_executable = '/bin/sh';
+	    	$this->_params = array("-c", "'ls /'");
+	    	$this->_workdir = '/tmp';
+        }
+        
+        $this->_instance = new DefaultExecutor();
 	}
 		
 	function tearDown()
@@ -38,189 +64,340 @@ class ExecutorTest extends UnitTestCase
 		
 	/**
 	 * Test of executeSystemCommand method, of Executor
-	*/
-	function testExecuteWindowsSystemCommand() 
+	 */
+	function testExecuteWindowsLegalSystemCommand() 
     {   	
-    	if(substr(PHP_OS, 0, 3) != 'WIN')
+    	if ( $this->_os != self::PLATFORM_WINDOWS )
         {
-//        	echo "testExecuteWindowsSystemCommand - on non-Windows platform, exiting<br />\n";
-        	return; // Not windows, not going to execute this path
+        	return;
         }
-        
-        $instance =  new DefaultExecutor();
-        $codec = new WindowsCodec();
         
         try
         {
-        	$executable = '%SYSTEMROOT%\\System32\\cmd.exe';
-	    	$params = array("/C", "dir");
-	    	$result = $instance->executeSystemCommand($executable, $params);
-	    	$result = ESAPI::getEncoder()->encodeForHTML($result);
-//	    	echo "RESULT: $result<br /><br />\n";
+	    	$result = $this->_instance->executeSystemCommand($this->_executable, $this->_params);
 	    	$this->assertNotNull($result);
         }
-    	catch ( Exception $e ) 
+    	catch ( ExecutorException $e ) 
         {
-        	$this->fail();
+        	$this->fail($e->getMessage());
+        }
+    }
+
+    /**
+	 * Test to ensure that bad commands fail
+	 */
+	function testExecuteWindowsInjectIllegalSystemCommand() 
+    {   	
+    	if ( $this->_os != self::PLATFORM_WINDOWS )
+        {
+        	return;
         }
         
         try
         {
-        	$executable = '%SYSTEMROOT%\\System32\\;notepad.exe';
-        	$params = array("/C", "dir");
-        	$result= $instance->executeSystemCommand($executable, $params);
-	    	$result = ESAPI::getEncoder()->encodeForHTML($result);
-//	    	echo "RESULT: $result<br /><br />\n";
+        	$this->_executable = '%SYSTEMROOT%\\System32\\;notepad.exe';
+        	$result = $this->_instance->executeSystemCommand($this->_executable, $this->_params);
 	    	$this->assertNull($result);
         }
-        catch( Exception $e )
+        catch( ExecutorException $e )
         {
         	//expected
         	$this->pass();
         }
-        
+    }
+    
+    /**
+	 * Test of file system canonicalization
+	 */
+	function testExecuteWindowsCanonicalization() 
+    {   	
+    	if ( $this->_os != self::PLATFORM_WINDOWS )
+        {
+        	return;
+        }
+                
         try
         {
-        	$executable = '%SYSTEMROOT%\\System32\\..\\cmd.exe';
-        	$params = array("/C", "dir");
-        	$result= $instance->executeSystemCommand($executable, $params);
-	    	$result = ESAPI::getEncoder()->encodeForHTML($result);
-//	    	echo "RESULT: $result<br /><br />\n";
-	    	$this->assertNull($result);
+        	$this->_executable = '%SYSTEMROOT%\\System32\\..\\cmd.exe';
+        	$result = $this->_instance->executeSystemCommand($this->_executable, $this->_params);
+	    	$this->fail('Should not execute non-canonicalized path');
         }
-        catch( Exception $e )
+        catch( ExecutorException $e )
         {
         	//expected
         	$this->pass();
         }
-        
-    	try
+    }
+    
+    /**
+     *	Test to see if a good work directory is properly handled. 
+     */
+    function testExecuteWindowsGoodWorkDirectory() 
+    {   	
+    	if ( $this->_os != self::PLATFORM_WINDOWS )
         {
-        	$executable = '%SYSTEMROOT%\\System32\\cmd.exe';
-        	$params = array("/C", "dir");
-        	$workdir = 'C:\\ridiculous';
-        	$result = $instance->executeSystemCommandLonghand($executable, $params, $workdir, $codec, false);
-	    	$result = ESAPI::getEncoder()->encodeForHTML($result);
-//	    	echo "RESULT: $result<br /><br />\n";
-	    	$this->assertNull($result);
-        }
-        catch( Exception $e )
-        {
-        	//expected
+        	return;
         }
         
     	try
         {
-        	$params = array("/C", "dir", "&dir");
-        	$result= $instance->executeSystemCommand($executable, $params);
-	    	$result = ESAPI::getEncoder()->encodeForHTML($result);
-//	    	echo "RESULT: $result<br /><br />\n";
+        	$result = $this->_instance->executeSystemCommandLonghand($this->_executable, $this->_params, $this->_workdir, false);
 	    	$this->assertNotNull($result);
         }
-        catch( Exception $e )
+        catch( ExecutorException $e )
         {
-        	$this->fail();
+        	$this->fail($e->getMessage());
+        }
+    }
+    
+    
+    /**
+     *	Test to see if a non-existent work directory is properly handled. 
+     */
+    function testExecuteWindowsBadWorkDirectory() 
+    {   	
+    	if ( $this->_os != self::PLATFORM_WINDOWS )
+        {
+        	return;
         }
         
     	try
         {
-        	$params = array("/C", "dir", "c:\\autoexec.bat");
-        	$result= $instance->executeSystemCommand($executable, $params);
-	    	$result = ESAPI::getEncoder()->encodeForHTML($result);
-//	    	echo "RESULT: $result<br /><br />\n";
-	    	$this->assertNotNull($result);
+        	$this->_workdir = 'C:\\ridiculous';
+        	$result = $this->_instance->executeSystemCommandLonghand($this->_executable, $this->_params, $this->_workdir, false);
+	    	$this->fail('Should not execute with a bad working directory');
         }
-        catch( Exception $e )
+        catch( ExecutorException $e )
         {
-        	$this->fail();
+        	// expected
+        	$this->pass();
         }
-        
-    	try
-        {
-        	$params = array("/C", "dir", "c:\\autoexec.bat c:\\config.sys");
-        	$result= $instance->executeSystemCommand($executable, $params);
-	    	$result = ESAPI::getEncoder()->encodeForHTML($result);
-//	    	echo "RESULT: $result<br /><br />\n";
-	    	$this->assertNotNull($result);
-        }
-        catch( Exception $e )
-        {
-        	$this->fail();
-        }
-        
-        //TODO: add more tests
- 
-    	
     }
     
 	/**
-	 * Test of executeSystemCommand method, of Executor
-	*/
-    function testExecuteUnixSystemCommand()
-    {
-        if(substr(PHP_OS, 0, 3) == 'WIN')
+	 * Test to prevent chained command execution
+	 */
+    function testExecuteWindowsChainedCommand() 
+    {   	
+    	if ( $this->_os != self::PLATFORM_WINDOWS )
         {
-//        	echo "testExecuteUnixSystemCommand - on Windows platform, exiting<br />\n";
-        	return;		// Is windows, not going to execute this path
-        }
-        
-        $instance =  new DefaultExecutor();
-        
-    	try
-        {
-        	$executable = '/bin/sh';
-	    	$params = array("-c", "ls", "/");
-	    	$result = $instance->executeSystemCommand($executable, $params);
-	    	$result = ESAPI::getEncoder()->encodeForHTML($result);
-//	    	echo "RESULT: $result<br /><br />\n";
-	    	$this->assertNotNull($result);
-        }
-    	catch ( Exception $e ) 
-        {
-        	$this->fail();
+        	return;
         }
         
     	try
         {
-        	$executable = '/bin/sh;./inject';
-	    	$params = array("-c", "ls", "/");
-	    	$result = $instance->executeSystemCommand($executable, $params);
-	    	$result = ESAPI::getEncoder()->encodeForHTML($result);
-//	    	echo "RESULT: $result<br /><br />\n";
-	    	$this->assertNull($result);
+        	$this->_executable .= " & dir & rem ";
+        	$result = $this->_instance->executeSystemCommand($this->_executable, $this->_params);
+	    	$this->fail("Executed chained command, output: ". $result);
         }
-    	catch ( Exception $e ) 
+        catch( ExecutorException $e )
         {
-        	//expected
-        }
-        
-    	try
-        {
-        	$executable = '/bin/sh/../bin/sh';
-	    	$params = array("-c", "ls", "/");
-	    	$result = $instance->executeSystemCommand($executable, $params);
-	    	$result = ESAPI::getEncoder()->encodeForHTML($result);
-//	    	echo "RESULT: $result<br /><br />\n";
-	    	$this->assertNull($result);
-        }
-    	catch ( Exception $e ) 
-        {
-        	//expected
-        }
-        
-    	try
-        {
-        	$executable = '/bin/sh';
-	    	$params = array("-c", "ls", "/", ";ls");
-	    	$result = $instance->executeSystemCommand($executable, $params);
-	    	$result = ESAPI::getEncoder()->encodeForHTML($result);
-//	    	echo "RESULT: $result<br /><br />\n";
-	    	$this->assertNotNull($result);
-        }
-    	catch ( Exception $e ) 
-        {
-        	$this->fail();
+        	// expected
+        	$this->pass();
         }
     }
+    
+    /**
+	 * Test to prevent chained command execution
+	 */
+    function testExecuteWindowsChainedParameter() 
+    {   	
+    	if ( $this->_os != self::PLATFORM_WINDOWS )
+        {
+        	return;
+        }
+        
+    	try
+        {
+        	$this->_params[] = "&dir";
+        	$result = $this->_instance->executeSystemCommand($this->_executable, $this->_params);
+	    	$this->assertNotNull($result);
+        }
+        catch( ExecutorException $e )
+        {
+        	$this->fail($e->getMessage());
+        }
+    }
+    
+    /*
+     *	Test to see if the escaping mechanism renders supplemental results safely 
+     */
+    function testExecuteWindowsDoubleArgs() 
+    {   	
+    	if ( $this->_os != self::PLATFORM_WINDOWS )
+        {
+        	return;
+        }
+                
+    	try
+        {
+        	$this->_params[] = "c:\\autoexec.bat c:\\config.sys";
+        	$result = $this->_instance->executeSystemCommand($this->_executable, $this->_params);
+	    	$this->assertNotNull($result);
+        }
+        catch ( ExecutorException $e )
+        {
+        	$this->fail($e->getMessage());
+        }
+    }
+    
+	
+	/**
+	 * Test of executeSystemCommand method, of Executor
+	 */
+	function testExecuteUnixLegalSystemCommand() 
+    {   	
+    	if ( $this->_os != self::PLATFORM_UNIX )
+        {
+        	return;
+        }
+
+        try
+        {
+	    	$result = $this->_instance->executeSystemCommand($this->_executable, $this->_params);
+	    	$this->assertNotNull($result);
+        }
+    	catch ( ExecutorException $e ) 
+        {
+        	$this->fail($e->getMessage());
+        }
+    }
+
+    /**
+	 * Test to ensure that bad commands fail
+	 */
+	function testExecuteUnixInjectIllegalSystemCommand() 
+    {   	
+    	if ( $this->_os != self::PLATFORM_UNIX )
+        {
+        	return;
+        }
+        
+        try
+        {
+        	$this->_executable .= ';./inject';
+        	$result = $this->_instance->executeSystemCommand($this->_executable, $this->_params);
+	    	$this->fail('Should not have executed injected command');
+        }
+        catch( ExecutorException $e )
+        {
+        	//expected
+        	$this->pass();
+        }
+    }
+    
+    /**
+	 * Test of file system canonicalization
+	 */
+	function testExecuteUnixCanonicalization() 
+    {   	
+    	if ( $this->_os != self::PLATFORM_UNIX )
+        {
+        	return;
+        }
+        
+        try
+        {
+        	$this->_executable = '/bin/sh/../bin/sh';
+        	$result = $this->_instance->executeSystemCommand($this->_executable, $this->_params);
+	    	$this->fail('Should not have executed uncanonicalized command');
+        }
+        catch( ExecutorException $e )
+        {
+        	//expected
+        	$this->pass();
+        }
+    }
+    
+    /**
+     *	Test to see if a good work directory is properly handled. 
+     */
+    function testExecuteUnixGoodWorkDirectory() 
+    {   	
+    	if ( $this->_os != self::PLATFORM_UNIX )
+        {
+        	return;
+        }
+        
+    	try
+        {
+        	$result = $this->_instance->executeSystemCommandLonghand($this->_executable, $this->_params, $this->_workdir, false);
+	    	$this->assertNotNull($result);
+        }
+        catch( ExecutorException $e )
+        {
+        	$this->fail($e->getMessage());
+        }
+    }
+    
+    
+    /**
+     *	Test to see if a non-existent work directory is properly handled. 
+     */
+    function testExecuteUnixBadWorkDirectory() 
+    {   	
+    	if ( $this->_os != self::PLATFORM_UNIX )
+        {
+        	return;
+        }
+        
+    	try
+        {
+        	$this->_workdir = '/ridiculous/';
+        	$result = $this->_instance->executeSystemCommandLonghand($this->_executable, $this->_params, $this->_workdir, false);
+	    	$this->fail('Bad working directory should not work.');
+        }
+        catch( ExecutorException $e )
+        {
+        	// expected
+        	$this->pass();
+        }
+    }
+    
+	/**
+	 * Test to prevent chained command execution
+	 */
+    function testExecuteUnixChainedCommand() 
+    {   	
+    	if ( $this->_os != self::PLATFORM_UNIX )
+        {
+        	return;
+        }
+        
+    	try
+        {
+        	$this->_executable .= " ; ls / ; # ";
+        	$result = $this->_instance->executeSystemCommand($this->_executable, $this->_params);
+	    	$this->fail("Executed chained command, output: ". $result);
+        }
+        catch ( ExecutorException $e )
+        {
+        	// expected
+        	$this->pass();
+        }
+    }
+    
+    /**
+	 * Test to prevent chained command execution by adding a new command to end of the parameters
+	 */
+    function testExecuteUnixChainedParameter() 
+    {   	
+    	if ( $this->_os != self::PLATFORM_UNIX )
+        {
+        	return;
+        }
+            
+    	try
+        {
+	    	$this->_params[] = ";ls";
+        	$result = $this->_instance->executeSystemCommand($this->_executable, $this->_params);
+	    	$this->assertNotNull($result);
+        }
+        catch( ExecutorException $e )
+        {
+        	$this->fail($e->getMessage());
+        }
+    }
+    
 }
 ?>
