@@ -97,10 +97,10 @@ class DefaultExecutor implements Executor
             }
             
             // executable must use canonical path
-            if (!strcmp($resolved, realpath($resolved))) {
+            if (strcmp($resolved, realpath($resolved)) != 0) {
                 throw new ExecutorException(
                     "Execution failure, Attempt ".
-                    "to invoke an executable using a non-absolute path: $executable"
+                    "to invoke an executable using a non-absolute path: [".realpath($resolved)."] != [$executable]"
                 );
             }            
                              
@@ -140,7 +140,7 @@ class DefaultExecutor implements Executor
             // run the command
             $paramstr = "";
             foreach ($params as $param) {
-                //note: will yeild a paramstr with a leading whitespace
+                //note: will yield a paramstr with a leading whitespace
                 $paramstr .= " ".$param;    
             }
             //note: no whitespace between $executable and $paramstr since 
@@ -148,8 +148,9 @@ class DefaultExecutor implements Executor
             $output = shell_exec($executable . $paramstr);    
             return $output;
         }
-        catch ( Exception $e ) {
+        catch ( ExecutorException $e ) {
             $this->_auditor->warning(Auditor::SECURITY, true, $e->getMessage());
+            throw new ExecutorException($e->getMessage());
         }
     
     }    
