@@ -43,8 +43,9 @@ class ExecutorTest extends UnitTestCase
 	    if (substr(PHP_OS, 0, 3) == 'WIN')
         {
         	$this->_os = self::PLATFORM_WINDOWS; 
-			$this->_executable = '%SYSTEMROOT%\\System32\\cmd.exe';
+			$this->_executable = '%SYSTEMROOT%\\system32\\cmd.exe';
 	    	$this->_params = array("/C", "dir");
+	    	$this->_workdir = '%SYSTEMROOT%\\Temp';
         }
         else 
         {
