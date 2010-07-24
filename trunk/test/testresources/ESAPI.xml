@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <!--
 
     Properties file for OWASP Enterprise Security API (ESAPI) You can find more
@@ -40,8 +40,8 @@
   <ExecutorWindows>
     <WorkingDirectory>%SYSTEMROOT%\Temp</WorkingDirectory>
     <ApprovedExecutables>
-      <command>%SYSTEMROOT%\System32\cmd.exe</command>
-      <command>%SYSTEMROOT%\System32\runas.exe</command>
+      <command>%SYSTEMROOT%\system32\cmd.exe</command>
+      <command>%SYSTEMROOT%\system32\runas.exe</command>
     </ApprovedExecutables>
   </ExecutorWindows>
   <ExecutorUnix>
