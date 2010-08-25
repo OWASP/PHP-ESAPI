@@ -136,6 +136,21 @@ interface HTTPUtilities
      */
     public function changeSessionIdentifier();
 
+    /**
+     * A safer replacement for getParameter() in SafeRequest that returns the canonicalized
+     * value of the named parameter after "global" validation against the general
+     * type defined in ESAPI.properties. Ths should not be considered a replacement for
+     * more specific validation. 
+     *
+     * @param SafeRequest $request Request object.
+     * @param string $name 
+     * 
+     * @return the requested parameter value
+     * 
+     * @throws Validation Exception
+     */
+    public function getParameter($request, $name);
+    
 
     /**
      * Kill all cookies received in the last request from the browser. Note that

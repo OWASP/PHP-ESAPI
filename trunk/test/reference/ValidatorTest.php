@@ -96,6 +96,60 @@ class ValidatorTest extends UnitTestCase
 */
 
     /**
+     * Test getValidInput with null and allowNull = true
+     */
+    function testGetValidInput_valid_01() {
+      $instance = ESAPI::getValidator();
+      try {
+	$param = $instance->getValidInput("TestParam", null, "HTTPParameterValue", "2000", true);
+	$this->assertEqual(null, $param);
+      } catch (ValidationException $unexpected) {
+	$this->fail();
+      }
+    }
+
+    /**
+     * Test getValidInput with with null and allowNull = false
+     */
+    function testGetValidInput_invalid_01() {
+      $instance = ESAPI::getValidator();
+      try {
+	$param = $instance->getValidInput("TestParam", null, "HTTPParameterValue", "2000", false);
+	$this->fail();
+      } catch (ValidationException $expected) {
+	$this->pass();
+      }
+    }
+
+    /**
+     * Test getValidInput with urlencoded email address
+     */
+    function testGetValidInput_valid_02() {
+      $instance = ESAPI::getValidator();
+      try {
+	$param = $instance->getValidInput("TestParam", urlencode("jackwillksecurity@gmail.com"), "HTTPParameterValue", "2000", false);
+	$this->assertEqual("jackwillksecurity@gmail.com", $param);
+      } catch (ValidationException $unexpected) {
+	$this->fail();
+      }
+    }
+
+    /**
+     * Test getValidInput with double encoding
+     */
+    function testGetValidInput_invalid_02() {
+      $instance = ESAPI::getValidator();
+      try {
+	$param = $instance->getValidInput("TestParam", "%253Cscript%253Ealert('XSS')%253C%252Fscript%253E", "HTTPParameterValue", "2000", false);
+	$this->fail();
+      } catch (IntrusionException $expected) {
+	$this->pass();
+      }
+    }
+
+
+
+    /**
      * Test isValidInput method of class Validator with a valid type: Email.
      */
     function testIsValidInput_Email_valid_01()
@@ -103,7 +157,6 @@ class ValidatorTest extends UnitTestCase
         $instance = ESAPI::getValidator();
         $this->assertTrue($instance->isValidInput('test', 'jeff.williams@aspectsecurity.com', 'Email', 100, false));
     }
-
 
     /**
      * Test isValidInput method of class Validator with a valid type: Email.

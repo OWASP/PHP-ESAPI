@@ -45,6 +45,7 @@ class DefaultHTTPUtilities implements HTTPUtilities
 
     private $_auditor        = null;
     private $_currentRequest = null;
+    private $_validator      = null;
 
 
     /**
@@ -56,6 +57,8 @@ class DefaultHTTPUtilities implements HTTPUtilities
     {
         Global $ESAPI;
         $this->_auditor = ESAPI::getAuditor('DefaultHTTPUtilities');
+	$this->_validator = ESAPI::getValidator();
+
     }
 
 
@@ -293,6 +296,14 @@ class DefaultHTTPUtilities implements HTTPUtilities
         return true;
     }
 
+    /**
+     * @inheritDoc
+     */
+    public function getParameter($request, $name)
+    {
+      $value = $request->getParameter($name);
+      return $this->_validator->getValidInput("HTTP parameter value: " + $value, $value, "HTTPParameterValue", 2000, true);
+    }
 
     /**
      * Kill all cookies received in the last request from the browser. Note that

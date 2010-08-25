@@ -75,6 +75,21 @@ interface Validator
     public function isValidInput($context, $input, $type, $maxLength, $allowNull);
 
     /**
+     * Validates data received from the the browser and returns a safe version. Only
+     * URL encoding is supported. Double encoding is treated as an attack.
+     * 
+     * @param context A descriptive name for the field to validate. This is used for error facing validation messages and element identification.
+     * @param input The actual user input to validate. 
+     * @param type The regular expression name which maps to the actual regular expression from "ESAPI.properties".
+     * @param maxLength the maximum post-canonicalized String length allowed.
+     * @param allowNull if allowNull is true then an input that is NULL or an empty string will be legal. If allowNull is false then NULL or an empty String will throw a validation exception. 
+     * @return The canonicalized user input.
+     * @throws ValidationException
+     * @throws IntrusionException
+     */
+    public function getValidInput($context, $input, $type, $maxLength, $allowNull);
+
+    /**
      * Returns true if the canonicalized input is a valid date according to the
      * specified date format string, or false otherwise.
      *

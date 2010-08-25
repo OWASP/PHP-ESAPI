@@ -125,6 +125,17 @@ class DefaultValidator implements Validator
         return null; 
     }
 
+    /**
+     * @inheritdoc
+     */
+    public function getValidInput($context, $input, $type, $maxLength, $allowNull) {
+      $validationRule = new StringValidationRule($type, $this->_encoder);
+      
+      $validationRule->setMaximumLength($maxLength);
+      $validationRule->setAllowNull($allowNull);
+
+      return $validationRule->getValid($context, $input);
+    }
 
     /**
      * @inheritdoc
