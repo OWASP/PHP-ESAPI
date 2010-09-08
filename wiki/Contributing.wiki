@@ -1,0 +1,3 @@
+#sidebar TableOfContents
+
+A contributors guide is currently available from the [http://code.google.com/p/owasp-esapi-php/downloads/list downloads section].
