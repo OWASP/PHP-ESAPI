@@ -144,12 +144,12 @@ interface HTTPUtilities
      *
      * @param SafeRequest $request Request object.
      * @param string $name 
+     * @param string $default An optional default value to return if parameter does not pass validation
      * 
-     * @return the requested parameter value
+     * @return the requested parameter value or $default if the named parameter does not pass validation
      * 
-     * @throws Validation Exception
      */
-    public function getParameter($request, $name);
+    public function getParameter($request, $name, $default);
     
 
     /**
