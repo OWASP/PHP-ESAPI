@@ -149,7 +149,7 @@ interface HTTPUtilities
      * @return the requested parameter value or $default if the named parameter does not pass validation
      * 
      */
-    public function getParameter($request, $name, $default);
+    public function getParameter($request, $name, $default = null);
     
 
     /**
