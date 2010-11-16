@@ -21,9 +21,9 @@
  */
 
 /**
- * EmailAddressValidationRule requires the BaseValidationRule.
+ * WordValidationRule requires the StringValidationRule.
  */
-require_once dirname(__FILE__) . '/BaseValidationRule.php';
+require_once dirname(__FILE__) . '/StringValidationRule.php';
 
 
 /**
