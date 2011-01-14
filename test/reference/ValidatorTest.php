@@ -103,7 +103,7 @@ class ValidatorTest extends UnitTestCase
         $instance = ESAPI::getValidator();
         $this->assertTrue($instance->isValidInput('test', 'jeff.williams@aspectsecurity.com', 'Email', 100, false));
     }
-
+    
 
     /**
      * Test isValidInput method of class Validator with a valid type: Email.
@@ -710,6 +710,7 @@ class ValidatorTest extends UnitTestCase
         $this->assertFalse($val->isValidCreditCard('testIsValidCreditCard_valid_07', array(), true));
     }
 
+
     /**
      * Test of isValidListItem method, of class org.owasp.esapi.Validator.
      */
@@ -719,6 +720,7 @@ class ValidatorTest extends UnitTestCase
         $this->assertTrue($val->isValidListItem('test', 'one', $list));
         $this->assertFalse($val->isValidListItem('test', 'three', $list));
     }
+
 
     /**
      * Test of isValidNumber method, of class org.owasp.esapi.Validator.
@@ -756,6 +758,7 @@ class ValidatorTest extends UnitTestCase
         $this->assertTrue($instance->isValidNumber('test', '-1e-6', -999999999, 999999999, false));
     }
 
+
     /**
      *
      */
@@ -791,6 +794,76 @@ class ValidatorTest extends UnitTestCase
         $this->assertFalse($instance->isValidInteger('test', '1e-6', -999999999, 999999999, false));
         $this->assertFalse($instance->isValidInteger('test', '-1e-6', -999999999, 999999999, false));
 
+    }
+
+
+    /**
+     * Test isValidPrintable method of class Validator with a valid input.
+     */
+    function testIsValidPrintable_valid_01()
+    {
+        $instance = ESAPI::getValidator();
+        $this->assertTrue(
+            $instance
+                ->isValidPrintable('test', 'abcDEF', 100, false)
+        );
+    }
+
+
+    /**
+     * Test isValidPrintable method of class Validator with a valid input.
+     */
+    function testIsValidPrintable_valid_02()
+    {
+        $input = '';
+        for ($i = 32; $i <= 126; $i++) {
+            $input .= chr($i);
+        }
+        $instance = ESAPI::getValidator();
+        $this->assertTrue(
+            $instance
+                ->isValidPrintable('test', $input, 100, false)
+        );
+    }
+
+
+    /**
+     * Test isValidPrintable method of class Validator with a valid input.
+     */
+    function testIsValidPrintable_valid_03()
+    {
+        $instance = ESAPI::getValidator();
+        $this->assertTrue(
+            $instance
+                ->isValidPrintable('test', '!@#R()*$;><()', 100, false)
+        );
+    }
+
+
+    /**
+     * Test isValidPrintable method of class Validator with an invalid input.
+     */
+    function testIsValidPrintable_invalid_01()
+    {
+        $bytes = chr(0x60) . chr(0xFF) . chr(0x10) . chr(0x25);
+        $instance = ESAPI::getValidator();
+        $this->assertFalse(
+            $instance
+                ->isValidPrintable('test', $bytes, 100, false)
+        );
+    }
+
+
+    /**
+     * Test isValidPrintable method of class Validator with an invalid input.
+     */
+    function testIsValidPrintable_invalid_02()
+    {
+        $instance = ESAPI::getValidator();
+        $this->assertFalse(
+            $instance
+                ->isValidPrintable('test', '%08', 100, false)
+        );
     }
 
     /**
@@ -857,19 +930,6 @@ class ValidatorTest extends UnitTestCase
 //            $this->assertFalse($instance->isValidDirectoryPath('test', '/tmp/../etc', false));
 //        }
     }
-
-    /**
-     *
-     */
-/*    function testIsValidPrintable() {
-        $val = ESAPI::getValidator();
-        $this->assertTrue($val->isValidPrintable('name', 'abcDEF', 100, false));
-        $this->assertTrue($val->isValidPrintable('name', '!@#R()*$;><()', 100, false));
-        $bytes = array(0x60,0xFF, 0x10, 0x25);
-        $this->assertFalse($val->isValidPrintable('name', $bytes, 100, false ) );
-        $this->assertFalse($val->isValidPrintable('name', "%08", 100, false));
-    }
-*/
 
 /*  ////regex in ESAPI.xml should be ^\/test.*$
     function testIsRedirectLocation_01()
