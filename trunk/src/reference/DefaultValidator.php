@@ -111,7 +111,7 @@ class DefaultValidator implements Validator
         
         $config = ESAPI::getSecurityConfiguration();
         $pattern = $config->getValidationPattern($type);
-        if ($pattern != null) {
+        if ($pattern !== false) {
             $validationRule->addWhitelistPattern($pattern);
         } else {
             $validationRule->addWhitelistPattern($type);
@@ -605,14 +605,7 @@ class DefaultValidator implements Validator
      */
     private function _assertValidPrintable($context, $input, $maxLength, $allowNull)
     {
-        $c = '\x20\x21\x22\x23\x24\x25\x26\x27'.
-            '\x28\x29\x2a\x2b\x2c\x2d\x2e\x2f'.
-            '0-9\x3a\x3b\x3c\x3d\x3e\x3f\x40'.
-            'A-Z\x5b\x5c\x5d\x5e\x5f\x60'.
-            'a-z\x7b\x7c\x7d\x7e';
-        $pattern = "^[{$c}]*$";
-        
-        $this->_assertValidInput($context, $input, $pattern, $maxLength, $allowNull);
+        $this->_assertValidInput($context, $input, 'PrintableASCII', $maxLength, $allowNull);
         
         return null;
     }

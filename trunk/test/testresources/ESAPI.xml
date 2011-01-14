@@ -207,6 +207,7 @@
       <regexp name="SystemCommand" value="^[a-zA-Z\-\/]{0,64}$" />
       <regexp name="RoleName" value="^[a-z]{1,20}$" />
       <regexp name="Redirect" value="^\\/test.*$" />
+      <regexp name="PrintableASCII" value="^[a-zA-Z0-9&#32;!&#34;#$%&amp;'()*+,\-.\/:;&#60;=>?@[\\\]^_`{|}~]+$" />
       <!--
 				Global HTTP Validation Rules.
 				Values with Base64 encoded data (e.g. encrypted state) will need at least [a-zA-Z0-9\/+=]
