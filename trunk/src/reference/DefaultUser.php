@@ -534,7 +534,7 @@ class DefaultUser implements User {
      */
     function loginWithPassword ($password) {
     //FIXME: time() might not be the correct format to be used?
-        if (is_null($password) || $password = "") {
+        if (is_null($password) || $password == "") {
             $this->setLastFailedLoginTime(time());
             $this->incrementFailedLoginCount();
             throw new AuthenticationLoginException("Login failed", "Missing password: " . $this->getAccountName());
