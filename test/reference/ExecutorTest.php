@@ -70,7 +70,7 @@ class ExecutorTest extends PHPUnit_Framework_TestCase
     {   	
     	if ( $this->_os != self::PLATFORM_WINDOWS )
         {
-        	return;
+        	$this->markTestSkipped('Not Windows.');
         }
         
         try
@@ -91,7 +91,7 @@ class ExecutorTest extends PHPUnit_Framework_TestCase
     {   	
     	if ( $this->_os != self::PLATFORM_WINDOWS )
         {
-        	return;
+        	$this->markTestSkipped('Not Windows.');
         }
         
         $this->setExpectedException('ExecutorException');
@@ -108,7 +108,7 @@ class ExecutorTest extends PHPUnit_Framework_TestCase
     {   	
     	if ( $this->_os != self::PLATFORM_WINDOWS )
         {
-        	return;
+        	$this->markTestSkipped('Not Windows.');
         }
 
         $this->setExpectedException('ExecutorException');
@@ -125,7 +125,7 @@ class ExecutorTest extends PHPUnit_Framework_TestCase
     {   	
     	if ( $this->_os != self::PLATFORM_WINDOWS )
         {
-        	return;
+        	$this->markTestSkipped('Not Windows.');
         }
         
     	try
@@ -147,7 +147,7 @@ class ExecutorTest extends PHPUnit_Framework_TestCase
     {   	
     	if ( $this->_os != self::PLATFORM_WINDOWS )
         {
-        	return;
+        	$this->markTestSkipped('Not Windows.');
         }
         
         $this->setExpectedException('ExecutorException');
@@ -164,7 +164,7 @@ class ExecutorTest extends PHPUnit_Framework_TestCase
     {   	
     	if ( $this->_os != self::PLATFORM_WINDOWS )
         {
-        	return;
+        	$this->markTestSkipped('Not Windows.');
         }
         
         $this->setExpectedException('ExecutorException');
@@ -181,7 +181,7 @@ class ExecutorTest extends PHPUnit_Framework_TestCase
     {   	
     	if ( $this->_os != self::PLATFORM_WINDOWS )
         {
-        	return;
+        	$this->markTestSkipped('Not Windows.');
         }
         
     	try
@@ -203,7 +203,7 @@ class ExecutorTest extends PHPUnit_Framework_TestCase
     {   	
     	if ( $this->_os != self::PLATFORM_WINDOWS )
         {
-        	return;
+        	$this->markTestSkipped('Not Windows.');
         }
                 
     	try
@@ -226,7 +226,7 @@ class ExecutorTest extends PHPUnit_Framework_TestCase
     {   	
     	if ( $this->_os != self::PLATFORM_UNIX )
         {
-        	return;
+        	$this->markTestSkipped('Not Unix.');
         }
 
         try
@@ -247,7 +247,7 @@ class ExecutorTest extends PHPUnit_Framework_TestCase
     {   	
     	if ( $this->_os != self::PLATFORM_UNIX )
         {
-        	return;
+        	$this->markTestSkipped('Not Unix.');
         }
         
 		$this->setExpectedException('ExecutorException');
@@ -264,7 +264,7 @@ class ExecutorTest extends PHPUnit_Framework_TestCase
     {   	
     	if ( $this->_os != self::PLATFORM_UNIX )
         {
-        	return;
+        	$this->markTestSkipped('Not Unix.');
         }
         
         $this->setExpectedException('ExecutorException');
@@ -281,7 +281,7 @@ class ExecutorTest extends PHPUnit_Framework_TestCase
     {   	
     	if ( $this->_os != self::PLATFORM_UNIX )
         {
-        	return;
+        	$this->markTestSkipped('Not Unix.');
         }
         
     	try
@@ -303,7 +303,7 @@ class ExecutorTest extends PHPUnit_Framework_TestCase
     {   	
     	if ( $this->_os != self::PLATFORM_UNIX )
         {
-        	return;
+        	$this->markTestSkipped('Not Unix.');
         }
         
     	$this->setExpectedException('ExecutorException');
@@ -320,7 +320,7 @@ class ExecutorTest extends PHPUnit_Framework_TestCase
     {   	
     	if ( $this->_os != self::PLATFORM_UNIX )
         {
-        	return;
+        	$this->markTestSkipped('Not Unix.');
         }
         
 		$this->setExpectedException('ExecutorException');
@@ -337,7 +337,7 @@ class ExecutorTest extends PHPUnit_Framework_TestCase
     {   	
     	if ( $this->_os != self::PLATFORM_UNIX )
         {
-        	return;
+        	$this->markTestSkipped('Not Unix.');
         }
             
     	try
