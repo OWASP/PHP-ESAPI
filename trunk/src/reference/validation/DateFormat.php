@@ -38,7 +38,11 @@
 class DateFormat
 {
     private $_format = array();
-    const TYPES = array('SMALL','MEDIUM','LONG','FULL');
+        
+    const DATE_SMALL = 'SMALL';
+    const DATE_MEDIUM = 'MEDIUM';
+    const DATE_LONG = 'LONG';
+    const DATE_FULL = 'FULL';
     
     /**
      * Constructor.
@@ -63,19 +67,39 @@ class DateFormat
      */
     function setformat($format, $type='MEDIUM') 
     {
-        
-        if ( is_array($format)) {
-            foreach ( self::TYPES as $t ) {
-                if ( key_exists($t, $format)) {
-                    $this->_format[$t] = $format[$t];        
+        switch ($type) {
+            case 'SMALL': 
+                if ( is_array($format) && key_exists(self::DATE_SMALL, $format)) {
+                    $this->_format[self::DATE_SMALL] = $format[self::DATE_SMALL];
+                } else {
+                    $this->_format[self::DATE_SMALL] = $format;
                 }
-            }
-        } else {
-            if ( in_array($type, self::TYPES) ) {
-                $this->_format[$type] = $format;
-            } else {
-                throw ValidationException("invalid date type " . $type);
-            }                        
+                break;
+
+            case 'LONG':
+                if ( is_array($format) && key_exists(self::DATE_LONG, $format)) {
+                    $this->_format[self::DATE_LONG] = $format[self::DATE_LONG];
+                } else {
+                    $this->_format[self::DATE_LONG] = $format;
+                }
+                break;
+
+            case 'FULL': 
+                if ( is_array($format) && key_exists(self::DATE_FULL, $format)) {
+                    $this->_format[self::DATE_FULL] = $format[self::DATE_FULL];
+                } else {
+                    $this->_format[self::DATE_FULL] = $format;
+                }
+                break;
+
+            case 'MEDIUM':
+            default: 
+                if ( is_array($format) && key_exists(self::DATE_MEDIUM, $format)) {
+                    $this->_format[self::DATE_MEDIUM] = $format[self::DATE_MEDIUM];
+                } else {
+                    $this->_format[self::DATE_MEDIUM] = $format;
+                }
+                break;
         }
     }
 }
