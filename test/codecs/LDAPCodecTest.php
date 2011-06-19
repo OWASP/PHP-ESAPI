@@ -16,10 +16,10 @@
  */
 
 require_once dirname(__FILE__).'/../../src/ESAPI.php';
-require_once dirname(__FILE__).'/../../src/codecs/LDAPCodec.php';
+// require_once dirname(__FILE__).'/../../src/codecs/LDAPCodec.php';
 
 
-class LDAPCodecTest extends UnitTestCase
+class LDAPCodecTest extends PHPUnit_Framework_TestCase
 {
 	private $ldapCodec = null;
 	
@@ -32,31 +32,35 @@ class LDAPCodecTest extends UnitTestCase
 			$ESAPI = new ESAPI();
 		}
 		
-		$this->ldapCodec = new LDAPCodec();
+		// $this->ldapCodec = new LDAPCodec();
 	}
 		
 	function testEncode()
 	{
 		$immune = array("");
 		
-		$this->assertEqual( 'TODO', $this->ldapCodec->encode($immune, "esapi)(|(password=*)") );
+		$this->fail();
+		
+		$this->assertEquals( 'TODO', $this->ldapCodec->encode($immune, "esapi)(|(password=*)") );
 	}
 	
 	function testEncodeCharacter()
 	{
 		$immune = array("");
-		
-		$this->assertEqual( "TODO", $this->ldapCodec->encode($immune, "<") );
+		$this->fail();
+		$this->assertEquals( "TODO", $this->ldapCodec->encode($immune, "<") );
 	}	
 	
 	function testDecode()
 	{
-		$this->assertEqual( "esapi)(|(password=*)", $this->ldapCodec->decode('TODO') );
+		$this->fail();
+		$this->assertEquals( "esapi)(|(password=*)", $this->ldapCodec->decode('TODO') );
 	}
 		
 	function testDecodeCharacter()
 	{
-		$this->assertEqual( "<", $this->ldapCodec->decode("TODO") );
+		$this->fail();
+		$this->assertEquals( "<", $this->ldapCodec->decode("TODO") );
 	}
 	
 }

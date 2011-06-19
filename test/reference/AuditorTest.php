@@ -35,7 +35,7 @@ require_once dirname(__FILE__) . '/../../src/errors/ValidationException.php';
  * @author jah (at jahboite.co.uk)
  * @since 1.6
  */
-class AuditorTest extends UnitTestCase {
+class AuditorTest extends PHPUnit_Framework_TestCase {
 
     private $testCount = 0;
     private $testLogger= null;
@@ -300,9 +300,7 @@ class AuditorTest extends UnitTestCase {
         $log_1_result = $this->testLogger->isInfoEnabled();
         $log_2_result = $newLogger->isInfoEnabled();
 
-        if( !$log_1_result &&$log_2_result) {
-            $this->pass();
-        }
+        $this->assertTrue(!$log_1_result && $log_2_result);
     }
 
     function testSetLevelMultipleLogsExpectedFalse() {
@@ -313,9 +311,7 @@ class AuditorTest extends UnitTestCase {
         $log_1_result = $this->testLogger->isInfoEnabled();
         $log_2_result = $newLogger->isInfoEnabled();
 
-        if( $log_1_result &&!$log_2_result) {
-            $this->pass();
-        }
+        $this->assertTrue($log_1_result &&!$log_2_result);        
     }
 
 
@@ -901,11 +897,8 @@ class AuditorTest extends UnitTestCase {
         $expected = "{$r}_{$r}";
         $this->testLogger->fatal(Auditor::SECURITY, true, "{$r}\n{$r}");
         $result = $this->verifyLogEntry($expected, $testMsg);
-        if ($result === true) {
-            $this->pass('CRLF Encoding is working!');
-        } else {
-            $this->fail($failMessage);
-        }
+        
+        $this->assertFalse($result, $failMessage);
     }
 
 
@@ -928,11 +921,8 @@ class AuditorTest extends UnitTestCase {
         $expected = "{$r}&amp;{$r}";
         $this->testLogger->fatal(Auditor::SECURITY, true, "{$r}&{$r}");
         $result = $this->verifyLogEntry($expected, $testMsg);
-        if ($result === true) {
-            $this->pass('HTML Encoding is working!');
-        } else {
-            $this->fail($failMessage);
-        }
+        
+        $this->assertFalse($result, $failMessage);
     }
 
 

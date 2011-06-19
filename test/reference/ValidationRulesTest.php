@@ -43,7 +43,7 @@ require_once dirname(__FILE__) . '/../../src/reference/validation/StringValidati
  * @license   http://www.opensource.org/licenses/bsd-license.php New BSD license
  * @link      http://www.owasp.org/index.php/ESAPI
  */
-class ValidationRulesTest extends UnitTestCase
+class ValidationRulesTest extends PHPUnit_Framework_TestCase
 {
     function __construct()
     {
@@ -88,14 +88,14 @@ class ValidationRulesTest extends UnitTestCase
     {
         $svr = new StringValidationRule('A_String', null, '^[abc]+$');
 
-        $this->assertEqual('A_String', $svr->getTypeName());
+        $this->assertEquals('A_String', $svr->getTypeName());
 
         $svr->setTypeName(null); // sets a default value - not interested what it is.
         $name = $svr->getTypeName();
         $this->assertTrue(is_string($name) && $name != 'A_String');
 
         $svr->setTypeName('A_String');
-        $this->assertEqual('A_String', $svr->getTypeName());
+        $this->assertEquals('A_String', $svr->getTypeName());
     }
 
 
@@ -108,7 +108,7 @@ class ValidationRulesTest extends UnitTestCase
 
         $this->assertNull($svr->setEncoder(new DefaultEncoder()));
 
-        $this->expectException('InvalidArgumentException');
+        $this->setExpectedException('InvalidArgumentException');
         $svr->setEncoder(new Base64Codec);
     }
 
@@ -131,7 +131,7 @@ class ValidationRulesTest extends UnitTestCase
     {
         $svr = new StringValidationRule('A_String', null, '^[abc]+$');
 
-        $this->expectException('ValidationException');
+        $this->setExpectedException('ValidationException');
         $svr->assertValid('testStringVR_assertValid_invalid', 'dddddd');
     }
 
@@ -143,7 +143,7 @@ class ValidationRulesTest extends UnitTestCase
     {
         $svr = new StringValidationRule('A_String', null, '^[abc]+$');
 
-        $this->expectException('IntrusionException');
+        $this->setExpectedException('IntrusionException');
         $svr->assertValid('testStringVR_assertValid_attack', 'dddddd%2500');
     }
 
@@ -155,9 +155,9 @@ class ValidationRulesTest extends UnitTestCase
     {
         $svr = new StringValidationRule('A_String', null, '^[abc]+$');
 
-        $this->assertEqual('aabbcc', $svr->getSafe('testStringVR_getSafe_valid', 'aabbcc'));
+        $this->assertEquals('aabbcc', $svr->getSafe('testStringVR_getSafe_valid', 'aabbcc'));
 
-        $this->assertEqual('aabbcc', $svr->getSafe('testStringVR_getSafe_valid', '%61abbcc'));
+        $this->assertEquals('aabbcc', $svr->getSafe('testStringVR_getSafe_valid', '%61abbcc'));
     }
 
 
@@ -168,7 +168,7 @@ class ValidationRulesTest extends UnitTestCase
     {
         $svr = new StringValidationRule('A_String', null, '^[abc]+$');
 
-        $this->assertEqual('aabbcc00', $svr->getSafe('testStringVR_getSafe_invalid', 'aabbcc%00'));
+        $this->assertEquals('aabbcc00', $svr->getSafe('testStringVR_getSafe_invalid', 'aabbcc%00'));
     }
 
 
@@ -179,7 +179,7 @@ class ValidationRulesTest extends UnitTestCase
     {
         $svr = new StringValidationRule('A_String', null, '^[abc]+$');
 
-        $this->expectException('IntrusionException');
+        $this->setExpectedException('IntrusionException');
         $svr->getSafe('testStringVR_getSafe_valid', 'aabbcc%2500');
     }
 
@@ -207,7 +207,7 @@ class ValidationRulesTest extends UnitTestCase
     {
         $svr = new StringValidationRule('A_String', null, '^[abc]+$');
 
-        $this->assertEqual('aabbcc', $svr->whitelist('aabbcc%00', 'abc'));
+        $this->assertEquals('aabbcc', $svr->whitelist('aabbcc%00', 'abc'));
     }
 
 
@@ -242,9 +242,9 @@ class ValidationRulesTest extends UnitTestCase
     {
         $ccvr = new CreditCardValidationRule('CreditCardValidatorLuhn');
 
-        $this->assertEqual('0000-0000-0000-0000', $ccvr->getValid('testCCVR_getValid_valid', '0000-0000-0000-0000'));
+        $this->assertEquals('0000-0000-0000-0000', $ccvr->getValid('testCCVR_getValid_valid', '0000-0000-0000-0000'));
 
-        $this->assertEqual('0000 0000 0000 0000', $ccvr->getValid('testCCVR_getValid_valid', '0000%200000%200000%200000'));
+        $this->assertEquals('0000 0000 0000 0000', $ccvr->getValid('testCCVR_getValid_valid', '0000%200000%200000%200000'));
     }
 
 
@@ -255,7 +255,7 @@ class ValidationRulesTest extends UnitTestCase
     {
         $ccvr = new CreditCardValidationRule('CreditCardValidatorLuhn');
 
-        $this->expectException('ValidationException');
+        $this->setExpectedException('ValidationException');
         $ccvr->assertValid('testCCVR_getValid_nbsp', '0000&nbsp;0000&nbsp;0000&nbsp;0018');
     }
 
@@ -267,7 +267,7 @@ class ValidationRulesTest extends UnitTestCase
     {
         $ccvr = new CreditCardValidationRule('CreditCardValidatorLuhn');
 
-        $this->expectException('ValidationException');
+        $this->setExpectedException('ValidationException');
         $ccvr->getValid('testCCVR_getValid_invalid', '0000 0000 0000%000018');
     }
 
@@ -279,7 +279,7 @@ class ValidationRulesTest extends UnitTestCase
     {
         $ccvr = new CreditCardValidationRule('CreditCardValidatorLuhn');
 
-        $this->expectException('IntrusionException');
+        $this->setExpectedException('IntrusionException');
         $ccvr->getValid('testCCVR_getValid_attack', '0000%200000%25200000%200018');
     }
 
@@ -362,7 +362,7 @@ class ValidationRulesTest extends UnitTestCase
     {
         $hvr = new HTMLValidationRule('HTMLValidator');
 
-        $this->expectException('ValidationException');
+        $this->setExpectedException('ValidationException');
         $a = '<body><body><div>Hi!</div></body>';
         $hvr->getValid('testHTMLVR_construct_purifier', $a); // error=Unrecognized <body> tag removed
     }
@@ -443,7 +443,7 @@ class ValidationRulesTest extends UnitTestCase
     {
         $ivr = new IntegerValidationRule('An_Integer', null, 0, PHP_INT_MAX);
 
-        $this->expectException('IntrusionException');
+        $this->setExpectedException('IntrusionException');
         $ivr->getSafe('testIntegerVR_getSafe_valid', '00%2500');
     }
 
@@ -477,7 +477,7 @@ class ValidationRulesTest extends UnitTestCase
     {
         $ivr = new IntegerValidationRule('An_Integer', null, PHP_INT_MAX, 1-PHP_INT_MAX);
 
-        $this->expectException('RuntimeException');
+        $this->setExpectedException('RuntimeException');
         $ivr->getValid('testIntegerVR_MinMax', '0');
     }
 
@@ -582,7 +582,7 @@ class ValidationRulesTest extends UnitTestCase
     {
         $nvr = new NumberValidationRule('A_Number', null, 0, PHP_INT_MAX);
 
-        $this->expectException('IntrusionException');
+        $this->setExpectedException('IntrusionException');
         $nvr->getSafe('testNumberVR_getSafe_valid', '00%2500');
     }
 
@@ -631,7 +631,7 @@ class ValidationRulesTest extends UnitTestCase
     {
         $nvr = new NumberValidationRule('A_Number', null, INF, 0);
 
-        $this->expectException('RuntimeException');
+        $this->setExpectedException('RuntimeException');
         $nvr->getValid('testNumberVR_MinMax', '0');
     }
 
@@ -739,9 +739,9 @@ class ValidationRulesTest extends UnitTestCase
     {
         $svr = new StringValidationRule('A_String', null, '^[abc]+$');
 
-        $this->assertEqual('aabbcc', $svr->getValid('testStringVR_getValid_valid', 'aabbcc'));
+        $this->assertEquals('aabbcc', $svr->getValid('testStringVR_getValid_valid', 'aabbcc'));
 
-        $this->assertEqual('aabbcc', $svr->getValid('testStringVR_getValid_valid', '%61abbcc'));
+        $this->assertEquals('aabbcc', $svr->getValid('testStringVR_getValid_valid', '%61abbcc'));
     }
 
 
@@ -774,7 +774,7 @@ class ValidationRulesTest extends UnitTestCase
     {
         $svr = new StringValidationRule('A_String', null, null);
 
-        $this->assertEqual('abc00', $svr->sanitize('testStringVR_sanitize', 'abc%00'));
+        $this->assertEquals('abc00', $svr->sanitize('testStringVR_sanitize', 'abc%00'));
     }
 
 
@@ -785,8 +785,8 @@ class ValidationRulesTest extends UnitTestCase
     {
         $svr = new StringValidationRule('A_String', null, null);
 
-        $this->assertEqual('', $svr->sanitize('testStringVR_sanitize_empty', null));
+        $this->assertEquals('', $svr->sanitize('testStringVR_sanitize_empty', null));
 
-        $this->assertEqual('', $svr->sanitize('testStringVR_sanitize_empty', ''));
+        $this->assertEquals('', $svr->sanitize('testStringVR_sanitize_empty', ''));
     }
 }

@@ -44,7 +44,7 @@ require_once dirname(__FILE__) . '/../../src/filters/SafeRequest.php';
  * @version   Release: @package_version@
  * @link      http://www.owasp.org/index.php/ESAPI
  */
-class SafeRequestTest extends UnitTestCase
+class SafeRequestTest extends PHPUnit_Framework_TestCase
 {
     /**
      * Ensures ESAPI is initialised.
@@ -74,8 +74,8 @@ class SafeRequestTest extends UnitTestCase
             )
         );
         $result = $req->getAuthType();
-        $this->assertIsA($result, 'string');
-        $this->assertEqual('', $result);
+        $this->assertInternalType('string', $result);
+        $this->assertEquals('', $result);
     }
 
 
@@ -94,8 +94,8 @@ class SafeRequestTest extends UnitTestCase
             )
         );
         $result = $req->getAuthType();
-        $this->assertIsA($result, 'string');
-        $this->assertEqual('', $result);
+        $this->assertInternalType('string', $result);
+        $this->assertEquals('', $result);
     }
 
 
@@ -114,8 +114,8 @@ class SafeRequestTest extends UnitTestCase
             )
         );
         $result = $req->getAuthType();
-        $this->assertIsA($result, 'string');
-        $this->assertEqual('bAsic', $result);
+        $this->assertInternalType('string', $result);
+        $this->assertEquals('bAsic', $result);
     }
 
 
@@ -133,8 +133,8 @@ class SafeRequestTest extends UnitTestCase
             )
         );
         $result = $req->getContentLength();
-        $this->assertIsA($result, 'int');
-        $this->assertEqual(0, $result);
+        $this->assertInternalType('int', $result);
+        $this->assertEquals(0, $result);
     }
 
 
@@ -153,8 +153,8 @@ class SafeRequestTest extends UnitTestCase
             )
         );
         $result = $req->getContentLength();
-        $this->assertIsA($result, 'int');
-        $this->assertEqual(0, $result);
+        $this->assertInternalType('int', $result);
+        $this->assertEquals(0, $result);
     }
 
 
@@ -173,8 +173,8 @@ class SafeRequestTest extends UnitTestCase
             )
         );
         $result = $req->getContentLength();
-        $this->assertIsA($result, 'int');
-        $this->assertEqual(1024, $result);
+        $this->assertInternalType('int', $result);
+        $this->assertEquals(1024, $result);
     }
 
 
@@ -192,8 +192,8 @@ class SafeRequestTest extends UnitTestCase
             )
         );
         $result = $req->getContentType();
-        $this->assertIsA($result, 'string');
-        $this->assertEqual('', $result);
+        $this->assertInternalType('string', $result);
+        $this->assertEquals('', $result);
     }
 
 
@@ -212,8 +212,8 @@ class SafeRequestTest extends UnitTestCase
             )
         );
         $result = $req->getContentType();
-        $this->assertIsA($result, 'string');
-        $this->assertEqual('', $result);
+        $this->assertInternalType('string', $result);
+        $this->assertEquals('', $result);
     }
 
 
@@ -232,8 +232,8 @@ class SafeRequestTest extends UnitTestCase
             )
         );
         $result = $req->getContentType();
-        $this->assertIsA($result, 'string');
-        $this->assertEqual('application/url-form-encoded', $result);
+        $this->assertInternalType('string', $result);
+        $this->assertEquals('application/url-form-encoded', $result);
     }
 
 
@@ -251,8 +251,8 @@ class SafeRequestTest extends UnitTestCase
             )
         );
         $result = $req->getPathInfo();
-        $this->assertIsA($result, 'string');
-        $this->assertEqual('', $result);
+        $this->assertInternalType('string', $result);
+        $this->assertEquals('', $result);
     }
 
 
@@ -271,8 +271,8 @@ class SafeRequestTest extends UnitTestCase
             )
         );
         $result = $req->getPathInfo();
-        $this->assertIsA($result, 'string');
-        $this->assertEqual('', $result);
+        $this->assertInternalType('string', $result);
+        $this->assertEquals('', $result);
     }
 
 
@@ -291,8 +291,8 @@ class SafeRequestTest extends UnitTestCase
             )
         );
         $result = $req->getPathInfo();
-        $this->assertIsA($result, 'string');
-        $this->assertEqual('/foo', $result);
+        $this->assertInternalType('string', $result);
+        $this->assertEquals('/foo', $result);
     }
 
 
@@ -310,8 +310,8 @@ class SafeRequestTest extends UnitTestCase
             )
         );
         $result = $req->getPathTranslated();
-        $this->assertIsA($result, 'string');
-        $this->assertEqual('', $result);
+        $this->assertInternalType('string', $result);
+        $this->assertEquals('', $result);
     }
 
 
@@ -330,8 +330,8 @@ class SafeRequestTest extends UnitTestCase
             )
         );
         $result = $req->getPathTranslated();
-        $this->assertIsA($result, 'string');
-        $this->assertEqual('', $result);
+        $this->assertInternalType('string', $result);
+        $this->assertEquals('', $result);
     }
 
 
@@ -350,8 +350,8 @@ class SafeRequestTest extends UnitTestCase
             )
         );
         $result = $req->getPathTranslated();
-        $this->assertIsA($result, 'string');
-        $this->assertEqual('/foo', $result);
+        $this->assertInternalType('string', $result);
+        $this->assertEquals('/foo', $result);
     }
 
 
@@ -369,8 +369,8 @@ class SafeRequestTest extends UnitTestCase
             )
         );
         $result = $req->getQueryString();
-        $this->assertIsA($result, 'string');
-        $this->assertEqual('', $result);
+        $this->assertInternalType('string', $result);
+        $this->assertEquals('', $result);
     }
 
 
@@ -389,8 +389,8 @@ class SafeRequestTest extends UnitTestCase
             )
         );
         $result = $req->getQueryString();
-        $this->assertIsA($result, 'string');
-        $this->assertEqual('', $result);
+        $this->assertInternalType('string', $result);
+        $this->assertEquals('', $result);
     }
 
 
@@ -409,8 +409,8 @@ class SafeRequestTest extends UnitTestCase
             )
         );
         $result = $req->getQueryString();
-        $this->assertIsA($result, 'string');
-        $this->assertEqual('foo=bar', $result);
+        $this->assertInternalType('string', $result);
+        $this->assertEquals('foo=bar', $result);
     }
 
 
@@ -428,8 +428,8 @@ class SafeRequestTest extends UnitTestCase
             )
         );
         $result = $req->getRemoteAddr();
-        $this->assertIsA($result, 'string');
-        $this->assertEqual('', $result);
+        $this->assertInternalType('string', $result);
+        $this->assertEquals('', $result);
     }
 
 
@@ -448,8 +448,8 @@ class SafeRequestTest extends UnitTestCase
             )
         );
         $result = $req->getRemoteAddr();
-        $this->assertIsA($result, 'string');
-        $this->assertEqual('', $result);
+        $this->assertInternalType('string', $result);
+        $this->assertEquals('', $result);
     }
 
 
@@ -468,8 +468,8 @@ class SafeRequestTest extends UnitTestCase
             )
         );
         $result = $req->getRemoteAddr();
-        $this->assertIsA($result, 'string');
-        $this->assertEqual('123.45.67.89', $result);
+        $this->assertInternalType('string', $result);
+        $this->assertEquals('123.45.67.89', $result);
     }
 
 
@@ -487,8 +487,8 @@ class SafeRequestTest extends UnitTestCase
             )
         );
         $result = $req->getRemoteHost();
-        $this->assertIsA($result, 'string');
-        $this->assertEqual('', $result);
+        $this->assertInternalType('string', $result);
+        $this->assertEquals('', $result);
     }
 
 
@@ -507,8 +507,8 @@ class SafeRequestTest extends UnitTestCase
             )
         );
         $result = $req->getRemoteHost();
-        $this->assertIsA($result, 'string');
-        $this->assertEqual('', $result);
+        $this->assertInternalType('string', $result);
+        $this->assertEquals('', $result);
 
         $req = new SafeRequest(
             array(
@@ -518,8 +518,8 @@ class SafeRequestTest extends UnitTestCase
             )
         );
         $result = $req->getRemoteHost();
-        $this->assertIsA($result, 'string');
-        $this->assertEqual('', $result);
+        $this->assertInternalType('string', $result);
+        $this->assertEquals('', $result);
 
         $req = new SafeRequest(
             array(
@@ -529,8 +529,8 @@ class SafeRequestTest extends UnitTestCase
             )
         );
         $result = $req->getRemoteHost();
-        $this->assertIsA($result, 'string');
-        $this->assertEqual('', $result);
+        $this->assertInternalType('string', $result);
+        $this->assertEquals('', $result);
     }
 
 
@@ -549,8 +549,8 @@ class SafeRequestTest extends UnitTestCase
             )
         );
         $result = $req->getRemoteHost();
-        $this->assertIsA($result, 'string');
-        $this->assertEqual('example.com', $result);
+        $this->assertInternalType('string', $result);
+        $this->assertEquals('example.com', $result);
 
         $req = new SafeRequest(
             array(
@@ -560,8 +560,8 @@ class SafeRequestTest extends UnitTestCase
             )
         );
         $result = $req->getRemoteHost();
-        $this->assertIsA($result, 'string');
-        $this->assertEqual('0example0.com', $result);
+        $this->assertInternalType('string', $result);
+        $this->assertEquals('0example0.com', $result);
 
         $req = new SafeRequest(
             array(
@@ -571,8 +571,8 @@ class SafeRequestTest extends UnitTestCase
             )
         );
         $result = $req->getRemoteHost();
-        $this->assertIsA($result, 'string');
-        $this->assertEqual('foo-bar.0example0.com', $result);
+        $this->assertInternalType('string', $result);
+        $this->assertEquals('foo-bar.0example0.com', $result);
     }
 
 
@@ -590,8 +590,8 @@ class SafeRequestTest extends UnitTestCase
             )
         );
         $result = $req->getRemoteUser();
-        $this->assertIsA($result, 'string');
-        $this->assertEqual('', $result);
+        $this->assertInternalType('string', $result);
+        $this->assertEquals('', $result);
     }
 
 
@@ -610,8 +610,8 @@ class SafeRequestTest extends UnitTestCase
             )
         );
         $result = $req->getRemoteUser();
-        $this->assertIsA($result, 'string');
-        $this->assertEqual('', $result);
+        $this->assertInternalType('string', $result);
+        $this->assertEquals('', $result);
     }
 
 
@@ -630,8 +630,8 @@ class SafeRequestTest extends UnitTestCase
             )
         );
         $result = $req->getRemoteUser();
-        $this->assertIsA($result, 'string');
-        $this->assertEqual('user_1', $result);
+        $this->assertInternalType('string', $result);
+        $this->assertEquals('user_1', $result);
     }
 
 
@@ -649,8 +649,8 @@ class SafeRequestTest extends UnitTestCase
             )
         );
         $result = $req->getMethod();
-        $this->assertIsA($result, 'string');
-        $this->assertEqual('', $result);
+        $this->assertInternalType('string', $result);
+        $this->assertEquals('', $result);
     }
 
 
@@ -669,8 +669,8 @@ class SafeRequestTest extends UnitTestCase
             )
         );
         $result = $req->getMethod();
-        $this->assertIsA($result, 'string');
-        $this->assertEqual('', $result);
+        $this->assertInternalType('string', $result);
+        $this->assertEquals('', $result);
     }
 
 
@@ -689,8 +689,8 @@ class SafeRequestTest extends UnitTestCase
             )
         );
         $result = $req->getMethod();
-        $this->assertIsA($result, 'string');
-        $this->assertEqual('GET', $result);
+        $this->assertInternalType('string', $result);
+        $this->assertEquals('GET', $result);
     }
 
 
@@ -708,8 +708,8 @@ class SafeRequestTest extends UnitTestCase
             )
         );
         $result = $req->getRequestURI();
-        $this->assertIsA($result, 'string');
-        $this->assertEqual('', $result);
+        $this->assertInternalType('string', $result);
+        $this->assertEquals('', $result);
     }
 
 
@@ -728,8 +728,8 @@ class SafeRequestTest extends UnitTestCase
             )
         );
         $result = $req->getRequestURI();
-        $this->assertIsA($result, 'string');
-        $this->assertEqual('', $result);
+        $this->assertInternalType('string', $result);
+        $this->assertEquals('', $result);
     }
 
 
@@ -748,8 +748,8 @@ class SafeRequestTest extends UnitTestCase
             )
         );
         $result = $req->getRequestURI();
-        $this->assertIsA($result, 'string');
-        $this->assertEqual('/foo/bar.php', $result);
+        $this->assertInternalType('string', $result);
+        $this->assertEquals('/foo/bar.php', $result);
     }
 
 
@@ -767,8 +767,8 @@ class SafeRequestTest extends UnitTestCase
             )
         );
         $result = $req->getServerName();
-        $this->assertIsA($result, 'string');
-        $this->assertEqual('', $result);
+        $this->assertInternalType('string', $result);
+        $this->assertEquals('', $result);
     }
 
 
@@ -787,8 +787,8 @@ class SafeRequestTest extends UnitTestCase
             )
         );
         $result = $req->getServerName();
-        $this->assertIsA($result, 'string');
-        $this->assertEqual('', $result);
+        $this->assertInternalType('string', $result);
+        $this->assertEquals('', $result);
 
         $req = new SafeRequest(
             array(
@@ -798,8 +798,8 @@ class SafeRequestTest extends UnitTestCase
             )
         );
         $result = $req->getServerName();
-        $this->assertIsA($result, 'string');
-        $this->assertEqual('', $result);
+        $this->assertInternalType('string', $result);
+        $this->assertEquals('', $result);
 
         $req = new SafeRequest(
             array(
@@ -809,8 +809,8 @@ class SafeRequestTest extends UnitTestCase
             )
         );
         $result = $req->getServerName();
-        $this->assertIsA($result, 'string');
-        $this->assertEqual('', $result);
+        $this->assertInternalType('string', $result);
+        $this->assertEquals('', $result);
     }
 
 
@@ -829,8 +829,8 @@ class SafeRequestTest extends UnitTestCase
             )
         );
         $result = $req->getServerName();
-        $this->assertIsA($result, 'string');
-        $this->assertEqual('123.45.67.89', $result);
+        $this->assertInternalType('string', $result);
+        $this->assertEquals('123.45.67.89', $result);
 
         $req = new SafeRequest(
             array(
@@ -840,8 +840,8 @@ class SafeRequestTest extends UnitTestCase
             )
         );
         $result = $req->getServerName();
-        $this->assertIsA($result, 'string');
-        $this->assertEqual('example.com', $result);
+        $this->assertInternalType('string', $result);
+        $this->assertEquals('example.com', $result);
     }
 
 
@@ -859,8 +859,8 @@ class SafeRequestTest extends UnitTestCase
             )
         );
         $result = $req->getServerPort();
-        $this->assertIsA($result, 'int');
-        $this->assertEqual(0, $result);
+        $this->assertInternalType('int', $result);
+        $this->assertEquals(0, $result);
     }
 
 
@@ -879,8 +879,8 @@ class SafeRequestTest extends UnitTestCase
             )
         );
         $result = $req->getServerPort();
-        $this->assertIsA($result, 'int');
-        $this->assertEqual(0, $result);
+        $this->assertInternalType('int', $result);
+        $this->assertEquals(0, $result);
     }
 
 
@@ -899,8 +899,8 @@ class SafeRequestTest extends UnitTestCase
             )
         );
         $result = $req->getServerPort();
-        $this->assertIsA($result, 'int');
-        $this->assertEqual(80, $result);
+        $this->assertInternalType('int', $result);
+        $this->assertEquals(80, $result);
     }
 
 
@@ -918,7 +918,7 @@ class SafeRequestTest extends UnitTestCase
             )
         );
         $result = $req->getHeader('HTTP_ACCEPT');
-        $this->assertIsA($result, 'null');
+        $this->assertInternalType('null', $result);
     }
 
 
@@ -937,7 +937,7 @@ class SafeRequestTest extends UnitTestCase
             )
         );
         $result = $req->getHeader('HTTP_ACCEPT');
-        $this->assertIsA($result, 'null');
+        $this->assertInternalType('null', $result);
     }
 
 
@@ -956,8 +956,8 @@ class SafeRequestTest extends UnitTestCase
             )
         );
         $result = $req->getHeader('HTTP_ACCEPT');
-        $this->assertIsA($result, 'string');
-        $this->assertEqual(
+        $this->assertInternalType('string', $result);
+        $this->assertEquals(
             'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
             $result
         );
@@ -978,7 +978,7 @@ class SafeRequestTest extends UnitTestCase
             )
         );
         $result = $req->getCookie('foo');
-        $this->assertIsA($result, 'null');
+        $this->assertInternalType('null', $result);
     }
 
 
@@ -997,7 +997,7 @@ class SafeRequestTest extends UnitTestCase
             )
         );
         $result = $req->getCookie('foo');
-        $this->assertIsA($result, 'null');
+        $this->assertInternalType('null', $result);
     }
 
 
@@ -1016,8 +1016,8 @@ class SafeRequestTest extends UnitTestCase
             )
         );
         $result = $req->getCookie('foo');
-        $this->assertIsA($result, 'string');
-        $this->assertEqual('bar', $result);
+        $this->assertInternalType('string', $result);
+        $this->assertEquals('bar', $result);
     }
 
 
@@ -1035,7 +1035,7 @@ class SafeRequestTest extends UnitTestCase
             )
         );
         $result = $req->getServerGlobal('foo');
-        $this->assertIsA($result, 'null');
+        $this->assertInternalType('null', $result);
     }
 
 
@@ -1054,7 +1054,7 @@ class SafeRequestTest extends UnitTestCase
             )
         );
         $result = $req->getServerGlobal('PHP_SELF');
-        $this->assertIsA($result, 'null');
+        $this->assertInternalType('null', $result);
     }
 
 
@@ -1073,8 +1073,8 @@ class SafeRequestTest extends UnitTestCase
             )
         );
         $result = $req->getServerGlobal('PHP_SELF');
-        $this->assertIsA($result, 'string');
-        $this->assertEqual('/foo/bar', $result);
+        $this->assertInternalType('string', $result);
+        $this->assertEquals('/foo/bar', $result);
     }
 
 }

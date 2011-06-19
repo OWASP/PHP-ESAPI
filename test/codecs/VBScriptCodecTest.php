@@ -19,7 +19,7 @@ require_once dirname(__FILE__).'/../../src/ESAPI.php';
 require_once dirname(__FILE__).'/../../src/codecs/VBScriptCodec.php';
 
 
-class VBScriptCodecTest extends UnitTestCase
+class VBScriptCodecTest extends PHPUnit_Framework_TestCase
 {
 	private $vbScriptCodec = null;
 	
@@ -39,24 +39,24 @@ class VBScriptCodecTest extends UnitTestCase
 	{
 		$immune = array(" ");
 
-		$this->assertEqual( " \"!\"@\"$\"%\"(\")\"=\"+\"{\"}\"[\"]\"\"\"<script\">", $this->vbScriptCodec->encode($immune, " !@$%()=+{}[]\"<script>") );
+		$this->assertEquals( " \"!\"@\"$\"%\"(\")\"=\"+\"{\"}\"[\"]\"\"\"<script\">", $this->vbScriptCodec->encode($immune, " !@$%()=+{}[]\"<script>") );
 	}
 	
 	function testEncodeCharacter()
 	{
 		$immune = array(" ");
 		
-		$this->assertEqual( "\"<", $this->vbScriptCodec->encode($immune, "<") );
+		$this->assertEquals( "\"<", $this->vbScriptCodec->encode($immune, "<") );
 	}
 	
 	function testDecode()
 	{
-		$this->assertEqual( " !@$%()=+{}[]\"", $this->vbScriptCodec->decode(" \"!\"@\"$\"%\"(\")\"=\"+\"{\"}\"[\"]\"\"") );
+		$this->assertEquals( " !@$%()=+{}[]\"", $this->vbScriptCodec->decode(" \"!\"@\"$\"%\"(\")\"=\"+\"{\"}\"[\"]\"\"") );
 	}
 		
 	function testDecodeCharacter()
 	{
-		$this->assertEqual( "<", $this->vbScriptCodec->decode("\"<") );
+		$this->assertEquals( "<", $this->vbScriptCodec->decode("\"<") );
 	}
 }
 ?>

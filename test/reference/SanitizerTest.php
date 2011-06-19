@@ -22,7 +22,7 @@ require_once dirname(__FILE__).'/../../src/ESAPI.php';
 require_once dirname(__FILE__).'/../../src/reference/DefaultSanitizer.php';
 
 
-class SanitizerTest extends UnitTestCase
+class SanitizerTest extends PHPUnit_Framework_TestCase
 {
     function setUp()
     {
@@ -45,7 +45,7 @@ class SanitizerTest extends UnitTestCase
         
         $test1 = '<b>Jeff</b>';
         $result1 = $san->getSanitizedHTML('test', $test1, 100, false);
-        $this->assertEqual($test1, $result1);
+        $this->assertEquals($test1, $result1);
     }
 
     /**
@@ -56,7 +56,7 @@ class SanitizerTest extends UnitTestCase
         
         $test2 = "<a href=\"http://www.aspectsecurity.com\">Aspect Security</a>";
         $result2 = $san->getSanitizedHTML('test', $test2, 100, false);
-        $this->assertEqual($test2, $result2);
+        $this->assertEquals($test2, $result2);
     }
 
     /**
@@ -67,7 +67,7 @@ class SanitizerTest extends UnitTestCase
         
         $test3 = 'Test.<script>alert(document.cookie)</script>';
         $result3 = $san->getSanitizedHTML('test', $test3, 100, false);
-        $this->assertEqual('Test.', $result3);
+        $this->assertEquals('Test.', $result3);
     }
     
 }

@@ -22,7 +22,7 @@
 require_once dirname(__FILE__).'/../../src/ESAPI.php';
 require_once dirname(__FILE__).'/../../src/reference/DefaultSecurityConfiguration.php';
 
-class SecurityConfigurationTest extends UnitTestCase
+class SecurityConfigurationTest extends PHPUnit_Framework_TestCase
 {
     function setUp()
     {
@@ -55,7 +55,7 @@ class SecurityConfigurationTest extends UnitTestCase
 //    {
 //        $config = ESAPI::getSecurityConfiguration();
 //
-//        $this->assertNotEqual($config->getApplicationName(), '');
+//        $this->assertNotEquals($config->getApplicationName(), '');
 //    }
 
 //    /**
@@ -68,7 +68,7 @@ class SecurityConfigurationTest extends UnitTestCase
 //    {
 //        $config = ESAPI::getSecurityConfiguration();
 //
-//        $this->assertEqual($config->getMasterKey(), base64_decode('pJhlri8JbuFYDgkqtHmm9s0Ziug2PE7ovZDyEPm4j14='));
+//        $this->assertEquals($config->getMasterKey(), base64_decode('pJhlri8JbuFYDgkqtHmm9s0Ziug2PE7ovZDyEPm4j14='));
 //    }
 
 //    /**
@@ -81,7 +81,7 @@ class SecurityConfigurationTest extends UnitTestCase
 //    {
 //        $config = ESAPI::getSecurityConfiguration();
 //
-//        $this->assertEqual($config->getMasterSalt(), base64_decode('SbftnvmEWD5ZHHP+pX3fqugNysc='));
+//        $this->assertEquals($config->getMasterSalt(), base64_decode('SbftnvmEWD5ZHHP+pX3fqugNysc='));
 //    }
 
 //    /**
@@ -95,7 +95,7 @@ class SecurityConfigurationTest extends UnitTestCase
 //
 //        $extensions = $config->getAllowedFileExtensions();
 //
-//        $this->assertEqual(count($extensions), 24);
+//        $this->assertEquals(count($extensions), 24);
 //
 //        $this->assertTrue(in_array('.zip', $extensions));              // 1
 //        $this->assertTrue(in_array('.pdf', $extensions));              // 2
@@ -138,7 +138,7 @@ class SecurityConfigurationTest extends UnitTestCase
 //    {
 //        $config = ESAPI::getSecurityConfiguration();
 //
-//        $this->assertEqual($config->getAllowedFileUploadSize(), 500000000);
+//        $this->assertEquals($config->getAllowedFileUploadSize(), 500000000);
 //    }
 
 //    /**
@@ -152,7 +152,7 @@ class SecurityConfigurationTest extends UnitTestCase
 //
 //        $includes = $config->getAllowedIncludes();
 //
-//        $this->assertEqual(count($includes), 3);
+//        $this->assertEquals(count($includes), 3);
 //    }
 
 //    /**
@@ -166,9 +166,9 @@ class SecurityConfigurationTest extends UnitTestCase
 //
 //        $includes = $config->getAllowedIncludes();
 //
-//        $this->assertEqual($includes[0], 'test.php');
-//        $this->assertEqual($includes[1], 'foo.php');
-//        $this->assertEqual($includes[2], 'bar.php');
+//        $this->assertEquals($includes[0], 'test.php');
+//        $this->assertEquals($includes[1], 'foo.php');
+//        $this->assertEquals($includes[2], 'bar.php');
 //        $this->assertFalse(in_array('ridiculous.php', $includes, true));
 //    }
 //
@@ -183,7 +183,7 @@ class SecurityConfigurationTest extends UnitTestCase
 //        $config = ESAPI::getSecurityConfiguration();
 //        $includes = $config->getAllowedResources();
 //
-//        $this->assertEqual(count($includes), 3);
+//        $this->assertEquals(count($includes), 3);
 //    }
 
 //    /**
@@ -196,9 +196,9 @@ class SecurityConfigurationTest extends UnitTestCase
 //        $config = ESAPI::getSecurityConfiguration();
 //        $resources = $config->getAllowedResources();
 //
-//        $this->assertEqual($resources[0], 'foo');
-//        $this->assertEqual($resources[1], 'admin');
-//        $this->assertEqual($resources[2], 'users.txt');
+//        $this->assertEquals($resources[0], 'foo');
+//        $this->assertEquals($resources[1], 'admin');
+//        $this->assertEquals($resources[2], 'users.txt');
 //        $this->assertFalse(in_array('ridiculous', $resources, true));
 //    }
 //
@@ -211,7 +211,7 @@ class SecurityConfigurationTest extends UnitTestCase
 //    {
 //        $config = ESAPI::getSecurityConfiguration();
 //
-//        $this->assertEqual($config->getPasswordParameterName(), 'password');
+//        $this->assertEquals($config->getPasswordParameterName(), 'password');
 //    }
 
 //    /**
@@ -223,7 +223,7 @@ class SecurityConfigurationTest extends UnitTestCase
 //    {
 //        $config = ESAPI::getSecurityConfiguration();
 //
-//        $this->assertEqual($config->getUsernameParameterName(), 'username');
+//        $this->assertEquals($config->getUsernameParameterName(), 'username');
 //    }
 
 //    /**
@@ -235,7 +235,7 @@ class SecurityConfigurationTest extends UnitTestCase
 //    {
 //        $config = ESAPI::getSecurityConfiguration();
 //
-//        $this->assertEqual($config->getEncryptionAlgorithm(), 'AES');
+//        $this->assertEquals($config->getEncryptionAlgorithm(), 'AES');
 //    }
 
 //    /**
@@ -247,7 +247,7 @@ class SecurityConfigurationTest extends UnitTestCase
 //    {
 //        $config = ESAPI::getSecurityConfiguration();
 //
-//        $this->assertEqual($config->getHashAlgorithm(), 'SHA-512');
+//        $this->assertEquals($config->getHashAlgorithm(), 'SHA-512');
 //    }
 
 //    /**
@@ -265,7 +265,7 @@ class SecurityConfigurationTest extends UnitTestCase
 //    {
 //        $config = ESAPI::getSecurityConfiguration();
 //
-//        $this->assertEqual($config->getCharacterEncoding(), 'UTF-8');
+//        $this->assertEquals($config->getCharacterEncoding(), 'UTF-8');
 //    }
 
 //    /**
@@ -277,7 +277,7 @@ class SecurityConfigurationTest extends UnitTestCase
 //    {
 //        $config = ESAPI::getSecurityConfiguration();
 //
-//        $this->assertEqual($config->getDigitalSignatureAlgorithm(), 'DSA');
+//        $this->assertEquals($config->getDigitalSignatureAlgorithm(), 'DSA');
 //    }
 
 //    /**
@@ -289,7 +289,7 @@ class SecurityConfigurationTest extends UnitTestCase
 //    {
 //        $config = ESAPI::getSecurityConfiguration();
 //
-//        $this->assertEqual($config->getRandomAlgorithm(), 'SHA1PRNG');
+//        $this->assertEquals($config->getRandomAlgorithm(), 'SHA1PRNG');
 //    }
 
 //    /**
@@ -302,7 +302,7 @@ class SecurityConfigurationTest extends UnitTestCase
 //    {
 //        $config = ESAPI::getSecurityConfiguration();
 //
-//        $this->assertEqual($config->getAllowedLoginAttempts(), 3);
+//        $this->assertEquals($config->getAllowedLoginAttempts(), 3);
 //    }
 
 //    /**
@@ -316,7 +316,7 @@ class SecurityConfigurationTest extends UnitTestCase
 //    {
 //        $config = ESAPI::getSecurityConfiguration();
 //
-//        $this->assertEqual($config->getMaxOldPasswordHashes(), 13);
+//        $this->assertEquals($config->getMaxOldPasswordHashes(), 13);
 //    }
 
 //    /**
@@ -334,50 +334,50 @@ class SecurityConfigurationTest extends UnitTestCase
 //        $config->getQuota(null);
 //
 //        // Check the event tree has not been parsed
-//        $this->assertEqual(count($config->events), 0);
+//        $this->assertEquals(count($config->events), 0);
 //
 //        $event = $config->getQuota('test');
 //
 //        // Check the event tree has now been parsed
-//        $this->assertEqual(count($config->events), 4);
+//        $this->assertEquals(count($config->events), 4);
 //
 //        // Check test event is okay
 //
-//        $this->assertEqual($event->name, 'test');
-//        $this->assertEqual($event->count, 2);
-//        $this->assertEqual($event->interval, 10);
-//        $this->assertEqual(count($event->actions), 2);
-//        $this->assertEqual($event->actions[0], 'disable');
-//        $this->assertEqual($event->actions[1], 'log');
+//        $this->assertEquals($event->name, 'test');
+//        $this->assertEquals($event->count, 2);
+//        $this->assertEquals($event->interval, 10);
+//        $this->assertEquals(count($event->actions), 2);
+//        $this->assertEquals($event->actions[0], 'disable');
+//        $this->assertEquals($event->actions[1], 'log');
 
 //        // Test the integrity exception event
 //        $event = $config->getQuota('IntrusionException');
-//        $this->assertEqual($event->name, 'IntrusionException');
-//        $this->assertEqual($event->count, 1);
-//        $this->assertEqual($event->interval, 1);
-//        $this->assertEqual(count($event->actions), 3);
-//        $this->assertEqual($event->actions[0], 'disable');
-//        $this->assertEqual($event->actions[1], 'log');
-//        $this->assertEqual($event->actions[2], 'logout');
+//        $this->assertEquals($event->name, 'IntrusionException');
+//        $this->assertEquals($event->count, 1);
+//        $this->assertEquals($event->interval, 1);
+//        $this->assertEquals(count($event->actions), 3);
+//        $this->assertEquals($event->actions[0], 'disable');
+//        $this->assertEquals($event->actions[1], 'log');
+//        $this->assertEquals($event->actions[2], 'logout');
 
 //        // Test the integrity Exception event
 //        $event = $config->getQuota('IntegrityException');
-//        $this->assertEqual($event->name, 'IntegrityException');
-//        $this->assertEqual($event->count, 10);
-//        $this->assertEqual($event->interval, 5);
-//        $this->assertEqual(count($event->actions), 3);
-//        $this->assertEqual($event->actions[0], 'disable');
-//        $this->assertEqual($event->actions[1], 'log');
-//        $this->assertEqual($event->actions[2], 'logout');
+//        $this->assertEquals($event->name, 'IntegrityException');
+//        $this->assertEquals($event->count, 10);
+//        $this->assertEquals($event->interval, 5);
+//        $this->assertEquals(count($event->actions), 3);
+//        $this->assertEquals($event->actions[0], 'disable');
+//        $this->assertEquals($event->actions[1], 'log');
+//        $this->assertEquals($event->actions[2], 'logout');
 
 //        // Test the integrity Exception event
 //        $event = $config->getQuota('AuthenticationHostException');
-//        $this->assertEqual($event->name, 'AuthenticationHostException');
-//        $this->assertEqual($event->count, 2);
-//        $this->assertEqual($event->interval, 10);
-//        $this->assertEqual(count($event->actions), 2);
-//        $this->assertEqual($event->actions[0], 'log');
-//        $this->assertEqual($event->actions[1], 'logout');
+//        $this->assertEquals($event->name, 'AuthenticationHostException');
+//        $this->assertEquals($event->count, 2);
+//        $this->assertEquals($event->interval, 10);
+//        $this->assertEquals(count($event->actions), 2);
+//        $this->assertEquals($event->actions[0], 'log');
+//        $this->assertEquals($event->actions[1], 'logout');
 
 //        // Check that asking for a bad event doesn't work
 //        $event = $config->getQuota('ridiculous');
@@ -393,21 +393,21 @@ class SecurityConfigurationTest extends UnitTestCase
 //    {
 //        $config = ESAPI::getSecurityConfiguration();
 //
-//        $this->assertEqual($config->getResourceDirectory(), realpath(dirname(__FILE__).'/../testresources/'));
+//        $this->assertEquals($config->getResourceDirectory(), realpath(dirname(__FILE__).'/../testresources/'));
 //    }
 
 //    function testSetResourceDirectoryRealPath() {
 //        $config = ESAPI::getSecurityConfiguration();
 //
 //        $config->setResourceDirectory(realpath(dirname(__FILE__).'/../testresources/'));
-//        $this->assertEqual($config->getResourceDirectory(), realpath(dirname(__FILE__).'/../testresources/'));
+//        $this->assertEquals($config->getResourceDirectory(), realpath(dirname(__FILE__).'/../testresources/'));
 //    }
 
 //    function testSetResourceDirectoryNullPath() {
 //        $config = ESAPI::getSecurityConfiguration();
 //
 //        $config->setResourceDirectory(null);
-//        $this->assertEqual($config->getResourceDirectory(), null);
+//        $this->assertEquals($config->getResourceDirectory(), null);
 //    }
 //
 //    /**
@@ -422,7 +422,7 @@ class SecurityConfigurationTest extends UnitTestCase
 //    {
 //        $config = ESAPI::getSecurityConfiguration();
 //
-//        $this->assertEqual($config->getResponseContentType(), 'text/html; charset=UTF-8');
+//        $this->assertEquals($config->getResponseContentType(), 'text/html; charset=UTF-8');
 //    }
 
 //    /**
@@ -434,7 +434,7 @@ class SecurityConfigurationTest extends UnitTestCase
 //    {
 //        $config = ESAPI::getSecurityConfiguration();
 //
-//        $this->assertEqual($config->getRememberTokenDuration(), 14 * 1000 * 60 * 60 * 24);
+//        $this->assertEquals($config->getRememberTokenDuration(), 14 * 1000 * 60 * 60 * 24);
 //    }
 
 //    /**
@@ -448,7 +448,7 @@ class SecurityConfigurationTest extends UnitTestCase
 //    {
 //        $config = ESAPI::getSecurityConfiguration();
 //
-//        $this->assertEqual($config->getSessionIdleTimeoutLength(), 20 * 60 * 1000);
+//        $this->assertEquals($config->getSessionIdleTimeoutLength(), 20 * 60 * 1000);
 //    }
 
 //    /**
@@ -461,7 +461,7 @@ class SecurityConfigurationTest extends UnitTestCase
 //    function testSessionAbsoluteTimeoutLength()
 //    {
 //        $config = ESAPI::getSecurityConfiguration();
-//        $this->assertEqual($config->getSessionAbsoluteTimeoutLength(), 120 * 60 * 1000);
+//        $this->assertEquals($config->getSessionAbsoluteTimeoutLength(), 120 * 60 * 1000);
 //    }
 
 //    /**
@@ -472,7 +472,7 @@ class SecurityConfigurationTest extends UnitTestCase
 //    function testLogEncodingRequired()
 //    {
 //        $config = ESAPI::getSecurityConfiguration();
-//        $this->assertEqual($config->getLogEncodingRequired(), false);
+//        $this->assertEquals($config->getLogEncodingRequired(), false);
 //    }
 
 //    /**
@@ -485,7 +485,7 @@ class SecurityConfigurationTest extends UnitTestCase
 //    function testLogLevel()
 //    {
 //        $config = ESAPI::getSecurityConfiguration();
-//        $this->assertEqual($config->getLogLevel(), 'ALL');        // TODO Replace with Logger:ALL when Logger is complete
+//        $this->assertEquals($config->getLogLevel(), 'ALL');        // TODO Replace with Logger:ALL when Logger is complete
 //    }
 
 //    /**
@@ -497,7 +497,7 @@ class SecurityConfigurationTest extends UnitTestCase
 //    function testLogFileName()
 //    {
 //        $config = ESAPI::getSecurityConfiguration();
-//        $this->assertEqual($config->getLogFileName(),'ESAPI_logging_file');
+//        $this->assertEquals($config->getLogFileName(),'ESAPI_logging_file');
 //    }
 
 //    /**
@@ -509,13 +509,13 @@ class SecurityConfigurationTest extends UnitTestCase
 //    function testMaxLogFileSize()
 //    {
 //        $config = ESAPI::getSecurityConfiguration();
-//        $this->assertEqual($config->getMaxLogFileSize(), 10000000);
+//        $this->assertEquals($config->getMaxLogFileSize(), 10000000);
 //    }
 //
 //    function testValidationPattern()
 //    {
 //        $config = ESAPI::getSecurityConfiguration();
-//        $this->assertEqual($config->getValidationPattern("SafeString"), '^[\\p{L}\\p{N}.]{0,1024}$');
+//        $this->assertEquals($config->getValidationPattern("SafeString"), '^[\\p{L}\\p{N}.]{0,1024}$');
 //    }
 //
 //    function testWorkingDirectory()
@@ -525,9 +525,9 @@ class SecurityConfigurationTest extends UnitTestCase
 //        $directory = $config->getWorkingDirectory();
 //
 //        if ( substr(PHP_OS, 0, 3) == 'WIN' ) {
-//            $this->assertEqual($directory, '%SYSTEMROOT%\\Temp');
+//            $this->assertEquals($directory, '%SYSTEMROOT%\\Temp');
 //        } else {
-//            $this->assertEqual($directory, '/tmp');
+//            $this->assertEquals($directory, '/tmp');
 //        }
 //    }
 //
@@ -536,7 +536,7 @@ class SecurityConfigurationTest extends UnitTestCase
 //        $config = ESAPI::getSecurityConfiguration();
 //
 //        $exes = $config->getAllowedExecutables();
-//        $this->assertEqual(count($exes), 2);
+//        $this->assertEquals(count($exes), 2);
 //
 //        if ( substr(PHP_OS, 0, 3) == 'WIN' ) {
 //            $this->assertTrue(in_array('%SYSTEMROOT%\\System32\\cmd.exe', $exes));              // 1

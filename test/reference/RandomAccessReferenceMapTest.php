@@ -19,7 +19,7 @@
 require_once dirname(__FILE__).'/../../src/ESAPI.php';
 require_once dirname(__FILE__).'/../../src/reference/RandomAccessReferenceMap.php';
  
-class RandomAccessReferenceMapTest extends UnitTestCase 
+class RandomAccessReferenceMapTest extends PHPUnit_Framework_TestCase 
 {
 	function setUp() 
 	{
@@ -77,7 +77,7 @@ class RandomAccessReferenceMapTest extends UnitTestCase
         $indirect = $instance->getIndirectReference($directReference);
         $this->assertNotNull($indirect);
         $deleted = $instance->removeDirectReference($directReference);
-        $this->assertEqual($indirect,$deleted);
+        $this->assertEquals($indirect,$deleted);
     	$deleted = $instance->removeDirectReference("ridiculous");
     	$this->assertNull($deleted);
     }
@@ -99,7 +99,7 @@ class RandomAccessReferenceMapTest extends UnitTestCase
         
         $expResult = $directReference;
         $result = $instance->getIndirectReference($directReference);
-		$this->assertNotIdentical($expResult, $result);
+		$this->assertNotSame($expResult, $result);
     }
 
     /**
@@ -125,7 +125,7 @@ class RandomAccessReferenceMapTest extends UnitTestCase
         
         // echo "<p>ind = [$ind], dir = [$dir], directreference = [$directReference]";
         
-        $this->assertEqual($directReference, $dir);
+        $this->assertEquals($directReference, $dir);
         try 
         {
         	$instance->getDirectReference("invalid");
@@ -157,9 +157,9 @@ class RandomAccessReferenceMapTest extends UnitTestCase
         $this->assertNotNull( $newDirect ); 
         $ind = $instance->addDirectReference($directReference); 
         $dir = $instance->getDirectReference($ind); 
-        $this->assertEqual($directReference, $dir); 
+        $this->assertEquals($directReference, $dir); 
     	$newInd = $instance->addDirectReference($directReference); 
-    	$this->assertEqual($ind, $newInd); 
+    	$this->assertEquals($ind, $newInd); 
     }
     
     function testUpdatePass() 
@@ -209,7 +209,7 @@ class RandomAccessReferenceMapTest extends UnitTestCase
         $arm->update($users);
         
         $indirect2 = $arm->getIndirectReference('juliet');
-		$this->assertEqual($indirect, $indirect2);
+		$this->assertEquals($indirect, $indirect2);
     }
 }
 ?>

@@ -19,7 +19,7 @@ require_once dirname(__FILE__).'/../../src/ESAPI.php';
 require_once dirname(__FILE__).'/../../src/codecs/OracleCodec.php';
 
 
-class OracleCodecTest extends UnitTestCase
+class OracleCodecTest extends PHPUnit_Framework_TestCase
 {
 	private $oracleCodec = null;
 	
@@ -39,26 +39,26 @@ class OracleCodecTest extends UnitTestCase
 	{
 		$immune = array("");
 		
-		$this->assertEqual(' || \'\'x\'\' FROM DUAL;--', $this->oracleCodec->encode($immune, ' || \'x\' FROM DUAL;--'));
-		$this->assertEqual('\'\'', $this->oracleCodec->encode($immune, '\''));
+		$this->assertEquals(' || \'\'x\'\' FROM DUAL;--', $this->oracleCodec->encode($immune, ' || \'x\' FROM DUAL;--'));
+		$this->assertEquals('\'\'', $this->oracleCodec->encode($immune, '\''));
 	}
 	
 	function testEncodeCharacter()
 	{
 		$immune = array("");
 		
-		$this->assertEqual("''", $this->oracleCodec->encode($immune, "'"));
+		$this->assertEquals("''", $this->oracleCodec->encode($immune, "'"));
 	}	
 	
 	function testDecode()
 	{
-		$this->assertEqual(' || \'x\' FROM DUAL;--', $this->oracleCodec->decode(' || \'\'x\'\' FROM DUAL;--'));
-		$this->assertEqual('\'', $this->oracleCodec->decode('\'\''));
+		$this->assertEquals(' || \'x\' FROM DUAL;--', $this->oracleCodec->decode(' || \'\'x\'\' FROM DUAL;--'));
+		$this->assertEquals('\'', $this->oracleCodec->decode('\'\''));
 	}
 		
 	function testDecodeCharacter()
 	{
-		$this->assertEqual("'", $this->oracleCodec->decode("''"));
+		$this->assertEquals("'", $this->oracleCodec->decode("''"));
 	}
 	
 }

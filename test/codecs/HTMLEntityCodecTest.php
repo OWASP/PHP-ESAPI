@@ -27,7 +27,7 @@ require_once dirname(__FILE__).'/../../src/codecs/HTMLEntityCodec.php';
 /**
  * Test case for HTMLEntityCodec.
  */
-class HTMLEntityCodecTest extends UnitTestCase
+class HTMLEntityCodecTest extends PHPUnit_Framework_TestCase
 {
     private $htmlEntityCodec = null;
 
@@ -54,7 +54,7 @@ class HTMLEntityCodecTest extends UnitTestCase
     // nice example of encoding for HTML.
     function testEncodeForHTML()
     {
-        $this->assertEqual(
+        $this->assertEquals(
             '&quot;&gt;&lt;script&gt;alert&#x28;&#x2f;XSS&#x2f;&#x29;&lt;&#x2f;script&gt;&lt;foo attr&#x3d;&quot;',
             $this->htmlEntityCodec->encode(
                 $this->immune_html,
@@ -67,7 +67,7 @@ class HTMLEntityCodecTest extends UnitTestCase
     function testEncodeImmuneCharsForHTML()
     {
         $immune = array('');
-        $this->assertEqual(
+        $this->assertEquals(
             'testTEST0123&#x2c;&#x2e;&#x2d;&#x5f;&#x20;',
             $this->htmlEntityCodec->encode(
                 $immune,
@@ -79,7 +79,7 @@ class HTMLEntityCodecTest extends UnitTestCase
     // characters immune from encoding don't get encoded.
     function testNoEncodeImmuneCharsForHTML()
     {
-        $this->assertEqual(
+        $this->assertEquals(
             'testTEST0123,.-_ ',
             $this->htmlEntityCodec->encode(
                 $this->immune_html,
@@ -91,7 +91,7 @@ class HTMLEntityCodecTest extends UnitTestCase
     // null stays null
     function testEncodeNullForHTML()
     {
-        $this->assertEqual(
+        $this->assertEquals(
             null,
             $this->htmlEntityCodec->encode($this->immune_html, null)
         );
@@ -101,7 +101,7 @@ class HTMLEntityCodecTest extends UnitTestCase
     // two tests expect the same as ESAPI 2.0 for Java.
     function testEncodeInvalidCharsReplacedBySpace_01()
     {
-        $this->assertEqual(
+        $this->assertEquals(
             'a b c d e f&#x9;g',
             $this->htmlEntityCodec->encode(
                 $this->immune_html,
@@ -113,7 +113,7 @@ class HTMLEntityCodecTest extends UnitTestCase
 
     function testEncodeInvalidCharsReplacedBySpace_02()
     {
-        $this->assertEqual(
+        $this->assertEquals(
             'a b c d e f&#x9;g h i j&nbsp;k&iexcl;l&cent;m',
             $this->htmlEntityCodec->encode(
                 $this->immune_html,
@@ -128,7 +128,7 @@ class HTMLEntityCodecTest extends UnitTestCase
 
     function testEncodeScriptTag()
     {
-        $this->assertEqual(
+        $this->assertEquals(
             '&lt;script&gt;',
             $this->htmlEntityCodec->encode($this->immune_html, '<script>')
         );
@@ -136,7 +136,7 @@ class HTMLEntityCodecTest extends UnitTestCase
 
     function testEncodeEncodedScriptTag()
     {
-        $this->assertEqual(
+        $this->assertEquals(
             '&amp;lt&#x3b;script&amp;gt&#x3b;',
             $this->htmlEntityCodec->encode($this->immune_html, '&lt;script&gt;')
         );
@@ -144,7 +144,7 @@ class HTMLEntityCodecTest extends UnitTestCase
 
     function testEncodeSpecialsForHTML()
     {
-        $this->assertEqual(
+        $this->assertEquals(
             '&#x21;&#x40;&#x24;&#x25;&#x28;&#x29;&#x3d;&#x2b;&#x7b;&#x7d;&#x5b;&#x5d;',
             $this->htmlEntityCodec->encode($this->immune_html, '!@$%()=+{}[]')
         );
@@ -153,7 +153,7 @@ class HTMLEntityCodecTest extends UnitTestCase
     function testEncodeCanonicalisedEncodedSpecials()
     {
         $instance = ESAPI::getEncoder();
-        $this->assertEqual(
+        $this->assertEquals(
             '&#x21;&#x40;&#x24;&#x25;&#x28;&#x29;&#x3d;&#x2b;&#x7b;&#x7d;&#x5b;&#x5d;',
             $this->htmlEntityCodec->encode(
                 $this->immune_html,
@@ -166,7 +166,7 @@ class HTMLEntityCodecTest extends UnitTestCase
 
     function testEncodeAmpForHTMLEoS()
     {
-        $this->assertEqual(
+        $this->assertEquals(
             'dir&amp;',
             $this->htmlEntityCodec->encode($this->immune_html, 'dir&')
         );
@@ -174,7 +174,7 @@ class HTMLEntityCodecTest extends UnitTestCase
 
     function testEncodeAmpForHTMLMidS()
     {
-        $this->assertEqual(
+        $this->assertEquals(
             'one&amp;two',
             $this->htmlEntityCodec->encode($this->immune_html, 'one&two')
         );
@@ -182,7 +182,7 @@ class HTMLEntityCodecTest extends UnitTestCase
 
     function testSomeChars ()
     {
-        $this->assertEqual(
+        $this->assertEquals(
             ''.(chr(12345)).(chr(65533)).(chr(1244)),
             ''.(chr(12345)).(chr(65533)).(chr(1244))
         );
@@ -190,7 +190,7 @@ class HTMLEntityCodecTest extends UnitTestCase
 
     function testEncodeNullForHTMLAttribute()
     {
-        $this->assertEqual(
+        $this->assertEquals(
             null,
             $this->htmlEntityCodec->encode($this->immune_htmlattr, null)
         );
@@ -199,7 +199,7 @@ class HTMLEntityCodecTest extends UnitTestCase
     function testEncodeImmuneCharsForHTMLAttribute()
     {
         $immune = array('');
-        $this->assertEqual(
+        $this->assertEquals(
             'testTEST0123&#x2c;&#x2e;&#x2d;&#x5f;',
             $this->htmlEntityCodec->encode(
                 $immune,
@@ -210,7 +210,7 @@ class HTMLEntityCodecTest extends UnitTestCase
 
     function testNoEncodeImmuneCharsForHTMLAttribute()
     {
-        $this->assertEqual(
+        $this->assertEquals(
             'testTEST0123,.-_',
             $this->htmlEntityCodec->encode(
                 $this->immune_htmlattr,
@@ -221,7 +221,7 @@ class HTMLEntityCodecTest extends UnitTestCase
 
     function testEncodeSpecialsForHTMLAttribute()
     {
-        $this->assertEqual(
+        $this->assertEquals(
             '&#x20;&#x21;&#x40;&#x24;&#x25;&#x28;&#x29;&#x3d;&#x2b;&#x7b;&#x7d;&#x5b;&#x5d;',
             $this->htmlEntityCodec->encode($this->immune_htmlattr, ' !@$%()=+{}[]')
         );
@@ -233,7 +233,7 @@ class HTMLEntityCodecTest extends UnitTestCase
 
     function testDecodeFromHTML()
     {
-        $this->assertEqual(
+        $this->assertEquals(
            '"><script>alert(/XSS/)</script><foo attr="',
             $this->htmlEntityCodec->decode(
                 '&quot;&gt;&lt;script&gt;alert&#x28;&#x2f;XSS&#x2f;&#x29;&lt;&#x2f;script&gt;&lt;foo attr&#x3d;&quot;'
@@ -242,12 +242,12 @@ class HTMLEntityCodecTest extends UnitTestCase
 
     function testDecodeNullFromHTML()
     {
-        $this->assertEqual(null, $this->htmlEntityCodec->decode(null));
+        $this->assertEquals(null, $this->htmlEntityCodec->decode(null));
     }
 
     function testDecodeDecimalNumericEntitiesFromHTML()
     {
-        $this->assertEqual(
+        $this->assertEquals(
             'test!',
             $this->htmlEntityCodec->decode('&#116;&#101;&#115;&#116;!')
         );
@@ -255,7 +255,7 @@ class HTMLEntityCodecTest extends UnitTestCase
 
     function testDecodeHexNumericEntitiesFromHTML()
     {
-        $this->assertEqual(
+        $this->assertEquals(
             'test!',
             $this->htmlEntityCodec->decode('&#x74;&#x65;&#x73;&#x74;!')
         );
@@ -263,7 +263,7 @@ class HTMLEntityCodecTest extends UnitTestCase
 
     function testDecodeInvalidNamedEntityFromHTML()
     {
-        $this->assertEqual('&jeff;', $this->htmlEntityCodec->decode('&jeff;'));
+        $this->assertEquals('&jeff;', $this->htmlEntityCodec->decode('&jeff;'));
     }
 
     // Mixed character encoding should not be returned from decode.
@@ -285,13 +285,13 @@ class HTMLEntityCodecTest extends UnitTestCase
            25 => 0x6c, 26 => 0xc2, 27 => 0xa2, 28 => 0x6d,
         );
         $unpacked = unpack('C*', $expected);
-        $this->assertIdentical(
+        $this->assertSame(
             $expected_unpacked,
             $unpacked,
             'Ensuring expected value was correctly encoded to UTF-8 - %s'
         );
         // decode and hope we get $expected!
-        $this->assertEqual(
+        $this->assertEquals(
             $expected,
             $codec->decode(
                 'a b c d e f&#x9;g h i j&#xa0;k&#xa1;l&#xa2;m'
@@ -301,7 +301,7 @@ class HTMLEntityCodecTest extends UnitTestCase
 
     function testDecodeScriptTag()
     {
-        $this->assertEqual(
+        $this->assertEquals(
             '<script>',
             $this->htmlEntityCodec->decode('&lt;script&gt;')
         );
@@ -309,7 +309,7 @@ class HTMLEntityCodecTest extends UnitTestCase
 
     function testDecodeOnceDoubleEncodedScriptTag()
     {
-        $this->assertEqual(
+        $this->assertEquals(
             '&lt;script&gt;',
             $this->htmlEntityCodec->decode('&amp;lt&#x3b;script&amp;gt&#x3b;')
         );
@@ -317,7 +317,7 @@ class HTMLEntityCodecTest extends UnitTestCase
 
     function testDecodeSpecials()
     {
-        $this->assertEqual(
+        $this->assertEquals(
             '!@$%()=+{}[]',
             $this->htmlEntityCodec->decode(
                 '&#x21;&#x40;&#x24;&#x25;&#x28;&#x29;&#x3d;&#x2b;&#x7b;&#x7d;&#x5b;&#x5d;'
@@ -328,7 +328,7 @@ class HTMLEntityCodecTest extends UnitTestCase
     function testDecodeSpecialsEqualsCanonicalisedEncodedSpecials()
     {
         $instance = ESAPI::getEncoder();
-        $this->assertEqual(
+        $this->assertEquals(
             $instance->canonicalize(
                 '&#x21;&#x40;&#x24;&#x25;&#x28;&#x29;&#x3d;&#x2b;&#x7b;&#x7d;&#x5b;&#x5d;'
             ),
@@ -340,12 +340,12 @@ class HTMLEntityCodecTest extends UnitTestCase
 
     function testDecodeAmpFromHTMLEoS()
     {
-        $this->assertEqual('dir&', $this->htmlEntityCodec->decode('dir&amp;'));
+        $this->assertEquals('dir&', $this->htmlEntityCodec->decode('dir&amp;'));
     }
 
     function testDecodeAmpFromHTMLMidS()
     {
-        $this->assertEqual(
+        $this->assertEquals(
             'one&two',
             $this->htmlEntityCodec->decode('one&amp;two')
         );
@@ -353,7 +353,7 @@ class HTMLEntityCodecTest extends UnitTestCase
 
     function testDecodeCharacter()
     {
-        $this->assertEqual( '<', $this->htmlEntityCodec->decode('&lt;') );
+        $this->assertEquals( '<', $this->htmlEntityCodec->decode('&lt;') );
     }
 
 }

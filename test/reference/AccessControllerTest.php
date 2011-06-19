@@ -14,7 +14,7 @@
  * @author Andrew van der Stock (vanderaj @ owasp.org)
  * @created 2009
  */
-class AccessControllerTest extends UnitTestCase 
+class AccessControllerTest extends PHPUnit_Framework_TestCase 
 {
 	function setUp() 
 	{

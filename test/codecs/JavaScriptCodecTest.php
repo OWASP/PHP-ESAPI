@@ -19,7 +19,7 @@ require_once dirname(__FILE__).'/../../src/ESAPI.php';
 require_once dirname(__FILE__).'/../../src/codecs/JavaScriptCodec.php';
 
 
-class JavaScriptCodecTest extends UnitTestCase
+class JavaScriptCodecTest extends PHPUnit_Framework_TestCase
 {
 	private $javascriptCodec = null;
 	
@@ -39,24 +39,24 @@ class JavaScriptCodecTest extends UnitTestCase
 	{
 		$immune = array("");
 		
-		$this->assertEqual( 'TODO', $this->javascriptCodec->encode($immune, '"; eval(alert(/XSS/));') );
+		$this->assertEquals( 'TODO', $this->javascriptCodec->encode($immune, '"; eval(alert(/XSS/));') );
 	}
 */	
 	function testEncodeCharacter()
 	{
 		$immune = array("");
 		
-		$this->assertEqual( "\\x3C", $this->javascriptCodec->encode($immune, "<") );
+		$this->assertEquals( "\\x3C", $this->javascriptCodec->encode($immune, "<") );
 	}	
 /*	
 	function testDecode()
 	{
-		$this->assertEqual( '"; eval(alert(/XSS/));', $this->javascriptCodec->decode('TODO') );
+		$this->assertEquals( '"; eval(alert(/XSS/));', $this->javascriptCodec->decode('TODO') );
 	}
 */		
 	function testDecodeCharacter()
 	{
-		$this->assertEqual( "<", $this->javascriptCodec->decode("\\x3C") );
+		$this->assertEquals( "<", $this->javascriptCodec->decode("\\x3C") );
 	}
 	
 }
