@@ -56,6 +56,9 @@ class RandomAccessReferenceMapTest extends PHPUnit_Framework_TestCase
 			}
 			$i->next();
 		}
+		
+		// TODO: Probably should try to prove something here. Equivalent to SimpleTest's pass method
+		$this->assertTrue(true);
     }
     
 	/**

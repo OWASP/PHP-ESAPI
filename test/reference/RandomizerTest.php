@@ -184,7 +184,10 @@ class RandomizerTest extends PHPUnit_Framework_TestCase
 		catch (InvalidArgumentException $e)
 		{
 			$this->fail("getRandomFilename() failed due to too short length (16) or no character set [ abcdefghijklmnopqrstuvxyz0123456789 ]");
-		}	
+		}
+		
+		// TODO: probably should try to prove something here. Equivalent to SimpleTest's pass method
+		$this->assertTrue(true);
     }
     
 	function testGetRandomFilenameLengthNoExtension() {
