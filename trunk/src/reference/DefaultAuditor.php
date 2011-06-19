@@ -4,7 +4,7 @@
  *
  * This file is part of the Open Web Application Security Project (OWASP)
  * Enterprise Security API (ESAPI) project.
- * 
+ *
  * PHP version 5.2
  *
  * LICENSE: This source file is subject to the New BSD license.  You should read
@@ -61,9 +61,9 @@ class DefaultAuditor implements Auditor
 
     /**
      * DefaultAuditor constructor.
-     * 
+     *
      * @param string $name logger name.
-     * 
+     *
      * @return does not return a value.
      */
     function __construct($name)
@@ -89,16 +89,16 @@ class DefaultAuditor implements Auditor
         try
         {
             $this->_log4php->setLevel(
-                $this->_convertESAPILeveltoLoggerLevel($level)
+            $this->_convertESAPILeveltoLoggerLevel($level)
             );
         }
         catch (Exception $e)
         {
             $this->error(
-                Logger::SECURITY,
-                false,
+            Logger::SECURITY,
+            false,
                 'IllegalArgumentException',
-                $e
+            $e
             );
         }
     }
@@ -231,12 +231,12 @@ class DefaultAuditor implements Auditor
      * @param int       $level     the priority level of the event - an Logger Level
      *                             constant.
      * @param int       $type      the type of the event - an Logger Event constant.
-     * @param bool      $success   boolean true indicates this was a successful 
-     *                             event, false indicates this was a failed event 
+     * @param bool      $success   boolean true indicates this was a successful
+     *                             event, false indicates this was a failed event
      *                             (the typical value).
      * @param string    $message   the message to be logged.
      * @param Exception $throwable the throwable Exception.
-     * 
+     *
      * @return does not return a value.
      */
     private function _log($level, $type, $success, $message, $throwable)
@@ -291,13 +291,13 @@ class DefaultAuditor implements Auditor
             $request = new SafeRequest;
             ESAPI::getHttpUtilities()->setCurrentHTTP($request);
         }
-        
+
         $laddr = $request->getServerName();
         if ($laddr === '') {
             $laddr = 'UnknownLocalHost';
         }
         $lport = $request->getServerPort();
-        
+
         $ruser = $request->getRemoteUser();
         if ($ruser === '') {
             $ruser = 'AnonymousUser';
@@ -306,7 +306,7 @@ class DefaultAuditor implements Auditor
         if ($raddr === '') {
             $raddr = 'UnknownRemoteHost';
         }
-        
+
         $context .= " {$laddr}:{$lport} {$ruser}@{$raddr}";
 
         // create a random session number for the user to represent the
@@ -314,19 +314,19 @@ class DefaultAuditor implements Auditor
         $userSessionIDforLogging = 'SessionUnknown';
         if (isset($_SESSION)) {
             if (isset($_SESSION['DefaultAuditor'])
-                && isset($_SESSION['DefaultAuditor']['SessionIDForLogging'])
+            && isset($_SESSION['DefaultAuditor']['SessionIDForLogging'])
             ) {
                 $userSessionIDforLogging
-                    = $_SESSION['DefaultAuditor']['SessionIDForLogging'];
+                = $_SESSION['DefaultAuditor']['SessionIDForLogging'];
             } else {
                 try
                 {
                     $userSessionIDforLogging
-                        = (string) ESAPI::getRandomizer()->getRandomInteger(
-                            0, 1000000
-                        );
+                    = (string) ESAPI::getRandomizer()->getRandomInteger(
+                    0, 1000000
+                    );
                     $_SESSION['DefaultAuditor']['SessionIDForLogging']
-                        = $userSessionIDforLogging;
+                    = $userSessionIDforLogging;
                 } catch( Exception $e ) {
                     // continue
                 }
@@ -382,7 +382,7 @@ class DefaultAuditor implements Auditor
 
     /**
      * Helper function.
-     * 
+     *
      * Helper method to replace carriage return and line feed characters in the
      * supplied message with the supplied substitute character(s). The sequence
      * CRLF (\r\n) is treated as one character.
@@ -431,7 +431,7 @@ class DefaultAuditor implements Auditor
 
     /**
      * Helper function.
-     * 
+     *
      * Converts a logging level.
      *
      * Converts the ESAPI logging level (a number) or level defined in the ESAPI
@@ -449,49 +449,49 @@ class DefaultAuditor implements Auditor
     {
         if (is_string($level)) {
             switch (strtoupper($level)) {
-            case 'ALL':
-                /* Same as TRACE */
-            case 'TRACE':
-                return LoggerLevel::getLevelAll();
-            case 'DEBUG':
-                return LoggerLevel::getLevelDebug();
-            case 'INFO':
-                return LoggerLevel::getLevelInfo();
-            case 'WARN':
-                return LoggerLevel::getLevelWarn();
-            case 'ERROR':
-                return LoggerLevel::getLevelError();
-            case 'FATAL':
-                return LoggerLevel::getLevelFatal();
-            case 'OFF':
-                return LoggerLevel::getLevelOff();
-            default:
-                throw new Exception(
+                case 'ALL':
+                    /* Same as TRACE */
+                case 'TRACE':
+                    return LoggerLevel::getLevelAll();
+                case 'DEBUG':
+                    return LoggerLevel::getLevelDebug();
+                case 'INFO':
+                    return LoggerLevel::getLevelInfo();
+                case 'WARN':
+                    return LoggerLevel::getLevelWarn();
+                case 'ERROR':
+                    return LoggerLevel::getLevelError();
+                case 'FATAL':
+                    return LoggerLevel::getLevelFatal();
+                case 'OFF':
+                    return LoggerLevel::getLevelOff();
+                default:
+                    throw new Exception(
                     "Invalid logging level Value was: {$level}"
-                );
+                    );
             }
         } else {
             switch ($level) {
-            case Auditor::ALL:
-                /* Same as TRACE */
-            case Auditor::TRACE:
-                return LoggerLevel::getLevelAll();
-            case Auditor::DEBUG:
-                return LoggerLevel::getLevelDebug();
-            case Auditor::INFO:
-                return LoggerLevel::getLevelInfo();
-            case Auditor::WARNING:
-                return LoggerLevel::getLevelWarn();
-            case Auditor::ERROR:
-                return LoggerLevel::getLevelError();
-            case Auditor::FATAL:
-                return LoggerLevel::getLevelFatal();
-            case Auditor::OFF:
-                return LoggerLevel::getLevelOff();
-            default:
-                throw new Exception(
+                case Auditor::ALL:
+                    /* Same as TRACE */
+                case Auditor::TRACE:
+                    return LoggerLevel::getLevelAll();
+                case Auditor::DEBUG:
+                    return LoggerLevel::getLevelDebug();
+                case Auditor::INFO:
+                    return LoggerLevel::getLevelInfo();
+                case Auditor::WARNING:
+                    return LoggerLevel::getLevelWarn();
+                case Auditor::ERROR:
+                    return LoggerLevel::getLevelError();
+                case Auditor::FATAL:
+                    return LoggerLevel::getLevelFatal();
+                case Auditor::OFF:
+                    return LoggerLevel::getLevelOff();
+                default:
+                    throw new Exception(
                     "Invalid logging level Value was: {$level}"
-                );
+                    );
             }
         }
     }
@@ -499,11 +499,11 @@ class DefaultAuditor implements Auditor
 
     /**
      *  Helper function.
-     *  
+     *
      *  Configures Apache's Log4PHP RootLogger based on values obtained from the
      *  ESAPI properties file.  All instances of Log4PHP Logger will inherit the
      *  configuration.
-     *  
+     *
      *  @return does not return a value.
      */
     private static function _initialise()
@@ -525,7 +525,7 @@ class DefaultAuditor implements Auditor
 
         // LogFile layout
         $logfileLayout = new LoggerLayoutPattern();
-        $logfileLayout->setConversionPattern($logfileLayoutPattern); 
+        $logfileLayout->setConversionPattern($logfileLayoutPattern);
 
         // LogFile RollingFile Appender
         $appenderLogfile = new LoggerAppenderRollingFile('ESAPI LogFile');
