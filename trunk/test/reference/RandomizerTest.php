@@ -19,7 +19,7 @@
 require_once dirname(__FILE__).'/../../src/ESAPI.php';
 require_once dirname(__FILE__).'/../../src/reference/DefaultRandomizer.php';
  
-class RandomizerTest extends UnitTestCase 
+class RandomizerTest extends PHPUnit_Framework_TestCase 
 {
 	private $CHAR_ALPHANUMERICS = 'abcdefghijklmnopqrstuvxyzABCDEFGHIJKLMNOPQRSTUVXYZ01234567890';
 	
@@ -60,10 +60,7 @@ class RandomizerTest extends UnitTestCase
             $list[] = $guid;
         }
         
-        if ( $result ) 
-        {
-        	$this->pass();	
-        }
+        $this->assertTrue($result);
     }	
 	
 	/**
@@ -85,7 +82,7 @@ class RandomizerTest extends UnitTestCase
 	            		$this->fail("Character [ ".$result[$j]." ] not found in [ ".$result." ]");
 	            	}
 	            }
-	            $this->assertEqual($length, strlen($result));
+	            $this->assertEquals($length, strlen($result));
 	        }
         }
 		catch (InvalidArgumentException $e)
@@ -195,7 +192,7 @@ class RandomizerTest extends UnitTestCase
         $instance = ESAPI::getRandomizer();
         
         $result = $instance->getRandomFilename();
-        $this->assertEqual(16, strlen($result));
+        $this->assertEquals(16, strlen($result));
     }
 
     function testGetRandomFilenameLengthWithExtension() {
@@ -203,7 +200,7 @@ class RandomizerTest extends UnitTestCase
         $instance = ESAPI::getRandomizer();
         
         $result = $instance->getRandomFilename('.php');
-        $this->assertEqual(20, strlen($result));
+        $this->assertEquals(20, strlen($result));
     }
     
 }

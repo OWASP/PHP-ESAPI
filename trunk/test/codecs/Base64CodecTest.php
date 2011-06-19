@@ -18,7 +18,7 @@
 require_once dirname(__FILE__).'/../../src/ESAPI.php';
 require_once dirname(__FILE__).'/../../src/codecs/Base64Codec.php';
 
-class Base64CodecTest extends UnitTestCase
+class Base64CodecTest extends PHPUnit_Framework_TestCase
 {
 	private $base64Codec = null;
 	
@@ -36,22 +36,22 @@ class Base64CodecTest extends UnitTestCase
 		
 	function testEncode()
 	{
-		$this->assertEqual('Ij48c2NyaXB0PmFsZXJ0KC9YU1MvKTwvc2NyaXB0Pjxmb28gYXR0cj0i', $this->base64Codec->encode('"><script>alert(/XSS/)</script><foo attr="') );
+		$this->assertEquals('Ij48c2NyaXB0PmFsZXJ0KC9YU1MvKTwvc2NyaXB0Pjxmb28gYXR0cj0i', $this->base64Codec->encode('"><script>alert(/XSS/)</script><foo attr="') );
 	}
 	
 	function testEncodeCharacter()
 	{
-		$this->assertEqual( "PA==", $this->base64Codec->encode("<") );
+		$this->assertEquals( "PA==", $this->base64Codec->encode("<") );
 	}	
 	
 	function testDecode()
 	{
-		$this->assertEqual('"><script>alert(/XSS/)</script><foo attr="', $this->base64Codec->decode('Ij48c2NyaXB0PmFsZXJ0KC9YU1MvKTwvc2NyaXB0Pjxmb28gYXR0cj0i') );
+		$this->assertEquals('"><script>alert(/XSS/)</script><foo attr="', $this->base64Codec->decode('Ij48c2NyaXB0PmFsZXJ0KC9YU1MvKTwvc2NyaXB0Pjxmb28gYXR0cj0i') );
 	}
 		
 	function testDecodeCharacter()
 	{
-		$this->assertEqual( "<", $this->base64Codec->decode("PA==") );
+		$this->assertEquals( "<", $this->base64Codec->decode("PA==") );
 	}
 }
 ?>

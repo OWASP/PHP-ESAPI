@@ -50,7 +50,7 @@ require_once dirname(__FILE__) . '/../../src/filters/SafeRequest.php';
  * @version   Release: @package_version@
  * @link      http://www.owasp.org/index.php/ESAPI
  */
-class HttpUtilitiesTest extends UnitTestCase
+class HttpUtilitiesTest extends PHPUnit_Framework_TestCase
 {
     private $_httpUtils = null;
 
@@ -105,7 +105,7 @@ class HttpUtilitiesTest extends UnitTestCase
                 )
             )
         );
-        $this->assertEqual('bar', $this->_httpUtils->getCookie($req, 'foo'));
+        $this->assertEquals('bar', $this->_httpUtils->getCookie($req, 'foo'));
     }
 
 
@@ -145,7 +145,7 @@ class HttpUtilitiesTest extends UnitTestCase
                 )
             )
         );
-        $this->expectException('AccessControlException');
+        $this->setExpectedException('AccessControlException');
         $this->_httpUtils->assertSecureRequest($req);
     }
 
@@ -166,7 +166,7 @@ class HttpUtilitiesTest extends UnitTestCase
                 )
             )
         );
-        $this->expectException('AccessControlException');
+        $this->setExpectedException('AccessControlException');
         $this->_httpUtils->assertSecureRequest($req);
     }
 
@@ -187,7 +187,7 @@ class HttpUtilitiesTest extends UnitTestCase
                 )
             )
         );
-        $this->expectException('AccessControlException');
+        $this->setExpectedException('AccessControlException');
         $this->_httpUtils->assertSecureRequest($req);
     }
 
@@ -207,7 +207,7 @@ class HttpUtilitiesTest extends UnitTestCase
                 )
             )
         );
-        $this->expectException('EnterpriseSecurityException');
+        $this->setExpectedException('EnterpriseSecurityException');
         $this->_httpUtils->assertSecureRequest($req);
     }
 

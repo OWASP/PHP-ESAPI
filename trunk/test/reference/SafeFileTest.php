@@ -41,7 +41,7 @@ require_once dirname(__FILE__).'/../../src/SafeFile.php';
  * @version   Release: @package_version@
  * @link      http://www.owasp.org/index.php/ESAPI
  */
-class SafeFileTest extends UnitTestCase
+class SafeFileTest extends PHPUnit_Framework_TestCase
 {
     /**
      * Constructor ensures global ESAPI is set.
@@ -76,9 +76,9 @@ class SafeFileTest extends UnitTestCase
         }
         if ($sf && !$sf->isReadable()) {
             $this->fail("{$file} is not readable");
-        } else {
-            $this->pass();
-        }
+        } 
+        
+        $this->assertTrue($sf && $sf->isReadable());
     }
 
 
@@ -92,7 +92,7 @@ class SafeFileTest extends UnitTestCase
         $config = ESAPI::getSecurityConfiguration();
         $file = $config->getResourceDirectory() . '/ESAPI.xml' . chr(0);
 
-        $this->expectException('EnterpriseSecurityException');
+        $this->setExpectedException('EnterpriseSecurityException');
         $sf = new SafeFile($file);
     }
 
@@ -112,11 +112,12 @@ class SafeFileTest extends UnitTestCase
         }
 
         $sf = new SafeFile($file);
+        
         if (!$sf->isReadable()) {
             $this->fail("{$file} is not readable - %s");
-        } else {
-            $this->pass();
-        }
+        } 
+        
+		$this->assertTrue($sf->isReadable());
     }
 
 
@@ -134,10 +135,10 @@ class SafeFileTest extends UnitTestCase
         $file = null;
         if (substr(PHP_OS, 0, 3) == 'WIN') {
             $file = 'nul.%07';
-            $this->expectException('ValidationException');
+            $this->setExpectedException('ValidationException');
         } else {
             $file = '/dev/null.%07';
-            $this->expectException('EnterpriseSecurityException');
+            $this->setExpectedException('EnterpriseSecurityException');
         }
 
         $sf = new SafeFile($file);
@@ -154,7 +155,7 @@ class SafeFileTest extends UnitTestCase
         $config = ESAPI::getSecurityConfiguration();
         $file = $config->getResourceDirectory() . chr(0) . '/ESAPI.xml';
 
-        $this->expectException('EnterpriseSecurityException');
+        $this->setExpectedException('EnterpriseSecurityException');
         $sf = new SafeFile($file);
     }
 
@@ -169,7 +170,7 @@ class SafeFileTest extends UnitTestCase
         $config = ESAPI::getSecurityConfiguration();
         $file = $config->getResourceDirectory() . '/ESAPI.xml%00';
 
-        $this->expectException('EnterpriseSecurityException');
+        $this->setExpectedException('EnterpriseSecurityException');
         $sf = new SafeFile($file);
     }
 
@@ -184,7 +185,7 @@ class SafeFileTest extends UnitTestCase
         $config = ESAPI::getSecurityConfiguration();
         $file = $config->getResourceDirectory() . '/ESAPI.xml%3C';
 
-        $this->expectException('EnterpriseSecurityException');
+        $this->setExpectedException('EnterpriseSecurityException');
         $sf = new SafeFile($file);
     }
 
@@ -199,7 +200,7 @@ class SafeFileTest extends UnitTestCase
         $config = ESAPI::getSecurityConfiguration();
         $file = $config->getResourceDirectory() . '/ESAPI.xml%3c';
 
-        $this->expectException('EnterpriseSecurityException');
+        $this->setExpectedException('EnterpriseSecurityException');
         $sf = new SafeFile($file);
     }
 
@@ -214,7 +215,7 @@ class SafeFileTest extends UnitTestCase
         $config = ESAPI::getSecurityConfiguration();
         $file = $config->getResourceDirectory() . '/ESAPI.xml%Ac';
 
-        $this->expectException('EnterpriseSecurityException');
+        $this->setExpectedException('EnterpriseSecurityException');
         $sf = new SafeFile($file);
     }
 
@@ -229,7 +230,7 @@ class SafeFileTest extends UnitTestCase
         $config = ESAPI::getSecurityConfiguration();
         $file = $config->getResourceDirectory() . "%00/ESAPI.xml";
 
-        $this->expectException('EnterpriseSecurityException');
+        $this->setExpectedException('EnterpriseSecurityException');
         $sf = new SafeFile($file);
     }
 
@@ -267,7 +268,8 @@ class SafeFileTest extends UnitTestCase
                 //Expected
             }
         }
-        $this->pass();
+        
+        $this->assertTrue(true);
     }
 
 
@@ -281,7 +283,7 @@ class SafeFileTest extends UnitTestCase
         $config = ESAPI::getSecurityConfiguration();
         $file = $config->getResourceDirectory() . "/ESAPI" . chr(200) . ".xml";
 
-        $this->expectException('EnterpriseSecurityException');
+        $this->setExpectedException('EnterpriseSecurityException');
         $sf = new SafeFile($file);
     }
 
@@ -296,7 +298,7 @@ class SafeFileTest extends UnitTestCase
         $config = ESAPI::getSecurityConfiguration();
         $file = $config->getResourceDirectory() . chr(200) . "/ESAPI.xml";
 
-        $this->expectException('EnterpriseSecurityException');
+        $this->setExpectedException('EnterpriseSecurityException');
         $sf = new SafeFile($file);
     }
 
@@ -311,7 +313,7 @@ class SafeFileTest extends UnitTestCase
         $config = ESAPI::getSecurityConfiguration();
         $file = $config->getResourceDirectory() . chr(8) . "/ESAPI.xml";
 
-        $this->expectException('EnterpriseSecurityException');
+        $this->setExpectedException('EnterpriseSecurityException');
         $sf = new SafeFile($file);
     }
 
@@ -326,7 +328,7 @@ class SafeFileTest extends UnitTestCase
         $config = ESAPI::getSecurityConfiguration();
         $file = $config->getResourceDirectory() . "/ESAPI" . chr(8) . ".xml";
 
-        $this->expectException('EnterpriseSecurityException');
+        $this->setExpectedException('EnterpriseSecurityException');
         $sf = new SafeFile($file);
     }
 
@@ -355,7 +357,7 @@ class SafeFileTest extends UnitTestCase
 
         $file .= chr(0) . '/test.php'; // SplFileObject doesn't catch this!
 
-        $this->expectException('ValidationException'); // but we will!
+        $this->setExpectedException('ValidationException'); // but we will!
         $sf = new SafeFile($file);
     }
 
@@ -379,7 +381,7 @@ class SafeFileTest extends UnitTestCase
 
         $file .= chr(0);
 
-        $this->expectException('ValidationException');
+        $this->setExpectedException('ValidationException');
         $sf = new SafeFile($file);
     }
 

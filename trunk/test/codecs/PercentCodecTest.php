@@ -18,7 +18,7 @@
 require_once dirname(__FILE__).'/../../src/ESAPI.php';
 require_once dirname(__FILE__).'/../../src/codecs/PercentCodec.php';
 
-class PercentCodecTest extends UnitTestCase
+class PercentCodecTest extends PHPUnit_Framework_TestCase
 {
 	private $percentCodec = null;
 	
@@ -43,24 +43,24 @@ class PercentCodecTest extends UnitTestCase
 	{
 		$immune = array("/");
 		
-		$this->assertEqual( '%22%3B%20ls%20/%20%3E%20/tmp/foo%3B%20%23%20', $this->percentCodec->encode($immune, '"; ls / > /tmp/foo; # ') );
+		$this->assertEquals( '%22%3B%20ls%20/%20%3E%20/tmp/foo%3B%20%23%20', $this->percentCodec->encode($immune, '"; ls / > /tmp/foo; # ') );
 	}
 	
 	function testEncodeCharacter()
 	{
 		$immune = array("");
 		
-		$this->assertEqual( "%3C", $this->percentCodec->encode($immune, "<") );
+		$this->assertEquals( "%3C", $this->percentCodec->encode($immune, "<") );
 	}	
 	
 	function testDecode()
 	{
-		$this->assertEqual( '"; ls / > /tmp/foo; # ', $this->percentCodec->decode('%22%3B%20ls%20/%20%3E%20/tmp/foo%3B%20%23%20') );
+		$this->assertEquals( '"; ls / > /tmp/foo; # ', $this->percentCodec->decode('%22%3B%20ls%20/%20%3E%20/tmp/foo%3B%20%23%20') );
 	}
 		
 	function testDecodeCharacter()
 	{
-		$this->assertEqual( "<", $this->percentCodec->decode("%3C") );
+		$this->assertEquals( "<", $this->percentCodec->decode("%3C") );
 	}
 	
 }

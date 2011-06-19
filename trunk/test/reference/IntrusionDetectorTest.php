@@ -41,7 +41,7 @@ require_once dirname(__FILE__) . '/../../src/SecurityConfiguration.php';
  * @version   Release: @package_version@
  * @link      http://www.owasp.org/index.php/ESAPI
  */
-class IntrusionDetectorTest extends UnitTestCase
+class IntrusionDetectorTest extends PHPUnit_Framework_TestCase
 {
 
     private $_logFileLoc    = null;

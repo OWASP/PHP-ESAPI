@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit backupGlobals="true" backupStaticAttributes="false"
+	bootstrap="bootstrap.php" colors="false" convertErrorsToExceptions="true"
+	convertNoticesToExceptions="true" convertWarningsToExceptions="true"
+	forceCoversAnnotation="false" mapTestClassNameToCoveredClassName="false"
+	processIsolation="false" stopOnError="false" stopOnFailure="false"
+	stopOnIncomplete="false" stopOnSkipped="false" syntaxCheck="false"
+	testSuiteLoaderClass="PHPUnit_Runner_StandardTestSuiteLoader" strict="false"
+	verbose="false">
+	<testsuites>
+		<testsuite name="Codecs">
+			<directory>codecs/</directory>
+		</testsuite>
+		<testsuite name="Errors">
+			<directory>codecs/</directory>
+		</testsuite>
+		<testsuite name="Filters">
+			<directory>filter/</directory>
+		</testsuite>
+		<testsuite name="HTTP">
+			<directory>http/</directory>
+		</testsuite>
+		<testsuite name="Reference">
+			<directory>reference/</directory>
+		</testsuite>
+	</testsuites>
+</phpunit>
+
+
+

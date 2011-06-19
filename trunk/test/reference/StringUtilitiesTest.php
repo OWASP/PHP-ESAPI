@@ -21,7 +21,7 @@
 
 require_once dirname(__FILE__).'/../../src/StringUtilities.php';
  
-class StringUtilitiesTest extends UnitTestCase 
+class StringUtilitiesTest extends PHPUnit_Framework_TestCase 
 {
 	function setUp() 
 	{
@@ -35,30 +35,30 @@ class StringUtilitiesTest extends UnitTestCase
 
 	function testStripControlsEmpty()
 	{
-		$this->assertEqual('', StringUtilities::stripControls(false));
-		$this->assertEqual('', StringUtilities::stripControls(null));
-		$this->assertEqual('', StringUtilities::stripControls(''));
+		$this->assertEquals('', StringUtilities::stripControls(false));
+		$this->assertEquals('', StringUtilities::stripControls(null));
+		$this->assertEquals('', StringUtilities::stripControls(''));
 	}
 	
 	
 	function testStripControlsPass()
 	{
-		$this->assertEqual('esapi', StringUtilities::stripControls('esapi'));
+		$this->assertEquals('esapi', StringUtilities::stripControls('esapi'));
 	}
 	
 	function testStripControlsLowChars()
 	{
-		$this->assertEqual('esapi rocks', StringUtilities::stripControls("esapi" . chr(10) . "rocks"));
+		$this->assertEquals('esapi rocks', StringUtilities::stripControls("esapi" . chr(10) . "rocks"));
 	}
 	
 	function testStripControlsHighChars()
 	{
-		$this->assertEqual('  ', StringUtilities::stripControls(chr(0xFE).chr(0xED)));
+		$this->assertEquals('  ', StringUtilities::stripControls(chr(0xFE).chr(0xED)));
 	}
 	
 	function testStripControlsBorderCases()
 	{
-		$this->assertEqual('  ', StringUtilities::stripControls(chr(0x20).chr(0x7f)));
+		$this->assertEquals('  ', StringUtilities::stripControls(chr(0x20).chr(0x7f)));
 	}
 	
 	function testContainsPass()
@@ -102,7 +102,7 @@ class StringUtilitiesTest extends UnitTestCase
 		
 		$expected = array('a','c','e','i','k','o','p','r','s');
 		
-		$this->assertEqual($expected, StringUtilities::union($arr1, $arr2));
+		$this->assertEquals($expected, StringUtilities::union($arr1, $arr2));
 	}
 	
 	function testUnionUnique()
@@ -112,7 +112,7 @@ class StringUtilitiesTest extends UnitTestCase
 		
 		$expected = array("esapi", "rocks");
 		
-		$this->assertEqual($expected, StringUtilities::union($arr1, $arr2));
+		$this->assertEquals($expected, StringUtilities::union($arr1, $arr2));
 	}
 	
 	function testUnionEmpty()
@@ -120,7 +120,7 @@ class StringUtilitiesTest extends UnitTestCase
 		$arr1 = array();
 		$arr2 = array();
 		
-		$this->assertEqual(null, StringUtilities::union($arr1, $arr2));
+		$this->assertEquals(null, StringUtilities::union($arr1, $arr2));
 	}
 }
 ?>

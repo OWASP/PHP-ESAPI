@@ -19,7 +19,7 @@ require_once dirname(__FILE__).'/../../src/ESAPI.php';
 require_once dirname(__FILE__).'/../../src/codecs/WindowsCodec.php';
 
 
-class WindowsCodecTest extends UnitTestCase
+class WindowsCodecTest extends PHPUnit_Framework_TestCase
 {
 	private $windowsCodec = null;
 	
@@ -44,24 +44,24 @@ class WindowsCodecTest extends UnitTestCase
 	{
 		$immune = array("");
 		
-		$this->assertEqual( '^"^ ^&^ dir^/s^ c^:', $this->windowsCodec->encode($immune, '" & dir/s c:') );
+		$this->assertEquals( '^"^ ^&^ dir^/s^ c^:', $this->windowsCodec->encode($immune, '" & dir/s c:') );
 	}
 	
 	function testEncodeCharacter()
 	{
 		$immune = array("");
 		
-		$this->assertEqual( "^<", $this->windowsCodec->encode($immune, "<") );
+		$this->assertEquals( "^<", $this->windowsCodec->encode($immune, "<") );
 	}	
 	
 	function testDecode()
 	{
-		$this->assertEqual( '" & dir/s c:', $this->windowsCodec->decode('^"^ ^&^ dir^/s^ c^:') );
+		$this->assertEquals( '" & dir/s c:', $this->windowsCodec->decode('^"^ ^&^ dir^/s^ c^:') );
 	}
 		
 	function testDecodeCharacter()
 	{
-		$this->assertEqual( "<", $this->windowsCodec->decode("^<") );
+		$this->assertEquals( "<", $this->windowsCodec->decode("^<") );
 	}
 	
 }

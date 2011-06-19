@@ -19,7 +19,7 @@ require_once dirname(__FILE__).'/../../src/ESAPI.php';
 require_once dirname(__FILE__).'/../../src/errors/ExecutorException.php';
 require_once dirname(__FILE__).'/../../src/reference/DefaultExecutor.php';
 
-class ExecutorTest extends UnitTestCase 
+class ExecutorTest extends PHPUnit_Framework_TestCase 
 {
 	private $_os;
 	private $_instance;
@@ -94,17 +94,11 @@ class ExecutorTest extends UnitTestCase
         	return;
         }
         
-        try
-        {
-        	$this->_executable = '%SYSTEMROOT%\\System32\\;notepad.exe';
-        	$result = $this->_instance->executeSystemCommand($this->_executable, $this->_params);
-	    	$this->assertNull($result);
-        }
-        catch( ExecutorException $e )
-        {
-        	//expected
-        	$this->pass();
-        }
+        $this->setExpectedException('ExecutorException');
+        
+		$this->_executable = '%SYSTEMROOT%\\System32\\;notepad.exe';
+		$result = $this->_instance->executeSystemCommand($this->_executable, $this->_params);
+		$this->fail('Should not execute non-canonicalized path');
     }
     
     /**
@@ -116,18 +110,12 @@ class ExecutorTest extends UnitTestCase
         {
         	return;
         }
-                
-        try
-        {
-        	$this->_executable = '%SYSTEMROOT%\\System32\\..\\cmd.exe';
-        	$result = $this->_instance->executeSystemCommand($this->_executable, $this->_params);
-	    	$this->fail('Should not execute non-canonicalized path');
-        }
-        catch( ExecutorException $e )
-        {
-        	//expected
-        	$this->pass();
-        }
+
+        $this->setExpectedException('ExecutorException');
+        
+      	$this->_executable = '%SYSTEMROOT%\\System32\\..\\cmd.exe';
+      	$result = $this->_instance->executeSystemCommand($this->_executable, $this->_params);
+	   	$this->fail('Should not execute non-canonicalized path');
     }
     
     /**
@@ -162,17 +150,11 @@ class ExecutorTest extends UnitTestCase
         	return;
         }
         
-    	try
-        {
-        	$this->_workdir = 'C:\\ridiculous';
-        	$result = $this->_instance->executeSystemCommandLonghand($this->_executable, $this->_params, $this->_workdir, false);
-	    	$this->fail('Should not execute with a bad working directory');
-        }
-        catch( ExecutorException $e )
-        {
-        	// expected
-        	$this->pass();
-        }
+        $this->setExpectedException('ExecutorException');
+        
+       	$this->_workdir = 'C:\\ridiculous';
+      	$result = $this->_instance->executeSystemCommandLonghand($this->_executable, $this->_params, $this->_workdir, false);
+	   	$this->fail('Should not execute with a bad working directory');
     }
     
 	/**
@@ -185,17 +167,11 @@ class ExecutorTest extends UnitTestCase
         	return;
         }
         
-    	try
-        {
-        	$this->_executable .= " & dir & rem ";
-        	$result = $this->_instance->executeSystemCommand($this->_executable, $this->_params);
-	    	$this->fail("Executed chained command, output: ". $result);
-        }
-        catch( ExecutorException $e )
-        {
-        	// expected
-        	$this->pass();
-        }
+        $this->setExpectedException('ExecutorException');
+        
+      	$this->_executable .= " & dir & rem ";
+      	$result = $this->_instance->executeSystemCommand($this->_executable, $this->_params);
+    	$this->fail("Executed chained command, output: ". $result);
     }
     
     /**
@@ -274,17 +250,11 @@ class ExecutorTest extends UnitTestCase
         	return;
         }
         
-        try
-        {
-        	$this->_executable .= ';./inject';
-        	$result = $this->_instance->executeSystemCommand($this->_executable, $this->_params);
-	    	$this->fail('Should not have executed injected command');
-        }
-        catch( ExecutorException $e )
-        {
-        	//expected
-        	$this->pass();
-        }
+		$this->setExpectedException('ExecutorException');
+		
+	   	$this->_executable .= ';./inject';
+      	$result = $this->_instance->executeSystemCommand($this->_executable, $this->_params);
+	  	$this->fail('Should not have executed injected command');
     }
     
     /**
@@ -297,17 +267,11 @@ class ExecutorTest extends UnitTestCase
         	return;
         }
         
-        try
-        {
-        	$this->_executable = '/bin/sh/../bin/sh';
-        	$result = $this->_instance->executeSystemCommand($this->_executable, $this->_params);
-	    	$this->fail('Should not have executed uncanonicalized command');
-        }
-        catch( ExecutorException $e )
-        {
-        	//expected
-        	$this->pass();
-        }
+        $this->setExpectedException('ExecutorException');
+        
+       	$this->_executable = '/bin/sh/../bin/sh';
+      	$result = $this->_instance->executeSystemCommand($this->_executable, $this->_params);
+    	$this->fail('Should not have executed uncanonicalized command');
     }
     
     /**
@@ -342,17 +306,11 @@ class ExecutorTest extends UnitTestCase
         	return;
         }
         
-    	try
-        {
-        	$this->_workdir = '/ridiculous/';
-        	$result = $this->_instance->executeSystemCommandLonghand($this->_executable, $this->_params, $this->_workdir, false);
-	    	$this->fail('Bad working directory should not work.');
-        }
-        catch( ExecutorException $e )
-        {
-        	// expected
-        	$this->pass();
-        }
+    	$this->setExpectedException('ExecutorException');
+
+    	$this->_workdir = '/ridiculous/';
+        $result = $this->_instance->executeSystemCommandLonghand($this->_executable, $this->_params, $this->_workdir, false);
+	    $this->fail('Bad working directory should not work.');
     }
     
 	/**
@@ -365,17 +323,11 @@ class ExecutorTest extends UnitTestCase
         	return;
         }
         
-    	try
-        {
-        	$this->_executable .= " ; ls / ; # ";
-        	$result = $this->_instance->executeSystemCommand($this->_executable, $this->_params);
-	    	$this->fail("Executed chained command, output: ". $result);
-        }
-        catch ( ExecutorException $e )
-        {
-        	// expected
-        	$this->pass();
-        }
+		$this->setExpectedException('ExecutorException');
+        
+        $this->_executable .= " ; ls / ; # ";
+        $result = $this->_instance->executeSystemCommand($this->_executable, $this->_params);
+	    $this->fail("Executed chained command, output: ". $result);
     }
     
     /**

@@ -20,7 +20,7 @@ require_once dirname(__FILE__).'/../../src/ESAPI.php';
 require_once dirname(__FILE__).'/../../src/codecs/CSSCodec.php';
 
 
-class CSSCodecTest extends UnitTestCase
+class CSSCodecTest extends PHPUnit_Framework_TestCase
 {
 	private $cssCodec = null;
 	
@@ -40,66 +40,67 @@ class CSSCodecTest extends UnitTestCase
 	{
 		$immune = array("");
 		
-		$this->assertEqual( 'background\3a expression\28 window\2e x\3f 0\3a \28 alert\28 \2f XSS\2f \29 \2c window\2e x\3d 1\29 \29 \3b ', $this->cssCodec->encode($immune, 'background:expression(window.x?0:(alert(/XSS/),window.x=1));') );
+		$this->assertEquals( 'background\3a expression\28 window\2e x\3f 0\3a \28 alert\28 \2f XSS\2f \29 \2c window\2e x\3d 1\29 \29 \3b ', $this->cssCodec->encode($immune, 'background:expression(window.x?0:(alert(/XSS/),window.x=1));') );
 	}
 	
 	function testEncodeCharacter()
 	{
 		$immune = array("");
 		
-		$this->assertEqual( "\\3c ", $this->cssCodec->encode($immune, "<") );
+		$this->assertEquals( "\\3c ", $this->cssCodec->encode($immune, "<") );
 	}	
 	
 	function testDecode()
 	{
-		$this->assertEqual( "background:expression(window.x?0:(alert(/XSS/),window.x=1));", $this->cssCodec->decode('background\3a expression\28 window\2e x\3f 0\3a \28 alert\28 \2f XSS\2f \29 \2c window\2e x\3d 1\29 \29 \3b ') );
+		$this->assertEquals( "background:expression(window.x?0:(alert(/XSS/),window.x=1));", $this->cssCodec->decode('background\3a expression\28 window\2e x\3f 0\3a \28 alert\28 \2f XSS\2f \29 \2c window\2e x\3d 1\29 \29 \3b ') );
 	}
 		
 	function testDecodeLessThan()
 	{
-		$this->assertEqual( "<", $this->cssCodec->decode("\\3c ") );
+		$this->assertEquals( "<", $this->cssCodec->decode("\\3c ") );
 	}
 		
 	function testDecodeLTNonHexTerminated()
 	{
-		$this->assertEqual( "<YEEHAA", $this->cssCodec->decode("\\3cYEEHAA") );
+		$this->assertEquals( "<YEEHAA", $this->cssCodec->decode("\\3cYEEHAA") );
 	}
 		
 	function testDecodeLTSpaceTerminated()
 	{
-		$this->assertEqual( "<AHAHA", $this->cssCodec->decode("\\3c AHAHA") );
+		$this->assertEquals( "<AHAHA", $this->cssCodec->decode("\\3c AHAHA") );
 	}
 		
 	function testDecodeUpToFirstNonHex()
 	{
 		$expected = mb_convert_encoding('&#' . 0x03CA . ';', 'UTF-8', 'HTML-ENTITIES') . 'HAHA';
-		$this->assertEqual( $expected, $this->cssCodec->decode("\\3cAHAHA") );
+		$this->assertEquals( $expected, $this->cssCodec->decode("\\3cAHAHA") );
 	}
 		
 	function testDecodeMaxHexChars()
 	{
-		$this->assertEqual( ' 0', $this->cssCodec->decode('\\0000200') );
+		$this->assertEquals( ' 0', $this->cssCodec->decode('\\0000200') );
 	}
 		
 	function testDoNotDecodeInvalidCodePoint()
 	{
 		// 0xABCDEF is not a valid code point so the escape seqence is not a
 		// valid one.
-		$this->assertEqual( '\\abcdefg', $this->cssCodec->decode('\\abcdefg') );
+		$this->assertEquals( '\\abcdefg', $this->cssCodec->decode('\\abcdefg') );
 	}
 		
 	function testDecodeIgnoreEscapedNewline()
 	{
-		$this->assertEqual( "ESCAPED NEW LINE GETS IGNORED", $this->cssCodec->decode("\\\nESCAP\\\nED NEW\\\n LINE GETS IGNORED\\\n") );	//FIXME: consider adding logic to all ESAPI implementations to handle this situation properly (i.e. without throwing malformed entity exception)
+		$this->assertEquals( "ESCAPED NEW LINE GETS IGNORED", $this->cssCodec->decode("\\\nESCAP\\\nED NEW\\\n LINE GETS IGNORED\\\n") );	//FIXME: consider adding logic to all ESAPI implementations to handle this situation properly (i.e. without throwing malformed entity exception)
 	}
 		
 	function testDecodeEatNullChar()
 	{
-		$this->assertEqual( "CODEPOINT ZERO NOT RECOGNISED IN CSS", $this->cssCodec->decode("\\0 CODEP\\0 OINT ZER\\0O NOT\\0  RECOGNISED IN CSS\\0") );	//FIXME: this test yeilds an unexpected error when unpacking in Codec
+		$this->assertEquals( "CODEPOINT ZERO NOT RECOGNISED IN CSS", $this->cssCodec->decode("\\0 CODEP\\0 OINT ZER\\0O NOT\\0  RECOGNISED IN CSS\\0") );	//FIXME: this test yeilds an unexpected error when unpacking in Codec
 	}
+	
 	function testEncodeZero()
 	{
-		$this->expectException('Exception', 'Encoding of a zero character code should throw an exception. %s');
+		$this->setExpectedException('Exception');
 
 		$immune = array("");
 		$this->cssCodec->encodeCharacter($immune, chr(0x00));
