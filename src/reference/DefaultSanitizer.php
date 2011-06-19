@@ -49,21 +49,21 @@ require_once dirname ( __FILE__ ) . '/validation/WordValidationRule.php';
  */
 class DefaultSanitizer implements Sanitizer
 {
-    
+
     private $encoder = null;
-    
+
     public function __construct()
     {
         global $ESAPI;
         $this->encoder = ESAPI::getEncoder();
     }
-	
-	
-	/**
+
+
+    /**
      * Returns valid, "safe" HTML.
-     * 
-     * This implementation uses HTMLPurifier {@link http://htmlpurifier.org}. 
-     * 
+     *
+     * This implementation uses HTMLPurifier {@link http://htmlpurifier.org}.
+     *
      * @param  $context A descriptive name of the parameter that you are
      *         validating (e.g. ProfilePage_Sig). This value is used by any
      *         logging or error handling that is done with respect to the value
@@ -75,15 +75,15 @@ class DefaultSanitizer implements Sanitizer
     function getSanitizedHTML($context, $input)
     {
         $hvr = new HTMLValidationRule('HTML_Validator', $this->encoder);
-        
+
         return $hvr->sanitize($context, $input);
     }
-    
-	/**
+
+    /**
      * Returns valid, "safe" email address.
-     * 
-     * This implementation uses a PHP filter {@link http://php.net/manual/en/filter.filters.sanitize.php}. 
-     * 
+     *
+     * This implementation uses a PHP filter {@link http://php.net/manual/en/filter.filters.sanitize.php}.
+     *
      * @param  $context A descriptive name of the parameter that you are
      *         validating (e.g. ProfilePage_Sig). This value is used by any
      *         logging or error handling that is done with respect to the value
@@ -95,15 +95,15 @@ class DefaultSanitizer implements Sanitizer
     function getSanitizedEmailAddress($context, $input)
     {
         $evr = new EmailAddressValidationRule('EmailAddress_Validator', $this->encoder);
-        
+
         return $evr->sanitize($context, $input);
     }
-    
-	/**
+
+    /**
      * Returns valid, "safe" URL.
-     * 
-     * This implementation uses a PHP filter {@link http://php.net/manual/en/filter.filters.sanitize.php}. 
-     * 
+     *
+     * This implementation uses a PHP filter {@link http://php.net/manual/en/filter.filters.sanitize.php}.
+     *
      * @param  $context A descriptive name of the parameter that you are
      *         validating (e.g. ProfilePage_Sig). This value is used by any
      *         logging or error handling that is done with respect to the value
@@ -115,10 +115,10 @@ class DefaultSanitizer implements Sanitizer
     function getSanitizedURL($context, $input)
     {
         $uvr = new URLValidationRule('URL_Validator', $this->encoder);
-        
+
         return $uvr->sanitize($context, $input);
     }
-	/**
+    /**
      * Returns valid, "safe" English language word based on the provided guess.
      * 
      * @param  $context A descriptive name of the parameter that you are

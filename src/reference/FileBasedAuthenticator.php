@@ -194,7 +194,7 @@ class FileBasedAuthenticator implements Authenticator {
      * Load users if they haven't been loaded in a while.
      */
     protected function loadUsersIfNecessary() {
-    //        throw new EnterpriseSecurityException("Method Not Implemented");
+        //        throw new EnterpriseSecurityException("Method Not Implemented");
         if (!$this->isValidString( $this->userDB )) {
             $fileHandle = ESAPI::getSecurityConfiguration()->getResourceDirectory()."users.txt";
             $this->userDB = fopen($fileHandle, 'a');
@@ -211,8 +211,8 @@ class FileBasedAuthenticator implements Authenticator {
         if ($this->lastModified == $fileData['mtime']) {
             return;
         }
-    //Note: Removing call for now to avoid red exception and spread greenery in tests :)
-    //        $this->loadUsersImmediately();
+        //Note: Removing call for now to avoid red exception and spread greenery in tests :)
+        //        $this->loadUsersImmediately();
     }
 
     protected function  loadUsersImmediately() {
@@ -321,7 +321,7 @@ class FileBasedAuthenticator implements Authenticator {
      * 		a List containing all of the specified User's password hashes
      */
     public function getAllHashedPasswords($user, $create) {
-    //        TODO: Reverify with tests. Something doesn't seem right here
+        //        TODO: Reverify with tests. Something doesn't seem right here
         $hashes = $this->passwordMap[$user];
         if ($this->isValidString($hashes)) {
             return $hashes;
@@ -378,7 +378,7 @@ class FileBasedAuthenticator implements Authenticator {
     function getUserById($accountId) {
 
         if($accountId == 0) {
-        //FIXME: ANONYMOUS User to be returned
+            //FIXME: ANONYMOUS User to be returned
             return null;
         }
 
@@ -420,7 +420,7 @@ class FileBasedAuthenticator implements Authenticator {
      * 		a set of all user names
      */
     function getUserNames() {
-    // TODO: Re-work in Milestone 3
+        // TODO: Re-work in Milestone 3
 
         if ( !empty($this->users) ) {
             return $this->users;
@@ -478,7 +478,7 @@ class FileBasedAuthenticator implements Authenticator {
         $hashes = $this->getAllHashedPasswords($user, true);
         $hashes[0] = $hash;
         if (count($hashes) > ESAPI::getSecurityConfiguration()->getMaxOldPasswordHashes() ) {
-        //TODO: Verify
+            //TODO: Verify
             array_pop($hashes);
         }
         $this->logger->info(ESAPILogger::SECURITY, TRUE, "New hashed password stored for ".$user->getAccountName() );
@@ -515,7 +515,7 @@ class FileBasedAuthenticator implements Authenticator {
      *             the authentication exception if user does not exist
      */
     function removeUser($accountName) {
-    // TODO: Change in Milestone 3. In milestone 1, this is used to clean up a test
+        // TODO: Change in Milestone 3. In milestone 1, this is used to clean up a test
 
         $idx = array_search($accountName, $this->users);
         if ( !empty($this->users) && $idx !== false ) {
@@ -571,7 +571,7 @@ class FileBasedAuthenticator implements Authenticator {
             for($counter = 0; $counter < $passwordLength-2; $counter++) {
                 $sub = substr($oldPassword, $counter, 3);
                 if( strlen(strstr($newPassword, $sub)) > 0) {
-                //                if( strlen(strstr($newPassword, $sub)) > -1) { //TODO: Even this works. Revisit for a more elegant solution
+                    //                if( strlen(strstr($newPassword, $sub)) > -1) { //TODO: Even this works. Revisit for a more elegant solution
                     throw new AuthenticationCredentialsException("Invalid password", "New password cannot contain pieces of old password" );
                 }
             }
