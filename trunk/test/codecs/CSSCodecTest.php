@@ -92,15 +92,30 @@ class CSSCodecTest extends PHPUnit_Framework_TestCase
 	{
 		$this->assertEquals( "ESCAPED NEW LINE GETS IGNORED", $this->cssCodec->decode("\\\nESCAP\\\nED NEW\\\n LINE GETS IGNORED\\\n") );	//FIXME: consider adding logic to all ESAPI implementations to handle this situation properly (i.e. without throwing malformed entity exception)
 	}
-		
-	function testDecodeEatNullChar()
+
+	/*
+	 * This test is bogus. The string to be encoded, in its present form,
+	 * doesn't contain nulls and the literal '\0' (contained in the string to be
+	 * encoded) should not be interpreted (zero is not a valid codepoint
+	 * in CSS) and certainly shouldn't be eaten.
+	 */
+#	function testDecodeEatNullChar()
+#	{
+#		$this->assertEquals( "CODEPOINT ZERO NOT RECOGNISED IN CSS", $this->cssCodec->decode("\\0 CODEP\\0 OINT ZER\\0O NOT\\0  RECOGNISED IN CSS\\0") );	//FIXME: this test yeilds an unexpected error when unpacking in Codec
+#	}
+
+	/*
+	 * This test replaces testDecodeEatNullChar with the proper expectation for
+	 * that same string.
+	 */
+	function testDoNotDecodeInvalidZeroCodePoint()
 	{
-		$this->assertEquals( "CODEPOINT ZERO NOT RECOGNISED IN CSS", $this->cssCodec->decode("\\0 CODEP\\0 OINT ZER\\0O NOT\\0  RECOGNISED IN CSS\\0") );	//FIXME: this test yeilds an unexpected error when unpacking in Codec
+		$this->assertEquals( '\0 CODEP\0 OINT ZER\0O NOT\0  RECOGNISED IN CSS\0', $this->cssCodec->decode('\0 CODEP\\0 OINT ZER\0O NOT\0  RECOGNISED IN CSS\0') );
 	}
-	
+
 	function testEncodeZero()
 	{
-		$this->setExpectedException('Exception');
+		$this->setExpectedException('InvalidArgumentException');
 
 		$immune = array("");
 		$this->cssCodec->encodeCharacter($immune, chr(0x00));
