@@ -48,6 +48,8 @@ class CSSCodec extends Codec
     
     /**
      * {@inheritdoc}
+     * 
+     * @throws InvalidArgumentException
      */
     public function encodeCharacter($immune, $c)
     {
@@ -71,8 +73,8 @@ class CSSCodec extends Codec
         // CSS 2.1 section 4.1.3: "It is undefined in CSS 2.1 what happens if a
         // style sheet does contain a character with Unicode codepoint zero."
         if ($ordinalValue === 0) {
-            throw new Exception(
-              "IllegalArgumentException - Chracter value zero is not valid in CSS"
+            throw new InvalidArgumentException(
+              "InvalidArgumentException - Chracter value zero is not valid in CSS"
             );
         }
         
@@ -138,9 +140,13 @@ class CSSCodec extends Codec
             }
         }
         if ($hexDigitCount) {
-            $charFromHex = $this->normalizeEncoding(
-                $this->_parseHex($potentialHexString)
-            );
+            $candidateChar = $this->_parseHex($potentialHexString);
+            if (is_string($candidateChar) != true) {
+                return array(
+                    'decodedCharacter' => null,
+                    'encodedString' => null
+                );
+            }
             if ($hexDigitCount < 6 
                 && mb_substr($input, 1 + $hexDigitCount, 1, "UTF-32") != $this->normalizeEncoding(' ') 
             ) {
@@ -148,7 +154,7 @@ class CSSCodec extends Codec
                 //encoding = malformed encoding
                 //TODO: throw an exception for malformed entity?
                 return array(
-                    'decodedCharacter' => $charFromHex,
+                    'decodedCharacter' => $this->normalizeEncoding($candidateChar),
                     'encodedString' => mb_substr(
                         $input, 0, 1 + $hexDigitCount, 
                         "UTF-32"
@@ -156,14 +162,14 @@ class CSSCodec extends Codec
                 );
             } elseif ($hexDigitCount < 6) {
                 return array(
-                    'decodedCharacter' => $charFromHex,
+                    'decodedCharacter' => $this->normalizeEncoding($candidateChar),
                     'encodedString' => mb_substr(
                         $input, 0, 1 + $hexDigitCount + 1, "UTF-32"
                     )
                 );
             } else {
                 return array(
-                    'decodedCharacter' => $charFromHex,
+                    'decodedCharacter' => $this->normalizeEncoding($candidateChar),
                     'encodedString' => mb_substr(
                         $input, 0, 1 + $hexDigitCount, "UTF-32"
                     )
@@ -200,10 +206,7 @@ class CSSCodec extends Codec
      * 
      * @param string $input Hex encoded input (such as 437ae;)
      * 
-     * @return array Returns an array containing two objects: 'decodedCharacter' => 
-     *               null if input is null, the character of input after decoding 
-     *               'encodedString' => the string that was decoded or found to be 
-     *               malformed
+     * @return null|string
      */
     private function _parseHex($input)
     {
@@ -228,6 +231,9 @@ class CSSCodec extends Codec
             $parsedInteger = (int) hexdec($hexString);
             if ($parsedInteger == 0) {
                 // codepoint of zero not recognised in CSS, therefore return null
+                return null;
+            } else if ($parsedInteger > 0x10FFFF) {
+                // The legal range of codepoints is U+0000 through U+10FFFF.
                 return null;
             } else if ($parsedInteger <= 0xFF) {
                 $parsedCharacter = chr($parsedInteger);
