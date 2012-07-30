@@ -35,9 +35,11 @@ require_once dirname(__FILE__) . '/../../src/errors/ValidationException.php';
  * @author jah (at jahboite.co.uk)
  * @since 1.6
  */
-class AuditorTest extends PHPUnit_Framework_TestCase {
-
-    private $testCount = 0;
+class AuditorTest extends PHPUnit_Framework_TestCase
+{
+    /**
+     * @var Auditor
+     */
     private $testLogger= null;
     private $alphanum = null;
     private $rnd = null;
@@ -57,7 +59,7 @@ class AuditorTest extends PHPUnit_Framework_TestCase {
         $this->logFileLoc = getLogFileLoc();
     }
 
-    function setUp() {
+    protected function setUp() {
         global $ESAPI;
 
         if ( !isset($ESAPI)) {
@@ -65,9 +67,8 @@ class AuditorTest extends PHPUnit_Framework_TestCase {
             ESAPI(dirname(__FILE__).'/../testresources/ESAPI.xml');
         }
 
-        $this->testLogger = ESAPI::getAuditor(
-            'LoggerTest #' . $this->testCount++
-        );
+        $this->testLogger = ESAPI::getAuditor(__CLASS__);
+        $this->testLogger->setLevel(Auditor::ALL);
     }
 
     function tearDown() {
@@ -303,16 +304,20 @@ class AuditorTest extends PHPUnit_Framework_TestCase {
         $this->assertTrue(!$log_1_result && $log_2_result);
     }
 
-    function testSetLevelMultipleLogsExpectedFalse() {
-        //Now test to see if a change to the logging level in one log affects other logs
-        $newLogger = ESAPI::getAuditor( 'test_num2' );
-        $this->testLogger->setLevel( Auditor::OFF );
-        $newLogger->setLevel( Auditor::INFO );
-        $log_1_result = $this->testLogger->isInfoEnabled();
-        $log_2_result = $newLogger->isInfoEnabled();
+    /*
+     * This test is bogus.  It is the same as testSetLevelMultipleLogsExpectedTrue
+     * but with the opposite expectation.
+     */
+#    function testSetLevelMultipleLogsExpectedFalse() {
+#        //Now test to see if a change to the logging level in one log affects other logs
+#        $newLogger = ESAPI::getAuditor( 'test_num2' );
+#        $this->testLogger->setLevel( Auditor::OFF );
+#        $newLogger->setLevel( Auditor::INFO );
+#        $log_1_result = $this->testLogger->isInfoEnabled();
+#        $log_2_result = $newLogger->isInfoEnabled();
 
-        $this->assertTrue($log_1_result &&!$log_2_result);        
-    }
+#        $this->assertTrue($log_1_result &&!$log_2_result);        
+#    }
 
 
     function testLoggingToFile() {
@@ -320,8 +325,9 @@ class AuditorTest extends PHPUnit_Framework_TestCase {
         $r = getRandomAlphaNumString(32);
         $logMsg = "Test message. {$r}";
         $this->testLogger->fatal(Auditor::SECURITY, true, $logMsg);
-        $this->logfileIsReadable = $this->verifyLogEntry("{$logMsg}", $testMsg);
-        $this->assertTrue($this->logfileIsReadable, $testMsg);
+        $logFileIsReadable = $this->verifyLogEntry("{$logMsg}", $testMsg);
+        $this->assertTrue($logFileIsReadable, $testMsg);
+        return $logFileIsReadable;
     }
 
 
@@ -395,7 +401,10 @@ class AuditorTest extends PHPUnit_Framework_TestCase {
         $testMsg = null;
         $r = getRandomAlphaNumString(32);
         $logMsg = "Warning level test message. {$r}";
-        $throwable = new ValidationException('This is a message from a ValidationException.');
+        $throwable = new ValidationException(
+            'This is a user message from a ValidationException.',
+            'This is a log message from a ValidationException.'
+        );
         $expected = $this->getExpected('WARNING', 'SECURITY', false, $logMsg,
             get_class($throwable)
         );
@@ -884,25 +893,29 @@ class AuditorTest extends PHPUnit_Framework_TestCase {
     }
 
 
-    function testCRLFRemoval() {
+    /**
+     * @depends testLoggingToFile
+     */
+    function testCRLFRemoval($logFileIsReadable) {
         $failMessage = null;
-        if ($this->logfileIsReadable === false) {
+        if ($logFileIsReadable === false) {
              $failMessage = 'CRLF encoding could not be tested because we' .
                  ' could not read the logfile.';
-        } else {
-            $failMessage = 'CRLF Encoding FAILED!';
         }
         $testMsg = null;
         $r = getRandomAlphaNumString(16);
-        $expected = "{$r}_{$r}";
+        $expected = $this->getExpected('FATAL', 'SECURITY', true, "{$r}_{$r}");
         $this->testLogger->fatal(Auditor::SECURITY, true, "{$r}\n{$r}");
         $result = $this->verifyLogEntry($expected, $testMsg);
         
-        $this->assertFalse($result, $failMessage);
+        $this->assertTrue($result, $failMessage);
     }
 
 
-    function testHTMLEncoding() {
+    /**
+     * @depends testLoggingToFile
+     */
+    function testHTMLEncoding($logFileIsReadable) {
         $failMessage = null;
         if (ESAPI::getSecurityConfiguration()->getLogEncodingRequired() ===
             false
@@ -910,19 +923,17 @@ class AuditorTest extends PHPUnit_Framework_TestCase {
             $failMessage =
                 'HTML encoding cannot be tested until the LogEncodingRequired' .
                 ' property is set to true. This test has not actually failed.';
-        } else if ($this->logfileIsReadable === false) {
+        } else if ($logFileIsReadable === false) {
              $failMessage = 'HTML encoding could not be tested because we' .
                  ' could not read the logfile.';
-        } else {
-            $failMessage = 'HTML Encoding FAILED!';
         }
         $testMsg = null;
         $r = getRandomAlphaNumString(16);
-        $expected = "{$r}&amp;{$r}";
+        $expected = $this->getExpected('FATAL', 'SECURITY', true, "{$r}&amp;{$r}");
         $this->testLogger->fatal(Auditor::SECURITY, true, "{$r}&{$r}");
         $result = $this->verifyLogEntry($expected, $testMsg);
         
-        $this->assertFalse($result, $failMessage);
+        $this->assertTrue($result, $failMessage);
     }
 
 
@@ -987,8 +998,7 @@ class AuditorTest extends PHPUnit_Framework_TestCase {
             = ESAPI::getSecurityConfiguration()->getLogApplicationName() === true
             ? ' ' . ESAPI::getSecurityConfiguration()->getApplicationName()
             : '';
-        $num = $this->testCount -1;
-        $name = "LoggerTest #{$num}";
+        $name = __CLASS__;
         $serverName
             = '((?:(?:[0-9a-zA-Z][0-9a-zA-Z\-]{0,61}[0-9a-zA-Z])\.)*[a-zA-Z]{2,4}|[0-9a-zA-Z][0-9a-zA-Z\-]{0,61}[0-9a-zA-Z]|(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?))';
         $localSocket = "{$serverName}:[0-9]{1,5}";
