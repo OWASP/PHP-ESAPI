@@ -81,12 +81,14 @@ class DefaultEncoder implements Encoder
     /**
      * Encoder constructor.
      * 
-     * @param array $_codecs An array of Codec instances which will be used for
-     *                       canonicalization.
+     * @param array $codecs An array of Codec instances which will be used for
+     *                      canonicalization.
      *                    
      * @return does not return a value.
+     * 
+     * @throws InvalidArgumentException
      */
-    function __construct($_codecs = null)
+    function __construct($codecs = null)
     {
         $this->logger = ESAPI::getAuditor("Encoder");
 
@@ -100,29 +102,27 @@ class DefaultEncoder implements Encoder
         $this->_xmlCodec        = new XMLEntityCodec();
 
         // initialise array of codecs for use by canonicalize
-        if ($_codecs === null) {
+        if ($codecs === null) {
             array_push($this->_codecs, $this->_htmlCodec);
             array_push($this->_codecs, $this->_javascriptCodec);
             array_push($this->_codecs, $this->_percentCodec);
             // leaving css and vbs codecs out - they eat / and " chars respectively
             // array_push($this->_codecs,$this->_cssCodec);
             // array_push($this->_codecs,$this->_vbscriptCodec);
-        } else if (! is_array($_codecs)) {
-            throw new Exception(
-                'Invalid Argument. Codec list must be of type '.
-                'Array.'
+        } else if (! is_array($codecs)) {
+            throw new InvalidArgumentException(
+                'Expected the $codecs array parameter to be an array of instances of Codec.'
             );
         } else {
             // check array contains only codec instances
-            foreach ($_codecs as $codec) {
+            foreach ($codecs as $codec) {
                 if ($codec instanceof Codec == false) {
-                    throw new Exception(
-                        'Invalid Argument. Codec list must '.
-                        'contain only Codec instances.'
+                    throw new InvalidArgumentException(
+                        'Expected every member of the $codecs array parameter to be an instance of Codec.'
                     );
                 }
             }
-            $this->_codecs = array_merge($this->_codecs, $_codecs);
+            $this->_codecs = array_merge($this->_codecs, $codecs);
         }
 
     }

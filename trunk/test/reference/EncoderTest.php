@@ -67,7 +67,7 @@ class EncoderTest extends PHPUnit_Framework_TestCase
         array_push( $codecList, new HTMLEntityCodec() );
         array_push( $codecList, new Exception() ); // any class except a codec will suffice.
 
-        $this->setExpectedException('Exception');
+        $this->setExpectedException('InvalidArgumentException');
         $instance = new DefaultEncoder( $codecList );
     }
 
