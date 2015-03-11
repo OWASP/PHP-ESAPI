@@ -83,7 +83,11 @@ class StringUtilities
             return null;
         }
 
-        return sort(array_unique(array_merge($c1, $c2)));
+        $result = array_unique(array_merge($c1, $c2));
+
+        sort($result);
+
+        return $result;
     }
 
 
